@@ -9,6 +9,9 @@
 import UIKit
 
 class MLNetworkClient: NSObject {
+    
+    typealias Success<T> = MLURLSessionManager.SuccessCompletion<T>
+    typealias Failiure = MLURLSessionManager.FailureCompletion
 
     var configuration: MLConfiguration!
     
@@ -34,5 +37,10 @@ class MLNetworkClient: NSObject {
                    failiure: MLURLSessionManager.FailureCompletion) {
         print("should be overriden")
     }
+}
+
+//MARK: Shared methods
+extension MLNetworkClient {
+    
     
 }

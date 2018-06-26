@@ -34,6 +34,9 @@ enum RouterRequest {
     case bsRegisterCreditCard(MLPaymentMethod, MLAddCreditCardResponseBS)
     case bsFetchMethodAlias(MLPaymentMethod, MLAddCreditCardResponseBS)
     
+    //HC directly methods
+    case hcRegisterCreditCard(MLPaymentMethod, MLAddCreditCardResponseHC)
+    
 }
 
 // MARK: Public methods
@@ -52,15 +55,15 @@ extension RouterRequest {
              .updatePanAlias(_):
             return .json
         case .bsRegisterCreditCard(_, _),
-             .bsFetchMethodAlias(_, _):
+             .bsFetchMethodAlias(_, _),
+             .hcRegisterCreditCard(_,_):
             return .xml
-            
         }
     }
 }
     
 // MARK: Private methods
-private extension RouterRequest {
+extension RouterRequest {
     func buildRequest(url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = getHTTPMethod().rawValue
@@ -79,26 +82,9 @@ private extension RouterRequest {
         return method == .POST || method == .PUT
     }
     
-    func getAuthorizationHeader() -> String {
-        switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
-             .updatePanAlias(_):
-            return "Bearer UEQtQlMtZWlYRGJlM2oweml4SlVwV0FndmgzY1M0SHo="
-        case .bsRegisterCreditCard(_, let creditCardResponse),
-             .bsFetchMethodAlias(_, let creditCardResponse):
-            let data = "\(creditCardResponse.username):\(creditCardResponse.password)".data(using: getEncoding())
-            if let encodedData = data?.base64EncodedString() {
-               return "Basic \(encodedData)"
-            }
-            return ""
-        }
-    }
-    
     func getBaseURL() -> URL {
-        var url = URL(string: RouterRequest.baseURLString)!
+        let conf = MLConfigurationBuilder.sharedInstance.configuration!
+        var url = URL(string: conf.endpoint.rawValue)!
         if let relativePath = getRelativePath() {
             url = url.appendingPathComponent(relativePath)
         }
@@ -106,7 +92,6 @@ private extension RouterRequest {
     }
     
     func getURL() -> URL {
-        
         switch self {
         case .addCreditCardBS(_),
              .addCreditCardHC(_),
@@ -118,86 +103,30 @@ private extension RouterRequest {
         case .bsRegisterCreditCard(_, let creditCardResponse),
              .bsFetchMethodAlias(_, let creditCardResponse):
             return URL(string: creditCardResponse.url)!
-        }
-    }
-    
-    func getRelativePath() -> String? {
-
-        switch self {
-        
-        case .addCreditCardBS(_), .addCreditCardHC(_):
-            return "register/creditcard"
-        case .addSEPABS(_), .addSEPAHC(_):
-            return "register/sepa"
-        case .updatePanAlias(_):
-            return "update/panalias"
             
-        case .bsRegisterCreditCard(_,_),
-             .bsFetchMethodAlias(_,_):
-            return ""
-            
+        case .hcRegisterCreditCard(_,let creditCardResponse):
+            return URL(string: creditCardResponse.url)!
         }
     }
     
     func getHTTPMethod() -> HTTPMethod {
-        switch self {
-            
+        switch self {  
         case .addCreditCardBS(_),
              .addCreditCardHC(_),
              .addSEPABS(_),
              .addSEPAHC(_),
             .bsRegisterCreditCard(_,_),
-            .bsFetchMethodAlias(_,_):
+            .bsFetchMethodAlias(_,_),
+            .hcRegisterCreditCard(_,_):
                 return HTTPMethod.POST
         case .updatePanAlias(_):
             return HTTPMethod.PUT
         }
     }
     
-    func getContentTypeHeader() -> String {
-        switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
-             .updatePanAlias(_):
-            return "application/json"
-        case .bsRegisterCreditCard(_,_),
-             .bsFetchMethodAlias(_,_):
-            return "application/soap+xml"
-        }
-    }
-    
-    func getHttpBody() -> Data? {
-        switch self {
-        case .addCreditCardBS(let data),
-             .addCreditCardHC(let data),
-             .addSEPABS(let data),
-             .addSEPAHC(let data):
-            let json = Mapper().toJSONString(data, prettyPrint: true)
-            return json?.data(using: getEncoding())
-        
-        case .updatePanAlias(let data):
-            let json = Mapper().toJSONString(data, prettyPrint: true)
-            return json?.data(using: getEncoding())
-        
-        case .bsRegisterCreditCard(let method,let creditCard):
-            guard let xmlStr = creditCard.serializeXML(paymentMethod: method) else { return nil }
-            return xmlStr.data(using: getEncoding())
-            
-        case .bsFetchMethodAlias(let method, let creditCard):
-            guard let xmlStr = creditCard.serializeXMLForAlias(paymentMethod: method) else { return nil }
-            return xmlStr.data(using: getEncoding())
-        }
-    }
-
     func getTimeOut() -> Double {
         switch self {
         default: return 10
         }
-    }
-    
-    func getEncoding() -> String.Encoding {
-        return String.Encoding.utf8
     }
 }

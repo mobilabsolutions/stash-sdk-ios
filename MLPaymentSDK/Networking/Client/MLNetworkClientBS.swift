@@ -8,17 +8,6 @@
 
 class MLNetworkClientBS: MLNetworkClient {
     
-    typealias Success<T> = MLURLSessionManager.SuccessCompletion<T>
-    typealias Failiure = MLURLSessionManager.FailureCompletion
-
-    override func bsPay() {
-        print("bsPay yuhuuu")
-    }
-    
-    override func togetherPay() {
-        print("BS together pay")
-    }
-    
     override func addMethod(paymentMethod: MLPaymentMethod, success: Success<String>, failiure: Failiure) {
         
         switch paymentMethod.requestData.type {
@@ -26,7 +15,6 @@ class MLNetworkClientBS: MLNetworkClient {
             case MLPaymentMethodType.MLCreditCard:
                 addCreditCard(paymentMethod: paymentMethod, success: { [unowned self] creditCardResponse in
                     print(creditCardResponse)
-                    
                     self.finishMethodTransaction(paymentMethod: paymentMethod,
                                                  creditCardResponse: creditCardResponse,
                                                  success: success,
@@ -46,7 +34,6 @@ class MLNetworkClientBS: MLNetworkClient {
 private extension MLNetworkClientBS {
     
     func addCreditCard(paymentMethod: MLPaymentMethod, success: Success<MLAddCreditCardResponseBS>, failiure: Failiure) {
-        
         let requestObject = MLCreditCardRequest(paymentMethod: paymentMethod)
         MLURLSessionManager.request(request: RouterRequest.addCreditCardBS(requestObject), success: { data in
             if let ccResponse = MLAddCreditCardResponseBS.parse(data, key: "result") {

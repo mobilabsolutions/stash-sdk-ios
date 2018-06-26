@@ -1,23 +1,21 @@
 //
-//  MLPaymentSDKTests.swift
+//  MLPaymentSDKTestsHC.swift
 //  MLPaymentSDKTests
 //
-//  Created by Mirza Zenunovic on 14/06/2018.
+//  Created by Mirza Zenunovic on 26/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
 import XCTest
 @testable import MLPaymentSDK
 
-class MLPaymentSDKTests: XCTestCase {
+class MLPaymentSDKTestsHC: XCTestCase {
     
-    
-    var expectation: XCTestExpectation?
+     var expectation: XCTestExpectation?
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        MLPaymentSDK.setUp(publicToken: "PD-BS-eiXDbe3j0zixJUpWAgvh3cS4Hz")
+        MLPaymentSDK.setUp(publicToken: "PD-HC-nhnEiKIFQiZeVjGCM0HZY3xvaI")
     }
     
     override func tearDown() {
@@ -25,17 +23,17 @@ class MLPaymentSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testAddCreditCard() {
         
         expectation = self.expectation(description: "Example")
-        
-        //[self expectationWithDescription:NSStringFromSelector(_cmd)];
         
         let billingData = MLBillingData(email: "mirza@miki.com")
         let data = MLRegisterRequestData(cardMask: "visa", type: MLPaymentMethodType.MLCreditCard, oneTime: true, customerId: "123")
         let customerId = "123customer"
         
-        let creditCardData = MLCreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 8, expiryYear: 2021)
+        let failCC = "4111111111111111"
+        let successCC = "4200000000000000"
+        let creditCardData = MLCreditCardData(holderName: "Holder Name", cardNumber: failCC, CVV: "312", expiryMonth: 8, expiryYear: 2021)
         
         let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
         registerManager.registerCreditCard(billingData: billingData,
@@ -47,29 +45,10 @@ class MLPaymentSDKTests: XCTestCase {
         self.waitForExpectations(timeout: 300) {error in
             XCTAssertNil(error)
         }
-        
-        
-       // let registerManager = MLPaymentSDK.createPaymentManager(delegate: self)
-       // registerManager.registerCreditCard()
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
 
-//@objc protocol MLRegisterManagerProtocol: class {
-//    @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
-//    @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
-//    @objc func removeCreditCardCompleted(error: MLError?)
-//    @objc func removeSEPACompleted(error: MLError?)
-//}
-
-extension MLPaymentSDKTests: MLRegisterManagerProtocol {
+extension MLPaymentSDKTestsHC: MLRegisterManagerProtocol {
     func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
         
     }

@@ -18,14 +18,19 @@ class MLInternalPaymentSDK: NSObject {
     func setUp(publicToken: String) {
         self.publicToken = publicToken
         
-        if publicToken == "BS" {
-            let configuration = MLConfiguration(publicToken: "BS", endpoint: URL(string: "https://...")!, provider: PaymentProvider.BS)
-            networkingClient = MLNetworkClientBS(configuration: configuration)
-        } else if publicToken == "HC" {
-            let configuration = MLConfiguration(publicToken: "HC", endpoint: URL(string: "https://...")!, provider: PaymentProvider.HyperCharge)
-            networkingClient = MLNetworkClientHC(configuration: configuration)
+        if let conf = MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken) {
+            switch conf.provider {
+            case .BS:
+                networkingClient = MLNetworkClientBS(configuration: conf)
+            case .HC:
+                networkingClient = MLNetworkClientHC(configuration: conf)
+            }
+           
+        } else {
+            print("error")
+            //MLError(title: "Public token not valid", description: "Public token not valid", code: 100)
         }
-    }
+    }  
 }
 
 //MARK: Register methods
@@ -41,8 +46,7 @@ extension MLInternalPaymentSDK {
 }
 
 //MARK: Payment methods
-extension MLInternalPaymentSDK {
-    
+extension MLInternalPaymentSDK {  
 }
 
 

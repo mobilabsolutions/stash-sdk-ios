@@ -6,7 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-enum PaymentProvider {
-    case HyperCharge
+enum MLPaymentProvider: String {
+    case HC
     case BS
 }
