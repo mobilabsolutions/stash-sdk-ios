@@ -23,9 +23,8 @@ class MLNetworkClientBS: MLNetworkClient {
             
             case MLPaymentMethodType.MLSEPA:
                 addSEPA(paymentMethod: paymentMethod, success: { creditCardResponse in
-                    print(creditCardResponse)
-                    //TODO: Check panAlias it is "" for some reason
-                    success?(creditCardResponse.panAlias)
+                    print(creditCardResponse.paymentAlias)
+                    success?(creditCardResponse.paymentAlias)
                     }, failiure: failiure)
             
             case MLPaymentMethodType.MLPayPal:
