@@ -14,13 +14,13 @@ class MLRegisterRequestData {
     
     var cardMask: String
     var type: MLPaymentMethodType
-    var oneTime: Bool
+    var oneTimePayment: Bool
     var customerId: String?
     
-    init(cardMask: String, type: MLPaymentMethodType, oneTime: Bool, customerId: String?) {
+    init(cardMask: String, type: MLPaymentMethodType, oneTimePayment: Bool, customerId: String?) {
         self.cardMask = cardMask
         self.type = type
-        self.oneTime = oneTime
+        self.oneTimePayment = oneTimePayment
         self.customerId = customerId
     }
 }

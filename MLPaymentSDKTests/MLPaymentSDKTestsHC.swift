@@ -28,7 +28,7 @@ class MLPaymentSDKTestsHC: XCTestCase {
         expectation = self.expectation(description: "Example")
         
         let billingData = MLBillingData(email: "mirza@miki.com")
-        let data = MLRegisterRequestData(cardMask: "visa", type: MLPaymentMethodType.MLCreditCard, oneTime: true, customerId: "123")
+        let data = MLRegisterRequestData(cardMask: "visa", type: MLPaymentMethodType.MLCreditCard, oneTimePayment: true, customerId: "123")
         let customerId = "123customer"
         
         let failCC = "4111111111111111"

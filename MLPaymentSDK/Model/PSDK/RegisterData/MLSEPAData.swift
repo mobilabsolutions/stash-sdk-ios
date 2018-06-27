@@ -13,7 +13,7 @@ class MLSEPAData: MLBaseMethodData {
     var bankNumber: String
     var IBAN: String
     
-    init(bankNumber: String, IBAN: String, CVV: String, expiryMonth: String, expiryYear: String) {
+    init(bankNumber: String, IBAN: String) {
         self.bankNumber = bankNumber
         self.IBAN = IBAN
     }

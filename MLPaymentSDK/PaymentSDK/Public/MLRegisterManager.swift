@@ -29,7 +29,7 @@ class MLRegisterManager: NSObject {
         
         let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "VISA-123",
                                                                    type: MLPaymentMethodType.MLCreditCard,
-                                                                   oneTime: false,
+                                                                   oneTimePayment: false,
                                                                    customerId: customerID)
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
@@ -43,6 +43,18 @@ class MLRegisterManager: NSObject {
     
     func registerSEPAAccount(billingData: MLBillingData, sepaData: MLSEPAData, customerID: String?) {
         
+        let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "",
+                                                                   type: MLPaymentMethodType.MLSEPA,
+                                                                   oneTimePayment: false,
+                                                                   customerId: customerID)
+        
+        let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
+        
+        MLInternalPaymentSDK.sharedInstance.addMethod(paymentMethod: paymentMethod, success: { paymentAlias in
+            print(paymentAlias)
+        }) { error in
+            print(error)
+        }
     }
     
     func removeCreditCard(paymentAlias: String) {

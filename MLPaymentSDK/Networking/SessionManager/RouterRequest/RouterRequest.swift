@@ -22,12 +22,8 @@ enum MLResponseType {
 }
 
 enum RouterRequest {
-    static let baseURLString = "https://pd.mblb.net/api/v1"
-    
-    case addCreditCardBS(MLCreditCardRequest)
-    case addSEPABS(MLCreditCardRequest)
-    case addCreditCardHC(MLCreditCardRequest)
-    case addSEPAHC(MLCreditCardRequest)
+    case addCreditCard(MLCreditCardRequest)
+    case addSEPA(MLSEPARequest)
     case updatePanAlias(MLUpdatePanaliasRequest)
     
     //BS directly methods
@@ -48,10 +44,8 @@ extension RouterRequest {
     
     func getResponseType() -> MLResponseType {
         switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
+        case .addCreditCard(_),
+             .addSEPA(_),
              .updatePanAlias(_):
             return .json
         case .bsRegisterCreditCard(_, _),
@@ -93,10 +87,8 @@ extension RouterRequest {
     
     func getURL() -> URL {
         switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
+        case .addCreditCard(_),
+             .addSEPA(_),
              .updatePanAlias(_):
             return getBaseURL()
             
@@ -111,10 +103,8 @@ extension RouterRequest {
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {  
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
+        case .addCreditCard(_),
+             .addSEPA(_),
             .bsRegisterCreditCard(_,_),
             .bsFetchMethodAlias(_,_),
             .hcRegisterCreditCard(_,_):

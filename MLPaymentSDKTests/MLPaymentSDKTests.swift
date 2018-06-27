@@ -21,18 +21,15 @@ class MLPaymentSDKTests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
+    func testCreditCardBS() {
         
         expectation = self.expectation(description: "Example")
         
-        //[self expectationWithDescription:NSStringFromSelector(_cmd)];
-        
         let billingData = MLBillingData(email: "mirza@miki.com")
-        let data = MLRegisterRequestData(cardMask: "visa", type: MLPaymentMethodType.MLCreditCard, oneTime: true, customerId: "123")
+        let data = MLRegisterRequestData(cardMask: "visa", type: MLPaymentMethodType.MLCreditCard, oneTimePayment: true, customerId: "123")
         let customerId = "123customer"
         
         let creditCardData = MLCreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 8, expiryYear: 2021)
@@ -42,24 +39,37 @@ class MLPaymentSDKTests: XCTestCase {
                                            creditCardData: creditCardData,
                                            customerID: customerId)
         
-        print(data)
+        self.waitForExpectations(timeout: 300) {error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testAddSEPABS() {
+        
+        expectation = self.expectation(description: "Example")
+        
+        let billingData = MLBillingData(email: "mirza@miki.com",
+                                        firstName: "Mirza",
+                                        lastName: "Zenunovic",
+                                        address1: "Address1",
+                                        address2: "Address2",
+                                        ZIP: "817754",
+                                        city: "Cologne",
+                                        state: "None",
+                                        country: "Germany",
+                                        phone: "1231231123",
+                                        languageId: "deu")
+        let customerId = "123customer"
+
+        let sepaData = MLSEPAData(bankNumber: "PBNKDEFF", IBAN: "DE87123456781234567890")
+        
+        let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
+        registerManager.registerSEPAAccount(billingData: billingData, sepaData: sepaData, customerID: customerId)
         
         self.waitForExpectations(timeout: 300) {error in
             XCTAssertNil(error)
         }
-        
-        
-       // let registerManager = MLPaymentSDK.createPaymentManager(delegate: self)
-       // registerManager.registerCreditCard()
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
 
 //@objc protocol MLRegisterManagerProtocol: class {

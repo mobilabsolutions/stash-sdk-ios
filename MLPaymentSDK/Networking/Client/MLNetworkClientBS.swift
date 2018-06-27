@@ -22,7 +22,11 @@ class MLNetworkClientBS: MLNetworkClient {
                 }, failiure: failiure)
             
             case MLPaymentMethodType.MLSEPA:
-                break
+                addSEPA(paymentMethod: paymentMethod, success: { creditCardResponse in
+                    print(creditCardResponse)
+                    //TODO: Check panAlias it is "" for some reason
+                    success?(creditCardResponse.panAlias)
+                    }, failiure: failiure)
             
             case MLPaymentMethodType.MLPayPal:
                 print("Not implemented")
@@ -35,7 +39,16 @@ private extension MLNetworkClientBS {
     
     func addCreditCard(paymentMethod: MLPaymentMethod, success: Success<MLAddCreditCardResponseBS>, failiure: Failiure) {
         let requestObject = MLCreditCardRequest(paymentMethod: paymentMethod)
-        MLURLSessionManager.request(request: RouterRequest.addCreditCardBS(requestObject), success: { data in
+        MLURLSessionManager.request(request: RouterRequest.addCreditCard(requestObject), success: { data in
+            if let ccResponse = MLAddCreditCardResponseBS.parse(data, key: "result") {
+                success?(ccResponse)
+            }
+        }, failure: failiure)
+    }
+    
+    func addSEPA(paymentMethod: MLPaymentMethod, success: Success<MLAddCreditCardResponseBS>, failiure: Failiure) {
+        let requestObject = MLSEPARequest(paymentMethod: paymentMethod)
+        MLURLSessionManager.request(request: RouterRequest.addSEPA(requestObject), success: { data in
             if let ccResponse = MLAddCreditCardResponseBS.parse(data, key: "result") {
                 success?(ccResponse)
             }

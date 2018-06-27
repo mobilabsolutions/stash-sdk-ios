@@ -19,13 +19,15 @@ class MLBillingData {
     var city: String?
     var state: String?
     var country: String?
+    var phone: String?
+    var languageId: String?
     
     init(email: String) {
         self.email = email
     }
     
     init(email: String, firstName: String, lastName: String, address1: String, address2: String,
-         ZIP: String, city: String, state: String, country: String) {
+         ZIP: String, city: String, state: String, country: String, phone: String, languageId: String) {
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
@@ -35,5 +37,7 @@ class MLBillingData {
         self.city = city
         self.state = state
         self.country = country
+        self.phone = phone
+        self.languageId = languageId
     }
 }

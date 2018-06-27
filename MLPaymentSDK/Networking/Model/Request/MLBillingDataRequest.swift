@@ -19,6 +19,8 @@ class MLBillingDataReqest: Mappable {
     private(set) var city: String?
     private(set) var state: String?
     private(set) var country: String?
+    private(set) var phone: String?
+    private(set) var languageId: String?
     
     init() { }
     
@@ -32,6 +34,8 @@ class MLBillingDataReqest: Mappable {
         self.city = billingData.city
         self.state = billingData.state
         self.country = billingData.country
+        self.phone = billingData.phone
+        self.languageId = billingData.languageId
     }
     
     required convenience init(map: Map) {
@@ -44,10 +48,12 @@ class MLBillingDataReqest: Mappable {
         lastName <- map["lastName"]
         address1 <- map["address1"]
         address2 <- map["address2"]
-        ZIP <- map["ZIP"]
+        ZIP <- map["zip"]
         city <- map["city"]
         state <- map["state"]
         country <- map["country"]
+        phone <- map["phone"]
+        languageId <- map["languageId"]
     }
 }
 

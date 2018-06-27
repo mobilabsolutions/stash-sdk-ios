@@ -13,9 +13,9 @@ extension RouterRequest {
         
         switch self {
             
-        case .addCreditCardBS(_), .addCreditCardHC(_):
+        case .addCreditCard(_):
             return "register/creditcard"
-        case .addSEPABS(_), .addSEPAHC(_):
+        case .addSEPA(_):
             return "register/sepa"
         case .updatePanAlias(_):
             return "update/panalias"

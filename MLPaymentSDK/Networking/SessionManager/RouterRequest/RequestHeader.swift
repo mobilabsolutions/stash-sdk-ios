@@ -11,10 +11,8 @@ import Foundation
 extension RouterRequest {
     func getContentTypeHeader() -> String {
         switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
+        case .addCreditCard(_),
+             .addSEPA(_),
              .updatePanAlias(_):
             return "application/json"
         case .bsRegisterCreditCard(_,_),

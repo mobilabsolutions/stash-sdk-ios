@@ -35,7 +35,7 @@ class MLNetworkClientHC: MLNetworkClient {
 private extension MLNetworkClientHC {
     func addCreditCard(paymentMethod: MLPaymentMethod, success: Success<MLAddCreditCardResponseHC>, failiure: Failiure) {
         let requestObject = MLCreditCardRequest(paymentMethod: paymentMethod)
-        MLURLSessionManager.request(request: RouterRequest.addCreditCardBS(requestObject), success: { data in
+        MLURLSessionManager.request(request: RouterRequest.addCreditCard(requestObject), success: { data in
             if let ccResponse = MLAddCreditCardResponseHC.parse(data, key: "result") {
                 success?(ccResponse)
             }

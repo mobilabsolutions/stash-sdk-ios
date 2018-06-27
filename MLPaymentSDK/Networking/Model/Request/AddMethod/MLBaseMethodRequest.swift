@@ -1,26 +1,24 @@
 //
-//  MLCrediCardRequest.swift
+//  MLBaseMethodRequest.swift
 //  MLPaymentSDK
 //
-//  Created by Mirza Zenunovic on 20/06/2018.
+//  Created by Mirza Zenunovic on 27/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
 import ObjectMapper
 
-class MLCreditCardRequest: Mappable {
+class MLBaseMethodRequest: Mappable {
     
-    private(set) var cardMask = ""
     private(set) var billingData: MLBillingDataReqest!
-    private(set) var oneTime = false
+    private(set) var oneTimePayment = false
     private(set) var customerId: String?
     
     init() { }
     
     init(paymentMethod: MLPaymentMethod) {
-        self.cardMask = paymentMethod.requestData.cardMask
         self.billingData = MLBillingDataReqest(billingData: paymentMethod.billingData)
-        self.oneTime = paymentMethod.requestData.oneTime
+        self.oneTimePayment = paymentMethod.requestData.oneTimePayment
         self.customerId = paymentMethod.requestData.customerId
     }
     
@@ -29,9 +27,8 @@ class MLCreditCardRequest: Mappable {
     }
     
     func mapping(map: Map) {
-        cardMask <- map["cardMask"]
         billingData <- map["billingData"]
-        oneTime <- map["oneTime"]
+        oneTimePayment <- map["oneTimePayment"]
         customerId <- map["customerId"]
     }
 }

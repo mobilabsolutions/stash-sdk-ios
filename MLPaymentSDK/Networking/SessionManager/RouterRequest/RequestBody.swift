@@ -11,11 +11,13 @@ import ObjectMapper
 extension RouterRequest {
     func getHttpBody() -> Data? {
         switch self {
-        case .addCreditCardBS(let data),
-             .addCreditCardHC(let data),
-             .addSEPABS(let data),
-             .addSEPAHC(let data):
+        case .addCreditCard(let data):
             let json = Mapper().toJSONString(data, prettyPrint: true)
+            return json?.data(using: getEncoding())
+            
+        case .addSEPA(let data):
+            let json = Mapper().toJSONString(data, prettyPrint: true)
+            print(json!)
             return json?.data(using: getEncoding())
             
         case .updatePanAlias(let data):

@@ -11,10 +11,8 @@ import Foundation
 extension RouterRequest {
     func getAuthorizationHeader() -> String {
         switch self {
-        case .addCreditCardBS(_),
-             .addCreditCardHC(_),
-             .addSEPABS(_),
-             .addSEPAHC(_),
+        case .addCreditCard(_),
+             .addSEPA(_),
              .updatePanAlias(_):
             let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
             return "Bearer \(token!.toBase64())"
