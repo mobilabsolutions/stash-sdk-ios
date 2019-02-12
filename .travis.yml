@@ -1,0 +1,6 @@
+language: objective-c
+osx_image: xcode10.1
+
+script:
+  - set -o pipefail
+  - xcodebuild -workspace MLPaymentSDK.xcworkspace -scheme "MLPaymentSDK" -destination "OS=12.1,name=iPhone X" test
