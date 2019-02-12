@@ -63,6 +63,5 @@ extension MLPaymentSDKTestsHC: MLRegisterManagerProtocol {
     
     func registerCreditCardCompleted(paymentAlias: String?, error: MLError?) {
         self.expectation?.fulfill()
-        print(paymentAlias)
     }
 }

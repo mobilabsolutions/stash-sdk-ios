@@ -66,7 +66,7 @@ class MLURLSessionManager: NSObject {
                     
                     break
                 default:
-                    print(String(data: receivedData, encoding: String.Encoding.utf8))
+                    print(String(data: receivedData, encoding: String.Encoding.utf8) ?? "Decoding received data failed")
                     print("Got error, status code:  \(httpResponse.statusCode)")
                     let err = MLError(title: "Not a valid http response", description: "Not a valid http response", code: 1)
                     failure?(err)
