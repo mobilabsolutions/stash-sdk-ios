@@ -36,8 +36,10 @@ class MLRegisterManager: NSObject {
         
         MLInternalPaymentSDK.sharedInstance.addMethod(paymentMethod: paymentMethod, success: { paymentAlias in
             print(paymentAlias)
+            self.delegate.registerCreditCardCompleted(paymentAlias: paymentAlias, error: nil)
         }) { error in
             print(error)
+            self.delegate.registerCreditCardCompleted(paymentAlias: nil, error: error)
         }
     }
     
@@ -52,8 +54,10 @@ class MLRegisterManager: NSObject {
         
         MLInternalPaymentSDK.sharedInstance.addMethod(paymentMethod: paymentMethod, success: { paymentAlias in
             print(paymentAlias)
+            self.delegate.registerSEPAAccountCompleted(paymentAlias: paymentAlias, error: nil)
         }) { error in
             print(error)
+            self.delegate.registerSEPAAccountCompleted(paymentAlias: nil, error: error)
         }
     }
     

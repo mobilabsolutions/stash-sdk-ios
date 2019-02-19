@@ -7,7 +7,7 @@ target 'MLPaymentSDK' do
 
   # Pods for MLPaymentSDK
 
-  pod 'ObjectMapper'
+  pod 'ObjectMapper', '~> 3.4'
 
   target 'MLPaymentSDKTests' do
     inherit! :search_paths

@@ -39,7 +39,7 @@ class MLPaymentSDKTests: XCTestCase {
                                            creditCardData: creditCardData,
                                            customerID: customerId)
         
-        self.waitForExpectations(timeout: 300) {error in
+        self.waitForExpectations(timeout: 80) {error in
             XCTAssertNil(error)
         }
     }
@@ -66,7 +66,7 @@ class MLPaymentSDKTests: XCTestCase {
         let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
         registerManager.registerSEPAAccount(billingData: billingData, sepaData: sepaData, customerID: customerId)
         
-        self.waitForExpectations(timeout: 300) {error in
+        self.waitForExpectations(timeout: 80) { error in
             XCTAssertNil(error)
         }
     }
@@ -81,7 +81,7 @@ class MLPaymentSDKTests: XCTestCase {
 
 extension MLPaymentSDKTests: MLRegisterManagerProtocol {
     func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
-        
+        self.expectation?.fulfill()
     }
     
     func removeCreditCardCompleted(error: MLError?) {
@@ -94,6 +94,5 @@ extension MLPaymentSDKTests: MLRegisterManagerProtocol {
     
     func registerCreditCardCompleted(paymentAlias: String?, error: MLError?) {
         self.expectation?.fulfill()
-        print(paymentAlias)
     }
 }
