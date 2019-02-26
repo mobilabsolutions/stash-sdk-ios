@@ -7,6 +7,5 @@
 //
 
 enum MLPaymentProvider: String {
-    case HC
     case BS
 }

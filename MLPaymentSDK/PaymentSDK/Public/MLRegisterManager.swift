@@ -11,14 +11,11 @@ import UIKit
 @objc protocol MLRegisterManagerProtocol: class {
     @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
     @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
-    @objc func removeCreditCardCompleted(error: MLError?)
-    @objc func removeSEPACompleted(error: MLError?)
 }
 
 class MLRegisterManager: NSObject {
 
     weak var delegate: MLRegisterManagerProtocol!
-    //var networkClient: MLNetworkClient
     
     init(delegate: MLRegisterManagerProtocol) {
         self.delegate = delegate
@@ -59,14 +56,6 @@ class MLRegisterManager: NSObject {
             print(error)
             self.delegate.registerSEPAAccountCompleted(paymentAlias: nil, error: error)
         }
-    }
-    
-    func removeCreditCard(paymentAlias: String) {
-        
-    }
-    
-    func removeSEPA(paymentAlias: String) {
-        
     }
 
 }

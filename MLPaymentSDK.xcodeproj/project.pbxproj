@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBEF20E121750011F901 /* MLXMLParser.swift */; };
 		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
-		1D34CBF520E13ADA0011F901 /* MLUpdatePanaliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF420E13ADA0011F901 /* MLUpdatePanaliasRequest.swift */; };
-		1D34CBFD20E268880011F901 /* MLAddCreditCardResponseHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBFC20E268880011F901 /* MLAddCreditCardResponseHC.swift */; };
 		1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */; };
 		1D34CC0220E270B50011F901 /* RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0120E270B50011F901 /* RequestBody.swift */; };
 		1D34CC0420E270E40011F901 /* RequestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0320E270E40011F901 /* RequestPath.swift */; };
@@ -24,23 +22,18 @@
 		1DC5CB9F20D2BF5E002058C1 /* MLPaymentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MLPaymentSDK.framework */; };
 		1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */; };
 		1DC5CBA620D2BF5E002058C1 /* MLPaymentSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1DC5CBB920D40D55002058C1 /* MLURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBB720D40D54002058C1 /* MLURLSessionManager.swift */; };
 		1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBB820D40D54002058C1 /* MLError.swift */; };
-		1DC5CBBC20D40D7B002058C1 /* MLAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBB20D40D7B002058C1 /* MLAPIManager.swift */; };
 		1DC5CBC020D40F73002058C1 /* MLNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */; };
 		1DC5CBC220D40F9D002058C1 /* MLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC120D40F9D002058C1 /* MLConfiguration.swift */; };
 		1DC5CBC420D40FE9002058C1 /* MLPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC320D40FE9002058C1 /* MLPaymentProvider.swift */; };
 		1DC5CBCA20D410F9002058C1 /* MLPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */; };
-		1DC5CBCC20D4110A002058C1 /* MLPaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCB20D4110A002058C1 /* MLPaymentManager.swift */; };
 		1DC5CBCE20D41118002058C1 /* MLRegisterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */; };
 		1DC5CBD120D415C4002058C1 /* MLInternalPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */; };
 		1DC5CBD320D415FD002058C1 /* MLNetworkClientBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */; };
-		1DC5CBD520D4161D002058C1 /* MLNetworkClientHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD420D4161D002058C1 /* MLNetworkClientHC.swift */; };
 		1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */; };
 		1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* MLBillingData.swift */; };
 		1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* MLSEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* MLSEPAData.swift */; };
-		1DFA536A20D92A180065CCC3 /* MLPaymentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536920D92A180065CCC3 /* MLPaymentData.swift */; };
 		1DFA536D20D92D3E0065CCC3 /* MLRegisterRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536C20D92D3E0065CCC3 /* MLRegisterRequestData.swift */; };
 		1DFA536F20D92DE70065CCC3 /* MLPaymentMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536E20D92DE70065CCC3 /* MLPaymentMethodType.swift */; };
 		1DFA538120DA4D300065CCC3 /* MLPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */; };
@@ -48,9 +41,10 @@
 		1DFA538820DA9F5F0065CCC3 /* MLAccountDataReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538720DA9F5F0065CCC3 /* MLAccountDataReqest.swift */; };
 		1DFA538A20DAA0300065CCC3 /* MLBillingDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */; };
 		1DFA538D20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */; };
-		1DFA539120DAB5F90065CCC3 /* Mappable+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA539020DAB5F90065CCC3 /* Mappable+Extra.swift */; };
 		3773EA166D8976677F5614C3 /* Pods_MLPaymentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4B953A5D4AE9D301960BD9 /* Pods_MLPaymentSDK.framework */; };
 		8A980C647B620B8B29AE1959 /* Pods_MLPaymentSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75BCF4B3802F7BCFC4F67CB7 /* Pods_MLPaymentSDKTests.framework */; };
+		BAE6FAFE2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
+		BAE6FAFF2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +60,6 @@
 /* Begin PBXFileReference section */
 		1D34CBEF20E121750011F901 /* MLXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXMLParser.swift; sourceTree = "<group>"; };
 		1D34CBF220E129080011F901 /* Data+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extras.swift"; sourceTree = "<group>"; };
-		1D34CBF420E13ADA0011F901 /* MLUpdatePanaliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLUpdatePanaliasRequest.swift; sourceTree = "<group>"; };
-		1D34CBFC20E268880011F901 /* MLAddCreditCardResponseHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponseHC.swift; sourceTree = "<group>"; };
 		1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponseBS.swift; sourceTree = "<group>"; };
 		1D34CC0120E270B50011F901 /* RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBody.swift; sourceTree = "<group>"; };
 		1D34CC0320E270E40011F901 /* RequestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPath.swift; sourceTree = "<group>"; };
@@ -84,23 +76,18 @@
 		1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLPaymentSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentSDKTests.swift; sourceTree = "<group>"; };
 		1DC5CBA520D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1DC5CBB720D40D54002058C1 /* MLURLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLURLSessionManager.swift; sourceTree = "<group>"; };
 		1DC5CBB820D40D54002058C1 /* MLError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLError.swift; sourceTree = "<group>"; };
-		1DC5CBBB20D40D7B002058C1 /* MLAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAPIManager.swift; sourceTree = "<group>"; };
 		1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkClient.swift; sourceTree = "<group>"; };
 		1DC5CBC120D40F9D002058C1 /* MLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLConfiguration.swift; sourceTree = "<group>"; };
 		1DC5CBC320D40FE9002058C1 /* MLPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentProvider.swift; sourceTree = "<group>"; };
 		1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentSDK.swift; sourceTree = "<group>"; };
-		1DC5CBCB20D4110A002058C1 /* MLPaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentManager.swift; sourceTree = "<group>"; };
 		1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLRegisterManager.swift; sourceTree = "<group>"; };
 		1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLInternalPaymentSDK.swift; sourceTree = "<group>"; };
 		1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkClientBS.swift; sourceTree = "<group>"; };
-		1DC5CBD420D4161D002058C1 /* MLNetworkClientHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkClientHC.swift; sourceTree = "<group>"; };
 		1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequest.swift; sourceTree = "<group>"; };
 		1DFA536220D91C490065CCC3 /* MLBillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingData.swift; sourceTree = "<group>"; };
 		1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* MLSEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSEPAData.swift; sourceTree = "<group>"; };
-		1DFA536920D92A180065CCC3 /* MLPaymentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentData.swift; sourceTree = "<group>"; };
 		1DFA536C20D92D3E0065CCC3 /* MLRegisterRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLRegisterRequestData.swift; sourceTree = "<group>"; };
 		1DFA536E20D92DE70065CCC3 /* MLPaymentMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentMethodType.swift; sourceTree = "<group>"; };
 		1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentMethod.swift; sourceTree = "<group>"; };
@@ -108,10 +95,10 @@
 		1DFA538720DA9F5F0065CCC3 /* MLAccountDataReqest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAccountDataReqest.swift; sourceTree = "<group>"; };
 		1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingDataRequest.swift; sourceTree = "<group>"; };
 		1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponse.swift; sourceTree = "<group>"; };
-		1DFA539020DAB5F90065CCC3 /* Mappable+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mappable+Extra.swift"; sourceTree = "<group>"; };
 		2A2EC0631BBA908D2DEEF3FF /* Pods-MLPaymentSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDK/Pods-MLPaymentSDK.release.xcconfig"; sourceTree = "<group>"; };
 		75BCF4B3802F7BCFC4F67CB7 /* Pods_MLPaymentSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLPaymentSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4B953A5D4AE9D301960BD9 /* Pods_MLPaymentSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLPaymentSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAE6FAFD2225715F00D3A71B /* MLResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLResult.swift; sourceTree = "<group>"; };
 		C5964C06BF417591C1A87354 /* Pods-MLPaymentSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDK/Pods-MLPaymentSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		C89DC9D0215DD13CA345E89E /* Pods-MLPaymentSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		F6F5F01C167F25C3DAA53566 /* Pods-MLPaymentSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				1DFA538520DA9C800065CCC3 /* Model */,
-				1DC5CBD620D41C95002058C1 /* SessionManager */,
 				1DC5CBBE20D40F36002058C1 /* Client */,
 			);
 			path = Networking;
@@ -247,9 +233,9 @@
 		1DC5CBBE20D40F36002058C1 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				1D34CC0020E2709C0011F901 /* RouterRequest */,
 				1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */,
 				1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */,
-				1DC5CBD420D4161D002058C1 /* MLNetworkClientHC.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -268,7 +254,6 @@
 			children = (
 				1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */,
 				1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */,
-				1DC5CBCB20D4110A002058C1 /* MLPaymentManager.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -281,22 +266,11 @@
 			path = Internal;
 			sourceTree = "<group>";
 		};
-		1DC5CBD620D41C95002058C1 /* SessionManager */ = {
-			isa = PBXGroup;
-			children = (
-				1D34CC0020E2709C0011F901 /* RouterRequest */,
-				1DC5CBB720D40D54002058C1 /* MLURLSessionManager.swift */,
-				1DC5CBBB20D40D7B002058C1 /* MLAPIManager.swift */,
-			);
-			path = SessionManager;
-			sourceTree = "<group>";
-		};
 		1DFA536420D91E300065CCC3 /* PSDK */ = {
 			isa = PBXGroup;
 			children = (
 				1DFA538220DA50240065CCC3 /* RegisterData */,
 				1DFA536B20D92D360065CCC3 /* Request */,
-				1DFA536920D92A180065CCC3 /* MLPaymentData.swift */,
 				1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */,
 			);
 			path = PSDK;
@@ -335,7 +309,6 @@
 			children = (
 				1D9B8BFC20E3FD27004E79D5 /* AddMethod */,
 				1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */,
-				1D34CBF420E13ADA0011F901 /* MLUpdatePanaliasRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -343,9 +316,9 @@
 		1DFA538B20DAB0410065CCC3 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				BAE6FAFD2225715F00D3A71B /* MLResult.swift */,
 				1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */,
 				1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */,
-				1D34CBFC20E268880011F901 /* MLAddCreditCardResponseHC.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -354,17 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				1D34CBF120E128F70011F901 /* Foundation */,
-				1DFA538F20DAB5E90065CCC3 /* Mapper */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		1DFA538F20DAB5E90065CCC3 /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-				1DFA539020DAB5F90065CCC3 /* Mappable+Extra.swift */,
-			);
-			path = Mapper;
 			sourceTree = "<group>";
 		};
 		92A6C755CFF5C21E34B42C91 /* Frameworks */ = {
@@ -428,7 +392,6 @@
 				1DC5CB9A20D2BF5E002058C1 /* Sources */,
 				1DC5CB9B20D2BF5E002058C1 /* Frameworks */,
 				1DC5CB9C20D2BF5E002058C1 /* Resources */,
-				33AC4F1CDAAF16C9F6833EC9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -496,24 +459,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		33AC4F1CDAAF16C9F6833EC9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		61F3BE19EFE22D1BE977D0D0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -560,32 +505,25 @@
 				1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */,
 				1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */,
 				1D34CC0420E270E40011F901 /* RequestPath.swift in Sources */,
-				1DC5CBD520D4161D002058C1 /* MLNetworkClientHC.swift in Sources */,
 				1DC5CBCE20D41118002058C1 /* MLRegisterManager.swift in Sources */,
 				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
-				1DFA536A20D92A180065CCC3 /* MLPaymentData.swift in Sources */,
 				1DC5CBD120D415C4002058C1 /* MLInternalPaymentSDK.swift in Sources */,
 				1DC5CBC420D40FE9002058C1 /* MLPaymentProvider.swift in Sources */,
 				1DFA536D20D92D3E0065CCC3 /* MLRegisterRequestData.swift in Sources */,
 				1DFA538120DA4D300065CCC3 /* MLPaymentMethod.swift in Sources */,
-				1D34CBF520E13ADA0011F901 /* MLUpdatePanaliasRequest.swift in Sources */,
-				1DC5CBB920D40D55002058C1 /* MLURLSessionManager.swift in Sources */,
 				1D34CC0620E271180011F901 /* RequestAuthorization.swift in Sources */,
 				1D34CC0C20E281180011F901 /* String+Exgtras.swift in Sources */,
-				1DFA539120DAB5F90065CCC3 /* Mappable+Extra.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* MLSEPAData.swift in Sources */,
+				BAE6FAFE2225715F00D3A71B /* MLResult.swift in Sources */,
 				1DFA538420DA50610065CCC3 /* MLBaseMethodData.swift in Sources */,
 				1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */,
 				1DC5CBD320D415FD002058C1 /* MLNetworkClientBS.swift in Sources */,
-				1DC5CBCC20D4110A002058C1 /* MLPaymentManager.swift in Sources */,
-				1D34CBFD20E268880011F901 /* MLAddCreditCardResponseHC.swift in Sources */,
 				1D9B8BFE20E3FD37004E79D5 /* MLBaseMethodRequest.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* MLNetworkClient.swift in Sources */,
 				1DFA538820DA9F5F0065CCC3 /* MLAccountDataReqest.swift in Sources */,
 				1D9B8C0220E3FD6F004E79D5 /* MLSEPARequest.swift in Sources */,
 				1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */,
 				1D9B8C0020E3FD55004E79D5 /* MLCreditCardRequest.swift in Sources */,
-				1DC5CBBC20D40D7B002058C1 /* MLAPIManager.swift in Sources */,
 				1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */,
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				1D34CC0220E270B50011F901 /* RequestBody.swift in Sources */,
@@ -602,6 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAE6FAFF2225715F00D3A71B /* MLResult.swift in Sources */,
 				1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */,
 				1D34CC0A20E273870011F901 /* MLPaymentSDKTestsHC.swift in Sources */,
 			);

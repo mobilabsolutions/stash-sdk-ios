@@ -6,9 +6,8 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
 
-class MLAccountDataReqest: Mappable {
+class MLAccountDataReqest: Codable {
     
     private(set) var bic = ""
     private(set) var iban = ""
@@ -20,13 +19,5 @@ class MLAccountDataReqest: Mappable {
         self.bic = sepaData.bankNumber
         self.iban = sepaData.IBAN
     }
-    
-    required convenience init(map: Map) {
-        self.init()
-    }
-    
-    func mapping(map: Map) {
-        bic <- map["bic"]
-        iban <- map["iban"]
-    }
+
 }

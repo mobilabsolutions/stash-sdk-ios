@@ -17,7 +17,7 @@ class MLConfigurationBuilder {
     
     static let sharedInstance = MLConfigurationBuilder()
     
-    func setupConfiguration(token: String) -> MLConfiguration? {
+    func setupConfiguration(token: String) {
         let arrayOfItems = token.split(separator: "-")
         var endpoint: MLAPIEndpoints?
         var provider: MLPaymentProvider?
@@ -33,7 +33,6 @@ class MLConfigurationBuilder {
                 configuration = MLConfiguration(publicToken: token, endpoint: end, provider: prov)
             }
         }
-        return configuration
     }
 }
 

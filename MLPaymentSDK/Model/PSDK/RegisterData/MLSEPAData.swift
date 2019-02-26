@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MLSEPAData: MLBaseMethodData {
+class MLSEPAData: MLBaseMethodData, Codable {
     
     var bankNumber: String
     var IBAN: String

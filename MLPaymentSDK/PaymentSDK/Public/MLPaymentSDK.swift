@@ -17,8 +17,5 @@ class MLPaymentSDK: NSObject {
     static func createRegisterManager(delegate: MLRegisterManagerProtocol) -> MLRegisterManager {
         return MLRegisterManager(delegate: delegate)
     }
-    
-    static func createPaymentManager(delegate: MLPaymentManagerProtocol) -> MLPaymentManager {
-        return MLPaymentManager(delegate: delegate)
-    }
+
 }

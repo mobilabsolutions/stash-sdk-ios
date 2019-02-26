@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MLCreditCardData: MLBaseMethodData {
+class MLCreditCardData: MLBaseMethodData, Codable {
     
     var holderName: String
     var cardNumber: String
@@ -16,12 +16,12 @@ class MLCreditCardData: MLBaseMethodData {
     var expiryMonth: Int
     var expiryYear: Int
 
-    
     init(holderName: String, cardNumber: String, CVV: String, expiryMonth: Int, expiryYear: Int) {
         self.holderName = holderName
         self.cardNumber = cardNumber
         self.CVV = CVV
         self.expiryMonth = expiryMonth
         self.expiryYear = expiryYear
-    }  
+    }
+
 }

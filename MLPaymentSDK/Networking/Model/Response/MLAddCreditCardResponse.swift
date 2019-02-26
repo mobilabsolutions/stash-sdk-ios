@@ -6,9 +6,8 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
 
-class MLAddCreditCardResponse: Mappable {
+class MLAddCreditCardResponse: Codable {
     
     private(set) var paymentAlias = ""
     private(set) var url = ""
@@ -24,24 +23,6 @@ class MLAddCreditCardResponse: Mappable {
     private(set) var customerId = ""
     private(set) var timestamp = Date()
     private(set) var type = ""
-    
-    required convenience init(map: Map) {
-        self.init()
-    }
-    
-    func mapping(map: Map) {
-        paymentAlias <- map["paymentAlias"]
-        url <- map["url"]
-        merchantId <- map["merchantId"]
-        action <- map["action"]
-        panAlias <- map["panAlias"]
-        username <- map["username"]
-        password <- map["password"]
-        eventExtId <- map["eventExtId"]
-        currency <- map["currency"]
-        amount <- map["amount"]
-        kind = "creditcard"
-    }
     
     func serializeXML(paymentMethod: MLPaymentMethod) -> String? {
         print("Should be overriden!")

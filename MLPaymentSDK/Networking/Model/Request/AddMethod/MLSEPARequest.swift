@@ -6,7 +6,6 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
 
 class MLSEPARequest: MLBaseMethodRequest {
     
@@ -23,14 +22,9 @@ class MLSEPARequest: MLBaseMethodRequest {
         super.init(paymentMethod: paymentMethod)
         self.accountData = MLAccountDataReqest(sepaData: paymentMethod.methodData as! MLSEPAData)
     }
-    
-    required convenience init(map: Map) {
-        self.init()
+
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
-    
-    override func mapping(map: Map) {
-        super.mapping(map: map)
-        accountData <- map["accountData"]
-        cardMask <- map["cardMask"]
-    }
+
 }

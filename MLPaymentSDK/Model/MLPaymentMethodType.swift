@@ -8,7 +8,15 @@
 
 import Foundation
 
-enum MLPaymentMethodType {
+enum MLPaymentMethodType: Codable {
+    init(from decoder: Decoder) throws {
+        try self.init(from: decoder)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        try self.encode(to: encoder)
+    }
+    
     case MLCreditCard
     case MLSEPA
     case MLPayPal

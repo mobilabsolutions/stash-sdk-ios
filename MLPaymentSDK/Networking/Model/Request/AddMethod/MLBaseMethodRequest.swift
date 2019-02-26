@@ -6,9 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
-
-class MLBaseMethodRequest: Mappable {
+class MLBaseMethodRequest: Codable {
     
     private(set) var billingData: MLBillingDataReqest!
     private(set) var oneTimePayment = false
@@ -20,15 +18,5 @@ class MLBaseMethodRequest: Mappable {
         self.billingData = MLBillingDataReqest(billingData: paymentMethod.billingData)
         self.oneTimePayment = paymentMethod.requestData.oneTimePayment
         self.customerId = paymentMethod.requestData.customerId
-    }
-    
-    required convenience init(map: Map) {
-        self.init()
-    }
-    
-    func mapping(map: Map) {
-        billingData <- map["billingData"]
-        oneTimePayment <- map["oneTimePayment"]
-        customerId <- map["customerId"]
     }
 }

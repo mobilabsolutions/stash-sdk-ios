@@ -12,14 +12,10 @@ extension RouterRequest {
     func getContentTypeHeader() -> String {
         switch self {
         case .addCreditCard(_),
-             .addSEPA(_),
-             .updatePanAlias(_):
+             .addSEPA(_):
             return "application/json"
-        case .bsRegisterCreditCard(_,_),
-             .bsFetchMethodAlias(_,_):
+        case .bsRegisterCreditCard(_,_):
             return "application/soap+xml"
-        case .hcRegisterCreditCard(_,_):
-            return "text/xml"
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ObjectMapper
 
 enum HTTPMethod: String {
     case GET
@@ -24,14 +23,9 @@ enum MLResponseType {
 enum RouterRequest {
     case addCreditCard(MLCreditCardRequest)
     case addSEPA(MLSEPARequest)
-    case updatePanAlias(MLUpdatePanaliasRequest)
     
     //BS directly methods
     case bsRegisterCreditCard(MLPaymentMethod, MLAddCreditCardResponseBS)
-    case bsFetchMethodAlias(MLPaymentMethod, MLAddCreditCardResponseBS)
-    
-    //HC directly methods
-    case hcRegisterCreditCard(MLPaymentMethod, MLAddCreditCardResponseHC)
     
 }
 
@@ -45,12 +39,9 @@ extension RouterRequest {
     func getResponseType() -> MLResponseType {
         switch self {
         case .addCreditCard(_),
-             .addSEPA(_),
-             .updatePanAlias(_):
+             .addSEPA(_):
             return .json
-        case .bsRegisterCreditCard(_, _),
-             .bsFetchMethodAlias(_, _),
-             .hcRegisterCreditCard(_,_):
+        case .bsRegisterCreditCard(_, _):
             return .xml
         }
     }
@@ -88,16 +79,12 @@ extension RouterRequest {
     func getURL() -> URL {
         switch self {
         case .addCreditCard(_),
-             .addSEPA(_),
-             .updatePanAlias(_):
+             .addSEPA(_):
             return getBaseURL()
             
-        case .bsRegisterCreditCard(_, let creditCardResponse),
-             .bsFetchMethodAlias(_, let creditCardResponse):
+        case .bsRegisterCreditCard(_, let creditCardResponse):
             return URL(string: creditCardResponse.url)!
-            
-        case .hcRegisterCreditCard(_,let creditCardResponse):
-            return URL(string: creditCardResponse.url)!
+        
         }
     }
     
@@ -105,12 +92,8 @@ extension RouterRequest {
         switch self {  
         case .addCreditCard(_),
              .addSEPA(_),
-            .bsRegisterCreditCard(_,_),
-            .bsFetchMethodAlias(_,_),
-            .hcRegisterCreditCard(_,_):
+             .bsRegisterCreditCard(_,_):
                 return HTTPMethod.POST
-        case .updatePanAlias(_):
-            return HTTPMethod.PUT
         }
     }
     

@@ -6,9 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
-
-class MLBillingDataReqest: Mappable {
+class MLBillingDataReqest: Codable {
     
     private(set) var email = ""
     private(set) var firstName: String?
@@ -36,24 +34,6 @@ class MLBillingDataReqest: Mappable {
         self.country = billingData.country
         self.phone = billingData.phone
         self.languageId = billingData.languageId
-    }
-    
-    required convenience init(map: Map) {
-        self.init()
-    }
-    
-    func mapping(map: Map) {
-        email <- map["email"]
-        firstName <- map["firstName"]
-        lastName <- map["lastName"]
-        address1 <- map["address1"]
-        address2 <- map["address2"]
-        ZIP <- map["zip"]
-        city <- map["city"]
-        state <- map["state"]
-        country <- map["country"]
-        phone <- map["phone"]
-        languageId <- map["languageId"]
     }
 }
 

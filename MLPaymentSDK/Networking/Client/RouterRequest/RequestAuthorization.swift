@@ -12,18 +12,14 @@ extension RouterRequest {
     func getAuthorizationHeader() -> String {
         switch self {
         case .addCreditCard(_),
-             .addSEPA(_),
-             .updatePanAlias(_):
+             .addSEPA(_):
             let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
             return "Bearer \(token!.toBase64())"
-        case .bsRegisterCreditCard(_, let creditCardResponse),
-             .bsFetchMethodAlias(_, let creditCardResponse):
+        case .bsRegisterCreditCard(_, let creditCardResponse):
             let data = "\(creditCardResponse.username):\(creditCardResponse.password)".data(using: getEncoding())
             if let encodedData = data?.base64EncodedString() {
                 return "Basic \(encodedData)"
             }
-            return ""
-        case .hcRegisterCreditCard(_,_):
             return ""
         }
     }

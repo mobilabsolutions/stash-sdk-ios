@@ -6,7 +6,6 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import ObjectMapper
 
 class MLCreditCardRequest: MLBaseMethodRequest {
     
@@ -20,13 +19,8 @@ class MLCreditCardRequest: MLBaseMethodRequest {
         super.init(paymentMethod: paymentMethod)
         self.cardMask = paymentMethod.requestData.cardMask
     }
-    
-    required convenience init(map: Map) {
-        self.init()
-    }
-    
-    override func mapping(map: Map) {
-        super.mapping(map: map)
-        cardMask <- map["cardMask"]
+
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 }

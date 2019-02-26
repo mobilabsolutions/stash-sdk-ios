@@ -17,12 +17,8 @@ extension RouterRequest {
             return "register/creditcard"
         case .addSEPA(_):
             return "register/sepa"
-        case .updatePanAlias(_):
-            return "update/panalias"
             
-        case .bsRegisterCreditCard(_,_),
-             .bsFetchMethodAlias(_,_),
-             .hcRegisterCreditCard(_,_):
+        case .bsRegisterCreditCard(_,_):
             return ""
             
         }
