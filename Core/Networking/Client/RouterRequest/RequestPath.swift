@@ -12,7 +12,10 @@ extension RouterRequest {
     func getRelativePath() -> String? {
         
         switch self {
-            
+        case .createAlias(_):
+            return "v2/alias"
+        case .updateAlias(let id, _):
+            return "v2/alias/" + id
         case .addCreditCard(_):
             return "register/creditcard"
         case .addSEPA(_):

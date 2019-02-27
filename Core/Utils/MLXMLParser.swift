@@ -6,7 +6,9 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-class MLXMLParser: NSObject  {
+import Foundation
+
+class MLXMLParser: NSObject {
     
     var parsingKeys: [String]
     

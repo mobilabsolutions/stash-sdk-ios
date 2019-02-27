@@ -13,11 +13,11 @@ protocol MLErrorProtocol: LocalizedError {
     var code: Int { get }
 }
 
-class MLError: NSObject, MLErrorProtocol {
+public class MLError: NSObject, MLErrorProtocol {
     var title: String?
     var code: Int
-    var errorDescription: String? { return _description }
-    var failureReason: String? { return _description }
+    public var errorDescription: String? { return _description }
+    public var failureReason: String? { return _description }
     
     private var _description: String
     

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MLPaymentSDK
+@testable import MobilabPaymentCore
 
 class MLPaymentSDKTestsHC: XCTestCase {
     
@@ -15,7 +15,7 @@ class MLPaymentSDKTestsHC: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        MLPaymentSDK.setUp(publicToken: "PD-HC-nhnEiKIFQiZeVjGCM0HZY3xvaI")
+        MobilabPaymentSDK.setUp(publicToken: "PD-HC-nhnEiKIFQiZeVjGCM0HZY3xvaI")
     }
     
     override func tearDown() {
@@ -35,7 +35,7 @@ class MLPaymentSDKTestsHC: XCTestCase {
         let successCC = "4200000000000000"
         let creditCardData = MLCreditCardData(holderName: "Holder Name", cardNumber: failCC, CVV: "312", expiryMonth: 8, expiryYear: 2021)
         
-        let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
+        let registerManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         registerManager.registerCreditCard(billingData: billingData,
                                            creditCardData: creditCardData,
                                            customerID: customerId)

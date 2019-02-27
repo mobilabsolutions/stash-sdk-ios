@@ -8,32 +8,20 @@
 
 import UIKit
 
-protocol MLNetworkClient {
+protocol NetworkClient {
     
     typealias SuccessCompletion<T> = ((T) -> Void)?
     typealias FailureCompletion = ((MLError) -> Void)?
     typealias Completion<T> = ((MLResult<T, MLError>) -> Void)
     
     func fetch<T: Decodable>(with request: RouterRequest, decode: @escaping (Decodable) -> T?, completion: @escaping (MLResult<T, MLError>) -> Void)
-    func addMethod(paymentMethod: MLPaymentMethod, success: SuccessCompletion<String>, failiure: FailureCompletion)
+    //func addMethod(paymentMethod: MLPaymentMethod, success: SuccessCompletion<String>, failiure: FailureCompletion)
 }
 
 //MARK: Shared methods
-extension MLNetworkClient {
+extension NetworkClient {
 
-    typealias JSONTaskCompletionHandler = (Decodable?, MLError?) -> Void
-    
-    private func decodingData<T: Decodable>(with data: Data, decodingType: T.Type, completionHandler completion: @escaping JSONTaskCompletionHandler) {
-        
-        do {
-            let genericModel = try JSONDecoder().decode(decodingType, from: data)
-            completion(genericModel, nil)
-        } catch {
-            let err = MLError(title: "Decoding error", description: "Decoding error", code: 1)
-            completion(nil, err)
-        }
-
-    }
+    typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
     
     func fetch<T: Decodable>(with request: RouterRequest, decode: @escaping (Decodable) -> T?, completion: @escaping (MLResult<T, MLError>) -> Void) {
         
@@ -98,37 +86,48 @@ extension MLNetworkClient {
         dataTask.resume()
     }
     
-    
-    func validateResponse(response: URLResponse?) throws {
+    private func decodingData<T: Decodable>(with data: Data, decodingType: T.Type, completionHandler completion: @escaping DecodingDataCompletionHandler) {
         
-        guard let httpResponse = response as? HTTPURLResponse
-            else {
-                throw MLError(title: "Not a valid http response", description: "Not a valid http response", code: 1)
+        do {
+            let genericModel = try JSONDecoder().decode(decodingType, from: data)
+            completion(genericModel, nil)
+        } catch {
+            let err = MLError(title: "Decoding error", description: "Decoding error", code: 1)
+            completion(nil, err)
         }
         
-        let statusCode = httpResponse.statusCode
-        
-        //        switch statusCode {
-        //        case 401:
-        //            throw RemoteResourceError.invalidCredentials
-        //        case 500..<Int.max:
-        //            throw RemoteResourceError.server(statusCode: statusCode)
-        //        case 400..<500:
-        //            throw RemoteResourceError.request(statusCode: statusCode)
-        //        case 0:
-        //            if let urlError = response.error as? URLError {
-        //                switch urlError.code {
-        //                case URLError.timedOut:
-        //                    throw RemoteResourceError.timeout
-        //                case URLError.notConnectedToInternet, URLError.networkConnectionLost:
-        //                    throw RemoteResourceError.noInternetConnection
-        //                default:
-        //                    throw RemoteResourceError.generic
-        //                }
-        //            }
-        //        default:
-        //            break
-        //        }
     }
+    
+//    func validateResponse(response: URLResponse?) throws {
+//
+//        guard let httpResponse = response as? HTTPURLResponse
+//            else {
+//                throw MLError(title: "Not a valid http response", description: "Not a valid http response", code: 1)
+//        }
+//
+//        let statusCode = httpResponse.statusCode
+//
+//        //        switch statusCode {
+//        //        case 401:
+//        //            throw RemoteResourceError.invalidCredentials
+//        //        case 500..<Int.max:
+//        //            throw RemoteResourceError.server(statusCode: statusCode)
+//        //        case 400..<500:
+//        //            throw RemoteResourceError.request(statusCode: statusCode)
+//        //        case 0:
+//        //            if let urlError = response.error as? URLError {
+//        //                switch urlError.code {
+//        //                case URLError.timedOut:
+//        //                    throw RemoteResourceError.timeout
+//        //                case URLError.notConnectedToInternet, URLError.networkConnectionLost:
+//        //                    throw RemoteResourceError.noInternetConnection
+//        //                default:
+//        //                    throw RemoteResourceError.generic
+//        //                }
+//        //            }
+//        //        default:
+//        //            break
+//        //        }
+//    }
     
 }

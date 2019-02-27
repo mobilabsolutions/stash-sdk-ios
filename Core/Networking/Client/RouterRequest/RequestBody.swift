@@ -6,13 +6,21 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
+import Foundation
+
 extension RouterRequest {
     func getHttpBody() -> Data? {
         switch self {
-        case .addCreditCard(let data):
+        case .createAlias(let data):
+            return try? JSONEncoder().encode(data)
+            
+        case .updateAlias(_, let data):
             return try? JSONEncoder().encode(data)
             
         case .addSEPA(let data):
+            return try? JSONEncoder().encode(data)
+            
+        case .addCreditCard(let data):
             return try? JSONEncoder().encode(data)
             
         case .bsRegisterCreditCard(let method,let creditCard):

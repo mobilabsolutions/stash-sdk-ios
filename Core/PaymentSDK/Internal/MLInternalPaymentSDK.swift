@@ -8,9 +8,10 @@
 
 import UIKit
 
-class MLInternalPaymentSDK: NSObject {
+class MLInternalPaymentSDK {
 
-    var networkingClient: MLNetworkClient?
+    var networkingClient: NetworkClientCore?
+    var provider: PaymentServiceProvider!
     var publicToken: String?
     
     static let sharedInstance = MLInternalPaymentSDK()
@@ -19,7 +20,14 @@ class MLInternalPaymentSDK: NSObject {
         self.publicToken = publicToken
         
         MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken)
-    }  
+    }
+    
+    func setUp(publicToken: String, provider: PaymentServiceProvider) {
+        self.publicToken = publicToken
+        self.provider = provider
+        
+        MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken)
+    }
 }
 
 //MARK: Register methods

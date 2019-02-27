@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-               BuildableName = "Core.framework"
-               BlueprintName = "Core"
-               ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
+               BuildableName = "MobilabPaymentCore.framework"
+               BlueprintName = "MobilabPaymentCore"
+               ReferencedContainer = "container:MobilabPayment.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
-               BuildableName = "MLPaymentSDKTests.xctest"
-               BlueprintName = "MLPaymentSDKTests"
-               ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
+               BuildableName = "MobilabPaymentTests.xctest"
+               BlueprintName = "MobilabPaymentTests"
+               ReferencedContainer = "container:MobilabPayment.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "Core.framework"
-            BlueprintName = "Core"
-            ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
+            BuildableName = "MobilabPaymentCore.framework"
+            BlueprintName = "MobilabPaymentCore"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "Core.framework"
-            BlueprintName = "Core"
-            ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
+            BuildableName = "MobilabPaymentCore.framework"
+            BlueprintName = "MobilabPaymentCore"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "Core.framework"
-            BlueprintName = "Core"
-            ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
+            BuildableName = "MobilabPaymentCore.framework"
+            BlueprintName = "MobilabPaymentCore"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

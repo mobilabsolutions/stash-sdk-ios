@@ -8,12 +8,12 @@
 
 import UIKit
 
-@objc protocol MLRegisterManagerProtocol: class {
+@objc public protocol MLRegisterManagerProtocol: class {
     @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
     @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
 }
 
-class MLRegisterManager: NSObject {
+public class MLRegisterManager: NSObject {
 
     weak var delegate: MLRegisterManagerProtocol!
     

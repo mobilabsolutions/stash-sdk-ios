@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MLPaymentSDK
+@testable import MobilabPaymentCore
 
 class MLPaymentSDKTests: XCTestCase {
     
@@ -17,7 +17,7 @@ class MLPaymentSDKTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        MLPaymentSDK.setUp(publicToken: "PD-BS-eiXDbe3j0zixJUpWAgvh3cS4Hz")
+        MobilabPaymentSDK.setUp(publicToken: "PD-BS-eiXDbe3j0zixJUpWAgvh3cS4Hz")
     }
     
     override func tearDown() {
@@ -34,7 +34,7 @@ class MLPaymentSDKTests: XCTestCase {
         
         let creditCardData = MLCreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 8, expiryYear: 2021)
         
-        let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
+        let registerManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         registerManager.registerCreditCard(billingData: billingData,
                                            creditCardData: creditCardData,
                                            customerID: customerId)
@@ -63,7 +63,7 @@ class MLPaymentSDKTests: XCTestCase {
 
         let sepaData = MLSEPAData(bankNumber: "PBNKDEFF", IBAN: "DE87123456781234567890")
         
-        let registerManager = MLPaymentSDK.createRegisterManager(delegate: self)
+        let registerManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         registerManager.registerSEPAAccount(billingData: billingData, sepaData: sepaData, customerID: customerId)
         
         self.waitForExpectations(timeout: 80) { error in

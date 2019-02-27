@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MLPaymentSDK.xcodeproj">
+      location = "self:/Users/bornabeakovic/Projects/Mobilab/payment-sdk-ios-open/MobilabPayment.xcodeproj">
    </FileRef>
 </Workspace>

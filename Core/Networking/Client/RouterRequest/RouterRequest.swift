@@ -21,6 +21,10 @@ enum MLResponseType {
 }
 
 enum RouterRequest {
+    
+    case createAlias(CreateAliasRequest)
+    case updateAlias(String, UpdateAliasRequest)
+    
     case addCreditCard(MLCreditCardRequest)
     case addSEPA(MLSEPARequest)
     
@@ -38,8 +42,11 @@ extension RouterRequest {
     
     func getResponseType() -> MLResponseType {
         switch self {
-        case .addCreditCard(_),
-             .addSEPA(_):
+        case
+            .createAlias(_),
+            .updateAlias(_),
+            .addCreditCard(_),
+            .addSEPA(_):
             return .json
         case .bsRegisterCreditCard(_, _):
             return .xml
@@ -78,7 +85,9 @@ extension RouterRequest {
     
     func getURL() -> URL {
         switch self {
-        case .addCreditCard(_),
+        case .createAlias(_),
+             .updateAlias(_),
+             .addCreditCard(_),
              .addSEPA(_):
             return getBaseURL()
             
@@ -90,10 +99,13 @@ extension RouterRequest {
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {  
-        case .addCreditCard(_),
+        case .createAlias(_),
+             .addCreditCard(_),
              .addSEPA(_),
              .bsRegisterCreditCard(_,_):
                 return HTTPMethod.POST
+        case .updateAlias(_):
+            return HTTPMethod.PUT
         }
     }
     

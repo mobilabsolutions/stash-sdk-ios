@@ -19,17 +19,16 @@
 		1D9B8BFE20E3FD37004E79D5 /* MLBaseMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */; };
 		1D9B8C0020E3FD55004E79D5 /* MLCreditCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */; };
 		1D9B8C0220E3FD6F004E79D5 /* MLSEPARequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8C0120E3FD6F004E79D5 /* MLSEPARequest.swift */; };
-		1DC5CB9F20D2BF5E002058C1 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* Core.framework */; };
+		1DC5CB9F20D2BF5E002058C1 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */; };
 		1DC5CBA620D2BF5E002058C1 /* MLPaymentSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBB820D40D54002058C1 /* MLError.swift */; };
-		1DC5CBC020D40F73002058C1 /* MLNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */; };
+		1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */; };
 		1DC5CBC220D40F9D002058C1 /* MLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC120D40F9D002058C1 /* MLConfiguration.swift */; };
 		1DC5CBC420D40FE9002058C1 /* MLPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC320D40FE9002058C1 /* MLPaymentProvider.swift */; };
-		1DC5CBCA20D410F9002058C1 /* MLPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */; };
+		1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */; };
 		1DC5CBCE20D41118002058C1 /* MLRegisterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */; };
 		1DC5CBD120D415C4002058C1 /* MLInternalPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */; };
-		1DC5CBD320D415FD002058C1 /* MLNetworkClientBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */; };
 		1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */; };
 		1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* MLBillingData.swift */; };
 		1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */; };
@@ -49,6 +48,18 @@
 		BACD61952226B03600E3ACC3 /* BSPayone.h in Headers */ = {isa = PBXBuildFile; fileRef = BACD61932226B03600E3ACC3 /* BSPayone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BACD61982226B03600E3ACC3 /* BSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* BSPayone.framework */; };
 		BACD61992226B03600E3ACC3 /* BSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* BSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */; };
+		BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */; };
+		BACD61A82226CA6D00E3ACC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A72226CA6D00E3ACC3 /* Foundation.framework */; };
+		BACD61AA2226CA8F00E3ACC3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */; };
+		BACD61AC2226CA9500E3ACC3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61AB2226CA9500E3ACC3 /* UIKit.framework */; };
+		BACD61AE2226CC7D00E3ACC3 /* StandardizedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61AD2226CC7D00E3ACC3 /* StandardizedData.swift */; };
+		BACD61B02226CC9700E3ACC3 /* AdditionalRegistrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61AF2226CC9700E3ACC3 /* AdditionalRegistrationData.swift */; };
+		BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */; };
+		BACD61B32226CFE800E3ACC3 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
+		BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */; };
+		BACD61B82226E32300E3ACC3 /* CreateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B72226E32300E3ACC3 /* CreateAliasRequest.swift */; };
+		BACD61BA2226E33100E3ACC3 /* UpdateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B92226E33100E3ACC3 /* UpdateAliasRequest.swift */; };
 		BAE6FAFE2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
 		BAE6FAFF2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
 /* End PBXBuildFile section */
@@ -97,20 +108,19 @@
 		1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBaseMethodRequest.swift; sourceTree = "<group>"; };
 		1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardRequest.swift; sourceTree = "<group>"; };
 		1D9B8C0120E3FD6F004E79D5 /* MLSEPARequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSEPARequest.swift; sourceTree = "<group>"; };
-		1DC5CB9520D2BF5E002058C1 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLPaymentSDK.h; sourceTree = "<group>"; };
 		1DC5CB9920D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLPaymentSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC5CB9E20D2BF5E002058C1 /* MobilabPaymentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobilabPaymentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentSDKTests.swift; sourceTree = "<group>"; };
 		1DC5CBA520D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DC5CBB820D40D54002058C1 /* MLError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLError.swift; sourceTree = "<group>"; };
-		1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkClient.swift; sourceTree = "<group>"; };
+		1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		1DC5CBC120D40F9D002058C1 /* MLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLConfiguration.swift; sourceTree = "<group>"; };
 		1DC5CBC320D40FE9002058C1 /* MLPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentProvider.swift; sourceTree = "<group>"; };
-		1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentSDK.swift; sourceTree = "<group>"; };
+		1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDK.swift; sourceTree = "<group>"; };
 		1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLRegisterManager.swift; sourceTree = "<group>"; };
 		1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLInternalPaymentSDK.swift; sourceTree = "<group>"; };
-		1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkClientBS.swift; sourceTree = "<group>"; };
 		1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequest.swift; sourceTree = "<group>"; };
 		1DFA536220D91C490065CCC3 /* MLBillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingData.swift; sourceTree = "<group>"; };
 		1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardData.swift; sourceTree = "<group>"; };
@@ -132,6 +142,17 @@
 		BACD61912226B03600E3ACC3 /* BSPayone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSPayone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BACD61932226B03600E3ACC3 /* BSPayone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSPayone.h; sourceTree = "<group>"; };
 		BACD61942226B03600E3ACC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProvider.swift; sourceTree = "<group>"; };
+		BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequest.swift; sourceTree = "<group>"; };
+		BACD61A72226CA6D00E3ACC3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BACD61AB2226CA9500E3ACC3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BACD61AD2226CC7D00E3ACC3 /* StandardizedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardizedData.swift; sourceTree = "<group>"; };
+		BACD61AF2226CC9700E3ACC3 /* AdditionalRegistrationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalRegistrationData.swift; sourceTree = "<group>"; };
+		BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentBSPayone.swift; sourceTree = "<group>"; };
+		BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientCore.swift; sourceTree = "<group>"; };
+		BACD61B72226E32300E3ACC3 /* CreateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasRequest.swift; sourceTree = "<group>"; };
+		BACD61B92226E33100E3ACC3 /* UpdateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAliasRequest.swift; sourceTree = "<group>"; };
 		BAE6FAFD2225715F00D3A71B /* MLResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +161,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACD61AC2226CA9500E3ACC3 /* UIKit.framework in Frameworks */,
+				BACD61AA2226CA8F00E3ACC3 /* SystemConfiguration.framework in Frameworks */,
+				BACD61A82226CA6D00E3ACC3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DC5CB9F20D2BF5E002058C1 /* Core.framework in Frameworks */,
+				1DC5CB9F20D2BF5E002058C1 /* MobilabPaymentCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACD61B32226CFE800E3ACC3 /* MobilabPaymentCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +249,8 @@
 		1DC5CB9620D2BF5E002058C1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DC5CB9520D2BF5E002058C1 /* Core.framework */,
-				1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */,
+				1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */,
+				1DC5CB9E20D2BF5E002058C1 /* MobilabPaymentTests.xctest */,
 				BA8D070D2226AE56004F699A /* Demo.app */,
 				BACD61912226B03600E3ACC3 /* BSPayone.framework */,
 			);
@@ -281,8 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				1D34CC0020E2709C0011F901 /* RouterRequest */,
-				1DC5CBBF20D40F73002058C1 /* MLNetworkClient.swift */,
-				1DC5CBD220D415FD002058C1 /* MLNetworkClientBS.swift */,
+				1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */,
+				BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -299,7 +324,7 @@
 		1DC5CBC620D410DA002058C1 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				1DC5CBC920D410F9002058C1 /* MLPaymentSDK.swift */,
+				1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */,
 				1DC5CBCD20D41118002058C1 /* MLRegisterManager.swift */,
 			);
 			path = Public;
@@ -308,6 +333,7 @@
 		1DC5CBCF20D415A0002058C1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				BACD619F2226C8E300E3ACC3 /* Integration */,
 				1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */,
 			);
 			path = Internal;
@@ -354,6 +380,7 @@
 		1DFA538620DA9C870065CCC3 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				BACD61B62226E2E000E3ACC3 /* Alias */,
 				1D9B8BFC20E3FD27004E79D5 /* AddMethod */,
 				1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */,
 			);
@@ -396,6 +423,7 @@
 			children = (
 				BACD61932226B03600E3ACC3 /* BSPayone.h */,
 				BACD61942226B03600E3ACC3 /* Info.plist */,
+				BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */,
 			);
 			path = BSPayone;
 			sourceTree = "<group>";
@@ -403,8 +431,39 @@
 		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BACD61AB2226CA9500E3ACC3 /* UIKit.framework */,
+				BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */,
+				BACD61A72226CA6D00E3ACC3 /* Foundation.framework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		BACD619F2226C8E300E3ACC3 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61A32226C95D00E3ACC3 /* Model */,
+				BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		BACD61A32226C95D00E3ACC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */,
+				BACD61AD2226CC7D00E3ACC3 /* StandardizedData.swift */,
+				BACD61AF2226CC9700E3ACC3 /* AdditionalRegistrationData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BACD61B62226E2E000E3ACC3 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61B72226E32300E3ACC3 /* CreateAliasRequest.swift */,
+				BACD61B92226E33100E3ACC3 /* UpdateAliasRequest.swift */,
+			);
+			path = Alias;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,9 +488,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1DC5CB9420D2BF5E002058C1 /* Core */ = {
+		1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "Core" */;
+			buildConfigurationList = 1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MobilabPaymentCore" */;
 			buildPhases = (
 				1DC5CB9020D2BF5E002058C1 /* Sources */,
 				1DC5CB9120D2BF5E002058C1 /* Frameworks */,
@@ -442,16 +501,15 @@
 			);
 			dependencies = (
 			);
-			name = Core;
+			name = MobilabPaymentCore;
 			productName = MLPaymentSDK;
-			productReference = 1DC5CB9520D2BF5E002058C1 /* Core.framework */;
+			productReference = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		1DC5CB9D20D2BF5E002058C1 /* MLPaymentSDKTests */ = {
+		1DC5CB9D20D2BF5E002058C1 /* MobilabPaymentTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MLPaymentSDKTests" */;
+			buildConfigurationList = 1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MobilabPaymentTests" */;
 			buildPhases = (
-				898DC552D21D19490C550742 /* [CP] Check Pods Manifest.lock */,
 				1DC5CB9A20D2BF5E002058C1 /* Sources */,
 				1DC5CB9B20D2BF5E002058C1 /* Frameworks */,
 				1DC5CB9C20D2BF5E002058C1 /* Resources */,
@@ -461,9 +519,9 @@
 			dependencies = (
 				1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */,
 			);
-			name = MLPaymentSDKTests;
+			name = MobilabPaymentTests;
 			productName = MLPaymentSDKTests;
-			productReference = 1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */;
+			productReference = 1DC5CB9E20D2BF5E002058C1 /* MobilabPaymentTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		BA8D070C2226AE56004F699A /* Demo */ = {
@@ -526,10 +584,11 @@
 					};
 					BACD61902226B03600E3ACC3 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
-			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MLPaymentSDK" */;
+			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MobilabPayment" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -542,10 +601,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1DC5CB9420D2BF5E002058C1 /* Core */,
+				1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */,
 				BACD61902226B03600E3ACC3 /* BSPayone */,
 				BA8D070C2226AE56004F699A /* Demo */,
-				1DC5CB9D20D2BF5E002058C1 /* MLPaymentSDKTests */,
+				1DC5CB9D20D2BF5E002058C1 /* MobilabPaymentTests */,
 			);
 		};
 /* End PBXProject section */
@@ -584,34 +643,16 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		898DC552D21D19490C550742 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MLPaymentSDKTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		1DC5CB9020D2BF5E002058C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
+				BACD61B02226CC9700E3ACC3 /* AdditionalRegistrationData.swift in Sources */,
 				1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */,
 				1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */,
+				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
 				1D34CC0420E270E40011F901 /* RequestPath.swift in Sources */,
 				1DC5CBCE20D41118002058C1 /* MLRegisterManager.swift in Sources */,
 				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
@@ -622,12 +663,14 @@
 				1D34CC0620E271180011F901 /* RequestAuthorization.swift in Sources */,
 				1D34CC0C20E281180011F901 /* String+Exgtras.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* MLSEPAData.swift in Sources */,
+				BACD61B82226E32300E3ACC3 /* CreateAliasRequest.swift in Sources */,
 				BAE6FAFE2225715F00D3A71B /* MLResult.swift in Sources */,
 				1DFA538420DA50610065CCC3 /* MLBaseMethodData.swift in Sources */,
 				1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */,
-				1DC5CBD320D415FD002058C1 /* MLNetworkClientBS.swift in Sources */,
+				BACD61BA2226E33100E3ACC3 /* UpdateAliasRequest.swift in Sources */,
 				1D9B8BFE20E3FD37004E79D5 /* MLBaseMethodRequest.swift in Sources */,
-				1DC5CBC020D40F73002058C1 /* MLNetworkClient.swift in Sources */,
+				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
+				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
 				1DFA538820DA9F5F0065CCC3 /* MLAccountDataReqest.swift in Sources */,
 				1D9B8C0220E3FD6F004E79D5 /* MLSEPARequest.swift in Sources */,
 				1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */,
@@ -636,10 +679,11 @@
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				1D34CC0220E270B50011F901 /* RequestBody.swift in Sources */,
 				1D34CC0820E2716D0011F901 /* RequestHeader.swift in Sources */,
-				1DC5CBCA20D410F9002058C1 /* MLPaymentSDK.swift in Sources */,
+				1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */,
 				1DFA538A20DAA0300065CCC3 /* MLBillingDataRequest.swift in Sources */,
 				1DFA538D20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift in Sources */,
 				1DC5CBC220D40F9D002058C1 /* MLConfiguration.swift in Sources */,
+				BACD61AE2226CC7D00E3ACC3 /* StandardizedData.swift in Sources */,
 				1DFA536F20D92DE70065CCC3 /* MLPaymentMethodType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,6 +711,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,7 +720,7 @@
 /* Begin PBXTargetDependency section */
 		1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1DC5CB9420D2BF5E002058C1 /* Core */;
+			target = 1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */;
 			targetProxy = 1DC5CBA020D2BF5E002058C1 /* PBXContainerItemProxy */;
 		};
 		BACD61972226B03600E3ACC3 /* PBXTargetDependency */ = {
@@ -884,13 +929,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
-				INFOPLIST_FILE = MLPaymentSDKTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/UnitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirza.MLPaymentSDKTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -903,13 +948,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
-				INFOPLIST_FILE = MLPaymentSDKTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/UnitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirza.MLPaymentSDKTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -919,6 +964,7 @@
 		BA8D071D2226AE57004F699A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
@@ -940,6 +986,7 @@
 		BA8D071E2226AE57004F699A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
@@ -960,6 +1007,7 @@
 		BACD619B2226B03600E3ACC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -980,6 +1028,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.BSPayone.BSPayone;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -988,6 +1037,7 @@
 		BACD619C2226B03600E3ACC3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1015,7 +1065,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MLPaymentSDK" */ = {
+		1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MobilabPayment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DC5CBA720D2BF5E002058C1 /* Debug */,
@@ -1024,7 +1074,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "Core" */ = {
+		1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MobilabPaymentCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DC5CBAA20D2BF5E002058C1 /* Debug */,
@@ -1033,7 +1083,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MLPaymentSDKTests" */ = {
+		1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MobilabPaymentTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DC5CBAD20D2BF5E002058C1 /* Debug */,
