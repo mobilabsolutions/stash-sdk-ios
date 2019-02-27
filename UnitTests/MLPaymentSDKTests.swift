@@ -84,14 +84,6 @@ extension MLPaymentSDKTests: MLRegisterManagerProtocol {
         self.expectation?.fulfill()
     }
     
-    func removeCreditCardCompleted(error: MLError?) {
-        
-    }
-    
-    func removeSEPACompleted(error: MLError?) {
-        
-    }
-    
     func registerCreditCardCompleted(paymentAlias: String?, error: MLError?) {
         self.expectation?.fulfill()
     }

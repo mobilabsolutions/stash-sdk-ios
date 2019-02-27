@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-               BuildableName = "MLPaymentSDK.framework"
-               BlueprintName = "MLPaymentSDK"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
                ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "MLPaymentSDK.framework"
-            BlueprintName = "MLPaymentSDK"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,8 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "MLPaymentSDK.framework"
-            BlueprintName = "MLPaymentSDK"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,8 +83,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "MLPaymentSDK.framework"
-            BlueprintName = "MLPaymentSDK"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:MLPaymentSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

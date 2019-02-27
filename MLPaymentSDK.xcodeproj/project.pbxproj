@@ -19,7 +19,7 @@
 		1D9B8BFE20E3FD37004E79D5 /* MLBaseMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */; };
 		1D9B8C0020E3FD55004E79D5 /* MLCreditCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */; };
 		1D9B8C0220E3FD6F004E79D5 /* MLSEPARequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8C0120E3FD6F004E79D5 /* MLSEPARequest.swift */; };
-		1DC5CB9F20D2BF5E002058C1 /* MLPaymentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MLPaymentSDK.framework */; };
+		1DC5CB9F20D2BF5E002058C1 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* Core.framework */; };
 		1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */; };
 		1DC5CBA620D2BF5E002058C1 /* MLPaymentSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBB820D40D54002058C1 /* MLError.swift */; };
@@ -41,8 +41,14 @@
 		1DFA538820DA9F5F0065CCC3 /* MLAccountDataReqest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538720DA9F5F0065CCC3 /* MLAccountDataReqest.swift */; };
 		1DFA538A20DAA0300065CCC3 /* MLBillingDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */; };
 		1DFA538D20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */; };
-		3773EA166D8976677F5614C3 /* Pods_MLPaymentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4B953A5D4AE9D301960BD9 /* Pods_MLPaymentSDK.framework */; };
-		8A980C647B620B8B29AE1959 /* Pods_MLPaymentSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75BCF4B3802F7BCFC4F67CB7 /* Pods_MLPaymentSDKTests.framework */; };
+		BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D070F2226AE56004F699A /* AppDelegate.swift */; };
+		BA8D07122226AE56004F699A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D07112226AE56004F699A /* ViewController.swift */; };
+		BA8D07152226AE56004F699A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07132226AE56004F699A /* Main.storyboard */; };
+		BA8D07172226AE57004F699A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07162226AE57004F699A /* Assets.xcassets */; };
+		BA8D071A2226AE57004F699A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07182226AE57004F699A /* LaunchScreen.storyboard */; };
+		BACD61952226B03600E3ACC3 /* BSPayone.h in Headers */ = {isa = PBXBuildFile; fileRef = BACD61932226B03600E3ACC3 /* BSPayone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BACD61982226B03600E3ACC3 /* BSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* BSPayone.framework */; };
+		BACD61992226B03600E3ACC3 /* BSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* BSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6FAFE2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
 		BAE6FAFF2225715F00D3A71B /* MLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* MLResult.swift */; };
 /* End PBXBuildFile section */
@@ -55,7 +61,28 @@
 			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
 			remoteInfo = MLPaymentSDK;
 		};
+		BACD61962226B03600E3ACC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BACD61902226B03600E3ACC3;
+			remoteInfo = BSPayone;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BACD619D2226B03600E3ACC3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BACD61992226B03600E3ACC3 /* BSPayone.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D34CBEF20E121750011F901 /* MLXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXMLParser.swift; sourceTree = "<group>"; };
@@ -70,7 +97,7 @@
 		1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBaseMethodRequest.swift; sourceTree = "<group>"; };
 		1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardRequest.swift; sourceTree = "<group>"; };
 		1D9B8C0120E3FD6F004E79D5 /* MLSEPARequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSEPARequest.swift; sourceTree = "<group>"; };
-		1DC5CB9520D2BF5E002058C1 /* MLPaymentSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLPaymentSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC5CB9520D2BF5E002058C1 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLPaymentSDK.h; sourceTree = "<group>"; };
 		1DC5CB9920D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLPaymentSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,13 +122,17 @@
 		1DFA538720DA9F5F0065CCC3 /* MLAccountDataReqest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAccountDataReqest.swift; sourceTree = "<group>"; };
 		1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingDataRequest.swift; sourceTree = "<group>"; };
 		1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponse.swift; sourceTree = "<group>"; };
-		2A2EC0631BBA908D2DEEF3FF /* Pods-MLPaymentSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDK/Pods-MLPaymentSDK.release.xcconfig"; sourceTree = "<group>"; };
-		75BCF4B3802F7BCFC4F67CB7 /* Pods_MLPaymentSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLPaymentSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B4B953A5D4AE9D301960BD9 /* Pods_MLPaymentSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLPaymentSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8D070D2226AE56004F699A /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8D070F2226AE56004F699A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA8D07112226AE56004F699A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BA8D07142226AE56004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA8D07162226AE57004F699A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA8D07192226AE57004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BA8D071B2226AE57004F699A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BACD61912226B03600E3ACC3 /* BSPayone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSPayone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BACD61932226B03600E3ACC3 /* BSPayone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSPayone.h; sourceTree = "<group>"; };
+		BACD61942226B03600E3ACC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAE6FAFD2225715F00D3A71B /* MLResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLResult.swift; sourceTree = "<group>"; };
-		C5964C06BF417591C1A87354 /* Pods-MLPaymentSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDK/Pods-MLPaymentSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		C89DC9D0215DD13CA345E89E /* Pods-MLPaymentSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests.release.xcconfig"; sourceTree = "<group>"; };
-		F6F5F01C167F25C3DAA53566 /* Pods-MLPaymentSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLPaymentSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLPaymentSDKTests/Pods-MLPaymentSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +140,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3773EA166D8976677F5614C3 /* Pods_MLPaymentSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,8 +147,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DC5CB9F20D2BF5E002058C1 /* MLPaymentSDK.framework in Frameworks */,
-				8A980C647B620B8B29AE1959 /* Pods_MLPaymentSDKTests.framework in Frameworks */,
+				1DC5CB9F20D2BF5E002058C1 /* Core.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA8D070A2226AE56004F699A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BACD61982226B03600E3ACC3 /* BSPayone.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618E2226B03600E3ACC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,24 +212,27 @@
 		1DC5CB8B20D2BF5E002058C1 = {
 			isa = PBXGroup;
 			children = (
-				1DC5CB9720D2BF5E002058C1 /* MLPaymentSDK */,
-				1DC5CBA220D2BF5E002058C1 /* MLPaymentSDKTests */,
+				1DC5CB9720D2BF5E002058C1 /* Core */,
+				BACD61922226B03600E3ACC3 /* BSPayone */,
+				BA8D070E2226AE56004F699A /* Demo */,
+				1DC5CBA220D2BF5E002058C1 /* UnitTests */,
+				BACD619E2226B15500E3ACC3 /* Frameworks */,
 				1DC5CB9620D2BF5E002058C1 /* Products */,
-				C1D0D892814FC744A65DFF16 /* Pods */,
-				92A6C755CFF5C21E34B42C91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		1DC5CB9620D2BF5E002058C1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DC5CB9520D2BF5E002058C1 /* MLPaymentSDK.framework */,
+				1DC5CB9520D2BF5E002058C1 /* Core.framework */,
 				1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */,
+				BA8D070D2226AE56004F699A /* Demo.app */,
+				BACD61912226B03600E3ACC3 /* BSPayone.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DC5CB9720D2BF5E002058C1 /* MLPaymentSDK */ = {
+		1DC5CB9720D2BF5E002058C1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				1D34CBEE20E121680011F901 /* Utils */,
@@ -196,17 +243,17 @@
 				1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */,
 				1DC5CB9920D2BF5E002058C1 /* Info.plist */,
 			);
-			path = MLPaymentSDK;
+			path = Core;
 			sourceTree = "<group>";
 		};
-		1DC5CBA220D2BF5E002058C1 /* MLPaymentSDKTests */ = {
+		1DC5CBA220D2BF5E002058C1 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */,
 				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
 				1D34CC0920E273870011F901 /* MLPaymentSDKTestsHC.swift */,
 			);
-			path = MLPaymentSDKTests;
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 		1DC5CBB520D40D3A002058C1 /* Networking */ = {
@@ -331,24 +378,33 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		92A6C755CFF5C21E34B42C91 /* Frameworks */ = {
+		BA8D070E2226AE56004F699A /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				9B4B953A5D4AE9D301960BD9 /* Pods_MLPaymentSDK.framework */,
-				75BCF4B3802F7BCFC4F67CB7 /* Pods_MLPaymentSDKTests.framework */,
+				BA8D070F2226AE56004F699A /* AppDelegate.swift */,
+				BA8D07112226AE56004F699A /* ViewController.swift */,
+				BA8D07132226AE56004F699A /* Main.storyboard */,
+				BA8D07162226AE57004F699A /* Assets.xcassets */,
+				BA8D07182226AE57004F699A /* LaunchScreen.storyboard */,
+				BA8D071B2226AE57004F699A /* Info.plist */,
 			);
-			name = Frameworks;
+			path = Demo;
 			sourceTree = "<group>";
 		};
-		C1D0D892814FC744A65DFF16 /* Pods */ = {
+		BACD61922226B03600E3ACC3 /* BSPayone */ = {
 			isa = PBXGroup;
 			children = (
-				C5964C06BF417591C1A87354 /* Pods-MLPaymentSDK.debug.xcconfig */,
-				2A2EC0631BBA908D2DEEF3FF /* Pods-MLPaymentSDK.release.xcconfig */,
-				F6F5F01C167F25C3DAA53566 /* Pods-MLPaymentSDKTests.debug.xcconfig */,
-				C89DC9D0215DD13CA345E89E /* Pods-MLPaymentSDKTests.release.xcconfig */,
+				BACD61932226B03600E3ACC3 /* BSPayone.h */,
+				BACD61942226B03600E3ACC3 /* Info.plist */,
 			);
-			name = Pods;
+			path = BSPayone;
+			sourceTree = "<group>";
+		};
+		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,14 +418,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BACD618C2226B03600E3ACC3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BACD61952226B03600E3ACC3 /* BSPayone.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1DC5CB9420D2BF5E002058C1 /* MLPaymentSDK */ = {
+		1DC5CB9420D2BF5E002058C1 /* Core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MLPaymentSDK" */;
+			buildConfigurationList = 1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "Core" */;
 			buildPhases = (
-				61F3BE19EFE22D1BE977D0D0 /* [CP] Check Pods Manifest.lock */,
 				1DC5CB9020D2BF5E002058C1 /* Sources */,
 				1DC5CB9120D2BF5E002058C1 /* Frameworks */,
 				1DC5CB9220D2BF5E002058C1 /* Headers */,
@@ -379,9 +442,9 @@
 			);
 			dependencies = (
 			);
-			name = MLPaymentSDK;
+			name = Core;
 			productName = MLPaymentSDK;
-			productReference = 1DC5CB9520D2BF5E002058C1 /* MLPaymentSDK.framework */;
+			productReference = 1DC5CB9520D2BF5E002058C1 /* Core.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		1DC5CB9D20D2BF5E002058C1 /* MLPaymentSDKTests */ = {
@@ -403,13 +466,50 @@
 			productReference = 1DC5CB9E20D2BF5E002058C1 /* MLPaymentSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BA8D070C2226AE56004F699A /* Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildPhases = (
+				BA8D07092226AE56004F699A /* Sources */,
+				BA8D070A2226AE56004F699A /* Frameworks */,
+				BA8D070B2226AE56004F699A /* Resources */,
+				BACD619D2226B03600E3ACC3 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BACD61972226B03600E3ACC3 /* PBXTargetDependency */,
+			);
+			name = Demo;
+			productName = Demo;
+			productReference = BA8D070D2226AE56004F699A /* Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BACD61902226B03600E3ACC3 /* BSPayone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BACD619A2226B03600E3ACC3 /* Build configuration list for PBXNativeTarget "BSPayone" */;
+			buildPhases = (
+				BACD618C2226B03600E3ACC3 /* Headers */,
+				BACD618D2226B03600E3ACC3 /* Sources */,
+				BACD618E2226B03600E3ACC3 /* Frameworks */,
+				BACD618F2226B03600E3ACC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BSPayone;
+			productName = BSPayone;
+			productReference = BACD61912226B03600E3ACC3 /* BSPayone.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		1DC5CB8C20D2BF5E002058C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = MobiLab;
 				TargetAttributes = {
@@ -421,6 +521,12 @@
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1010;
 					};
+					BA8D070C2226AE56004F699A = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					BACD61902226B03600E3ACC3 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 				};
 			};
 			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MLPaymentSDK" */;
@@ -429,13 +535,16 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1DC5CB8B20D2BF5E002058C1;
 			productRefGroup = 1DC5CB9620D2BF5E002058C1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1DC5CB9420D2BF5E002058C1 /* MLPaymentSDK */,
+				1DC5CB9420D2BF5E002058C1 /* Core */,
+				BACD61902226B03600E3ACC3 /* BSPayone */,
+				BA8D070C2226AE56004F699A /* Demo */,
 				1DC5CB9D20D2BF5E002058C1 /* MLPaymentSDKTests */,
 			);
 		};
@@ -456,27 +565,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		61F3BE19EFE22D1BE977D0D0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
+		BA8D070B2226AE56004F699A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8D071A2226AE57004F699A /* LaunchScreen.storyboard in Resources */,
+				BA8D07172226AE57004F699A /* Assets.xcassets in Resources */,
+				BA8D07152226AE56004F699A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618F2226B03600E3ACC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MLPaymentSDK-checkManifestLockResult.txt",
-			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
 		898DC552D21D19490C550742 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -546,15 +654,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BA8D07092226AE56004F699A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8D07122226AE56004F699A /* ViewController.swift in Sources */,
+				BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618D2226B03600E3ACC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1DC5CB9420D2BF5E002058C1 /* MLPaymentSDK */;
+			target = 1DC5CB9420D2BF5E002058C1 /* Core */;
 			targetProxy = 1DC5CBA020D2BF5E002058C1 /* PBXContainerItemProxy */;
 		};
+		BACD61972226B03600E3ACC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BACD61902226B03600E3ACC3 /* BSPayone */;
+			targetProxy = BACD61962226B03600E3ACC3 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BA8D07132226AE56004F699A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA8D07142226AE56004F699A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BA8D07182226AE57004F699A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA8D07192226AE57004F699A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1DC5CBA720D2BF5E002058C1 /* Debug */ = {
@@ -679,7 +827,6 @@
 		};
 		1DC5CBAA20D2BF5E002058C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5964C06BF417591C1A87354 /* Pods-MLPaymentSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -689,14 +836,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MLPaymentSDK/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirza.MLPaymentSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -707,7 +854,6 @@
 		};
 		1DC5CBAB20D2BF5E002058C1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A2EC0631BBA908D2DEEF3FF /* Pods-MLPaymentSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -717,14 +863,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MLPaymentSDK/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirza.MLPaymentSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -734,7 +880,6 @@
 		};
 		1DC5CBAD20D2BF5E002058C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6F5F01C167F25C3DAA53566 /* Pods-MLPaymentSDKTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -754,7 +899,6 @@
 		};
 		1DC5CBAE20D2BF5E002058C1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C89DC9D0215DD13CA345E89E /* Pods-MLPaymentSDKTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -772,6 +916,102 @@
 			};
 			name = Release;
 		};
+		BA8D071D2226AE57004F699A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA8D071E2226AE57004F699A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BACD619B2226B03600E3ACC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BSPayone/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.BSPayone.BSPayone;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BACD619C2226B03600E3ACC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BSPayone/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.BSPayone.BSPayone;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -784,7 +1024,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "MLPaymentSDK" */ = {
+		1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DC5CBAA20D2BF5E002058C1 /* Debug */,
@@ -798,6 +1038,24 @@
 			buildConfigurations = (
 				1DC5CBAD20D2BF5E002058C1 /* Debug */,
 				1DC5CBAE20D2BF5E002058C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA8D071D2226AE57004F699A /* Debug */,
+				BA8D071E2226AE57004F699A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BACD619A2226B03600E3ACC3 /* Build configuration list for PBXNativeTarget "BSPayone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BACD619B2226B03600E3ACC3 /* Debug */,
+				BACD619C2226B03600E3ACC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
