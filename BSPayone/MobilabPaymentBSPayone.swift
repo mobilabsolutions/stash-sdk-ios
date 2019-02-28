@@ -9,7 +9,7 @@
 import Foundation
 import MobilabPaymentCore
 
-class MobilabPaymentBSPayone : PaymentServiceProviderProtocol {
+class MobilabPaymentBSPayone : PaymentServiceProvider {
     
     func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (MLResult<String, MLError>) -> Void) {
         completion(.success("TestALias"))
