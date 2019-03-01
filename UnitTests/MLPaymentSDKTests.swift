@@ -72,14 +72,7 @@ class MLPaymentSDKTests: XCTestCase {
     }
 }
 
-//@objc protocol MLRegisterManagerProtocol: class {
-//    @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
-//    @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
-//    @objc func removeCreditCardCompleted(error: MLError?)
-//    @objc func removeSEPACompleted(error: MLError?)
-//}
-
-extension MLPaymentSDKTests: MLRegisterManagerProtocol {
+extension MLPaymentSDKTests: RegisterManagerProtocol {
     func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
         self.expectation?.fulfill()
     }

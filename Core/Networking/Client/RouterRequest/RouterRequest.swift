@@ -8,54 +8,53 @@
 
 import Foundation
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case GET
     case POST
     case DELETE
     case PUT
 }
 
-enum MLResponseType {
+public enum MLResponseType {
     case xml
     case json
 }
 
-enum RouterRequest {
+public protocol RouterRequestProtocol {
     
-    case createAlias(CreateAliasRequest)
-    case updateAlias(String, UpdateAliasRequest)
-    
-    case addCreditCard(MLCreditCardRequest)
-    case addSEPA(MLSEPARequest)
-    
-    //BS directly methods
-    case bsRegisterCreditCard(MLPaymentMethod, MLAddCreditCardResponseBS)
-    
+    func getBaseURL() -> URL
+    func getURL() -> URL
+    func getHTTPMethod() -> HTTPMethod
+    func getContentTypeHeader() -> String
+    func getHttpBody() -> Data?
+    func getAuthorizationHeader() -> String
+    func getRelativePath() -> String?
+    func getResponseType() -> MLResponseType
+    func asURLRequest() -> URLRequest
+    func getTimeOut() -> Double
 }
 
 // MARK: Public methods
-extension RouterRequest {
+public extension RouterRequestProtocol {
     
     func asURLRequest() -> URLRequest {
         return buildRequest(url: getURL()) 
     }
     
-    func getResponseType() -> MLResponseType {
+    func getTimeOut() -> Double {
         switch self {
-        case
-            .createAlias(_),
-            .updateAlias(_),
-            .addCreditCard(_),
-            .addSEPA(_):
-            return .json
-        case .bsRegisterCreditCard(_, _):
-            return .xml
+        default: return 10
         }
     }
+    
+    func getHttpBody() -> Data? {
+        return nil
+    }
+    
 }
     
 // MARK: Private methods
-extension RouterRequest {
+extension RouterRequestProtocol {
     func buildRequest(url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = getHTTPMethod().rawValue
@@ -74,44 +73,4 @@ extension RouterRequest {
         return method == .POST || method == .PUT
     }
     
-    func getBaseURL() -> URL {
-        let conf = MLConfigurationBuilder.sharedInstance.configuration!
-        var url = URL(string: conf.endpoint.rawValue)!
-        if let relativePath = getRelativePath() {
-            url = url.appendingPathComponent(relativePath)
-        }
-        return url
-    }
-    
-    func getURL() -> URL {
-        switch self {
-        case .createAlias(_),
-             .updateAlias(_),
-             .addCreditCard(_),
-             .addSEPA(_):
-            return getBaseURL()
-            
-        case .bsRegisterCreditCard(_, let creditCardResponse):
-            return URL(string: creditCardResponse.url)!
-        
-        }
-    }
-    
-    func getHTTPMethod() -> HTTPMethod {
-        switch self {  
-        case .createAlias(_),
-             .addCreditCard(_),
-             .addSEPA(_),
-             .bsRegisterCreditCard(_,_):
-                return HTTPMethod.POST
-        case .updateAlias(_):
-            return HTTPMethod.PUT
-        }
-    }
-    
-    func getTimeOut() -> Double {
-        switch self {
-        default: return 10
-        }
-    }
 }

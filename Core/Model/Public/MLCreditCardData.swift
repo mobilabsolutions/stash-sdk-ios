@@ -16,7 +16,7 @@ public class MLCreditCardData: MLBaseMethodData, Codable {
     var expiryMonth: Int
     var expiryYear: Int
 
-    init(holderName: String, cardNumber: String, CVV: String, expiryMonth: Int, expiryYear: Int) {
+    public init(holderName: String, cardNumber: String, CVV: String, expiryMonth: Int, expiryYear: Int) {
         self.holderName = holderName
         self.cardNumber = cardNumber
         self.CVV = CVV

@@ -22,7 +22,7 @@ public class MLBillingData: Codable {
     var phone: String?
     var languageId: String?
     
-    init(email: String) {
+    public init(email: String) {
         self.email = email
     }
     

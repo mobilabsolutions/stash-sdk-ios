@@ -10,7 +10,7 @@ import UIKit
 
 class MLInternalPaymentSDK {
 
-    var networkingClient: NetworkClientCore?
+    var networkingClient: NetworkClientCore!
     var provider: PaymentServiceProvider!
     var publicToken: String?
     
@@ -27,20 +27,14 @@ class MLInternalPaymentSDK {
         self.provider = provider
         
         MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken)
+        networkingClient = NetworkClientCore()
     }
-}
-
-//MARK: Register methods
-extension MLInternalPaymentSDK {
     
-    func addMethod(paymentMethod: MLPaymentMethod, success: @escaping (String) -> Void, failiure: @escaping (MLError) -> Void) {
-        networkingClient?.addMethod(paymentMethod: paymentMethod, success: success, failiure: failiure)
+    func registrationManager() -> InternalRegistrationManager {
+        
+        let manager = InternalRegistrationManager(provider: provider, client: networkingClient)
+        return manager
     }
-
-}
-
-//MARK: Payment methods
-extension MLInternalPaymentSDK {  
 }
 
 

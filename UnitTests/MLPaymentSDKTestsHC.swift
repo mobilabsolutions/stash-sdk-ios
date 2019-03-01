@@ -48,7 +48,7 @@ class MLPaymentSDKTestsHC: XCTestCase {
     }
 }
 
-extension MLPaymentSDKTestsHC: MLRegisterManagerProtocol {
+extension MLPaymentSDKTestsHC: RegisterManagerProtocol {
     func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
         
     }

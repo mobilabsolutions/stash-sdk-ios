@@ -8,22 +8,23 @@
 
 import UIKit
 
-protocol NetworkClient {
+public protocol NetworkClient {
     
     typealias SuccessCompletion<T> = ((T) -> Void)?
     typealias FailureCompletion = ((MLError) -> Void)?
-    typealias Completion<T> = ((MLResult<T, MLError>) -> Void)
+    typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
+
     
-    func fetch<T: Decodable>(with request: RouterRequest, decode: @escaping (Decodable) -> T?, completion: @escaping (MLResult<T, MLError>) -> Void)
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping (NetworkClientResult<T, MLError>) -> Void)
     //func addMethod(paymentMethod: MLPaymentMethod, success: SuccessCompletion<String>, failiure: FailureCompletion)
 }
 
 //MARK: Shared methods
-extension NetworkClient {
+public extension NetworkClient {
 
     typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
     
-    func fetch<T: Decodable>(with request: RouterRequest, decode: @escaping (Decodable) -> T?, completion: @escaping (MLResult<T, MLError>) -> Void) {
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping (NetworkClientResult<T, MLError>) -> Void) {
         
         let configuration = URLSessionConfiguration.default
         let urlRequest = request.asURLRequest()
@@ -55,18 +56,12 @@ extension NetworkClient {
                     
                     self.decodingData(with: receivedData, decodingType: T.self, completionHandler: { (result, error) in
  
-                        guard let decodable = result else {
+                        guard let decodable = result, let castedDecodable = decodable as? T else {
                             completion(.failure(error!))
                             return
                         }
                         
-                        if let value = decode(decodable) {
-                            completion(.success(value))
-                        } else {
-                            let err = MLError(title: "Decoding error", description: "Decoding error", code: 2)
-                            completion(.failure(err))
-                        }
-                        
+                        completion(.success(castedDecodable))
                     })
 
                 case .xml:

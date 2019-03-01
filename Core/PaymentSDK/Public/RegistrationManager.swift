@@ -8,16 +8,16 @@
 
 import UIKit
 
-@objc public protocol RegisterManagerProtocol: class {
+@objc public protocol RegistrationManagerProtocol: class {
     @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
     @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
 }
 
 public class RegistrationManager: NSObject {
 
-    weak var delegate: RegisterManagerProtocol!
+    weak var delegate: RegistrationManagerProtocol!
     
-    init(delegate: RegisterManagerProtocol) {
+    init(delegate: RegistrationManagerProtocol) {
         self.delegate = delegate
     }
     
@@ -31,12 +31,15 @@ public class RegistrationManager: NSObject {
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
         
-        MLInternalPaymentSDK.sharedInstance.addMethod(paymentMethod: paymentMethod, success: { paymentAlias in
-            print(paymentAlias)
-            self.delegate.registerCreditCardCompleted(paymentAlias: paymentAlias, error: nil)
-        }) { error in
-            print(error)
-            self.delegate.registerCreditCardCompleted(paymentAlias: nil, error: error)
+        let internalManager = MLInternalPaymentSDK.sharedInstance.registrationManager()
+        internalManager.addMethod(paymentMethod: paymentMethod) { (result) in
+            
+            switch result {
+            case .success:
+                self.delegate.registerCreditCardCompleted(paymentAlias: "", error: nil)
+            case .failure(let error):
+                self.delegate.registerCreditCardCompleted(paymentAlias: nil, error: error)
+            }
         }
     }
     
@@ -49,12 +52,15 @@ public class RegistrationManager: NSObject {
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
         
-        MLInternalPaymentSDK.sharedInstance.addMethod(paymentMethod: paymentMethod, success: { paymentAlias in
-            print(paymentAlias)
-            self.delegate.registerSEPAAccountCompleted(paymentAlias: paymentAlias, error: nil)
-        }) { error in
-            print(error)
-            self.delegate.registerSEPAAccountCompleted(paymentAlias: nil, error: error)
+        let internalManager = MLInternalPaymentSDK.sharedInstance.registrationManager()
+        internalManager.addMethod(paymentMethod: paymentMethod) { (result) in
+            
+            switch result {
+            case .success:
+                self.delegate.registerSEPAAccountCompleted(paymentAlias: "", error: nil)
+            case .failure(let error):
+                self.delegate.registerSEPAAccountCompleted(paymentAlias: nil, error: error)
+            }
         }
     }
 

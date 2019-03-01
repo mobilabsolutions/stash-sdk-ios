@@ -13,14 +13,5 @@ public protocol PaymentServiceProvider {
     
     typealias PspIdentifier = String
     
-    func handleRegistrationRequest(registrationRequest:RegistrationRequest, completion: @escaping (MLResult<String, MLError>) -> Void)
-}
-
-extension PaymentServiceProvider {
-    func handleRegistrationRequest(registrationRequest:RegistrationRequest, completion: @escaping (MLResult<String, MLError>) -> Void) {}
-}
-
-
-class PaymentServiceProviderImplementation: PaymentServiceProvider {
-    
+    func handleRegistrationRequest(registrationRequest:RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void)
 }

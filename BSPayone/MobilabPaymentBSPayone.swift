@@ -9,10 +9,22 @@
 import Foundation
 import MobilabPaymentCore
 
-class MobilabPaymentBSPayone : PaymentServiceProvider {
+public class MobilabPaymentBSPayone : PaymentServiceProvider {
     
-    func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (MLResult<String, MLError>) -> Void) {
+    var networkingClient: NetworkClientBSPayone?
+    
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void) {
+        
+        networkingClient?.registerCreditCard(paymentMethod: "", success: { (success) in
+            
+        }, failiure: { (error) in
+            
+        })
+        
         completion(.success("TestALias"))
     }
     
+    public init() {
+        networkingClient = NetworkClientBSPayone()
+    }
 }

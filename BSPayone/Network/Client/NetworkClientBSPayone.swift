@@ -13,7 +13,12 @@ class NetworkClientBSPayone: NetworkClient {
 
     func registerCreditCard(paymentMethod: String, success: SuccessCompletion<String>, failiure: FailureCompletion) {
 
-
+        let requestObject = RegisterCreditCardRequest(creditCardNumber: "")
+        let router = RouterRequestBSPayone(service: .registerCreditCard(requestObject))
+        
+        fetch(with: router, responseType: RegisterCreditCardResponse.self) { (result) in
+            
+        }
     }
     
 }

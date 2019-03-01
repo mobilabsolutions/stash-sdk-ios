@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class MobilabPaymentSDK: NSObject {
+public class MobilabPaymentSDK {
 
     public static func setUp(publicToken: String) {
         MLInternalPaymentSDK.sharedInstance.setUp(publicToken: publicToken)
@@ -18,8 +18,8 @@ public class MobilabPaymentSDK: NSObject {
         MLInternalPaymentSDK.sharedInstance.setUp(publicToken: publicToken, provider: provider)
     }
     
-    public static func createRegisterManager(delegate: MLRegisterManagerProtocol) -> MLRegisterManager {
-        return MLRegisterManager(delegate: delegate)
+    public static func createRegisterManager(delegate: RegistrationManagerProtocol) -> RegistrationManager {
+        return RegistrationManager(delegate: delegate)
     }
 
 }

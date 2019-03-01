@@ -7,14 +7,35 @@
 //
 
 import UIKit
+import MobilabPaymentCore
+import MobilabPaymentBSPayone
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, RegistrationManagerProtocol {
+    
+    func registerCreditCardCompleted(paymentAlias: String?, error: MLError?) {
+        
+    }
+    
+    func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
+        
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        test()
     }
 
+    
+    func test() {
+        MobilabPaymentSDK.setUp(publicToken: "test", provider: MobilabPaymentBSPayone())
+        let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
+        
+        let billingData = MLBillingData(email: "testEmail")
+        let creditCardData = MLCreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
+        registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
+    }
 
 }
 
