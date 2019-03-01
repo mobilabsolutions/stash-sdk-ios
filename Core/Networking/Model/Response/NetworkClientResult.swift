@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MLResult<T, U> where U: Error  {
+public enum NetworkClientResult<T, U> where U: Error  {
     case success(T)
     case failure(U)
 }

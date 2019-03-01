@@ -1,5 +1,5 @@
 //
-//  MLRegisterManager.swift
+//  RegisterManager.swift
 //  MLPaymentSDK
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
@@ -8,26 +8,26 @@
 
 import UIKit
 
-@objc public protocol MLRegisterManagerProtocol: class {
+@objc public protocol RegisterManagerProtocol: class {
     @objc func registerCreditCardCompleted(paymentAlias: String?, error: MLError?)
     @objc func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?)
 }
 
-public class MLRegisterManager: NSObject {
+public class RegistrationManager: NSObject {
 
-    weak var delegate: MLRegisterManagerProtocol!
+    weak var delegate: RegisterManagerProtocol!
     
-    init(delegate: MLRegisterManagerProtocol) {
+    init(delegate: RegisterManagerProtocol) {
         self.delegate = delegate
     }
     
-    func registerCreditCard(billingData: MLBillingData, creditCardData: MLCreditCardData, customerID: String?) {
+    public func registerCreditCard(billingData: MLBillingData, creditCardData: MLCreditCardData) {
         
         
         let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "VISA-123",
                                                                    type: MLPaymentMethodType.MLCreditCard,
                                                                    oneTimePayment: false,
-                                                                   customerId: customerID)
+                                                                   customerId: "")
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
         
@@ -40,12 +40,12 @@ public class MLRegisterManager: NSObject {
         }
     }
     
-    func registerSEPAAccount(billingData: MLBillingData, sepaData: MLSEPAData, customerID: String?) {
+    func registerSEPAAccount(billingData: MLBillingData, sepaData: MLSEPAData) {
         
         let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "",
                                                                    type: MLPaymentMethodType.MLSEPA,
                                                                    oneTimePayment: false,
-                                                                   customerId: customerID)
+                                                                   customerId: "")
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
         

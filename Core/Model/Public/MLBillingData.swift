@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MLBillingData: Codable {
+public class MLBillingData: Codable {
     
     var email = ""
     var firstName: String?
