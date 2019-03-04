@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MLCreditCardData: MLBaseMethodData, Codable {
+public class CreditCardData: MLBaseMethodData, Codable {
     
     var holderName: String
     var cardNumber: String

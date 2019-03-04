@@ -22,7 +22,7 @@ class MLBillingDataReqest: Codable {
     
     init() { }
     
-    init(billingData: MLBillingData) {
+    init(billingData: BillingData) {
         self.email = billingData.email
         self.firstName = billingData.firstName
         self.lastName = billingData.lastName

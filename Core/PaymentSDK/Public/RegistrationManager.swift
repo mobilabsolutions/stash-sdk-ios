@@ -21,7 +21,7 @@ public class RegistrationManager: NSObject {
         self.delegate = delegate
     }
     
-    public func registerCreditCard(billingData: MLBillingData, creditCardData: MLCreditCardData) {
+    public func registerCreditCard(billingData: BillingData, creditCardData: CreditCardData) {
         
         
         let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "VISA-123",
@@ -43,7 +43,7 @@ public class RegistrationManager: NSObject {
         }
     }
     
-    func registerSEPAAccount(billingData: MLBillingData, sepaData: MLSEPAData) {
+    func registerSEPAAccount(billingData: BillingData, sepaData: MLSEPAData) {
         
         let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "",
                                                                    type: MLPaymentMethodType.MLSEPA,

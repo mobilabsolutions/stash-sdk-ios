@@ -32,8 +32,8 @@ class ViewController: UIViewController, RegistrationManagerProtocol {
         MobilabPaymentSDK.setUp(publicToken: "test", provider: MobilabPaymentBSPayone())
         let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         
-        let billingData = MLBillingData(email: "testEmail")
-        let creditCardData = MLCreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
+        let billingData = BillingData(email: "testEmail")
+        let creditCardData = CreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
         registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
     }
 

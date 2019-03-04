@@ -10,11 +10,11 @@ import Foundation
 
 class MLPaymentMethod {
     
-    var billingData: MLBillingData
+    var billingData: BillingData
     var methodData: MLBaseMethodData
     var requestData: MLRegisterRequestData
     
-    init(billingData: MLBillingData, methodData: MLBaseMethodData, requestData: MLRegisterRequestData) {
+    init(billingData: BillingData, methodData: MLBaseMethodData, requestData: MLRegisterRequestData) {
         self.billingData = billingData
         self.methodData = methodData
         self.requestData = requestData

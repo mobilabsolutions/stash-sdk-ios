@@ -10,7 +10,6 @@
 		1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBEF20E121750011F901 /* MLXMLParser.swift */; };
 		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */; };
-		1D34CC0A20E273870011F901 /* MLPaymentSDKTestsHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0920E273870011F901 /* MLPaymentSDKTestsHC.swift */; };
 		1D34CC0C20E281180011F901 /* String+Exgtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Exgtras.swift */; };
 		1D9B8BFE20E3FD37004E79D5 /* MLBaseMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */; };
 		1D9B8C0020E3FD55004E79D5 /* MLCreditCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */; };
@@ -26,8 +25,8 @@
 		1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */; };
 		1DC5CBD120D415C4002058C1 /* MLInternalPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */; };
 		1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */; };
-		1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* MLBillingData.swift */; };
-		1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */; };
+		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
+		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* MLSEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* MLSEPAData.swift */; };
 		1DFA536D20D92D3E0065CCC3 /* MLRegisterRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536C20D92D3E0065CCC3 /* MLRegisterRequestData.swift */; };
 		1DFA536F20D92DE70065CCC3 /* MLPaymentMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536E20D92DE70065CCC3 /* MLPaymentMethodType.swift */; };
@@ -65,6 +64,7 @@
 		BACD61BA2226E33100E3ACC3 /* UpdateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B92226E33100E3ACC3 /* UpdateAliasRequest.swift */; };
 		BAE6FAFE2225715F00D3A71B /* NetworkClientResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* NetworkClientResult.swift */; };
 		BAE6FAFF2225715F00D3A71B /* NetworkClientResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* NetworkClientResult.swift */; };
+		BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +102,6 @@
 		1D34CBEF20E121750011F901 /* MLXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXMLParser.swift; sourceTree = "<group>"; };
 		1D34CBF220E129080011F901 /* Data+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extras.swift"; sourceTree = "<group>"; };
 		1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponseBS.swift; sourceTree = "<group>"; };
-		1D34CC0920E273870011F901 /* MLPaymentSDKTestsHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentSDKTestsHC.swift; sourceTree = "<group>"; };
 		1D34CC0B20E281180011F901 /* String+Exgtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Exgtras.swift"; sourceTree = "<group>"; };
 		1D9B8BFD20E3FD37004E79D5 /* MLBaseMethodRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBaseMethodRequest.swift; sourceTree = "<group>"; };
 		1D9B8BFF20E3FD55004E79D5 /* MLCreditCardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardRequest.swift; sourceTree = "<group>"; };
@@ -121,8 +120,8 @@
 		1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManager.swift; sourceTree = "<group>"; };
 		1DC5CBD020D415C4002058C1 /* MLInternalPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLInternalPaymentSDK.swift; sourceTree = "<group>"; };
 		1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequest.swift; sourceTree = "<group>"; };
-		1DFA536220D91C490065CCC3 /* MLBillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingData.swift; sourceTree = "<group>"; };
-		1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCreditCardData.swift; sourceTree = "<group>"; };
+		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
+		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* MLSEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSEPAData.swift; sourceTree = "<group>"; };
 		1DFA536C20D92D3E0065CCC3 /* MLRegisterRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLRegisterRequestData.swift; sourceTree = "<group>"; };
 		1DFA536E20D92DE70065CCC3 /* MLPaymentMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentMethodType.swift; sourceTree = "<group>"; };
@@ -177,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */,
 				1DC5CB9F20D2BF5E002058C1 /* MobilabPaymentCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,7 +279,6 @@
 			children = (
 				1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */,
 				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
-				1D34CC0920E273870011F901 /* MLPaymentSDKTestsHC.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -412,8 +411,8 @@
 		BA3A33A122293CBA00B7A635 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				1DFA536520D91E3E0065CCC3 /* MLCreditCardData.swift */,
-				1DFA536220D91C490065CCC3 /* MLBillingData.swift */,
+				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
+				1DFA536220D91C490065CCC3 /* BillingData.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -715,8 +714,8 @@
 			files = (
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
 				BACD61B02226CC9700E3ACC3 /* AdditionalRegistrationData.swift in Sources */,
-				1DFA536620D91E3E0065CCC3 /* MLCreditCardData.swift in Sources */,
-				1DFA536320D91C490065CCC3 /* MLBillingData.swift in Sources */,
+				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
+				1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */,
 				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
 				1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */,
 				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
@@ -758,7 +757,6 @@
 			files = (
 				BAE6FAFF2225715F00D3A71B /* NetworkClientResult.swift in Sources */,
 				1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */,
-				1D34CC0A20E273870011F901 /* MLPaymentSDKTestsHC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,7 +1083,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = BSPayone/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1115,7 +1113,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = BSPayone/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

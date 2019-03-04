@@ -19,7 +19,7 @@ class MLAddCreditCardResponseBS: MLAddCreditCardResponse {
     }
     
     override func serializeXML(paymentMethod: MLPaymentMethod) -> String? {
-        guard let methodData = paymentMethod.methodData as? MLCreditCardData else { return nil }
+        guard let methodData = paymentMethod.methodData as? CreditCardData else { return nil }
         let xmlEnvelope = """
         <?xml version=\"1.0\"?>
         <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"http://www.voeb-zvd.de/xmlapi/1.0\">
@@ -52,7 +52,7 @@ class MLAddCreditCardResponseBS: MLAddCreditCardResponse {
     }
 
     func serializeXMLForAlias(paymentMethod: MLPaymentMethod) -> String? {
-        guard let methodData = paymentMethod.methodData as? MLCreditCardData else { return nil }
+        guard let methodData = paymentMethod.methodData as? CreditCardData else { return nil }
         let xmlEnvelope = """
         <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"http://www.voeb-zvd.de/xmlapi/1.0\">
         <soap:Header/>
