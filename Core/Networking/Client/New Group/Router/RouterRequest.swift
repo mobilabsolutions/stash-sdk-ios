@@ -32,6 +32,7 @@ public protocol RouterRequestProtocol {
     func getResponseType() -> MLResponseType
     func asURLRequest() -> URLRequest
     func getTimeOut() -> Double
+    func getCustomHeader() -> Header?
 }
 
 // MARK: Public methods
@@ -64,7 +65,8 @@ extension RouterRequestProtocol {
         }
         
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
-        urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Authorization")
+        urlRequest.addHeader(customHeader: getCustomHeader())
+        urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Public-Key")
         return urlRequest
     }
     

@@ -10,7 +10,7 @@ import Foundation
 
 enum RouterServiceCore {
     
-    case createAlias(CreateAliasRequest)
+    case createAlias()
     case updateAlias(UpdateAliasRequest)
     
 }
@@ -24,7 +24,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     }
     
     func getBaseURL() -> URL {
-        let conf = MLConfigurationBuilder.sharedInstance.configuration!
+        let conf = MobilabPaymentConfigurationBuilder.sharedInstance.configuration!
         var url = URL(string: conf.endpoint.rawValue)!
         if let relativePath = getRelativePath() {
             url = url.appendingPathComponent(relativePath)
@@ -35,7 +35,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getURL() -> URL {
         
         switch service {
-        case .createAlias(_),
+        case .createAlias(),
              .updateAlias(_):
             return getBaseURL()
         }
@@ -45,7 +45,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getHTTPMethod() -> HTTPMethod {
         
         switch service {
-        case .createAlias(_):
+        case .createAlias():
                 return HTTPMethod.POST
         case .updateAlias(_):
             return HTTPMethod.PUT
@@ -57,7 +57,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getResponseType() -> MLResponseType {
         
         switch service {
-        case .createAlias(_),
+        case .createAlias(),
              .updateAlias(_):
             return .json
         }
@@ -68,8 +68,8 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getHttpBody() -> Data? {
         
         switch service {
-        case .createAlias(let data):
-            return try? JSONEncoder().encode(data)
+        case .createAlias():
+            return nil
 
         case .updateAlias(let data):
             return try? JSONEncoder().encode(data)
@@ -80,10 +80,10 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getRelativePath() -> String? {
         
         switch service {
-        case .createAlias(_):
-            return "v2/alias"
+        case .createAlias():
+            return "/alias"
         case .updateAlias(let request):
-            return "v2/alias/" + request.aliasId
+            return "/alias/"
         }
         
     }
@@ -91,7 +91,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getContentTypeHeader() -> String {
 
         switch service {
-        case .createAlias(_),
+        case .createAlias(),
              .updateAlias(_):
             return "application/json"
 
@@ -102,10 +102,21 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getAuthorizationHeader() -> String {
 
         switch service {
-        case .createAlias(_),
+        case .createAlias(),
              .updateAlias(_):
-            let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
-            return "Bearer \(token!.toBase64())"
+            return MobilabPaymentConfigurationBuilder.sharedInstance.configuration!.publicToken
+        }
+        
+    }
+    
+    func getCustomHeader() -> Header? {
+        
+        switch service {
+        case .createAlias():
+            let configuration = MobilabPaymentConfigurationBuilder.sharedInstance.configuration!
+            return Header(field: "PSP-Type", value: configuration.pspType)
+        case .updateAlias(_):
+            return nil
         }
         
     }

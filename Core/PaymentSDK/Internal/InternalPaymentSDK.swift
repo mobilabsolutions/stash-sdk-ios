@@ -8,25 +8,24 @@
 
 import UIKit
 
-class MLInternalPaymentSDK {
+class InternalPaymentSDK {
 
     var networkingClient: NetworkClientCore!
     var provider: PaymentServiceProvider!
-    var publicToken: String?
+    //var publicKey: String?
     
-    static let sharedInstance = MLInternalPaymentSDK()
+    static let sharedInstance = InternalPaymentSDK()
     
-    func setUp(publicToken: String) {
-        self.publicToken = publicToken
-        
-        MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken)
-    }
+//    func setUp(publicKey: String) {
+//        self.publicKey = publicKey
+//
+//        MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicKey)
+//    }
     
-    func setUp(publicToken: String, provider: PaymentServiceProvider) {
-        self.publicToken = publicToken
+    func setUp(provider: PaymentServiceProvider) {
         self.provider = provider
         
-        MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicToken)
+        MobilabPaymentConfigurationBuilder.sharedInstance.setupConfiguration(token: provider.publicKey, pspType: provider.pspType)
         networkingClient = NetworkClientCore()
     }
     

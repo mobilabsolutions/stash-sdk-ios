@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MLPaymentMethodType: Codable {
+enum PaymentMethodType: Codable {
     init(from decoder: Decoder) throws {
         try self.init(from: decoder)
     }
@@ -17,7 +17,7 @@ enum MLPaymentMethodType: Codable {
         try self.encode(to: encoder)
     }
     
-    case MLCreditCard
-    case MLSEPA
-    case MLPayPal
+    case CreditCard
+    case SEPA
+    case PayPal
 }

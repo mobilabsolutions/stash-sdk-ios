@@ -10,12 +10,12 @@ import UIKit
 
 public class MobilabPaymentSDK {
 
-    public static func setUp(publicToken: String) {
-        MLInternalPaymentSDK.sharedInstance.setUp(publicToken: publicToken)
-    }
+//    public static func setUp(publicKey: String) {
+//        MLInternalPaymentSDK.sharedInstance.setUp(publicKey: publicKey)
+//    }
     
-    public static func setUp(publicToken: String, provider: PaymentServiceProvider) {
-        MLInternalPaymentSDK.sharedInstance.setUp(publicToken: publicToken, provider: provider)
+    public static func setUp(provider: PaymentServiceProvider) {
+        InternalPaymentSDK.sharedInstance.setUp(provider: provider)
     }
     
     public static func createRegisterManager(delegate: RegistrationManagerProtocol) -> RegistrationManager {

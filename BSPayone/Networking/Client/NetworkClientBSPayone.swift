@@ -11,7 +11,7 @@ import MobilabPaymentCore
 
 class NetworkClientBSPayone: NetworkClient {
 
-    func registerCreditCard(paymentMethod: String, success: SuccessCompletion<String>, failiure: FailureCompletion) {
+    func registerCreditCard(paymentMethod: String, completion: @escaping Completion<String>) {
 
         let requestObject = RegisterCreditCardRequest(creditCardNumber: "")
         let router = RouterRequestBSPayone(service: .registerCreditCard(requestObject))

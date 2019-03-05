@@ -24,14 +24,12 @@ public class RegistrationManager: NSObject {
     public func registerCreditCard(billingData: BillingData, creditCardData: CreditCardData) {
         
         
-        let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "VISA-123",
-                                                                   type: MLPaymentMethodType.MLCreditCard,
-                                                                   oneTimePayment: false,
-                                                                   customerId: "")
+        let request: RegisterRequestData = RegisterRequestData(cardMask: "VISA-123",
+                                                                   type: PaymentMethodType.CreditCard)
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
         
-        let internalManager = MLInternalPaymentSDK.sharedInstance.registrationManager()
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod) { (result) in
             
             switch result {
@@ -43,16 +41,14 @@ public class RegistrationManager: NSObject {
         }
     }
     
-    func registerSEPAAccount(billingData: BillingData, sepaData: MLSEPAData) {
+    func registerSEPAAccount(billingData: BillingData, sepaData: SEPAData) {
         
-        let request: MLRegisterRequestData = MLRegisterRequestData(cardMask: "",
-                                                                   type: MLPaymentMethodType.MLSEPA,
-                                                                   oneTimePayment: false,
-                                                                   customerId: "")
+        let request: RegisterRequestData = RegisterRequestData(cardMask: "",
+                                                                   type: PaymentMethodType.SEPA)
         
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
         
-        let internalManager = MLInternalPaymentSDK.sharedInstance.registrationManager()
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod) { (result) in
             
             switch result {

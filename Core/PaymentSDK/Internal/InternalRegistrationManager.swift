@@ -21,8 +21,7 @@ class InternalRegistrationManager {
     
     func addMethod(paymentMethod: MLPaymentMethod, completion: (NetworkClientResult<Bool, MLError>) -> Void) {
         
-        let requestObject = CreateAliasRequest(pspIdentifier: "", mask: "")
-        networkingClient.createAlias(request: requestObject) {
+        networkingClient.createAlias() { result in
             
             let standardizedData = StandardizedData(aliasId: "")
             let additionalRegistrationData = AdditionalRegistrationData(data: [:])
@@ -30,10 +29,12 @@ class InternalRegistrationManager {
             let registrationReques = RegistrationRequest(standardizedData: standardizedData, additionalRegistrationData: additionalRegistrationData)
             self.provider.handleRegistrationRequest(registrationRequest: registrationReques, completion: { (providerResult) in
                 
-                let updateAliasRequest = UpdateAliasRequest(aliasId: "aliasId", billingData: "data")
-                self.networkingClient.updateAlias(request: updateAliasRequest, completion: {
-                    
-                })
+                
+                
+//                let updateAliasRequest = UpdateAliasRequest(aliasId: "aliasId", billingData: "data")
+//                self.networkingClient.updateAlias(request: updateAliasRequest, completion: {
+//
+//                })
                 
             })
         }

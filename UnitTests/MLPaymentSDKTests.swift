@@ -18,7 +18,7 @@ class MLPaymentSDKTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        MobilabPaymentSDK.setUp(publicToken: "PD-BS-eiXDbe3j0zixJUpWAgvh3cS4Hz", provider: MobilabPaymentBSPayone())
+        MobilabPaymentSDK.setUp(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
     }
     
     override func tearDown() {

@@ -10,12 +10,10 @@ import Foundation
 
 class NetworkClientCore: NetworkClient {
     
-    func createAlias(request: CreateAliasRequest, completion: () -> Void) {
+    func createAlias(completion: @escaping Completion<AliasResponse>) {
 
-        let router = RouterRequestCore(service: .createAlias(request))
-        fetch(with: router, responseType: AliasResponse.self) { (result) in
-            
-        }
+        let router = RouterRequestCore(service: .createAlias())
+        fetch(with: router, responseType: AliasResponse.self, completion: completion)
     }
     
     func updateAlias(request:UpdateAliasRequest, completion: () -> Void) {

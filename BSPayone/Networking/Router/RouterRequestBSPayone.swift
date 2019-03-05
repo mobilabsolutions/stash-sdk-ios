@@ -98,4 +98,8 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         }
         
     }
+    
+    func getCustomHeader() -> Header? {
+        return nil
+    }
 }

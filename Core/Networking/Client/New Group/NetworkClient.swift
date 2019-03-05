@@ -10,25 +10,20 @@ import UIKit
 
 public protocol NetworkClient {
     
-    typealias SuccessCompletion<T> = ((T) -> Void)?
-    typealias FailureCompletion = ((MLError) -> Void)?
     typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
-
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>)
     
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping (NetworkClientResult<T, MLError>) -> Void)
-    //func addMethod(paymentMethod: MLPaymentMethod, success: SuccessCompletion<String>, failiure: FailureCompletion)
 }
 
-//MARK: Shared methods
 public extension NetworkClient {
 
     typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
     
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping (NetworkClientResult<T, MLError>) -> Void) {
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>) {
         
         let configuration = URLSessionConfiguration.default
         let urlRequest = request.asURLRequest()
-        print("API request: \(urlRequest.url!)")
+        print("API request: \(urlRequest.httpMethod!) \(urlRequest.url!)")
         
         let session = URLSession(configuration: configuration)
         let dataTask = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -49,10 +44,12 @@ public extension NetworkClient {
             
             switch (httpResponse.statusCode)
             {
-            case 200:
+            case 200, 201:
                 
                 switch request.getResponseType() {
                 case .json:
+                    
+                    print(String(data: receivedData, encoding: String.Encoding.utf8) ?? "Decoding received data failed")
                     
                     self.decodingData(with: receivedData, decodingType: T.self, completionHandler: { (result, error) in
  

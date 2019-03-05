@@ -12,19 +12,21 @@ import MobilabPaymentCore
 public class MobilabPaymentBSPayone : PaymentServiceProvider {
     
     var networkingClient: NetworkClientBSPayone?
+    public var pspType: String
+    public var publicKey: String
     
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void) {
         
-        networkingClient?.registerCreditCard(paymentMethod: "", success: { (success) in
-            
-        }, failiure: { (error) in
+        networkingClient?.registerCreditCard(paymentMethod: "", completion: { (result) in
             
         })
         
         completion(.success("TestALias"))
     }
     
-    public init() {
+    public init(publicKey:String) {
         networkingClient = NetworkClientBSPayone()
+        self.publicKey = publicKey
+        self.pspType = "BS_PAYONE"
     }
 }
