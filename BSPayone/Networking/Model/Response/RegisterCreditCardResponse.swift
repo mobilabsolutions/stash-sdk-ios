@@ -8,7 +8,4 @@
 
 import Foundation
 
-
-struct RegisterCreditCardResponse: Codable {
-    
-}
+struct RegisterCreditCardResponse: Codable {}

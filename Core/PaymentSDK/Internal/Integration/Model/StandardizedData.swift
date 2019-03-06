@@ -9,11 +9,9 @@
 import Foundation
 
 struct StandardizedData {
-    
     var aliasId: String
-    
+
     init(aliasId: String) {
         self.aliasId = aliasId
     }
-    
 }

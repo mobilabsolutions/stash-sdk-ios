@@ -8,12 +8,10 @@
 
 import Foundation
 
-
 public struct RegistrationRequest {
-    
     var standardizedData: StandardizedData
     var additionalRegistrationData: AdditionalRegistrationData
-    
+
     init(standardizedData: StandardizedData, additionalRegistrationData: AdditionalRegistrationData) {
         self.standardizedData = standardizedData
         self.additionalRegistrationData = additionalRegistrationData

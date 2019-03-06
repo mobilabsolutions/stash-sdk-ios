@@ -9,38 +9,35 @@
 import Foundation
 
 class MLXMLParser: NSObject {
-    
     var parsingKeys: [String]
-    
+
     init(parsingKeys: [String]) {
         self.parsingKeys = parsingKeys
     }
-    
+
     public var results: [String: String] = [String: String]()
     var currentValue: String?
 }
 
 extension MLXMLParser: XMLParserDelegate {
-    
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if parsingKeys.contains(elementName) {
-            currentValue = String()
+    func parser(_: XMLParser, didStartElement elementName: String, namespaceURI _: String?, qualifiedName _: String?, attributes _: [String: String] = [:]) {
+        if self.parsingKeys.contains(elementName) {
+            self.currentValue = String()
         }
     }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        currentValue? += string
+
+    func parser(_: XMLParser, foundCharacters string: String) {
+        self.currentValue? += string
     }
-    
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if parsingKeys.contains(elementName) {
-            results[elementName] = currentValue ?? ""
-            currentValue = nil
+
+    func parser(_: XMLParser, didEndElement elementName: String, namespaceURI _: String?, qualifiedName _: String?) {
+        if self.parsingKeys.contains(elementName) {
+            self.results[elementName] = self.currentValue ?? ""
+            self.currentValue = nil
         }
     }
-    
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        currentValue = nil
+
+    func parser(_: XMLParser, parseErrorOccurred _: Error) {
+        self.currentValue = nil
     }
-    
 }

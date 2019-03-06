@@ -9,17 +9,17 @@
 import Foundation
 
 extension Data {
-    func toXMLDictionary(parsingKeys: [String]) -> [String:String]? {
+    func toXMLDictionary(parsingKeys: [String]) -> [String: String]? {
         let parser = XMLParser(data: self)
         let deleg = MLXMLParser(parsingKeys: parsingKeys)
         parser.delegate = deleg
 
-        if (parser.parse()) {
+        if parser.parse() {
             return deleg.results
         }
         return nil
     }
-    
+
     func fromISOLatinToUTF8() -> Data? {
         if let xmlStringLatinEncoded = String(data: self, encoding: String.Encoding.isoLatin1) {
             return xmlStringLatinEncoded.data(using: String.Encoding.utf8)

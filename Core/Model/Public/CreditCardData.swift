@@ -9,7 +9,6 @@
 import Foundation
 
 public class CreditCardData: MLBaseMethodData, Codable {
-    
     var holderName: String
     var cardNumber: String
     var CVV: String
@@ -23,5 +22,4 @@ public class CreditCardData: MLBaseMethodData, Codable {
         self.expiryMonth = expiryMonth
         self.expiryYear = expiryYear
     }
-
 }

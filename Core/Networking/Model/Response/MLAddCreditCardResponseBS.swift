@@ -9,15 +9,14 @@
 import Foundation
 
 class MLAddCreditCardResponseBS: MLAddCreditCardResponse {
-    
     override init() {
         super.init()
     }
-    
-    required init(from decoder: Decoder) throws {
+
+    required init(from _: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
+
     override func serializeXML(paymentMethod: MLPaymentMethod) -> String? {
         guard let methodData = paymentMethod.methodData as? CreditCardData else { return nil }
         let xmlEnvelope = """

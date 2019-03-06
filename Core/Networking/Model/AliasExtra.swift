@@ -18,12 +18,10 @@ enum PaymentMethod: String, Codable {
 }
 
 struct AliasExtra: Codable {
-    
     var ccExpiry: String
     var ccMask: String
     var ccType: String
     var email: String
     var ibanMask: String
     var paymentMethod: PaymentMethod
-    
 }

@@ -8,7 +8,6 @@
 import Foundation
 
 class MLAddCreditCardResponse: Codable {
-    
     private(set) var paymentAlias = ""
     private(set) var url = ""
     private(set) var merchantId = ""
@@ -23,8 +22,8 @@ class MLAddCreditCardResponse: Codable {
     private(set) var customerId = ""
     private(set) var timestamp = Date()
     private(set) var type = ""
-    
-    func serializeXML(paymentMethod: MLPaymentMethod) -> String? {
+
+    func serializeXML(paymentMethod _: MLPaymentMethod) -> String? {
         print("Should be overriden!")
         return nil
     }

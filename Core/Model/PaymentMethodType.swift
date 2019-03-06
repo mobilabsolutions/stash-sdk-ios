@@ -12,11 +12,11 @@ enum PaymentMethodType: Codable {
     init(from decoder: Decoder) throws {
         try self.init(from: decoder)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         try self.encode(to: encoder)
     }
-    
+
     case CreditCard
     case SEPA
     case PayPal

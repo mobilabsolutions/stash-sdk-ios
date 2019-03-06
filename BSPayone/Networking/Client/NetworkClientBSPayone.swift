@@ -10,15 +10,11 @@ import Foundation
 import MobilabPaymentCore
 
 class NetworkClientBSPayone: NetworkClient {
-
-    func registerCreditCard(paymentMethod: String, completion: @escaping Completion<String>) {
-
+    func registerCreditCard(paymentMethod _: String, completion _: @escaping Completion<String>) {
         let requestObject = RegisterCreditCardRequest(creditCardNumber: "")
         let router = RouterRequestBSPayone(service: .registerCreditCard(requestObject))
-        
-        fetch(with: router, responseType: RegisterCreditCardResponse.self) { (result) in
-            
+
+        fetch(with: router, responseType: RegisterCreditCardResponse.self) { _ in
         }
     }
-    
 }
