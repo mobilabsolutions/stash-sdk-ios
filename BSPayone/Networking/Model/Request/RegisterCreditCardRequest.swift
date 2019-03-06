@@ -9,11 +9,9 @@
 import Foundation
 
 public struct RegisterCreditCardRequest: Codable {
-    
     var creditCardNumber: String
-    
+
     public init(creditCardNumber: String) {
         self.creditCardNumber = creditCardNumber
     }
-    
 }

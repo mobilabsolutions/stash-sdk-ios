@@ -10,7 +10,7 @@
 		1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBEF20E121750011F901 /* MLXMLParser.swift */; };
 		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */; };
-		1D34CC0C20E281180011F901 /* String+Exgtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Exgtras.swift */; };
+		1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Extras.swift */; };
 		1DC5CB9F20D2BF5E002058C1 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		1DC5CBA420D2BF5E002058C1 /* MLPaymentSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBA320D2BF5E002058C1 /* MLPaymentSDKTests.swift */; };
 		1DC5CBA620D2BF5E002058C1 /* MLPaymentSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,7 +100,7 @@
 		1D34CBEF20E121750011F901 /* MLXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXMLParser.swift; sourceTree = "<group>"; };
 		1D34CBF220E129080011F901 /* Data+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extras.swift"; sourceTree = "<group>"; };
 		1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponseBS.swift; sourceTree = "<group>"; };
-		1D34CC0B20E281180011F901 /* String+Exgtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Exgtras.swift"; sourceTree = "<group>"; };
+		1D34CC0B20E281180011F901 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC5CB9820D2BF5E002058C1 /* MLPaymentSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLPaymentSDK.h; sourceTree = "<group>"; };
 		1DC5CB9920D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				1D34CBF220E129080011F901 /* Data+Extras.swift */,
-				1D34CC0B20E281180011F901 /* String+Exgtras.swift */,
+				1D34CC0B20E281180011F901 /* String+Extras.swift */,
 				BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */,
 			);
 			path = Foundation;
@@ -579,6 +579,7 @@
 				1DC5CB9120D2BF5E002058C1 /* Frameworks */,
 				1DC5CB9220D2BF5E002058C1 /* Headers */,
 				1DC5CB9320D2BF5E002058C1 /* Resources */,
+				E1131F6A222FCFCC0025A711 /* Swift Format */,
 			);
 			buildRules = (
 			);
@@ -726,6 +727,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E1131F6A222FCFCC0025A711 /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\nswiftformat .\nelse\necho \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1DC5CB9020D2BF5E002058C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -744,7 +766,7 @@
 				1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */,
 				1DFA536D20D92D3E0065CCC3 /* RegisterRequestData.swift in Sources */,
 				1DFA538120DA4D300065CCC3 /* MLPaymentMethod.swift in Sources */,
-				1D34CC0C20E281180011F901 /* String+Exgtras.swift in Sources */,
+				1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
 				BAE6FAFE2225715F00D3A71B /* NetworkClientResult.swift in Sources */,

@@ -9,7 +9,6 @@
 import Foundation
 
 struct PSPExtra: Codable {
-    
     var apiVersion: String?
     var encoding: String?
     var hash: String
@@ -18,5 +17,4 @@ struct PSPExtra: Codable {
     var request: String?
     var responseType: String?
     var type: String
-    
 }

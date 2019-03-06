@@ -12,12 +12,11 @@ enum APIEndpoints: String {
 }
 
 class MobilabPaymentConfigurationBuilder {
-    
     var configuration: MobilabPaymentConfiguration?
-    
+
     static let sharedInstance = MobilabPaymentConfigurationBuilder()
-    
-    func setupConfiguration(token: String, pspType:String) {
+
+    func setupConfiguration(token: String, pspType: String) {
         let arrayOfItems = token.split(separator: "-")
         var endpoint: APIEndpoints?
         if arrayOfItems.count == 3 {
@@ -29,18 +28,17 @@ class MobilabPaymentConfigurationBuilder {
             }
 
             if let end = endpoint {
-                configuration = MobilabPaymentConfiguration(publicToken: token, pspType: pspType, endpoint: end)
+                self.configuration = MobilabPaymentConfiguration(publicToken: token, pspType: pspType, endpoint: end)
             }
         }
     }
 }
 
 struct MobilabPaymentConfiguration {
-    
     var publicToken: String
     var pspType: String
     var endpoint: APIEndpoints
-    
+
     init(publicToken: String, pspType: String, endpoint: APIEndpoints) {
         self.publicToken = publicToken
         self.pspType = pspType

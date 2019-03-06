@@ -7,7 +7,6 @@
 //
 
 class MLBillingDataReqest: Codable {
-    
     private(set) var email = ""
     private(set) var firstName: String?
     private(set) var lastName: String?
@@ -19,9 +18,9 @@ class MLBillingDataReqest: Codable {
     private(set) var country: String?
     private(set) var phone: String?
     private(set) var languageId: String?
-    
-    init() { }
-    
+
+    init() {}
+
     init(billingData: BillingData) {
         self.email = billingData.email
         self.firstName = billingData.firstName
@@ -36,4 +35,3 @@ class MLBillingDataReqest: Codable {
         self.languageId = billingData.languageId
     }
 }
-

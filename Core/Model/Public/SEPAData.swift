@@ -9,10 +9,9 @@
 import Foundation
 
 public class SEPAData: MLBaseMethodData, Codable {
-    
     var bankNumber: String
     var IBAN: String
-    
+
     init(bankNumber: String, IBAN: String) {
         self.bankNumber = bankNumber
         self.IBAN = IBAN

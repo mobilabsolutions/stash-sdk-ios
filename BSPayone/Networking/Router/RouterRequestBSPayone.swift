@@ -10,95 +10,75 @@ import Foundation
 import MobilabPaymentCore
 
 enum RouterServiceBSPayone {
-    
     case registerCreditCard(RegisterCreditCardRequest)
-    
 }
 
 struct RouterRequestBSPayone: RouterRequestProtocol {
+    var service: RouterServiceBSPayone
 
-    var service:RouterServiceBSPayone
-    
-    init(service:RouterServiceBSPayone) {
+    init(service: RouterServiceBSPayone) {
         self.service = service
     }
-    
-    func getBaseURL() -> URL {
 
+    func getBaseURL() -> URL {
         var url = URL(string: "url")!
         if let relativePath = getRelativePath() {
             url = url.appendingPathComponent(relativePath)
         }
         return url
     }
-    
+
     func getURL() -> URL {
-        
-        switch service {
-        case .registerCreditCard(_):
-            return getBaseURL()
+        switch self.service {
+        case .registerCreditCard:
+            return self.getBaseURL()
         }
-        
     }
-    
+
     func getHTTPMethod() -> HTTPMethod {
-        
-        switch service {
-        case .registerCreditCard(_):
+        switch self.service {
+        case .registerCreditCard:
             return HTTPMethod.POST
         }
-        
     }
-    
-    
+
     func getResponseType() -> MLResponseType {
-        
-        switch service {
-        case .registerCreditCard(_):
+        switch self.service {
+        case .registerCreditCard:
             return .json
         }
-        
     }
-    
+
     func getHttpBody() -> Data? {
-        
-        switch service {
-        case .registerCreditCard(let data):
+        switch self.service {
+        case let .registerCreditCard(data):
             return try? JSONEncoder().encode(data)
         }
-        
     }
-    
+
     func getRelativePath() -> String? {
-        
-        switch service {
-        case .registerCreditCard(_):
+        switch self.service {
+        case .registerCreditCard:
             return "v2/alias"
         }
-        
     }
-    
+
     func getContentTypeHeader() -> String {
-        
-        switch service {
-        case .registerCreditCard(_):
+        switch self.service {
+        case .registerCreditCard:
             return "application/json"
-            
         }
-        
     }
-    
+
     func getAuthorizationHeader() -> String {
-        
-        switch service {
-        case .registerCreditCard(_):
-            //let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
-            //return "Bearer \(token!.toBase64())"
+        switch self.service {
+        case .registerCreditCard:
+            // let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
+            // return "Bearer \(token!.toBase64())"
             return ""
         }
-        
     }
-    
+
     func getCustomHeader() -> Header? {
         return nil
     }

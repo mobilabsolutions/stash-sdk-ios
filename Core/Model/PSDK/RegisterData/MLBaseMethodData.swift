@@ -8,5 +8,4 @@
 
 import Foundation
 
-protocol MLBaseMethodData: Codable {
-}
+protocol MLBaseMethodData: Codable {}

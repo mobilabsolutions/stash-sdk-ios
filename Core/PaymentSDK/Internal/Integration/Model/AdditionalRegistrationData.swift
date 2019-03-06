@@ -9,11 +9,9 @@
 import Foundation
 
 struct AdditionalRegistrationData {
-    
-    var data: [String:String]
-    
-    init(data: [String:String]) {
+    var data: [String: String]
+
+    init(data: [String: String]) {
         self.data = data
     }
-    
 }

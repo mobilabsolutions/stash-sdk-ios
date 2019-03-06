@@ -6,40 +6,37 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import XCTest
-@testable import MobilabPaymentCore
 @testable import MobilabPaymentBSPayone
+@testable import MobilabPaymentCore
+import XCTest
 
 class MLPaymentSDKTests: XCTestCase {
-    
-    
     var expectation: XCTestExpectation?
-    
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         MobilabPaymentSDK.setUp(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testCreditCardBS() {
-        
-        expectation = self.expectation(description: "Example")
-        
+        self.expectation = self.expectation(description: "Example")
+
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = CreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 8, expiryYear: 2021)
-        
+
         let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
-        
-        self.waitForExpectations(timeout: 80) {error in
+
+        waitForExpectations(timeout: 80) { error in
             XCTAssertNil(error)
         }
     }
-    
+
 //    func testAddSEPABS() {
 //
 //        expectation = self.expectation(description: "Example")
@@ -69,11 +66,11 @@ class MLPaymentSDKTests: XCTestCase {
 }
 
 extension MLPaymentSDKTests: RegistrationManagerProtocol {
-    func registerSEPAAccountCompleted(paymentAlias: String?, error: MLError?) {
+    func registerSEPAAccountCompleted(paymentAlias _: String?, error _: MLError?) {
         self.expectation?.fulfill()
     }
-    
-    func registerCreditCardCompleted(paymentAlias: String?, error: MLError?) {
+
+    func registerCreditCardCompleted(paymentAlias _: String?, error _: MLError?) {
         self.expectation?.fulfill()
     }
 }

@@ -21,7 +21,6 @@ public enum MLResponseType {
 }
 
 public protocol RouterRequestProtocol {
-    
     func getBaseURL() -> URL
     func getURL() -> URL
     func getHTTPMethod() -> HTTPMethod
@@ -36,43 +35,42 @@ public protocol RouterRequestProtocol {
 }
 
 // MARK: Public methods
+
 public extension RouterRequestProtocol {
-    
     func asURLRequest() -> URLRequest {
-        return buildRequest(url: getURL()) 
+        return buildRequest(url: getURL())
     }
-    
+
     func getTimeOut() -> Double {
         switch self {
         default: return 10
         }
     }
-    
+
     func getHttpBody() -> Data? {
         return nil
     }
-    
 }
-    
+
 // MARK: Private methods
+
 extension RouterRequestProtocol {
     func buildRequest(url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = getHTTPMethod().rawValue
         urlRequest.timeoutInterval = getTimeOut()
-        if withBody() {
-            urlRequest.httpBody = getHttpBody()
+        if self.withBody() {
+            urlRequest.httpBody = self.getHttpBody()
         }
-        
+
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
         urlRequest.addHeader(customHeader: getCustomHeader())
         urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Public-Key")
         return urlRequest
     }
-    
+
     func withBody() -> Bool {
         let method = getHTTPMethod()
         return method == .POST || method == .PUT
     }
-    
 }

@@ -9,7 +9,6 @@
 import Foundation
 
 public class BillingData: Codable {
-    
     var email = ""
     var firstName: String?
     var lastName: String?
@@ -21,11 +20,11 @@ public class BillingData: Codable {
     var country: String?
     var phone: String?
     var languageId: String?
-    
+
     public init(email: String) {
         self.email = email
     }
-    
+
     init(email: String, firstName: String, lastName: String, address1: String, address2: String,
          ZIP: String, city: String, state: String, country: String, phone: String, languageId: String) {
         self.email = email

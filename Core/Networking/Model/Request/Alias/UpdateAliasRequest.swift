@@ -9,11 +9,9 @@
 import Foundation
 
 struct UpdateAliasRequest: Codable {
-    
     var pspAlias: String
-    
+
     init(pspAlias: String) {
         self.pspAlias = pspAlias
     }
-    
 }

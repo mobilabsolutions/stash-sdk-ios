@@ -8,11 +8,9 @@
 
 import Foundation
 
-
 public protocol PaymentServiceProvider {
-    
-    var pspType:String { get set }
-    var publicKey:String { get set }
-    
-    func handleRegistrationRequest(registrationRequest:RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void)
+    var pspType: String { get set }
+    var publicKey: String { get set }
+
+    func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void)
 }
