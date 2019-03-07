@@ -69,7 +69,7 @@ struct RouterRequestCore: RouterRequestProtocol {
         case .createAlias():
             return "/alias"
         case let .updateAlias(request):
-            return "/alias/"
+            return "/alias/\(request.aliasId)"
         }
     }
 

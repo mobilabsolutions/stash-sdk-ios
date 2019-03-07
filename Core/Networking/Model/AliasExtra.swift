@@ -24,4 +24,14 @@ struct AliasExtra: Codable {
     var email: String
     var ibanMask: String
     var paymentMethod: PaymentMethod
+    
+    init(ccExpiry: String, ccMask: String, ccType: String, email: String, ibanMask: String, paymentMethod: PaymentMethod) {
+        self.ccExpiry = ccExpiry
+        self.ccMask = ccMask
+        self.ccType = ccType
+        self.email = email
+        self.ibanMask = ibanMask
+        self.paymentMethod = paymentMethod
+    }
 }
+

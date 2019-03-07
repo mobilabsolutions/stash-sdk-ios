@@ -200,13 +200,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D34CBEE20E121680011F901 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		1D34CBF120E128F70011F901 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,7 +238,6 @@
 		1DC5CB9720D2BF5E002058C1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				1D34CBEE20E121680011F901 /* Utils */,
 				1DFA538E20DAB5E30065CCC3 /* Extensions */,
 				1DC5CBB620D40D46002058C1 /* Model */,
 				1DC5CBC520D410D2002058C1 /* PaymentSDK */,
@@ -278,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				BA3A33A122293CBA00B7A635 /* Public */,
-				1DFA536420D91E300065CCC3 /* PSDK */,
 				1DC5CBB820D40D54002058C1 /* MLError.swift */,
 				1DC5CBC120D40F9D002058C1 /* MobilabPaymentConfiguration.swift */,
 				1DFA536E20D92DE70065CCC3 /* PaymentMethodType.swift */,
@@ -321,23 +312,6 @@
 				BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */,
 			);
 			path = Internal;
-			sourceTree = "<group>";
-		};
-		1DFA536420D91E300065CCC3 /* PSDK */ = {
-			isa = PBXGroup;
-			children = (
-				1DFA536B20D92D360065CCC3 /* Request */,
-				1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */,
-			);
-			path = PSDK;
-			sourceTree = "<group>";
-		};
-		1DFA536B20D92D360065CCC3 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				1DFA536C20D92D3E0065CCC3 /* RegisterRequestData.swift */,
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		1DFA538520DA9C800065CCC3 /* Model */ = {
@@ -387,6 +361,8 @@
 				1DFA536720D91EF20065CCC3 /* SEPAData.swift */,
 				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
 				1DFA536220D91C490065CCC3 /* BillingData.swift */,
+				1DFA536C20D92D3E0065CCC3 /* RegisterRequestData.swift */,
+				1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";

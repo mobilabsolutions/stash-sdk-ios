@@ -29,12 +29,12 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         switch self.service {
         case .registerCreditCard(let creditCardData, let pspData):
             
-            let url = self.getBaseURL().append("mid", value:pspData.merchantId!)
+            let url = self.getBaseURL().append("mid", value:pspData.merchantId)
             .append("portalid", value: pspData.portalId)
-            .append("api_version", value: pspData.apiVersion!)
+            .append("api_version", value: pspData.apiVersion)
             .append("mode", value: "test")
-            .append("request", value: pspData.request!)
-            .append("responsetype", value: pspData.responseType!)
+            .append("request", value: pspData.request)
+            .append("responsetype", value: pspData.responseType)
             .append("hash", value: "35996f45100c40d51cffedcddc471f8189fc3568c287871568dc6c8bae1c4d732ded416b502f6191fb6085a2d767ef6f")
             
             .append("aid", value: creditCardData.aId)

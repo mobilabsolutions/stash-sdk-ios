@@ -40,11 +40,16 @@ public extension NetworkClient {
             }
 
             switch httpResponse.statusCode {
-            case 200, 201:
+            case 200, 201, 204:
 
                 switch request.getResponseType() {
                 case .json:
 
+                    guard receivedData.count != 0 else {
+                        completion(.success(true as! T))
+                        return
+                    }
+                    
                     print(String(data: receivedData, encoding: String.Encoding.utf8) ?? "Decoding received data failed")
 
                     self.decodingData(with: receivedData, decodingType: T.self, completionHandler: { result, error in

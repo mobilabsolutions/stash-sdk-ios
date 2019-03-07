@@ -9,9 +9,13 @@
 import Foundation
 
 struct UpdateAliasRequest: Codable {
+    var aliasId: String
     var pspAlias: String
+    var extra: AliasExtra
 
-    init(pspAlias: String) {
+    init(aliasId: String, pspAlias: String, extra: AliasExtra) {
+        self.aliasId = aliasId
         self.pspAlias = pspAlias
+        self.extra = extra
     }
 }

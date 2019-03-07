@@ -22,27 +22,30 @@ class InternalRegistrationManager {
         self.networkingClient.createAlias { result in
 
             switch result {
-            case .success(var response):
-                
-                // Currently response is missing some psp params so we add them manually here
-                response.psp.apiVersion = "3.11"
-                response.psp.merchantId = "42865"
-                response.psp.portalId = "2030968"
-                response.psp.request = "creditcardcheck"
-                response.psp.responseType = "JSON"
+            case .success(let response):
                 
                 let standardizedData = StandardizedData(aliasId: response.aliasId)
                 let registrationRequest = RegistrationRequest(standardizedData: standardizedData,
                                                              pspData: response.psp.toData(),
                                                              registrationData: paymentMethod.methodData.toBSPayoneData())
                 
-                self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { _ in
+                self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
                     
-                    //                let updateAliasRequest = UpdateAliasRequest(aliasId: "aliasId", billingData: "data")
-                    //                self.networkingClient.updateAlias(request: updateAliasRequest, completion: {
-                    //
-                    //                })
-                    
+                    switch resultRegistration {
+                    case .success(let pspAlias):
+                        
+
+                        let cardExtra = paymentMethod.toAliasExtra()
+                        
+                        let updateAliasRequest = UpdateAliasRequest(aliasId: response.aliasId, pspAlias: pspAlias, extra: cardExtra!)
+                        self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
+                        
+                        
+                        })
+                        
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 })
                 
             case .failure(let error):

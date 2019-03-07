@@ -14,11 +14,9 @@ class NetworkClientCore: NetworkClient {
         fetch(with: router, responseType: AliasResponse.self, completion: completion)
     }
 
-    func updateAlias(request: UpdateAliasRequest, completion _: () -> Void) {
+    func updateAlias(request: UpdateAliasRequest, completion: @escaping Completion<Bool>) {
         let router = RouterRequestCore(service: .updateAlias(request))
-        fetch(with: router, responseType: AliasResponse.self, completion: { _ in
-
-        })
+        fetch(with: router, responseType: Bool.self, completion: completion)
     }
 
 }

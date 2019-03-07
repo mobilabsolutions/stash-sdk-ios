@@ -42,5 +42,5 @@ public class CreditCardData: BaseMethodData, Encodable {
     func toBSPayoneData() -> Data? {
         return self.toData()
     }
-    
+
 }

@@ -24,11 +24,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
             return
         }
         
-        self.networkingClient?.registerCreditCard(creditCardData: registerCreditCardRequest, pspExtra: _pspExtra, completion: { _ in
-
-        })
-
-        completion(. success("TestALias"))
+        self.networkingClient?.registerCreditCard(creditCardData: registerCreditCardRequest, pspExtra: _pspExtra, completion: completion)
     }
 
     public init(publicKey: String) {
