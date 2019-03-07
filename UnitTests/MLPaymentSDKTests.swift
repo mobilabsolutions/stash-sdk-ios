@@ -29,8 +29,10 @@ class MLPaymentSDKTests: XCTestCase {
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = CreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 08, expiryYear: 21)
 
-        let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
-        registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
+        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData, completion: { result in
+            self.expectation?.fulfill()
+        })
 
         waitForExpectations(timeout: 80) { error in
             XCTAssertNil(error)
@@ -63,14 +65,4 @@ class MLPaymentSDKTests: XCTestCase {
 //            XCTAssertNil(error)
 //        }
 //    }
-}
-
-extension MLPaymentSDKTests: RegistrationManagerProtocol {
-    func registerSEPAAccountCompleted(paymentAlias _: String?, error _: MLError?) {
-        self.expectation?.fulfill()
-    }
-
-    func registerCreditCardCompleted(paymentAlias _: String?, error _: MLError?) {
-        self.expectation?.fulfill()
-    }
 }

@@ -10,7 +10,7 @@ import MobilabPaymentBSPayone
 import MobilabPaymentCore
 import UIKit
 
-class ViewController: UIViewController, RegistrationManagerProtocol {
+class ViewController: UIViewController {
     func registerCreditCardCompleted(paymentAlias _: String?, error _: MLError?) {}
 
     func registerSEPAAccountCompleted(paymentAlias _: String?, error _: MLError?) {}
@@ -22,11 +22,11 @@ class ViewController: UIViewController, RegistrationManagerProtocol {
     }
 
     func test() {
-        MobilabPaymentSDK.setUp(publicToken: "test", provider: MobilabPaymentBSPayone())
-        let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
-
-        let billingData = BillingData(email: "testEmail")
-        let creditCardData = CreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
-        registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
+//        MobilabPaymentSDK.setUp(publicToken: "test", provider: MobilabPaymentBSPayone())
+//        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+//
+//        let billingData = BillingData(email: "testEmail")
+//        let creditCardData = CreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
+        //registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
     }
 }

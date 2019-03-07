@@ -17,7 +17,7 @@ class InternalRegistrationManager {
         self.networkingClient = client
     }
 
-    func addMethod(paymentMethod: MLPaymentMethod, completion: @escaping (NetworkClientResult<Bool, MLError>) -> Void) {
+    func addMethod(paymentMethod: MLPaymentMethod, completion: @escaping RegistrationResult) {
         
         self.networkingClient.createAlias { result in
 
@@ -39,8 +39,12 @@ class InternalRegistrationManager {
                         
                         let updateAliasRequest = UpdateAliasRequest(aliasId: response.aliasId, pspAlias: pspAlias, extra: cardExtra!)
                         self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
-                        
-                        
+                            switch resultRegistration {
+                            case .success(_):
+                                completion(.success(pspAlias))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
                         })
                         
                     case .failure(let error):

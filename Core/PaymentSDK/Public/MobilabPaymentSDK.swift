@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias RegistrationResult = ((NetworkClientResult<String, MLError>) -> Void)
+
 public class MobilabPaymentSDK {
 //    public static func setUp(publicKey: String) {
 //        MLInternalPaymentSDK.sharedInstance.setUp(publicKey: publicKey)
@@ -17,7 +19,7 @@ public class MobilabPaymentSDK {
         InternalPaymentSDK.sharedInstance.setUp(provider: provider)
     }
 
-    public static func createRegisterManager(delegate: RegistrationManagerProtocol) -> RegistrationManager {
-        return RegistrationManager(delegate: delegate)
+    public static func getRegisterManager() -> RegistrationManager {
+        return RegistrationManager()
     }
 }
