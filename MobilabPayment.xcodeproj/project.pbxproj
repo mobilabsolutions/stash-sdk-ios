@@ -449,7 +449,7 @@
 				BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */,
 				BACD61A72226CA6D00E3ACC3 /* Foundation.framework */,
 			);
-			path = Frameworks;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BACD619F2226C8E300E3ACC3 /* Integration */ = {
