@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CreditCardData: BaseMethodData, Encodable {
+public struct CreditCardData {
     var holderName: String
     var cardNumber: String
     var cardType: String = "V"
@@ -23,7 +23,15 @@ public class CreditCardData: BaseMethodData, Encodable {
         self.expiryMonth = expiryMonth
         self.expiryYear = expiryYear
     }
-    
+}
+
+extension CreditCardData: BaseMethodData {
+    func toBSPayoneData() -> Data? {
+        return self.toData()
+    }
+}
+
+extension CreditCardData: Codable {
     enum EncodingKeys:String,CodingKey {
         case cardNumber = "cardPan"
         case CVV = "cardCVC2"
@@ -38,9 +46,4 @@ public class CreditCardData: BaseMethodData, Encodable {
         try container.encode(cardType, forKey: .cardType)
         try container.encode("\(expiryYear)\(String(format: "%02d", expiryMonth))", forKey: .cardExpireDate)
     }
-    
-    func toBSPayoneData() -> Data? {
-        return self.toData()
-    }
-
 }

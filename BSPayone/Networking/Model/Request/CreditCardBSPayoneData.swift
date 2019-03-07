@@ -9,14 +9,17 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct CreditCardBSPayoneData: Codable {
+public struct CreditCardBSPayoneData {
     
     var aId: String = "42949"
     var cardPan: String?
     var cardType: String?
     var cardExpireDate: String?
     var cardCVC2:String?
+}
 
+extension CreditCardBSPayoneData: Codable {
+    
     private enum CodingKeys: String, CodingKey {
         case cardPan
         case cardType
@@ -38,4 +41,5 @@ public struct CreditCardBSPayoneData: Codable {
         }
         return false
     }
+    
 }

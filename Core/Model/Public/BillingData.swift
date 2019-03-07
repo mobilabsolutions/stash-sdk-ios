@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BillingData: Codable {
+public struct BillingData: Codable {
     var email = ""
     var firstName: String?
     var lastName: String?
