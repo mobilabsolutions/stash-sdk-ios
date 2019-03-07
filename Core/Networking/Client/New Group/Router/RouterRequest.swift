@@ -50,6 +50,14 @@ public extension RouterRequestProtocol {
     func getHttpBody() -> Data? {
         return nil
     }
+    
+    func getRelativePath() -> String? {
+        return nil
+    }
+    
+    func getCustomHeader() -> Header? {
+        return nil
+    }
 }
 
 // MARK: Private methods

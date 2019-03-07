@@ -8,7 +8,12 @@
 
 import Foundation
 
-public class SEPAData: MLBaseMethodData, Codable {
+public class SEPAData: BaseMethodData, Codable {
+    
+    func toBSPayoneData() -> Data? {
+        return nil
+    }
+    
     var bankNumber: String
     var IBAN: String
 

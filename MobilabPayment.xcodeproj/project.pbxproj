@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBEF20E121750011F901 /* MLXMLParser.swift */; };
 		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */; };
 		1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Extras.swift */; };
@@ -27,13 +26,13 @@
 		1DFA536D20D92D3E0065CCC3 /* RegisterRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536C20D92D3E0065CCC3 /* RegisterRequestData.swift */; };
 		1DFA536F20D92DE70065CCC3 /* PaymentMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536E20D92DE70065CCC3 /* PaymentMethodType.swift */; };
 		1DFA538120DA4D300065CCC3 /* MLPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */; };
-		1DFA538420DA50610065CCC3 /* MLBaseMethodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538320DA50610065CCC3 /* MLBaseMethodData.swift */; };
+		1DFA538420DA50610065CCC3 /* BaseMethodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538320DA50610065CCC3 /* BaseMethodData.swift */; };
 		1DFA538A20DAA0300065CCC3 /* MLBillingDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */; };
 		1DFA538D20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */; };
 		BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */; };
 		BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */; };
 		BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */; };
-		BA3A33AB2229576000B7A635 /* RegisterCreditCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33AA2229576000B7A635 /* RegisterCreditCardRequest.swift */; };
+		BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33AA2229576000B7A635 /* CreditCardBSPayoneData.swift */; };
 		BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B422296B6F00B7A635 /* AliasResponse.swift */; };
 		BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */; };
 		BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */; };
@@ -60,6 +59,10 @@
 		BAD64635222EBB9B00771DC0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64634222EBB9B00771DC0 /* Header.swift */; };
 		BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */; };
 		BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6463D222EC29500771DC0 /* PSPExtra.swift */; };
+		BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6464D2230799F00771DC0 /* Codable+Extras.swift */; };
+		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
+		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
+		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAE6FAFE2225715F00D3A71B /* NetworkClientResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* NetworkClientResult.swift */; };
 		BAE6FAFF2225715F00D3A71B /* NetworkClientResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* NetworkClientResult.swift */; };
 		BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
@@ -97,7 +100,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D34CBEF20E121750011F901 /* MLXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXMLParser.swift; sourceTree = "<group>"; };
 		1D34CBF220E129080011F901 /* Data+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extras.swift"; sourceTree = "<group>"; };
 		1D34CBFE20E268C20011F901 /* MLAddCreditCardResponseBS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponseBS.swift; sourceTree = "<group>"; };
 		1D34CC0B20E281180011F901 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
@@ -120,13 +122,13 @@
 		1DFA536C20D92D3E0065CCC3 /* RegisterRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequestData.swift; sourceTree = "<group>"; };
 		1DFA536E20D92DE70065CCC3 /* PaymentMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodType.swift; sourceTree = "<group>"; };
 		1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLPaymentMethod.swift; sourceTree = "<group>"; };
-		1DFA538320DA50610065CCC3 /* MLBaseMethodData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBaseMethodData.swift; sourceTree = "<group>"; };
+		1DFA538320DA50610065CCC3 /* BaseMethodData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMethodData.swift; sourceTree = "<group>"; };
 		1DFA538920DAA0300065CCC3 /* MLBillingDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBillingDataRequest.swift; sourceTree = "<group>"; };
 		1DFA538C20DAB0C50065CCC3 /* MLAddCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLAddCreditCardResponse.swift; sourceTree = "<group>"; };
 		BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientBSPayone.swift; sourceTree = "<group>"; };
 		BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestCore.swift; sourceTree = "<group>"; };
 		BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestBSPayone.swift; sourceTree = "<group>"; };
-		BA3A33AA2229576000B7A635 /* RegisterCreditCardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardRequest.swift; sourceTree = "<group>"; };
+		BA3A33AA2229576000B7A635 /* CreditCardBSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardBSPayoneData.swift; sourceTree = "<group>"; };
 		BA3A33B422296B6F00B7A635 /* AliasResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResponse.swift; sourceTree = "<group>"; };
 		BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
 		BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalRegistrationManager.swift; sourceTree = "<group>"; };
@@ -154,6 +156,8 @@
 		BAD64634222EBB9B00771DC0 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extras.swift"; sourceTree = "<group>"; };
 		BAD6463D222EC29500771DC0 /* PSPExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPExtra.swift; sourceTree = "<group>"; };
+		BAD6464D2230799F00771DC0 /* Codable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extras.swift"; sourceTree = "<group>"; };
+		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
 		BAE6FAFD2225715F00D3A71B /* NetworkClientResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +203,6 @@
 		1D34CBEE20E121680011F901 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1D34CBEF20E121750011F901 /* MLXMLParser.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -210,6 +213,8 @@
 				1D34CBF220E129080011F901 /* Data+Extras.swift */,
 				1D34CC0B20E281180011F901 /* String+Extras.swift */,
 				BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */,
+				BAD6464D2230799F00771DC0 /* Codable+Extras.swift */,
+				BAD64650223094AC00771DC0 /* URL+Extras.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -321,7 +326,6 @@
 		1DFA536420D91E300065CCC3 /* PSDK */ = {
 			isa = PBXGroup;
 			children = (
-				1DFA538220DA50240065CCC3 /* RegisterData */,
 				1DFA536B20D92D360065CCC3 /* Request */,
 				1DFA538020DA4D300065CCC3 /* MLPaymentMethod.swift */,
 			);
@@ -334,14 +338,6 @@
 				1DFA536C20D92D3E0065CCC3 /* RegisterRequestData.swift */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		1DFA538220DA50240065CCC3 /* RegisterData */ = {
-			isa = PBXGroup;
-			children = (
-				1DFA538320DA50610065CCC3 /* MLBaseMethodData.swift */,
-			);
-			path = RegisterData;
 			sourceTree = "<group>";
 		};
 		1DFA538520DA9C800065CCC3 /* Model */ = {
@@ -387,6 +383,7 @@
 		BA3A33A122293CBA00B7A635 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				1DFA538320DA50610065CCC3 /* BaseMethodData.swift */,
 				1DFA536720D91EF20065CCC3 /* SEPAData.swift */,
 				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
 				1DFA536220D91C490065CCC3 /* BillingData.swift */,
@@ -406,7 +403,7 @@
 		BA3A33A92229574700B7A635 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				BA3A33AA2229576000B7A635 /* RegisterCreditCardRequest.swift */,
+				BA3A33AA2229576000B7A635 /* CreditCardBSPayoneData.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -770,15 +767,16 @@
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
 				BAE6FAFE2225715F00D3A71B /* NetworkClientResult.swift in Sources */,
-				1DFA538420DA50610065CCC3 /* MLBaseMethodData.swift in Sources */,
+				1DFA538420DA50610065CCC3 /* BaseMethodData.swift in Sources */,
+				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				1DC5CBBA20D40D55002058C1 /* MLError.swift in Sources */,
 				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
 				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
 				BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
+				BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */,
 				1D34CBFF20E268C20011F901 /* MLAddCreditCardResponseBS.swift in Sources */,
 				BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */,
-				1D34CBF020E121750011F901 /* MLXMLParser.swift in Sources */,
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
 				1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */,
@@ -812,10 +810,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
-				BA3A33AB2229576000B7A635 /* RegisterCreditCardRequest.swift in Sources */,
+				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
 				BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */,
+				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,
 				BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

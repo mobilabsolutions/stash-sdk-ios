@@ -23,7 +23,6 @@ public class RegistrationManager: NSObject {
     public func registerCreditCard(billingData: BillingData, creditCardData: CreditCardData) {
         let request: RegisterRequestData = RegisterRequestData(cardMask: "VISA-123",
                                                                type: PaymentMethodType.CreditCard)
-
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
@@ -36,11 +35,11 @@ public class RegistrationManager: NSObject {
             }
         }
     }
+    
 
-    func registerSEPAAccount(billingData: BillingData, sepaData: SEPAData) {
+    public func registerSEPAAccount(billingData: BillingData, sepaData: SEPAData) {
         let request: RegisterRequestData = RegisterRequestData(cardMask: "",
                                                                type: PaymentMethodType.SEPA)
-
         let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
@@ -54,4 +53,5 @@ public class RegistrationManager: NSObject {
             }
         }
     }
+    
 }

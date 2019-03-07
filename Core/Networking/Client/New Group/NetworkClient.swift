@@ -9,6 +9,7 @@
 import UIKit
 
 public protocol NetworkClient {
+    
     typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
     func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>)
 }
@@ -16,11 +17,11 @@ public protocol NetworkClient {
 public extension NetworkClient {
     typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
 
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType _: T.Type, completion: @escaping Completion<T>) {
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>) {
         let configuration = URLSessionConfiguration.default
         let urlRequest = request.asURLRequest()
         print("API request: \(urlRequest.httpMethod!) \(urlRequest.url!)")
-
+        
         let session = URLSession(configuration: configuration)
         let dataTask = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
 

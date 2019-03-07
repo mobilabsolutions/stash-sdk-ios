@@ -10,10 +10,11 @@ import Foundation
 import MobilabPaymentCore
 
 enum RouterServiceBSPayone {
-    case registerCreditCard(RegisterCreditCardRequest)
+    case registerCreditCard(CreditCardBSPayoneData, PSPExtra)
 }
 
 struct RouterRequestBSPayone: RouterRequestProtocol {
+    
     var service: RouterServiceBSPayone
 
     init(service: RouterServiceBSPayone) {
@@ -21,24 +22,36 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
     }
 
     func getBaseURL() -> URL {
-        var url = URL(string: "url")!
-        if let relativePath = getRelativePath() {
-            url = url.appendingPathComponent(relativePath)
-        }
-        return url
+        return URL(string: "https://secure.pay1.de/client-api/")!
     }
 
     func getURL() -> URL {
         switch self.service {
-        case .registerCreditCard:
-            return self.getBaseURL()
+        case .registerCreditCard(let creditCardData, let pspData):
+            
+            let url = self.getBaseURL().append("mid", value:pspData.merchantId!)
+            .append("portalid", value: pspData.portalId)
+            .append("api_version", value: pspData.apiVersion!)
+            .append("mode", value: "test")
+            .append("request", value: pspData.request!)
+            .append("responsetype", value: pspData.responseType!)
+            .append("hash", value: "35996f45100c40d51cffedcddc471f8189fc3568c287871568dc6c8bae1c4d732ded416b502f6191fb6085a2d767ef6f")
+            
+            .append("aid", value: creditCardData.aId)
+            .append("cardpan", value: creditCardData.cardPan!)
+            .append("cardtype", value: creditCardData.cardType!)
+            .append("cardexpiredate", value: creditCardData.cardExpireDate!)
+            .append("cardcvc2", value: creditCardData.cardCVC2!)
+            .append("storecarddata", value: "yes")
+            
+            return url
         }
     }
 
     func getHTTPMethod() -> HTTPMethod {
         switch self.service {
         case .registerCreditCard:
-            return HTTPMethod.POST
+            return HTTPMethod.GET
         }
     }
 
@@ -46,20 +59,6 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         switch self.service {
         case .registerCreditCard:
             return .json
-        }
-    }
-
-    func getHttpBody() -> Data? {
-        switch self.service {
-        case let .registerCreditCard(data):
-            return try? JSONEncoder().encode(data)
-        }
-    }
-
-    func getRelativePath() -> String? {
-        switch self.service {
-        case .registerCreditCard:
-            return "v2/alias"
         }
     }
 
@@ -79,7 +78,4 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         }
     }
 
-    func getCustomHeader() -> Header? {
-        return nil
-    }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 class InternalPaymentSDK {
+    
     var networkingClient: NetworkClientCore!
     var provider: PaymentServiceProvider!
     // var publicKey: String?

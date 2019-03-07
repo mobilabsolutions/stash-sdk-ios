@@ -8,9 +8,10 @@
 
 import Foundation
 
-public class CreditCardData: MLBaseMethodData, Codable {
+public class CreditCardData: BaseMethodData, Encodable {
     var holderName: String
     var cardNumber: String
+    var cardType: String = "V"
     var CVV: String
     var expiryMonth: Int
     var expiryYear: Int
@@ -22,4 +23,24 @@ public class CreditCardData: MLBaseMethodData, Codable {
         self.expiryMonth = expiryMonth
         self.expiryYear = expiryYear
     }
+    
+    enum EncodingKeys:String,CodingKey {
+        case cardNumber = "cardPan"
+        case CVV = "cardCVC2"
+        case cardExpireDate
+        case cardType
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: EncodingKeys.self)
+        try container.encode(cardNumber, forKey: .cardNumber)
+        try container.encode(CVV, forKey: .CVV)
+        try container.encode(cardType, forKey: .cardType)
+        try container.encode("\(expiryYear)\(String(format: "%02d", expiryMonth))", forKey: .cardExpireDate)
+    }
+    
+    func toBSPayoneData() -> Data? {
+        return self.toData()
+    }
+    
 }

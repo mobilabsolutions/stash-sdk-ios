@@ -23,8 +23,8 @@ class MLAddCreditCardResponse: Codable {
     private(set) var timestamp = Date()
     private(set) var type = ""
 
-    func serializeXML(paymentMethod _: MLPaymentMethod) -> String? {
-        print("Should be overriden!")
-        return nil
-    }
+//    func serializeXML(paymentMethod _: MLPaymentMethod) -> String? {
+//        print("Should be overriden!")
+//        return nil
+//    }
 }

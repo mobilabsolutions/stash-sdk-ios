@@ -8,4 +8,8 @@
 
 import Foundation
 
-protocol MLBaseMethodData: Codable {}
+protocol BaseMethodData   {
+    
+    func toBSPayoneData() -> Data?
+    
+}

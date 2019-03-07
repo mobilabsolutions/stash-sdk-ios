@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct StandardizedData {
+public struct StandardizedData {
     var aliasId: String
 
     init(aliasId: String) {

@@ -8,14 +8,7 @@
 
 import Foundation
 
-enum PaymentMethodType: Codable {
-    init(from decoder: Decoder) throws {
-        try self.init(from: decoder)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        try self.encode(to: encoder)
-    }
+enum PaymentMethodType: String, Codable {
 
     case CreditCard
     case SEPA

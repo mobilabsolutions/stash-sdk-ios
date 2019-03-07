@@ -27,7 +27,7 @@ class MLPaymentSDKTests: XCTestCase {
         self.expectation = self.expectation(description: "Example")
 
         let billingData = BillingData(email: "mirza@miki.com")
-        let creditCardData = CreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 8, expiryYear: 2021)
+        let creditCardData = CreditCardData(holderName: "Holder Name", cardNumber: "4111111111111111", CVV: "312", expiryMonth: 08, expiryYear: 21)
 
         let registrationManager = MobilabPaymentSDK.createRegisterManager(delegate: self)
         registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)

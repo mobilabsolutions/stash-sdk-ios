@@ -9,11 +9,13 @@
 import Foundation
 
 public struct RegistrationRequest {
-    var standardizedData: StandardizedData
-    var additionalRegistrationData: AdditionalRegistrationData
+    public var standardizedData: StandardizedData
+    public var pspData: Data?
+    public var registrationData: Data?
 
-    init(standardizedData: StandardizedData, additionalRegistrationData: AdditionalRegistrationData) {
+    init(standardizedData: StandardizedData, pspData:Data?, registrationData: Data? = nil) {
         self.standardizedData = standardizedData
-        self.additionalRegistrationData = additionalRegistrationData
+        self.pspData = pspData
+        self.registrationData = registrationData
     }
 }

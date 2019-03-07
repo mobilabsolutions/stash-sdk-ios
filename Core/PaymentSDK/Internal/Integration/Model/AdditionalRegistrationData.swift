@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct AdditionalRegistrationData {
-    var data: [String: String]
+public struct AdditionalRegistrationData {
+    public var data: Data?
 
-    init(data: [String: String]) {
+    init(data: Data?) {
         self.data = data
     }
 }
