@@ -20,9 +20,10 @@ class MLPaymentMethod {
     }
 
     func toAliasExtra() -> AliasExtra? {
-        guard self.requestData.type == .creditCard, let method = methodData as? CreditCardData
+        guard self.requestData.type == .creditCard, let method = methodData as? CreditCardData, let email = self.billingData.email
         else { return nil }
 
-        return AliasExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))", ccMask: "", ccType: "CC", email: self.billingData.email, ibanMask: "", paymentMethod: .creditCard)
+        return AliasExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))",
+                          ccMask: "", ccType: "CC", email: email, ibanMask: "", paymentMethod: .creditCard)
     }
 }

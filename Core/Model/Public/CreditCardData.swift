@@ -9,12 +9,20 @@
 import Foundation
 
 public struct CreditCardData {
-    let holderName: String
-    let cardNumber: String
-    let cardType: String = "V"
-    let CVV: String
-    let expiryMonth: Int
-    let expiryYear: Int
+    public let holderName: String
+    public let cardNumber: String
+    public let cardType: String = "V"
+    public let CVV: String
+    public let expiryMonth: Int
+    public let expiryYear: Int
+
+    public init(holderName: String, cardNumber: String, CVV: String, expiryMonth: Int, expiryYear: Int) {
+        self.holderName = holderName
+        self.cardNumber = cardNumber
+        self.CVV = CVV
+        self.expiryMonth = expiryMonth
+        self.expiryYear = expiryYear
+    }
 }
 
 extension CreditCardData: BaseMethodData {

@@ -9,7 +9,7 @@
 import Foundation
 
 public struct BillingData: Codable {
-    var email = ""
+    var email: String?
     var firstName: String?
     var lastName: String?
     var address1: String?
@@ -25,8 +25,8 @@ public struct BillingData: Codable {
         self.email = email
     }
 
-    init(email: String, firstName: String, lastName: String, address1: String, address2: String,
-         ZIP: String, city: String, state: String, country: String, phone: String, languageId: String) {
+    public init(email: String?, firstName: String?, lastName: String?, address1: String?, address2: String?,
+                ZIP: String?, city: String?, state: String?, country: String?, phone: String?, languageId: String?) {
         self.email = email
         self.firstName = firstName
         self.lastName = lastName

@@ -7,7 +7,7 @@
 //
 
 class MLBillingDataReqest: Codable {
-    private(set) var email = ""
+    private(set) var email: String?
     private(set) var firstName: String?
     private(set) var lastName: String?
     private(set) var address1: String?

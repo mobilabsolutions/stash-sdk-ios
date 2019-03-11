@@ -9,8 +9,13 @@
 import Foundation
 
 public struct SEPAData: Codable {
-    let bankNumber: String
-    let IBAN: String
+    public let bankNumber: String
+    public let IBAN: String
+
+    public init(bankNumber: String, IBAN: String) {
+        self.bankNumber = bankNumber
+        self.IBAN = IBAN
+    }
 }
 
 extension SEPAData: BaseMethodData {

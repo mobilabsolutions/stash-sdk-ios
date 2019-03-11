@@ -8,7 +8,7 @@
 
 enum APIEndpoints: String {
     case production = "https://p.mblb.net/api/v1"
-    case test = "http://35.201.114.255/api/v1"
+    case test = "https://payment-dev.mblb.net/api/v1"
 }
 
 class MobilabPaymentConfigurationBuilder {
