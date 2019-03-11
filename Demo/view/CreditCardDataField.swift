@@ -23,6 +23,8 @@ class CreditCardDataField: UIView, DataField {
         let field = UITextField()
         field.placeholder = "test@example.com"
         field.keyboardType = .emailAddress
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
         return field
     }()
 
@@ -41,7 +43,6 @@ class CreditCardDataField: UIView, DataField {
 
     private var numberField: UITextField = {
         let field = UITextField()
-        field.keyboardType = .asciiCapableNumberPad
         field.placeholder = "Card Number"
         return field
     }()

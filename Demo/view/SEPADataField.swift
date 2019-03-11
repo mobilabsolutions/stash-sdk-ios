@@ -145,7 +145,7 @@ class SEPADataField: UIView, DataField {
     }
 
     @objc private func add() {
-        guard let iban = ibanField.text,
+        guard let iban = ibanField.text?.replacingOccurrences(of: " ", with: ""),
             let bic = bicField.text,
             let country = countryField.text,
             let city = cityField.text,

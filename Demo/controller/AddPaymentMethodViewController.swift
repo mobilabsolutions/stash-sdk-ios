@@ -111,7 +111,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     @objc private func willShowKeyboard(notification: Notification) {
         guard let frame = notification.userInfo?[UIWindow.keyboardFrameEndUserInfoKey] as? CGRect
         else { return }
-        self.scrollView.contentInset.bottom += frame.height
+        self.scrollView.contentInset.bottom = frame.height
     }
 
     @objc private func dismissKeyboard() {
