@@ -10,36 +10,32 @@ import Foundation
 import MobilabPaymentCore
 
 public struct CreditCardBSPayoneData {
-    
-    var aId: String = "42949"
-    var cardPan: String?
-    var cardType: String?
-    var cardExpireDate: String?
-    var cardCVC2:String?
+    let aId: String = "42949"
+    let cardPan: String?
+    let cardType: String?
+    let cardExpireDate: String?
+    let cardCVC2: String?
 }
 
 extension CreditCardBSPayoneData: Codable {
-    
     private enum CodingKeys: String, CodingKey {
         case cardPan
         case cardType
         case cardExpireDate
         case cardCVC2
     }
-    
+
     public static func from(registrationData: Data?) -> CreditCardBSPayoneData {
-        
-        if let data = registrationData, let decoded = try? JSONDecoder().decode(CreditCardBSPayoneData.self, from: data) {
-            return decoded
-        }
-        return CreditCardBSPayoneData()
+        #warning("Improve error handling for not being able to decode response")
+        guard let data = registrationData, let decoded = try? JSONDecoder().decode(CreditCardBSPayoneData.self, from: data)
+        else { fatalError("MobiLabSDK can not decode CreditCardBSPayoneData from data") }
+        return decoded
     }
-    
+
     func isValid() -> Bool {
         if let _ = cardPan, let _ = cardType, let _ = cardExpireDate, let _ = cardCVC2 {
             return true
         }
         return false
     }
-    
 }

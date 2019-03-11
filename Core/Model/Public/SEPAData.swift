@@ -9,20 +9,12 @@
 import Foundation
 
 public struct SEPAData: Codable {
-    
-    var bankNumber: String
-    var IBAN: String
-
-    init(bankNumber: String, IBAN: String) {
-        self.bankNumber = bankNumber
-        self.IBAN = IBAN
-    }
+    let bankNumber: String
+    let IBAN: String
 }
 
 extension SEPAData: BaseMethodData {
-    
     func toBSPayoneData() -> Data? {
         return nil
     }
-    
 }

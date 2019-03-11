@@ -11,19 +11,18 @@ import MobilabPaymentCore
 
 class NetworkClientBSPayone: NetworkClient {
     func registerCreditCard(creditCardData: CreditCardBSPayoneData, pspExtra: PSPExtra, completion: @escaping Completion<String>) {
-        
         let router = RouterRequestBSPayone(service: .registerCreditCard(creditCardData, pspExtra))
         fetch(with: router, responseType: RegisterCreditCardResponse.self) { result in
             switch result {
-            case .success(let response):
-                
+            case let .success(response):
+
                 if let error = response.error {
                     completion(.failure(error))
                 } else {
-                    completion(.success(response.pseudocardpan!))
+                    completion(.success(response.pseudoCardPan!))
                 }
-                
-            case .failure(let error):
+
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

@@ -9,14 +9,13 @@
 import Foundation
 
 extension Data {
-
     func fromISOLatinToUTF8() -> Data? {
         if let xmlStringLatinEncoded = String(data: self, encoding: String.Encoding.isoLatin1) {
             return xmlStringLatinEncoded.data(using: String.Encoding.utf8)
         }
         return nil
     }
-    
+
     func toJSONString() -> String? {
         return String(data: self, encoding: .utf8)
     }

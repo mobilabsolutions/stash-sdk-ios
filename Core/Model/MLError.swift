@@ -14,12 +14,12 @@ protocol MLErrorProtocol: LocalizedError {
 }
 
 public class MLError: NSObject, MLErrorProtocol {
-    public var title: String?
-    public var code: Int
+    public let title: String?
+    public let code: Int
     public var errorDescription: String? { return self._description }
     public var failureReason: String? { return self._description }
 
-    private var _description: String
+    private let _description: String
 
     public init(title: String?, description: String, code: Int) {
         self.title = title ?? "Error"

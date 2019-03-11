@@ -9,25 +9,20 @@
 import Foundation
 
 class MLPaymentMethod {
-    var billingData: BillingData
-    var methodData: BaseMethodData
-    var requestData: RegisterRequestData
+    let billingData: BillingData
+    let methodData: BaseMethodData
+    let requestData: RegisterRequestData
 
-    
     init(billingData: BillingData, methodData: BaseMethodData, requestData: RegisterRequestData) {
         self.billingData = billingData
         self.methodData = methodData
         self.requestData = requestData
     }
-    
+
     func toAliasExtra() -> AliasExtra? {
-    
-        if requestData.type == .CreditCard {
-            
-            if let method = methodData as? CreditCardData {
-                return AliasExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))", ccMask: "", ccType: "CC", email: billingData.email, ibanMask: "", paymentMethod: .CC)
-            }
-        }
-        return nil
+        guard self.requestData.type == .creditCard, let method = methodData as? CreditCardData
+        else { return nil }
+
+        return AliasExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))", ccMask: "", ccType: "CC", email: self.billingData.email, ibanMask: "", paymentMethod: .creditCard)
     }
 }

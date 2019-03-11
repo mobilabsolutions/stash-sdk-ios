@@ -9,8 +9,7 @@
 import Foundation
 
 enum PaymentMethodType: String, Codable {
-
-    case CreditCard
-    case SEPA
-    case PayPal
+    case creditCard
+    case sepa
+    case payPal
 }

@@ -9,23 +9,21 @@
 import Foundation
 
 public struct PSPExtra: Codable {
-    
-    public var apiVersion: String
-    public var encoding: String
-    public var hash: String
-    public var merchantId: String
-    public var portalId: String
-    public var accountId: String
-    public var request: String
-    public var responseType: String?
-    public var type: String
-    public var mode: String
-    
+    public let apiVersion: String
+    public let encoding: String
+    public let hash: String
+    public let merchantId: String
+    public let portalId: String
+    public let accountId: String
+    public let request: String
+    public let responseType: String?
+    public let type: String
+    public let mode: String
+
     public static func from(data: Data?) -> PSPExtra? {
-        
-        if let _data = data, let decoded = try? JSONDecoder().decode(PSPExtra.self, from: _data) {
-            return decoded
-        }
-        return nil
+        guard let data = data, let decoded = try? JSONDecoder().decode(PSPExtra.self, from: data)
+        else { return nil }
+
+        return decoded
     }
 }

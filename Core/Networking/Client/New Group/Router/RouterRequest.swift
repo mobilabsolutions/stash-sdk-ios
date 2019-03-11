@@ -50,11 +50,11 @@ public extension RouterRequestProtocol {
     func getHttpBody() -> Data? {
         return nil
     }
-    
+
     func getRelativePath() -> String? {
         return nil
     }
-    
+
     func getCustomHeader() -> Header? {
         return nil
     }
@@ -72,7 +72,7 @@ extension RouterRequestProtocol {
         }
 
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
-        urlRequest.addHeader(customHeader: getCustomHeader())
+        urlRequest.addHeader(customHeader: self.getCustomHeader())
         urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Public-Key")
         return urlRequest
     }

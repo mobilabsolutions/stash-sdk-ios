@@ -14,7 +14,7 @@ enum RouterServiceCore {
 }
 
 struct RouterRequestCore: RouterRequestProtocol {
-    var service: RouterServiceCore
+    let service: RouterServiceCore
 
     init(service: RouterServiceCore) {
         self.service = service

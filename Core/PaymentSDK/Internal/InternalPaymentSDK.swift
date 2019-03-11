@@ -9,18 +9,10 @@
 import UIKit
 
 class InternalPaymentSDK {
-    
-    var networkingClient: NetworkClientCore!
-    var provider: PaymentServiceProvider!
-    // var publicKey: String?
+    var networkingClient: NetworkClientCore?
+    var provider: PaymentServiceProvider?
 
     static let sharedInstance = InternalPaymentSDK()
-
-//    func setUp(publicKey: String) {
-//        self.publicKey = publicKey
-//
-//        MLConfigurationBuilder.sharedInstance.setupConfiguration(token: publicKey)
-//    }
 
     func setUp(provider: PaymentServiceProvider) {
         self.provider = provider
@@ -30,7 +22,9 @@ class InternalPaymentSDK {
     }
 
     func registrationManager() -> InternalRegistrationManager {
-        let manager = InternalRegistrationManager(provider: provider, client: networkingClient)
-        return manager
+        guard let networkingClient = self.networkingClient, let provider = self.provider
+        else { fatalError("MobiLab SDK not setup") }
+
+        return InternalRegistrationManager(provider: provider, client: networkingClient)
     }
 }

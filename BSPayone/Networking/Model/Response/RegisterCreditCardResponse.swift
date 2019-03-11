@@ -10,46 +10,45 @@ import Foundation
 import MobilabPaymentCore
 
 enum StatusType: String, Codable {
-    case VALID
-    case INVALID
-    case ERROR
+    case valid = "VALID"
+    case invalid = "INVALID"
+    case error = "ERROR"
 }
 
 struct RegisterCreditCardResponse {
     var status: StatusType
-    var pseudocardpan: String?
-    var cardtype:String?
-    var truncatedcardpan: String?
-    var cardexpiredate:String?
-    var errorcode:String?
-    var errormessage: String?
-    var customermessage:String?
-    
-    var error:MLError? {
-        if status != .VALID {
-            return MLError(title: "PSP Error", description: errormessage!, code: Int(errorcode!)!)
+    var pseudoCardPan: String?
+    var cardType: String?
+    var truncatedCardPan: String?
+    var cardExpireDate: String?
+    var errorCode: String?
+    var errorMessage: String?
+    var customerMessage: String?
+
+    var error: MLError? {
+        if self.status != .valid {
+            return MLError(title: "PSP Error", description: self.errorMessage!, code: Int(self.errorCode!)!)
         }
         return nil
     }
-    
-    init(status: StatusType, pseudocardpan: String, cardtype: String, truncatedcardpan: String, cardexpiredate: String) {
+
+    init(status: StatusType, pseudoCardPan: String, cardType: String, truncatedCardPan: String, cardExpireDate: String) {
         self.status = status
-        self.pseudocardpan = pseudocardpan
-        self.cardtype = cardtype
-        self.truncatedcardpan = truncatedcardpan
-        self.cardexpiredate = cardexpiredate
+        self.pseudoCardPan = pseudoCardPan
+        self.cardType = cardType
+        self.truncatedCardPan = truncatedCardPan
+        self.cardExpireDate = cardExpireDate
     }
-    
-    init(status: StatusType, errorcode: String, errormessage: String, customermessage: String) {
+
+    init(status: StatusType, errorCode: String, errorMessage: String, customerMessage: String) {
         self.status = status
-        self.errorcode = errorcode
-        self.errormessage = errormessage
-        self.customermessage = customermessage
+        self.errorCode = errorCode
+        self.errorMessage = errorMessage
+        self.customerMessage = customerMessage
     }
 }
 
 extension RegisterCreditCardResponse: Decodable {
-    
     enum DecodableKeys: String, CodingKey {
         case status
         case pseudocardpan
@@ -60,23 +59,23 @@ extension RegisterCreditCardResponse: Decodable {
         case errormessage
         case customermessage
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DecodableKeys.self)
         let status: StatusType = try container.decode(StatusType.self, forKey: .status)
-        if status == .VALID {
+        if status == .valid {
             let pseudocardpan: String = try container.decode(String.self, forKey: .pseudocardpan)
             let cardtype: String = try container.decode(String.self, forKey: .cardtype)
             let truncatedcardpan: String = try container.decode(String.self, forKey: .truncatedcardpan)
             let cardexpiredate: String = try container.decode(String.self, forKey: .cardexpiredate)
-            
-            self.init(status: status, pseudocardpan: pseudocardpan, cardtype: cardtype, truncatedcardpan: truncatedcardpan, cardexpiredate: cardexpiredate)
+
+            self.init(status: status, pseudoCardPan: pseudocardpan, cardType: cardtype, truncatedCardPan: truncatedcardpan, cardExpireDate: cardexpiredate)
         } else {
             let errorcode: String = try container.decode(String.self, forKey: .errorcode)
             let errormessage: String = try container.decode(String.self, forKey: .errormessage)
             let customermessage: String = try container.decode(String.self, forKey: .customermessage)
-            
-            self.init(status: status, errorcode: errorcode, errormessage: errormessage, customermessage: customermessage)
+
+            self.init(status: status, errorCode: errorcode, errorMessage: errormessage, customerMessage: customermessage)
         }
     }
 }

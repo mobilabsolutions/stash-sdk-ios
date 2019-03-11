@@ -13,7 +13,7 @@ public struct RegistrationRequest {
     public var pspData: Data?
     public var registrationData: Data?
 
-    init(standardizedData: StandardizedData, pspData:Data?, registrationData: Data? = nil) {
+    init(standardizedData: StandardizedData, pspData: Data?, registrationData: Data? = nil) {
         self.standardizedData = standardizedData
         self.pspData = pspData
         self.registrationData = registrationData

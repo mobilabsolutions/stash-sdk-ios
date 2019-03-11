@@ -9,11 +9,6 @@
 import Foundation
 
 public struct Header {
-    var field: String
-    var value: String
-
-    init(field: String, value: String) {
-        self.field = field
-        self.value = value
-    }
+    let field: String
+    let value: String
 }
