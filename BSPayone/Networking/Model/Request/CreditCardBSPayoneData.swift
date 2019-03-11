@@ -26,6 +26,7 @@ extension CreditCardBSPayoneData: Codable {
     }
 
     public static func from(registrationData: Data?) -> CreditCardBSPayoneData {
+        #warning("Improve error handling for not being able to decode response")
         guard let data = registrationData, let decoded = try? JSONDecoder().decode(CreditCardBSPayoneData.self, from: data)
         else { fatalError("MobiLabSDK can not decode CreditCardBSPayoneData from data") }
         return decoded
