@@ -9,29 +9,19 @@
 import Foundation
 
 enum PaymentMethod: String, Codable {
-    case CC
-    case SEPA
-    case PAY_PAL
-    case GOOGLE_PAY
-    case APPLE_PAY
-    case KLARNA
+    case creditCard = "CC"
+    case sepa = "SEPA"
+    case payPal = "PAY_ PAL"
+    case googlePay = "GOOGLE_PAY"
+    case applePay = "APPLE_PAY"
+    case klarna = "KLARNA"
 }
 
 struct AliasExtra: Codable {
-    var ccExpiry: String
-    var ccMask: String
-    var ccType: String
-    var email: String
-    var ibanMask: String
-    var paymentMethod: PaymentMethod
-    
-    init(ccExpiry: String, ccMask: String, ccType: String, email: String, ibanMask: String, paymentMethod: PaymentMethod) {
-        self.ccExpiry = ccExpiry
-        self.ccMask = ccMask
-        self.ccType = ccType
-        self.email = email
-        self.ibanMask = ibanMask
-        self.paymentMethod = paymentMethod
-    }
+    let ccExpiry: String
+    let ccMask: String
+    let ccType: String
+    let email: String
+    let ibanMask: String
+    let paymentMethod: PaymentMethod
 }
-

@@ -8,8 +8,6 @@
 
 import Foundation
 
-protocol BaseMethodData   {
-    
+protocol BaseMethodData {
     func toBSPayoneData() -> Data?
-    
 }

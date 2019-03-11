@@ -14,12 +14,7 @@ enum RouterServiceBSPayone {
 }
 
 struct RouterRequestBSPayone: RouterRequestProtocol {
-    
-    var service: RouterServiceBSPayone
-
-    init(service: RouterServiceBSPayone) {
-        self.service = service
-    }
+    let service: RouterServiceBSPayone
 
     func getBaseURL() -> URL {
         return URL(string: "https://secure.pay1.de/client-api/")!
@@ -27,23 +22,23 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
 
     func getURL() -> URL {
         switch self.service {
-        case .registerCreditCard(let creditCardData, let pspData):
-            
-            let url = self.getBaseURL().append("mid", value:pspData.merchantId)
-            .append("portalid", value: pspData.portalId)
-            .append("api_version", value: pspData.apiVersion)
-            .append("mode", value: "test")
-            .append("request", value: pspData.request)
-            .append("responsetype", value: pspData.responseType)
-            .append("hash", value: "35996f45100c40d51cffedcddc471f8189fc3568c287871568dc6c8bae1c4d732ded416b502f6191fb6085a2d767ef6f")
-            
-            .append("aid", value: creditCardData.aId)
-            .append("cardpan", value: creditCardData.cardPan!)
-            .append("cardtype", value: creditCardData.cardType!)
-            .append("cardexpiredate", value: creditCardData.cardExpireDate!)
-            .append("cardcvc2", value: creditCardData.cardCVC2!)
-            .append("storecarddata", value: "yes")
-            
+        case let .registerCreditCard(creditCardData, pspData):
+
+            let url = self.getBaseURL().append("mid", value: pspData.merchantId)
+                .append("portalid", value: pspData.portalId)
+                .append("api_version", value: pspData.apiVersion)
+                .append("mode", value: "test")
+                .append("request", value: pspData.request)
+                .append("responsetype", value: pspData.responseType)
+                .append("hash", value: "35996f45100c40d51cffedcddc471f8189fc3568c287871568dc6c8bae1c4d732ded416b502f6191fb6085a2d767ef6f")
+
+                .append("aid", value: creditCardData.aId)
+                .append("cardpan", value: creditCardData.cardPan!)
+                .append("cardtype", value: creditCardData.cardType!)
+                .append("cardexpiredate", value: creditCardData.cardExpireDate!)
+                .append("cardcvc2", value: creditCardData.cardCVC2!)
+                .append("storecarddata", value: "yes")
+
             return url
         }
     }
@@ -77,5 +72,4 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
             return ""
         }
     }
-
 }

@@ -27,6 +27,6 @@ class ViewController: UIViewController {
 //
 //        let billingData = BillingData(email: "testEmail")
 //        let creditCardData = CreditCardData(holderName: "holder", cardNumber: "cardNumber", CVV: "cvv", expiryMonth: 1, expiryYear: 1)
-        //registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
+        // registrationManager.registerCreditCard(billingData: billingData, creditCardData: creditCardData)
     }
 }

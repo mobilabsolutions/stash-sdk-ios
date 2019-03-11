@@ -18,6 +18,4 @@ class NetworkClientCore: NetworkClient {
         let router = RouterRequestCore(service: .updateAlias(request))
         fetch(with: router, responseType: Bool.self, completion: completion)
     }
-
 }
-

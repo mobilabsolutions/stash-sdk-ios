@@ -9,17 +9,8 @@
 import Foundation
 
 extension Encodable {
-    
     func toData() -> Data? {
-    
         let encodedObject = try? JSONEncoder().encode(self)
         return encodedObject
-    }
-    
-    func toURLQueryItem(name:String) -> URLQueryItem? {
-        if let _self = self as? String {
-            return URLQueryItem(name: name, value: _self)
-        }
-        return nil
     }
 }

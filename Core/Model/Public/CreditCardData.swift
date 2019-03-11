@@ -9,20 +9,12 @@
 import Foundation
 
 public struct CreditCardData {
-    var holderName: String
-    var cardNumber: String
-    var cardType: String = "V"
-    var CVV: String
-    var expiryMonth: Int
-    var expiryYear: Int
-
-    public init(holderName: String, cardNumber: String, CVV: String, expiryMonth: Int, expiryYear: Int) {
-        self.holderName = holderName
-        self.cardNumber = cardNumber
-        self.CVV = CVV
-        self.expiryMonth = expiryMonth
-        self.expiryYear = expiryYear
-    }
+    let holderName: String
+    let cardNumber: String
+    let cardType: String = "V"
+    let CVV: String
+    let expiryMonth: Int
+    let expiryYear: Int
 }
 
 extension CreditCardData: BaseMethodData {
@@ -32,13 +24,13 @@ extension CreditCardData: BaseMethodData {
 }
 
 extension CreditCardData: Codable {
-    enum EncodingKeys:String,CodingKey {
+    enum EncodingKeys: String, CodingKey {
         case cardNumber = "cardPan"
         case CVV = "cardCVC2"
         case cardExpireDate
         case cardType
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: EncodingKeys.self)
         try container.encode(cardNumber, forKey: .cardNumber)

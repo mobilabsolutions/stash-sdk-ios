@@ -9,9 +9,5 @@
 import Foundation
 
 public struct AdditionalRegistrationData {
-    public var data: Data?
-
-    init(data: Data?) {
-        self.data = data
-    }
+    public let data: Data?
 }
