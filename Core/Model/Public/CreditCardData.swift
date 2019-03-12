@@ -9,16 +9,16 @@
 import Foundation
 
 public struct CreditCardData: RegistrationData {
-    public let holderName: String
     public let cardNumber: String
     public let cardType: String = "V"
     public let cvv: String
     public let expiryMonth: Int
     public let expiryYear: Int
     public let billingData: BillingData
+    public let holderName: String?
     public let additionalData: [String: String]
 
-    public init(holderName: String, cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, billingData: BillingData,
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData,
                 additionalData: [String: String] = [:]) {
         self.holderName = holderName
         self.cardNumber = cardNumber

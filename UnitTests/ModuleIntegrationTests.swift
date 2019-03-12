@@ -45,8 +45,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         self.module = module
 
-        let creditCard = CreditCardData(holderName: "Max Mustermann", cardNumber: "4111111111111111",
-                                        cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
+        let creditCard = CreditCardData(cardNumber: "4111111111111111",
+                                        cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
@@ -65,8 +65,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         self.module = module
 
-        let creditCard = CreditCardData(holderName: "Max Mustermann", cardNumber: "4111111111111111",
-                                        cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
+        let creditCard = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                        expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when module fails")
