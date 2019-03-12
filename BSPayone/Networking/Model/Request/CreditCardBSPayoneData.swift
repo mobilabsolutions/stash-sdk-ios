@@ -9,7 +9,7 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct CreditCardBSPayoneData: Codable {
+public struct CreditCardBSPayoneData {
     let aId = "42949"
     let cardPan: String
     let cardType: String
