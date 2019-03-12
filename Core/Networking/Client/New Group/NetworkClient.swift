@@ -8,6 +8,26 @@
 
 import UIKit
 
+private enum ApiError: Error {
+    case requestFailed(Int, String)
+    case responseNotValid
+    case decodingFailed
+    case unknown
+
+    func createError() -> MLError {
+        switch self {
+        case let .requestFailed(code, localizedDescription):
+            return MLError(description: localizedDescription, code: code)
+        case .responseNotValid:
+            return MLError(description: "Response not valid", code: 1)
+        case .decodingFailed:
+            return MLError(description: "API decoding failed", code: 2)
+        case .unknown:
+            return MLError(description: "Unknown error", code: 3)
+        }
+    }
+}
+
 public protocol NetworkClient {
     typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
     func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>)
@@ -16,83 +36,65 @@ public protocol NetworkClient {
 public extension NetworkClient {
     typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
 
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType _: T.Type, completion: @escaping Completion<T>) {
-        let configuration = URLSessionConfiguration.default
+    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 
-        #warning("Optimize logging: e.g. only log on a certain flag")
-        if let method = urlRequest.httpMethod, let url = urlRequest.url {
-            print("API request: \(method) \(url)")
+        let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
+        if isLoggingEnabled, let method = urlRequest.httpMethod, let url = urlRequest.url {
+            #if DEBUG
+                print("MobilabPayment request: \(method) \(url)")
+                if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
+                    print(body)
+                }
+            #endif
         }
 
-        if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
-            print(body)
-        }
-
-        let session = URLSession(configuration: configuration)
+        let session = URLSession(configuration: URLSessionConfiguration.default)
         let dataTask = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-
-            if error != nil {
-                if let err = error as NSError? {
-                    completion(.failure(MLError(title: "API error", description: err.localizedDescription, code: err.code)))
-                    return
-                }
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
-            else {
-                let err = MLError(title: "Not a valid http response", description: "Not a valid http response", code: 1)
-                completion(.failure(err))
-                print("error: not a valid http response")
-                return
-            }
-
-            switch httpResponse.statusCode {
-            case 200, 201, 204:
-
-                switch request.getResponseType() {
-                case .json:
-
-                    guard receivedData.count != 0 else {
-                        completion(.success(true as! T))
-                        return
-                    }
-
-                    print(String(data: receivedData, encoding: String.Encoding.utf8) ?? "Decoding received data failed")
-
-                    self.decodingData(with: receivedData, decodingType: T.self, completionHandler: { result, error in
-
-                        guard let decodable = result, let castedDecodable = decodable as? T else {
-                            completion(.failure(error!))
-                            return
-                        }
-
-                        completion(.success(castedDecodable))
-                    })
-
-                case .xml:
-                    // TODO: implement
-                    let err = MLError(title: "XML implementation needed", description: "XML implementation needed", code: 1)
-                    completion(.failure(err))
-                }
-
-            default:
-                print(String(data: receivedData, encoding: String.Encoding.utf8) ?? "Decoding received data failed")
-                print("Got error, status code:  \(httpResponse.statusCode)")
-                let err = MLError(title: "Not a valid http response", description: "Not a valid http response", code: 1)
-                completion(.failure(err))
+            do {
+                let decoded = try self.handleResponse(data: data, response: response, error: error, decodingType: responseType)
+                completion(.success(decoded))
+            } catch let errorType as ApiError {
+                completion(.failure(errorType.createError()))
+            } catch {
+                completion(.failure(ApiError.unknown.createError()))
             }
         }
         dataTask.resume()
     }
 
-    private func decodingData<T: Decodable>(with data: Data, decodingType: T.Type, completionHandler completion: @escaping DecodingDataCompletionHandler) {
-        do {
-            let genericModel = try JSONDecoder().decode(decodingType, from: data)
-            completion(genericModel, nil)
-        } catch {
-            let err = MLError(title: "Decoding error", description: "Decoding error", code: 1)
-            completion(nil, err)
+    private func handleResponse<T: Decodable>(data: Data?, response: URLResponse?, error: Error?, decodingType: T.Type) throws -> T {
+        guard error == nil else {
+            let error = error! as NSError
+            throw ApiError.requestFailed(error.code, error.localizedDescription)
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {
+            throw ApiError.responseNotValid
+        }
+
+        let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
+        if isLoggingEnabled, let receivedData = receivedData.toJSONString() {
+            #if DEBUG
+                print(receivedData)
+            #endif
+        }
+
+        switch httpResponse.statusCode {
+        case 200, 201, 204:
+
+            guard receivedData.count != 0 else {
+                return true as! T
+            }
+
+            do {
+                return try JSONDecoder().decode(decodingType, from: receivedData)
+            } catch {
+                throw ApiError.decodingFailed
+            }
+
+        default:
+            throw ApiError.responseNotValid
         }
     }
 }

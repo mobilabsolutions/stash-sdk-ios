@@ -11,37 +11,15 @@ enum APIEndpoints: String {
     case test = "https://payment-dev.mblb.net/api/v1"
 }
 
-class MobilabPaymentConfigurationBuilder {
-    var configuration: MobilabPaymentConfiguration?
+public struct MobilabPaymentConfiguration {
+    var publicKey: String = ""
+    var endpoint: String = ""
+    public var loggingEnabled = false
 
-    static let sharedInstance = MobilabPaymentConfigurationBuilder()
+    init() {}
 
-    func setupConfiguration(token: String, pspType: String) {
-        let arrayOfItems = token.split(separator: "-")
-        var endpoint: APIEndpoints?
-        if arrayOfItems.count == 3 {
-            let mode = arrayOfItems[0]
-            if mode == "PD" {
-                endpoint = APIEndpoints.test
-            } else if mode == "P" {
-                endpoint = APIEndpoints.production
-            }
-
-            if let end = endpoint {
-                self.configuration = MobilabPaymentConfiguration(publicToken: token, pspType: pspType, endpoint: end)
-            }
-        }
-    }
-}
-
-struct MobilabPaymentConfiguration {
-    var publicToken: String
-    var pspType: String
-    var endpoint: APIEndpoints
-
-    init(publicToken: String, pspType: String, endpoint: APIEndpoints) {
-        self.publicToken = publicToken
-        self.pspType = pspType
+    public init(publicKey: String, endpoint: String) {
+        self.publicKey = publicKey
         self.endpoint = endpoint
     }
 }

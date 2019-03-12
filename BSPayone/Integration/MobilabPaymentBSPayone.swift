@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
-    public let pspType: String
+    public let pspIdentifier: String
     public let publicKey: String
 
     let networkingClient: NetworkClientBSPayone?
@@ -28,7 +28,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     public init(publicKey: String) {
         self.networkingClient = NetworkClientBSPayone()
         self.publicKey = publicKey
-        self.pspType = "BS_PAYONE"
+        self.pspIdentifier = "BS_PAYONE"
     }
 
     private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspExtra: PSPExtra,
