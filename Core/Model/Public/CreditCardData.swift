@@ -8,34 +8,21 @@
 
 import Foundation
 
-public struct CreditCardData {
-    let holderName: String
-    let cardNumber: String
-    let cardType: String = "V"
-    let CVV: String
-    let expiryMonth: Int
-    let expiryYear: Int
-}
+public struct CreditCardData: RegistrationData {
+    public let cardNumber: String
+    public let cardType: String = "V"
+    public let cvv: String
+    public let expiryMonth: Int
+    public let expiryYear: Int
+    public let billingData: BillingData
+    public let holderName: String?
 
-extension CreditCardData: BaseMethodData {
-    func toBSPayoneData() -> Data? {
-        return self.toData()
-    }
-}
-
-extension CreditCardData: Codable {
-    enum EncodingKeys: String, CodingKey {
-        case cardNumber = "cardPan"
-        case CVV = "cardCVC2"
-        case cardExpireDate
-        case cardType
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: EncodingKeys.self)
-        try container.encode(cardNumber, forKey: .cardNumber)
-        try container.encode(CVV, forKey: .CVV)
-        try container.encode(cardType, forKey: .cardType)
-        try container.encode("\(expiryYear)\(String(format: "%02d", expiryMonth))", forKey: .cardExpireDate)
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) {
+        self.holderName = holderName
+        self.cardNumber = cardNumber
+        self.cvv = cvv
+        self.expiryMonth = expiryMonth
+        self.expiryYear = expiryYear
+        self.billingData = billingData
     }
 }

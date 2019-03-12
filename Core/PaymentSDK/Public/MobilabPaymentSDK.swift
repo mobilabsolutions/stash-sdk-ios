@@ -8,7 +8,8 @@
 
 import UIKit
 
-public typealias RegistrationResult = ((NetworkClientResult<String, MLError>) -> Void)
+public typealias RegistrationResult = NetworkClientResult<String?, MLError>
+public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 public class MobilabPaymentSDK {
     public static func setUp(provider: PaymentServiceProvider) {

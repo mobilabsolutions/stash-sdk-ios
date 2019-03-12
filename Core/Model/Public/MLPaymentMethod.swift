@@ -9,20 +9,34 @@
 import Foundation
 
 class MLPaymentMethod {
-    let billingData: BillingData
-    let methodData: BaseMethodData
+    let methodData: RegistrationData
     let requestData: RegisterRequestData
 
-    init(billingData: BillingData, methodData: BaseMethodData, requestData: RegisterRequestData) {
-        self.billingData = billingData
+    init(methodData: RegistrationData, requestData: RegisterRequestData) {
         self.methodData = methodData
         self.requestData = requestData
     }
 
     func toAliasExtra() -> AliasExtra? {
-        guard self.requestData.type == .creditCard, let method = methodData as? CreditCardData
-        else { return nil }
+        switch self.requestData.type {
+        case .creditCard:
+            guard let method = methodData as? CreditCardData
+            else { return nil }
 
-        return AliasExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))", ccMask: "", ccType: "CC", email: self.billingData.email, ibanMask: "", paymentMethod: .creditCard)
+            let extra = CreditCardExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))",
+                                        ccMask: requestData.cardMask, ccType: "CC")
+            return AliasExtra(ccConfig: extra)
+        case .sepa:
+            guard let method = methodData as? SEPAData
+            else { return nil }
+
+            let extra = SepaExtra(iban: method.iban, bic: method.bic,
+                                  name: method.billingData.name, email: method.billingData.email,
+                                  street: method.billingData.address1, country: method.billingData.country,
+                                  zip: method.billingData.zip)
+            return AliasExtra(sepaConfig: extra)
+        default:
+            return nil
+        }
     }
 }

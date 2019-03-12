@@ -8,13 +8,14 @@
 
 import Foundation
 
-public struct SEPAData: Codable {
-    let bankNumber: String
-    let IBAN: String
-}
+public struct SEPAData: RegistrationData {
+    public let bic: String
+    public let iban: String
+    public let billingData: BillingData
 
-extension SEPAData: BaseMethodData {
-    func toBSPayoneData() -> Data? {
-        return nil
+    public init(iban: String, bic: String, billingData: BillingData) {
+        self.iban = iban
+        self.bic = bic
+        self.billingData = billingData
     }
 }
