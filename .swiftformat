@@ -1,0 +1,5 @@
+# file options
+--symlinks ignore
+
+# format options
+--self insert
