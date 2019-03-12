@@ -19,7 +19,15 @@ public extension NetworkClient {
     func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType _: T.Type, completion: @escaping Completion<T>) {
         let configuration = URLSessionConfiguration.default
         let urlRequest = request.asURLRequest()
-        print("API request: \(urlRequest.httpMethod!) \(urlRequest.url!)")
+
+        #warning("Optimize logging: e.g. only log on a certain flag")
+        if let method = urlRequest.httpMethod, let url = urlRequest.url {
+            print("API request: \(method) \(url)")
+        }
+
+        if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
+            print(body)
+        }
 
         let session = URLSession(configuration: configuration)
         let dataTask = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -27,6 +35,7 @@ public extension NetworkClient {
             if error != nil {
                 if let err = error as NSError? {
                     completion(.failure(MLError(title: "API error", description: err.localizedDescription, code: err.code)))
+                    return
                 }
             }
 

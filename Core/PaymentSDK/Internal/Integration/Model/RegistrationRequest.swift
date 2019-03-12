@@ -9,13 +9,18 @@
 import Foundation
 
 public struct RegistrationRequest {
-    public var standardizedData: StandardizedData
-    public var pspData: Data?
-    public var registrationData: Data?
+    public let aliasId: String
+    public let pspData: PSPExtra
+    public let registrationData: RegistrationData?
 
-    init(standardizedData: StandardizedData, pspData: Data?, registrationData: Data? = nil) {
-        self.standardizedData = standardizedData
+    init(aliasId: String, pspData: PSPExtra, registrationData: RegistrationData? = nil) {
+        self.aliasId = aliasId
         self.pspData = pspData
         self.registrationData = registrationData
     }
+}
+
+public protocol RegistrationData {
+    var billingData: BillingData { get }
+    var additionalData: [String: String] { get }
 }
