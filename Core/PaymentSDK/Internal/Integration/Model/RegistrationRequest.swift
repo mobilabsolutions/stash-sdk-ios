@@ -22,5 +22,4 @@ public struct RegistrationRequest {
 
 public protocol RegistrationData {
     var billingData: BillingData { get }
-    var additionalData: [String: String] { get }
 }

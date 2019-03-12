@@ -16,16 +16,13 @@ public struct CreditCardData: RegistrationData {
     public let expiryYear: Int
     public let billingData: BillingData
     public let holderName: String?
-    public let additionalData: [String: String]
 
-    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData,
-                additionalData: [String: String] = [:]) {
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) {
         self.holderName = holderName
         self.cardNumber = cardNumber
         self.cvv = cvv
         self.expiryMonth = expiryMonth
         self.expiryYear = expiryYear
         self.billingData = billingData
-        self.additionalData = additionalData
     }
 }

@@ -12,12 +12,10 @@ public struct SEPAData: RegistrationData {
     public let bic: String
     public let iban: String
     public let billingData: BillingData
-    public let additionalData: [String: String]
 
-    public init(iban: String, bic: String, billingData: BillingData, additionalData: [String: String] = [:]) {
+    public init(iban: String, bic: String, billingData: BillingData) {
         self.iban = iban
         self.bic = bic
         self.billingData = billingData
-        self.additionalData = additionalData
     }
 }
