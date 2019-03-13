@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PaymentMethod: String, Codable {
+enum PaymentMethodType: String, Codable {
     case creditCard = "CC"
     case sepa = "SEPA"
     case payPal = "PAY_ PAL"
@@ -20,7 +20,7 @@ enum PaymentMethod: String, Codable {
 struct AliasExtra: Codable {
     let ccConfig: CreditCardExtra?
     let sepaConfig: SepaExtra?
-    let paymentMethod: PaymentMethod
+    let paymentMethod: PaymentMethodType
 
     init(ccConfig: CreditCardExtra) {
         self.paymentMethod = .creditCard
@@ -37,7 +37,7 @@ struct AliasExtra: Codable {
 
 struct CreditCardExtra: Codable {
     let ccExpiry: String
-    let ccMask: String
+    let ccMask: Int
     let ccType: String
 }
 

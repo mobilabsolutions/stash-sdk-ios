@@ -1,5 +1,5 @@
 //
-//  MLPaymentMethod.swift
+//  PaymentMethod.swift
 //  MLPaymentSDK
 //
 //  Created by Mirza Zenunovic on 20/06/2018.
@@ -8,23 +8,23 @@
 
 import Foundation
 
-class MLPaymentMethod {
+class PaymentMethod {
     let methodData: RegistrationData
-    let requestData: RegisterRequestData
+    let type: PaymentMethodType
 
-    init(methodData: RegistrationData, requestData: RegisterRequestData) {
+    init(methodData: RegistrationData, type: PaymentMethodType) {
         self.methodData = methodData
-        self.requestData = requestData
+        self.type = type
     }
 
     func toAliasExtra() -> AliasExtra? {
-        switch self.requestData.type {
+        switch self.type {
         case .creditCard:
-            guard let method = methodData as? CreditCardData
+            guard let method = methodData as? CreditCardData, let cardMask = method.cardMask
             else { return nil }
 
             let extra = CreditCardExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))",
-                                        ccMask: requestData.cardMask, ccType: "CC")
+                                        ccMask: cardMask, ccType: method.cardType.rawValue)
             return AliasExtra(ccConfig: extra)
         case .sepa:
             guard let method = methodData as? SEPAData

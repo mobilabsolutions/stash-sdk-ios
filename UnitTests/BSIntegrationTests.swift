@@ -18,7 +18,7 @@ class BSIntegrationTests: XCTestCase {
     }
 
     func testCreditCardBS() {
-        let expectation = self.expectation(description: "Example")
+        let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
@@ -33,13 +33,37 @@ class BSIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 80) { error in
+        waitForExpectations(timeout: 20) { error in
+            XCTAssertNil(error)
+        }
+    }
+
+    func testErrorCompletionWhenCreditCardIsOfUnknownType() {
+        let expectation = self.expectation(description: "Registering invalid credit card fails")
+
+        let billingData = BillingData(email: "mirza@miki.com")
+        let creditCardData = CreditCardData(cardNumber: "123 1111 1111 1111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
+
+        XCTAssertEqual(creditCardData.cardType, .unknown)
+
+        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
+            switch result {
+            case .success:
+                XCTFail("Adding an invalid credit card should not succeed")
+                expectation.fulfill()
+            case .failure:
+                expectation.fulfill()
+            }
+        })
+
+        waitForExpectations(timeout: 1) { error in
             XCTAssertNil(error)
         }
     }
 
     func testAddSEPABS() {
-        let expectation = self.expectation(description: "Example")
+        let expectation = self.expectation(description: "Registering SEPA succeeds")
 
         let billingData = BillingData(email: "max@mustermann.de",
                                       name: "Max Mustermann",
@@ -64,7 +88,7 @@ class BSIntegrationTests: XCTestCase {
             }
         }
 
-        self.waitForExpectations(timeout: 80) { error in
+        self.waitForExpectations(timeout: 20) { error in
             XCTAssertNil(error)
         }
     }
