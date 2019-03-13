@@ -17,11 +17,11 @@ class CreditCardUtils {
         guard numberLength > 6
         else { return .unknown }
 
-        let iin = String(cleanedNumber[cleanedNumber.startIndex ..< cleanedNumber.index(cleanedNumber.startIndex, offsetBy: 6)])
+        let iin = String(cleanedNumber[cleanedNumber.startIndex..<cleanedNumber.index(cleanedNumber.startIndex, offsetBy: 6)])
         let highestPriorityMatch = CreditCardData.CreditCardType.allCases
             .flatMap { type in type.iinRangePatterns.map { (range: $0, type: type) } }
             .filter { range, _ in
-                guard let relevantPart = Int(String(iin[iin.startIndex ..< iin.index(iin.startIndex, offsetBy: range.priority)]))
+                guard let relevantPart = Int(String(iin[iin.startIndex..<iin.index(iin.startIndex, offsetBy: range.priority)]))
                 else { return false }
                 return range.range ~= relevantPart && range.validLengths.contains { $0 ~= numberLength }
             }
@@ -67,38 +67,38 @@ extension CreditCardData.CreditCardType {
     fileprivate var iinRangePatterns: [IINRange] {
         switch self {
         case .visa:
-            return [IINRange(range: 4 ... 4, priority: 1, validLengths: [13 ... 13, 16 ... 16, 18 ... 18, 19 ... 19])]
+            return [IINRange(range: 4...4, priority: 1, validLengths: [13...13, 16...16, 18...18, 19...19])]
         case .mastercard:
-            return [IINRange(range: 51 ... 55, priority: 2, validLengths: [16 ... 16]),
-                    IINRange(range: 2221 ... 2720, priority: 4, validLengths: [16 ... 16])]
+            return [IINRange(range: 51...55, priority: 2, validLengths: [16...16]),
+                    IINRange(range: 2221...2720, priority: 4, validLengths: [16...16])]
         case .americanExpress:
-            return [IINRange(range: 34 ... 34, priority: 2, validLengths: [15 ... 15]),
-                    IINRange(range: 37 ... 37, priority: 2, validLengths: [15 ... 15])]
+            return [IINRange(range: 34...34, priority: 2, validLengths: [15...15]),
+                    IINRange(range: 37...37, priority: 2, validLengths: [15...15])]
         case .diners:
-            return [IINRange(range: 36 ... 36, priority: 2, validLengths: [14 ... 19]),
-                    IINRange(range: 300 ... 305, priority: 3, validLengths: [14 ... 19]),
-                    IINRange(range: 3095 ... 3095, priority: 4, validLengths: [14 ... 19]),
-                    IINRange(range: 38 ... 39, priority: 2, validLengths: [14 ... 19])]
+            return [IINRange(range: 36...36, priority: 2, validLengths: [14...19]),
+                    IINRange(range: 300...305, priority: 3, validLengths: [14...19]),
+                    IINRange(range: 3095...3095, priority: 4, validLengths: [14...19]),
+                    IINRange(range: 38...39, priority: 2, validLengths: [14...19])]
         case .discover:
-            return [IINRange(range: 6011 ... 6011, priority: 4, validLengths: [16 ... 19]),
-                    IINRange(range: 622_126 ... 622_925, priority: 6, validLengths: [16 ... 19]),
-                    IINRange(range: 624_000 ... 626_999, priority: 6, validLengths: [16 ... 19]),
-                    IINRange(range: 628_200 ... 628_899, priority: 6, validLengths: [16 ... 19]),
-                    IINRange(range: 64 ... 65, priority: 2, validLengths: [16 ... 19])]
+            return [IINRange(range: 6011...6011, priority: 4, validLengths: [16...19]),
+                    IINRange(range: 622_126...622_925, priority: 6, validLengths: [16...19]),
+                    IINRange(range: 624_000...626_999, priority: 6, validLengths: [16...19]),
+                    IINRange(range: 628_200...628_899, priority: 6, validLengths: [16...19]),
+                    IINRange(range: 64...65, priority: 2, validLengths: [16...19])]
         case .jcb:
-            return [IINRange(range: 3528 ... 3589, priority: 4, validLengths: [16 ... 19])]
+            return [IINRange(range: 3528...3589, priority: 4, validLengths: [16...19])]
         case .maestroInternational:
-            return [IINRange(range: 5018 ... 5020, priority: 4, validLengths: [12 ... 19]),
-                    IINRange(range: 5038 ... 5038, priority: 4, validLengths: [12 ... 19]),
-                    IINRange(range: 6304 ... 6304, priority: 4, validLengths: [12 ... 19]),
-                    IINRange(range: 6307 ... 6307, priority: 4, validLengths: [12 ... 19]),
-                    IINRange(range: 6759 ... 6759, priority: 4, validLengths: [12 ... 19]),
-                    IINRange(range: 6761 ... 6763, priority: 4, validLengths: [12 ... 19])]
+            return [IINRange(range: 5018...5020, priority: 4, validLengths: [12...19]),
+                    IINRange(range: 5038...5038, priority: 4, validLengths: [12...19]),
+                    IINRange(range: 6304...6304, priority: 4, validLengths: [12...19]),
+                    IINRange(range: 6307...6307, priority: 4, validLengths: [12...19]),
+                    IINRange(range: 6759...6759, priority: 4, validLengths: [12...19]),
+                    IINRange(range: 6761...6763, priority: 4, validLengths: [12...19])]
         case .carteBleue:
             #warning("Figure out which IIN range carte bleue has / how we can find out whether a card is carte bleue or not")
             return []
         case .chinaUnionPay:
-            return [IINRange(range: 62 ... 62, priority: 2, validLengths: [16 ... 19])]
+            return [IINRange(range: 62...62, priority: 2, validLengths: [16...19])]
         case .unknown:
             return []
         }

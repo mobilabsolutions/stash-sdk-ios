@@ -18,7 +18,7 @@ public struct CreditCardData: RegistrationData {
     public let cardType: CreditCardType
 
     public var cardMask: Int? {
-        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -4) ..< cardNumber.endIndex])
+        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -4)..<cardNumber.endIndex])
     }
 
     public enum CreditCardType: String, CaseIterable {
