@@ -78,7 +78,8 @@ class BSIntegrationTests: XCTestCase {
                                       phone: "1231231123",
                                       languageId: "deu")
 
-        let sepaData = SEPAData(iban: "PBNKDEFF", bic: "DE87123456781234567890", billingData: billingData)
+        guard let sepaData = SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
+        else { XCTFail("SEPA data should be valid"); return }
 
         let registerManager = MobilabPaymentSDK.getRegisterManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
