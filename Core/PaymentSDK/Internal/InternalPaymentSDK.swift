@@ -8,72 +8,67 @@
 
 import UIKit
 
-private enum ConfigurationError: Error {
-    case publicKeyNotSet
-    case endpointNotSet
-    case providerNotSet
+private enum SDKError: Error {
+    case configurationMissing
+    case clientMissing
+    case providerMissing
 
     func description() -> String {
         switch self {
-        case .publicKeyNotSet:
-            return "SDK Public key is not set!"
-        case .endpointNotSet:
-            return "SDK Endpoint is not set"
-        case .providerNotSet:
-            return "No Provider found. Please add default provider"
+        case .configurationMissing:
+            return "SDK configuration is missing"
+        case .clientMissing:
+            return "SDK network client is missing"
+        case .providerMissing:
+            return "SDK Provider to found. Please add default provider"
         }
     }
 }
 
 class InternalPaymentSDK {
-    var networkingClient: NetworkClientCore
-    var provider: PaymentServiceProvider?
-    var configuration: MobilabPaymentConfiguration
-
-    private init() {
-        self.networkingClient = NetworkClientCore()
-        self.configuration = MobilabPaymentConfiguration()
+    var _configuration: MobilabPaymentConfiguration?
+    var configuration: MobilabPaymentConfiguration {
+        guard let config = self._configuration else {
+            fatalError(SDKError.configurationMissing.description())
+        }
+        return config
     }
 
-    private func isSDKConfigured() throws -> Bool {
-        guard !self.configuration.publicKey.isEmpty else {
-            throw ConfigurationError.publicKeyNotSet
+    var _networkingClient: NetworkClientCore?
+    var networkingClient: NetworkClientCore {
+        guard let client = self._networkingClient else {
+            fatalError(SDKError.clientMissing.description())
         }
+        return client
+    }
 
-        guard !self.configuration.endpoint.isEmpty else {
-            throw ConfigurationError.endpointNotSet
+    var _provider: PaymentServiceProvider?
+    var provider: PaymentServiceProvider {
+        guard let provider = self._provider else {
+            fatalError(SDKError.providerMissing.description())
         }
-
-        guard self.provider != nil else {
-            throw ConfigurationError.providerNotSet
-        }
-
-        return true
+        return provider
     }
 
     static let sharedInstance = InternalPaymentSDK()
 
     func configure(configuration: MobilabPaymentConfiguration) {
-        self.configuration = configuration
-        self.networkingClient = NetworkClientCore()
-    }
-
-    func addProvider(provider: PaymentServiceProvider) {
-        self.provider = provider
-    }
-
-    func registrationManager() -> InternalRegistrationManager {
         do {
-            if try self.isSDKConfigured() {
-                return InternalRegistrationManager()
-            }
+            let url = try configuration.isConfigurationValid()
+            self._networkingClient = NetworkClientCore(url: url)
+            self._configuration = configuration
         } catch let error as ConfigurationError {
             fatalError(error.description())
         } catch {
             fatalError()
         }
+    }
 
-        // Code execution should never reach this line
+    func addProvider(provider: PaymentServiceProvider) {
+        self._provider = provider
+    }
+
+    func registrationManager() -> InternalRegistrationManager {
         return InternalRegistrationManager()
     }
 }

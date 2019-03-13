@@ -41,8 +41,8 @@ public extension NetworkClient {
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
         if isLoggingEnabled, let method = urlRequest.httpMethod, let url = urlRequest.url {
+            print("MobilabPayment request: \(method) \(url)")
             #if DEBUG
-                print("MobilabPayment request: \(method) \(url)")
                 if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
                     print(body)
                 }
@@ -65,8 +65,10 @@ public extension NetworkClient {
 
     private func handleResponse<T: Decodable>(data: Data?, response: URLResponse?, error: Error?, decodingType: T.Type) throws -> T {
         guard error == nil else {
-            let error = error! as NSError
-            throw ApiError.requestFailed(error.code, error.localizedDescription)
+            if let error = error as NSError? {
+                throw ApiError.requestFailed(error.code, error.localizedDescription)
+            }
+            fatalError("This should not happen")
         }
 
         guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {

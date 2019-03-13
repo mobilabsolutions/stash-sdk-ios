@@ -6,20 +6,56 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
+import Foundation
+
 enum APIEndpoints: String {
     case production = "https://p.mblb.net/api/v1"
     case test = "https://payment-dev.mblb.net/api/v1"
 }
 
-public struct MobilabPaymentConfiguration {
-    var publicKey: String = ""
-    var endpoint: String = ""
-    public var loggingEnabled = false
+public enum ConfigurationError: Error {
+    case publicKeyNotSet
+    case endpointNotSet
+    case endpointNotValid
+    case providerNotSet
 
-    init() {}
+    func description() -> String {
+        switch self {
+        case .publicKeyNotSet:
+            return "SDK Public key is not set!"
+        case .endpointNotSet:
+            return "SDK Endpoint is not set"
+        case .endpointNotValid:
+            return "SDK Endpoint is not valid"
+        case .providerNotSet:
+            return "No Provider found. Please add default provider"
+        }
+    }
+}
+
+public struct MobilabPaymentConfiguration {
+    let publicKey: String
+    let endpoint: String
+    public var loggingEnabled = false
 
     public init(publicKey: String, endpoint: String) {
         self.publicKey = publicKey
         self.endpoint = endpoint
+    }
+
+    public func isConfigurationValid() throws -> URL {
+        guard !self.publicKey.isEmpty else {
+            throw ConfigurationError.publicKeyNotSet
+        }
+
+        guard !self.endpoint.isEmpty else {
+            throw ConfigurationError.endpointNotSet
+        }
+
+        guard let url = URL(string: self.endpoint) else {
+            throw ConfigurationError.endpointNotValid
+        }
+
+        return url
     }
 }

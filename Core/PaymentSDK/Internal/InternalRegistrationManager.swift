@@ -10,7 +10,7 @@ import Foundation
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private let provider = InternalPaymentSDK.sharedInstance.provider!
+    private let provider = InternalPaymentSDK.sharedInstance.provider
 
     func addMethod(paymentMethod: MLPaymentMethod, completion: @escaping RegistrationResultCompletion) {
         guard let cardExtra = paymentMethod.toAliasExtra()

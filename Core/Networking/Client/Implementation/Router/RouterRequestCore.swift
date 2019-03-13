@@ -21,8 +21,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     }
 
     func getBaseURL() -> URL {
-        let endpoint = InternalPaymentSDK.sharedInstance.configuration.endpoint
-        var url = URL(string: endpoint)!
+        var url = InternalPaymentSDK.sharedInstance.networkingClient.endpoint
         if let relativePath = getRelativePath() {
             url = url.appendingPathComponent(relativePath)
         }
@@ -93,7 +92,7 @@ struct RouterRequestCore: RouterRequestProtocol {
         switch self.service {
         case .createAlias():
 
-            let pspType = InternalPaymentSDK.sharedInstance.provider!.pspIdentifier
+            let pspType = InternalPaymentSDK.sharedInstance.provider.pspIdentifier
             return Header(field: "PSP-Type", value: pspType)
         case .updateAlias:
             return nil
