@@ -12,5 +12,5 @@ import Foundation
 /// This class is not visible outside the SDK
 struct RegisterRequestData {
     let cardMask: String
-    let type: PaymentMethod
+    let type: PaymentMethodType
 }

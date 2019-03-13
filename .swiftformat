@@ -3,3 +3,4 @@
 
 # format options
 --self insert
+--ranges no-space

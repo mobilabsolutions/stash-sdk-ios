@@ -17,7 +17,7 @@ class InternalRegistrationManager {
         self.networkingClient = client
     }
 
-    func addMethod(paymentMethod: MLPaymentMethod, completion: @escaping RegistrationResultCompletion) {
+    func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion) {
         guard let cardExtra = paymentMethod.toAliasExtra()
         else {
             completion(.failure(MLError(title: "Card extra not extractable",
@@ -26,7 +26,6 @@ class InternalRegistrationManager {
         }
 
         self.networkingClient.createAlias { result in
-
             switch result {
             case let .success(response):
                 let registrationRequest = RegistrationRequest(aliasId: response.aliasId,
