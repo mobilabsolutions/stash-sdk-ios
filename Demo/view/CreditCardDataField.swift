@@ -142,7 +142,8 @@ class CreditCardDataField: UIView, DataField {
         guard let number = numberField.text,
             let cvv = cvvField.text, let monthText = expiryMonthField.text,
             let yearText = expiryYearField.text, let month = Int(monthText), let year = Int(yearText)
-        else { return }
+        else { self.delegate?.showError(title: "Mandatory field not filled",
+                                        description: "Please make sure to fill card number, CVV, and expiry month/year"); return }
 
         let billingData = BillingData(email: emailField.text)
         guard let creditCard = CreditCardData(cardNumber: number, cvv: cvv, expiryMonth: month, expiryYear: year,

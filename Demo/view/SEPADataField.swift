@@ -138,8 +138,9 @@ class SEPADataField: UIView, DataField {
 
     @objc private func add() {
         guard let iban = ibanField.text?.replacingOccurrences(of: " ", with: ""),
-            let bic = bicField.text
-        else { return }
+            let bic = bicField.text,
+            !iban.isEmpty, !bic.isEmpty
+        else { self.delegate?.showError(title: "Mandatory field not filled", description: "Please make sure to fill the IBAN and BIC fields"); return }
 
         let billingData = BillingData(name: nameField.text, address1: streetField.text,
                                       zip: zipField.text, city: cityField.text,
