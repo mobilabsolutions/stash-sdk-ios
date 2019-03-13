@@ -8,31 +8,33 @@
 
 import Foundation
 
-public struct BillingData: Codable {
-    var email: String?
-    var firstName: String?
-    var lastName: String?
-    var address1: String?
-    var address2: String?
-    var ZIP: String?
-    var city: String?
-    var state: String?
-    var country: String?
-    var phone: String?
-    var languageId: String?
+public struct BillingData {
+    let email: String?
+    let name: String?
+    let address1: String?
+    let address2: String?
+    let zip: String?
+    let city: String?
+    let state: String?
+    let country: String?
+    let phone: String?
+    let languageId: String?
 
-    public init(email: String) {
+    public init(email: String? = nil,
+                name: String? = nil,
+                address1: String? = nil,
+                address2: String? = nil,
+                zip: String? = nil,
+                city: String? = nil,
+                state: String? = nil,
+                country: String? = nil,
+                phone: String? = nil,
+                languageId: String? = nil) {
+        self.name = name
         self.email = email
-    }
-
-    public init(email: String?, firstName: String?, lastName: String?, address1: String?, address2: String?,
-                ZIP: String?, city: String?, state: String?, country: String?, phone: String?, languageId: String?) {
-        self.email = email
-        self.firstName = firstName
-        self.lastName = lastName
         self.address1 = address1
         self.address2 = address2
-        self.ZIP = ZIP
+        self.zip = zip
         self.city = city
         self.state = state
         self.country = country

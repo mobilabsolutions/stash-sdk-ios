@@ -9,19 +9,15 @@
 import UIKit
 
 public class RegistrationManager {
-    public func registerCreditCard(billingData: BillingData, creditCardData: CreditCardData, completion: @escaping RegistrationResult) {
-        let request: RegisterRequestData = RegisterRequestData(cardMask: "VISA-123",
-                                                               type: PaymentMethodType.creditCard)
-        let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: creditCardData, requestData: request)
+    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+        let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerSEPAAccount(billingData: BillingData, sepaData: SEPAData, completion: @escaping RegistrationResult) {
-        let request: RegisterRequestData = RegisterRequestData(cardMask: "",
-                                                               type: PaymentMethodType.sepa)
-        let paymentMethod = MLPaymentMethod(billingData: billingData, methodData: sepaData, requestData: request)
+    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+        let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)

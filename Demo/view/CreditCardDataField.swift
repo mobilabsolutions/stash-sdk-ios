@@ -139,14 +139,15 @@ class CreditCardDataField: UIView, DataField {
     }
 
     @objc private func add() {
-        guard let email = emailField.text,
-            let name = nameField.text, let number = numberField.text?.replacingOccurrences(of: " ", with: ""),
+        guard let number = numberField.text,
             let cvv = cvvField.text, let monthText = expiryMonthField.text,
             let yearText = expiryYearField.text, let month = Int(monthText), let year = Int(yearText)
         else { return }
 
-        let creditCard = CreditCardData(holderName: name, cardNumber: number, CVV: cvv, expiryMonth: month, expiryYear: year)
-        let billingData = BillingData(email: email)
-        self.delegate?.addCreditCard(method: creditCard, billingData: billingData)
+        let billingData = BillingData(email: emailField.text)
+        guard let creditCard = CreditCardData(cardNumber: number, cvv: cvv, expiryMonth: month, expiryYear: year,
+                                              holderName: nameField.text, billingData: billingData)
+        else { self.delegate?.showError(title: "Credit Card Invalid", description: "The provided number is invalid."); return }
+        self.delegate?.addCreditCard(method: creditCard)
     }
 }

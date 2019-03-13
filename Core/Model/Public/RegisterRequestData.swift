@@ -10,7 +10,7 @@ import Foundation
 
 /// Request data sent when registering CreditCard or SEPA
 /// This class is not visible outside the SDK
-struct RegisterRequestData: Codable {
+struct RegisterRequestData {
     let cardMask: String
     let type: PaymentMethodType
 }

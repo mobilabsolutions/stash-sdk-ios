@@ -9,7 +9,7 @@
 import Foundation
 
 struct Alias: Codable {
-    let alias: String
+    let alias: String?
     let expirationYear: Int?
     let expirationMonth: Int?
     let type: AliasType

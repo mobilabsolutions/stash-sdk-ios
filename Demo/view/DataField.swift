@@ -15,6 +15,7 @@ protocol DataField where Self: UIView {
 }
 
 protocol DataFieldDelegate: class {
-    func addCreditCard(method: CreditCardData, billingData: BillingData)
-    func addSEPA(method: SEPAData, billingData: BillingData)
+    func addCreditCard(method: CreditCardData)
+    func addSEPA(method: SEPAData)
+    func showError(title: String, description: String)
 }

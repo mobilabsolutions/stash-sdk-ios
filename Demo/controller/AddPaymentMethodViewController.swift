@@ -44,8 +44,8 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
         self.addViewForCurrentDataField()
     }
 
-    func addCreditCard(method: CreditCardData, billingData: BillingData) {
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(billingData: billingData, creditCardData: method) { [weak self] result in
+    func addCreditCard(method: CreditCardData) {
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -59,14 +59,14 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
         }
     }
 
-    func addSEPA(method: SEPAData, billingData: BillingData) {
-        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(billingData: billingData, sepaData: method) { [weak self] result in
+    func addSEPA(method: SEPAData) {
+        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(sepaData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
                     self?.save(alias: alias, expirationMonth: nil, expirationYear: nil, type: .sepa)
                     self?.clearInputs()
-                    self?.showAlert(title: "Success", body: "Credit Card added successfully.")
+                    self?.showAlert(title: "Success", body: "SEPA added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title ?? "Error",
                                                           body: error.errorDescription ?? "An error occurred when adding the credit card")
                 }
@@ -74,7 +74,11 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
         }
     }
 
-    private func save(alias: String, expirationMonth: Int?, expirationYear: Int?, type: AliasType) {
+    func showError(title: String, description: String) {
+        self.showAlert(title: title, body: description)
+    }
+
+    private func save(alias: String?, expirationMonth: Int?, expirationYear: Int?, type: AliasType) {
         let aliasHolder = Alias(alias: alias, expirationYear: expirationYear, expirationMonth: expirationMonth, type: type)
         AliasManager.shared.save(alias: aliasHolder)
     }

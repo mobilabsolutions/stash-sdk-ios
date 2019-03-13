@@ -20,15 +20,9 @@ class SEPADataField: UIView, DataField {
         return label
     }()
 
-    private var firstNameField: UITextField = {
+    private var nameField: UITextField = {
         let field = UITextField()
-        field.placeholder = "First Name"
-        return field
-    }()
-
-    private var lastNameField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "Last Name"
+        field.placeholder = "Name"
         return field
     }()
 
@@ -108,8 +102,7 @@ class SEPADataField: UIView, DataField {
 
     private func sharedInit() {
         self.stackView.addArrangedSubview(self.billingDataLabel)
-        self.stackView.addArrangedSubview(self.firstNameField)
-        self.stackView.addArrangedSubview(self.lastNameField)
+        self.stackView.addArrangedSubview(self.nameField)
         self.stackView.addArrangedSubview(self.streetField)
         self.stackView.addArrangedSubview(self.zipField)
         self.stackView.addArrangedSubview(self.cityField)
@@ -134,10 +127,9 @@ class SEPADataField: UIView, DataField {
     }
 
     func clearInputs() {
-        self.firstNameField.text = nil
         self.ibanField.text = nil
         self.bicField.text = nil
-        self.lastNameField.text = nil
+        self.nameField.text = nil
         self.countryField.text = nil
         self.zipField.text = nil
         self.streetField.text = nil
@@ -146,14 +138,13 @@ class SEPADataField: UIView, DataField {
 
     @objc private func add() {
         guard let iban = ibanField.text?.replacingOccurrences(of: " ", with: ""),
-            let bic = bicField.text,
-            let country = countryField.text,
-            let city = cityField.text,
-            let zip = zipField.text
+            let bic = bicField.text
         else { return }
 
-        let sepa = SEPAData(bankNumber: bic, IBAN: iban)
-        let billingData = BillingData(email: nil, firstName: firstNameField.text, lastName: lastNameField.text, address1: streetField.text, address2: nil, ZIP: zip, city: city, state: nil, country: country, phone: nil, languageId: nil)
-        self.delegate?.addSEPA(method: sepa, billingData: billingData)
+        let billingData = BillingData(name: nameField.text, address1: streetField.text,
+                                      zip: zipField.text, city: cityField.text,
+                                      country: countryField.text, languageId: Locale.current.languageCode)
+        let sepa = SEPAData(iban: iban, bic: bic, billingData: billingData)
+        self.delegate?.addSEPA(method: sepa)
     }
 }

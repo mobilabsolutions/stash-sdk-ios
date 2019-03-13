@@ -17,29 +17,30 @@ class InternalRegistrationManager {
         self.networkingClient = client
     }
 
-    func addMethod(paymentMethod: MLPaymentMethod, completion: @escaping RegistrationResult) {
-        self.networkingClient.createAlias { result in
+    func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion) {
+        guard let cardExtra = paymentMethod.toAliasExtra()
+        else {
+            completion(.failure(MLError(title: "Card extra not extractable",
+                                        description: "Internal SDK error: Could not read alias extra from payment method", code: 102)))
+            return
+        }
 
+        self.networkingClient.createAlias { result in
             switch result {
             case let .success(response):
-
-                let standardizedData = StandardizedData(aliasId: response.aliasId)
-                let registrationRequest = RegistrationRequest(standardizedData: standardizedData,
-                                                              pspData: response.psp.toData(),
-                                                              registrationData: paymentMethod.methodData.toBSPayoneData())
+                let registrationRequest = RegistrationRequest(aliasId: response.aliasId,
+                                                              pspData: response.psp,
+                                                              registrationData: paymentMethod.methodData)
 
                 self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
 
                     switch resultRegistration {
                     case let .success(pspAlias):
-
-                        let cardExtra = paymentMethod.toAliasExtra()
-
-                        let updateAliasRequest = UpdateAliasRequest(aliasId: response.aliasId, pspAlias: pspAlias, extra: cardExtra!)
+                        let updateAliasRequest = UpdateAliasRequest(aliasId: response.aliasId, pspAlias: pspAlias, extra: cardExtra)
                         self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
                             switch resultRegistration {
                             case .success:
-                                completion(.success(pspAlias))
+                                completion(.success(response.aliasId))
                             case let .failure(error):
                                 completion(.failure(error))
                             }

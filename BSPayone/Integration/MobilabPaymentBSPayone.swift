@@ -15,21 +15,59 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
 
     let networkingClient: NetworkClientBSPayone?
 
-    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping (NetworkClientResult<String, MLError>) -> Void) {
-        let registerCreditCardRequest = CreditCardBSPayoneData.from(registrationData: registrationRequest.registrationData)
-        let pspExtra = PSPExtra.from(data: registrationRequest.pspData)
-
-        guard registerCreditCardRequest.isValid(), let _pspExtra = pspExtra else {
-            completion(.failure(MLError(title: "PSP Error", description: "Invalid Credit Card Registration parameters", code: 0)))
-            return
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion) {
+        do {
+            if let creditCardRequest = try getCreditCardDate(from: registrationRequest) {
+                self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspExtra: registrationRequest.pspData, completion: completion)
+            } else if self.isSepaRequest(registrationRequest: registrationRequest) {
+                completion(.success(nil))
+            } else {
+                #warning("Update codes here when errors are finalized")
+                completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
+            }
+        } catch BSIntegrationError.unsupportedCreditCardType {
+            completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
+        } catch {
+            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
         }
-
-        self.networkingClient?.registerCreditCard(creditCardData: registerCreditCardRequest, pspExtra: _pspExtra, completion: completion)
     }
 
     public init(publicKey: String) {
         self.networkingClient = NetworkClientBSPayone()
         self.publicKey = publicKey
         self.pspType = "BS_PAYONE"
+    }
+
+    private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspExtra: PSPExtra,
+                                         completion: @escaping RegistrationResultCompletion) {
+        self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspExtra: pspExtra, completion: { result in
+            switch result {
+            case let .success(value): completion(.success(.some(value)))
+            case let .failure(error): completion(.failure(error))
+            }
+        })
+    }
+
+    private func getCreditCardDate(from registrationRequest: RegistrationRequest) throws -> CreditCardBSPayoneData? {
+        guard let cardData = registrationRequest.registrationData as? CreditCardData
+        else { return nil }
+
+        guard let cardType = cardData.cardType.bsCardTypeIdentifier
+        else { throw BSIntegrationError.unsupportedCreditCardType }
+
+        let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
+                                                         cardType: cardType,
+                                                         cardExpireDate: String(format: "%02d%02d", cardData.expiryYear, cardData.expiryMonth),
+                                                         cardCVC2: cardData.cvv)
+
+        return bsCreditCardRequest
+    }
+
+    private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
+        return registrationRequest.registrationData is SEPAData
+    }
+
+    private enum BSIntegrationError: Error {
+        case unsupportedCreditCardType
     }
 }

@@ -10,6 +10,11 @@ import Foundation
 
 struct UpdateAliasRequest: Codable {
     let aliasId: String
-    let pspAlias: String
+    let pspAlias: String?
     let extra: AliasExtra
+
+    enum UpdateAliasRequestKeys: String, CodingKey {
+        case pspAlias
+        case extra
+    }
 }
