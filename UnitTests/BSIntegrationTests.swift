@@ -21,7 +21,8 @@ class BSIntegrationTests: XCTestCase {
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
-        let creditCardData = CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
+        guard let creditCardData = CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
+            else { XCTFail("Credit Card data should be valid"); return }
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
@@ -41,8 +42,9 @@ class BSIntegrationTests: XCTestCase {
     func testErrorCompletionWhenCreditCardIsOfUnknownType() {
         let expectation = self.expectation(description: "Registering invalid credit card fails")
 
-        let billingData = BillingData(email: "mirza@miki.com")
-        let creditCardData = CreditCardData(cardNumber: "123 1111 1111 1111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
+        guard let creditCardData = CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
+                                                  holderName: "Holder Name", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
 
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
