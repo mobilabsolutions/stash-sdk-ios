@@ -22,7 +22,7 @@ class BSIntegrationTests: XCTestCase {
 
         let billingData = BillingData(email: "mirza@miki.com")
         guard let creditCardData = CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
-            else { XCTFail("Credit Card data should be valid"); return }
+        else { XCTFail("Credit Card data should be valid"); return }
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
