@@ -30,8 +30,8 @@ public struct BillingData {
                 country: String? = nil,
                 phone: String? = nil,
                 languageId: String? = nil) {
-        self.email = email
         self.name = name
+        self.email = email
         self.address1 = address1
         self.address2 = address2
         self.zip = zip

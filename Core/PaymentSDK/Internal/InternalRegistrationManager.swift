@@ -40,7 +40,7 @@ class InternalRegistrationManager {
                         self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
                             switch resultRegistration {
                             case .success:
-                                completion(.success(pspAlias))
+                                completion(.success(response.aliasId))
                             case let .failure(error):
                                 completion(.failure(error))
                             }
