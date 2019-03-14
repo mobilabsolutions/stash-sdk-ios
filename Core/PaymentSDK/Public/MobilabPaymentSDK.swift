@@ -12,8 +12,12 @@ public typealias RegistrationResult = NetworkClientResult<String?, MLError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 public class MobilabPaymentSDK {
-    public static func setUp(provider: PaymentServiceProvider) {
-        InternalPaymentSDK.sharedInstance.setUp(provider: provider)
+    public static func configure(configuration: MobilabPaymentConfiguration) {
+        InternalPaymentSDK.sharedInstance.configure(configuration: configuration)
+    }
+
+    public static func addProvider(provider: PaymentServiceProvider) {
+        InternalPaymentSDK.sharedInstance.addProvider(provider: provider)
     }
 
     public static func getRegisterManager() -> RegistrationManager {

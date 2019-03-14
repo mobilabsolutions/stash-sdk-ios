@@ -21,8 +21,7 @@ struct RouterRequestCore: RouterRequestProtocol {
     }
 
     func getBaseURL() -> URL {
-        let conf = MobilabPaymentConfigurationBuilder.sharedInstance.configuration!
-        var url = URL(string: conf.endpoint.rawValue)!
+        var url = InternalPaymentSDK.sharedInstance.networkingClient.endpoint
         if let relativePath = getRelativePath() {
             url = url.appendingPathComponent(relativePath)
         }
@@ -85,15 +84,16 @@ struct RouterRequestCore: RouterRequestProtocol {
         switch self.service {
         case .createAlias(),
              .updateAlias:
-            return MobilabPaymentConfigurationBuilder.sharedInstance.configuration!.publicToken
+            return InternalPaymentSDK.sharedInstance.configuration.publicKey
         }
     }
 
     func getCustomHeader() -> Header? {
         switch self.service {
         case .createAlias():
-            let configuration = MobilabPaymentConfigurationBuilder.sharedInstance.configuration!
-            return Header(field: "PSP-Type", value: configuration.pspType)
+
+            let pspType = InternalPaymentSDK.sharedInstance.provider.pspIdentifier
+            return Header(field: "PSP-Type", value: pspType)
         case .updateAlias:
             return nil
         }

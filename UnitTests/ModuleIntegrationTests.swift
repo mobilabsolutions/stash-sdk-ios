@@ -13,7 +13,7 @@ class ModuleIntegrationTests: XCTestCase {
     private var module: PaymentServiceProvider?
 
     private class TestModule<RegistrationDataType: RegistrationData>: PaymentServiceProvider {
-        var pspType: String {
+        var pspIdentifier: String {
             return "BS_PAYONE"
         }
 
@@ -41,7 +41,9 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
                                                 registrationRequestCalledExpectation: expectation)
 
-        MobilabPaymentSDK.setUp(provider: module)
+        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.addProvider(provider: module)
 
         self.module = module
 
@@ -62,7 +64,9 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        MobilabPaymentSDK.setUp(provider: module)
+        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.addProvider(provider: module)
 
         self.module = module
 

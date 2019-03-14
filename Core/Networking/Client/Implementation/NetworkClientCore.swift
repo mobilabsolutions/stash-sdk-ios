@@ -9,6 +9,12 @@
 import Foundation
 
 class NetworkClientCore: NetworkClient {
+    let endpoint: URL
+
+    init(url: URL) {
+        self.endpoint = url
+    }
+
     func createAlias(completion: @escaping Completion<AliasResponse>) {
         let router = RouterRequestCore(service: .createAlias())
         fetch(with: router, responseType: AliasResponse.self, completion: completion)

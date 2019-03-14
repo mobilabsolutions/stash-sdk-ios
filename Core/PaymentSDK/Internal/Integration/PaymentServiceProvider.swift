@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol PaymentServiceProvider {
-    var pspType: String { get }
+    var pspIdentifier: String { get }
     var publicKey: String { get }
 
     func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion)

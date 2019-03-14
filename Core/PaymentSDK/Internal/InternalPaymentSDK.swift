@@ -8,23 +8,67 @@
 
 import UIKit
 
+private enum SDKError: Error {
+    case configurationMissing
+    case clientMissing
+    case providerMissing
+
+    func description() -> String {
+        switch self {
+        case .configurationMissing:
+            return "SDK configuration is missing"
+        case .clientMissing:
+            return "SDK network client is missing"
+        case .providerMissing:
+            return "SDK Provider to found. Please add default provider"
+        }
+    }
+}
+
 class InternalPaymentSDK {
-    var networkingClient: NetworkClientCore?
-    var provider: PaymentServiceProvider?
+    private var _configuration: MobilabPaymentConfiguration?
+    var configuration: MobilabPaymentConfiguration {
+        guard let config = self._configuration else {
+            fatalError(SDKError.configurationMissing.description())
+        }
+        return config
+    }
+
+    private var _networkingClient: NetworkClientCore?
+    var networkingClient: NetworkClientCore {
+        guard let client = self._networkingClient else {
+            fatalError(SDKError.clientMissing.description())
+        }
+        return client
+    }
+
+    private var _provider: PaymentServiceProvider?
+    var provider: PaymentServiceProvider {
+        guard let provider = self._provider else {
+            fatalError(SDKError.providerMissing.description())
+        }
+        return provider
+    }
 
     static let sharedInstance = InternalPaymentSDK()
 
-    func setUp(provider: PaymentServiceProvider) {
-        self.provider = provider
+    func configure(configuration: MobilabPaymentConfiguration) {
+        do {
+            let url = try configuration.isConfigurationValid()
+            self._networkingClient = NetworkClientCore(url: url)
+            self._configuration = configuration
+        } catch let error as ConfigurationError {
+            fatalError(error.description())
+        } catch {
+            fatalError()
+        }
+    }
 
-        MobilabPaymentConfigurationBuilder.sharedInstance.setupConfiguration(token: provider.publicKey, pspType: provider.pspType)
-        self.networkingClient = NetworkClientCore()
+    func addProvider(provider: PaymentServiceProvider) {
+        self._provider = provider
     }
 
     func registrationManager() -> InternalRegistrationManager {
-        guard let networkingClient = self.networkingClient, let provider = self.provider
-        else { fatalError("MobiLab SDK not setup") }
-
-        return InternalRegistrationManager(provider: provider, client: networkingClient)
+        return InternalRegistrationManager()
     }
 }

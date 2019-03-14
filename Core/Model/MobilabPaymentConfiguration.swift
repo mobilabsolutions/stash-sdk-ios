@@ -6,42 +6,56 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
+import Foundation
+
 enum APIEndpoints: String {
     case production = "https://p.mblb.net/api/v1"
     case test = "https://payment-dev.mblb.net/api/v1"
 }
 
-class MobilabPaymentConfigurationBuilder {
-    var configuration: MobilabPaymentConfiguration?
+public enum ConfigurationError: Error {
+    case publicKeyNotSet
+    case endpointNotSet
+    case endpointNotValid
+    case providerNotSet
 
-    static let sharedInstance = MobilabPaymentConfigurationBuilder()
-
-    func setupConfiguration(token: String, pspType: String) {
-        let arrayOfItems = token.split(separator: "-")
-        var endpoint: APIEndpoints?
-        if arrayOfItems.count == 3 {
-            let mode = arrayOfItems[0]
-            if mode == "PD" {
-                endpoint = APIEndpoints.test
-            } else if mode == "P" {
-                endpoint = APIEndpoints.production
-            }
-
-            if let end = endpoint {
-                self.configuration = MobilabPaymentConfiguration(publicToken: token, pspType: pspType, endpoint: end)
-            }
+    func description() -> String {
+        switch self {
+        case .publicKeyNotSet:
+            return "SDK Public key is not set!"
+        case .endpointNotSet:
+            return "SDK Endpoint is not set"
+        case .endpointNotValid:
+            return "SDK Endpoint is not valid"
+        case .providerNotSet:
+            return "No Provider found. Please add default provider"
         }
     }
 }
 
-struct MobilabPaymentConfiguration {
-    var publicToken: String
-    var pspType: String
-    var endpoint: APIEndpoints
+public struct MobilabPaymentConfiguration {
+    let publicKey: String
+    let endpoint: String
+    public var loggingEnabled = false
 
-    init(publicToken: String, pspType: String, endpoint: APIEndpoints) {
-        self.publicToken = publicToken
-        self.pspType = pspType
+    public init(publicKey: String, endpoint: String) {
+        self.publicKey = publicKey
         self.endpoint = endpoint
+    }
+
+    public func isConfigurationValid() throws -> URL {
+        guard !self.publicKey.isEmpty else {
+            throw ConfigurationError.publicKeyNotSet
+        }
+
+        guard !self.endpoint.isEmpty else {
+            throw ConfigurationError.endpointNotSet
+        }
+
+        guard let url = URL(string: self.endpoint) else {
+            throw ConfigurationError.endpointNotValid
+        }
+
+        return url
     }
 }
