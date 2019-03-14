@@ -26,7 +26,7 @@ private enum SDKError: Error {
 }
 
 class InternalPaymentSDK {
-    var _configuration: MobilabPaymentConfiguration?
+    private var _configuration: MobilabPaymentConfiguration?
     var configuration: MobilabPaymentConfiguration {
         guard let config = self._configuration else {
             fatalError(SDKError.configurationMissing.description())
@@ -34,7 +34,7 @@ class InternalPaymentSDK {
         return config
     }
 
-    var _networkingClient: NetworkClientCore?
+    private var _networkingClient: NetworkClientCore?
     var networkingClient: NetworkClientCore {
         guard let client = self._networkingClient else {
             fatalError(SDKError.clientMissing.description())
@@ -42,7 +42,7 @@ class InternalPaymentSDK {
         return client
     }
 
-    var _provider: PaymentServiceProvider?
+    private var _provider: PaymentServiceProvider?
     var provider: PaymentServiceProvider {
         guard let provider = self._provider else {
             fatalError(SDKError.providerMissing.description())
