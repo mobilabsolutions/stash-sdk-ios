@@ -145,7 +145,10 @@ class SEPADataField: UIView, DataField {
         let billingData = BillingData(name: nameField.text, address1: streetField.text,
                                       zip: zipField.text, city: cityField.text,
                                       country: countryField.text, languageId: Locale.current.languageCode)
-        let sepa = SEPAData(iban: iban, bic: bic, billingData: billingData)
+
+        guard let sepa = SEPAData(iban: iban, bic: bic, billingData: billingData)
+        else { self.delegate?.showError(title: "IBAN invalid", description: "The provided IBAN is not valid."); return }
+
         self.delegate?.addSEPA(method: sepa)
     }
 }
