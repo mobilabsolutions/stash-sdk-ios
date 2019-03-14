@@ -63,6 +63,9 @@
 		E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D02237F2AB00889920 /* CreditCardDataTests.swift */; };
 		E17648D42237FD7300889920 /* CreditCardTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D22237FCC100889920 /* CreditCardTypeExtensions.swift */; };
 		E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D5223923FB00889920 /* CreditCardUtils.swift */; };
+		E17648DA2239466400889920 /* SEPAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D92239466400889920 /* SEPAUtils.swift */; };
+		E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648DB2239472500889920 /* StringExtensionTests.swift */; };
+		E17648DF2239522000889920 /* SEPADataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648DE2239522000889920 /* SEPADataTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +156,9 @@
 		E17648D02237F2AB00889920 /* CreditCardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataTests.swift; sourceTree = "<group>"; };
 		E17648D22237FCC100889920 /* CreditCardTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTypeExtensions.swift; sourceTree = "<group>"; };
 		E17648D5223923FB00889920 /* CreditCardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardUtils.swift; sourceTree = "<group>"; };
+		E17648D92239466400889920 /* SEPAUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAUtils.swift; sourceTree = "<group>"; };
+		E17648DB2239472500889920 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		E17648DE2239522000889920 /* SEPADataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,10 +251,12 @@
 		1DC5CBA220D2BF5E002058C1 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
 				1DC5CBA320D2BF5E002058C1 /* BSIntegrationTests.swift */,
 				E1663E0A2237C5CE00372658 /* ModuleIntegrationTests.swift */,
-				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
 				E17648D02237F2AB00889920 /* CreditCardDataTests.swift */,
+				E17648DB2239472500889920 /* StringExtensionTests.swift */,
+				E17648DE2239522000889920 /* SEPADataTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -343,6 +351,7 @@
 			children = (
 				1D34CBF120E128F70011F901 /* Foundation */,
 				E17648D5223923FB00889920 /* CreditCardUtils.swift */,
+				E17648D92239466400889920 /* SEPAUtils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -717,6 +726,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E17648DA2239466400889920 /* SEPAUtils.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
 				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
@@ -756,6 +766,8 @@
 				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
 				BAE6FAFF2225715F00D3A71B /* NetworkClientResult.swift in Sources */,
 				E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */,
+				E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */,
+				E17648DF2239522000889920 /* SEPADataTests.swift in Sources */,
 				1DC5CBA420D2BF5E002058C1 /* BSIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

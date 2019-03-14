@@ -13,4 +13,8 @@ extension String {
         let data = self.data(using: String.Encoding.utf8)
         return data?.base64EncodedString() ?? ""
     }
+
+    var isAlphaNumeric: Bool {
+        return self.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) == nil
+    }
 }

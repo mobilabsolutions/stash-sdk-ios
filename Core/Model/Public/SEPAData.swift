@@ -13,8 +13,12 @@ public struct SEPAData: RegistrationData {
     public let iban: String
     public let billingData: BillingData
 
-    public init(iban: String, bic: String, billingData: BillingData) {
-        self.iban = iban
+    public init?(iban: String, bic: String, billingData: BillingData) {
+        let cleanedIban = SEPAUtils.cleanedIban(number: iban)
+        guard SEPAUtils.isValid(cleanedNumber: cleanedIban)
+        else { return nil }
+
+        self.iban = cleanedIban
         self.bic = bic
         self.billingData = billingData
     }
