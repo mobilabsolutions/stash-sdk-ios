@@ -6,7 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 private enum ApiError: Error {
     case requestFailed(Int, String)

@@ -34,6 +34,10 @@ class ModuleIntegrationTests: XCTestCase {
             self.registrationRequestCalledExpectation.fulfill()
             completion(self.completionResultToReturn)
         }
+
+        func viewController() -> UIViewController? {
+            return nil
+        }
     }
 
     func testHandleRegistrationRequestCalled() {

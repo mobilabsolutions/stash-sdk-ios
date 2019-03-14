@@ -6,7 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 private enum SDKError: Error {
     case configurationMissing

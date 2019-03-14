@@ -9,7 +9,7 @@
 import Foundation
 
 struct Alias: Codable {
-    let alias: String?
+    let alias: String
     let expirationYear: Int?
     let expirationMonth: Int?
     let type: AliasType
@@ -18,4 +18,5 @@ struct Alias: Codable {
 enum AliasType: String, Codable {
     case creditCard
     case sepa
+    case unknown
 }

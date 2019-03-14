@@ -6,9 +6,9 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-public typealias RegistrationResult = NetworkClientResult<String?, MLError>
+public typealias RegistrationResult = NetworkClientResult<String, MLError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 public class MobilabPaymentSDK {

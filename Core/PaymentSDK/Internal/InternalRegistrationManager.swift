@@ -20,27 +20,34 @@ class InternalRegistrationManager {
             return
         }
 
-        self.networkingClient.createAlias { result in
+        self.createAlias { result in
             switch result {
             case let .success(response):
-                let registrationRequest = RegistrationRequest(aliasId: response.aliasId,
-                                                              pspData: response.psp,
-                                                              registrationData: paymentMethod.methodData)
+                self.performRegistration(with: response, for: paymentMethod, pspExtra: cardExtra, completion: completion)
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
 
-                self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
+    private func createAlias(completion: @escaping (NetworkClientResult<AliasResponse, MLError>) -> Void) {
+        self.networkingClient.createAlias(completion: completion)
+    }
 
+    private func performRegistration(with alias: AliasResponse, for paymentMethod: PaymentMethod,
+                                     pspExtra: AliasExtra, completion: @escaping RegistrationResultCompletion) {
+        let registrationRequest = RegistrationRequest(aliasId: alias.aliasId,
+                                                      pspData: alias.psp,
+                                                      registrationData: paymentMethod.methodData)
+
+        self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
+            switch resultRegistration {
+            case let .success(pspAlias):
+                let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: pspExtra)
+                self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
                     switch resultRegistration {
-                    case let .success(pspAlias):
-                        let updateAliasRequest = UpdateAliasRequest(aliasId: response.aliasId, pspAlias: pspAlias, extra: cardExtra)
-                        self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
-                            switch resultRegistration {
-                            case .success:
-                                completion(.success(response.aliasId))
-                            case let .failure(error):
-                                completion(.failure(error))
-                            }
-                        })
-
+                    case .success:
+                        completion(.success(alias.aliasId))
                     case let .failure(error):
                         completion(.failure(error))
                     }
@@ -49,6 +56,6 @@ class InternalRegistrationManager {
             case let .failure(error):
                 completion(.failure(error))
             }
-        }
+        })
     }
 }

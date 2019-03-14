@@ -11,6 +11,8 @@
 import XCTest
 
 class BSIntegrationTests: XCTestCase {
+    private var provider: PaymentServiceProvider?
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -18,8 +20,11 @@ class BSIntegrationTests: XCTestCase {
         var configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
 
+        let provider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        self.provider = provider
+
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
+        MobilabPaymentSDK.addProvider(provider: provider)
     }
 
     func testCreditCardBS() {
@@ -98,6 +103,16 @@ class BSIntegrationTests: XCTestCase {
 
         self.waitForExpectations(timeout: 20) { error in
             XCTAssertNil(error)
+        }
+    }
+
+    func testHasCorrectPaymentMethodUITypes() {
+        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+
+        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+
+        for value in expected {
+            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
         }
     }
 }
