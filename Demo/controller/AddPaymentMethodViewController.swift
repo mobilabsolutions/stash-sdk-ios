@@ -30,7 +30,11 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
 
         self.pspTextField.isEnabled = false
 
-        MobilabPaymentSDK.setUp(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
+        var configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        configuration.loggingEnabled = true
+
+        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.willShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.willHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
