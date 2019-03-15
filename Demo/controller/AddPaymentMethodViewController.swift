@@ -30,12 +30,6 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
 
         self.pspTextField.isEnabled = false
 
-        var configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
-        configuration.loggingEnabled = true
-
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
-
         NotificationCenter.default.addObserver(self, selector: #selector(self.willShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.willHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
 
@@ -56,7 +50,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.save(alias: alias, expirationMonth: method.expiryMonth, expirationYear: method.expiryYear, type: .creditCard)
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "Credit Card added successfully.")
-                case let .failure(error): self?.showAlert(title: error.title ?? "Error",
+                case let .failure(error): self?.showAlert(title: error.title,
                                                           body: error.errorDescription ?? "An error occurred when adding the credit card")
                 }
             }
@@ -71,7 +65,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.save(alias: alias, expirationMonth: nil, expirationYear: nil, type: .sepa)
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "SEPA added successfully.")
-                case let .failure(error): self?.showAlert(title: error.title ?? "Error",
+                case let .failure(error): self?.showAlert(title: error.title,
                                                           body: error.errorDescription ?? "An error occurred when adding the credit card")
                 }
             }
@@ -87,7 +81,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
         self.showAlert(title: title, body: description)
     }
 
-    private func save(alias: String?, expirationMonth: Int?, expirationYear: Int?, type: AliasType) {
+    private func save(alias: String, expirationMonth: Int?, expirationYear: Int?, type: AliasType) {
         let aliasHolder = Alias(alias: alias, expirationYear: expirationYear, expirationMonth: expirationMonth, type: type)
         AliasManager.shared.save(alias: aliasHolder)
     }
@@ -109,12 +103,6 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
             field.rightAnchor.constraint(equalTo: dataFieldContainer.rightAnchor),
             field.bottomAnchor.constraint(equalTo: dataFieldContainer.bottomAnchor),
         ])
-    }
-
-    private func showAlert(title: String, body: String) {
-        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 
     @objc private func willHideKeyboard(notification _: Notification) {

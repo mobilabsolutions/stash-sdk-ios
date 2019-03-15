@@ -21,6 +21,8 @@ class AliasCollectionViewCell: UICollectionViewCell {
             self.typeLabel.text = "CC"
         case .sepa:
             self.typeLabel.text = "SEPA"
+        case .unknown:
+            self.typeLabel.text = "Unknown"
         }
 
         if let month = alias.expirationMonth, let year = alias.expirationYear {

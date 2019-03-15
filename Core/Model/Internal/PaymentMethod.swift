@@ -10,9 +10,9 @@ import Foundation
 
 class PaymentMethod {
     let methodData: RegistrationData
-    let type: PaymentMethodType
+    let type: InternalPaymentMethodType
 
-    init(methodData: RegistrationData, type: PaymentMethodType) {
+    init(methodData: RegistrationData, type: InternalPaymentMethodType) {
         self.methodData = methodData
         self.type = type
     }

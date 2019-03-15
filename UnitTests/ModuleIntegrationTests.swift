@@ -21,15 +21,17 @@ class ModuleIntegrationTests: XCTestCase {
             return "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"
         }
 
-        let completionResultToReturn: RegistrationResult
+        let completionResultToReturn: PaymentServiceProvider.RegistrationResult
         let registrationRequestCalledExpectation: XCTestExpectation
 
-        init(completionResultToReturn: RegistrationResult, registrationRequestCalledExpectation: XCTestExpectation) {
+        init(completionResultToReturn: PaymentServiceProvider.RegistrationResult,
+             registrationRequestCalledExpectation: XCTestExpectation) {
             self.completionResultToReturn = completionResultToReturn
             self.registrationRequestCalledExpectation = registrationRequestCalledExpectation
         }
 
-        func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion) {
+        func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                       completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
             XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType)
             self.registrationRequestCalledExpectation.fulfill()
             completion(self.completionResultToReturn)
