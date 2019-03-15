@@ -8,19 +8,10 @@
 
 import Foundation
 
-enum PaymentMethodType: String, Codable {
-    case creditCard = "CC"
-    case sepa = "SEPA"
-    case payPal = "PAY_ PAL"
-    case googlePay = "GOOGLE_PAY"
-    case applePay = "APPLE_PAY"
-    case klarna = "KLARNA"
-}
-
 struct AliasExtra: Codable {
     let ccConfig: CreditCardExtra?
     let sepaConfig: SepaExtra?
-    let paymentMethod: PaymentMethodType
+    let paymentMethod: InternalPaymentMethodType
 
     init(ccConfig: CreditCardExtra) {
         self.paymentMethod = .creditCard

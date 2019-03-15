@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="gVQ-V5-BNE">
             <objects>
-                <tabBarController id="Myo-D2-Puh" sceneMemberID="viewController">
+                <tabBarController id="Myo-D2-Puh" customClass="MainTabBarController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="r8J-0p-P2k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -21,12 +21,13 @@
                     </tabBar>
                     <connections>
                         <segue destination="KVz-m3-BvR" kind="relationship" relationship="viewControllers" id="vmj-Oy-81M"/>
+                        <segue destination="BVF-R3-pU3" kind="relationship" relationship="viewControllers" id="p3A-Q7-8fU"/>
                         <segue destination="KKP-18-NvI" kind="relationship" relationship="viewControllers" id="9KN-QI-C4q"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKT-t1-ajG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-908" y="441"/>
+            <point key="canvasLocation" x="-1130" y="804"/>
         </scene>
         <!--Payment Methods Collection View Controller-->
         <scene sceneID="zi8-04-Dkr">
@@ -97,7 +98,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPm-Sv-cgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824.79999999999995" y="45.42728635682159"/>
+            <point key="canvasLocation" x="846" y="45"/>
         </scene>
         <!--Add Payment Method-->
         <scene sceneID="hkv-rC-IE8">
@@ -184,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tt7-s1-3dq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824.79999999999995" y="803.74812593703155"/>
+            <point key="canvasLocation" x="847" y="1567"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WlM-AG-aeS">
@@ -202,6 +203,40 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6wM-jR-esO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114" y="1568"/>
+        </scene>
+        <!--AddUI View Controller-->
+        <scene sceneID="jMs-Ed-hqM">
+            <objects>
+                <viewController id="BVF-R3-pU3" customClass="AddUIViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ygF-hD-kPm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKN-fH-dMu">
+                                <rect key="frame" x="30" y="302.5" width="315" height="33"/>
+                                <color key="backgroundColor" red="0.37254901959999998" green="0.73725490199999999" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Trigger Register UI">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerX" secondItem="0Qt-8J-RJD" secondAttribute="centerX" id="BnX-0u-vcS"/>
+                            <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerY" secondItem="0Qt-8J-RJD" secondAttribute="centerY" id="XHi-PY-qii"/>
+                            <constraint firstItem="ZKN-fH-dMu" firstAttribute="leading" secondItem="0Qt-8J-RJD" secondAttribute="leading" constant="30" id="bre-nV-GkV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0Qt-8J-RJD"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="fXP-HM-oBy"/>
+                    <connections>
+                        <outlet property="triggerRegisterUIButton" destination="ZKN-fH-dMu" id="6jH-fs-jPn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NnX-1N-bd8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-114.40000000000001" y="803.74812593703155"/>
         </scene>

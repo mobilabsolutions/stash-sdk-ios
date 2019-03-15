@@ -4,3 +4,4 @@ osx_image: xcode10.1
 script:
   - set -o pipefail
   - travis_retry xcodebuild clean test -project MobilabPayment.xcodeproj -scheme "MobilabPaymentCore" -destination "OS=12.1,name=iPhone X" test
+  - travis_retry xcodebuild -project MobilabPayment.xcodeproj -scheme "Demo" -destination "OS=12.1,name=iPhone X"

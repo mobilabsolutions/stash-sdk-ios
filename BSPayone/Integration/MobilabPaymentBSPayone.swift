@@ -6,8 +6,8 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import Foundation
 import MobilabPaymentCore
+import UIKit
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
     public let pspIdentifier: String
@@ -15,7 +15,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
 
     let networkingClient: NetworkClientBSPayone?
 
-    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion) {
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             if let creditCardRequest = try getCreditCardDate(from: registrationRequest) {
                 self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspExtra: registrationRequest.pspData, completion: completion)
@@ -32,6 +33,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
+    public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
+        return [.sepa, .creditCard]
+    }
+
     public init(publicKey: String) {
         self.networkingClient = NetworkClientBSPayone()
         self.publicKey = publicKey
@@ -39,7 +44,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     }
 
     private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspExtra: PSPExtra,
-                                         completion: @escaping RegistrationResultCompletion) {
+                                         completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspExtra: pspExtra, completion: { result in
             switch result {
             case let .success(value): completion(.success(.some(value)))
