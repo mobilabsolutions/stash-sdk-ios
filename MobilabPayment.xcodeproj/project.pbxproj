@@ -23,7 +23,7 @@
 		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
 		1DFA536D20D92D3E0065CCC3 /* RegisterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536C20D92D3E0065CCC3 /* RegisterData.swift */; };
-		1DFA538120DA4D300065CCC3 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA538020DA4D300065CCC3 /* PaymentMethod.swift */; };
+		BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */; };
 		BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */; };
 		BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */; };
 		BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */; };
@@ -160,7 +160,7 @@
 		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
 		1DFA536C20D92D3E0065CCC3 /* RegisterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterData.swift; sourceTree = "<group>"; };
-		1DFA538020DA4D300065CCC3 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
+		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentMethod.swift; path = ../../../../../../Desktop/PaymentMethod.swift; sourceTree = "<group>"; };
 		BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientBSPayone.swift; sourceTree = "<group>"; };
 		BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestCore.swift; sourceTree = "<group>"; };
 		BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestBSPayone.swift; sourceTree = "<group>"; };
@@ -440,7 +440,6 @@
 				1DFA536220D91C490065CCC3 /* BillingData.swift */,
 				1DFA536720D91EF20065CCC3 /* SEPAData.swift */,
 				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
-				1DFA538020DA4D300065CCC3 /* PaymentMethod.swift */,
 				BA945A07223A83E600C39300 /* PayPalData.swift */,
 			);
 			path = Public;
@@ -674,8 +673,8 @@
 		E17648E3223A592F00889920 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */,
 				E17648E1223A583C00889920 /* InternalPaymentMethodType.swift */,
-				1DFA538020DA4D300065CCC3 /* PaymentMethod.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -946,10 +945,10 @@
 				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
 				1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */,
 				1DFA536D20D92D3E0065CCC3 /* RegisterData.swift in Sources */,
-				1DFA538120DA4D300065CCC3 /* PaymentMethod.swift in Sources */,
 				E17648EB223A66CF00889920 /* RegistrationFlowNavigationController.swift in Sources */,
 				E17648E5223A5B4A00889920 /* PaymentMethodType.swift in Sources */,
 				1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */,
+				BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
 				BAE6FAFE2225715F00D3A71B /* NetworkClientResult.swift in Sources */,
