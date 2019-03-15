@@ -22,6 +22,10 @@ public class MLError: MLErrorProtocol {
     /// A string describing the error and reasoning for it
     public let errorDescription: String
 
+    public var failureReason: String? {
+        return self.errorDescription
+    }
+
     public init(title: String, description: String, code: Int) {
         self.title = title
         self.code = code
