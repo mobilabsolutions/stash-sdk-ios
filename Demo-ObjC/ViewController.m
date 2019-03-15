@@ -27,14 +27,27 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
+    __weak typeof(self) weakSelf = self;
     [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         if (alias != nil) {
             NSLog(@"Got alias: %@", alias);
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"];
+            }];
         }
         else {
             NSLog(@"Got error: %@", [error failureReason]);
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                NSString *errorMessage = [NSString stringWithFormat:@"Failed to register payment method: %@", [error failureReason]];
+                [weakSelf showAlertWithTitle:@"Failure" andBody:errorMessage];
+            }];
         }
     }];
+}
+
+- (void) showAlertWithTitle: (NSString *)title andBody: (NSString *)body {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
