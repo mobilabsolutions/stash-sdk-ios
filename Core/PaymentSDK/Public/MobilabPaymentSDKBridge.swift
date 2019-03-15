@@ -31,10 +31,10 @@ import UIKit
         self.manager = manager
     }
 
-    @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject {
+    @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
         let creditCardData: CreditCardData
 
-        @objc public init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) {
+        @objc public required init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) {
             guard let creditCardData = CreditCardData(cardNumber: cardNumber, cvv: cvv,
                                                       expiryMonth: expiryMonth, expiryYear: expiryYear,
                                                       holderName: holderName, billingData: billingData)
@@ -44,10 +44,10 @@ import UIKit
         }
     }
 
-    @objc(MLSEPAData) public class SEPADataBridge: NSObject {
+    @objc(MLSEPAData) public class SEPADataBridge: NSObject, SEPADataInitializible {
         let sepaData: SEPAData
 
-        @objc public init?(iban: String, bic: String, billingData: BillingData) {
+        @objc public required init?(iban: String, bic: String, billingData: BillingData) {
             guard let sepaData = SEPAData(iban: iban, bic: bic, billingData: billingData)
             else { return nil }
             self.sepaData = sepaData

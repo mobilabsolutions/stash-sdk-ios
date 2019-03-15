@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol SEPADataInitializible {
+    init?(iban: String, bic: String, billingData: BillingData)
+}
+
 public struct SEPAData: RegistrationData {
     public let bic: String
     public let iban: String

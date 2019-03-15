@@ -8,7 +8,11 @@
 
 import Foundation
 
-public struct CreditCardData: RegistrationData {
+protocol CreditCardDataInitializible {
+    init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData)
+}
+
+public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public let cardNumber: String
     public let cvv: String
     public let expiryMonth: Int
