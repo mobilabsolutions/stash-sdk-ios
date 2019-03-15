@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BillingData {
+@objc(MLBillingData) public class BillingData: NSObject {
     let email: String?
     let name: String?
     let address1: String?
@@ -20,16 +20,16 @@ public struct BillingData {
     let phone: String?
     let languageId: String?
 
-    public init(email: String? = nil,
-                name: String? = nil,
-                address1: String? = nil,
-                address2: String? = nil,
-                zip: String? = nil,
-                city: String? = nil,
-                state: String? = nil,
-                country: String? = nil,
-                phone: String? = nil,
-                languageId: String? = nil) {
+    @objc public init(email: String? = nil,
+                      name: String? = nil,
+                      address1: String? = nil,
+                      address2: String? = nil,
+                      zip: String? = nil,
+                      city: String? = nil,
+                      state: String? = nil,
+                      country: String? = nil,
+                      phone: String? = nil,
+                      languageId: String? = nil) {
         self.name = name
         self.email = email
         self.address1 = address1

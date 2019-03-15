@@ -13,21 +13,21 @@ protocol MLErrorProtocol: LocalizedError {
     var code: Int { get }
 }
 
-public class MLError: MLErrorProtocol {
-    public let title: String
-    public let code: Int
-    public var errorDescription: String? { return self._description }
-    public var failureReason: String? { return self._description }
+@objc public class MLError: NSObject, MLErrorProtocol {
+    @objc public let title: String
+    @objc public let code: Int
+    @objc public var errorDescription: String? { return self._description }
+    @objc public var failureReason: String? { return self._description }
 
     private let _description: String
 
-    public init(title: String, description: String, code: Int) {
+    @objc public init(title: String, description: String, code: Int) {
         self.title = title
         self.code = code
         self._description = description
     }
 
-    public init(description: String, code: Int) {
+    @objc public init(description: String, code: Int) {
         self.title = "MobilabPayment Error"
         self._description = description
         self.code = code

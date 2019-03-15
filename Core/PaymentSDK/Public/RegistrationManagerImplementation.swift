@@ -8,22 +8,28 @@
 
 import UIKit
 
-public class RegistrationManager {
-    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+public protocol RegistrationManager {
+    func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion)
+    func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion)
+    func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion)
+}
+
+class RegistrationManagerImplementation: RegistrationManager {
+    func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+    func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+    func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.provider.supportedPaymentMethodTypeUserInterfaces
         selectionViewController.selectedPaymentMethodCallback = { selectedType in

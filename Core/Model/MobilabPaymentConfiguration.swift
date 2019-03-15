@@ -33,17 +33,18 @@ public enum ConfigurationError: Error {
     }
 }
 
-public struct MobilabPaymentConfiguration {
+@objc(MLMobilabPaymentConfiguration) public class MobilabPaymentConfiguration: NSObject {
     let publicKey: String
     let endpoint: String
-    public var loggingEnabled = false
 
-    public init(publicKey: String, endpoint: String) {
+    @objc public var loggingEnabled = false
+
+    @objc public init(publicKey: String, endpoint: String) {
         self.publicKey = publicKey
         self.endpoint = endpoint
     }
 
-    public func isConfigurationValid() throws -> URL {
+    @objc public func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
             throw ConfigurationError.publicKeyNotSet
         }
