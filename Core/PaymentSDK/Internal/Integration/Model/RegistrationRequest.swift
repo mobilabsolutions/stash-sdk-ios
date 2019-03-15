@@ -19,7 +19,3 @@ public struct RegistrationRequest {
         self.registrationData = registrationData
     }
 }
-
-public protocol RegistrationData {
-    var billingData: BillingData { get }
-}

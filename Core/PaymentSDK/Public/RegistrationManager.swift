@@ -22,4 +22,11 @@ public class RegistrationManager {
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
+
+    public func registerPayPal(completion _: @escaping RegistrationResultCompletion) {
+        let paymentMethod = PaymentMethod(methodData: PayPalData(), type: .payPal)
+
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
+        // internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+    }
 }

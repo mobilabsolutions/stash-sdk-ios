@@ -17,7 +17,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     @IBOutlet private var scrollView: UIScrollView!
 
     private var dataFields: [DataField & UIView] = [
-        CreditCardDataField(), SEPADataField(),
+        CreditCardDataField(), SEPADataField(), PayPalDataField(),
     ]
 
     override func viewDidLoad() {
@@ -75,6 +75,11 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                                                           body: error.errorDescription ?? "An error occurred when adding the credit card")
                 }
             }
+        }
+    }
+
+    func addPayPal() {
+        MobilabPaymentSDK.getRegisterManager().registerPayPal { _ in
         }
     }
 
