@@ -76,6 +76,8 @@
 		E11C3C24223AB69D00F94F56 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
 		E11C3C25223AB69D00F94F56 /* MobilabPaymentBSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */; };
+		E11C3C92223BA5EA00F94F56 /* PaymentMethodTypeSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C81223BA54000F94F56 /* PaymentMethodTypeSelectionUITests.swift */; };
+		E11C3C93223BA78500F94F56 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -133,6 +135,21 @@
 			proxyType = 1;
 			remoteGlobalIDString = BACD61902226B03600E3ACC3;
 			remoteInfo = MobilabPaymentBSPayone;
+		};
+
+		E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA8D070C2226AE56004F699A;
+			remoteInfo = Demo;
+		};
+		E11C3C8C223BA5E100F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA8D070C2226AE56004F699A;
+			remoteInfo = Demo;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -232,6 +249,9 @@
 		E11C3C10223AB65000F94F56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCIntegrationTests.m; sourceTree = "<group>"; };
 		E11C3C7C223B8F7F00F94F56 /* MobilabPaymentTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobilabPaymentTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		E11C3C81223BA54000F94F56 /* PaymentMethodTypeSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypeSelectionUITests.swift; sourceTree = "<group>"; };
+		E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11C3C8B223BA5E100F94F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1663E0122367C2000372658 /* AliasManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasManager.swift; sourceTree = "<group>"; };
 		E1663E0422368D4200372658 /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -300,6 +320,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E11C3C84223BA5E100F94F56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C93223BA78500F94F56 /* MobilabPaymentCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -323,6 +351,7 @@
 				1DC5CBA220D2BF5E002058C1 /* UnitTests */,
 				BA8D070E2226AE56004F699A /* Demo */,
 				E11C3C00223AB64F00F94F56 /* Demo-ObjC */,
+				E11C3C88223BA5E100F94F56 /* DemoUITests */,
 				BACD619E2226B15500E3ACC3 /* Frameworks */,
 				1DC5CB9620D2BF5E002058C1 /* Products */,
 			);
@@ -336,6 +365,7 @@
 				BA8D070D2226AE56004F699A /* Demo.app */,
 				BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */,
 				E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */,
+				E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -683,6 +713,15 @@
 			path = "Demo-ObjC";
 			sourceTree = "<group>";
 		};
+		E11C3C88223BA5E100F94F56 /* DemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E11C3C81223BA54000F94F56 /* PaymentMethodTypeSelectionUITests.swift */,
+				E11C3C8B223BA5E100F94F56 /* Info.plist */,
+			);
+			path = DemoUITests;
+			sourceTree = "<group>";
+		};
 		E1663E0022367BD400372658 /* services */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +810,7 @@
 			);
 			dependencies = (
 				1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */,
+				E11C3C80223BA4EC00F94F56 /* PBXTargetDependency */,
 			);
 			name = MobilabPaymentTests;
 			productName = MLPaymentSDKTests;
@@ -835,6 +875,24 @@
 			productReference = E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E11C3C86223BA5E100F94F56 /* DemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "DemoUITests" */;
+			buildPhases = (
+				E11C3C83223BA5E100F94F56 /* Sources */,
+				E11C3C84223BA5E100F94F56 /* Frameworks */,
+				E11C3C85223BA5E100F94F56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */,
+			);
+			name = DemoUITests;
+			productName = DemoUITests;
+			productReference = E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -863,6 +921,10 @@
 					E11C3BFE223AB64F00F94F56 = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					E11C3C86223BA5E100F94F56 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = BA8D070C2226AE56004F699A;
+					};
 				};
 			};
 			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MobilabPayment" */;
@@ -883,6 +945,7 @@
 				BA8D070C2226AE56004F699A /* Demo */,
 				1DC5CB9D20D2BF5E002058C1 /* MobilabPaymentTests */,
 				E11C3BFE223AB64F00F94F56 /* Demo-ObjC */,
+				E11C3C86223BA5E100F94F56 /* DemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -926,6 +989,13 @@
 				E11C3C0E223AB65000F94F56 /* LaunchScreen.storyboard in Resources */,
 				E11C3C0B223AB65000F94F56 /* Assets.xcassets in Resources */,
 				E11C3C09223AB64F00F94F56 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3C85223BA5E100F94F56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1125,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E11C3C83223BA5E100F94F56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C92223BA5EA00F94F56 /* PaymentMethodTypeSelectionUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1082,6 +1160,16 @@
 			isa = PBXTargetDependency;
 			target = BACD61902226B03600E3ACC3 /* MobilabPaymentBSPayone */;
 			targetProxy = E11C3C26223AB69D00F94F56 /* PBXContainerItemProxy */;
+		};
+		E11C3C80223BA4EC00F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA8D070C2226AE56004F699A /* Demo */;
+			targetProxy = E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */;
+		};
+		E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA8D070C2226AE56004F699A /* Demo */;
+			targetProxy = E11C3C8C223BA5E100F94F56 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1479,6 +1567,49 @@
 			};
 			name = Release;
 		};
+		E11C3C8F223BA5E100F94F56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				INFOPLIST_FILE = DemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Demo;
+			};
+			name = Debug;
+		};
+		E11C3C90223BA5E100F94F56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				INFOPLIST_FILE = DemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Demo;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1532,6 +1663,15 @@
 			buildConfigurations = (
 				E11C3C13223AB65000F94F56 /* Debug */,
 				E11C3C14223AB65000F94F56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "DemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E11C3C8F223BA5E100F94F56 /* Debug */,
+				E11C3C90223BA5E100F94F56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
