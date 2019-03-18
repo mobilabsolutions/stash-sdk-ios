@@ -113,4 +113,23 @@ class BSIntegrationTests: XCTestCase {
             XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
         }
     }
+
+    func testCorrectlyPropagatesBSError() {
+        let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
+
+        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
+
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: expired) { result in
+            switch result {
+            case .success: XCTFail("Should not have returned success when creating an alias fails")
+            case let .failure(error): XCTAssertEqual(error.title, "PSP Error")
+            }
+
+            resultExpectation.fulfill()
+        }
+
+        wait(for: [resultExpectation], timeout: 20)
+    }
 }

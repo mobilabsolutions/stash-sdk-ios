@@ -8,35 +8,39 @@
 
 import Foundation
 
-private enum ApiError: Error {
+private enum ApiError<S: MLErrorConvertible>: Error, MLErrorConvertible {
     case requestFailed(Int, String)
+    case apiErrorResponse(S)
     case responseNotValid
-    case decodingFailed
     case unknown
 
-    func createError() -> MLError {
+    func toMLError() -> MLError {
         switch self {
         case let .requestFailed(code, localizedDescription):
             return MLError(description: localizedDescription, code: code)
         case .responseNotValid:
             return MLError(description: "Response not valid", code: 1)
-        case .decodingFailed:
-            return MLError(description: "API decoding failed", code: 2)
+        case let .apiErrorResponse(error):
+            return error.toMLError()
         case .unknown:
-            return MLError(description: "Unknown error", code: 3)
+            return MLError(description: "Unknown error", code: 2)
         }
     }
 }
 
+public enum NetworkClientError: Error {
+    case shouldTryDecodingErrorResponse
+}
+
 public protocol NetworkClient {
     typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>)
+    func fetch<T: Decodable, S: Decodable & MLErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>)
 }
 
 public extension NetworkClient {
     typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
 
-    func fetch<T: Decodable>(with request: RouterRequestProtocol, responseType: T.Type, completion: @escaping Completion<T>) {
+    func fetch<T: Decodable, S: Decodable & MLErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
@@ -52,27 +56,25 @@ public extension NetworkClient {
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let dataTask = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             do {
-                let decoded = try self.handleResponse(data: data, response: response, error: error, decodingType: responseType)
+                let decoded = try self.handleResponse(data: data, response: response, error: error, decodingType: responseType, errorType: errorType)
                 completion(.success(decoded))
-            } catch let errorType as ApiError {
-                completion(.failure(errorType.createError()))
+            } catch let errorType as ApiError<S> {
+                completion(.failure(errorType.toMLError()))
             } catch {
-                completion(.failure(ApiError.unknown.createError()))
+                completion(.failure(ApiError<S>.unknown.toMLError()))
             }
         }
         dataTask.resume()
     }
 
-    private func handleResponse<T: Decodable>(data: Data?, response: URLResponse?, error: Error?, decodingType: T.Type) throws -> T {
-        guard error == nil else {
-            if let error = error as NSError? {
-                throw ApiError.requestFailed(error.code, error.localizedDescription)
-            }
-            fatalError("This should not happen")
+    private func handleResponse<T: Decodable, S: MLErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
+                                                                                 decodingType: T.Type, errorType: S.Type?) throws -> T {
+        if let error = error as NSError? {
+            throw ApiError<S>.requestFailed(error.code, error.localizedDescription)
         }
 
         guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {
-            throw ApiError.responseNotValid
+            throw ApiError<S>.responseNotValid
         }
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
@@ -91,12 +93,17 @@ public extension NetworkClient {
 
             do {
                 return try JSONDecoder().decode(decodingType, from: receivedData)
+            } catch NetworkClientError.shouldTryDecodingErrorResponse {
+                fallthrough
             } catch {
-                throw ApiError.decodingFailed
+                throw ApiError<S>.responseNotValid
             }
 
         default:
-            throw ApiError.responseNotValid
+            if let type = errorType, let answer = try? JSONDecoder().decode(type, from: receivedData) {
+                throw ApiError<S>.apiErrorResponse(answer)
+            }
+            throw ApiError<S>.responseNotValid
         }
     }
 }
