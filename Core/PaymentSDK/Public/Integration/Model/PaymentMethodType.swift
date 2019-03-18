@@ -16,6 +16,7 @@ import Foundation
 public enum PaymentMethodType {
     case creditCard
     case sepa
+    case payPal
 }
 
 extension PaymentMethodType {
@@ -26,6 +27,8 @@ extension PaymentMethodType {
             return .creditCard
         case .sepa:
             return .sepa
+        case .payPal:
+            return .payPal
         }
     }
 }

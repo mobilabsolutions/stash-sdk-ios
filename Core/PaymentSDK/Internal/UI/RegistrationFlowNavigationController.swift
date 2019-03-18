@@ -8,4 +8,9 @@
 
 import UIKit
 
-class RegistrationFlowNavigationController: UINavigationController {}
+class RegistrationFlowNavigationController: UINavigationController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.modalPresentationStyle = UIModalPresentationStyle.custom
+    }
+}

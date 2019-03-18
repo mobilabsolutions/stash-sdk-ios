@@ -116,6 +116,9 @@
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bbc-au-D9z">
                                                 <rect key="frame" x="105.5" y="8" width="164" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="E0I-ID-RfG"/>
+                                                </constraints>
                                                 <segments>
                                                     <segment title="CC"/>
                                                     <segment title="SEPA"/>

@@ -9,39 +9,61 @@
 import UIKit
 
 public class RegistrationManager {
-    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+    public func registerCreditCard(mobilabProvider: MobilabPaymentProvider, creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+    public func registerSEPAAccount(mobilabProvider: MobilabPaymentProvider, sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerPayPal(completion _: @escaping RegistrationResultCompletion) {
-        let paymentMethod = PaymentMethod(methodData: PayPalData(), type: .payPal)
+    public func startPayPalRegistration(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
+        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+        guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider.viewController(for: .payPal)
+        else { fatalError("Payment method view controller for selected type not present in module") }
 
-        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        // internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+        paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
+            if let payPalData = method as? PayPalData {
+                self!.registerPayPal(mobilabProvider: mobilabProvider, payPalData: payPalData, completion: completion)
+            } else {
+                print("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData or CreditCardData")
+            }
+        }
+
+        let navigationController = RegistrationFlowNavigationController(rootViewController: paymentMethodViewController)
+        viewController.present(navigationController, animated: true, completion: nil)
     }
 
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+    private func registerPayPal(mobilabProvider: MobilabPaymentProvider, payPalData: PayPalData, completion: @escaping RegistrationResultCompletion) {
+        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+        let paymentMethod = PaymentMethod(methodData: payPalData, type: .payPal)
+
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
+        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+    }
+
+    public func registerPaymentMethodUsingUI(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, mobilabPayPalProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
-        selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.provider.supportedPaymentMethodTypeUserInterfaces
+        selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.getSupportedPaymentMethodTypeUserInterfaces()
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
             guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider.viewController(for: selectedType)
             else { fatalError("Payment method view controller for selected type not present in module") }
 
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
                 if let creditCardData = method as? CreditCardData {
-                    self?.registerCreditCard(creditCardData: creditCardData, completion: completion)
+                    self?.registerCreditCard(mobilabProvider: mobilabProvider, creditCardData: creditCardData, completion: completion)
                 } else if let sepaData = method as? SEPAData {
-                    self?.registerSEPAAccount(sepaData: sepaData, completion: completion)
+                    self?.registerSEPAAccount(mobilabProvider: mobilabProvider, sepaData: sepaData, completion: completion)
+                } else if let payPalData = method as? PayPalData {
+                    self?.registerPayPal(mobilabProvider: mobilabPayPalProvider, payPalData: payPalData, completion: completion)
                 } else {
                     print("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData or CreditCardData")
                 }

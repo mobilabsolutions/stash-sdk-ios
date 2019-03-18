@@ -13,8 +13,8 @@ class ModuleIntegrationTests: XCTestCase {
     private var module: PaymentServiceProvider?
 
     private class TestModule<RegistrationDataType: RegistrationData>: PaymentServiceProvider {
-        var pspIdentifier: String {
-            return "BS_PAYONE"
+        var pspIdentifier: MobilabPaymentProvider {
+            return .bsPayone
         }
 
         var publicKey: String {
@@ -52,7 +52,7 @@ class ModuleIntegrationTests: XCTestCase {
         guard let creditCard = CreditCardData(cardNumber: "4111111111111111",
                                               cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card should be valid"); return }
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
@@ -76,7 +76,7 @@ class ModuleIntegrationTests: XCTestCase {
                                               expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when module fails")
             case let .failure(propagatedError): XCTAssertEqual(error.code, propagatedError.code)

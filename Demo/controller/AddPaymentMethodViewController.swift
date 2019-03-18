@@ -43,7 +43,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addCreditCard(method: CreditCardData) {
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -58,7 +58,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addSEPA(method: SEPAData) {
-        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(sepaData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -73,7 +73,17 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addPayPal() {
-        MobilabPaymentSDK.getRegisterManager().registerPayPal { _ in
+        MobilabPaymentSDK.getRegisterManager().startPayPalRegistration(on: self, mobilabProvider: MobilabPaymentProvider.braintree) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(alias):
+                    self?.save(alias: alias, expirationMonth: nil, expirationYear: nil, type: .sepa)
+                    self?.clearInputs()
+                    self?.showAlert(title: "Success", body: "SEPA added successfully.")
+                case let .failure(error): self?.showAlert(title: error.title,
+                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
+                }
+            }
         }
     }
 

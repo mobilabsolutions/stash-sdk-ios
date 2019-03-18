@@ -21,7 +21,9 @@ class AddUIViewController: UIViewController {
     }
 
     @objc private func triggerRegisterUI() {
-        MobilabPaymentSDK.getRegisterManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerPaymentMethodUsingUI(on: self,
+                                                                            mobilabProvider: MobilabPaymentProvider.bsPayone,
+                                                                            mobilabPayPalProvider: MobilabPaymentProvider.braintree) { [weak self] result in
             switch result {
             case let .success(value):
                 self?.dismiss(animated: true) {

@@ -6,6 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import MobilabPaymentBraintree
 import MobilabPaymentBSPayone
 import MobilabPaymentCore
 import UIKit
@@ -19,5 +20,6 @@ class MainTabBarController: UITabBarController {
 
         MobilabPaymentSDK.configure(configuration: configuration)
         MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
+        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBraintree(tokenizationKey: "", urlScheme: "com.mobilabsolutions.payment.Demo.paypal"))
     }
 }

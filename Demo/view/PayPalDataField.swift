@@ -24,8 +24,8 @@ class PayPalDataField: UIView, DataField {
 
     private var stackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .vertical
-        view.alignment = .fill
+        view.axis = .horizontal
+        view.alignment = UIStackView.Alignment.top
         view.distribution = .equalSpacing
         return view
     }()

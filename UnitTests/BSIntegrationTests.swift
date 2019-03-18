@@ -35,7 +35,7 @@ class BSIntegrationTests: XCTestCase {
         else { XCTFail("Credit Card data should be valid"); return }
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
-        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
+        registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
@@ -59,7 +59,7 @@ class BSIntegrationTests: XCTestCase {
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
-        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
+        registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCardData, completion: { result in
             switch result {
             case .success:
                 XCTFail("Adding an invalid credit card should not succeed")
@@ -92,7 +92,7 @@ class BSIntegrationTests: XCTestCase {
         else { XCTFail("SEPA data should be valid"); return }
 
         let registerManager = MobilabPaymentSDK.getRegisterManager()
-        registerManager.registerSEPAAccount(sepaData: sepaData) { result in
+        registerManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):

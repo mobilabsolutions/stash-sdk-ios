@@ -7,11 +7,16 @@
 //
 import UIKit
 
+public enum MobilabPaymentProvider: String {
+    case bsPayone = "BS_PAYONE"
+    case braintree = "BRAINTREE"
+}
+
 public protocol PaymentServiceProvider {
     typealias RegistrationResult = NetworkClientResult<String?, MLError>
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
-    var pspIdentifier: String { get }
+    var pspIdentifier: MobilabPaymentProvider { get }
     var publicKey: String { get }
 
     func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion)

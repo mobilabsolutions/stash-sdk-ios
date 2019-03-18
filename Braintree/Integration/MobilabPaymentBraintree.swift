@@ -6,25 +6,43 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import Foundation
+import BraintreeCore
 import MobilabPaymentCore
+import UIKit
 
 public class MobilabPaymentBraintree: PaymentServiceProvider {
-    public let pspIdentifier: String
+    public let pspIdentifier: MobilabPaymentProvider
     public let publicKey: String
 
-    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion) {
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         guard self.isPayPalRequest(registrationRequest: registrationRequest) else {
             completion(.failure(MLError(description: BraintreeIntegrationError.unsupportedPaymentMethod.description(), code: 1)))
             return
         }
 
-        self.handlePayPalRequest(pspExtra: registrationRequest.pspData, completion: completion)
+        // self.handlePayPalRequest(pspExtra: registrationRequest.pspData, completion: completion)
     }
 
-    public init(publicKey: String) {
-        self.publicKey = publicKey
-        self.pspIdentifier = "BS_PAYONE"
+    public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
+        return [.payPal]
+    }
+
+    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+        return PayPalViewController()
+    }
+
+    public init(tokenizationKey: String, urlScheme: String) {
+        self.publicKey = tokenizationKey
+        self.pspIdentifier = .braintree
+
+        BTAppSwitch.setReturnURLScheme(urlScheme)
+    }
+
+    public static func handleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+        if url.scheme?.localizedCaseInsensitiveCompare(BTAppSwitch.sharedInstance().returnURLScheme) == .orderedSame {
+            return BTAppSwitch.handleOpen(url, options: options)
+        }
+        return false
     }
 
     private func handlePayPalRequest(pspExtra _: PSPExtra,

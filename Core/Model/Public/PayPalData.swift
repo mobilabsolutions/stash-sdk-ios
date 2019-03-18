@@ -8,4 +8,10 @@
 
 import Foundation
 
-public struct PayPalData: RegistrationData {}
+public struct PayPalData: RegistrationData {
+    public let nounce: String
+
+    public init(nounce: String) {
+        self.nounce = nounce
+    }
+}

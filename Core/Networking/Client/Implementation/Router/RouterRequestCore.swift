@@ -93,7 +93,7 @@ struct RouterRequestCore: RouterRequestProtocol {
         case .createAlias():
 
             let pspType = InternalPaymentSDK.sharedInstance.provider.pspIdentifier
-            return Header(field: "PSP-Type", value: pspType)
+            return Header(field: "PSP-Type", value: pspType.rawValue)
         case .updateAlias:
             return nil
         }
