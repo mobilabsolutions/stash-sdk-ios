@@ -13,23 +13,28 @@ protocol MLErrorProtocol: LocalizedError {
     var code: Int { get }
 }
 
+/// An error that occurred in the MobilabPaymentSDK
 public class MLError: MLErrorProtocol {
+    /// The error's title. Provides some context to the error.
     public let title: String
+    /// The unique code identigying the error
     public let code: Int
-    public var errorDescription: String? { return self._description }
-    public var failureReason: String? { return self._description }
+    /// A string describing the error and reasoning for it
+    public let errorDescription: String
 
-    private let _description: String
+    public var failureReason: String? {
+        return self.errorDescription
+    }
 
     public init(title: String, description: String, code: Int) {
         self.title = title
         self.code = code
-        self._description = description
+        self.errorDescription = description
     }
 
     public init(description: String, code: Int) {
         self.title = "MobilabPayment Error"
-        self._description = description
+        self.errorDescription = description
         self.code = code
     }
 }
