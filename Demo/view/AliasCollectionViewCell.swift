@@ -14,7 +14,7 @@ class AliasCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var expiryLabel: UILabel!
 
     func setup(for alias: Alias) {
-        self.aliasLabel.text = alias.alias ?? "No Alias"
+        self.aliasLabel.text = alias.alias
 
         switch alias.type {
         case .creditCard:
