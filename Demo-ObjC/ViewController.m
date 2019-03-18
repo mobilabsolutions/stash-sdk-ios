@@ -28,7 +28,8 @@
     [super viewDidAppear:animated];
 
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    
+    [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self mobilabProvider:@"BS_PAYONE" mobilabPayPalProvider:@"BRAINTREE" completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         if (alias != nil) {
             NSLog(@"Got alias: %@", alias);
             [weakSelf dismissViewControllerAnimated:YES completion:^{

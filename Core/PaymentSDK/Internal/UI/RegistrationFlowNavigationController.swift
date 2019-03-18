@@ -9,7 +9,6 @@
 import UIKit
 
 class RegistrationFlowNavigationController: UINavigationController {
-
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         self.sharedInit()
