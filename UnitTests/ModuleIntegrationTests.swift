@@ -22,10 +22,10 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         let completionResultToReturn: PaymentServiceProvider.RegistrationResult
-        let registrationRequestCalledExpectation: XCTestExpectation
+        let registrationRequestCalledExpectation: XCTestExpectation?
 
         init(completionResultToReturn: PaymentServiceProvider.RegistrationResult,
-             registrationRequestCalledExpectation: XCTestExpectation) {
+             registrationRequestCalledExpectation: XCTestExpectation?) {
             self.completionResultToReturn = completionResultToReturn
             self.registrationRequestCalledExpectation = registrationRequestCalledExpectation
         }
@@ -33,7 +33,7 @@ class ModuleIntegrationTests: XCTestCase {
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
             XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType)
-            self.registrationRequestCalledExpectation.fulfill()
+            self.registrationRequestCalledExpectation?.fulfill()
             completion(self.completionResultToReturn)
         }
     }
@@ -86,5 +86,32 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         wait(for: [calledExpectation, resultExpectation], timeout: 5, enforceOrder: true)
+    }
+
+    func testCreateAliasFailurePropagatedCorrectly() {
+        let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
+        let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")
+        doesNotCallRegistration.isInverted = true
+
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success("This should not be returned"), registrationRequestCalledExpectation: doesNotCallRegistration)
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
+        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.addProvider(provider: module)
+
+        self.module = module
+
+        guard let creditCard = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                              expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
+
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
+            if case .success = result {
+                XCTFail("Should not have returned success when creating an alias fails")
+            }
+            resultExpectation.fulfill()
+        }
+
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 2, enforceOrder: true)
     }
 }
