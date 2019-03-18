@@ -146,9 +146,13 @@ class SEPADataField: UIView, DataField {
                                       zip: zipField.text, city: cityField.text,
                                       country: countryField.text, languageId: Locale.current.languageCode)
 
-        guard let sepa = SEPAData(iban: iban, bic: bic, billingData: billingData)
-        else { self.delegate?.showError(title: "IBAN invalid", description: "The provided IBAN is not valid."); return }
-
-        self.delegate?.addSEPA(method: sepa)
+        do {
+            let sepa = try SEPAData(iban: iban, bic: bic, billingData: billingData)
+            self.delegate?.addSEPA(method: sepa)
+        } catch let error as MLError {
+            self.delegate?.showError(title: error.title, description: error.failureReason ?? "The provided IBAN is not valid.")
+        } catch {
+            self.delegate?.showError(title: "IBAN invalid", description: "The provided IBAN is not valid.")
+        }
     }
 }

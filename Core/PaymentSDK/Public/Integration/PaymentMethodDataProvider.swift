@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A type that can create registration data
 public protocol PaymentMethodDataProvider {
+    /// A callback to call once the registration data is created
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)? { get set }
 }

@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum APIEndpoints: String {
-    case production = "https://p.mblb.net/api/v1"
-    case test = "https://payment-dev.mblb.net/api/v1"
-}
-
+/// An error rooting from configuration issues
 public enum ConfigurationError: Error {
+    /// The SDK's public key is not set
     case publicKeyNotSet
+    /// The SDK's endpoint is not set
     case endpointNotSet
+    /// The provided SDK endpoint is not a valid URL
     case endpointNotValid
+    /// The SDK's payment provider was not set
     case providerNotSet
 
     func description() -> String {
@@ -33,17 +33,30 @@ public enum ConfigurationError: Error {
     }
 }
 
-public struct MobilabPaymentConfiguration {
+/// The SDK configuration
+@objc(MLMobilabPaymentConfiguration) public class MobilabPaymentConfiguration: NSObject {
+    /// Whether or not the SDK should write log messages to the console detailing the steps it takes
+    @objc public var loggingEnabled = false
+
     let publicKey: String
     let endpoint: String
-    public var loggingEnabled = false
 
-    public init(publicKey: String, endpoint: String) {
+    #warning("Figure out whether or not the public key is actually necessary here and what it should be used for. Then update doc comment.")
+    /// Initialize the SDK configuration
+    ///
+    /// - Parameters:
+    ///   - publicKey: TODO
+    ///   - endpoint: The endpoint at which a Mobilab payment backend is deployed
+    @objc public init(publicKey: String, endpoint: String) {
         self.publicKey = publicKey
         self.endpoint = endpoint
     }
 
-    public func isConfigurationValid() throws -> URL {
+    /// Validate and return the configuration URL
+    ///
+    /// - Returns: The endpoint URL
+    /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
+    @objc public func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
             throw ConfigurationError.publicKeyNotSet
         }

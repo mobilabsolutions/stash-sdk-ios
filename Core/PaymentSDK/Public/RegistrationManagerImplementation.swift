@@ -8,17 +8,32 @@
 
 import UIKit
 
+/// Type used for registering payment methods of different types
 public class RegistrationManager {
-    public func registerCreditCard(mobilabProvider: MobilabPaymentProvider, creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+
+    /// Register a credit card with the provider that was configured
+    ///
+    /// - Parameters:
+    ///   - creditCardData: The credit card data to use for registration
+    ///   - completion: A completion called when the registration is complete.
+    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerSEPAAccount(mobilabProvider: MobilabPaymentProvider, sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+
+    /// Register a SEPA account with the provider that was configured
+    ///
+    /// - Parameters:
+    ///   - sepaData: The SEPA data to use for registration
+    ///   - completion: A completion called when the registration is complete.
+    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
@@ -50,7 +65,13 @@ public class RegistrationManager {
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, mobilabPayPalProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
+    /// Allow the user to select a payment method type and input its data from module-generated UI
+    ///
+    /// - Parameters:
+    ///   - viewController: The view controller on which the payment method type selection should be presented
+    ///   - completion: A completion called when the registration is complete.
+    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.getSupportedPaymentMethodTypeUserInterfaces()
         selectionViewController.selectedPaymentMethodCallback = { selectedType in

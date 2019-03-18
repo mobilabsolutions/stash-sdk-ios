@@ -38,7 +38,7 @@ class ModuleIntegrationTests: XCTestCase {
         }
     }
 
-    func testHandleRegistrationRequestCalled() {
+    func testHandleRegistrationRequestCalled() throws {
         let expectation = XCTestExpectation(description: "Handle registration is called")
         let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
                                                 registrationRequestCalledExpectation: expectation)
@@ -49,15 +49,15 @@ class ModuleIntegrationTests: XCTestCase {
 
         self.module = module
 
-        guard let creditCard = CreditCardData(cardNumber: "4111111111111111",
-                                              cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
-        else { XCTFail("Credit Card should be valid"); return }
+        let creditCard = try CreditCardData(cardNumber: "4111111111111111",
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
+
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
 
-    func testModuleFailurePropagatedCorrectly() {
+    func testModuleFailurePropagatedCorrectly() throws {
         let calledExpectation = XCTestExpectation(description: "Handle registration is called")
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
@@ -72,9 +72,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         self.module = module
 
-        guard let creditCard = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                              expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
-        else { XCTFail("Credit Card data should be valid"); return }
+        let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                            expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
             switch result {
