@@ -94,7 +94,7 @@ class BSIntegrationTests: XCTestCase {
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
-                XCTFail("An error occurred while adding SEPA: \(error.failureReason ?? "unknown error")")
+                XCTFail("An error occurred while adding SEPA: \(error.errorDescription ?? "unknown error")")
                 expectation.fulfill()
             }
         }
