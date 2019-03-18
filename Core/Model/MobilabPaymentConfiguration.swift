@@ -34,9 +34,9 @@ public enum ConfigurationError: Error {
 }
 
 /// The SDK configuration
-public struct MobilabPaymentConfiguration {
+@objc(MLMobilabPaymentConfiguration) public class MobilabPaymentConfiguration: NSObject {
     /// Whether or not the SDK should write log messages to the console detailing the steps it takes
-    public var loggingEnabled = false
+    @objc public var loggingEnabled = false
 
     let publicKey: String
     let endpoint: String
@@ -47,16 +47,16 @@ public struct MobilabPaymentConfiguration {
     /// - Parameters:
     ///   - publicKey: TODO
     ///   - endpoint: The endpoint at which a Mobilab payment backend is deployed
-    public init(publicKey: String, endpoint: String) {
+    @objc public init(publicKey: String, endpoint: String) {
         self.publicKey = publicKey
         self.endpoint = endpoint
     }
 
-    /// Validate and return the configuration
+    /// Validate and return the configuration URL
     ///
     /// - Returns: The endpoint URL
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
-    public func isConfigurationValid() throws -> URL {
+    @objc public func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
             throw ConfigurationError.publicKeyNotSet
         }

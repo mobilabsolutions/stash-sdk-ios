@@ -14,25 +14,25 @@ protocol MLErrorProtocol: LocalizedError {
 }
 
 /// An error that occurred in the MobilabPaymentSDK
-public class MLError: MLErrorProtocol {
+@objc public class MLError: NSObject, MLErrorProtocol {
     /// The error's title. Provides some context to the error.
-    public let title: String
+    @objc public let title: String
     /// The unique code identigying the error
-    public let code: Int
+    @objc public let code: Int
     /// A string describing the error and reasoning for it
-    public let errorDescription: String
+    @objc public let errorDescription: String
 
-    public var failureReason: String? {
+    @objc public var failureReason: String? {
         return self.errorDescription
     }
 
-    public init(title: String, description: String, code: Int) {
+    @objc public init(title: String, description: String, code: Int) {
         self.title = title
         self.code = code
         self.errorDescription = description
     }
 
-    public init(description: String, code: Int) {
+    @objc public init(description: String, code: Int) {
         self.title = "MobilabPayment Error"
         self.errorDescription = description
         self.code = code

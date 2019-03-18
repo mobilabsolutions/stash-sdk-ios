@@ -10,7 +10,7 @@ import Foundation
 
 /// The data identifying the billing data. Different payment service providers require different data to be present
 /// for payment method registration to succeed.
-public struct BillingData {
+@objc(MLBillingData) public class BillingData: NSObject {
     /// The email address associated with the billing data
     let email: String?
     /// The name of the person to bill
@@ -33,16 +33,16 @@ public struct BillingData {
     let languageId: String?
 
     /// Initialize the billing data with select properties
-    public init(email: String? = nil,
-                name: String? = nil,
-                address1: String? = nil,
-                address2: String? = nil,
-                zip: String? = nil,
-                city: String? = nil,
-                state: String? = nil,
-                country: String? = nil,
-                phone: String? = nil,
-                languageId: String? = nil) {
+    @objc public init(email: String? = nil,
+                      name: String? = nil,
+                      address1: String? = nil,
+                      address2: String? = nil,
+                      zip: String? = nil,
+                      city: String? = nil,
+                      state: String? = nil,
+                      country: String? = nil,
+                      phone: String? = nil,
+                      languageId: String? = nil) {
         self.name = name
         self.email = email
         self.address1 = address1
