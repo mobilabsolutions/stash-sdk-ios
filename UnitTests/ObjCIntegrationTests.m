@@ -77,13 +77,16 @@
                                                                 phone:nil
                                                            languageId:nil];
 
+    NSError *error;
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4111 1111 1111 1111"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:@"Max Mustermann"
-                                                                    billingData:billingData];
+                                                                    billingData:billingData
+                                                                          error:&error];
     XCTAssertNotNil(creditCard);
+    XCTAssertNil(error);
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
@@ -116,7 +119,9 @@
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
-    MLSEPAData *sepaData = [[MLSEPAData alloc] initWithIban:@"DE75512108001245126199" bic:@"COLSDE33XXX" billingData:billingData];
+    NSError *error;
+    MLSEPAData * sepaData = [[MLSEPAData alloc] initWithIban:@"DE75512108001245126199" bic:@"COLSDE33XXX" billingData:billingData error:&error];
+    XCTAssertNil(error);
     XCTAssertNotNil(sepaData);
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
@@ -145,16 +150,20 @@
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
+    NSError *error;
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4511 1511 1511 1511"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:@"Max Mustermann"
-                                                                    billingData:billingData];
+                                                                    billingData:billingData
+                                                                          error:&error];
+    XCTAssertNotNil(error);
     XCTAssertNil(creditCard);
 
-    MLSEPAData *sepaData = [[MLSEPAData alloc] initWithIban:@"DE75534348001245126145" bic:@"COLSDE33XXX" billingData:billingData];
+    MLSEPAData *sepaData = [[MLSEPAData alloc] initWithIban:@"DE75534348001245126145" bic:@"COLSDE33XXX" billingData:billingData error:&error];
     XCTAssertNil(sepaData);
+    XCTAssertNotNil(error);
 }
 
 @end

@@ -146,9 +146,14 @@ class CreditCardDataField: UIView, DataField {
                                         description: "Please make sure to fill card number, CVV, and expiry month/year"); return }
 
         let billingData = BillingData(email: emailField.text)
-        guard let creditCard = CreditCardData(cardNumber: number, cvv: cvv, expiryMonth: month, expiryYear: year,
-                                              holderName: nameField.text, billingData: billingData)
-        else { self.delegate?.showError(title: "Credit Card Invalid", description: "The provided number is invalid."); return }
-        self.delegate?.addCreditCard(method: creditCard)
+        do {
+            let creditCard = try CreditCardData(cardNumber: number, cvv: cvv, expiryMonth: month, expiryYear: year,
+                                                holderName: nameField.text, billingData: billingData)
+            self.delegate?.addCreditCard(method: creditCard)
+        } catch let error as MLError {
+            self.delegate?.showError(title: error.title, description: error.failureReason ?? "The card number is invalid")
+        } catch {
+            self.delegate?.showError(title: "Credit Card Invalid", description: "The provided number is invalid.")
+        }
     }
 }

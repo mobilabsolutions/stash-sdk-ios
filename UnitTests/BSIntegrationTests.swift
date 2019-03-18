@@ -27,12 +27,12 @@ class BSIntegrationTests: XCTestCase {
         MobilabPaymentSDK.addProvider(provider: provider)
     }
 
-    func testCreditCardBS() {
+    func testCreditCardBS() throws {
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
-        guard let creditCardData = CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21, holderName: "Holder Name", billingData: billingData)
-        else { XCTFail("Credit Card data should be valid"); return }
+        let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
+                                                holderName: "Holder Name", billingData: billingData)
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
@@ -49,12 +49,11 @@ class BSIntegrationTests: XCTestCase {
         }
     }
 
-    func testErrorCompletionWhenCreditCardIsOfUnknownType() {
+    func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
         let expectation = self.expectation(description: "Registering invalid credit card fails")
 
-        guard let creditCardData = CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
-                                                  holderName: "Holder Name", billingData: BillingData())
-        else { XCTFail("Credit Card data should be valid"); return }
+        let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
+                                                holderName: "Holder Name", billingData: BillingData())
 
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
@@ -74,7 +73,7 @@ class BSIntegrationTests: XCTestCase {
         }
     }
 
-    func testAddSEPABS() {
+    func testAddSEPABS() throws {
         let expectation = self.expectation(description: "Registering SEPA succeeds")
 
         let billingData = BillingData(email: "max@mustermann.de",
@@ -88,8 +87,7 @@ class BSIntegrationTests: XCTestCase {
                                       phone: "1231231123",
                                       languageId: "deu")
 
-        guard let sepaData = SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
-        else { XCTFail("SEPA data should be valid"); return }
+        let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
         let registerManager = MobilabPaymentSDK.getRegisterManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in

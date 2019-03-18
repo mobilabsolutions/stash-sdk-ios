@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreditCardDataInitializible {
-    init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData)
+    init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws
 }
 
 public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
@@ -38,10 +38,12 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         case unknown = "UNKNOWN"
     }
 
-    public init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) {
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
+
+        #warning("Update error once errors are finalized")
         guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { return nil }
+        else { throw MLError(title: "Credit card validation error", description: "Credit card number is not valid", code: 105) }
 
         self.holderName = holderName
         self.cardNumber = cleanedNumber

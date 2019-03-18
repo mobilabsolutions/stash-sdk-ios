@@ -34,23 +34,18 @@ import UIKit
     @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
         let creditCardData: CreditCardData
 
-        @objc public required init?(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) {
-            guard let creditCardData = CreditCardData(cardNumber: cardNumber, cvv: cvv,
-                                                      expiryMonth: expiryMonth, expiryYear: expiryYear,
-                                                      holderName: holderName, billingData: billingData)
-            else { return nil }
-
-            self.creditCardData = creditCardData
+        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws {
+            self.creditCardData = try CreditCardData(cardNumber: cardNumber, cvv: cvv,
+                                                     expiryMonth: expiryMonth, expiryYear: expiryYear,
+                                                     holderName: holderName, billingData: billingData)
         }
     }
 
     @objc(MLSEPAData) public class SEPADataBridge: NSObject, SEPADataInitializible {
         let sepaData: SEPAData
 
-        @objc public required init?(iban: String, bic: String, billingData: BillingData) {
-            guard let sepaData = SEPAData(iban: iban, bic: bic, billingData: billingData)
-            else { return nil }
-            self.sepaData = sepaData
+        @objc public required init(iban: String, bic: String, billingData: BillingData) throws {
+            self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
         }
     }
 
