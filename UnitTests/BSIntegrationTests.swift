@@ -117,8 +117,8 @@ class BSIntegrationTests: XCTestCase {
     func testCorrectlyPropagatesBSError() {
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
-        guard let expired = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                           expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: expired) { result in

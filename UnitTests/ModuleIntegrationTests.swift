@@ -100,8 +100,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         self.module = module
 
-        guard let creditCard = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                              expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
+        guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                   expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
