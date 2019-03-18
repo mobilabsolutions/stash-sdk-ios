@@ -47,7 +47,7 @@ The `CreditCardData` is provided with `BillingData`. This `BillingData` contains
 
 ```swift
 let billingData = BillingData(country: "DE")
-guard let creditCard = CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                         expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
@@ -75,7 +75,7 @@ let billingData = BillingData(email: "max@mustermann.de",
                                       phone: "1231231123",
                                       languageId: "deu")
 
-guard let sepaData = SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
+guard let sepaData = try? SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 else { XCTFail("SEPA data should be valid"); return }
 
 let registerManager = MobilabPaymentSDK.getRegisterManager()

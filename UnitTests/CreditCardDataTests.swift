@@ -29,24 +29,23 @@ class CreditCardDataTests: XCTestCase {
         ("not-a-number", .unknown), ("123456789101112", .unknown),
     ]
 
-    func testCorrectlyParsesCardMask() {
-        guard let first = CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData()),
-            let second = CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
-        else { XCTFail("Credit Card data should be valid"); return }
+    func testCorrectlyParsesCardMask() throws {
+        let first = try CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
+        let second = try CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
 
         XCTAssertEqual(first.cardMask, 1111, "Card mask should equal last four digits of card number")
         XCTAssertEqual(second.cardMask, 4, "Card mask should equal last four digits of card number")
     }
 
-    func testCorrectlyParsesCardType() {
+    func testCorrectlyParsesCardType() throws {
         for (number, type) in self.validExampleNumbers + self.invalidExampleNumbers {
             let cleanedNumber = CreditCardUtils.cleanedNumber(number: number)
             let creditCardUtilsDeterminedType = CreditCardUtils.cardTypeFromNumber(cleanedNumber: cleanedNumber)
             XCTAssertEqual(creditCardUtilsDeterminedType, type, "Card \(number) should have type \(type) but has type \(creditCardUtilsDeterminedType)")
 
-            guard let card = CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
-            else { continue }
-            XCTAssertEqual(card.cardType, creditCardUtilsDeterminedType)
+            if let card = try? CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData()) {
+                XCTAssertEqual(card.cardType, creditCardUtilsDeterminedType)
+            }
         }
     }
 

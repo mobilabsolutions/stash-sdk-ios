@@ -13,7 +13,9 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
@@ -23,6 +25,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
+            BuildableName = "MobilabPaymentCore.framework"
+            BlueprintName = "MobilabPaymentCore"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

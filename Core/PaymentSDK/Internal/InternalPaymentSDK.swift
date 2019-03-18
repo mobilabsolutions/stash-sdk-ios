@@ -54,7 +54,7 @@ class InternalPaymentSDK {
 
     func configure(configuration: MobilabPaymentConfiguration) {
         do {
-            let url = try configuration.isConfigurationValid()
+            let url = try configuration.endpointUrl()
             self._networkingClient = NetworkClientCore(url: url)
             self._configuration = configuration
         } catch let error as ConfigurationError {
