@@ -21,6 +21,6 @@ public class MobilabPaymentSDK {
     }
 
     public static func getRegisterManager() -> RegistrationManager {
-        return RegistrationManagerImplementation()
+        return RegistrationManager()
     }
 }
