@@ -6,7 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentCore
+@testable import MobilabPaymentCore
 import XCTest
 
 class ModuleIntegrationTests: XCTestCase {
@@ -52,7 +52,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { _ in () }
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: module.pspIdentifier, creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
@@ -75,7 +75,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                             expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: module.pspIdentifier, creditCardData: creditCard) { result in
             switch result {
             case .success:
                 XCTFail("Should not have returned success when module fails")
