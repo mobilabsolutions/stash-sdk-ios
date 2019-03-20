@@ -42,6 +42,7 @@ class InternalPaymentSDK {
         return client
     }
 
+    #warning("Possible improvment: https://github.com/mobilabsolutions/payment-sdk-ios-open/pull/42#discussion_r267236639")
     private var providers = [PaymentServiceProvider]()
     private var _activeProvider: PaymentServiceProvider?
     var activeProvider: PaymentServiceProvider {
