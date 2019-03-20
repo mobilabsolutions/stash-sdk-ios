@@ -10,9 +10,10 @@ import UIKit
 
 /// Type used for registering payment methods of different types
 public class RegistrationManager {
-    /// Register a credit card with the provider that was configured
+    /// Register a credit card
     ///
     /// - Parameters:
+    ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - creditCardData: The credit card data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
@@ -24,9 +25,10 @@ public class RegistrationManager {
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    /// Register a SEPA account with the provider that was configured
+    /// Register a SEPA account
     ///
     /// - Parameters:
+    ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - sepaData: The SEPA data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
@@ -38,6 +40,21 @@ public class RegistrationManager {
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
+    private func registerPayPal(mobilabProvider: MobilabPaymentProvider, payPalData: PayPalData, completion: @escaping RegistrationResultCompletion) {
+        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+        let paymentMethod = PaymentMethod(methodData: payPalData, type: .payPal)
+
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
+        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+    }
+
+    /// Starts the flow for PayPal registration
+    ///
+    /// - Parameters:
+    ///   - mobilabProvider: Provider to use for credit card and SEPA
+    ///   - sepaData: The SEPA data to use for registration
+    ///   - completion: A completion called when the registration is complete.
+    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func startPayPalRegistration(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
         InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
         guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider.viewController(for: .payPal)
@@ -55,18 +72,12 @@ public class RegistrationManager {
         viewController.present(navigationController, animated: true, completion: nil)
     }
 
-    private func registerPayPal(mobilabProvider: MobilabPaymentProvider, payPalData: PayPalData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
-        let paymentMethod = PaymentMethod(methodData: payPalData, type: .payPal)
-
-        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
-    }
-
     /// Allow the user to select a payment method type and input its data from module-generated UI
     ///
     /// - Parameters:
     ///   - viewController: The view controller on which the payment method type selection should be presented
+    ///   - mobilabProvider: Provider to use for credit card and SEPA
+    ///   - mobilabPayPalProvider: Provider to use for PayPal
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerPaymentMethodUsingUI(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, mobilabPayPalProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {

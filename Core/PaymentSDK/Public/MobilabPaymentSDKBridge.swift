@@ -62,6 +62,12 @@ import UIKit
         self.manager.registerSEPAAccount(mobilabProvider: mobilabProvider, sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
     }
 
+    @objc public func startPayPalRegistration(on viewController: UIViewController, mobilabProvider: String, completion: @escaping (String?, MLError?) -> Void) {
+        guard let mobilabProvider = MobilabPaymentProvider(rawValue: mobilabProvider)
+        else { fatalError("Provided Payment Provider is not a payment provider.") }
+        self.manager.startPayPalRegistration(on: viewController, mobilabProvider: mobilabProvider, completion: self.bridgedCompletion(completion: completion))
+    }
+
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                                    mobilabProvider: String,
                                                    mobilabPayPalProvider: String,
