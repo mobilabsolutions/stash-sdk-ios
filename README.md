@@ -51,7 +51,7 @@ guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: 
                                         expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
-MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
+MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
     switch result {
     case let .success(alias): print("Received alias for credit card: \(alias)")
     case let .failure(error): print("Error (\(error.code)) while registering credit card")
@@ -95,7 +95,7 @@ By calling `registerPaymentMethodUsingUI` on the registration manager, the user 
 Typical usage of this functionality might look like this:
 
 ```swift
-MobilabPaymentSDK.getRegisterManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
+MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
     switch result {
     case let .success(value):
         self?.dismiss(animated: true) {

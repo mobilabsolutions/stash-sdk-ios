@@ -13,8 +13,8 @@ import UIKit
         MobilabPaymentSDK.configure(configuration: configuration)
     }
 
-    @objc public static func getRegisterManager() -> RegistrationManagerBridge {
-        return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegisterManager())
+    @objc public static func getRegistrationManager() -> RegistrationManagerBridge {
+        return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegistrationManager())
     }
 
     @objc public static func addProvider(provider: Any) {

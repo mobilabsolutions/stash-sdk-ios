@@ -43,7 +43,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addCreditCard(method: CreditCardData) {
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -58,7 +58,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addSEPA(method: SEPAData) {
-        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(sepaData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegistrationManager().registerSEPAAccount(sepaData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):

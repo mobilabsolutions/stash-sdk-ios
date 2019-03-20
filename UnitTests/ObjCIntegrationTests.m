@@ -54,7 +54,7 @@
 
     // This should compile and *not* cause a runtime error since the SDK is now configured.
     // We don't care about the return value in this context, so we ignore it.
-    (void) [MLMobilabPaymentSDK getRegisterManager];
+    (void) [MLMobilabPaymentSDK getRegistrationManager];
 }
 
 - (void) testRegisterCreditCard {
@@ -90,7 +90,7 @@
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
-    [[MLMobilabPaymentSDK getRegisterManager] registerCreditCardWithCreditCardData:creditCard completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -126,7 +126,7 @@
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
 
-    [[MLMobilabPaymentSDK getRegisterManager] registerSEPAAccountWithSepaData:sepaData completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
         // These are nil, since error is nil. We want to make sure that we can access these values, though (that the code compiles).

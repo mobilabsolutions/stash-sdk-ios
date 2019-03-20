@@ -34,7 +34,7 @@ class BSIntegrationTests: XCTestCase {
         let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
                                                 holderName: "Holder Name", billingData: billingData)
 
-        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
@@ -57,7 +57,7 @@ class BSIntegrationTests: XCTestCase {
 
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
-        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success:
@@ -89,7 +89,7 @@ class BSIntegrationTests: XCTestCase {
 
         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
-        let registerManager = MobilabPaymentSDK.getRegisterManager()
+        let registerManager = MobilabPaymentSDK.getRegistrationManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
@@ -121,7 +121,7 @@ class BSIntegrationTests: XCTestCase {
                                                 expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: expired) { result in
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error): XCTAssertEqual(error.title, "PSP Error")

@@ -21,7 +21,7 @@ class AddUIViewController: UIViewController {
     }
 
     @objc private func triggerRegisterUI() {
-        MobilabPaymentSDK.getRegisterManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
+        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(value):
