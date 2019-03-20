@@ -1,9 +1,27 @@
 language: objective-c
 osx_image: xcode10.1
 
+cache:
+  directories:
+  - Carthage
+
+env:
+  #environment variables
+  global:
+    - PROJECT_NAME="MobilabPayment.xcodeproj"
+  matrix:
+    - DESTINATION="OS=12.1,name=iPhone X"
+
+before_install:
+  - brew install carthage || true
+  - brew outdated carthage || brew upgrade carthage
+
+before_script:
+  - carthage update --cache-builds --platform iOS
+
 script:
   - set -o pipefail
   - echo "Starting Unit Tests"
-  - travis_retry xcodebuild clean test -project MobilabPayment.xcodeproj -scheme "MobilabPaymentCore" -destination "OS=12.1,name=iPhone X" test
+  - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test
   - echo "Starting UI Tests"
-  - travis_retry xcodebuild test -project MobilabPayment.xcodeproj -scheme "Demo" -destination "OS=12.1,name=iPhone X" test
+  - travis_retry xcodebuild test -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" test
