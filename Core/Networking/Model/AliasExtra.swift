@@ -53,5 +53,5 @@ struct SepaExtra: Codable {
 }
 
 struct PayPalExtra: Codable {
-    let nounce: String
+    let paymentMethodNonce: String
 }
