@@ -12,7 +12,7 @@ import UIKit
     @objc public static func createModule(tokenizationKey: String, urlScheme: String) -> Any {
         return MobilabPaymentBraintree(tokenizationKey: tokenizationKey, urlScheme: urlScheme)
     }
-    
+
     @objc public static func handleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
         return MobilabPaymentBraintree.handleOpen(url: url, options: options)
     }
