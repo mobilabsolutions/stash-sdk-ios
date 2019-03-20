@@ -6,6 +6,8 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import Crashlytics
+import Fabric
 import UIKit
 
 @UIApplicationMain

@@ -70,4 +70,36 @@ class CreditCardDataTests: XCTestCase {
             XCTAssertEqual(cleanNumber, CreditCardUtils.cleanedNumber(number: cleanNumber))
         }
     }
+
+    func testCorrectlyFormatsNumbers() {
+        let formatted: [(String, CreditCardData.CreditCardType)] = [
+            ("4111 1111 1111 1111", .visa), ("3056 9309 0259 04", .diners),
+            ("5500 0000 0000 0004", .mastercard), ("6011 1111 1111 1117", .discover),
+            ("3782 822463 10005", .americanExpress), ("3714 496353 98431", .americanExpress),
+            ("3787 344936 71000", .americanExpress), ("4222 2222 2222 2", .visa),
+            ("5105 1051 0510 5100", .mastercard), ("5555 5555 5555 4444", .mastercard),
+            ("6011 0009 9013 9424", .discover), ("3852 0000 0232 37", .diners),
+        ]
+        let unformatted = [
+            "4111111111111111", "30-569309 0259-04", "5500000000000004", "6011111111111117", "378282246310005",
+            "37-14 4-963-53-9-8431", "3 7 87 34 4 936 71 00 0", "4222222222222", "5105105105105100",
+            "5555-55-555-5554444", "6011000990139424", "   385200-000-23237",
+        ]
+
+        func attributedStringToSpacedString(attributed: NSAttributedString) -> String {
+            return attributed.string.enumerated().reduce("") {
+                var current = $0 + String($1.element)
+                if attributed.attributes(at: $1.offset, effectiveRange: nil)[.kern] != nil {
+                    current += " "
+                }
+                return current
+            }
+        }
+
+        for ((formatted, type), unformatted) in zip(formatted, unformatted) {
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted, for: type)))
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted)))
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: formatted, for: type)))
+        }
+    }
 }

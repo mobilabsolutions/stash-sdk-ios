@@ -12,25 +12,25 @@ import Foundation
 /// for payment method registration to succeed.
 @objc(MLBillingData) public class BillingData: NSObject {
     /// The email address associated with the billing data
-    let email: String?
+    @objc public let email: String?
     /// The name of the person to bill
-    let name: String?
+    @objc public let name: String?
     /// First (real-world) address part
-    let address1: String?
+    @objc public let address1: String?
     /// Second (real-world) address part
-    let address2: String?
+    @objc public let address2: String?
     /// The zip code associated with the billing data
-    let zip: String?
+    @objc public let zip: String?
     /// The city name associated with the billing data
-    let city: String?
+    @objc public let city: String?
     /// The state asscociated with the billing data
-    let state: String?
+    @objc public let state: String?
     /// The country associated with the billing data
-    let country: String?
+    @objc public let country: String?
     /// The phone number associated with the billing data
-    let phone: String?
+    @objc public let phone: String?
     /// The id of the language to use (e.g. deu)
-    let languageId: String?
+    @objc public let languageId: String?
 
     /// Initialize the billing data with select properties
     @objc public init(email: String? = nil,

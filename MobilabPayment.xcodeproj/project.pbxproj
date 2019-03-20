@@ -64,8 +64,6 @@
 		E1131F7C2236668C0025A711 /* CreditCardDataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7B2236668C0025A711 /* CreditCardDataField.swift */; };
 		E1131F7E223666950025A711 /* SEPADataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7D223666950025A711 /* SEPADataField.swift */; };
 		E1131F80223666A80025A711 /* DataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7F223666A80025A711 /* DataField.swift */; };
-		E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */; };
-		E11C3C97223BF00700F94F56 /* MLErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */; };
 		E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */; };
 		E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C02223AB64F00F94F56 /* AppDelegate.m */; };
 		E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C05223AB64F00F94F56 /* ViewController.m */; };
@@ -80,6 +78,8 @@
 		E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */; };
 		E11C3C92223BA5EA00F94F56 /* PaymentMethodTypeSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C81223BA54000F94F56 /* PaymentMethodTypeSelectionUITests.swift */; };
 		E11C3C93223BA78500F94F56 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
+		E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */; };
+		E11C3C97223BF00700F94F56 /* MLErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -99,8 +99,21 @@
 		E17648F5223A817100889920 /* AddUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F4223A817100889920 /* AddUIViewController.swift */; };
 		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
-		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
+		E1A1D1192242340300BB6577 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; };
+		E1A1D11A2242340300BB6577 /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1A1D11B2242340300BB6577 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; };
+		E1A1D11C2242340300BB6577 /* Fabric.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1A1D11E22427EF400BB6577 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewController+Extensions.swift */; };
+		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
+		E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */; };
+		E1C9A84F223FAB880099DB2E /* TextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */; };
+		E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */; };
+		E1C9A853223FB0C50099DB2E /* DoneButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A852223FB0C50099DB2E /* DoneButtonCollectionViewCell.swift */; };
+		E1C9A855223FC2D70099DB2E /* CreditCardNumberInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A854223FC2D70099DB2E /* CreditCardNumberInputCollectionViewCell.swift */; };
+		E1C9A8592240F6D40099DB2E /* DataPointProvidingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */; };
+		E1C9A85B2240F7020099DB2E /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
+		E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,7 +152,6 @@
 			remoteGlobalIDString = BACD61902226B03600E3ACC3;
 			remoteInfo = MobilabPaymentBSPayone;
 		};
-
 		E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
@@ -164,7 +176,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BACD61992226B03600E3ACC3 /* MobilabPaymentBSPayone.framework in Embed Frameworks */,
+				E1A1D11A2242340300BB6577 /* Crashlytics.framework in Embed Frameworks */,
 				E1131F752236638A0025A711 /* MobilabPaymentCore.framework in Embed Frameworks */,
+				E1A1D11C2242340300BB6577 /* Fabric.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,8 +253,6 @@
 		E1131F7B2236668C0025A711 /* CreditCardDataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataField.swift; sourceTree = "<group>"; };
 		E1131F7D223666950025A711 /* SEPADataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataField.swift; sourceTree = "<group>"; };
 		E1131F7F223666A80025A711 /* DataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataField.swift; sourceTree = "<group>"; };
-		E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBackendError.swift; sourceTree = "<group>"; };
-		E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLErrorConvertible.swift; sourceTree = "<group>"; };
 		E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBSPayoneBridge.swift; sourceTree = "<group>"; };
 		E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C01223AB64F00F94F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -257,6 +269,8 @@
 		E11C3C81223BA54000F94F56 /* PaymentMethodTypeSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypeSelectionUITests.swift; sourceTree = "<group>"; };
 		E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C8B223BA5E100F94F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBackendError.swift; sourceTree = "<group>"; };
+		E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLErrorConvertible.swift; sourceTree = "<group>"; };
 		E1663E0122367C2000372658 /* AliasManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasManager.swift; sourceTree = "<group>"; };
 		E1663E0422368D4200372658 /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -276,8 +290,19 @@
 		E17648F4223A817100889920 /* AddUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUIViewController.swift; sourceTree = "<group>"; };
 		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
+		E1A1D11522422EC700BB6577 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		E1A1D11D22427EF400BB6577 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
+		E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1C9A852223FB0C50099DB2E /* DoneButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1C9A854223FC2D70099DB2E /* CreditCardNumberInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardNumberInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointProvidingDelegate.swift; sourceTree = "<group>"; };
+		E1C9A85A2240F7020099DB2E /* NecessaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryData.swift; sourceTree = "<group>"; };
+		E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,7 +330,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BACD61982226B03600E3ACC3 /* MobilabPaymentBSPayone.framework in Frameworks */,
+				E1A1D1192242340300BB6577 /* Crashlytics.framework in Frameworks */,
 				E1131F742236638A0025A711 /* MobilabPaymentCore.framework in Frameworks */,
+				E1A1D11B2242340300BB6577 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,8 +493,7 @@
 		1DFA538520DA9C800065CCC3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BAD64630222E840D00771DC0 /* AliasExtra.swift */,
-				BAD6463D222EC29500771DC0 /* PSPExtra.swift */,
+				E1C9A84A223FAAA50099DB2E /* Extra */,
 				1DFA538B20DAB0410065CCC3 /* Response */,
 				1DFA538620DA9C870065CCC3 /* Request */,
 				BAD64634222EBB9B00771DC0 /* Header.swift */,
@@ -584,6 +610,7 @@
 			children = (
 				BAD64641222EC67C00771DC0 /* Integration */,
 				BA3A33AC22295F9C00B7A635 /* Networking */,
+				E1C9A846223FA7E30099DB2E /* UI */,
 				BACD61932226B03600E3ACC3 /* BSPayone.h */,
 				BACD61942226B03600E3ACC3 /* Info.plist */,
 			);
@@ -697,6 +724,8 @@
 		E1131F7A223666470025A711 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				E1A1D11622422EC700BB6577 /* Crashlytics.framework */,
+				E1A1D11522422EC700BB6577 /* Fabric.framework */,
 				BA8D070F2226AE56004F699A /* AppDelegate.swift */,
 				BA8D07162226AE57004F699A /* Assets.xcassets */,
 				BA8D07182226AE57004F699A /* LaunchScreen.storyboard */,
@@ -764,6 +793,55 @@
 				E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E1C9A846223FA7E30099DB2E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A84D223FAB650099DB2E /* Cells */,
+				E1C9A85C22413C740099DB2E /* SEPA */,
+				E1C9A849223FAA810099DB2E /* CreditCard */,
+				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
+				E1A1D11D22427EF400BB6577 /* UIViewController+Extensions.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E1C9A849223FAA810099DB2E /* CreditCard */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */,
+				E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */,
+				E1C9A854223FC2D70099DB2E /* CreditCardNumberInputCollectionViewCell.swift */,
+			);
+			path = CreditCard;
+			sourceTree = "<group>";
+		};
+		E1C9A84A223FAAA50099DB2E /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				BAD64630222E840D00771DC0 /* AliasExtra.swift */,
+				BAD6463D222EC29500771DC0 /* PSPExtra.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
+		E1C9A84D223FAB650099DB2E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */,
+				E1C9A852223FB0C50099DB2E /* DoneButtonCollectionViewCell.swift */,
+				E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E1C9A85C22413C740099DB2E /* SEPA */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */,
+			);
+			path = SEPA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -834,6 +912,7 @@
 				BA8D070A2226AE56004F699A /* Frameworks */,
 				BA8D070B2226AE56004F699A /* Resources */,
 				BACD619D2226B03600E3ACC3 /* Embed Frameworks */,
+				E1C9A85F224147FA0099DB2E /* Add Fabric */,
 			);
 			buildRules = (
 			);
@@ -1029,6 +1108,25 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\nswiftformat .\nelse\necho \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
+		E1C9A85F224147FA0099DB2E /* Add Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Add Fabric";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${SRCROOT}/Demo/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Demo/other/add-fabric.sh\"\nfi;\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1115,15 +1213,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */,
+				E1C9A855223FC2D70099DB2E /* CreditCardNumberInputCollectionViewCell.swift in Sources */,
 				E17648D42237FD7300889920 /* CreditCardTypeExtensions.swift in Sources */,
 				BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */,
+				E1C9A853223FB0C50099DB2E /* DoneButtonCollectionViewCell.swift in Sources */,
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
+				E1A1D11E22427EF400BB6577 /* UIViewController+Extensions.swift in Sources */,
+				E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */,
+				E1C9A85B2240F7020099DB2E /* NecessaryData.swift in Sources */,
 				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
 				E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
 				BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */,
+				E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */,
+				E1C9A84F223FAB880099DB2E /* TextInputCollectionViewCell.swift in Sources */,
 				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,
 				BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */,
+				E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */,
+				E1C9A8592240F6D40099DB2E /* DataPointProvidingDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1443,7 +1550,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Demo",
+					"$(PROJECT_DIR)/Demo/other",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1466,6 +1580,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Demo",
+					"$(PROJECT_DIR)/Demo/other",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (

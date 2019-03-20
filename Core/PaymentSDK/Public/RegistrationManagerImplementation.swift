@@ -42,18 +42,47 @@ public class RegistrationManager {
     ///   - viewController: The view controller on which the payment method type selection should be presented
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+    public func registerPaymentMethodUsingUI(on viewController: UIViewController, billingData: BillingData? = nil,
+                                             completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.provider.supportedPaymentMethodTypeUserInterfaces
+
+        func wrappedErrorCompletion(for dataProvider: PaymentMethodDataProvider?,
+                                    completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
+            let wrapped: RegistrationResultCompletion = { result in
+                switch result {
+                case .success:
+                    completion(result)
+                case let .failure(error):
+                    DispatchQueue.main.async {
+                        dataProvider?.errorWhileCreatingPaymentMethod(error: error)
+                    }
+
+                    // The SDK user should not necessarily need to know about the specific errors that might happen but should
+                    // get a high-level overview of what went wrong
+                    #warning("Update this once errors are finalized")
+                    let wrappedError = MLError(title: "Payment method UI error",
+                                               description: error.errorDescription
+                                                   ?? "An error occurred while the user was adding a payment method using the module UI",
+                                               code: 107)
+                    completion(.failure(wrappedError))
+                }
+            }
+            return wrapped
+        }
+
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
-            guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider.viewController(for: selectedType)
+            guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider
+                .viewController(for: selectedType, billingData: billingData)
             else { fatalError("Payment method view controller for selected type not present in module") }
 
-            paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
+            paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, weak paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {
-                    self?.registerCreditCard(creditCardData: creditCardData, completion: completion)
+                    self?.registerCreditCard(creditCardData: creditCardData,
+                                             completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
                 } else if let sepaData = method as? SEPAData {
-                    self?.registerSEPAAccount(sepaData: sepaData, completion: completion)
+                    self?.registerSEPAAccount(sepaData: sepaData,
+                                              completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     print("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData or CreditCardData")
                 }

@@ -61,8 +61,11 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         #warning("Update error once errors are finalized")
+        guard let _ = Int(cvv)
+        else { throw MLError(title: "Credit card validation error", description: "CVV should be numeric", code: 105) }
+
         guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { throw MLError(title: "Credit card validation error", description: "Credit card number is not valid", code: 105) }
+        else { throw MLError(title: "Credit card validation error", description: "Credit card number is not valid", code: 106) }
 
         self.holderName = holderName
         self.cardNumber = cleanedNumber
