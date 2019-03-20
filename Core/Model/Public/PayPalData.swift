@@ -9,9 +9,9 @@
 import Foundation
 
 public struct PayPalData: RegistrationData {
-    public let nounce: String
+    public let nonce: String
 
-    public init(nounce: String) {
-        self.nounce = nounce
+    public init(nonce: String) {
+        self.nonce = nonce
     }
 }

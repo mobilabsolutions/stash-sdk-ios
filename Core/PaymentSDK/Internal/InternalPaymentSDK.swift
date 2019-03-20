@@ -42,9 +42,9 @@ class InternalPaymentSDK {
         return client
     }
 
-    private var _providers = [PaymentServiceProvider]()
+    private var providers = [PaymentServiceProvider]()
     private var _activeProvider: PaymentServiceProvider?
-    var provider: PaymentServiceProvider {
+    var activeProvider: PaymentServiceProvider {
         guard let provider = self._activeProvider else {
             fatalError(SDKError.providerMissing.description())
         }
@@ -52,17 +52,11 @@ class InternalPaymentSDK {
     }
 
     public func setActiveProvider(mobilabProvider: MobilabPaymentProvider) {
-        if let provider = _providers.first(where: { $0.pspIdentifier == mobilabProvider }) {
-            self._activeProvider = provider
-        }
+        self._activeProvider = self.providers.first { $0.pspIdentifier == mobilabProvider }
     }
 
     public func getSupportedPaymentMethodTypeUserInterfaces() -> [PaymentMethodType] {
-        var supportedTypes = [PaymentMethodType]()
-        for provider in self._providers {
-            supportedTypes.append(contentsOf: provider.supportedPaymentMethodTypeUserInterfaces)
-        }
-        return supportedTypes
+        return self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces }
     }
 
     static let sharedInstance = InternalPaymentSDK()
@@ -80,7 +74,7 @@ class InternalPaymentSDK {
     }
 
     func addProvider(provider: PaymentServiceProvider) {
-        self._providers.append(provider)
+        self.providers.append(provider)
     }
 
     func registrationManager() -> InternalRegistrationManager {
