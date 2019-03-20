@@ -77,8 +77,10 @@ class ModuleIntegrationTests: XCTestCase {
 
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
             switch result {
-            case .success: XCTFail("Should not have returned success when module fails")
-            case let .failure(propagatedError): XCTAssertEqual(error.code, propagatedError.code)
+            case .success:
+                XCTFail("Should not have returned success when module fails")
+            case let .failure(propagatedError):
+                XCTAssertEqual(error.code, propagatedError.code)
             }
 
             resultExpectation.fulfill()

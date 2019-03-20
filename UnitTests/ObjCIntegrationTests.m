@@ -90,7 +90,7 @@
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
-    [[MLMobilabPaymentSDK getRegisterManager] registerCreditCardWithCreditCardData:creditCard completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegisterManager] registerCreditCardWithMobilabProvider:@"BS_PAYONE" creditCardData:creditCard completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -126,7 +126,7 @@
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
 
-    [[MLMobilabPaymentSDK getRegisterManager] registerSEPAAccountWithSepaData:sepaData completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegisterManager] registerSEPAAccountWithMobilabProvider:@"BS_PAYONE" sepaData:sepaData completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
         // These are nil, since error is nil. We want to make sure that we can access these values, though (that the code compiles).
