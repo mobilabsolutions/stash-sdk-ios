@@ -78,7 +78,7 @@ let billingData = BillingData(email: "max@mustermann.de",
 guard let sepaData = try? SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 else { XCTFail("SEPA data should be valid"); return }
 
-let registerManager = MobilabPaymentSDK.getRegisterManager()
+let registerManager = MobilabPaymentSDK.getRegistrationManager()
 registerManager.registerSEPAAccount(sepaData: sepaData) { result in
     switch result {
     case let .success(alias): print("Received alias for SEPA account: \(alias)")
