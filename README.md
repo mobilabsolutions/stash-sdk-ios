@@ -180,7 +180,7 @@ Please use [GitHub Issues](https://github.com/braintree/braintree_ios/issues) to
 
 ### [](https://github.com/braintree/braintree_ios#license)License
 
-The MobilabPayment iOS SDK is open source and available under the MIT license. See the  [LICENSE](https://github.com/braintree/braintree_ios/blob/master/LICENSE)  file for more info.
+The MobilabPayment iOS SDK is open source and available under the MIT license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
 
 ## Help
 
