@@ -176,7 +176,7 @@ A demo app that demonstrate usage of all SDK features is part of this project. R
 ## Feedback
 
 The MobilabPayment iOS SDK is in active development, we welcome your feedback!
-Please use [GitHub Issues](https://github.com/braintree/braintree_ios/issues) to report and issues or give a feedback
+Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report and issues or give a feedback
 
 ### [](https://github.com/braintree/braintree_ios#license)License
 
