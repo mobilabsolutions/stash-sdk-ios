@@ -13,26 +13,10 @@ import Foundation
 ///
 /// - creditCard: A credit card payment method
 /// - sepa: A SEPA payment method
-public enum PaymentMethodType {
+public enum PaymentMethodType: String {
     case creditCard
     case sepa
     case payPal
-}
-
-extension PaymentMethodType {
-    /// Get the internal payment method type associated to the given payment method type
-    init?(value: String) {
-        switch value {
-        case "creditCard":
-            self = .creditCard
-        case "sepa":
-            self = .sepa
-        case "payPal":
-            self = .payPal
-        default:
-            return nil
-        }
-    }
 }
 
 extension PaymentMethodType {

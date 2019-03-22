@@ -26,7 +26,7 @@ import UIKit
         let paymentMethods = paymentMethods.map({ (method) -> PaymentMethodType in
             guard let method = method as? String
             else { fatalError("Provided Payment method type is not a string") }
-            guard let type = PaymentMethodType(value: method)
+            guard let type = PaymentMethodType(rawValue: method)
             else { fatalError("Provided Payment Provider is not a payment provider.") }
             return type
         })
