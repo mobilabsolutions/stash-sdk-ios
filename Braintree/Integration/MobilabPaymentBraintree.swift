@@ -23,6 +23,10 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         completion(.success(nil))
     }
 
+    public var supportedPaymentMethodTypes: [PaymentMethodType] {
+        return [.payPal]
+    }
+
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.payPal]
     }

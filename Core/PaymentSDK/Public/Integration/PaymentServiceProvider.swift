@@ -31,6 +31,9 @@ public protocol PaymentServiceProvider {
     ///   - completion: A completion returning the generated PSP alias (if present) or an error
     func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion)
 
+    /// All payment method types which module supports
+    var supportedPaymentMethodTypes: [PaymentMethodType] { get }
+
     /// All payment method types for which the module provides user interface means of creating the data
     var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] { get }
 
@@ -42,6 +45,10 @@ public protocol PaymentServiceProvider {
 }
 
 public extension PaymentServiceProvider {
+    var supportedPaymentMethodTypes: [PaymentMethodType] {
+        return []
+    }
+
     var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return []
     }

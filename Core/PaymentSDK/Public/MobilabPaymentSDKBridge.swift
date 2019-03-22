@@ -17,10 +17,21 @@ import UIKit
         return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegisterManager())
     }
 
-    @objc public static func addProvider(provider: Any) {
+    @objc public static func registerProvider(provider: Any, paymentMethods: [Any]) {
         guard let provider = provider as? PaymentServiceProvider
         else { fatalError("Provided Payment Provider is not a payment provider.") }
-        InternalPaymentSDK.sharedInstance.addProvider(provider: provider)
+        guard paymentMethods.count != 0
+        else { fatalError("Provide at least one payment method when registering a provider") }
+
+        let paymentMethods = paymentMethods.map({ (method) -> PaymentMethodType in
+            guard let method = method as? String
+            else { fatalError("Provided Payment method type is not a string") }
+            guard let type = PaymentMethodType(value: method)
+            else { fatalError("Provided Payment Provider is not a payment provider.") }
+            return type
+        })
+
+        InternalPaymentSDK.sharedInstance.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethods)
     }
 }
 
@@ -49,34 +60,20 @@ import UIKit
         }
     }
 
-    @objc public func registerCreditCard(mobilabProvider: String, creditCardData: CreditCardDataBridge, completion: @escaping (String?, MLError?) -> Void) {
-        guard let mobilabProvider = MobilabPaymentProvider(rawValue: mobilabProvider)
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        self.manager.registerCreditCard(mobilabProvider: mobilabProvider, creditCardData: creditCardData.creditCardData,
-                                        completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (String?, MLError?) -> Void) {
+        self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerSEPAAccount(mobilabProvider: String, sepaData: SEPADataBridge, completion: @escaping (String?, MLError?) -> Void) {
-        guard let mobilabProvider = MobilabPaymentProvider(rawValue: mobilabProvider)
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        self.manager.registerSEPAAccount(mobilabProvider: mobilabProvider, sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, completion: @escaping (String?, MLError?) -> Void) {
+        self.manager.registerSEPAAccount(sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func startPayPalRegistration(on viewController: UIViewController, mobilabProvider: String, completion: @escaping (String?, MLError?) -> Void) {
-        guard let mobilabProvider = MobilabPaymentProvider(rawValue: mobilabProvider)
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        self.manager.startPayPalRegistration(on: viewController, mobilabProvider: mobilabProvider, completion: self.bridgedCompletion(completion: completion))
+    @objc public func startPayPalRegistration(on viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
+        self.manager.startPayPalRegistration(on: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
-                                                   mobilabProvider: String,
-                                                   mobilabPayPalProvider: String,
-                                                   completion: @escaping (String?, MLError?) -> Void) {
-        guard let mobilabProvider = MobilabPaymentProvider(rawValue: mobilabProvider)
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        guard let mobilabPayPalProvider = MobilabPaymentProvider(rawValue: mobilabPayPalProvider)
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        self.manager.registerPaymentMethodUsingUI(on: viewController, mobilabProvider: mobilabProvider, mobilabPayPalProvider: mobilabPayPalProvider, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
+        self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
     private func bridgedCompletion(completion: @escaping (String?, MLError?) -> Void) -> RegistrationResultCompletion {

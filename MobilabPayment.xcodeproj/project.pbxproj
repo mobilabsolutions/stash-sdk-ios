@@ -59,6 +59,30 @@
 		BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */; };
 		BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */; };
 		BA5F8253223AE85400D92D3E /* MobilabPaymentBraintree.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A39223AE7C200C39300 /* MobilabPaymentBraintree.swift */; };
+		BA6D677222442F1F00463E0F /* PaymentServiceProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */; };
+		BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */; };
+		BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */; };
+		BA6D677D22445F3300463E0F /* BraintreePayPal.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
+		BA6D677E22445F3300463E0F /* BraintreeCard.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; };
+		BA6D677F22445F3300463E0F /* BraintreeCore.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
+		BA6D678022445F3300463E0F /* BraintreeDropIn.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
+		BA6D678122445F3300463E0F /* BraintreePaymentFlow.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
+		BA6D678222445F3300463E0F /* BraintreeUIKit.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
+		BA6D678322445F3300463E0F /* PayPalDataCollector.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		BA6D678422445F3300463E0F /* PayPalOneTouch.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
+		BA6D678522445F3300463E0F /* PayPalUtils.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
+		BA6D678622445F3C00463E0F /* MobilabPaymentBraintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* MobilabPaymentBraintree.framework */; };
+		BA6D6788224460FB00463E0F /* BraintreePayPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
+		BA6D6789224460FB00463E0F /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; };
+		BA6D678A224460FB00463E0F /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
+		BA6D678B224460FB00463E0F /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
+		BA6D678C224460FB00463E0F /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
+		BA6D678D224460FB00463E0F /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
+		BA6D678E224460FB00463E0F /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		BA6D678F224460FB00463E0F /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
+		BA6D6790224460FB00463E0F /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
+		BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67922244683900463E0F /* FatalErrorAssertion.swift */; };
+		BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */; };
 		BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D070F2226AE56004F699A /* AppDelegate.swift */; };
 		BA8D07152226AE56004F699A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07132226AE56004F699A /* Main.storyboard */; };
 		BA8D07172226AE57004F699A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07162226AE57004F699A /* Assets.xcassets */; };
@@ -269,6 +293,11 @@
 		BA3A33B422296B6F00B7A635 /* AliasResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResponse.swift; sourceTree = "<group>"; };
 		BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
 		BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalRegistrationManager.swift; sourceTree = "<group>"; };
+		BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderCoordinator.swift; sourceTree = "<group>"; };
+		BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasRequest.swift; sourceTree = "<group>"; };
+		BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationTests.swift; sourceTree = "<group>"; };
+		BA6D67922244683900463E0F /* FatalErrorAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorAssertion.swift; sourceTree = "<group>"; };
+		BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
 		BA8D070D2226AE56004F699A /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8D070F2226AE56004F699A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA8D07142226AE56004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -358,8 +387,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6D6788224460FB00463E0F /* BraintreePayPal.framework in Frameworks */,
+				BA6D678E224460FB00463E0F /* PayPalDataCollector.framework in Frameworks */,
+				BA6D6789224460FB00463E0F /* BraintreeCard.framework in Frameworks */,
+				BA6D678A224460FB00463E0F /* BraintreeCore.framework in Frameworks */,
+				BA6D678622445F3C00463E0F /* MobilabPaymentBraintree.framework in Frameworks */,
+				BA6D6790224460FB00463E0F /* PayPalUtils.framework in Frameworks */,
+				BA6D678D224460FB00463E0F /* BraintreeUIKit.framework in Frameworks */,
+				BA6D678C224460FB00463E0F /* BraintreePaymentFlow.framework in Frameworks */,
 				BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */,
 				1DC5CB9F20D2BF5E002058C1 /* MobilabPaymentCore.framework in Frameworks */,
+				BA6D678B224460FB00463E0F /* BraintreeDropIn.framework in Frameworks */,
+				BA6D678F224460FB00463E0F /* PayPalOneTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
+				BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */,
 				1DC5CBA320D2BF5E002058C1 /* BSIntegrationTests.swift */,
 				E1663E0A2237C5CE00372658 /* ModuleIntegrationTests.swift */,
 				E17648D02237F2AB00889920 /* CreditCardDataTests.swift */,
@@ -492,6 +532,7 @@
 				E17648DE2239522000889920 /* SEPADataTests.swift */,
 				E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */,
 				E11C3C7C223B8F7F00F94F56 /* MobilabPaymentTests-Bridging-Header.h */,
+				BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -551,6 +592,7 @@
 				E17648E9223A663500889920 /* UI */,
 				1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */,
 				BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */,
+				BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -590,6 +632,7 @@
 				1D34CBF120E128F70011F901 /* Foundation */,
 				E17648D5223923FB00889920 /* CreditCardUtils.swift */,
 				E17648D92239466400889920 /* SEPAUtils.swift */,
+				BA6D67922244683900463E0F /* FatalErrorAssertion.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -750,6 +793,7 @@
 			isa = PBXGroup;
 			children = (
 				BAD64632222EB74B00771DC0 /* UpdateAliasRequest.swift */,
+				BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */,
 			);
 			path = Alias;
 			sourceTree = "<group>";
@@ -950,6 +994,7 @@
 				1DC5CB9A20D2BF5E002058C1 /* Sources */,
 				1DC5CB9B20D2BF5E002058C1 /* Frameworks */,
 				1DC5CB9C20D2BF5E002058C1 /* Resources */,
+				BA6D67912244611700463E0F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1148,6 +1193,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6D677D22445F3300463E0F /* BraintreePayPal.framework in Resources */,
+				BA6D677E22445F3300463E0F /* BraintreeCard.framework in Resources */,
+				BA6D677F22445F3300463E0F /* BraintreeCore.framework in Resources */,
+				BA6D678022445F3300463E0F /* BraintreeDropIn.framework in Resources */,
+				BA6D678122445F3300463E0F /* BraintreePaymentFlow.framework in Resources */,
+				BA6D678222445F3300463E0F /* BraintreeUIKit.framework in Resources */,
+				BA6D678322445F3300463E0F /* PayPalDataCollector.framework in Resources */,
+				BA6D678422445F3300463E0F /* PayPalOneTouch.framework in Resources */,
+				BA6D678522445F3300463E0F /* PayPalUtils.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,6 +1249,32 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
+		BA6D67912244611700463E0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreePayPal.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeCard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeDropIn.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreePaymentFlow.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeUIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalDataCollector.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalOneTouch.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalUtils.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
 		E1131F6A222FCFCC0025A711 /* Swift Format */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1221,6 +1301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E17648DA2239466400889920 /* SEPAUtils.swift in Sources */,
+				BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */,
 				E17648F3223A6D2F00889920 /* PaymentMethodDataProvider.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
 				E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */,
@@ -1249,10 +1330,12 @@
 				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
 				BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */,
 				BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */,
+				BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */,
 				E17648E2223A583C00889920 /* InternalPaymentMethodType.swift in Sources */,
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
 				E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */,
+				BA6D677222442F1F00463E0F /* PaymentServiceProviderCoordinator.swift in Sources */,
 				E17648EF223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift in Sources */,
 				1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */,
 				E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */,
@@ -1266,7 +1349,9 @@
 			files = (
 				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
 				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
+				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
 				BAE6FAFF2225715F00D3A71B /* NetworkClientResult.swift in Sources */,
+				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,
 				E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */,
 				E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */,
 				E17648DF2239522000889920 /* SEPADataTests.swift in Sources */,
@@ -1599,6 +1684,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/UnitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1621,6 +1710,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/UnitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -21,6 +21,10 @@ class ModuleIntegrationTests: XCTestCase {
             return "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"
         }
 
+        var supportedPaymentMethodTypes: [PaymentMethodType] {
+            return [.creditCard, .sepa]
+        }
+
         let completionResultToReturn: PaymentServiceProvider.RegistrationResult
         let registrationRequestCalledExpectation: XCTestExpectation
 
@@ -45,14 +49,14 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: module.pspIdentifier, creditCardData: creditCard) { _ in () }
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
@@ -68,14 +72,14 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                             expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: module.pspIdentifier, creditCardData: creditCard) { result in
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
             case .success:
                 XCTFail("Should not have returned success when module fails")

@@ -13,12 +13,10 @@ public class RegistrationManager {
     /// Register a credit card
     ///
     /// - Parameters:
-    ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - creditCardData: The credit card data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerCreditCard(mobilabProvider: MobilabPaymentProvider, creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
@@ -28,20 +26,17 @@ public class RegistrationManager {
     /// Register a SEPA account
     ///
     /// - Parameters:
-    ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - sepaData: The SEPA data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerSEPAAccount(mobilabProvider: MobilabPaymentProvider, sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
     }
 
-    private func registerPayPal(mobilabProvider: MobilabPaymentProvider, payPalData: PayPalData, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
+    private func registerPayPal(payPalData: PayPalData, completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: payPalData, type: .payPal)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
@@ -51,18 +46,17 @@ public class RegistrationManager {
     /// Starts the flow for PayPal registration
     ///
     /// - Parameters:
-    ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - sepaData: The SEPA data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func startPayPalRegistration(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
-        InternalPaymentSDK.sharedInstance.setActiveProvider(mobilabProvider: mobilabProvider)
-        guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.activeProvider.viewController(for: .payPal)
+    public func startPayPalRegistration(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .payPal)
+        guard var paymentMethodViewController = provider.viewController(for: .payPal)
         else { fatalError("Payment method view controller for selected type not present in module") }
 
         paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
             if let payPalData = method as? PayPalData {
-                self?.registerPayPal(mobilabProvider: mobilabProvider, payPalData: payPalData, completion: completion)
+                self?.registerPayPal(payPalData: payPalData, completion: completion)
             } else {
                 fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
             }
@@ -80,20 +74,21 @@ public class RegistrationManager {
     ///   - mobilabPayPalProvider: Provider to use for PayPal
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, mobilabProvider: MobilabPaymentProvider, mobilabPayPalProvider: MobilabPaymentProvider, completion: @escaping RegistrationResultCompletion) {
+    public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
-        selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.getSupportedPaymentMethodTypeUserInterfaces()
+        selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.pspCoordinator.getSupportedPaymentMethodTypeUserInterfaces()
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
-            guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.activeProvider.viewController(for: selectedType)
+            let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: selectedType.internalPaymentMethodType)
+            guard var paymentMethodViewController = provider.viewController(for: selectedType)
             else { fatalError("Payment method view controller for selected type not present in module") }
 
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
                 if let creditCardData = method as? CreditCardData {
-                    self?.registerCreditCard(mobilabProvider: mobilabProvider, creditCardData: creditCardData, completion: completion)
+                    self?.registerCreditCard(creditCardData: creditCardData, completion: completion)
                 } else if let sepaData = method as? SEPAData {
-                    self?.registerSEPAAccount(mobilabProvider: mobilabProvider, sepaData: sepaData, completion: completion)
+                    self?.registerSEPAAccount(sepaData: sepaData, completion: completion)
                 } else if let payPalData = method as? PayPalData {
-                    self?.registerPayPal(mobilabProvider: mobilabPayPalProvider, payPalData: payPalData, completion: completion)
+                    self?.registerPayPal(payPalData: payPalData, completion: completion)
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
                 }

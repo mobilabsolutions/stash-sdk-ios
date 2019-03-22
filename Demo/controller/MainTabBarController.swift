@@ -19,7 +19,11 @@ class MainTabBarController: UITabBarController {
         configuration.loggingEnabled = true
 
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
-        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBraintree(tokenizationKey: "", urlScheme: "com.mobilabsolutions.payment.Demo.paypal"))
+
+        let pspBsPayone = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        MobilabPaymentSDK.registerProvider(provider: pspBsPayone, forPaymentMethodTypes: .creditCard, .sepa)
+
+        let pspBraintree = MobilabPaymentBraintree(tokenizationKey: "1234567890987654321", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
     }
 }

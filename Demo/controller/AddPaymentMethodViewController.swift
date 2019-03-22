@@ -43,7 +43,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addCreditCard(method: CreditCardData) {
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -58,7 +58,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addSEPA(method: SEPAData) {
-        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: method) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(sepaData: method) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):
@@ -73,7 +73,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addPayPal() {
-        MobilabPaymentSDK.getRegisterManager().startPayPalRegistration(on: self, mobilabProvider: MobilabPaymentProvider.braintree) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().startPayPalRegistration(on: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):

@@ -8,10 +8,11 @@
 
 import Foundation
 
-private enum SDKError: Error {
+enum SDKError: Error {
     case configurationMissing
     case clientMissing
     case providerMissing
+    case providerNotSupportingPaymentMethod(providerName: String)
 
     func description() -> String {
         switch self {
@@ -21,6 +22,8 @@ private enum SDKError: Error {
             return "SDK network client is missing"
         case .providerMissing:
             return "SDK Provider to found. Please add default provider"
+        case let .providerNotSupportingPaymentMethod(name):
+            return "Provider \(name) does not support registered payment method types"
         }
     }
 }
@@ -42,23 +45,7 @@ class InternalPaymentSDK {
         return client
     }
 
-    #warning("Possible improvment: https://github.com/mobilabsolutions/payment-sdk-ios-open/pull/42#discussion_r267236639")
-    private var providers = [PaymentServiceProvider]()
-    private var _activeProvider: PaymentServiceProvider?
-    var activeProvider: PaymentServiceProvider {
-        guard let provider = self._activeProvider else {
-            fatalError(SDKError.providerMissing.description())
-        }
-        return provider
-    }
-
-    public func setActiveProvider(mobilabProvider: MobilabPaymentProvider) {
-        self._activeProvider = self.providers.first { $0.pspIdentifier == mobilabProvider }
-    }
-
-    public func getSupportedPaymentMethodTypeUserInterfaces() -> [PaymentMethodType] {
-        return self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces }
-    }
+    let pspCoordinator = PaymentServiceProviderCoordinator()
 
     static let sharedInstance = InternalPaymentSDK()
 
@@ -74,8 +61,8 @@ class InternalPaymentSDK {
         }
     }
 
-    func addProvider(provider: PaymentServiceProvider) {
-        self.providers.append(provider)
+    func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {
+        self.pspCoordinator.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethodTypes)
     }
 
     func registrationManager() -> InternalRegistrationManager {

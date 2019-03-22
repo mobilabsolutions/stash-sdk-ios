@@ -9,7 +9,7 @@
 import Foundation
 
 enum RouterServiceCore {
-    case createAlias()
+    case createAlias(CreateAliasRequest)
     case updateAlias(UpdateAliasRequest)
 }
 
@@ -30,7 +30,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getURL() -> URL {
         switch self.service {
-        case .createAlias(),
+        case .createAlias,
              .updateAlias:
             return self.getBaseURL()
         }
@@ -38,7 +38,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getHTTPMethod() -> HTTPMethod {
         switch self.service {
-        case .createAlias():
+        case .createAlias:
             return HTTPMethod.POST
         case .updateAlias:
             return HTTPMethod.PUT
@@ -47,7 +47,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getResponseType() -> MLResponseType {
         switch self.service {
-        case .createAlias(),
+        case .createAlias,
              .updateAlias:
             return .json
         }
@@ -55,7 +55,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getHttpBody() -> Data? {
         switch self.service {
-        case .createAlias():
+        case .createAlias:
             return nil
 
         case let .updateAlias(data):
@@ -65,7 +65,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getRelativePath() -> String? {
         switch self.service {
-        case .createAlias():
+        case .createAlias:
             return "/alias"
         case let .updateAlias(request):
             return "/alias/\(request.aliasId)"
@@ -74,7 +74,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getContentTypeHeader() -> String {
         switch self.service {
-        case .createAlias(),
+        case .createAlias,
              .updateAlias:
             return "application/json"
         }
@@ -82,7 +82,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getAuthorizationHeader() -> String {
         switch self.service {
-        case .createAlias(),
+        case .createAlias,
              .updateAlias:
             return InternalPaymentSDK.sharedInstance.configuration.publicKey
         }
@@ -90,10 +90,8 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getCustomHeader() -> Header? {
         switch self.service {
-        case .createAlias():
-
-            let pspType = InternalPaymentSDK.sharedInstance.activeProvider.pspIdentifier
-            return Header(field: "PSP-Type", value: pspType.rawValue)
+        case let .createAlias(request):
+            return Header(field: "PSP-Type", value: request.pspType)
         case .updateAlias:
             return nil
         }

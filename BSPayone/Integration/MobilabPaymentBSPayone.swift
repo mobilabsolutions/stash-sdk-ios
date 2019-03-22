@@ -33,6 +33,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
+    public var supportedPaymentMethodTypes: [PaymentMethodType] {
+        return [.sepa, .creditCard]
+    }
+
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.sepa, .creditCard]
     }

@@ -15,8 +15,8 @@ class BSIntegrationTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
 
@@ -24,7 +24,7 @@ class BSIntegrationTests: XCTestCase {
         self.provider = provider
 
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: provider)
+        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
     func testCreditCardBS() throws {
@@ -35,7 +35,7 @@ class BSIntegrationTests: XCTestCase {
                                                 holderName: "Holder Name", billingData: billingData)
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
-        registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCardData, completion: { result in
+        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
@@ -58,7 +58,7 @@ class BSIntegrationTests: XCTestCase {
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
         let registrationManager = MobilabPaymentSDK.getRegisterManager()
-        registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCardData, completion: { result in
+        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success:
                 XCTFail("Adding an invalid credit card should not succeed")
@@ -90,7 +90,7 @@ class BSIntegrationTests: XCTestCase {
         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
         let registerManager = MobilabPaymentSDK.getRegisterManager()
-        registerManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
+        registerManager.registerSEPAAccount(sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):

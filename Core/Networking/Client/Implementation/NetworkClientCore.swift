@@ -15,8 +15,8 @@ class NetworkClientCore: NetworkClient {
         self.endpoint = url
     }
 
-    func createAlias(completion: @escaping Completion<AliasResponse>) {
-        let router = RouterRequestCore(service: .createAlias())
+    func createAlias(request: CreateAliasRequest, completion: @escaping Completion<AliasResponse>) {
+        let router = RouterRequestCore(service: .createAlias(request))
         fetch(with: router, responseType: AliasResponse.self, completion: completion)
     }
 

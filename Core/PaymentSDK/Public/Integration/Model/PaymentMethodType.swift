@@ -21,6 +21,22 @@ public enum PaymentMethodType {
 
 extension PaymentMethodType {
     /// Get the internal payment method type associated to the given payment method type
+    init?(value: String) {
+        switch value {
+        case "creditCard":
+            self = .creditCard
+        case "sepa":
+            self = .sepa
+        case "payPal":
+            self = .payPal
+        default:
+            return nil
+        }
+    }
+}
+
+extension PaymentMethodType {
+    /// Get the internal payment method type associated to the given payment method type
     var internalPaymentMethodType: InternalPaymentMethodType {
         switch self {
         case .creditCard:

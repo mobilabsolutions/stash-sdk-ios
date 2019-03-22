@@ -10,7 +10,6 @@ import Foundation
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private let provider = InternalPaymentSDK.sharedInstance.activeProvider
 
     func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion) {
         guard let cardExtra = paymentMethod.toAliasExtra()
@@ -20,7 +19,10 @@ class InternalRegistrationManager {
             return
         }
 
-        self.createAlias { result in
+        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
+
+        let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue)
+        self.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
                 self.performRegistration(with: response, for: paymentMethod, pspExtra: cardExtra, completion: completion)
@@ -30,8 +32,8 @@ class InternalRegistrationManager {
         }
     }
 
-    private func createAlias(completion: @escaping (NetworkClientResult<AliasResponse, MLError>) -> Void) {
-        self.networkingClient.createAlias(completion: completion)
+    private func createAlias(request: CreateAliasRequest, completion: @escaping (NetworkClientResult<AliasResponse, MLError>) -> Void) {
+        self.networkingClient.createAlias(request: request, completion: completion)
     }
 
     private func performRegistration(with alias: AliasResponse, for paymentMethod: PaymentMethod,
@@ -40,7 +42,8 @@ class InternalRegistrationManager {
                                                       pspData: alias.psp,
                                                       registrationData: paymentMethod.methodData)
 
-        self.provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
+        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
+        provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
             switch resultRegistration {
             case let .success(pspAlias):
                 let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: pspExtra)
