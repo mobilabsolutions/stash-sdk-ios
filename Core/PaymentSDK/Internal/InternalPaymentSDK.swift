@@ -45,7 +45,7 @@ class InternalPaymentSDK {
         return client
     }
 
-    let pspCoordinator = PaymentServiceProviderCoordinator()
+    let pspCoordinator = InternalPaymentServiceProviderCoordinator()
 
     static let sharedInstance = InternalPaymentSDK()
 

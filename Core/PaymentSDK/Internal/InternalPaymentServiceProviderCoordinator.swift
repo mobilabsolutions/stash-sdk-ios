@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PaymentServiceProviderCoordinator {
+class InternalPaymentServiceProviderCoordinator {
     private var store = [InternalPaymentMethodType: PaymentServiceProvider]()
     private var providers = [PaymentServiceProvider]()
 

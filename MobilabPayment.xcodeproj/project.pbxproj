@@ -59,7 +59,7 @@
 		BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */; };
 		BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */; };
 		BA5F8253223AE85400D92D3E /* MobilabPaymentBraintree.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A39223AE7C200C39300 /* MobilabPaymentBraintree.swift */; };
-		BA6D677222442F1F00463E0F /* PaymentServiceProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */; };
+		BA6D677222442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */; };
 		BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */; };
 		BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */; };
 		BA6D677D22445F3300463E0F /* BraintreePayPal.framework in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
@@ -293,7 +293,7 @@
 		BA3A33B422296B6F00B7A635 /* AliasResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResponse.swift; sourceTree = "<group>"; };
 		BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
 		BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalRegistrationManager.swift; sourceTree = "<group>"; };
-		BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderCoordinator.swift; sourceTree = "<group>"; };
+		BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPaymentServiceProviderCoordinator.swift; sourceTree = "<group>"; };
 		BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasRequest.swift; sourceTree = "<group>"; };
 		BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationTests.swift; sourceTree = "<group>"; };
 		BA6D67922244683900463E0F /* FatalErrorAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorAssertion.swift; sourceTree = "<group>"; };
@@ -592,7 +592,7 @@
 				E17648E9223A663500889920 /* UI */,
 				1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */,
 				BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */,
-				BA6D677122442F1F00463E0F /* PaymentServiceProviderCoordinator.swift */,
+				BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1335,7 +1335,7 @@
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
 				E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */,
-				BA6D677222442F1F00463E0F /* PaymentServiceProviderCoordinator.swift in Sources */,
+				BA6D677222442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift in Sources */,
 				E17648EF223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift in Sources */,
 				1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */,
 				E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */,
