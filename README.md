@@ -169,6 +169,24 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
 }
 ```
 
+It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. Simply pass along an updated `PaymentMethodUIConfiguration`:
+
+```swift
+let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, fontColor: .black, buttonColor: .black)
+
+registrationManager.registerPaymentMethodUsingUI(on viewController: self, configuration: uiConfiguration) { [weak self] result in
+    switch result {
+    case let .success(value):
+        self?.dismiss(animated: true) {
+            self?.showAlert(title: "Success", body: "Successfully registered payment method")
+        }
+    case let .failure(error):
+        self?.showAlert(title: "Failure", body: error.errorDescription ?? "An error occurred while adding payment method")
+    }
+}
+```
+
 ## Demo
 
 A demo app that demonstrate usage of all SDK features is part of this project. Run  `carthage update --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose `Demo` scheme to launch it.
