@@ -15,7 +15,7 @@ class NetworkClientCore: NetworkClient {
         self.endpoint = url
     }
 
-        func createAlias(request: CreateAliasRequest, completion: @escaping Completion<AliasResponse>) {
+    func createAlias(request: CreateAliasRequest, completion: @escaping Completion<AliasResponse>) {
         let router = RouterRequestCore(service: .createAlias(request))
         fetch(with: router, responseType: AliasResponse.self, errorType: MobilabBackendError.self, completion: completion)
     }

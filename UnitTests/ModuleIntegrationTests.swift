@@ -102,7 +102,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 
