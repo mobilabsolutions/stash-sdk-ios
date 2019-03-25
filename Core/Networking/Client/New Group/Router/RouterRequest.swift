@@ -73,7 +73,7 @@ extension RouterRequestProtocol {
 
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
         urlRequest.addHeader(customHeader: self.getCustomHeader())
-        urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Public-Key")
+        urlRequest.addValue(getAuthorizationHeader(), forHTTPHeaderField: "Publishable-Key")
         return urlRequest
     }
 
