@@ -81,12 +81,25 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                 errors.append((.cvv, .noData(explanation: "Please provide a valid CVV")))
             }
 
+            if expirationYearText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
+                errors.append((.expirationYear, .noData(explanation: "Please provide a valid expiration date")))
+            }
+
             if expirationMonthText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
                 errors.append((.expirationMonth, .noData(explanation: "Please provide a valid expiration date")))
             }
 
-            if expirationYearText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
-                errors.append((.expirationYear, .noData(explanation: "Please provide a valid expiration date")))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "mm/yy"
+            dateFormatter.calendar = Calendar.current
+
+            if let month = expirationMonthText,
+                let year = expirationYearText,
+                let date = dateFormatter.date(from: "\(month)/\(year)"),
+                let expiration = Calendar.current.date(byAdding: .month, value: 1, to: date),
+                // Verify that the credit card is not yet expired. Expiration is generally at the end of the specified month.
+                expiration <= Date() {
+                errors.append((.expirationYear, .noData(explanation: "Please provide an expiration date in the future")))
             }
 
             guard let holderName = holderNameText,

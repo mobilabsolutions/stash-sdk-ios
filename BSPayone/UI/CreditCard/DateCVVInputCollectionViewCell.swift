@@ -150,6 +150,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
         } else {
             self.dateTextField.text = String(format: "%02d/%02d", self.pickerView.selectedRow(inComponent: 0) + 1,
                                              self.pickerView.selectedRow(inComponent: 1))
+            self.dateTextFieldEditingChanged()
         }
     }
 

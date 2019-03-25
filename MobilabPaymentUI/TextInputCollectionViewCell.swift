@@ -69,13 +69,13 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
     public func setup(text: String?, title: String?, placeholder: String?, dataType: NecessaryData,
                       textFieldUpdateCallback: ((UITextField) -> Void)? = nil, error: String?,
                       delegate: DataPointProvidingDelegate) {
+        self.textFieldUpdateCallback = textFieldUpdateCallback
         self.text = text
         self.title = title
         self.placeholder = placeholder
         self.dataType = dataType
         self.delegate = delegate
         self.errorText = error
-        self.textFieldUpdateCallback = textFieldUpdateCallback
     }
 
     override init(frame: CGRect) {
