@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NecessaryData: CaseIterable {
+public enum NecessaryData: CaseIterable {
     case holderName
     case cardNumber
     case cvv

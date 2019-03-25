@@ -6,6 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import MobilabPaymentUI
 import UIKit
 
 class RegistrationFlowNavigationController: UINavigationController {
@@ -25,8 +26,15 @@ class RegistrationFlowNavigationController: UINavigationController {
     }
 
     private func sharedInit() {
-        self.topViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done,
-                                                                                   target: self, action: #selector(self.cancel))
+        self.topViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIConstants.closeButtonImage, style: .plain, target: self, action: #selector(self.cancel))
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.isTranslucent = true
+        self.view.backgroundColor = .clear
+
+        self.topViewController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationBar.backIndicatorImage = UIConstants.backButtonImage
+        self.navigationBar.backIndicatorTransitionMaskImage = UIConstants.backButtonImage
     }
 
     @objc private func cancel() {

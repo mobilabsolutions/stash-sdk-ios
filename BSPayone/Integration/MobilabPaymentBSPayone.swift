@@ -7,6 +7,7 @@
 //
 
 import MobilabPaymentCore
+import MobilabPaymentUI
 import UIKit
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
@@ -40,9 +41,9 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType, billingData: BillingData?) -> (UIViewController & PaymentMethodDataProvider)? {
         switch methodType {
         case .creditCard:
-            return CreditCardInputCollectionViewController(billingData: billingData)
+            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData))
         case .sepa:
-            return SEPAInputCollectionViewController(billingData: billingData)
+            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData))
         }
     }
 

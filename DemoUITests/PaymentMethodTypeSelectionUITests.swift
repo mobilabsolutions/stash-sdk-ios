@@ -20,15 +20,11 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
 
-        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Credit Card"), (.sepa, "SEPA")]
+        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "Sepa")]
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
-
-        for cell in app.cells.allElementsBoundByIndex {
-            XCTAssertTrue(cell.staticTexts.allElementsBoundByIndex
-                .contains {
-                    supportedMethodTypes.map({ $0.1 }).contains($0.label)
-            })
+        for methodType in supportedMethodTypes {
+            XCTAssertTrue(app.cells.staticTexts.allElementsBoundByIndex.map({ $0.label }).contains(methodType.1))
         }
     }
 }

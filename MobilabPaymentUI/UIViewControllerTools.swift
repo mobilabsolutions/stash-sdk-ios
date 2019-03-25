@@ -8,10 +8,12 @@
 
 import UIKit
 
-extension UIViewController {
-    func showAlert(title: String, body: String) {
+public final class UIViewControllerTools {
+    private init() {}
+
+    public class func showAlert(on viewController: UIViewController, title: String, body: String) {
         let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        viewController.present(alert, animated: true, completion: nil)
     }
 }

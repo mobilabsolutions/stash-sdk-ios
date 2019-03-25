@@ -8,7 +8,18 @@
 
 import Foundation
 
-class SEPAUtils {
+public class SEPAUtils {
+    public static func formattedIban(number: String) -> NSAttributedString {
+        let cleaned = cleanedIban(number: number)
+        let newString = NSMutableAttributedString(string: cleaned)
+
+        for space in stride(from: 4, to: cleaned.count, by: 4) {
+            newString.addAttribute(.kern, value: 8.0, range: NSMakeRange(space - 1, 1))
+        }
+
+        return NSAttributedString(attributedString: newString)
+    }
+
     static func cleanedIban(number: String) -> String {
         return number.replacingOccurrences(of: "(\\s|\\-)", with: "", options: .regularExpression, range: nil).uppercased()
     }
