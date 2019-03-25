@@ -68,8 +68,8 @@ import UIKit
         self.manager.registerSEPAAccount(sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func startPayPalRegistration(on viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
-        self.manager.startPayPalRegistration(on: viewController, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
+        self.manager.registerPayPal(presentingViewController: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {

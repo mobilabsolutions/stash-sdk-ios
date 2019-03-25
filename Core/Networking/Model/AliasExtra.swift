@@ -52,6 +52,4 @@ struct SepaExtra: Codable {
     let zip: String?
 }
 
-struct PayPalExtra: Codable {
-    let paymentMethodNonce: String
-}
+struct PayPalExtra: Codable {}

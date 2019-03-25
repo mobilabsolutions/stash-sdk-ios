@@ -6,12 +6,15 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
+    private var moduleViewController: UIViewController?
 
-    func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion) {
+    func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion, presentingViewController: UIViewController? = nil) {
+        self.moduleViewController = presentingViewController
+
         guard let cardExtra = paymentMethod.toAliasExtra()
         else {
             completion(.failure(MLError(title: "Card extra not extractable",
@@ -25,7 +28,7 @@ class InternalRegistrationManager {
         self.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
-                self.performRegistration(with: response, for: paymentMethod, pspExtra: cardExtra, completion: completion)
+                self.performRegistration(with: response, for: paymentMethod, paymentMethodExtra: cardExtra, completion: completion)
             case let .failure(error):
                 completion(.failure(error))
             }
@@ -37,16 +40,17 @@ class InternalRegistrationManager {
     }
 
     private func performRegistration(with alias: AliasResponse, for paymentMethod: PaymentMethod,
-                                     pspExtra: AliasExtra, completion: @escaping RegistrationResultCompletion) {
+                                     paymentMethodExtra: AliasExtra, completion: @escaping RegistrationResultCompletion) {
         let registrationRequest = RegistrationRequest(aliasId: alias.aliasId,
                                                       pspData: alias.psp,
-                                                      registrationData: paymentMethod.methodData)
+                                                      registrationData: paymentMethod.methodData,
+                                                      viewController: self.moduleViewController)
 
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         provider.handleRegistrationRequest(registrationRequest: registrationRequest, completion: { resultRegistration in
             switch resultRegistration {
             case let .success(pspAlias):
-                let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: pspExtra)
+                let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: paymentMethodExtra)
                 self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
                     switch resultRegistration {
                     case .success:

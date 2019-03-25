@@ -32,4 +32,6 @@ public struct PSPExtra: Codable {
     public let type: String
     /// The mode of the payment service provider. Example: "test"
     public let mode: String
+    /// The client token used for initializing Braintree SDK
+    public let braintreeClientToken: String?
 }

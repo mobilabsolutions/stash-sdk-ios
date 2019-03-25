@@ -73,7 +73,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     func addPayPal() {
-        MobilabPaymentSDK.getRegisterManager().startPayPalRegistration(on: self) { [weak self] result in
+        MobilabPaymentSDK.getRegisterManager().registerPayPal(presentingViewController: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):

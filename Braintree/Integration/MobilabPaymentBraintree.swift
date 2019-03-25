@@ -15,12 +15,27 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
     public let publicKey: String
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        guard self.isPayPalRequest(registrationRequest: registrationRequest) else {
-            completion(.failure(MLError(description: BraintreeIntegrationError.unsupportedPaymentMethod.description(), code: 1)))
+        guard let clientToken = registrationRequest.pspData.braintreeClientToken else {
+            completion(.failure(MLError(description: BraintreeIntegrationError.invalidClientToken.description(), code: 1)))
             return
         }
 
-        completion(.success(nil))
+        let paypalViewController = PayPalViewController(clientToken: clientToken)
+        paypalViewController.didCreatePaymentMethodCompletion = { method in
+            if let payPalData = method as? PayPalData {
+                completion(.success(payPalData.nonce))
+            } else {
+                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: paypalViewController)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.custom
+
+        guard let presentingViewController = registrationRequest.viewController else {
+            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+        }
+        presentingViewController.present(navigationController, animated: true, completion: nil)
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -29,10 +44,6 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
 
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.payPal]
-    }
-
-    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
-        return PayPalViewController()
     }
 
     public init(tokenizationKey: String, urlScheme: String) {
@@ -49,17 +60,13 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         return false
     }
 
-    private func isPayPalRequest(registrationRequest: RegistrationRequest) -> Bool {
-        return registrationRequest.registrationData is PayPalData
-    }
-
     private enum BraintreeIntegrationError: Error {
-        case unsupportedPaymentMethod
+        case invalidClientToken
 
         func description() -> String {
             switch self {
-            case .unsupportedPaymentMethod:
-                return "Unsupported Payment Method"
+            case .invalidClientToken:
+                return "Invalid client token"
             }
         }
     }
