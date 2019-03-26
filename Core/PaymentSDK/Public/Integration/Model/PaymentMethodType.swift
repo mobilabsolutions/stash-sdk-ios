@@ -13,9 +13,10 @@ import Foundation
 ///
 /// - creditCard: A credit card payment method
 /// - sepa: A SEPA payment method
-public enum PaymentMethodType {
+public enum PaymentMethodType: String {
     case creditCard
     case sepa
+    case payPal
 }
 
 extension PaymentMethodType {
@@ -26,6 +27,8 @@ extension PaymentMethodType {
             return .creditCard
         case .sepa:
             return .sepa
+        case .payPal:
+            return .payPal
         }
     }
 }

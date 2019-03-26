@@ -21,7 +21,9 @@
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
                                                   initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint:@"https://payment-dev.mblb.net/api/v1"];
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
-    [MLMobilabPaymentSDK addProviderWithProvider:[MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"]];
+    
+    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
+    [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -35,6 +35,12 @@ class PaymentMethod {
                                   street: method.billingData.address1, country: method.billingData.country,
                                   zip: method.billingData.zip)
             return AliasExtra(sepaConfig: extra)
+        case .payPal:
+            guard methodData is PayPalData
+            else { return nil }
+
+            let extra = PayPalExtra()
+            return AliasExtra(payPalConfig: extra)
         default:
             return nil
         }

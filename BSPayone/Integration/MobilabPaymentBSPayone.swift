@@ -11,7 +11,7 @@ import MobilabPaymentUI
 import UIKit
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
-    public let pspIdentifier: String
+    public let pspIdentifier: MobilabPaymentProvider
     public let publicKey: String
 
     let networkingClient: NetworkClientBSPayone?
@@ -34,6 +34,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
+    public var supportedPaymentMethodTypes: [PaymentMethodType] {
+        return [.sepa, .creditCard]
+    }
+
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.sepa, .creditCard]
     }
@@ -48,13 +52,15 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         case .sepa:
             return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
                                                            configuration: configuration)
+        case .payPal:
+            return nil
         }
     }
 
     public init(publicKey: String) {
         self.networkingClient = NetworkClientBSPayone()
         self.publicKey = publicKey
-        self.pspIdentifier = "BS_PAYONE"
+        self.pspIdentifier = .bsPayone
     }
 
     private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspExtra: PSPExtra,

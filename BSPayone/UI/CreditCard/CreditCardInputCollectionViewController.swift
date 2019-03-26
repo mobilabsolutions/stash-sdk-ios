@@ -199,6 +199,9 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                 let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
                 let image = possibleCardType != .unknown ? possibleCardType.image : nil
                 imageView?.image = image
+
+                textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
+
             }, error: errors[.cardNumber]?.description,
                        setupTextField: { textField in
                 textField.rightViewMode = .always

@@ -8,6 +8,11 @@ import MobilabPaymentUI
 //
 import UIKit
 
+public enum MobilabPaymentProvider: String {
+    case bsPayone = "BS_PAYONE"
+    case braintree = "BRAINTREE"
+}
+
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
@@ -15,7 +20,7 @@ public protocol PaymentServiceProvider {
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend
-    var pspIdentifier: String { get }
+    var pspIdentifier: MobilabPaymentProvider { get }
 
     #warning("Document the PSP public key or remove it if it is not necessary")
     var publicKey: String { get }
@@ -26,6 +31,9 @@ public protocol PaymentServiceProvider {
     ///   - registrationRequest: the registration request data
     ///   - completion: A completion returning the generated PSP alias (if present) or an error
     func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion)
+
+    /// All payment method types which module supports
+    var supportedPaymentMethodTypes: [PaymentMethodType] { get }
 
     /// All payment method types for which the module provides user interface means of creating the data
     var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] { get }
