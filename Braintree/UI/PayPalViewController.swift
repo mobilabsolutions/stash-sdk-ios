@@ -27,6 +27,7 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.accessibilityIdentifier = "PayPalView"
         self.view.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.view.backgroundColor = UIColor.clear
