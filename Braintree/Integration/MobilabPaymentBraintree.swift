@@ -8,6 +8,7 @@
 
 import BraintreeCore
 import MobilabPaymentCore
+import MobilabPaymentUI
 import UIKit
 
 public class MobilabPaymentBraintree: PaymentServiceProvider {
@@ -43,7 +44,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         return [.payPal]
     }
 
-    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+    public func viewController(for _: PaymentMethodType, billingData _: BillingData?, configuration _: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         return LoadingViewController()
     }
 

@@ -102,7 +102,7 @@ public class RegistrationManager {
                 } else if let sepaData = method as? SEPAData {
                     self?.registerSEPAAccount(sepaData: sepaData,
                                               completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
-                } else if let _ = method as? PayPalData {
+                } else if method is PayPalData {
                     self?.registerPayPal(presentingViewController: viewController, completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
