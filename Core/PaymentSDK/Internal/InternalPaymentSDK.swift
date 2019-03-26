@@ -8,10 +8,11 @@
 
 import Foundation
 
-private enum SDKError: Error {
+enum SDKError: Error {
     case configurationMissing
     case clientMissing
     case providerMissing
+    case providerNotSupportingPaymentMethod(providerName: String)
 
     func description() -> String {
         switch self {
@@ -21,6 +22,8 @@ private enum SDKError: Error {
             return "SDK network client is missing"
         case .providerMissing:
             return "SDK Provider to found. Please add default provider"
+        case let .providerNotSupportingPaymentMethod(name):
+            return "Provider \(name) does not support registered payment method types"
         }
     }
 }
@@ -42,13 +45,7 @@ class InternalPaymentSDK {
         return client
     }
 
-    private var _provider: PaymentServiceProvider?
-    var provider: PaymentServiceProvider {
-        guard let provider = self._provider else {
-            fatalError(SDKError.providerMissing.description())
-        }
-        return provider
-    }
+    let pspCoordinator = InternalPaymentServiceProviderCoordinator()
 
     static let sharedInstance = InternalPaymentSDK()
 
@@ -64,8 +61,8 @@ class InternalPaymentSDK {
         }
     }
 
-    func addProvider(provider: PaymentServiceProvider) {
-        self._provider = provider
+    func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {
+        self.pspCoordinator.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethodTypes)
     }
 
     func registrationManager() -> InternalRegistrationManager {

@@ -130,11 +130,11 @@ func application(_: UIApplication, open url: URL, options: [UIApplication.OpenUR
   return MobilabPaymentBraintree.handleOpen(url: url, options: options)
 }
 ```
-Now you are ready to register a PayPal account. Use the `startPayPalRegistration` to do so.
+Now you are ready to register a PayPal account. 
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegisterManager()
-registrationManager.startPayPalRegistration(on viewController: self, mobilabProvider: MobilabPaymentProvider.braintree) { [weak self] result in
+registrationManager.registerPayPal(presentingViewController: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):

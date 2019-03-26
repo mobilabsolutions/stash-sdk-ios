@@ -30,7 +30,6 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
         }
     }
 
-
     private let defaultHorizontalToSuperviewOffset: CGFloat = 16
     private let fieldHeight: CGFloat = 40
     private let fieldToHeaderVerticalOffset: CGFloat = 8
@@ -185,8 +184,8 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
 
     func pickerView(_: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
-        case 0: return numberOfMonths
-        case 1: return numberOfYearsInACentury
+        case 0: return self.numberOfMonths
+        case 1: return self.numberOfYearsInACentury
         default: return 0
         }
     }

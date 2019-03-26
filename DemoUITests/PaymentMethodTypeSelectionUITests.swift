@@ -20,7 +20,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
 
-        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "Sepa")]
+        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "SEPA"), (.payPal, "PayPal")]
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
         for methodType in supportedMethodTypes {
@@ -47,8 +47,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: app.alerts.firstMatch, handler: nil)
-        self.waitForExpectations(timeout: 5, handler: nil)
+        waitForElementToAppear(element: app.alerts.firstMatch)
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
@@ -113,9 +112,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: app.alerts.firstMatch, handler: nil)
-        self.waitForExpectations(timeout: 5, handler: nil)
-
+        waitForElementToAppear(element: app.alerts.firstMatch)
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
@@ -126,5 +123,43 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.staticTexts[paymentMethodTypeTitle].tap()
+    }
+
+    #warning("Uncomment when PayPal implementation is done")
+//    func testLoadingViewIsShownForPayPalRegistration() {
+//        let app = XCUIApplication()
+//        app.tabBars.buttons["Bookmarks"].tap()
+//        app.buttons["Trigger Register UI"].tap()
+//
+//        let payPalCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "PayPal")).element
+//        payPalCell.tap()
+//
+//        XCTAssertTrue(app.activityIndicators.element.exists)
+//    }
+//
+//    func testPayPalViewIsShown() {
+//        let app = XCUIApplication()
+//        app.tabBars.buttons["Bookmarks"].tap()
+//        app.buttons["Trigger Register UI"].tap()
+//
+//        let payPalCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "PayPal")).element
+//        payPalCell.tap()
+//
+//        let payPalView = app.otherElements["PayPalView"]
+//        self.waitForElementToAppear(element: payPalView, timeout: 10)
+//    }
+
+    private func waitForElementToAppear(element: XCUIElement, timeout: TimeInterval = 5, file: String = #file, line: UInt = #line) {
+        let existsPredicate = NSPredicate(format: "exists == true")
+
+        expectation(for: existsPredicate,
+                    evaluatedWith: element, handler: nil)
+
+        waitForExpectations(timeout: timeout) { (error) -> Void in
+            if error != nil {
+                let message = "Failed to find \(element) after \(timeout) seconds."
+                self.recordFailure(withDescription: message, inFile: file, atLine: Int(line), expected: true)
+            }
+        }
     }
 }

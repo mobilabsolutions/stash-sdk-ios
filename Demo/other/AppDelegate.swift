@@ -6,8 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import Crashlytics
-import Fabric
+import MobilabPaymentBraintree
 import UIKit
 
 @UIApplicationMain
@@ -16,5 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
+    }
+
+    func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return MobilabPaymentBraintree.handleOpen(url: url, options: options)
     }
 }

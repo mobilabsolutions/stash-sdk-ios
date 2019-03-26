@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+@import MobilabPaymentCore;
+@import MobilabPaymentBraintree;
 
 @interface AppDelegate ()
 
@@ -45,6 +47,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [MLMobilabBraintree handleOpenWithUrl:url options:options];
 }
 
 

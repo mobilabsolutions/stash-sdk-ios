@@ -1,0 +1,74 @@
+//
+//  MobilabPaymentBSPayone.swift
+//  BSPayone
+//
+//  Created by Borna Beakovic on 27/02/2019.
+//  Copyright © 2019 MobiLab. All rights reserved.
+//
+
+import BraintreeCore
+import MobilabPaymentCore
+import UIKit
+
+public class MobilabPaymentBraintree: PaymentServiceProvider {
+    public let pspIdentifier: MobilabPaymentProvider
+    public let publicKey: String
+
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        guard let clientToken = registrationRequest.pspData.braintreeClientToken else {
+            completion(.failure(MLError(description: BraintreeIntegrationError.invalidClientToken.description(), code: 1)))
+            return
+        }
+
+        let paypalViewController = PayPalViewController(clientToken: clientToken)
+        paypalViewController.didCreatePaymentMethodCompletion = { method in
+            if let payPalData = method as? PayPalData {
+                completion(.success(payPalData.nonce))
+            } else {
+                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+            }
+        }
+
+        guard let presentingViewController = registrationRequest.viewController else {
+            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+        }
+        presentingViewController.present(paypalViewController, animated: true, completion: nil)
+    }
+
+    public var supportedPaymentMethodTypes: [PaymentMethodType] {
+        return [.payPal]
+    }
+
+    public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
+        return [.payPal]
+    }
+
+    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+        return LoadingViewController()
+    }
+
+    public init(tokenizationKey: String, urlScheme: String) {
+        self.publicKey = tokenizationKey
+        self.pspIdentifier = .braintree
+
+        BTAppSwitch.setReturnURLScheme(urlScheme)
+    }
+
+    public static func handleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+        if url.scheme?.localizedCaseInsensitiveCompare(BTAppSwitch.sharedInstance().returnURLScheme) == .orderedSame {
+            return BTAppSwitch.handleOpen(url, options: options)
+        }
+        return false
+    }
+
+    private enum BraintreeIntegrationError: Error {
+        case invalidClientToken
+
+        func description() -> String {
+            switch self {
+            case .invalidClientToken:
+                return "Invalid client token"
+            }
+        }
+    }
+}
