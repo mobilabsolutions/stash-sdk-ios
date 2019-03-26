@@ -62,25 +62,22 @@ public class RegistrationManager {
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.pspCoordinator.getSupportedPaymentMethodTypeUserInterfaces()
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
 
-            switch selectedType {
-            case .payPal:
-                self.registerPayPal(presentingViewController: viewController, completion: completion)
-            default:
-                let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: selectedType.internalPaymentMethodType)
-                guard var paymentMethodViewController = provider.viewController(for: selectedType)
-                else { fatalError("Payment method view controller for selected type not present in module") }
-                paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
-                    if let creditCardData = method as? CreditCardData {
-                        self?.registerCreditCard(creditCardData: creditCardData, completion: completion)
-                    } else if let sepaData = method as? SEPAData {
-                        self?.registerSEPAAccount(sepaData: sepaData, completion: completion)
-                    } else {
-                        fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
-                    }
+            let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: selectedType.internalPaymentMethodType)
+            guard var paymentMethodViewController = provider.viewController(for: selectedType)
+            else { fatalError("Payment method view controller for selected type not present in module") }
+            paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self] method in
+                if let creditCardData = method as? CreditCardData {
+                    self?.registerCreditCard(creditCardData: creditCardData, completion: completion)
+                } else if let sepaData = method as? SEPAData {
+                    self?.registerSEPAAccount(sepaData: sepaData, completion: completion)
+                } else if let _ = method as? PayPalData {
+                    self?.registerPayPal(presentingViewController: viewController, completion: completion)
+                } else {
+                    fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
                 }
-
-                selectionViewController.navigationController?.pushViewController(paymentMethodViewController, animated: true)
             }
+
+            selectionViewController.navigationController?.pushViewController(paymentMethodViewController, animated: true)
         }
 
         let navigationController = RegistrationFlowNavigationController(rootViewController: selectionViewController)

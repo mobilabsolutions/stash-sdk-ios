@@ -10,7 +10,7 @@
 @testable import MobilabPaymentCore
 import XCTest
 
-class BSIntegrationTests: XCTestCase {
+class BSPayoneIntegrationTests: XCTestCase {
     private var provider: PaymentServiceProvider?
 
     override func setUp() {

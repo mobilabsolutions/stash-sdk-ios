@@ -29,13 +29,10 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             }
         }
 
-        let navigationController = UINavigationController(rootViewController: paypalViewController)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.custom
-
         guard let presentingViewController = registrationRequest.viewController else {
             fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
         }
-        presentingViewController.present(navigationController, animated: true, completion: nil)
+        presentingViewController.present(paypalViewController, animated: true, completion: nil)
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -44,6 +41,10 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
 
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.payPal]
+    }
+
+    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+        return LoadingViewController()
     }
 
     public init(tokenizationKey: String, urlScheme: String) {
