@@ -86,7 +86,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     private func addViewForCurrentDataField() {
-        let field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
+        var field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
         field.delegate = self
 
         field.translatesAutoresizingMaskIntoConstraints = false
