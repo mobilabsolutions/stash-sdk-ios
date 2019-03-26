@@ -12,6 +12,7 @@ import UIKit
 
 class AddUIViewController: UIViewController {
     @IBOutlet private var triggerRegisterUIButton: UIButton!
+    @IBOutlet private var customConfigurationSwitch: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,19 @@ class AddUIViewController: UIViewController {
     }
 
     @objc private func triggerRegisterUI() {
-        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self, configuration: PaymentMethodUIConfiguration()) { [weak self] result in
+        let configuration: PaymentMethodUIConfiguration
+
+        if self.customConfigurationSwitch.isOn {
+            configuration = PaymentMethodUIConfiguration(backgroundColor: .white,
+                                                         textColor: .blue,
+                                                         buttonColor: .red,
+                                                         mediumEmphasisColor: .black,
+                                                         cellBackgroundColor: .lightGray)
+        } else {
+            configuration = PaymentMethodUIConfiguration()
+        }
+
+        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self, configuration: configuration) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(value):
