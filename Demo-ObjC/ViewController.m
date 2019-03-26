@@ -30,14 +30,7 @@
     [super viewDidAppear:animated];
 
     __weak typeof(self) weakSelf = self;
-<<<<<<< HEAD
     [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
-||||||| merged common ancestors
-    [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
-=======
-    
-    [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
->>>>>>> master
         if (alias != nil) {
             NSLog(@"Got alias: %@", alias);
             [weakSelf dismissViewControllerAnimated:YES completion:^{

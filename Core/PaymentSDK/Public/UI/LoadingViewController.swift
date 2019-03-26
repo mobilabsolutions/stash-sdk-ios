@@ -18,7 +18,6 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        // self.navigationController?.navigationBar.isHidden = true
 
         self.showActivityIndicatory()
 

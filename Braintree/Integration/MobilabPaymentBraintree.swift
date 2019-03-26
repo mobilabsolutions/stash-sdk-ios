@@ -43,7 +43,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         return [.payPal]
     }
 
-    public func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+    public func viewController(for _: PaymentMethodType, billingData _: BillingData?) -> (UIViewController & PaymentMethodDataProvider)? {
         return LoadingViewController()
     }
 
