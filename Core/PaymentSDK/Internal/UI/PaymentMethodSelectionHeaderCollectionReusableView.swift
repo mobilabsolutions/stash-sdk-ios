@@ -10,9 +10,15 @@ import MobilabPaymentUI
 import UIKit
 
 class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableView {
+    private static let titleFontSize: CGFloat = 24
+    private static let subtitleFontSize: CGFloat = 14
+    private let subtitleLabelBottomOffset: CGFloat = 37
+    private let subtitleLabelHorizontalOffset: CGFloat = 16
+    private let titleSubtitleVerticalDistance: CGFloat = 6
+
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIConstants.defaultFont(of: 24, type: .black)
+        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.titleFontSize, type: .black)
         label.textColor = UIConstants.dark
         label.text = "Payment method"
         return label
@@ -20,7 +26,7 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
 
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIConstants.defaultFont(of: 14, type: .medium)
+        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.subtitleFontSize, type: .medium)
         label.textColor = UIConstants.coolGrey
         label.text = "Please choose a payment method"
         return label
@@ -44,12 +50,12 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
         addSubview(self.subtitleLabel)
 
         NSLayoutConstraint.activate([
-            subtitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -37),
-            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subtitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -subtitleLabelBottomOffset),
+            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: subtitleLabelHorizontalOffset),
+            subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -subtitleLabelHorizontalOffset),
             titleLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: subtitleLabel.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -6),
+            titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -subtitleLabelBottomOffset),
         ])
     }
 }

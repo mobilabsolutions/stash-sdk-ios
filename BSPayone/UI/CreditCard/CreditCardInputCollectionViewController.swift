@@ -18,6 +18,12 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
     private let headerReuseIdentifier = "header"
 
     private let cellInset: CGFloat = 18
+    private let methodTypeImageViewWidth: CGFloat = 30
+    private let methodTypeImageViewHeight: CGFloat = 22
+    private let defaultCellHeight: CGFloat = 85
+    private let defaultHeaderHeight: CGFloat = 65
+    private let lastCellHeightSurplus: CGFloat = 16
+    private let errorCellHeightSurplus: CGFloat = 18
 
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     var doneButtonUpdating: DoneButtonUpdating?
@@ -193,7 +199,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                        setupTextField: { textField in
                 textField.rightViewMode = .always
                 textField.textContentType = .creditCardNumber
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 22))
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.methodTypeImageViewWidth, height: self.methodTypeImageViewHeight))
                 imageView.contentMode = .scaleAspectFit
                 textField.rightView = imageView
             }, delegate: self)
@@ -252,8 +258,8 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         let hasError = CreditCardNecessaryDataCell(rawValue: indexPath.row)?.necessaryData.contains(where: { self.errors[$0] != nil }) ?? false
 
-        let additionalHeight: CGFloat = (isLastRow ? 16 : 0) + (hasError ? 18 : 0)
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: 85 + additionalHeight)
+        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (hasError ? errorCellHeightSurplus : 0)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: defaultCellHeight + additionalHeight)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
@@ -261,7 +267,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: 65)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: defaultHeaderHeight)
     }
 }
 

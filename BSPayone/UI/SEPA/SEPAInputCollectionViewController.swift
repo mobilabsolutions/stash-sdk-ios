@@ -16,6 +16,10 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
     private let headerReuseIdentifier = "header"
 
     private let cellInset: CGFloat = 18
+    private let defaultCellHeight: CGFloat = 85
+    private let defaultHeaderHeight: CGFloat = 65
+    private let lastCellHeightSurplus: CGFloat = 16
+    private let errorCellHeightSurplus: CGFloat = 18
 
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     var doneButtonUpdating: DoneButtonUpdating?
@@ -160,8 +164,8 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         let isError = SEPANecessaryDataCell(rawValue: indexPath.row)?.necessaryData
             .contains(where: { self.errors[$0] != nil }) ?? false
 
-        let additionalHeight: CGFloat = (isLastRow ? 16 : 0) + (isError ? 18 : 0)
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: 85 + additionalHeight)
+        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (isError ? errorCellHeightSurplus : 0)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
@@ -169,7 +173,7 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: 65)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultHeaderHeight)
     }
 }
 

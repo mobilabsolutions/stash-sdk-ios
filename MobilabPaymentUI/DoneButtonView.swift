@@ -28,8 +28,9 @@ public class DoneButtonView: UIView {
         }
     }
 
-    private weak var delegate: DoneButtonViewDelegate?
+    private let buttonHeight: CGFloat = 40
 
+    private weak var delegate: DoneButtonViewDelegate?
     private let button = UIButton()
 
     public func setup(delegate: DoneButtonViewDelegate, buttonEnabled: Bool) {
@@ -66,7 +67,7 @@ public class DoneButtonView: UIView {
             button.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             button.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 40),
+            button.heightAnchor.constraint(equalToConstant: buttonHeight),
         ])
     }
 

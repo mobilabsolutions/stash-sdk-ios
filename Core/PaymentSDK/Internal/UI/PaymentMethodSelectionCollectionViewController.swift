@@ -17,6 +17,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     private let minimumLineSpacing: CGFloat = 8
     private let backgroundColor = UIConstants.iceBlue
     private let cellInset: CGFloat = 16
+    private let headerHeight: CGFloat = 195
 
     var selectablePaymentMethods: [PaymentMethodType] = [] {
         didSet {
@@ -78,6 +79,6 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     }
 
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 195)
+        return CGSize(width: collectionView.frame.width, height: self.headerHeight)
     }
 }
