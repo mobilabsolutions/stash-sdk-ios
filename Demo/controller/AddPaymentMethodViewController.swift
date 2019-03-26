@@ -17,7 +17,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     @IBOutlet private var scrollView: UIScrollView!
 
     private var dataFields: [DataField & UIView] = [
-        CreditCardDataField(), SEPADataField(),
+        CreditCardDataField(), SEPADataField(), PayPalDataField(),
     ]
 
     override func viewDidLoad() {
@@ -59,6 +59,21 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
 
     func addSEPA(method: SEPAData) {
         MobilabPaymentSDK.getRegisterManager().registerSEPAAccount(sepaData: method) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(alias):
+                    self?.save(alias: alias, expirationMonth: nil, expirationYear: nil, type: .sepa)
+                    self?.clearInputs()
+                    self?.showAlert(title: "Success", body: "SEPA added successfully.")
+                case let .failure(error): self?.showAlert(title: error.title,
+                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
+                }
+            }
+        }
+    }
+
+    func addPayPal() {
+        MobilabPaymentSDK.getRegisterManager().registerPayPal(presentingViewController: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(alias):

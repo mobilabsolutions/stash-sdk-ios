@@ -6,6 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import MobilabPaymentBraintree
 import MobilabPaymentBSPayone
 import MobilabPaymentCore
 import UIKit
@@ -18,6 +19,11 @@ class MainTabBarController: UITabBarController {
         configuration.loggingEnabled = true
 
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"))
+
+        let pspBsPayone = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        MobilabPaymentSDK.registerProvider(provider: pspBsPayone, forPaymentMethodTypes: .creditCard, .sepa)
+
+        let pspBraintree = MobilabPaymentBraintree(tokenizationKey: "1234567890987654321", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
     }
 }

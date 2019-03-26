@@ -53,6 +53,7 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
             switch paymentMethodType {
             case .creditCard: self.nameLabel.text = "Credit Card"
             case .sepa: self.nameLabel.text = "SEPA"
+            case .payPal: self.nameLabel.text = "PayPal"
             }
         }
     }

@@ -6,19 +6,23 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentCore
+@testable import MobilabPaymentCore
 import XCTest
 
 class ModuleIntegrationTests: XCTestCase {
     private var module: PaymentServiceProvider?
 
     private class TestModule<RegistrationDataType: RegistrationData>: PaymentServiceProvider {
-        var pspIdentifier: String {
-            return "BS_PAYONE"
+        var pspIdentifier: MobilabPaymentProvider {
+            return .bsPayone
         }
 
         var publicKey: String {
             return "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"
+        }
+
+        var supportedPaymentMethodTypes: [PaymentMethodType] {
+            return [.creditCard, .sepa]
         }
 
         let completionResultToReturn: PaymentServiceProvider.RegistrationResult
@@ -45,7 +49,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 
@@ -68,7 +72,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 
@@ -77,8 +81,10 @@ class ModuleIntegrationTests: XCTestCase {
 
         MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
-            case .success: XCTFail("Should not have returned success when module fails")
-            case let .failure(propagatedError): XCTAssertEqual(error.code, propagatedError.code)
+            case .success:
+                XCTFail("Should not have returned success when module fails")
+            case let .failure(propagatedError):
+                XCTAssertEqual(error.code, propagatedError.code)
             }
 
             resultExpectation.fulfill()
@@ -96,7 +102,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.addProvider(provider: module)
+        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
 

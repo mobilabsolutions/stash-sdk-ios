@@ -50,10 +50,10 @@
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
-    [MLMobilabPaymentSDK addProviderWithProvider:bsPayone];
+    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
     // This should compile and *not* cause a runtime error since the SDK is now configured.
-    // We don't care about the return value in this context, so we ignore it.
+    // We don't care about the return value in this context, so we ignore it
     (void) [MLMobilabPaymentSDK getRegisterManager];
 }
 
@@ -64,7 +64,7 @@
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
-    [MLMobilabPaymentSDK addProviderWithProvider:bsPayone];
+    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
                                                                  name:nil
@@ -89,7 +89,6 @@
     XCTAssertNil(error);
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
-
     [[MLMobilabPaymentSDK getRegisterManager] registerCreditCardWithCreditCardData:creditCard completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
@@ -106,7 +105,7 @@
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
-    [MLMobilabPaymentSDK addProviderWithProvider:bsPayone];
+    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"sepa"]];
 
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
                                                                  name:@"Max Mustermann"

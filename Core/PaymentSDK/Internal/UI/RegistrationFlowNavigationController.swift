@@ -25,6 +25,7 @@ class RegistrationFlowNavigationController: UINavigationController {
     }
 
     private func sharedInit() {
+        self.modalPresentationStyle = UIModalPresentationStyle.custom
         self.topViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done,
                                                                                    target: self, action: #selector(self.cancel))
     }
