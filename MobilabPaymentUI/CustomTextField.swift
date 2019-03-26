@@ -13,6 +13,8 @@ public class CustomTextField: UITextField {
     private static let errorBorderColor = UIConstants.coral
 
     private let textInsetX: CGFloat = 16
+    private let rightViewInset: CGPoint = CGPoint(x: 8, y: 10)
+    private let rightViewWidth: CGFloat = 40
 
     private var borderColor = CustomTextField.defaultBorderColor {
         didSet {
@@ -59,5 +61,10 @@ public class CustomTextField: UITextField {
         self.layer.borderColor = self.borderColor.cgColor
         self.backgroundColor = .white
         self.font = UIConstants.defaultFont(of: 14)
+    }
+
+    public override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        return CGRect(x: bounds.maxX - self.rightViewInset.x - self.rightViewWidth,
+                      y: self.rightViewInset.y, width: self.rightViewWidth, height: bounds.height - 2 * self.rightViewInset.y)
     }
 }

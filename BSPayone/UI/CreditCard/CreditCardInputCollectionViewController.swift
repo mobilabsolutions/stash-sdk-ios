@@ -183,7 +183,21 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                                                                 reuseIdentifier: cardNumberReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.cardNumber], title: "Credit card number", placeholder: "1234", dataType: .cardNumber, textFieldUpdateCallback: { textField in
                 textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
-            }, error: errors[.cardNumber]?.description, delegate: self)
+
+                let imageView = textField.rightView as? UIImageView
+
+                let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
+                let image = possibleCardType != .unknown ? possibleCardType.image : nil
+                imageView?.image = image
+            }, error: errors[.cardNumber]?.description,
+                       setupTextField: { textField in
+                textField.rightViewMode = .always
+                textField.textContentType = .creditCardNumber
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 22))
+                imageView.contentMode = .scaleAspectFit
+                textField.rightView = imageView
+            }, delegate: self)
+
             toReturn = cell
         case .dateCVVCell:
             let cell: DateCVVInputCollectionViewCell = dequeueCell(collectionView: collectionView,

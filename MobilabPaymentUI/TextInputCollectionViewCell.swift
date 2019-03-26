@@ -66,8 +66,13 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
 
     private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
 
-    public func setup(text: String?, title: String?, placeholder: String?, dataType: NecessaryData,
-                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil, error: String?,
+    public func setup(text: String?,
+                      title: String?,
+                      placeholder: String?,
+                      dataType: NecessaryData,
+                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
+                      error: String?,
+                      setupTextField: ((UITextField) -> Void)? = nil,
                       delegate: DataPointProvidingDelegate) {
         self.textFieldUpdateCallback = textFieldUpdateCallback
         self.text = text
@@ -76,6 +81,8 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
         self.dataType = dataType
         self.delegate = delegate
         self.errorText = error
+
+        setupTextField?(self.textField)
     }
 
     override init(frame: CGRect) {
