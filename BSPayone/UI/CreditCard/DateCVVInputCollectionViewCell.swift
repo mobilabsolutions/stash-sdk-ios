@@ -30,6 +30,14 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    private let defaultHorizontalToSuperviewOffset: CGFloat = 16
+    private let fieldHeight: CGFloat = 40
+    private let fieldToHeaderVerticalOffset: CGFloat = 8
+    private let headerToSuperViewVerticalOffset: CGFloat = 8
+    private let errorLabelVerticalOffset: CGFloat = 4
+    private let numberOfMonths = 12
+    private let numberOfYearsInACentury = 100
+
     private var delegate: DataPointProvidingDelegate?
 
     private let dateTextField = CustomTextField()
@@ -86,23 +94,23 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(self.cvvTitleLabel)
 
         NSLayoutConstraint.activate([
-            self.dateTextField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            self.dateTextField.trailingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor, constant: -16),
+            self.dateTextField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: defaultHorizontalToSuperviewOffset),
+            self.dateTextField.trailingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor, constant: -defaultHorizontalToSuperviewOffset),
             self.dateTextField.widthAnchor.constraint(equalTo: self.cvvTextField.widthAnchor),
-            self.dateTextField.heightAnchor.constraint(equalToConstant: 40),
+            self.dateTextField.heightAnchor.constraint(equalToConstant: fieldHeight),
             self.cvvTextField.centerYAnchor.constraint(equalTo: self.dateTextField.centerYAnchor),
-            self.cvvTextField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            self.cvvTextField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -defaultHorizontalToSuperviewOffset),
             self.cvvTextField.heightAnchor.constraint(equalTo: self.dateTextField.heightAnchor),
             self.dateTitleLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
             self.dateTitleLabel.trailingAnchor.constraint(equalTo: self.dateTextField.trailingAnchor),
-            self.dateTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            self.dateTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: headerToSuperViewVerticalOffset),
             self.cvvTitleLabel.topAnchor.constraint(equalTo: self.dateTitleLabel.topAnchor),
             self.cvvTitleLabel.leadingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor),
             self.cvvTitleLabel.trailingAnchor.constraint(equalTo: self.cvvTitleLabel.trailingAnchor),
-            self.dateTextField.topAnchor.constraint(equalTo: self.dateTitleLabel.bottomAnchor, constant: 8),
+            self.dateTextField.topAnchor.constraint(equalTo: self.dateTitleLabel.bottomAnchor, constant: fieldToHeaderVerticalOffset),
             self.errorLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
             self.errorLabel.trailingAnchor.constraint(equalTo: self.cvvTextField.trailingAnchor),
-            self.errorLabel.topAnchor.constraint(equalTo: self.dateTextField.bottomAnchor, constant: 4),
+            self.errorLabel.topAnchor.constraint(equalTo: self.dateTextField.bottomAnchor, constant: errorLabelVerticalOffset),
         ])
 
         self.errorLabelZeroHeightConstraint = self.errorLabel.heightAnchor.constraint(equalToConstant: 0)
@@ -186,8 +194,8 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
 
     func pickerView(_: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
-        case 0: return 12
-        case 1: return 100
+        case 0: return self.numberOfMonths
+        case 1: return self.numberOfYearsInACentury
         default: return 0
         }
     }

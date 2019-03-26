@@ -15,8 +15,8 @@ public class CreditCardUtils {
         return self.formattedNumber(number: cleaned, for: type)
     }
 
-    public static func possibleCardTypes(for number: String) -> [CreditCardData.CreditCardType] {
-        return self.cardNumbersAndRanges(for: self.cleanedNumber(number: number)).map { $0.1 }
+    public static func cardTypeFromNumber(number: String) -> CreditCardData.CreditCardType {
+        return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
     }
 
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {

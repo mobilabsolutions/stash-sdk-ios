@@ -57,6 +57,12 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    private let defaultHorizontalToSuperviewOffset: CGFloat = 16
+    private let fieldHeight: CGFloat = 40
+    private let fieldToHeaderVerticalOffset: CGFloat = 8
+    private let headerToSuperViewVerticalOffset: CGFloat = 16
+    private let errorLabelVerticalOffset: CGFloat = 4
+
     private weak var delegate: DataPointProvidingDelegate?
     private var textFieldUpdateCallback: ((UITextField) -> Void)?
 
@@ -66,8 +72,13 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
 
     private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
 
-    public func setup(text: String?, title: String?, placeholder: String?, dataType: NecessaryData,
-                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil, error: String?,
+    public func setup(text: String?,
+                      title: String?,
+                      placeholder: String?,
+                      dataType: NecessaryData,
+                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
+                      error: String?,
+                      setupTextField: ((UITextField) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
         self.textFieldUpdateCallback = textFieldUpdateCallback
@@ -84,6 +95,8 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
 
         self.contentView.backgroundColor = configuration.cellBackgroundColor
         self.subtitleLabel.textColor = configuration.textColor
+
+        setupTextField?(self.textField)
     }
 
     override init(frame: CGRect) {
@@ -106,16 +119,16 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(self.errorLabel)
 
         NSLayoutConstraint.activate([
-            self.textField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            self.textField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            self.textField.heightAnchor.constraint(equalToConstant: 40),
+            self.textField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: defaultHorizontalToSuperviewOffset),
+            self.textField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -defaultHorizontalToSuperviewOffset),
+            self.textField.heightAnchor.constraint(equalToConstant: fieldHeight),
             self.subtitleLabel.leadingAnchor.constraint(equalTo: self.textField.leadingAnchor),
-            self.subtitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            self.subtitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: headerToSuperViewVerticalOffset),
             self.subtitleLabel.trailingAnchor.constraint(equalTo: self.textField.trailingAnchor),
-            self.subtitleLabel.bottomAnchor.constraint(equalTo: self.textField.topAnchor, constant: -8),
+            self.subtitleLabel.bottomAnchor.constraint(equalTo: self.textField.topAnchor, constant: -fieldToHeaderVerticalOffset),
             self.errorLabel.leadingAnchor.constraint(equalTo: self.textField.leadingAnchor),
             self.errorLabel.trailingAnchor.constraint(equalTo: self.textField.trailingAnchor),
-            self.errorLabel.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 4),
+            self.errorLabel.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: errorLabelVerticalOffset),
         ])
 
         self.errorLabelZeroHeightConstraint = self.errorLabel.heightAnchor.constraint(equalToConstant: 0)

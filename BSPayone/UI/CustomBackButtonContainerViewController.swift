@@ -11,6 +11,10 @@ import MobilabPaymentUI
 import UIKit
 
 public class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDataProvider {
+    private let doneButtonBottomOffset: CGFloat = 40
+    private let doneButtonHeight: CGFloat = 40
+    private let doneButtonHorizontalOffset: CGFloat = 34
+
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)? {
         get {
             return self.viewController.didCreatePaymentMethodCompletion
@@ -57,9 +61,9 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
 
         NSLayoutConstraint.activate([
             self.doneButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.doneButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            self.doneButton.heightAnchor.constraint(equalToConstant: 40),
-            self.doneButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 34),
+            self.doneButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -doneButtonBottomOffset),
+            self.doneButton.heightAnchor.constraint(equalToConstant: doneButtonHeight),
+            self.doneButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: doneButtonHorizontalOffset),
             viewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
             viewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             viewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),

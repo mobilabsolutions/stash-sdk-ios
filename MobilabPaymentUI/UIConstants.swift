@@ -77,6 +77,42 @@ public final class UIConstants {
         return UIImage(named: "right-arrow", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
+    public class var americanExpressImage: UIImage? {
+        return UIImage(named: "american-express", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var dinersImage: UIImage? {
+        return UIImage(named: "diners", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var mastercardImage: UIImage? {
+        return UIImage(named: "mastercard", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var visaImage: UIImage? {
+        return UIImage(named: "visa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var maestroImage: UIImage? {
+        return UIImage(named: "maestro", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var unionPayImage: UIImage? {
+        return UIImage(named: "union-pay", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var discoverImage: UIImage? {
+        return UIImage(named: "discover", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var carteBleueImage: UIImage? {
+        return UIImage(named: "carte-bleue", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var jcbImage: UIImage? {
+        return UIImage(named: "jcb", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
     public enum DefaultFontType: String {
         case black = "Black"
         case bold = "Bold"

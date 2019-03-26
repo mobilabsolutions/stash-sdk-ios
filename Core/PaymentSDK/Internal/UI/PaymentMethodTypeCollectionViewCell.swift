@@ -28,6 +28,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
 
     private let verticalOffset: CGFloat = 10
     private let horizontalOffset: CGFloat = 8
+    private let methodImageViewVerticalOffset: CGFloat = 4
+    private let methodImageViewHorizontalOffset: CGFloat = 8
+    private let methodImageViewWidth: CGFloat = 42
+    private let arrowImageViewWidth: CGFloat = 24
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,10 +66,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(methodImageViewContainer)
 
         NSLayoutConstraint.activate([
-            methodImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor, constant: 4),
-            methodImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor, constant: -4),
-            methodImageView.leadingAnchor.constraint(equalTo: methodImageViewContainer.leadingAnchor, constant: 8),
-            methodImageView.trailingAnchor.constraint(equalTo: methodImageViewContainer.trailingAnchor, constant: -8),
+            methodImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor, constant: methodImageViewVerticalOffset),
+            methodImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor, constant: -methodImageViewVerticalOffset),
+            methodImageView.leadingAnchor.constraint(equalTo: methodImageViewContainer.leadingAnchor, constant: methodImageViewHorizontalOffset),
+            methodImageView.trailingAnchor.constraint(equalTo: methodImageViewContainer.trailingAnchor, constant: -methodImageViewHorizontalOffset),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalOffset),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalOffset),
             nameLabel.leadingAnchor.constraint(equalTo: methodImageViewContainer.trailingAnchor, constant: horizontalOffset),
@@ -73,11 +77,11 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
             methodImageViewContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: horizontalOffset),
             methodImageViewContainer.topAnchor.constraint(equalTo: nameLabel.topAnchor),
             methodImageViewContainer.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            methodImageViewContainer.widthAnchor.constraint(equalToConstant: 42),
+            methodImageViewContainer.widthAnchor.constraint(equalToConstant: methodImageViewWidth),
             arrowImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor),
             arrowImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor),
             arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2 * horizontalOffset),
-            arrowImageView.widthAnchor.constraint(equalToConstant: 24),
+            arrowImageView.widthAnchor.constraint(equalToConstant: arrowImageViewWidth),
         ])
 
         self.contentView.backgroundColor = .white

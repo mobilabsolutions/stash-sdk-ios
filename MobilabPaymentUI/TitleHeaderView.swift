@@ -24,6 +24,8 @@ public class TitleHeaderView: UICollectionReusableView {
     }
 
     private let label = SubtitleLabel()
+    private let horizontalToSuperViewOffset: CGFloat = 18
+    private let verticalToSuperViewOffset: CGFloat = 16
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,10 +45,10 @@ public class TitleHeaderView: UICollectionReusableView {
         self.addSubview(self.label)
 
         NSLayoutConstraint.activate([
-            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -18),
-            self.label.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalToSuperViewOffset),
+            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -horizontalToSuperViewOffset),
+            self.label.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalToSuperViewOffset),
+            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalToSuperViewOffset),
         ])
     }
 }

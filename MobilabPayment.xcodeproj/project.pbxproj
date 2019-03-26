@@ -130,6 +130,7 @@
 		E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */; };
 		E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */; };
 		E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */; };
+		E1D90150224A3CE10067BB8A /* CreditCardType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +343,7 @@
 		E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointProvidingDelegate.swift; sourceTree = "<group>"; };
 		E1C9A85A2240F7020099DB2E /* NecessaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryData.swift; sourceTree = "<group>"; };
 		E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardType+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -902,6 +904,7 @@
 			children = (
 				E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */,
 				E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */,
+				E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */,
 			);
 			path = CreditCard;
 			sourceTree = "<group>";
@@ -1341,6 +1344,7 @@
 				E162FFC22243DB3F00413764 /* CustomBackButtonContainerViewController.swift in Sources */,
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
 				E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */,
+				E1D90150224A3CE10067BB8A /* CreditCardType+Extensions.swift in Sources */,
 				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
 				E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
