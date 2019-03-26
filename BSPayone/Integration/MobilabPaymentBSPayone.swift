@@ -38,12 +38,16 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         return [.sepa, .creditCard]
     }
 
-    public func viewController(for methodType: PaymentMethodType, billingData: BillingData?) -> (UIViewController & PaymentMethodDataProvider)? {
+    public func viewController(for methodType: PaymentMethodType,
+                               billingData: BillingData?,
+                               configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData))
+            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                           configuration: configuration)
         case .sepa:
-            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData))
+            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                           configuration: configuration)
         }
     }
 

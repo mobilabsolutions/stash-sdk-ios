@@ -6,6 +6,7 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
+import MobilabPaymentUI
 import UIKit
 
 /// Type used for registering payment methods of different types
@@ -40,11 +41,15 @@ public class RegistrationManager {
     ///
     /// - Parameters:
     ///   - viewController: The view controller on which the payment method type selection should be presented
+    ///   - billingData: The billing data that should be prefilled when registering the payment method
+    ///   - configuration: Configuration to apply to the UI when presenting it
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerPaymentMethodUsingUI(on viewController: UIViewController, billingData: BillingData? = nil,
+    public func registerPaymentMethodUsingUI(on viewController: UIViewController,
+                                             billingData: BillingData? = nil,
+                                             configuration: PaymentMethodUIConfiguration,
                                              completion: @escaping RegistrationResultCompletion) {
-        let selectionViewController = PaymentMethodSelectionCollectionViewController()
+        let selectionViewController = PaymentMethodSelectionCollectionViewController(configuration: configuration)
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.provider.supportedPaymentMethodTypeUserInterfaces
 
         func wrappedErrorCompletion(for dataProvider: PaymentMethodDataProvider?,
@@ -73,7 +78,7 @@ public class RegistrationManager {
 
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
             guard var paymentMethodViewController = InternalPaymentSDK.sharedInstance.provider
-                .viewController(for: selectedType, billingData: billingData)
+                .viewController(for: selectedType, billingData: billingData, configuration: configuration)
             else { fatalError("Payment method view controller for selected type not present in module") }
 
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, weak paymentMethodViewController] method in

@@ -21,6 +21,8 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
     var doneButtonUpdating: DoneButtonUpdating?
 
     private let billingData: BillingData?
+    private let configuration: PaymentMethodUIConfiguration
+
     private var fieldData: [NecessaryData: String] = [:]
 
     private enum SEPANecessaryDataCell: Int, CaseIterable {
@@ -51,8 +53,10 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
 
     private var errors: [NecessaryData: ValidationError] = [:]
 
-    init(billingData: BillingData?) {
+    init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
         self.billingData = billingData
+        self.configuration = configuration
+
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         if let name = billingData?.name {
@@ -62,6 +66,8 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
 
     required init?(coder aDecoder: NSCoder) {
         self.billingData = nil
+        self.configuration = PaymentMethodUIConfiguration()
+
         super.init(coder: aDecoder)
     }
 
@@ -72,7 +78,7 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         self.collectionView.register(TextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.textReuseIdentifier)
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
-        self.collectionView.backgroundColor = UIConstants.iceBlue
+        self.collectionView.backgroundColor = self.configuration.backgroundColor
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
@@ -108,7 +114,7 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
             let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
                                                                 reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.holderName], title: "Name", placeholder: "Name", dataType: .holderName,
-                       error: errors[.holderName]?.description, delegate: self)
+                       error: errors[.holderName]?.description, configuration: configuration, delegate: self)
 
             toReturn = cell
         case .ibanCell:
@@ -116,12 +122,12 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
                                                                 reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.iban], title: "IBAN", placeholder: "XX123", dataType: .iban, textFieldUpdateCallback: { textField in
                 textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
-            }, error: errors[.iban]?.description, delegate: self)
+            }, error: errors[.iban]?.description, configuration: configuration, delegate: self)
             toReturn = cell
         case .bicCell:
             let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
                                                                 reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[.bic], title: "BIC", placeholder: "XXX", dataType: .bic, error: errors[.bic]?.description, delegate: self)
+            cell.setup(text: fieldData[.bic], title: "BIC", placeholder: "XXX", dataType: .bic, error: errors[.bic]?.description, configuration: configuration, delegate: self)
 
             toReturn = cell
         }
@@ -151,6 +157,7 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         else { fatalError("Should be able to dequeue TitleHeaderView as header supplementary vie for \(self.headerReuseIdentifier)") }
 
         view.title = "Sepa"
+        view.configuration = configuration
 
         return view
     }

@@ -27,16 +27,22 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
+    MLPaymentMethodUIConfiguration *configuration = [[MLPaymentMethodUIConfiguration alloc] initWithBackgroundColor:[UIColor blackColor]
+                                                                                                          textColor:[UIColor whiteColor]
+                                                                                                        buttonColor:nil
+                                                                                                mediumEmphasisColor:[UIColor lightTextColor]
+                                                                                                cellBackgroundColor:[UIColor darkGrayColor] buttonTextColor:nil
+                                                                                                buttonDisabledColor: [[UIColor whiteColor] colorWithAlphaComponent: 0.4]];
+
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self configuration: configuration completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         if (alias != nil) {
             NSLog(@"Got alias: %@", alias);
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
-                [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"];
-            }];
+            [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"];
         }
         else {
             NSLog(@"Got error: %@", [error failureReason]);
+            [weakSelf showAlertWithTitle:@"Error" andBody:[NSString stringWithFormat:@"%@", [error failureReason]]];
         }
     }];
 

@@ -24,7 +24,7 @@ public class DoneButtonView: UIView {
     public var doneEnabled: Bool = false {
         didSet {
             self.button.isEnabled = self.doneEnabled
-            self.button.backgroundColor = self.doneEnabled ? UIConstants.aquamarine : UIConstants.disabledColor
+            self.button.backgroundColor = self.doneEnabled ? self.enabledColor : self.disabledColor
         }
     }
 
@@ -32,9 +32,15 @@ public class DoneButtonView: UIView {
 
     private let button = UIButton()
 
-    public func setup(delegate: DoneButtonViewDelegate, buttonEnabled: Bool) {
+    private var enabledColor = UIConstants.aquamarine
+    private var disabledColor = UIConstants.disabledColor
+
+    public func setup(delegate: DoneButtonViewDelegate, buttonEnabled: Bool, enabledColor: UIColor, disabledColor: UIColor, textColor: UIColor) {
         self.doneEnabled = buttonEnabled
         self.delegate = delegate
+        self.enabledColor = enabledColor
+        self.disabledColor = disabledColor
+        self.button.setTitleColor(textColor, for: .normal)
     }
 
     override init(frame: CGRect) {

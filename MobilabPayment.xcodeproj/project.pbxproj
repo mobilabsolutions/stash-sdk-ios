@@ -16,7 +16,7 @@
 		1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */; };
 		1DC5CBC220D40F9D002058C1 /* MobilabPaymentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC120D40F9D002058C1 /* MobilabPaymentConfiguration.swift */; };
 		1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */; };
-		1DC5CBCE20D41118002058C1 /* RegistrationManagerImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* RegistrationManagerImplementation.swift */; };
+		1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */; };
 		1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */; };
 		1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */; };
 		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
@@ -81,6 +81,7 @@
 		E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */; };
 		E11C3C97223BF00700F94F56 /* MLErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */; };
 		E1209BC22248DFE10060CD63 /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC12248DFE10060CD63 /* ErrorLabel.swift */; };
+		E1209BC5224A102C0060CD63 /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E162FF992243A42500413764 /* MobilabPaymentUI.h in Headers */ = {isa = PBXBuildFile; fileRef = E162FF972243A42500413764 /* MobilabPaymentUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E162FF9D2243A43000413764 /* MobilabPaymentUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E162FF952243A42500413764 /* MobilabPaymentUI.framework */; };
 		E162FF9F2243A44200413764 /* DoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */; };
@@ -233,7 +234,7 @@
 		1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		1DC5CBC120D40F9D002058C1 /* MobilabPaymentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentConfiguration.swift; sourceTree = "<group>"; };
 		1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDK.swift; sourceTree = "<group>"; };
-		1DC5CBCD20D41118002058C1 /* RegistrationManagerImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManagerImplementation.swift; sourceTree = "<group>"; };
+		1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManager.swift; sourceTree = "<group>"; };
 		1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPaymentSDK.swift; sourceTree = "<group>"; };
 		1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequest.swift; sourceTree = "<group>"; };
 		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBackendError.swift; sourceTree = "<group>"; };
 		E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLErrorConvertible.swift; sourceTree = "<group>"; };
 		E1209BC12248DFE10060CD63 /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
+		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
 		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
@@ -522,7 +524,7 @@
 			children = (
 				BACD619F2226C8E300E3ACC3 /* Integration */,
 				1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */,
-				1DC5CBCD20D41118002058C1 /* RegistrationManagerImplementation.swift */,
+				1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */,
 				E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */,
 			);
 			path = Public;
@@ -811,6 +813,7 @@
 		E162FF962243A42500413764 /* MobilabPaymentUI */ = {
 			isa = PBXGroup;
 			children = (
+				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
 				E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */,
 				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
 				E162FF8B2243959800413764 /* UIConstants.swift */,
@@ -1264,7 +1267,7 @@
 				BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */,
 				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
 				BAD64631222E840D00771DC0 /* AliasExtra.swift in Sources */,
-				1DC5CBCE20D41118002058C1 /* RegistrationManagerImplementation.swift in Sources */,
+				1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */,
 				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
 				E162FFC42243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */,
 				1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */,
@@ -1373,6 +1376,7 @@
 			files = (
 				E162FFA32243A44200413764 /* DataPointProvidingDelegate.swift in Sources */,
 				E162FFA22243A44200413764 /* CustomTextField.swift in Sources */,
+				E1209BC5224A102C0060CD63 /* PaymentMethodUIConfiguration.swift in Sources */,
 				E162FFA52243A4DF00413764 /* NecessaryData.swift in Sources */,
 				E1209BC22248DFE10060CD63 /* ErrorLabel.swift in Sources */,
 				E162FFA12243A44200413764 /* TextInputCollectionViewCell.swift in Sources */,

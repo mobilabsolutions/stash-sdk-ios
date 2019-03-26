@@ -68,6 +68,7 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
 
     public func setup(text: String?, title: String?, placeholder: String?, dataType: NecessaryData,
                       textFieldUpdateCallback: ((UITextField) -> Void)? = nil, error: String?,
+                      configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
         self.textFieldUpdateCallback = textFieldUpdateCallback
         self.text = text
@@ -76,6 +77,13 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
         self.dataType = dataType
         self.delegate = delegate
         self.errorText = error
+
+        self.textField.setup(borderColor: configuration.mediumEmphasisColor,
+                             placeholderColor: configuration.mediumEmphasisColor,
+                             textColor: configuration.textColor, backgroundColor: configuration.cellBackgroundColor)
+
+        self.contentView.backgroundColor = configuration.cellBackgroundColor
+        self.subtitleLabel.textColor = configuration.textColor
     }
 
     override init(frame: CGRect) {

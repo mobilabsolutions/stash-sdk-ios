@@ -26,6 +26,13 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
         return label
     }()
 
+    var configuration: PaymentMethodUIConfiguration? {
+        didSet {
+            self.titleLabel.textColor = configuration?.textColor ?? self.titleLabel.textColor
+            self.subtitleLabel.textColor = configuration?.mediumEmphasisColor ?? self.subtitleLabel.textColor
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.sharedInit()

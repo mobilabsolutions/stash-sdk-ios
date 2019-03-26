@@ -11,6 +11,8 @@ import UIKit
 public class CustomTextField: UITextField {
     private static let defaultBorderColor = UIConstants.lightBlueGrey
     private static let errorBorderColor = UIConstants.coral
+    private static let defaultPlaceholderColor = UIConstants.coolGrey
+    private static let defaultBackgroundColor = UIColor.white
 
     private let textInsetX: CGFloat = 16
 
@@ -20,18 +22,31 @@ public class CustomTextField: UITextField {
         }
     }
 
+    private var placeholderColor: UIColor? = CustomTextField.defaultPlaceholderColor {
+        didSet {
+            self.updateAttributedPlaceholder(placeholder: self.placeholder)
+        }
+    }
+
     public override var placeholder: String? {
         get {
             return self.attributedPlaceholder?.string
         }
 
         set {
-            self.attributedPlaceholder = newValue.flatMap { NSAttributedString(string: $0, attributes: [.foregroundColor: UIConstants.coolGrey]) }
+            self.updateAttributedPlaceholder(placeholder: newValue)
         }
     }
 
     public func set(hasInvalidData: Bool) {
         self.borderColor = hasInvalidData ? CustomTextField.errorBorderColor : CustomTextField.defaultBorderColor
+    }
+
+    public func setup(borderColor: UIColor?, placeholderColor: UIColor?, textColor: UIColor?, backgroundColor: UIColor?) {
+        self.borderColor = borderColor ?? CustomTextField.defaultBorderColor
+        self.placeholderColor = placeholderColor ?? CustomTextField.defaultPlaceholderColor
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor ?? CustomTextField.defaultBackgroundColor
     }
 
     override init(frame: CGRect) {
@@ -59,5 +74,11 @@ public class CustomTextField: UITextField {
         self.layer.borderColor = self.borderColor.cgColor
         self.backgroundColor = .white
         self.font = UIConstants.defaultFont(of: 14)
+    }
+
+    private func updateAttributedPlaceholder(placeholder: String?) {
+        self.attributedPlaceholder = placeholder.flatMap {
+            NSAttributedString(string: $0, attributes: [.foregroundColor: placeholderColor ?? CustomTextField.defaultPlaceholderColor])
+        }
     }
 }

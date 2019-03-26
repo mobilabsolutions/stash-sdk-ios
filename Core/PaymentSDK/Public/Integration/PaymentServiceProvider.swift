@@ -1,4 +1,5 @@
 //
+import MobilabPaymentUI
 //  PSPIntegrationProtocol.swift
 //  MLPaymentSDK
 //
@@ -34,8 +35,11 @@ public protocol PaymentServiceProvider {
     /// - Parameters:
     ///   - paymentMethodType: The payment method type for which to create the UI. Is one of `supportedPaymentMethodTypeUserInterfaces`
     ///   - billingData: The billing data to prefill (if necessary)
+    ///   - configuration: The UI configuration to apply
     /// - Returns: A view controller for inputting the data relevant to the payment method type
-    func viewController(for paymentMethodType: PaymentMethodType, billingData: BillingData?) -> (UIViewController & PaymentMethodDataProvider)?
+    func viewController(for paymentMethodType: PaymentMethodType,
+                        billingData: BillingData?,
+                        configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)?
 }
 
 public extension PaymentServiceProvider {
@@ -43,7 +47,7 @@ public extension PaymentServiceProvider {
         return []
     }
 
-    func viewController(for _: PaymentMethodType, billingData _: BillingData?) -> (UIViewController & PaymentMethodDataProvider)? {
+    func viewController(for _: PaymentMethodType, billingData _: BillingData?, configuration _: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         return nil
     }
 }

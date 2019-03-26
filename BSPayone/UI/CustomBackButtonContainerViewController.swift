@@ -22,11 +22,14 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     }
 
     private var viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider
+    private let configuration: PaymentMethodUIConfiguration
+
     private let backButtonContainer = UIView()
     private let doneButton = DoneButtonView()
 
-    public init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider) {
+    public init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {
         self.viewController = viewController
+        self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
         viewController.doneButtonUpdating = self
     }
@@ -37,8 +40,12 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.doneButton.setup(delegate: self.viewController, buttonEnabled: false)
-        self.view.backgroundColor = UIConstants.iceBlue
+        self.doneButton.setup(delegate: self.viewController,
+                              buttonEnabled: false,
+                              enabledColor: self.configuration.buttonColor,
+                              disabledColor: self.configuration.buttonDisabledColor,
+                              textColor: self.configuration.buttonTextColor)
+        self.view.backgroundColor = self.configuration.backgroundColor
 
         self.doneButton.translatesAutoresizingMaskIntoConstraints = false
 

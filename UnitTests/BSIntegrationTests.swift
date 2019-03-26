@@ -68,7 +68,7 @@ class BSIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 1) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error)
         }
     }
