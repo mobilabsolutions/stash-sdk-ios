@@ -1,6 +1,7 @@
 import XCTest
 
 class BTPaymentRequest_Tests: XCTestCase {
+    
     func testPaymentRequest_initializesAndCopiesCorrectly() {
         let paymentRequest = BTPaymentRequest()
         XCTAssertNil(paymentRequest.summaryTitle)
@@ -14,7 +15,7 @@ class BTPaymentRequest_Tests: XCTestCase {
         XCTAssertFalse(paymentRequest.presentViewControllersFromTop)
         XCTAssertNil(paymentRequest.shippingAddress)
         XCTAssertFalse(paymentRequest.showDefaultPaymentMethodNonceFirst)
-
+        
         let paymentRequestCopy = paymentRequest.copy() as! BTPaymentRequest
         XCTAssertNil(paymentRequestCopy.summaryTitle)
         XCTAssertNil(paymentRequestCopy.summaryDescription)
@@ -28,7 +29,7 @@ class BTPaymentRequest_Tests: XCTestCase {
         XCTAssertNil(paymentRequestCopy.shippingAddress)
         XCTAssertFalse(paymentRequest.showDefaultPaymentMethodNonceFirst)
     }
-
+    
     func testPaymentRequest_valuesAreSetAndCopiedCorrectly() {
         let paymentRequest = BTPaymentRequest()
         paymentRequest.summaryTitle = "My Summary Title"
@@ -42,7 +43,7 @@ class BTPaymentRequest_Tests: XCTestCase {
         paymentRequest.presentViewControllersFromTop = true
         let shippingAddress = BTPostalAddress()
         paymentRequest.shippingAddress = shippingAddress
-
+        
         XCTAssertEqual("My Summary Title", paymentRequest.summaryTitle)
         XCTAssertEqual("My Summary Description", paymentRequest.summaryDescription)
         XCTAssertEqual("$123.45", paymentRequest.displayAmount)
@@ -53,7 +54,7 @@ class BTPaymentRequest_Tests: XCTestCase {
         XCTAssertTrue(paymentRequest.noShipping)
         XCTAssertTrue(paymentRequest.presentViewControllersFromTop)
         XCTAssertEqual(shippingAddress, paymentRequest.shippingAddress)
-
+        
         let paymentRequestCopy = paymentRequest.copy() as! BTPaymentRequest
         XCTAssertEqual("My Summary Title", paymentRequestCopy.summaryTitle)
         XCTAssertEqual("My Summary Description", paymentRequestCopy.summaryDescription)
