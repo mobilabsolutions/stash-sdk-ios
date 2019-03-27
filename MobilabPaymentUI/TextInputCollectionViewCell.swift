@@ -45,6 +45,9 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
             case .holderName:
                 self.textField.textContentType = .name
                 self.textField.autocapitalizationType = .words
+            case .cardNumber:
+                self.textField.textContentType = .creditCardNumber
+                self.textField.autocapitalizationType = .allCharacters
             case .iban:
                 self.textField.textContentType = nil
                 self.textField.autocapitalizationType = .allCharacters
@@ -53,6 +56,7 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
                 self.textField.autocapitalizationType = .allCharacters
             default:
                 self.textField.textContentType = nil
+                self.textField.autocapitalizationType = .sentences
             }
         }
     }

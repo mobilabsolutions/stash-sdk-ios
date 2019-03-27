@@ -61,8 +61,8 @@ public class RegistrationManager {
                                              completion: @escaping RegistrationResultCompletion) {
         let selectionViewController = PaymentMethodSelectionCollectionViewController()
 
-        func wrappedErrorCompletion(for dataProvider: PaymentMethodDataProvider?,
-                                    completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
+        func wrappedCompletion(for dataProvider: PaymentMethodDataProvider?,
+                               completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
             let wrapped: RegistrationResultCompletion = { result in
                 switch result {
                 case .success:
@@ -94,12 +94,12 @@ public class RegistrationManager {
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, weak paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {
                     self?.registerCreditCard(creditCardData: creditCardData,
-                                             completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
+                                             completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else if let sepaData = method as? SEPAData {
                     self?.registerSEPAAccount(sepaData: sepaData,
-                                              completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
+                                              completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else if method is PayPalData {
-                    self?.registerPayPal(presentingViewController: viewController, completion: wrappedErrorCompletion(for: paymentMethodViewController, completion: completion))
+                    self?.registerPayPal(presentingViewController: viewController, completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
                 }

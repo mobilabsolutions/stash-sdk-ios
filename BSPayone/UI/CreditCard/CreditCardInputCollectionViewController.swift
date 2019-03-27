@@ -180,13 +180,11 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
 
         switch necessaryDataCell {
         case .nameCell:
-            let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                reuseIdentifier: textReuseIdentifier, for: indexPath)
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.holderName], title: "Cardholder name", placeholder: "Name", dataType: .holderName, error: errors[.holderName]?.description, delegate: self)
             toReturn = cell
         case .cardNumberCell:
-            let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                reuseIdentifier: cardNumberReuseIdentifier, for: indexPath)
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: cardNumberReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.cardNumber], title: "Credit card number", placeholder: "1234", dataType: .cardNumber, textFieldUpdateCallback: { textField in
                 textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
 
@@ -206,8 +204,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
 
             toReturn = cell
         case .dateCVVCell:
-            let cell: DateCVVInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                   reuseIdentifier: dateReuseIdentifier, for: indexPath)
+            let cell: DateCVVInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: dateReuseIdentifier, for: indexPath)
 
             let date: (month: Int, year: Int)?
             if let year = fieldData[.expirationYear], let yearValue = Int(year),
@@ -236,13 +233,6 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         }
 
         return toReturn
-    }
-
-    private func dequeueCell<T: UICollectionViewCell>(collectionView: UICollectionView,
-                                                      reuseIdentifier: String, for indexPath: IndexPath) -> T {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? T
-        else { fatalError("Should be able to dequeue \(T.self) for \(reuseIdentifier)") }
-        return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

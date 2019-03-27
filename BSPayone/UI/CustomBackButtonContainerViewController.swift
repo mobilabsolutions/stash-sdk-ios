@@ -58,7 +58,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
             self.doneButton.heightAnchor.constraint(equalToConstant: doneButtonHeight),
             self.doneButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: doneButtonHorizontalOffset),
             viewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            viewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: self.doneButton.topAnchor),
             viewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             viewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])

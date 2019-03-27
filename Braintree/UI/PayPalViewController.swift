@@ -47,7 +47,7 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
                 let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce)
                 self.didCreatePaymentMethodCompletion?(payPalData)
                 self.dismiss(animated: true, completion: nil)
-            } else if let error = error {
+            } else if error != nil {
                 #warning("Handle request billing agreement error here")
                 self.dismiss(animated: true, completion: nil)
             } else {

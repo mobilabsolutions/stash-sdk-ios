@@ -109,22 +109,19 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
 
         switch necessaryDataCell {
         case .nameCell:
-            let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                reuseIdentifier: textReuseIdentifier, for: indexPath)
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.holderName], title: "Name", placeholder: "Name", dataType: .holderName,
                        error: errors[.holderName]?.description, delegate: self)
 
             toReturn = cell
         case .ibanCell:
-            let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                reuseIdentifier: textReuseIdentifier, for: indexPath)
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.iban], title: "IBAN", placeholder: "XX123", dataType: .iban, textFieldUpdateCallback: { textField in
                 textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
             }, error: errors[.iban]?.description, delegate: self)
             toReturn = cell
         case .bicCell:
-            let cell: TextInputCollectionViewCell = dequeueCell(collectionView: collectionView,
-                                                                reuseIdentifier: textReuseIdentifier, for: indexPath)
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.bic], title: "BIC", placeholder: "XXX", dataType: .bic, error: errors[.bic]?.description, delegate: self)
 
             toReturn = cell
@@ -141,13 +138,6 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         }
 
         return toReturn
-    }
-
-    private func dequeueCell<T: UICollectionViewCell>(collectionView: UICollectionView,
-                                                      reuseIdentifier: String, for indexPath: IndexPath) -> T {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? T
-        else { fatalError("Should be able to dequeue \(T.self) for \(reuseIdentifier)") }
-        return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -125,6 +125,7 @@
 		E1131F7C2236668C0025A711 /* CreditCardDataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7B2236668C0025A711 /* CreditCardDataField.swift */; };
 		E1131F7E223666950025A711 /* SEPADataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7D223666950025A711 /* SEPADataField.swift */; };
 		E1131F80223666A80025A711 /* DataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7F223666A80025A711 /* DataField.swift */; };
+		E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */; };
 		E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */; };
 		E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C02223AB64F00F94F56 /* AppDelegate.m */; };
 		E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C05223AB64F00F94F56 /* ViewController.m */; };
@@ -186,7 +187,7 @@
 		E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */; };
 		E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */; };
 		E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */; };
-		E1D90150224A3CE10067BB8A /* CreditCardType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */; };
+		E1CF7227224B807000B29576 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */; };
 		E1D90151224A7E9E0067BB8A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; };
 		E1D90152224A7E9E0067BB8A /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90153224A7E9E0067BB8A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; };
@@ -479,6 +480,7 @@
 		E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointProvidingDelegate.swift; sourceTree = "<group>"; };
 		E1C9A85A2240F7020099DB2E /* NecessaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryData.swift; sourceTree = "<group>"; };
 		E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardType+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -767,6 +769,7 @@
 				1D34CBF120E128F70011F901 /* Foundation */,
 				E17648D5223923FB00889920 /* CreditCardUtils.swift */,
 				E17648D92239466400889920 /* SEPAUtils.swift */,
+				E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */,
 				BA6D67922244683900463E0F /* FatalErrorAssertion.swift */,
 			);
 			path = Extensions;
@@ -1132,6 +1135,7 @@
 				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
 				E1C9A85C22413C740099DB2E /* SEPA */,
 				E1C9A849223FAA810099DB2E /* CreditCard */,
+				E1CF7226224B7FFF00B29576 /* Other */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1141,7 +1145,6 @@
 			children = (
 				E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */,
 				E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */,
-				E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */,
 			);
 			path = CreditCard;
 			sourceTree = "<group>";
@@ -1161,6 +1164,14 @@
 				E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */,
 			);
 			path = SEPA;
+			sourceTree = "<group>";
+		};
+		E1CF7226224B7FFF00B29576 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1595,6 +1606,7 @@
 				E17648F3223A6D2F00889920 /* PaymentMethodDataProvider.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
 				E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */,
+				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
 				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
 				1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */,
@@ -1690,9 +1702,9 @@
 				E17648D42237FD7300889920 /* CreditCardTypeExtensions.swift in Sources */,
 				BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				E162FFC22243DB3F00413764 /* CustomBackButtonContainerViewController.swift in Sources */,
+				E1CF7227224B807000B29576 /* UICollectionView+Extensions.swift in Sources */,
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
 				E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */,
-				E1D90150224A3CE10067BB8A /* CreditCardType+Extensions.swift in Sources */,
 				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
 				E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
