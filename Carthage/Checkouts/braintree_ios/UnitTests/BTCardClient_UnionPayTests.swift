@@ -1,15 +1,14 @@
-import XCTest
 import BraintreeUnionPay
+import XCTest
 
 class BTCardClient_UnionPayTests: XCTestCase {
-    
     var apiClient: BTAPIClient!
-    
+
     override func setUp() {
         super.setUp()
-        apiClient = clientWithUnionPayEnabled(true)
+        self.apiClient = self.clientWithUnionPayEnabled(true)
     }
-   
+
     // MARK: - Fetch capabilities
 
     func testFetchCapabilities_whenConfigurationFetchFails_returnsError() {
@@ -25,7 +24,7 @@ class BTCardClient_UnionPayTests: XCTestCase {
                 XCTFail()
                 return
             }
-            
+
             XCTAssertNil(cardNonce)
             XCTAssertEqual(error as NSError, stubConfigurationHTTP.cannedError! as NSError)
             expectation.fulfill()
@@ -51,14 +50,14 @@ class BTCardClient_UnionPayTests: XCTestCase {
     }
 
     func testFetchCapabilities_whenUnionPayIsNotEnabledForMerchant_returnsError() {
-        apiClient = clientWithUnionPayEnabled(false)
+        self.apiClient = self.clientWithUnionPayEnabled(false)
         let cardClient = BTCardClient(apiClient: apiClient)
         let cardNumber = "411111111111111"
 
         let expectation = self.expectation(description: "Callback invoked")
         cardClient.fetchCapabilities(cardNumber) { (cardNonce, error) -> Void in
             XCTAssertNil(cardNonce)
-            guard let error = error as NSError? else {return}
+            guard let error = error as NSError? else { return }
             XCTAssertEqual(error.domain, BTCardClientErrorDomain)
             XCTAssertEqual(error.code, BTCardClientErrorType.paymentOptionNotEnabled.rawValue)
             XCTAssertEqual(error.localizedDescription, "UnionPay is not enabled for this merchant")
@@ -67,7 +66,7 @@ class BTCardClient_UnionPayTests: XCTestCase {
 
         waitForExpectations(timeout: 1, handler: nil)
     }
-    
+
     func testFetchCapabilities_whenUnionPayIsEnabledForMerchant_sendsGETRequestToCapabilitiesEndpointWithExpectedPayload() {
         let mockHTTP = BTFakeHTTP()!
         apiClient.http = mockHTTP
@@ -100,9 +99,9 @@ class BTCardClient_UnionPayTests: XCTestCase {
             "isDebit": false,
             "unionPay": [
                 "supportsTwoStepAuthAndCapture": true,
-                "isSupported": true
-                ]
-            ], statusCode: 201)
+                "isSupported": true,
+            ],
+        ], statusCode: 201)
         apiClient.http = stubHTTP
         let cardClient = BTCardClient(apiClient: apiClient)
         let cardNumber = "411111111111111"
@@ -121,30 +120,30 @@ class BTCardClient_UnionPayTests: XCTestCase {
             XCTAssertEqual(true, cardCapabilities.isSupported)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testFetchCapabilities_whenSuccessful_sendsAnalyticsEvent() {
         let mockAPIClient = MockAPIClient(authorization: BTValidTestClientToken)!
         mockAPIClient.cannedConfigurationResponseBody = BTJSON(value: ["unionPay": ["enabled": true]])
-        mockAPIClient.cannedResponseBody = BTJSON(value:[
+        mockAPIClient.cannedResponseBody = BTJSON(value: [
             "isUnionPay": true,
             "isDebit": false,
             "unionPay": [
                 "supportsTwoStepAuthAndCapture": true,
-                "isSupported": true
-                ]
-            ])
+                "isSupported": true,
+            ],
+        ])
         let cardClient = BTCardClient(apiClient: mockAPIClient)
         let cardNumber = "411111111111111"
 
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.fetchCapabilities(cardNumber) { (cardCapabilities, error) -> Void in
+        cardClient.fetchCapabilities(cardNumber) { (_, _) -> Void in
             XCTAssertEqual(mockAPIClient.postedAnalyticsEvents.last!, "ios.custom.unionpay.capabilities-received")
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 1, handler: nil)
     }
 
@@ -159,15 +158,15 @@ class BTCardClient_UnionPayTests: XCTestCase {
         let expectation = self.expectation(description: "Callback invoked")
         cardClient.fetchCapabilities(cardNumber) { (cardCapabilities, error) -> Void in
             XCTAssertNil(cardCapabilities)
-            guard let error = error as NSError? else {return}
+            guard let error = error as NSError? else { return }
             XCTAssertEqual(error.domain, stubbedError.domain)
             XCTAssertEqual(error.code, stubbedError.code)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
-    
+
     // MARK: - Enrollment
 
     func testEnroll_whenConfigurationFetchFails_returnsError() {
@@ -181,12 +180,12 @@ class BTCardClient_UnionPayTests: XCTestCase {
         request.mobilePhoneNumber = "321"
 
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { (enrollmentID, smsCodeRequired, error) -> Void in
+        cardClient.enrollCard(request) { (enrollmentID, _, error) -> Void in
             guard let error = error else {
                 XCTFail()
                 return
             }
-          
+
             XCTAssertNil(enrollmentID)
             XCTAssertEqual(error as NSError, stubConfigurationHTTP.cannedError! as NSError)
             expectation.fulfill()
@@ -194,9 +193,9 @@ class BTCardClient_UnionPayTests: XCTestCase {
 
         waitForExpectations(timeout: 1, handler: nil)
     }
-    
+
     func testEnrollment_whenUnionPayIsNotEnabledForMerchant_returnsError() {
-        apiClient = clientWithUnionPayEnabled(false)
+        self.apiClient = self.clientWithUnionPayEnabled(false)
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: "123")
         let request = BTCardRequest(card: card)
@@ -204,9 +203,9 @@ class BTCardClient_UnionPayTests: XCTestCase {
         request.mobilePhoneNumber = "321"
 
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { (enrollmentID, smsCodeRequired, error) -> Void in
+        cardClient.enrollCard(request) { (enrollmentID, _, error) -> Void in
             XCTAssertNil(enrollmentID)
-            guard let error = error as NSError? else {return}
+            guard let error = error as NSError? else { return }
             XCTAssertEqual(error.domain, BTCardClientErrorDomain)
             XCTAssertEqual(error.code, BTCardClientErrorType.paymentOptionNotEnabled.rawValue)
             XCTAssertEqual(error.localizedDescription, "UnionPay is not enabled for this merchant")
@@ -226,18 +225,18 @@ class BTCardClient_UnionPayTests: XCTestCase {
         request.mobilePhoneNumber = "321"
 
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 1, handler: nil)
 
         XCTAssertEqual(mockHTTP.lastRequestMethod, "POST")
         XCTAssertEqual(mockHTTP.lastRequestEndpoint, "v1/union_pay_enrollments")
-        guard let parameters = mockHTTP.lastRequestParameters as? [String:AnyObject] else {
+        guard let parameters = mockHTTP.lastRequestParameters as? [String: AnyObject] else {
             XCTFail()
             return
         }
-        guard let enrollment = parameters["union_pay_enrollment"] as? [String:AnyObject] else {
+        guard let enrollment = parameters["union_pay_enrollment"] as? [String: AnyObject] else {
             XCTFail()
             return
         }
@@ -259,16 +258,16 @@ class BTCardClient_UnionPayTests: XCTestCase {
         request.mobilePhoneNumber = "321"
 
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 1, handler: nil)
 
-        guard let parameters = mockHTTP.lastRequestParameters as? [String:AnyObject] else {
+        guard let parameters = mockHTTP.lastRequestParameters as? [String: AnyObject] else {
             XCTFail()
             return
         }
-        guard let enrollment = parameters["union_pay_enrollment"] as? [String:AnyObject] else {
+        guard let enrollment = parameters["union_pay_enrollment"] as? [String: AnyObject] else {
             XCTFail()
             return
         }
@@ -280,8 +279,8 @@ class BTCardClient_UnionPayTests: XCTestCase {
         let stubHTTP = BTFakeHTTP()!
         stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWith: [
             "unionPayEnrollmentId": "fake-enrollment-id",
-            "smsCodeRequired": true
-            ], statusCode: 201)
+            "smsCodeRequired": true,
+        ], statusCode: 201)
         apiClient.http = stubHTTP
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
@@ -298,18 +297,19 @@ class BTCardClient_UnionPayTests: XCTestCase {
             XCTAssertTrue(smsCodeRequired)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
-    
+
     func testEnrollCard_when422Failure_returnsValidationError() {
         let stubHTTP = BTFakeHTTP()!
         let stubbed422HTTPResponse = HTTPURLResponse(url: URL(string: "someendpoint")!, statusCode: 422, httpVersion: nil, headerFields: nil)!
         let stubbed422ResponseBody = BTJSON(value: ["some": "thing"])
         let stubbedError = NSError(domain: BTHTTPErrorDomain, code: BTHTTPErrorCode.clientError.rawValue, userInfo: [
             BTHTTPURLResponseKey: stubbed422HTTPResponse,
-            BTHTTPJSONResponseBodyKey: stubbed422ResponseBody])
-        stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWithError:stubbedError)
+            BTHTTPJSONResponseBodyKey: stubbed422ResponseBody,
+        ])
+        stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWithError: stubbedError)
         apiClient.http = stubHTTP
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
@@ -319,22 +319,22 @@ class BTCardClient_UnionPayTests: XCTestCase {
         cardClient.enrollCard(request) { (enrollmentID, smsCodeRequired, error) -> Void in
             XCTAssertNil(enrollmentID)
             XCTAssertFalse(smsCodeRequired)
-            guard let error = error as NSError? else {return}
+            guard let error = error as NSError? else { return }
             XCTAssertEqual(error.domain, BTCardClientErrorDomain)
             XCTAssertEqual(error.code, BTCardClientErrorType.customerInputInvalid.rawValue)
-           
+
             guard let inputErrors = (error._userInfo as! NSDictionary)[BTCustomerInputBraintreeValidationErrorsKey] as? NSDictionary else {
                 XCTFail("Expected error userInfo to contain validation errors")
                 return
             }
             XCTAssertEqual(inputErrors["some"] as! String, "thing")
-            
+
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
-    
+
     func testEnrollCard_onError_invokesCallbackOnMainThread() {
         let stubHTTP = BTFakeHTTP()!
         stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWithError: NSError(domain: "CannedError", code: 0, userInfo: nil))
@@ -342,13 +342,13 @@ class BTCardClient_UnionPayTests: XCTestCase {
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
         let request = BTCardRequest(card: card)
-      
+
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             XCTAssertTrue(Thread.isMainThread)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
 
@@ -359,32 +359,32 @@ class BTCardClient_UnionPayTests: XCTestCase {
         let cardClient = BTCardClient(apiClient: mockAPIClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
         let request = BTCardRequest(card: card)
-      
+
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             XCTAssertEqual(mockAPIClient.postedAnalyticsEvents.last!, "ios.custom.unionpay.enrollment-failed")
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 1, handler: nil)
     }
-    
+
     func testEnrollCard_onSuccess_invokesCallbackOnMainThread() {
         let stubHTTP = BTFakeHTTP()!
         stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWith: [
-            "unionPayEnrollmentId": "fake-enrollment-id"
-            ], statusCode: 201)
+            "unionPayEnrollmentId": "fake-enrollment-id",
+        ], statusCode: 201)
         apiClient.http = stubHTTP
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
         let request = BTCardRequest(card: card)
-      
+
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             XCTAssertTrue(Thread.isMainThread)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
 
@@ -393,25 +393,25 @@ class BTCardClient_UnionPayTests: XCTestCase {
         mockAPIClient.cannedConfigurationResponseBody = BTJSON(value: ["unionPay": ["enabled": true]])
         mockAPIClient.cannedResponseBody = BTJSON(value: [
             "unionPayEnrollmentId": "fake-enrollment-id",
-            "smsCodeRequired": true
+            "smsCodeRequired": true,
         ])
         let cardClient = BTCardClient(apiClient: mockAPIClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
         let request = BTCardRequest(card: card)
-      
+
         let expectation = self.expectation(description: "Callback invoked")
-        cardClient.enrollCard(request) { _,_,_  -> Void in
+        cardClient.enrollCard(request) { _, _, _ -> Void in
             XCTAssertEqual(mockAPIClient.postedAnalyticsEvents.last!, "ios.custom.unionpay.enrollment-succeeded")
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testEnrollCard_whenOtherFailure_returnsError() {
         let stubHTTP = BTFakeHTTP()!
         let stubbedError = NSError(domain: "FakeError", code: 1, userInfo: nil)
-        stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWithError:stubbedError)
+        stubHTTP.stubRequest("POST", toEndpoint: "v1/union_pay_enrollments", respondWithError: stubbedError)
         apiClient.http = stubHTTP
         let cardClient = BTCardClient(apiClient: apiClient)
         let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: nil)
@@ -421,17 +421,17 @@ class BTCardClient_UnionPayTests: XCTestCase {
         cardClient.enrollCard(request) { (enrollmentID, smsCodeRequired, error) -> Void in
             XCTAssertNil(enrollmentID)
             XCTAssertFalse(smsCodeRequired)
-            guard let error = error as NSError? else {return}
+            guard let error = error as NSError? else { return }
             XCTAssertEqual(error.domain, "FakeError")
             XCTAssertEqual(error.code, 1)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 2, handler: nil)
     }
-   
+
     // MARK: - Tokenization
-    
+
     func testTokenization_POSTsToTokenizationEndpoint() {
         let mockHTTP = BTFakeHTTP()!
         apiClient.http = mockHTTP
@@ -458,24 +458,24 @@ class BTCardClient_UnionPayTests: XCTestCase {
             XCTAssertEqual(cardParameters["number"] as? String, "4111111111111111")
             XCTAssertEqual(cardParameters["expiration_date"] as? String, "12/2038")
             XCTAssertEqual(cardParameters["cvv"] as? String, "123")
-            
+
             guard let tokenizationOptionsParameters = cardParameters["options"] as? [String: AnyObject] else {
                 XCTFail("Tokenization options should be present")
                 return
             }
-            
+
             guard let unionPayEnrollmentParameters = tokenizationOptionsParameters["union_pay_enrollment"] as? [String: AnyObject] else {
                 XCTFail("UnionPay enrollment should be present")
                 return
             }
-            
+
             XCTAssertEqual(unionPayEnrollmentParameters["sms_code"] as? String, "12345")
             XCTAssertEqual(unionPayEnrollmentParameters["id"] as? String, "enrollment-id")
         } else {
             XCTFail()
         }
     }
-    
+
     func testTokenization_withEnrollmentIDAndNoSMSCode_sendsUnionPayEnrollment() {
         let mockHTTP = BTFakeHTTP()!
         apiClient.http = mockHTTP
@@ -501,17 +501,17 @@ class BTCardClient_UnionPayTests: XCTestCase {
             XCTAssertEqual(cardParameters["number"] as? String, "4111111111111111")
             XCTAssertEqual(cardParameters["expiration_date"] as? String, "12/2038")
             XCTAssertEqual(cardParameters["cvv"] as? String, "123")
-            
+
             guard let tokenizationOptionsParameters = cardParameters["options"] as? [String: AnyObject] else {
                 XCTFail("Tokenization options should be present")
                 return
             }
-            
+
             guard let unionPayEnrollmentParameters = tokenizationOptionsParameters["union_pay_enrollment"] as? [String: AnyObject] else {
                 XCTFail("UnionPay enrollment should be present")
                 return
             }
-            
+
             XCTAssertNil(unionPayEnrollmentParameters["sms_code"])
             XCTAssertEqual(unionPayEnrollmentParameters["id"] as? String, "enrollment-id")
         } else {
@@ -527,8 +527,12 @@ class BTCardClient_UnionPayTests: XCTestCase {
                     "nonce": "fake-nonce",
                     "description": "UnionPay ending in 11",
                     "details": [
-                        "lastTwo" : "11",
-                        "cardType": "unionpay"] ] ] ] )
+                        "lastTwo": "11",
+                        "cardType": "unionpay",
+                    ],
+                ],
+            ],
+        ])
         let cardClient = BTCardClient(apiClient: mockAPIClient)
         let request = BTCardRequest()
         request.card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: "123")
@@ -558,21 +562,20 @@ class BTCardClient_UnionPayTests: XCTestCase {
             XCTAssertEqual(mockAPIClient.postedAnalyticsEvents.last!, "ios.custom.unionpay.nonce-failed")
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 1, handler: nil)
     }
 
     // MARK: - Helpers
-    
+
     func clientWithUnionPayEnabled(_ unionPayEnabled: Bool) -> BTAPIClient {
         let apiClient = BTAPIClient(authorization: BTValidTestClientToken, sendAnalyticsEvent: false)!
         let stubbedConfigurationHTTP = BTFakeHTTP()!
         stubbedConfigurationHTTP.cannedConfiguration = BTJSON(value: ["unionPay": [
-            "enabled": unionPayEnabled
-            ] ])
+            "enabled": unionPayEnabled,
+        ]])
         stubbedConfigurationHTTP.cannedStatusCode = 200
         apiClient.configurationHTTP = stubbedConfigurationHTTP
         return apiClient
     }
-
 }

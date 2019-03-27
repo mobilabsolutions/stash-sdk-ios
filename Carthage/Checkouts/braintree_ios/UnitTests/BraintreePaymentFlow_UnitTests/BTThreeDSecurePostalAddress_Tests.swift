@@ -1,7 +1,6 @@
 import XCTest
 
 class BTThreeDSecurePostalAddress_Tests: XCTestCase {
-    
     func testCopiesAllProperties() {
         let originalAddress = BTThreeDSecurePostalAddress()
         originalAddress.firstName = "Joe"
@@ -13,7 +12,7 @@ class BTThreeDSecurePostalAddress_Tests: XCTestCase {
         originalAddress.region = "CA"
         originalAddress.countryCodeAlpha2 = "US"
         originalAddress.postalCode = "54321"
-        
+
         let addressCopy = originalAddress.copy() as! BTThreeDSecurePostalAddress
         XCTAssertEqual(addressCopy.firstName, "Joe")
         XCTAssertEqual(addressCopy.lastName, "Guy")

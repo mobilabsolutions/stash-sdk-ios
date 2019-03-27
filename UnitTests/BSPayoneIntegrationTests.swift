@@ -32,7 +32,7 @@ class BSPayoneIntegrationTests: XCTestCase {
     func testCreditCardBS() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("credit_card_success.json", type(of: self))
-            else { fatalError("Expected file credit_card_success.json to exist.") }
+            else { Swift.fatalError("Expected file credit_card_success.json to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
 
@@ -82,6 +82,12 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testAddSEPABS() throws {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("sepa_success.json", type(of: self))
+            else { Swift.fatalError("Expected file sepa_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let expectation = self.expectation(description: "Registering SEPA succeeds")
 
         let billingData = BillingData(email: "max@mustermann.de",
@@ -125,7 +131,7 @@ class BSPayoneIntegrationTests: XCTestCase {
     func testCorrectlyPropagatesBSError() {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("credit_card_failure.json", type(of: self))
-            else { fatalError("Expected file credit_card_failure.json to exist.") }
+            else { Swift.fatalError("Expected file credit_card_failure.json to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
 
