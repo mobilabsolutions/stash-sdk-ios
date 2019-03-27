@@ -8,10 +8,12 @@
 
 @testable import MobilabPaymentBSPayone
 @testable import MobilabPaymentCore
+import OHHTTPStubs
 import XCTest
 
 class BSPayoneIntegrationTests: XCTestCase {
     private var provider: PaymentServiceProvider?
+    private let bsPayoneHost = "secure.pay1.de"
 
     override func setUp() {
         super.setUp()
@@ -28,6 +30,12 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testCreditCardBS() throws {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("credit_card_success.json", type(of: self))
+            else { fatalError("Expected file credit_card_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
@@ -115,6 +123,12 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testCorrectlyPropagatesBSError() {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("credit_card_failure.json", type(of: self))
+            else { fatalError("Expected file credit_card_failure.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",

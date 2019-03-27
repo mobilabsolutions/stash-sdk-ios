@@ -126,6 +126,10 @@
 		E1131F7E223666950025A711 /* SEPADataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7D223666950025A711 /* SEPADataField.swift */; };
 		E1131F80223666A80025A711 /* DataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F7F223666A80025A711 /* DataField.swift */; };
 		E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */; };
+		E117E019224B9F1800E4C591 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */; };
+		E117E01C224BA0FD00E4C591 /* credit_card_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01B224BA0FD00E4C591 /* credit_card_success.json */; };
+		E117E01E224BA18D00E4C591 /* credit_card_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01D224BA18D00E4C591 /* credit_card_failure.json */; };
+		E117E020224BA41400E4C591 /* sepa_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01F224BA41400E4C591 /* sepa_success.json */; };
 		E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */; };
 		E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C02223AB64F00F94F56 /* AppDelegate.m */; };
 		E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C05223AB64F00F94F56 /* ViewController.m */; };
@@ -416,6 +420,10 @@
 		E1131F7B2236668C0025A711 /* CreditCardDataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataField.swift; sourceTree = "<group>"; };
 		E1131F7D223666950025A711 /* SEPADataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataField.swift; sourceTree = "<group>"; };
 		E1131F7F223666A80025A711 /* DataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataField.swift; sourceTree = "<group>"; };
+		E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		E117E01B224BA0FD00E4C591 /* credit_card_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credit_card_success.json; sourceTree = "<group>"; };
+		E117E01D224BA18D00E4C591 /* credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credit_card_failure.json; sourceTree = "<group>"; };
+		E117E01F224BA41400E4C591 /* sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sepa_success.json; sourceTree = "<group>"; };
 		E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBSPayoneBridge.swift; sourceTree = "<group>"; };
 		E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C01223AB64F00F94F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -500,6 +508,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E117E019224B9F1800E4C591 /* OHHTTPStubs.framework in Frameworks */,
 				BA6D6788224460FB00463E0F /* BraintreePayPal.framework in Frameworks */,
 				BA6D678E224460FB00463E0F /* PayPalDataCollector.framework in Frameworks */,
 				BA6D6789224460FB00463E0F /* BraintreeCard.framework in Frameworks */,
@@ -658,6 +667,7 @@
 		1DC5CBA220D2BF5E002058C1 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				E117E01A224BA0C300E4C591 /* resources */,
 				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
 				BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */,
 				1DC5CBA320D2BF5E002058C1 /* BSPayoneIntegrationTests.swift */,
@@ -902,6 +912,7 @@
 		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */,
 				BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */,
 				BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */,
 				BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */,
@@ -1026,6 +1037,16 @@
 				E17648F8223A840400889920 /* UIViewController+Extensions.swift */,
 			);
 			path = other;
+			sourceTree = "<group>";
+		};
+		E117E01A224BA0C300E4C591 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				E117E01B224BA0FD00E4C591 /* credit_card_success.json */,
+				E117E01D224BA18D00E4C591 /* credit_card_failure.json */,
+				E117E01F224BA41400E4C591 /* sepa_success.json */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 		E11C3C00223AB64F00F94F56 /* Demo-ObjC */ = {
@@ -1445,6 +1466,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E117E020224BA41400E4C591 /* sepa_success.json in Resources */,
+				E117E01C224BA0FD00E4C591 /* credit_card_success.json in Resources */,
+				E117E01E224BA18D00E4C591 /* credit_card_failure.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,6 +1571,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PayPalDataCollector.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PayPalOneTouch.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PayPalUtils.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -2297,6 +2322,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DemoUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2319,6 +2348,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DemoUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
