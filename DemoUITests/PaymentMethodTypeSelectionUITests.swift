@@ -20,7 +20,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
 
-        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "SEPA"), (.payPal, "PayPal")]
+        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "Sepa"), (.payPal, "PayPal")]
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
         for methodType in supportedMethodTypes {
