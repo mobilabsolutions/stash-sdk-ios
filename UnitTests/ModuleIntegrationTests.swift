@@ -145,7 +145,7 @@ class ModuleIntegrationTests: XCTestCase {
             return true
         }) { request -> OHHTTPStubsResponse in
 
-            let requestSuccessFile = request.httpMethod == "PUT"
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
                 ? "update_alias_success.json"
                 : "create_alias_success.json"
 
