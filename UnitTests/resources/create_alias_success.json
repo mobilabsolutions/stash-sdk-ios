@@ -1,0 +1,15 @@
+{
+    "aliasId":"hjkVAZujTaZtJdKf8sSv",
+    "psp": {
+        "type":"BS_PAYONE",
+        "merchantId":"987654",
+        "mode":"test",
+        "portalId":"12345678",
+        "request":"creditcardcheck",
+        "apiVersion":"3.11",
+        "responseType":"JSON",
+        "encoding":"UTF-8",
+        "hash":"TESTTESTTESTTESTTEST",
+        "accountId":"1234"
+    }
+}

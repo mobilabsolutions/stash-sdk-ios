@@ -47,6 +47,26 @@ let braintreePSP = MobilabPaymentBraintree(tokenizationKey: "123454321...", urlS
 MobilabPaymentSDK.addProvider(provider: braintreePSP)
 ```
 
+#### Using the SDK in test mode
+
+The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
+To configure the SDK to use test mode, simply prepend the `test` subdomain to your endpoint URL. Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+
+For example:
+
+| Test Mode | Production Mode |
+| --------- | --------------- |
+| https://test.payment.example.net/api/v1 | https://payment.example.net/api/v1 |
+
+Or in code:
+
+```swift
+let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
+configuration.useTestMode = true
+
+MobilabPaymentSDK.configure(configuration: configuration)
+```
+
 ## Registering payment method
 
 To register a payment method you need an instance of `RegistrationManager` class.

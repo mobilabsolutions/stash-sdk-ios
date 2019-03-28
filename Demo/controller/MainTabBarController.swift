@@ -17,6 +17,7 @@ class MainTabBarController: UITabBarController {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
+        configuration.useTestMode = true
 
         MobilabPaymentSDK.configure(configuration: configuration)
 

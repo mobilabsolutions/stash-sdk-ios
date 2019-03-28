@@ -20,8 +20,11 @@
     [super viewDidLoad];
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
                                                   initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint:@"https://payment-dev.mblb.net/api/v1"];
+    [configuration setUseTestMode:YES];
+    [configuration setLoggingEnabled:YES];
+
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
-    
+
     MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];
 }
