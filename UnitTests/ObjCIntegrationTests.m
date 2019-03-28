@@ -52,7 +52,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
+    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
     // This should compile and *not* cause a runtime error since the SDK is now configured.
@@ -74,7 +74,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
+    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
@@ -124,7 +124,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
+    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"sepa"]];
 
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil

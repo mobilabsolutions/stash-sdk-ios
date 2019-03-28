@@ -20,10 +20,10 @@ class MainTabBarController: UITabBarController {
 
         MobilabPaymentSDK.configure(configuration: configuration)
 
-        let pspBsPayone = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let pspBsPayone = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: pspBsPayone, forPaymentMethodTypes: .creditCard, .sepa)
 
-        let pspBraintree = MobilabPaymentBraintree(tokenizationKey: "1234567890987654321", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let pspBraintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
         MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
     }
 }

@@ -12,7 +12,6 @@ import UIKit
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
-    public let publicKey: String
 
     let networkingClient: NetworkClientBSPayone?
 
@@ -57,9 +56,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
-    public init(publicKey: String) {
+    public init() {
         self.networkingClient = NetworkClientBSPayone()
-        self.publicKey = publicKey
         self.pspIdentifier = .bsPayone
     }
 

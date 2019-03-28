@@ -22,9 +22,6 @@ public protocol PaymentServiceProvider {
     /// The PSP identifier as required by the Mobilab payment backend
     var pspIdentifier: MobilabPaymentProvider { get }
 
-    #warning("Document the PSP public key or remove it if it is not necessary")
-    var publicKey: String { get }
-
     /// Handle a request for registering a payment method with the PSP
     ///
     /// - Parameters:

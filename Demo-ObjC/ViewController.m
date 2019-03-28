@@ -22,7 +22,7 @@
                                                   initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint:@"https://payment-dev.mblb.net/api/v1"];
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
     
-    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModuleWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"];
+    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];
 }
 

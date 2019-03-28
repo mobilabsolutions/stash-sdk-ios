@@ -22,7 +22,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
 
-        let provider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let provider = MobilabPaymentBSPayone()
         self.provider = provider
 
         MobilabPaymentSDK.configure(configuration: configuration)
