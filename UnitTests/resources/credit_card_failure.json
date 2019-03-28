@@ -1,0 +1,6 @@
+{
+    "status" : "ERROR",
+    "errorcode" : "1077",
+    "errormessage" : "Parameter {cardexpiredate} faulty or missing",
+    "customermessage" : "Invalid card expiry date. Please verify your card data."
+}

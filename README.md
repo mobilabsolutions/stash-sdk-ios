@@ -156,6 +156,7 @@ By calling `registerPaymentMethodUsingUI` on the registration manager, the user 
 Typical usage of this functionality might look like this:
 
 ```swift
+
 let registrationManager = MobilabPaymentSDK.getRegisterManager()
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {

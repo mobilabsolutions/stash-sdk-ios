@@ -20,8 +20,8 @@ before_script:
   - carthage update --cache-builds --platform iOS
 
 script:
-  - set -o pipefail
+  - set -e
   - echo "Starting Unit Tests"
-  - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test
+  - travis_retry xcodebuild clean test -quiet -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test
   - echo "Starting UI Tests"
-  - travis_retry xcodebuild test -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" test
+  - travis_retry xcodebuild test -quiet -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" test

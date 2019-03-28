@@ -30,7 +30,7 @@ public class MobilabPaymentSDK {
     /// Create a registration manager to use for registering payment methods
     ///
     /// - Returns: The registration manager
-    public static func getRegisterManager() -> RegistrationManager {
+    public static func getRegistrationManager() -> RegistrationManager {
         return RegistrationManager()
     }
 }

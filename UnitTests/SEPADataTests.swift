@@ -34,4 +34,26 @@ class SEPADataTests: XCTestCase {
             XCTAssertFalse(SEPAUtils.isValid(cleanedNumber: invalid), "\(invalid) should be an invalid IBAN")
         }
     }
+
+    func testCorrectlyFormatsIban() {
+        func attributedStringToSpacedString(attributed: NSAttributedString) -> String {
+            return attributed.string.enumerated().reduce("") {
+                var current = $0 + String($1.element)
+                if attributed.attributes(at: $1.offset, effectiveRange: nil)[.kern] != nil {
+                    current += " "
+                }
+                return current
+            }
+        }
+
+        let formatted = ["DE75 5121 0800 1245 1261 99", "DE75 5121 0800 1245 1261 99", "BA39 3385 8048 0021 1234", "AT48 3200 0000 1234 5864",
+                         "CY21 0020 0195 0000 3570 0123 4567", "SV43 ACAT 0000 0000 0000 0012 3123"]
+        let unformatted = ["DE7 551 210 80012 45126 199", "D E7 55 121080 01245126199", "BA393385804800211234", "AT483200000012345864",
+                           "CY21002001950000357001234567", "SV43ACAT00000000000000123123"]
+
+        for (current, expected) in zip(unformatted, formatted) {
+            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: current)), expected)
+            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: expected)), expected)
+        }
+    }
 }

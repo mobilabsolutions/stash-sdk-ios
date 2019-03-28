@@ -12,4 +12,6 @@ import Foundation
 public protocol PaymentMethodDataProvider {
     /// A callback to call once the registration data is created
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)? { get set }
+    /// A method that is called when an error occurs during payment method creation
+    func errorWhileCreatingPaymentMethod(error: MLError)
 }

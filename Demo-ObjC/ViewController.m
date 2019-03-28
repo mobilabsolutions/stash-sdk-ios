@@ -30,8 +30,7 @@
     [super viewDidAppear:animated];
 
     __weak typeof(self) weakSelf = self;
-    
-    [[MLMobilabPaymentSDK getRegisterManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
         if (alias != nil) {
             NSLog(@"Got alias: %@", alias);
             [weakSelf dismissViewControllerAnimated:YES completion:^{
@@ -40,10 +39,6 @@
         }
         else {
             NSLog(@"Got error: %@", [error failureReason]);
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
-                NSString *errorMessage = [NSString stringWithFormat:@"Failed to register payment method: %@", [error failureReason]];
-                [weakSelf showAlertWithTitle:@"Failure" andBody:errorMessage];
-            }];
         }
     }];
 }

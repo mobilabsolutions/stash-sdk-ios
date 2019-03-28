@@ -39,9 +39,11 @@ public protocol PaymentServiceProvider {
 
     /// Create a view controller allowing input of data for a given payment method type
     ///
-    /// - Parameter paymentMethodType: The payment method type for which to create the UI. Is one of `supportedPaymentMethodTypeUserInterfaces`
+    /// - Parameters:
+    ///   - paymentMethodType: The payment method type for which to create the UI. Is one of `supportedPaymentMethodTypeUserInterfaces`
+    ///   - billingData: The billing data to prefill (if necessary)
     /// - Returns: A view controller for inputting the data relevant to the payment method type
-    func viewController(for paymentMethodType: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)?
+    func viewController(for paymentMethodType: PaymentMethodType, billingData: BillingData?) -> (UIViewController & PaymentMethodDataProvider)?
 }
 
 public extension PaymentServiceProvider {
@@ -49,7 +51,7 @@ public extension PaymentServiceProvider {
         return []
     }
 
-    func viewController(for _: PaymentMethodType) -> (UIViewController & PaymentMethodDataProvider)? {
+    func viewController(for _: PaymentMethodType, billingData _: BillingData?) -> (UIViewController & PaymentMethodDataProvider)? {
         return nil
     }
 }

@@ -11,10 +11,13 @@ import UIKit
 public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
 
+    public func errorWhileCreatingPaymentMethod(error _: MLError) {
+        #warning("Handle PayPal error here")
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        // self.navigationController?.navigationBar.isHidden = true
 
         self.showActivityIndicatory()
 

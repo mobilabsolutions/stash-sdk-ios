@@ -47,7 +47,7 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
                 let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce)
                 self.didCreatePaymentMethodCompletion?(payPalData)
                 self.dismiss(animated: true, completion: nil)
-            } else if let error = error {
+            } else if error != nil {
                 #warning("Handle request billing agreement error here")
                 self.dismiss(animated: true, completion: nil)
             } else {
@@ -65,6 +65,14 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
 
     func paymentDriver(_: Any, requestsPresentationOf viewController: UIViewController) {
         present(viewController, animated: true, completion: nil)
+    }
+
+    func errorWhileCreatingPaymentMethod(error: MLError) {
+        let alert = UIAlertController(title: error.title, message: error.failureReason ?? "An error occurred while adding a PayPal method (\(error.code))",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
     }
 
     // MARK: - BTAppSwitchDelegate

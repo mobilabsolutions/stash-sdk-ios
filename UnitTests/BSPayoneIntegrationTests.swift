@@ -8,10 +8,12 @@
 
 @testable import MobilabPaymentBSPayone
 @testable import MobilabPaymentCore
+import OHHTTPStubs
 import XCTest
 
 class BSPayoneIntegrationTests: XCTestCase {
     private var provider: PaymentServiceProvider?
+    private let bsPayoneHost = "secure.pay1.de"
 
     override func setUp() {
         super.setUp()
@@ -28,13 +30,19 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testCreditCardBS() throws {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("credit_card_success.json", type(of: self))
+            else { Swift.fatalError("Expected file credit_card_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
                                                 holderName: "Holder Name", billingData: billingData)
 
-        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
@@ -57,7 +65,7 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         XCTAssertEqual(creditCardData.cardType, .unknown)
 
-        let registrationManager = MobilabPaymentSDK.getRegisterManager()
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success:
@@ -74,6 +82,12 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testAddSEPABS() throws {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("sepa_success.json", type(of: self))
+            else { Swift.fatalError("Expected file sepa_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let expectation = self.expectation(description: "Registering SEPA succeeds")
 
         let billingData = BillingData(email: "max@mustermann.de",
@@ -89,7 +103,7 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
-        let registerManager = MobilabPaymentSDK.getRegisterManager()
+        let registerManager = MobilabPaymentSDK.getRegistrationManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
@@ -115,13 +129,19 @@ class BSPayoneIntegrationTests: XCTestCase {
     }
 
     func testCorrectlyPropagatesBSError() {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("credit_card_failure.json", type(of: self))
+            else { Swift.fatalError("Expected file credit_card_failure.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                                 expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: expired) { result in
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error): XCTAssertEqual(error.title, "PSP Error")

@@ -21,16 +21,19 @@ class AddUIViewController: UIViewController {
     }
 
     @objc private func triggerRegisterUI() {
-        MobilabPaymentSDK.getRegisterManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
-            switch result {
-            case let .success(value):
-                self?.dismiss(animated: true) {
-                    self?.showAlert(title: "Success", body: "Successfully registered payment method")
-                }
-                AliasManager.shared.save(alias: Alias(alias: value, expirationYear: nil, expirationMonth: nil, type: .unknown))
-            case let .failure(error):
-                self?.dismiss(animated: true) {
-                    self?.showAlert(title: "Failure", body: error.errorDescription ?? "An error occurred while adding payment method")
+        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(value):
+                    self?.dismiss(animated: true) {
+                        self?.showAlert(title: "Success", body: "Successfully registered payment method")
+                    }
+                    AliasManager.shared.save(alias: Alias(alias: value, expirationYear: nil, expirationMonth: nil, type: .unknown))
+                case let .failure(error):
+                    self?.dismiss(animated: true, completion: {
+                        self?.showAlert(title: "Error", body: error.failureReason ?? "An error occurred while adding a payment method")
+                    })
+                    print("An error occurred while creating a payment method")
                 }
             }
         }

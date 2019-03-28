@@ -56,7 +56,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
@@ -79,7 +79,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                             expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
             case .success:
                 XCTFail("Should not have returned success when module fails")
@@ -110,7 +110,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                    expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegisterManager().registerCreditCard(creditCardData: creditCard) { result in
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             if case .success = result {
                 XCTFail("Should not have returned success when creating an alias fails")
             }

@@ -20,7 +20,7 @@ protocol MLErrorProtocol: LocalizedError {
     /// The unique code identigying the error
     @objc public let code: Int
     /// A string describing the error and reasoning for it
-    @objc public let errorDescription: String
+    @objc public let errorDescription: String?
 
     @objc public var failureReason: String? {
         return self.errorDescription

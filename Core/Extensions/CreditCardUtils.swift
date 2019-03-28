@@ -8,25 +8,39 @@
 
 import Foundation
 
-class CreditCardUtils {
+public class CreditCardUtils {
+    public static func formattedNumber(number: String) -> NSAttributedString {
+        let cleaned = cleanedNumber(number: number)
+        let type = cardTypeFromNumber(cleanedNumber: cleaned)
+        return self.formattedNumber(number: cleaned, for: type)
+    }
+
+    public static func cardTypeFromNumber(number: String) -> CreditCardData.CreditCardType {
+        return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
+    }
+
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {
+        let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
+            .max { $0.0.priority < $1.0.priority }
+        return highestPriorityMatch?.1 ?? .unknown
+    }
+
+    fileprivate static func cardNumbersAndRanges(for cleanedNumber: String) -> [(IINRange, CreditCardData.CreditCardType)] {
         // Get card type from number using IIN ranges as documented here:
         // https://en.wikipedia.org/wiki/Payment_card_number#Major_Industry_Identifier_.28MII.29
         let numberLength = cleanedNumber.count
 
         guard numberLength > 6
-        else { return .unknown }
+        else { return [] }
 
         let iin = String(cleanedNumber[cleanedNumber.startIndex..<cleanedNumber.index(cleanedNumber.startIndex, offsetBy: 6)])
-        let highestPriorityMatch = CreditCardData.CreditCardType.allCases
+        return CreditCardData.CreditCardType.allCases
             .flatMap { type in type.iinRangePatterns.map { (range: $0, type: type) } }
             .filter { range, _ in
                 guard let relevantPart = Int(String(iin[iin.startIndex..<iin.index(iin.startIndex, offsetBy: range.priority)]))
                 else { return false }
                 return range.range ~= relevantPart && range.validLengths.contains { $0 ~= numberLength }
             }
-            .max { $0.0.priority < $1.0.priority }
-        return highestPriorityMatch?.1 ?? .unknown
     }
 
     static func cleanedNumber(number: String) -> String {
@@ -53,6 +67,22 @@ class CreditCardUtils {
 
         let checkDigit = (9 * doubledReversed.reduce(0, +)) % 10
         return checkDigit == digits.last
+    }
+
+    static func formattedNumber(number: String, for type: CreditCardData.CreditCardType) -> NSAttributedString {
+        let cleaned = cleanedNumber(number: number)
+        let formattingSpaces = type.formattingSpaces
+
+        let newString = NSMutableAttributedString(string: cleaned)
+
+        for space in formattingSpaces {
+            guard space < cleaned.count
+            else { break }
+
+            newString.addAttribute(.kern, value: 8.0, range: NSMakeRange(space - 1, 1))
+        }
+
+        return NSAttributedString(attributedString: newString)
     }
 }
 
@@ -101,6 +131,15 @@ extension CreditCardData.CreditCardType {
             return [IINRange(range: 62...62, priority: 2, validLengths: [16...19])]
         case .unknown:
             return []
+        }
+    }
+}
+
+extension CreditCardData.CreditCardType {
+    fileprivate var formattingSpaces: [Int] {
+        switch self {
+        case .americanExpress: return [4, 10]
+        default: return [4, 8, 12, 16]
         }
     }
 }
