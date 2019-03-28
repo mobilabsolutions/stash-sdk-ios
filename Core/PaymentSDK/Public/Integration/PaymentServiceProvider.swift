@@ -11,6 +11,7 @@ import UIKit
 public enum MobilabPaymentProvider: String {
     case bsPayone = "BS_PAYONE"
     case braintree = "BRAINTREE"
+    case adyen = "ADYEN"
 }
 
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide

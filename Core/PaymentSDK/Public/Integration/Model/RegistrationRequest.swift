@@ -30,7 +30,4 @@ public struct RegistrationRequest {
 }
 
 /// Data representing a payment method from the user's view
-public protocol RegistrationData {
-    /// The billing data to use when registering the payment method
-    // var billingData: BillingData { get }
-}
+public protocol RegistrationData {}

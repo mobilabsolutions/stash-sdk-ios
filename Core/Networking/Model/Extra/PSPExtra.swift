@@ -11,6 +11,15 @@ import Foundation
 /// Information about the used PSP retrieved from Mobilab payment backend.
 /// Solely used for module development.
 public struct PSPExtra: Codable {
+    public let bsPayone: BSPayoneExtra?
+    public let braintree: BraintreeExtra?
+    public let adyen: AdyenExtra?
+}
+
+public protocol PSPData {}
+
+// Data needed for BSPayone module configuration
+public struct BSPayoneExtra: PSPData, Codable {
     #warning("Some of these values will have to be made optional. Update when this has been discussed with BE.")
     /// The API version of the PSP to use
     public let apiVersion: String
@@ -32,6 +41,17 @@ public struct PSPExtra: Codable {
     public let type: String
     /// The mode of the payment service provider. Example: "test"
     public let mode: String
-    /// The client token used for initializing Braintree SDK
-    public let braintreeClientToken: String?
+}
+
+// Data needed for Braintree module configuration
+public struct BraintreeExtra: PSPData, Codable {
+    public let clientToken: String
+}
+
+// Data needed for Adyen module configuration
+public struct AdyenExtra: PSPData, Codable {
+    public let apiKey: String
+    public let merchantAccount: String
+    public let shopperReference: String
+    public let returnUrl: String?
 }

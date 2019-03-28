@@ -22,6 +22,17 @@
 		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
 		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
+		BA09A957224D60E8006C3A1D /* MobilabPaymentAdyen.h in Headers */ = {isa = PBXBuildFile; fileRef = BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA09A95A224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; };
+		BA09A95B224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
+		BA21F4F9224D664D004CEAA2 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96B224D635F006C3A1D /* RegisterCreditCardResponse.swift */; };
+		BA21F4FA224D664E004CEAA2 /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */; };
+		BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */; };
+		BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */; };
+		BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */; };
+		BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */; };
+		BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */; };
 		BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */; };
 		BA2A3ABB223BBA1000689A3A /* PayPalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */; };
 		BA2A3AC4223BBAD200689A3A /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
@@ -89,13 +100,16 @@
 		BA8D071A2226AE57004F699A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07182226AE57004F699A /* LaunchScreen.storyboard */; };
 		BA945A08223A83E600C39300 /* PayPalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A07223A83E600C39300 /* PayPalData.swift */; };
 		BA945A0A223A868F00C39300 /* PayPalDataField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A09223A868F00C39300 /* PayPalDataField.swift */; };
-		BA945A2F223A890100C39300 /* Braintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BA945A2D223A890100C39300 /* Braintree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA945A2F223A890100C39300 /* MobilabPaymentBraintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BA945A2D223A890100C39300 /* MobilabPaymentBraintree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA945A32223A890100C39300 /* MobilabPaymentBraintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* MobilabPaymentBraintree.framework */; };
 		BA945A33223A890100C39300 /* MobilabPaymentBraintree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* MobilabPaymentBraintree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA945A37223A894800C39300 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		BA95FC5C224D7F480026BCD9 /* MobilabPaymentBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A961224D6182006C3A1D /* MobilabPaymentBSPayone.swift */; };
+		BA95FC5D224D7F4B0026BCD9 /* MobilabBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A962224D6182006C3A1D /* MobilabBSPayoneBridge.swift */; };
+		BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */; };
 		BAA98270224A4CF000D551DE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA9826F224A4CF000D551DE /* LoadingViewController.swift */; };
 		BABC7D63224229F900028C29 /* MobilabBraintreeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABC7D62224229F900028C29 /* MobilabBraintreeBridge.swift */; };
-		BACD61952226B03600E3ACC3 /* BSPayone.h in Headers */ = {isa = PBXBuildFile; fileRef = BACD61932226B03600E3ACC3 /* BSPayone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BACD61952226B03600E3ACC3 /* MobilabPaymentBSPayone.h in Headers */ = {isa = PBXBuildFile; fileRef = BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BACD61982226B03600E3ACC3 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
 		BACD61992226B03600E3ACC3 /* MobilabPaymentBSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */; };
@@ -103,7 +117,6 @@
 		BACD61A82226CA6D00E3ACC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A72226CA6D00E3ACC3 /* Foundation.framework */; };
 		BACD61AA2226CA8F00E3ACC3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */; };
 		BACD61AC2226CA9500E3ACC3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61AB2226CA9500E3ACC3 /* UIKit.framework */; };
-		BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */; };
 		BACD61B32226CFE800E3ACC3 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */; };
 		BAD64631222E840D00771DC0 /* AliasExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64630222E840D00771DC0 /* AliasExtra.swift */; };
@@ -130,7 +143,6 @@
 		E117E01C224BA0FD00E4C591 /* credit_card_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01B224BA0FD00E4C591 /* credit_card_success.json */; };
 		E117E01E224BA18D00E4C591 /* credit_card_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01D224BA18D00E4C591 /* credit_card_failure.json */; };
 		E117E020224BA41400E4C591 /* sepa_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01F224BA41400E4C591 /* sepa_success.json */; };
-		E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */; };
 		E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C02223AB64F00F94F56 /* AppDelegate.m */; };
 		E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C05223AB64F00F94F56 /* ViewController.m */; };
 		E11C3C09223AB64F00F94F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E11C3C07223AB64F00F94F56 /* Main.storyboard */; };
@@ -205,14 +217,12 @@
 		E1D9015C224A84660067BB8A /* BraintreeCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D9015D224A84660067BB8A /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
 		E1D9015E224A84660067BB8A /* BraintreeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E1D9015F224A84660067BB8A /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
 		E1D90161224A84660067BB8A /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
 		E1D90162224A84660067BB8A /* BraintreePaymentFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90163224A84660067BB8A /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
 		E1D90164224A84660067BB8A /* BraintreeUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90165224A84660067BB8A /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
 		E1D90166224A84660067BB8A /* PayPalDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E1D90167224A84660067BB8A /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
 		E1D90169224A84660067BB8A /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
 		E1D9016A224A84660067BB8A /* PayPalUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90181224A88BA0067BB8A /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
@@ -228,6 +238,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
 			remoteInfo = MLPaymentSDK;
+		};
+		BA09A958224D60E8006C3A1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA09A952224D60E8006C3A1D;
+			remoteInfo = MobilabPaymentAdyen;
 		};
 		BA945A30223A890100C39300 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -315,6 +332,7 @@
 				E1D90154224A7E9E0067BB8A /* Fabric.framework in Embed Frameworks */,
 				BA2A3AEB223BCE2700689A3A /* PayPalOneTouch.framework in Embed Frameworks */,
 				BA2A3AED223BCE2700689A3A /* PayPalUtils.framework in Embed Frameworks */,
+				BA09A95B224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Embed Frameworks */,
 				BA2A3AE1223BCE2700689A3A /* BraintreeCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -363,6 +381,16 @@
 		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
 		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
+		BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentAdyen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilabPaymentAdyen.h; sourceTree = "<group>"; };
+		BA09A956224D60E8006C3A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA09A961224D6182006C3A1D /* MobilabPaymentBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentBSPayone.swift; sourceTree = "<group>"; };
+		BA09A962224D6182006C3A1D /* MobilabBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBSPayoneBridge.swift; sourceTree = "<group>"; };
+		BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestAdyen.swift; sourceTree = "<group>"; };
+		BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientAdyen.swift; sourceTree = "<group>"; };
+		BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
+		BA09A96B224D635F006C3A1D /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
+		BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAdyenData.swift; sourceTree = "<group>"; };
 		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalViewController.swift; sourceTree = "<group>"; };
 		BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCore.framework; path = Carthage/Build/iOS/BraintreeCore.framework; sourceTree = "<group>"; };
@@ -395,20 +423,21 @@
 		BA945A07223A83E600C39300 /* PayPalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalData.swift; sourceTree = "<group>"; };
 		BA945A09223A868F00C39300 /* PayPalDataField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalDataField.swift; sourceTree = "<group>"; };
 		BA945A2B223A890100C39300 /* MobilabPaymentBraintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentBraintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA945A2D223A890100C39300 /* Braintree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Braintree.h; sourceTree = "<group>"; };
+		BA945A2D223A890100C39300 /* MobilabPaymentBraintree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilabPaymentBraintree.h; sourceTree = "<group>"; };
 		BA945A2E223A890100C39300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA945A39223AE7C200C39300 /* MobilabPaymentBraintree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentBraintree.swift; sourceTree = "<group>"; };
+		BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAAdyenData.swift; sourceTree = "<group>"; };
 		BAA9826F224A4CF000D551DE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		BABC7D62224229F900028C29 /* MobilabBraintreeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBraintreeBridge.swift; sourceTree = "<group>"; };
 		BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentBSPayone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BACD61932226B03600E3ACC3 /* BSPayone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSPayone.h; sourceTree = "<group>"; };
+		BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilabPaymentBSPayone.h; sourceTree = "<group>"; };
 		BACD61942226B03600E3ACC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProvider.swift; sourceTree = "<group>"; };
 		BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequest.swift; sourceTree = "<group>"; };
 		BACD61A72226CA6D00E3ACC3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BACD61AB2226CA9500E3ACC3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentBSPayone.swift; sourceTree = "<group>"; };
+		BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentAdyen.swift; sourceTree = "<group>"; };
 		BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientCore.swift; sourceTree = "<group>"; };
 		BAD64630222E840D00771DC0 /* AliasExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasExtra.swift; sourceTree = "<group>"; };
 		BAD64632222EB74B00771DC0 /* UpdateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAliasRequest.swift; sourceTree = "<group>"; };
@@ -427,7 +456,7 @@
 		E117E01B224BA0FD00E4C591 /* credit_card_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credit_card_success.json; sourceTree = "<group>"; };
 		E117E01D224BA18D00E4C591 /* credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credit_card_failure.json; sourceTree = "<group>"; };
 		E117E01F224BA41400E4C591 /* sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sepa_success.json; sourceTree = "<group>"; };
-		E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBSPayoneBridge.swift; sourceTree = "<group>"; };
+		E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabAdyenBridge.swift; sourceTree = "<group>"; };
 		E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C01223AB64F00F94F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E11C3C02223AB64F00F94F56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -528,6 +557,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BA09A950224D60E8006C3A1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BA8D070A2226AE56004F699A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -546,6 +583,7 @@
 				E1D90153224A7E9E0067BB8A /* Fabric.framework in Frameworks */,
 				BA2A3AEA223BCE2700689A3A /* PayPalOneTouch.framework in Frameworks */,
 				BA2A3AEC223BCE2700689A3A /* PayPalUtils.framework in Frameworks */,
+				BA09A95A224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Frameworks */,
 				BA2A3AE0223BCE2700689A3A /* BraintreeCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,8 +629,6 @@
 				E11C3C20223AB69D00F94F56 /* MobilabPaymentCore.framework in Frameworks */,
 				E11C3C24223AB69D00F94F56 /* MobilabPaymentBSPayone.framework in Frameworks */,
 				E1D90181224A88BA0067BB8A /* BraintreeDropIn.framework in Frameworks */,
-				E1D9015F224A84660067BB8A /* BraintreeDropIn.framework in Frameworks */,
-				E1D90167224A84660067BB8A /* PayPalOneTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,8 +667,9 @@
 			children = (
 				1DC5CB9720D2BF5E002058C1 /* Core */,
 				E162FF962243A42500413764 /* MobilabPaymentUI */,
-				BACD61922226B03600E3ACC3 /* BSPayone */,
-				BA945A2C223A890100C39300 /* Braintree */,
+				BACD61922226B03600E3ACC3 /* MobilabPaymentBSPayone */,
+				BA945A2C223A890100C39300 /* MobilabPaymentBraintree */,
+				BA09A954224D60E8006C3A1D /* MobilabPaymentAdyen */,
 				1DC5CBA220D2BF5E002058C1 /* UnitTests */,
 				BA8D070E2226AE56004F699A /* Demo */,
 				E11C3C00223AB64F00F94F56 /* Demo-ObjC */,
@@ -653,6 +690,7 @@
 				E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */,
 				E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */,
 				E162FF952243A42500413764 /* MobilabPaymentUI.framework */,
+				BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -791,6 +829,79 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		BA09A954224D60E8006C3A1D /* MobilabPaymentAdyen */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A960224D6154006C3A1D /* Networking */,
+				BA09A95F224D614C006C3A1D /* Integration */,
+				BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */,
+				BA09A956224D60E8006C3A1D /* Info.plist */,
+			);
+			path = MobilabPaymentAdyen;
+			sourceTree = "<group>";
+		};
+		BA09A95F224D614C006C3A1D /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */,
+				E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		BA09A960224D6154006C3A1D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A967224D632F006C3A1D /* Model */,
+				BA09A964224D626B006C3A1D /* Router */,
+				BA09A963224D6266006C3A1D /* Client */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		BA09A963224D6266006C3A1D /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		BA09A964224D626B006C3A1D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BA09A967224D632F006C3A1D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A969224D633B006C3A1D /* Response */,
+				BA09A968224D6335006C3A1D /* Request */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA09A968224D6335006C3A1D /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */,
+				BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BA09A969224D633B006C3A1D /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A96B224D635F006C3A1D /* RegisterCreditCardResponse.swift */,
+				BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		BA2A3AB9223BADE100689A3A /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -875,15 +986,15 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		BA945A2C223A890100C39300 /* Braintree */ = {
+		BA945A2C223A890100C39300 /* MobilabPaymentBraintree */ = {
 			isa = PBXGroup;
 			children = (
 				BA2A3AB9223BADE100689A3A /* UI */,
 				BA945A38223AE7C200C39300 /* Integration */,
-				BA945A2D223A890100C39300 /* Braintree.h */,
+				BA945A2D223A890100C39300 /* MobilabPaymentBraintree.h */,
 				BA945A2E223A890100C39300 /* Info.plist */,
 			);
-			path = Braintree;
+			path = MobilabPaymentBraintree;
 			sourceTree = "<group>";
 		};
 		BA945A38223AE7C200C39300 /* Integration */ = {
@@ -903,16 +1014,16 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		BACD61922226B03600E3ACC3 /* BSPayone */ = {
+		BACD61922226B03600E3ACC3 /* MobilabPaymentBSPayone */ = {
 			isa = PBXGroup;
 			children = (
 				BAD64641222EC67C00771DC0 /* Integration */,
 				BA3A33AC22295F9C00B7A635 /* Networking */,
 				E1C9A846223FA7E30099DB2E /* UI */,
-				BACD61932226B03600E3ACC3 /* BSPayone.h */,
+				BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */,
 				BACD61942226B03600E3ACC3 /* Info.plist */,
 			);
-			path = BSPayone;
+			path = MobilabPaymentBSPayone;
 			sourceTree = "<group>";
 		};
 		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
@@ -1001,8 +1112,8 @@
 		BAD64641222EC67C00771DC0 /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				BACD61B12226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift */,
-				E11C3BF8223AB53700F94F56 /* MobilabBSPayoneBridge.swift */,
+				BA09A961224D6182006C3A1D /* MobilabPaymentBSPayone.swift */,
+				BA09A962224D6182006C3A1D /* MobilabBSPayoneBridge.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -1213,11 +1324,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BA09A94E224D60E8006C3A1D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA09A957224D60E8006C3A1D /* MobilabPaymentAdyen.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BA945A26223A890100C39300 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA945A2F223A890100C39300 /* Braintree.h in Headers */,
+				BA945A2F223A890100C39300 /* MobilabPaymentBraintree.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,7 +1344,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BACD61952226B03600E3ACC3 /* BSPayone.h in Headers */,
+				BACD61952226B03600E3ACC3 /* MobilabPaymentBSPayone.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,6 +1398,24 @@
 			productReference = 1DC5CB9E20D2BF5E002058C1 /* MobilabPaymentTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BA09A952224D60E8006C3A1D /* MobilabPaymentAdyen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA09A95E224D60E8006C3A1D /* Build configuration list for PBXNativeTarget "MobilabPaymentAdyen" */;
+			buildPhases = (
+				BA09A94E224D60E8006C3A1D /* Headers */,
+				BA09A94F224D60E8006C3A1D /* Sources */,
+				BA09A950224D60E8006C3A1D /* Frameworks */,
+				BA09A951224D60E8006C3A1D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobilabPaymentAdyen;
+			productName = MobilabPaymentAdyen;
+			productReference = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		BA8D070C2226AE56004F699A /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -1297,6 +1434,7 @@
 				E1131F772236638A0025A711 /* PBXTargetDependency */,
 				E162FFB02243B66500413764 /* PBXTargetDependency */,
 				BA945A31223A890100C39300 /* PBXTargetDependency */,
+				BA09A959224D60E8006C3A1D /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -1403,7 +1541,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = MobiLab;
 				TargetAttributes = {
 					1DC5CB9420D2BF5E002058C1 = {
@@ -1413,6 +1551,9 @@
 					1DC5CB9D20D2BF5E002058C1 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1010;
+					};
+					BA09A952224D60E8006C3A1D = {
+						CreatedOnToolsVersion = 10.2;
 					};
 					BA8D070C2226AE56004F699A = {
 						CreatedOnToolsVersion = 10.1;
@@ -1450,13 +1591,14 @@
 			projectRoot = "";
 			targets = (
 				1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */,
+				E162FF942243A42500413764 /* MobilabPaymentUI */,
 				BACD61902226B03600E3ACC3 /* MobilabPaymentBSPayone */,
 				BA945A2A223A890100C39300 /* MobilabPaymentBraintree */,
+				BA09A952224D60E8006C3A1D /* MobilabPaymentAdyen */,
 				BA8D070C2226AE56004F699A /* Demo */,
 				1DC5CB9D20D2BF5E002058C1 /* MobilabPaymentTests */,
 				E11C3BFE223AB64F00F94F56 /* Demo-ObjC */,
 				E11C3C86223BA5E100F94F56 /* DemoUITests */,
-				E162FF942243A42500413764 /* MobilabPaymentUI */,
 			);
 		};
 /* End PBXProject section */
@@ -1476,6 +1618,13 @@
 				E117E020224BA41400E4C591 /* sepa_success.json in Resources */,
 				E117E01C224BA0FD00E4C591 /* credit_card_success.json in Resources */,
 				E117E01E224BA18D00E4C591 /* credit_card_failure.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA09A951224D60E8006C3A1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1696,6 +1845,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BA09A94F224D60E8006C3A1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA21F4F9224D664D004CEAA2 /* RegisterCreditCardResponse.swift in Sources */,
+				BA21F4FA224D664E004CEAA2 /* RegisterCreditCardResponseError.swift in Sources */,
+				BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */,
+				BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */,
+				BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */,
+				BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */,
+				BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */,
+				BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BA8D07092226AE56004F699A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1738,13 +1902,13 @@
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
 				E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */,
 				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
-				E11C3BFA223AB5C600F94F56 /* MobilabBSPayoneBridge.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
-				BACD61B22226CF6600E3ACC3 /* MobilabPaymentBSPayone.swift in Sources */,
 				E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */,
 				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,
 				BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */,
 				E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */,
+				BA95FC5C224D7F480026BCD9 /* MobilabPaymentBSPayone.swift in Sources */,
+				BA95FC5D224D7F4B0026BCD9 /* MobilabBSPayoneBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,6 +1955,11 @@
 			isa = PBXTargetDependency;
 			target = 1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */;
 			targetProxy = 1DC5CBA020D2BF5E002058C1 /* PBXContainerItemProxy */;
+		};
+		BA09A959224D60E8006C3A1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA09A952224D60E8006C3A1D /* MobilabPaymentAdyen */;
+			targetProxy = BA09A958224D60E8006C3A1D /* PBXContainerItemProxy */;
 		};
 		BA945A31223A890100C39300 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2099,6 +2268,61 @@
 			};
 			name = Release;
 		};
+		BA09A95C224D60E8006C3A1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MobilabPaymentAdyen/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.adyen;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA09A95D224D60E8006C3A1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MobilabPaymentAdyen/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.adyen;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		BA8D071D2226AE57004F699A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2169,7 +2393,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Braintree/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MobilabPaymentBraintree/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2201,7 +2425,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Braintree/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MobilabPaymentBraintree/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2229,7 +2453,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BSPayone/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MobilabPaymentBSPayone/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2259,7 +2483,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BSPayone/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MobilabPaymentBSPayone/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2457,6 +2681,15 @@
 			buildConfigurations = (
 				1DC5CBAD20D2BF5E002058C1 /* Debug */,
 				1DC5CBAE20D2BF5E002058C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA09A95E224D60E8006C3A1D /* Build configuration list for PBXNativeTarget "MobilabPaymentAdyen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA09A95C224D60E8006C3A1D /* Debug */,
+				BA09A95D224D60E8006C3A1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

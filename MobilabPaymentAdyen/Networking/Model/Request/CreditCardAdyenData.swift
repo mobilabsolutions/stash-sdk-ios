@@ -9,9 +9,10 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct CreditCardBSPayoneData {
-    let cardPan: String
-    let cardType: String
-    let cardExpireDate: String
-    let cardCVC2: String
+public struct CreditCardAdyenData: Codable {
+    let number: String
+    let expiryMonth: String
+    let expiryYear: String
+    let cvc: String
+    let holderName: String
 }
