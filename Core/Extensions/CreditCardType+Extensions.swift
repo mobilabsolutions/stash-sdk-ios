@@ -6,10 +6,9 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentCore
 import MobilabPaymentUI
 
-extension CreditCardData.CreditCardType {
+public extension CreditCardData.CreditCardType {
     var image: UIImage? {
         switch self {
         case .visa: return UIConstants.visaImage

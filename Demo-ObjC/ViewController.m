@@ -49,13 +49,6 @@
             [weakSelf showAlertWithTitle:@"Error" andBody:[NSString stringWithFormat:@"%@", [error failureReason]]];
         }
     }];
-
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.day = 4;
-    dateComponents.month = 5;
-    dateComponents.year = 2017;
-    dateComponents.calendar = [NSCalendar currentCalendar];
-    NSLog(@"%@", [dateComponents date]);
 }
 
 - (void) showAlertWithTitle: (NSString *)title andBody: (NSString *)body {

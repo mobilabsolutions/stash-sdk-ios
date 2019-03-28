@@ -8,6 +8,7 @@
 
 @import MobilabPaymentCore;
 @import MobilabPaymentBSPayone;
+@import OHHTTPStubs;
 
 #import <XCTest/XCTest.h>
 
@@ -16,6 +17,8 @@
 @end
 
 @implementation ObjCIntegrationTests
+
+static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void) testCreateConfiguration {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
@@ -58,6 +61,14 @@
 }
 
 - (void) testRegisterCreditCard {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        return [request.URL.host isEqualToString:bsPayoneHost];
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        NSString* fixture = OHPathForFile(@"credit_card_success.json", self.class);
+        return [OHHTTPStubsResponse responseWithFileAtPath:fixture
+                                                statusCode:200 headers:nil];
+    }];
+
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
                                                     initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 
@@ -100,6 +111,14 @@
 }
 
 - (void) testRegisterSEPA {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        return [request.URL.host isEqualToString:bsPayoneHost];
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        NSString* fixture = OHPathForFile(@"sepa_success.json", self.class);
+        return [OHHTTPStubsResponse responseWithFileAtPath:fixture
+                                                statusCode:200 headers:nil];
+    }];
+
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
                                                     initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 

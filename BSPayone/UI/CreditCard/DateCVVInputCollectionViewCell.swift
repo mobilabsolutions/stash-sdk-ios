@@ -36,7 +36,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
     private let headerToSuperViewVerticalOffset: CGFloat = 8
     private let errorLabelVerticalOffset: CGFloat = 4
     private let numberOfMonths = 12
-    private let numberOfYearsInACentury = 100
+    private let numberOfYearsToShow = 20
 
     private var delegate: DataPointProvidingDelegate?
 
@@ -156,7 +156,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
             self.pickerView.selectRow(date.year, inComponent: 1, animated: false)
         } else {
             let year = Calendar.current.component(.year, from: Date())
-            pickerView.selectRow((year + 1) % Int(pow(10, floor(log10(Double(year))))), inComponent: 1, animated: false)
+            // Select next year
+            pickerView.selectRow(1, inComponent: 1, animated: false)
         }
 
         self.dateTextField.inputView = self.pickerView
@@ -166,8 +167,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
         if let text = self.dateTextField.text, !text.isEmpty {
             self.dateTextField.text = text
         } else {
-            self.dateTextField.text = String(format: "%02d/%02d", self.pickerView.selectedRow(inComponent: 0) + 1,
-                                             self.pickerView.selectedRow(inComponent: 1))
+            let selectedYear = self.pickerView.selectedRow(inComponent: 1) + currentYear()
+            self.dateTextField.text = String(format: "%02d/%02d", self.pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
             self.dateTextFieldEditingChanged()
         }
     }
@@ -185,6 +186,10 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
     @objc private func cvvTextFieldEditingChanged() {
         self.delegate?.didUpdate(value: self.cvvTextField.text, for: .cvv)
     }
+
+    private func currentYear() -> Int {
+        return Calendar.current.component(.year, from: Date())
+    }
 }
 
 extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -195,7 +200,7 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
     func pickerView(_: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0: return self.numberOfMonths
-        case 1: return self.numberOfYearsInACentury
+        case 1: return self.numberOfYearsToShow
         default: return 0
         }
     }
@@ -205,13 +210,13 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
         case 0:
             return String(format: "%02d", row + 1)
         default:
-            return String(format: "%02d", row)
+            return String(format: "%02d", self.currentYear() + row)
         }
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow _: Int, inComponent _: Int) {
-        self.dateTextField.text = String(format: "%02d/%02d", pickerView.selectedRow(inComponent: 0) + 1,
-                                         pickerView.selectedRow(inComponent: 1))
+        let selectedYear = pickerView.selectedRow(inComponent: 1) + currentYear()
+        self.dateTextField.text = String(format: "%02d/%02d", pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
         self.dateTextFieldEditingChanged()
     }
 }
