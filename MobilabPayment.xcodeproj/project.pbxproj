@@ -6,23 +6,6 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		E1FDE0E9224D0DF000BB960D /* MobilabPaymentAllModules */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = E1FDE0EC224D0DF000BB960D /* Build configuration list for PBXAggregateTarget "MobilabPaymentAllModules" */;
-			buildPhases = (
-			);
-			dependencies = (
-				E1FDE0EE224D0DF800BB960D /* PBXTargetDependency */,
-				E1FDE0F0224D0DF800BB960D /* PBXTargetDependency */,
-				E1FDE0F2224D0DF800BB960D /* PBXTargetDependency */,
-				E1FDE0F4224D0DF800BB960D /* PBXTargetDependency */,
-			);
-			name = MobilabPaymentAllModules;
-			productName = MobilabPaymentAllModules;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Extras.swift */; };
@@ -308,34 +291,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = BA945A2A223A890100C39300;
 			remoteInfo = MobilabPaymentBraintree;
-		};
-		E1FDE0ED224D0DF800BB960D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
-			remoteInfo = MobilabPaymentCore;
-		};
-		E1FDE0EF224D0DF800BB960D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BACD61902226B03600E3ACC3;
-			remoteInfo = MobilabPaymentBSPayone;
-		};
-		E1FDE0F1224D0DF800BB960D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BA945A2A223A890100C39300;
-			remoteInfo = MobilabPaymentBraintree;
-		};
-		E1FDE0F3224D0DF800BB960D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E162FF942243A42500413764;
-			remoteInfo = MobilabPaymentUI;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1479,9 +1434,6 @@
 					E162FF942243A42500413764 = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					E1FDE0E9224D0DF000BB960D = {
-						CreatedOnToolsVersion = 10.2;
-					};
 				};
 			};
 			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "MobilabPayment" */;
@@ -1505,7 +1457,6 @@
 				E11C3BFE223AB64F00F94F56 /* Demo-ObjC */,
 				E11C3C86223BA5E100F94F56 /* DemoUITests */,
 				E162FF942243A42500413764 /* MobilabPaymentUI */,
-				E1FDE0E9224D0DF000BB960D /* MobilabPaymentAllModules */,
 			);
 		};
 /* End PBXProject section */
@@ -1885,26 +1836,6 @@
 			isa = PBXTargetDependency;
 			target = BA945A2A223A890100C39300 /* MobilabPaymentBraintree */;
 			targetProxy = E1D90157224A84480067BB8A /* PBXContainerItemProxy */;
-		};
-		E1FDE0EE224D0DF800BB960D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1DC5CB9420D2BF5E002058C1 /* MobilabPaymentCore */;
-			targetProxy = E1FDE0ED224D0DF800BB960D /* PBXContainerItemProxy */;
-		};
-		E1FDE0F0224D0DF800BB960D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BACD61902226B03600E3ACC3 /* MobilabPaymentBSPayone */;
-			targetProxy = E1FDE0EF224D0DF800BB960D /* PBXContainerItemProxy */;
-		};
-		E1FDE0F2224D0DF800BB960D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BA945A2A223A890100C39300 /* MobilabPaymentBraintree */;
-			targetProxy = E1FDE0F1224D0DF800BB960D /* PBXContainerItemProxy */;
-		};
-		E1FDE0F4224D0DF800BB960D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E162FF942243A42500413764 /* MobilabPaymentUI */;
-			targetProxy = E1FDE0F3224D0DF800BB960D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2500,24 +2431,6 @@
 			};
 			name = Release;
 		};
-		E1FDE0EA224D0DF000BB960D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S722Z9XR48;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		E1FDE0EB224D0DF000BB960D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S722Z9XR48;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2598,15 +2511,6 @@
 			buildConfigurations = (
 				E162FF9B2243A42500413764 /* Debug */,
 				E162FF9C2243A42500413764 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E1FDE0EC224D0DF000BB960D /* Build configuration list for PBXAggregateTarget "MobilabPaymentAllModules" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E1FDE0EA224D0DF000BB960D /* Debug */,
-				E1FDE0EB224D0DF000BB960D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
