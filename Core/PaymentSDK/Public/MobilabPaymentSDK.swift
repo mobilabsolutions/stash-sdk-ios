@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MobilabPaymentUI
 
 public typealias RegistrationResult = NetworkClientResult<String, MLError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
@@ -17,6 +18,13 @@ public class MobilabPaymentSDK {
     /// - Parameter configuration: The configuration to use for subsequent operations
     public static func configure(configuration: MobilabPaymentConfiguration) {
         InternalPaymentSDK.sharedInstance.configure(configuration: configuration)
+    }
+
+    /// Configure the SDK's UI
+    ///
+    /// - Parameter configuration: The configuration to apply to the presented UI
+    public static func configureUI(configuration: PaymentMethodUIConfiguration) {
+        InternalPaymentSDK.sharedInstance.configureUI(configuration: configuration)
     }
 
     /// Register payment service provider to be used for registering supplied payment method types

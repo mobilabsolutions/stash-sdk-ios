@@ -55,16 +55,15 @@ public class RegistrationManager {
     /// - Parameters:
     ///   - viewController: The view controller on which the payment method type selection should be presented
     ///   - billingData: The billing data that should be prefilled when registering the payment method
-    ///   - configuration: Configuration to apply to the UI when presenting it
     ///   - mobilabProvider: Provider to use for credit card and SEPA
     ///   - mobilabPayPalProvider: Provider to use for PayPal
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                              billingData: BillingData? = nil,
-                                             configuration: PaymentMethodUIConfiguration,
                                              completion: @escaping RegistrationResultCompletion) {
-        let selectionViewController = PaymentMethodSelectionCollectionViewController(configuration: configuration)
+        let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
+        let selectionViewController = PaymentMethodSelectionCollectionViewController(configuration: uiConfiguration)
 
         func wrappedErrorCompletion(for dataProvider: PaymentMethodDataProvider?,
                                     completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
@@ -93,7 +92,8 @@ public class RegistrationManager {
         selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.pspCoordinator.getSupportedPaymentMethodTypeUserInterfaces()
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
             let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: selectedType.internalPaymentMethodType)
-            guard var paymentMethodViewController = provider.viewController(for: selectedType, billingData: billingData, configuration: configuration)
+            guard var paymentMethodViewController = provider.viewController(for: selectedType, billingData: billingData,
+                                                                            configuration: uiConfiguration)
             else { fatalError("Payment method view controller for selected type not present in module") }
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, weak paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {

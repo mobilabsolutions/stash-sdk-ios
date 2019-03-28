@@ -25,3 +25,5 @@ script:
   - travis_retry xcodebuild clean test -quiet -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test
   - echo "Starting UI Tests"
   - travis_retry xcodebuild test -quiet -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" test
+  - echo "Building Objective-C Demo"
+  - xcodebuild test -quiet -project "$PROJECT_NAME" -scheme "Demo-ObjC" -destination "$DESTINATION" 

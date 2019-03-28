@@ -35,7 +35,8 @@ class AddUIViewController: UIViewController {
             configuration = PaymentMethodUIConfiguration()
         }
 
-        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self, configuration: configuration) { [weak self] result in
+        MobilabPaymentSDK.configureUI(configuration: configuration)
+        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(value):

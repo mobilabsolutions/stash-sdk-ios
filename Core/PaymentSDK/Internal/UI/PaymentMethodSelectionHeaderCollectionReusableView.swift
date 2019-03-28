@@ -62,7 +62,7 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
             subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -subtitleLabelHorizontalOffset),
             titleLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: subtitleLabel.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -subtitleLabelBottomOffset),
+            titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -titleSubtitleVerticalDistance),
         ])
     }
 }

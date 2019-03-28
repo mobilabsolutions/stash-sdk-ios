@@ -14,6 +14,10 @@ import UIKit
         MobilabPaymentSDK.configure(configuration: configuration)
     }
 
+    @objc public static func configureUI(configuration: MLPaymentMethodUIConfiguration) {
+        MobilabPaymentSDK.configureUI(configuration: configuration.configuration)
+    }
+
     @objc public static func getRegistrationManager() -> RegistrationManagerBridge {
         return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegistrationManager())
     }
@@ -33,32 +37,6 @@ import UIKit
         })
 
         InternalPaymentSDK.sharedInstance.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethods)
-    }
-}
-
-@objc(MLRegistrationManager) public class RegistrationManagerBridge: NSObject {
-    private let manager: RegistrationManager
-
-    init(manager: RegistrationManager) {
-        self.manager = manager
-    }
-
-    @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
-        let creditCardData: CreditCardData
-
-        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws {
-            self.creditCardData = try CreditCardData(cardNumber: cardNumber, cvv: cvv,
-                                                     expiryMonth: expiryMonth, expiryYear: expiryYear,
-                                                     holderName: holderName, billingData: billingData)
-        }
-    }
-
-    @objc(MLSEPAData) public class SEPADataBridge: NSObject, SEPADataInitializible {
-        let sepaData: SEPAData
-
-        @objc public required init(iban: String, bic: String, billingData: BillingData) throws {
-            self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
-        }
     }
 
     @objc(MLPaymentMethodUIConfiguration) public class MLPaymentMethodUIConfiguration: NSObject {
@@ -91,6 +69,32 @@ import UIKit
                                                               buttonDisabledColor: buttonDisabledColor)
         }
     }
+}
+
+@objc(MLRegistrationManager) public class RegistrationManagerBridge: NSObject {
+    private let manager: RegistrationManager
+
+    init(manager: RegistrationManager) {
+        self.manager = manager
+    }
+
+    @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
+        let creditCardData: CreditCardData
+
+        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws {
+            self.creditCardData = try CreditCardData(cardNumber: cardNumber, cvv: cvv,
+                                                     expiryMonth: expiryMonth, expiryYear: expiryYear,
+                                                     holderName: holderName, billingData: billingData)
+        }
+    }
+
+    @objc(MLSEPAData) public class SEPADataBridge: NSObject, SEPADataInitializible {
+        let sepaData: SEPAData
+
+        @objc public required init(iban: String, bic: String, billingData: BillingData) throws {
+            self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
+        }
+    }
 
     @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (String?, MLError?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData, completion: self.bridgedCompletion(completion: completion))
@@ -101,9 +105,8 @@ import UIKit
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
-                                                   configuration: MLPaymentMethodUIConfiguration,
                                                    completion: @escaping (String?, MLError?) -> Void) {
-        self.manager.registerPaymentMethodUsingUI(on: viewController, configuration: configuration.configuration, completion: self.bridgedCompletion(completion: completion))
+        self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
