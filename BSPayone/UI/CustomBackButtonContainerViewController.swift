@@ -10,7 +10,7 @@ import MobilabPaymentCore
 import MobilabPaymentUI
 import UIKit
 
-public class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDataProvider {
+class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDataProvider {
     private let doneButtonBottomOffset: CGFloat = 40
     private let doneButtonHeight: CGFloat = 40
     private let doneButtonHorizontalOffset: CGFloat = 34
@@ -31,7 +31,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     private let backButtonContainer = UIView()
     private let doneButton = DoneButtonView()
 
-    public init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {
+    init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {
         self.viewController = viewController
         self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
@@ -42,7 +42,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.doneButton.setup(delegate: self.viewController,
                               buttonEnabled: false,
@@ -80,13 +80,13 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
         self.view.endEditing(true)
     }
 
-    public func errorWhileCreatingPaymentMethod(error: MLError) {
+    func errorWhileCreatingPaymentMethod(error: MLError) {
         self.viewController.errorWhileCreatingPaymentMethod(error: error)
     }
 }
 
 extension CustomBackButtonContainerViewController: DoneButtonUpdating {
-    public func updateDoneButton(enabled: Bool) {
+    func updateDoneButton(enabled: Bool) {
         self.doneButton.doneEnabled = enabled
     }
 }
