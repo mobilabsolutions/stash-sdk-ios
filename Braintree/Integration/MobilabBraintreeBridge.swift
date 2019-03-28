@@ -9,8 +9,8 @@
 import UIKit
 
 @objc(MLMobilabBraintree) public class MobilabBraintreeBridge: NSObject {
-    @objc public static func createModule(tokenizationKey: String, urlScheme: String) -> Any {
-        return MobilabPaymentBraintree(tokenizationKey: tokenizationKey, urlScheme: urlScheme)
+    @objc public static func createModule(urlScheme: String) -> Any {
+        return MobilabPaymentBraintree(urlScheme: urlScheme)
     }
 
     @objc public static func handleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {

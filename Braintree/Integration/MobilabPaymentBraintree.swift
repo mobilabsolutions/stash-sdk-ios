@@ -13,7 +13,6 @@ import UIKit
 
 public class MobilabPaymentBraintree: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
-    public let publicKey: String
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         guard let clientToken = registrationRequest.pspData.braintreeClientToken else {
@@ -48,8 +47,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         return LoadingViewController()
     }
 
-    public init(tokenizationKey: String, urlScheme: String) {
-        self.publicKey = tokenizationKey
+    public init(urlScheme: String) {
         self.pspIdentifier = .braintree
 
         BTAppSwitch.setReturnURLScheme(urlScheme)

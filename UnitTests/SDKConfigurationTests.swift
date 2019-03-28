@@ -18,7 +18,7 @@ class SDKConfiguraionTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
-        let creditCardProvider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let creditCardProvider = MobilabPaymentBSPayone()
 
         // Fatal error is NOT expected because provider supports selected payment method types
         notExpectFatalError {
@@ -30,7 +30,7 @@ class SDKConfiguraionTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
-        let creditCardProvider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let creditCardProvider = MobilabPaymentBSPayone()
 
         // Fatal error is expected because provider doesn't support selected payment method types
         expectFatalError {
@@ -42,13 +42,13 @@ class SDKConfiguraionTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
-        let creditCardProvider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let creditCardProvider = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
 
-        let sepaProvider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let sepaProvider = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: sepaProvider, forPaymentMethodTypes: .sepa)
 
-        let payPalProvider = MobilabPaymentBraintree(tokenizationKey: "1234567890987654321", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
         MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
 
         let providerUsedForCreditCard = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .creditCard)
@@ -64,10 +64,10 @@ class SDKConfiguraionTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
-        let creditCardProvider = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
+        let creditCardProvider = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
 
-        let payPalProvider = MobilabPaymentBraintree(tokenizationKey: "1234567890987654321", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
         MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
 
         let providerUsedForSepa = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)

@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(MLMobilabBSPayone) public class MobilabBSPayoneBridge: NSObject {
-    @objc public static func createModule(publicKey: String) -> Any {
-        return MobilabPaymentBSPayone(publicKey: publicKey)
+    @objc public static func createModule() -> Any {
+        return MobilabPaymentBSPayone()
     }
 }
