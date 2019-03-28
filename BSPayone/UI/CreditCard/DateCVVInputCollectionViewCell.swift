@@ -50,7 +50,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
 
     private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
 
-    func setup(date: (month: Int, year: Int)?, cvv: String?, dateError: String?, cvvError: String?, delegate: DataPointProvidingDelegate) {
+    func setup(date: (month: Int, year: Int)?, cvv: String?, dateError: String?, cvvError: String?, delegate: DataPointProvidingDelegate, configuration: PaymentMethodUIConfiguration) {
         self.date = date
         self.cvv = cvv
         self.delegate = delegate
@@ -59,6 +59,16 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
 
         self.errorLabel.text = (dateError.flatMap({ $0 + "\n" }) ?? "") + (cvvError ?? "")
         self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
+
+        self.dateTitleLabel.textColor = configuration.textColor
+        self.cvvTitleLabel.textColor = configuration.textColor
+        [dateTextField, cvvTextField].forEach {
+            $0.setup(borderColor: configuration.mediumEmphasisColor,
+                     placeholderColor: configuration.mediumEmphasisColor,
+                     textColor: configuration.textColor,
+                     backgroundColor: configuration.cellBackgroundColor)
+        }
+        self.contentView.backgroundColor = configuration.cellBackgroundColor
     }
 
     override init(frame: CGRect) {

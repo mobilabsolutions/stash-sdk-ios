@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MobilabPaymentUI
 
 enum SDKError: Error {
     case configurationMissing
@@ -46,6 +47,7 @@ class InternalPaymentSDK {
     }
 
     let pspCoordinator = InternalPaymentServiceProviderCoordinator()
+    private(set) var uiConfiguration = PaymentMethodUIConfiguration()
 
     static let sharedInstance = InternalPaymentSDK()
 
@@ -59,6 +61,10 @@ class InternalPaymentSDK {
         } catch {
             fatalError()
         }
+    }
+
+    func configureUI(configuration: PaymentMethodUIConfiguration) {
+        self.uiConfiguration = configuration
     }
 
     func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {

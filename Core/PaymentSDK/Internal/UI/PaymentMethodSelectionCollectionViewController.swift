@@ -27,7 +27,10 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
 
     var selectedPaymentMethodCallback: ((PaymentMethodType) -> Void)?
 
-    init() {
+    private let configuration: PaymentMethodUIConfiguration
+
+    init(configuration: PaymentMethodUIConfiguration) {
+        self.configuration = configuration
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
@@ -41,7 +44,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
         self.collectionView.register(PaymentMethodSelectionHeaderCollectionReusableView.self,
                                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
-        self.collectionView.backgroundColor = self.backgroundColor
+        self.collectionView.backgroundColor = self.configuration.backgroundColor
     }
 
     // MARK: UICollectionViewDataSource
@@ -59,6 +62,8 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
         else { fatalError("Wrong cell type for PaymentMethodSelectionCollectionViewController. Should be PaymentMethodTypeCollectionViewCell") }
 
         cell.paymentMethodType = self.selectablePaymentMethods[indexPath.item]
+        cell.configuration = configuration
+
         return cell
     }
 
@@ -75,7 +80,14 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.headerReuseIdentifier, for: indexPath)
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                           withReuseIdentifier: self.headerReuseIdentifier, for: indexPath)
+            as? PaymentMethodSelectionHeaderCollectionReusableView
+        else { fatalError("Could not dequeue view of type PaymentMethodSelectionHeaderCollectionReusableView for \(self.headerReuseIdentifier)") }
+
+        header.configuration = configuration
+
+        return header
     }
 
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {

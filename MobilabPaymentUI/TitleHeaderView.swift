@@ -9,9 +9,17 @@
 import UIKit
 
 public class TitleHeaderView: UICollectionReusableView {
+    private static let defaultTextColor = UIConstants.dark
+
     public var title: String? {
         didSet {
             self.label.text = self.title
+        }
+    }
+
+    public var configuration: PaymentMethodUIConfiguration? {
+        didSet {
+            self.label.textColor = self.configuration?.textColor ?? TitleHeaderView.defaultTextColor
         }
     }
 

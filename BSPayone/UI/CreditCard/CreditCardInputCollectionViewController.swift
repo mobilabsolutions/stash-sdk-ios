@@ -29,6 +29,8 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
     var doneButtonUpdating: DoneButtonUpdating?
 
     private let billingData: BillingData?
+    private let configuration: PaymentMethodUIConfiguration
+
     private var fieldData: [NecessaryData: String] = [:]
 
     private enum ValidationError: CustomStringConvertible {
@@ -124,8 +126,10 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         }
     }
 
-    init(billingData: BillingData?) {
+    init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
         self.billingData = billingData
+        self.configuration = configuration
+
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         if let name = billingData?.name {
@@ -135,6 +139,8 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
 
     required init?(coder aDecoder: NSCoder) {
         self.billingData = nil
+        self.configuration = PaymentMethodUIConfiguration()
+
         super.init(coder: aDecoder)
     }
 
@@ -147,7 +153,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         self.collectionView.register(DateCVVInputCollectionViewCell.self, forCellWithReuseIdentifier: self.dateReuseIdentifier)
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
-        self.collectionView.backgroundColor = UIConstants.iceBlue
+        self.collectionView.backgroundColor = self.configuration.backgroundColor
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
@@ -181,18 +187,21 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         switch necessaryDataCell {
         case .nameCell:
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[.holderName], title: "Cardholder name", placeholder: "Name", dataType: .holderName, error: errors[.holderName]?.description, delegate: self)
+            cell.setup(text: fieldData[.holderName], title: "Cardholder name", placeholder: "Name", dataType: .holderName,
+                       error: errors[.holderName]?.description, configuration: configuration, delegate: self)
+
             toReturn = cell
         case .cardNumberCell:
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: cardNumberReuseIdentifier, for: indexPath)
             cell.setup(text: fieldData[.cardNumber], title: "Credit card number", placeholder: "1234", dataType: .cardNumber, textFieldUpdateCallback: { textField in
-                textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
-
                 let imageView = textField.rightView as? UIImageView
 
                 let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
                 let image = possibleCardType != .unknown ? possibleCardType.image : nil
                 imageView?.image = image
+
+                textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
+
             }, error: errors[.cardNumber]?.description,
                        setupTextField: { textField in
                 textField.rightViewMode = .always
@@ -200,7 +209,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.methodTypeImageViewWidth, height: self.methodTypeImageViewHeight))
                 imageView.contentMode = .scaleAspectFit
                 textField.rightView = imageView
-            }, delegate: self)
+            }, configuration: self.configuration, delegate: self)
 
             toReturn = cell
         case .dateCVVCell:
@@ -218,7 +227,9 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
                        cvv: self.fieldData[.cvv],
                        dateError: self.errors[.expirationMonth]?.description ?? self.errors[.expirationYear]?.description,
                        cvvError: self.errors[.cvv]?.description,
-                       delegate: self)
+                       delegate: self,
+                       configuration: self.configuration)
+
             toReturn = cell
         }
 
@@ -240,6 +251,7 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         else { fatalError("Should be able to dequeue TitleHeaderView as header supplementary vie for \(self.headerReuseIdentifier)") }
 
         view.title = "Credit Card"
+        view.configuration = configuration
 
         return view
     }

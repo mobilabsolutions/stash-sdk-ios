@@ -24,7 +24,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
         for methodType in supportedMethodTypes {
-            XCTAssertTrue(app.cells.staticTexts.allElementsBoundByIndex.map({ $0.label }).contains(methodType.1))
+            XCTAssertTrue(app.cells.staticTexts.allElementsBoundByIndex.map({ $0.label }).contains(methodType.1), "Methods should contain \(methodType.1)")
         }
     }
 

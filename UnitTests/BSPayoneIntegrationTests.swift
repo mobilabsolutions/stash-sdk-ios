@@ -76,7 +76,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 1) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error)
         }
     }

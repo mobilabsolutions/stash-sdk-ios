@@ -16,6 +16,12 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    var configuration: PaymentMethodUIConfiguration? {
+        didSet {
+            self.updateStyling()
+        }
+    }
+
     private let nameLabel = UILabel()
     private let methodImageView = UIImageView()
     private let arrowImageView = UIImageView()
@@ -90,6 +96,11 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
 
         self.nameLabel.font = UIConstants.defaultFont(of: 12, type: .medium)
+    }
+
+    private func updateStyling() {
+        self.nameLabel.textColor = self.configuration?.textColor ?? self.nameLabel.textColor
+        self.contentView.backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
     }
 
     private func updateViews() {

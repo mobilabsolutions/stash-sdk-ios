@@ -83,6 +83,7 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
                       textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
                       error: String?,
                       setupTextField: ((UITextField) -> Void)? = nil,
+                      configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
         self.textFieldUpdateCallback = textFieldUpdateCallback
         self.text = text
@@ -91,6 +92,13 @@ public class TextInputCollectionViewCell: UICollectionViewCell {
         self.dataType = dataType
         self.delegate = delegate
         self.errorText = error
+
+        self.textField.setup(borderColor: configuration.mediumEmphasisColor,
+                             placeholderColor: configuration.mediumEmphasisColor,
+                             textColor: configuration.textColor, backgroundColor: configuration.cellBackgroundColor)
+
+        self.contentView.backgroundColor = configuration.cellBackgroundColor
+        self.subtitleLabel.textColor = configuration.textColor
 
         setupTextField?(self.textField)
     }

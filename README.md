@@ -175,8 +175,9 @@ It is also possible to style the presented UI in a way that is compatible with t
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegisterManager()
 let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, fontColor: .black, buttonColor: .black)
+MobilabPaymentSDK.configureUI(configuration: uiConfiguration)
 
-registrationManager.registerPaymentMethodUsingUI(on viewController: self, configuration: uiConfiguration) { [weak self] result in
+registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {
     case let .success(value):
         self?.dismiss(animated: true) {
