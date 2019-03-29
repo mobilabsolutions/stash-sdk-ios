@@ -90,7 +90,7 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getCustomHeaders() -> [Header] {
         var headers = InternalPaymentSDK.sharedInstance.configuration.useTestMode
-            ? [Header(field: "test", value: "true")]
+            ? [Header(field: "PSP-Test-Mode", value: "true")]
             : []
 
         switch self.service {
