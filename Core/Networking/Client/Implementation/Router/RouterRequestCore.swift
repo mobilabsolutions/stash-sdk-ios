@@ -88,12 +88,17 @@ struct RouterRequestCore: RouterRequestProtocol {
         }
     }
 
-    func getCustomHeader() -> Header? {
+    func getCustomHeaders() -> [Header] {
+        var headers = InternalPaymentSDK.sharedInstance.configuration.useTestMode
+            ? [Header(field: "PSP-Test-Mode", value: "true")]
+            : []
+
         switch self.service {
         case let .createAlias(request):
-            return Header(field: "PSP-Type", value: request.pspType)
+            headers.append(Header(field: "PSP-Type", value: request.pspType))
+            return headers
         case .updateAlias:
-            return nil
+            return headers
         }
     }
 

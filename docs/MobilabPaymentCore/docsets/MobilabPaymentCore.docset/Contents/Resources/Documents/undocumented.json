@@ -367,7 +367,7 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Networking/Client/New Group/Router/RouterRequest.swift",
       "line": 34,
-      "symbol": "RouterRequestProtocol.getCustomHeaders()",
+      "symbol": "RouterRequestProtocol.getCustomHeader()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -402,7 +402,7 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Networking/Client/New Group/Router/RouterRequest.swift",
       "line": 58,
-      "symbol": "RouterRequestProtocol.getCustomHeaders()",
+      "symbol": "RouterRequestProtocol.getCustomHeader()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

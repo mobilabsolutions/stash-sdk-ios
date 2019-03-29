@@ -219,6 +219,8 @@
 		E1D90182224A88BA0067BB8A /* BraintreeDropIn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90183224A88BA0067BB8A /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
 		E1D90184224A88BA0067BB8A /* PayPalOneTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1FDE0E6224D007B00BB960D /* create_alias_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E1FDE0E5224D007B00BB960D /* create_alias_success.json */; };
+		E1FDE0E8224D04BC00BB960D /* update_alias_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E1FDE0E7224D04BC00BB960D /* update_alias_success.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -494,6 +496,8 @@
 		E1C9A85D22413C9D0099DB2E /* SEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
 		E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardType+Extensions.swift"; sourceTree = "<group>"; };
+		E1FDE0E5224D007B00BB960D /* create_alias_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = create_alias_success.json; sourceTree = "<group>"; };
+		E1FDE0E7224D04BC00BB960D /* update_alias_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = update_alias_success.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1051,6 +1055,8 @@
 				E117E01B224BA0FD00E4C591 /* credit_card_success.json */,
 				E117E01D224BA18D00E4C591 /* credit_card_failure.json */,
 				E117E01F224BA41400E4C591 /* sepa_success.json */,
+				E1FDE0E5224D007B00BB960D /* create_alias_success.json */,
+				E1FDE0E7224D04BC00BB960D /* update_alias_success.json */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -1473,8 +1479,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FDE0E8224D04BC00BB960D /* update_alias_success.json in Resources */,
 				E117E020224BA41400E4C591 /* sepa_success.json in Resources */,
 				E117E01C224BA0FD00E4C591 /* credit_card_success.json in Resources */,
+				E1FDE0E6224D007B00BB960D /* create_alias_success.json in Resources */,
 				E117E01E224BA18D00E4C591 /* credit_card_failure.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

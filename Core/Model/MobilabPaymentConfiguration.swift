@@ -38,14 +38,16 @@ public enum ConfigurationError: Error {
     /// Whether or not the SDK should write log messages to the console detailing the steps it takes
     @objc public var loggingEnabled = false
 
+    /// Whether or not the SDK should instruct the Mobilab backend to run in test mode
+    @objc public var useTestMode = false
+
     let publicKey: String
     let endpoint: String
 
-    #warning("Figure out whether or not the public key is actually necessary here and what it should be used for. Then update doc comment.")
     /// Initialize the SDK configuration
     ///
     /// - Parameters:
-    ///   - publicKey: TODO
+    ///   - publicKey: The SDK's public key for the Mobilab payment backend
     ///   - endpoint: The endpoint at which a Mobilab payment backend is deployed
     @objc public init(publicKey: String, endpoint: String) {
         self.publicKey = publicKey
