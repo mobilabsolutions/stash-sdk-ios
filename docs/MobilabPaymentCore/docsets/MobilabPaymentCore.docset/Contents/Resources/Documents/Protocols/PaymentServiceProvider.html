@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PaymentServiceProvider Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/PaymentServiceProvider" class="dashAnchor"></a>
+
+    <a title="PaymentServiceProvider Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          MobilabPaymentCore Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/mobilabsolutions/payment-sdk-ios-open">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">MobilabPaymentCore Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      PaymentServiceProvider Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BillingData.html">BillingData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CreditCardUtils.html">CreditCardUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LoadingViewController.html">LoadingViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MLError.html">MLError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentConfiguration.html">MobilabPaymentConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDK.html">MobilabPaymentSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge.html">MobilabPaymentSDKBridge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/MLPaymentMethodUIConfiguration.html">– MLPaymentMethodUIConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge.html">RegistrationManagerBridge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/CreditCardDataBridge.html">– CreditCardDataBridge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ConfigurationError.html">ConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MLResponseType.html">MLResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MobilabPaymentProvider.html">MobilabPaymentProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/NetworkClientError.html">NetworkClientError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/NetworkClientResult.html">NetworkClientResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PaymentMethodType.html">PaymentMethodType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/MLErrorConvertible.html">MLErrorConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/NetworkClient.html">NetworkClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PaymentMethodDataProvider.html">PaymentMethodDataProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PaymentServiceProvider.html">PaymentServiceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs.html#/s:18MobilabPaymentCore6HeaderV">Header</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PayPalData.html">PayPalData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RegistrationRequest.html">RegistrationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SEPAData.html">SEPAData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:18MobilabPaymentCore18RegistrationResulta">RegistrationResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>PaymentServiceProvider</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PaymentServiceProvider</span></code></pre>
+
+                </div>
+              </div>
+            <p>A protocol representing the behaviour a payment service provider (PSP) module should provide</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP18RegistrationResulta"></a>
+                    <a name="//apple_ref/swift/Alias/RegistrationResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP18RegistrationResulta">RegistrationResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A result obtained from registering a payment method with the PSP</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">RegistrationResult</span> <span class="o">=</span> <span class="kt"><a href="../Enums/NetworkClientResult.html">NetworkClientResult</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?,</span> <span class="kt"><a href="../Classes/MLError.html">MLError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP28RegistrationResultCompletiona"></a>
+                    <a name="//apple_ref/swift/Alias/RegistrationResultCompletion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP28RegistrationResultCompletiona">RegistrationResultCompletion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">RegistrationResultCompletion</span> <span class="o">=</span> <span class="p">((</span><span class="kt"><a href="../Protocols/PaymentServiceProvider.html#/s:18MobilabPaymentCore0B15ServiceProviderP18RegistrationResulta">RegistrationResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP13pspIdentifierAA0abE0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/pspIdentifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP13pspIdentifierAA0abE0Ovp">pspIdentifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The PSP identifier as required by the Mobilab payment backend</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">pspIdentifier</span><span class="p">:</span> <span class="kt"><a href="../Enums/MobilabPaymentProvider.html">MobilabPaymentProvider</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH010completionyAA0gH0V_yAA19NetworkClientResultOySSSgAA7MLErrorCGctF"></a>
+                    <a name="//apple_ref/swift/Method/handleRegistrationRequest(registrationRequest:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH010completionyAA0gH0V_yAA19NetworkClientResultOySSSgAA7MLErrorCGctF">handleRegistrationRequest(registrationRequest:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Handle a request for registering a payment method with the PSP</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">handleRegistrationRequest</span><span class="p">(</span><span class="nv">registrationRequest</span><span class="p">:</span> <span class="kt"><a href="../Structs/RegistrationRequest.html">RegistrationRequest</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/PaymentServiceProvider.html#/s:18MobilabPaymentCore0B15ServiceProviderP28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>registrationRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the registration request data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion returning the generated PSP alias (if present) or an error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP09supportedB11MethodTypesSayAA0bG4TypeOGvp"></a>
+                    <a name="//apple_ref/swift/Property/supportedPaymentMethodTypes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP09supportedB11MethodTypesSayAA0bG4TypeOGvp">supportedPaymentMethodTypes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All payment method types which module supports</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supportedPaymentMethodTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/PaymentMethodType.html">PaymentMethodType</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP09supportedB24MethodTypeUserInterfacesSayAA0bgH0OGvp"></a>
+                    <a name="//apple_ref/swift/Property/supportedPaymentMethodTypeUserInterfaces" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP09supportedB24MethodTypeUserInterfacesSayAA0bgH0OGvp">supportedPaymentMethodTypeUserInterfaces</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All payment method types for which the module provides user interface means of creating the data</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supportedPaymentMethodTypeUserInterfaces</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/PaymentMethodType.html">PaymentMethodType</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP14viewController3for11billingData13configurationAA0b6MethodjE0_So06UIViewG0CXcSgAA0bL4TypeO_AA07BillingJ0CSg0aB2UI0bL15UIConfigurationVtF"></a>
+                    <a name="//apple_ref/swift/Method/viewController(for:billingData:configuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP14viewController3for11billingData13configurationAA0b6MethodjE0_So06UIViewG0CXcSgAA0bL4TypeO_AA07BillingJ0CSg0aB2UI0bL15UIConfigurationVtF">viewController(for:billingData:configuration:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a view controller allowing input of data for a given payment method type</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">viewController</span><span class="p">(</span><span class="k">for</span> <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt"><a href="../Enums/PaymentMethodType.html">PaymentMethodType</a></span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">?,</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt">PaymentMethodUIConfiguration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">UIViewController</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/PaymentMethodDataProvider.html">PaymentMethodDataProvider</a></span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>paymentMethodType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The payment method type for which to create the UI. Is one of <code><a href="../Protocols/PaymentServiceProvider.html#/s:18MobilabPaymentCore0B15ServiceProviderP09supportedB24MethodTypeUserInterfacesSayAA0bgH0OGvp">supportedPaymentMethodTypeUserInterfaces</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>billingData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The billing data to prefill (if necessary)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UI configuration to apply</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A view controller for inputting the data relevant to the payment method type</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>Copyright MobiLab Solutions GmbH 2019</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
