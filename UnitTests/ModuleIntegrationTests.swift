@@ -149,7 +149,7 @@ class ModuleIntegrationTests: XCTestCase {
                 ? "update_alias_success.json"
                 : "create_alias_success.json"
 
-            if let isTestString = request.allHTTPHeaderFields?["test"],
+            if let isTestString = request.allHTTPHeaderFields?["PSP-Test-Mode"],
                 let isTest = Bool(isTestString),
                 isTest {
                 guard let path = OHPathForFile(requestSuccessFile, type(of: self))
