@@ -28,14 +28,14 @@ struct RouterRequestAdyen: RouterRequestProtocol {
     }
 
     func getHttpBody() -> Data? {
-        var body = [
+        var body: [String: Any] = [
             "amount": ["value": 0,
                        "currency": "USD"],
             "reference": "reference",
             "merchantAccount": pspData.merchantAccount,
             "shopperReference": pspData.shopperReference,
-            "returnUrl": pspData.returnUrl ?? "",
-        ] as [String: Any]
+            "returnUrl": pspData.returnUrl,
+        ]
 
         switch self.service {
         case let .registerCreditCard(data):

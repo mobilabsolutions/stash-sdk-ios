@@ -29,10 +29,10 @@ class BSPayoneIntegrationTests: XCTestCase {
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
-    func testCreditCardBS() throws {
+    func testCreditCard() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
-            guard let path = OHPathForFile("credit_card_success.json", type(of: self))
-            else { Swift.fatalError("Expected file credit_card_success.json to exist.") }
+            guard let path = OHPathForFile("bs_credit_card_success.json", type(of: self))
+            else { Swift.fatalError("Expected file bs_credit_card_success.json to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
 
@@ -81,10 +81,10 @@ class BSPayoneIntegrationTests: XCTestCase {
         }
     }
 
-    func testAddSEPABS() throws {
+    func testAddSEPA() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
-            guard let path = OHPathForFile("sepa_success.json", type(of: self))
-            else { Swift.fatalError("Expected file sepa_success.json to exist.") }
+            guard let path = OHPathForFile("bs_sepa_success.json", type(of: self))
+            else { Swift.fatalError("Expected file bs_sepa_success.json to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
 
@@ -130,8 +130,8 @@ class BSPayoneIntegrationTests: XCTestCase {
 
     func testCorrectlyPropagatesBSError() {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
-            guard let path = OHPathForFile("credit_card_failure.json", type(of: self))
-            else { Swift.fatalError("Expected file credit_card_failure.json to exist.") }
+            guard let path = OHPathForFile("bs_credit_card_failure.json", type(of: self))
+            else { Swift.fatalError("Expected file bs_credit_card_failure.json to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
 

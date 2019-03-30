@@ -60,11 +60,11 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     (void) [MLMobilabPaymentSDK getRegistrationManager];
 }
 
-- (void) testRegisterCreditCard {
+- (void) testRegisterCreditCardBSPayone {
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
         return [request.URL.host isEqualToString:bsPayoneHost];
     } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-        NSString* fixture = OHPathForFile(@"credit_card_success.json", self.class);
+        NSString* fixture = OHPathForFile(@"bs_credit_card_success.json", self.class);
         return [OHHTTPStubsResponse responseWithFileAtPath:fixture
                                                 statusCode:200 headers:nil];
     }];
@@ -110,11 +110,11 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     [self waitForExpectations:@[expectation] timeout:10.0];
 }
 
-- (void) testRegisterSEPA {
+- (void) testRegisterSEPABSPayone {
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
         return [request.URL.host isEqualToString:bsPayoneHost];
     } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-        NSString* fixture = OHPathForFile(@"sepa_success.json", self.class);
+        NSString* fixture = OHPathForFile(@"bs_sepa_success.json", self.class);
         return [OHHTTPStubsResponse responseWithFileAtPath:fixture
                                                 statusCode:200 headers:nil];
     }];

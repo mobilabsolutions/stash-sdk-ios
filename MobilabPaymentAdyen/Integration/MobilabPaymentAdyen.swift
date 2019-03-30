@@ -20,10 +20,10 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
 
-            if let creditCardRequest = try getCreditCardData(from: registrationRequest) {
-                self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspData: pspData, completion: completion)
-            } else if self.isSepaRequest(registrationRequest: registrationRequest) {
-                completion(.success(nil))
+            if let creditCardData = try getCreditCardData(from: registrationRequest) {
+                self.handleCreditCardRequest(creditCardData: creditCardData, pspData: pspData, completion: completion)
+            } else if let sepaData = try getSEPAData(from: registrationRequest) {
+                self.handleSEPARequest(sepaData: sepaData, pspData: pspData, completion: completion)
             } else {
                 #warning("Update codes here when errors are finalized")
                 completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
@@ -65,9 +65,19 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         self.pspIdentifier = .adyen
     }
 
-    private func handleCreditCardRequest(creditCardRequest: CreditCardAdyenData, pspData: AdyenData,
+    private func handleCreditCardRequest(creditCardData: CreditCardAdyenData, pspData: AdyenData,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspData: pspData, completion: { result in
+        self.networkingClient?.registerCreditCard(creditCardData: creditCardData, pspData: pspData, completion: { result in
+            switch result {
+            case let .success(value): completion(.success(.some(value)))
+            case let .failure(error): completion(.failure(error))
+            }
+        })
+    }
+
+    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData: AdyenData,
+                                   completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        self.networkingClient?.registerSEPA(sepaData: sepaData, pspData: pspData, completion: { result in
             switch result {
             case let .success(value): completion(.success(.some(value)))
             case let .failure(error): completion(.failure(error))
@@ -76,18 +86,26 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }
 
     private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
-        guard let cardData = registrationRequest.registrationData as? CreditCardData
-        else { return nil }
+        guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
-        guard let creditCardHolderName = cardData.billingData.name
-        else { throw AdyenIntegrationError.missingHolderName }
+        guard let holderName = cardData.holderName else { throw AdyenIntegrationError.missingHolderName }
 
         let bsCreditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
                                                       expiryMonth: String(cardData.expiryMonth),
                                                       expiryYear: String(cardData.expiryYear),
                                                       cvc: cardData.cvv,
-                                                      holderName: creditCardHolderName)
+                                                      holderName: holderName)
         return bsCreditCardRequest
+    }
+
+    private func getSEPAData(from registrationRequest: RegistrationRequest) throws -> SEPAAdyenData? {
+        guard let data = registrationRequest.registrationData as? SEPAData
+        else { return nil }
+
+        guard let ownerName = data.billingData.name
+        else { throw AdyenIntegrationError.missingHolderName }
+
+        return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban)
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
