@@ -25,6 +25,9 @@
 		BA09A957224D60E8006C3A1D /* MobilabPaymentAdyen.h in Headers */ = {isa = PBXBuildFile; fileRef = BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA09A95A224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; };
 		BA09A95B224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA0B9BB2224FA91A0029FC8D /* AdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */; };
+		BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */; };
+		BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */; };
 		BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		BA21F4F9224D664D004CEAA2 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96B224D635F006C3A1D /* RegisterCreditCardResponse.swift */; };
 		BA21F4FA224D664E004CEAA2 /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */; };
@@ -393,6 +396,9 @@
 		BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
 		BA09A96B224D635F006C3A1D /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
 		BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAdyenData.swift; sourceTree = "<group>"; };
+		BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenData.swift; sourceTree = "<group>"; };
+		BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSPayoneData.swift; sourceTree = "<group>"; };
+		BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeData.swift; sourceTree = "<group>"; };
 		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalViewController.swift; sourceTree = "<group>"; };
 		BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCore.framework; path = Carthage/Build/iOS/BraintreeCore.framework; sourceTree = "<group>"; };
@@ -836,6 +842,7 @@
 		BA09A954224D60E8006C3A1D /* MobilabPaymentAdyen */ = {
 			isa = PBXGroup;
 			children = (
+				BA0B9BB0224FA8FC0029FC8D /* Model */,
 				BA09A960224D6154006C3A1D /* Networking */,
 				BA09A95F224D614C006C3A1D /* Integration */,
 				BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */,
@@ -904,6 +911,30 @@
 				BA09A96A224D635F006C3A1D /* RegisterCreditCardResponseError.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		BA0B9BB0224FA8FC0029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA0B9BB3224FADD70029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA0B9BB6224FAE5F0029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BA2A3AB9223BADE100689A3A /* UI */ = {
@@ -993,6 +1024,7 @@
 		BA945A2C223A890100C39300 /* MobilabPaymentBraintree */ = {
 			isa = PBXGroup;
 			children = (
+				BA0B9BB6224FAE5F0029FC8D /* Model */,
 				BA2A3AB9223BADE100689A3A /* UI */,
 				BA945A38223AE7C200C39300 /* Integration */,
 				BA945A2D223A890100C39300 /* MobilabPaymentBraintree.h */,
@@ -1021,6 +1053,7 @@
 		BACD61922226B03600E3ACC3 /* MobilabPaymentBSPayone */ = {
 			isa = PBXGroup;
 			children = (
+				BA0B9BB3224FADD70029FC8D /* Model */,
 				BAD64641222EC67C00771DC0 /* Integration */,
 				BA3A33AC22295F9C00B7A635 /* Networking */,
 				E1C9A846223FA7E30099DB2E /* UI */,
@@ -1864,6 +1897,7 @@
 				BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */,
 				BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */,
 				BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */,
+				BA0B9BB2224FA91A0029FC8D /* AdyenData.swift in Sources */,
 				BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1892,6 +1926,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */,
 				BABC7D63224229F900028C29 /* MobilabBraintreeBridge.swift in Sources */,
 				BA5F8253223AE85400D92D3E /* MobilabPaymentBraintree.swift in Sources */,
 				BA2A3ABB223BBA1000689A3A /* PayPalViewController.swift in Sources */,
@@ -1910,6 +1945,7 @@
 				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
 				E1C9A85E22413C9D0099DB2E /* SEPAInputCollectionViewController.swift in Sources */,
 				BA3A33AB2229576000B7A635 /* CreditCardBSPayoneData.swift in Sources */,
+				BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
 				E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */,
 				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,

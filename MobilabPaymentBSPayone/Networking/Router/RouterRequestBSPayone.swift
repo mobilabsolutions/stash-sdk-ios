@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 enum RouterServiceBSPayone {
-    case registerCreditCard(CreditCardBSPayoneData, BSPayoneExtra)
+    case registerCreditCard(CreditCardBSPayoneData, BSPayoneData)
 }
 
 struct RouterRequestBSPayone: RouterRequestProtocol {

@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 class NetworkClientAdyen: NetworkClient {
-    func registerCreditCard(creditCardData: CreditCardAdyenData, pspData: AdyenExtra, completion: @escaping Completion<String>) {
+    func registerCreditCard(creditCardData: CreditCardAdyenData, pspData: AdyenData, completion: @escaping Completion<String>) {
         let router = RouterRequestAdyen(service: .registerCreditCard(creditCardData), pspData: pspData)
         fetch(with: router, responseType: RegisterCreditCardResponse.self, errorType: RegisterCreditCardResponseError.self) { result in
             switch result {
@@ -22,7 +22,7 @@ class NetworkClientAdyen: NetworkClient {
         }
     }
 
-    func registerSEPA(sepaData: SEPAAdyenData, pspData: AdyenExtra, completion: @escaping Completion<String>) {
+    func registerSEPA(sepaData: SEPAAdyenData, pspData: AdyenData, completion: @escaping Completion<String>) {
         let router = RouterRequestAdyen(service: .registerSEPA(sepaData), pspData: pspData)
         fetch(with: router, responseType: RegisterCreditCardResponse.self, errorType: RegisterCreditCardResponseError.self) { result in
             switch result {

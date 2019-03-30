@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 class NetworkClientBSPayone: NetworkClient {
-    func registerCreditCard(creditCardData: CreditCardBSPayoneData, pspData: BSPayoneExtra, completion: @escaping Completion<String>) {
+    func registerCreditCard(creditCardData: CreditCardBSPayoneData, pspData: BSPayoneData, completion: @escaping Completion<String>) {
         let router = RouterRequestBSPayone(service: .registerCreditCard(creditCardData, pspData))
         fetch(with: router, responseType: RegisterCreditCardResponse.self, errorType: RegisterCreditCardResponseError.self) { result in
             switch result {

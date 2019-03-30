@@ -69,9 +69,9 @@ extension RouterRequestProtocol {
         if self.withBody() {
             urlRequest.httpBody = self.getHttpBody()
         }
-
+        
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
-        urlRequest.addHeaders(customHeaders: self.getCustomHeaders())
+        urlRequest.addHeaders(customHeaders: self.getHeaders())
         return urlRequest
     }
 

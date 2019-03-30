@@ -17,12 +17,9 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        guard let pspData = registrationRequest.pspData.bsPayone else {
-            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 4)))
-            return
-        }
-
         do {
+            let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
+
             if let creditCardRequest = try getCreditCardDate(from: registrationRequest) {
                 self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspData: pspData, completion: completion)
             } else if self.isSepaRequest(registrationRequest: registrationRequest) {
@@ -31,6 +28,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                 #warning("Update codes here when errors are finalized")
                 completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
             }
+        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
+            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
         } catch BSIntegrationError.unsupportedCreditCardType {
             completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
         } catch {
@@ -66,7 +65,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         self.pspIdentifier = .bsPayone
     }
 
-    private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspData: BSPayoneExtra,
+    private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspData: BSPayoneData,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspData: pspData, completion: { result in
             switch result {

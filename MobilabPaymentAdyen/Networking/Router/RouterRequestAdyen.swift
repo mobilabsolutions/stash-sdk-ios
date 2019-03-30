@@ -16,7 +16,7 @@ enum RouterServiceAdyen {
 
 struct RouterRequestAdyen: RouterRequestProtocol {
     let service: RouterServiceAdyen
-    let pspData: AdyenExtra
+    let pspData: AdyenData
 
     func getBaseURL() -> URL {
         return URL(string: "https://checkout-test.adyen.com/v41/payments")!
@@ -28,7 +28,6 @@ struct RouterRequestAdyen: RouterRequestProtocol {
     }
 
     func getHttpBody() -> Data? {
-        
         var body = [
             "amount": ["value": 0,
                        "currency": "USD"],
@@ -36,8 +35,8 @@ struct RouterRequestAdyen: RouterRequestProtocol {
             "merchantAccount": pspData.merchantAccount,
             "shopperReference": pspData.shopperReference,
             "returnUrl": pspData.returnUrl ?? "",
-            ] as [String: Any]
-        
+        ] as [String: Any]
+
         switch self.service {
         case let .registerCreditCard(data):
 
@@ -50,13 +49,13 @@ struct RouterRequestAdyen: RouterRequestProtocol {
                                      "storeDetails": true]
 
         case let .registerSEPA(data):
-            
+
             body["paymentMethod"] = ["type": "sepadirectdebit",
                                      "sepa.ownerName": data.ownerName,
                                      "sepa.ibanNumber": data.ibanNumber,
                                      "storeDetails": true]
         }
-        
+
         return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
     }
 
