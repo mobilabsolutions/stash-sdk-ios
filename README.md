@@ -47,6 +47,26 @@ let braintreePSP = MobilabPaymentBraintree(tokenizationKey: "123454321...", urlS
 MobilabPaymentSDK.addProvider(provider: braintreePSP)
 ```
 
+#### Using the SDK in test mode
+
+The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
+To configure the SDK to use test mode, simply prepend the `test` subdomain to your endpoint URL. Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+
+For example:
+
+| Test Mode | Production Mode |
+| --------- | --------------- |
+| https://test.payment.example.net/api/v1 | https://payment.example.net/api/v1 |
+
+Or in code:
+
+```swift
+let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
+configuration.useTestMode = true
+
+MobilabPaymentSDK.configure(configuration: configuration)
+```
+
 ## Registering payment method
 
 To register a payment method you need an instance of `RegistrationManager` class.
@@ -198,11 +218,13 @@ A demo app that demonstrate usage of all SDK features is part of this project. R
 The MobilabPayment iOS SDK is in active development, we welcome your feedback!
 Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report and issues or give a feedback
 
-### [](https://github.com/braintree/braintree_ios#license)License
+### License
 
 The MobilabPayment iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
 
-## Help
+## Documentation
 
 To get familiar with the overall Payment SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki)
-To learn more about the iOS Payment SDK architecture and flows please visit [iOS SDK Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
+To learn more about the iOS Payment SDK architecture and flows please visit our wiki [iOS SDK Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
+
+Reference documentation for each module is available in the `docs/` folder of this repository. To regenerate the reference documentation, run `./build_documentation.sh`.

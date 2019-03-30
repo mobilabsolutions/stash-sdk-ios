@@ -90,15 +90,17 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getHeaders() -> [Header] {
         var headers = [Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey)]
+        if InternalPaymentSDK.sharedInstance.configuration.useTestMode {
+            headers.append(Header(field: "PSP-Test-Mode", value: "true"))
+        }
 
         switch self.service {
         case let .createAlias(request):
             headers.append(Header(field: "PSP-Type", value: request.pspType))
+            return headers
         case .updateAlias:
-            break
+            return headers
         }
-
-        return headers
     }
 
     func getEncoding() -> String.Encoding {

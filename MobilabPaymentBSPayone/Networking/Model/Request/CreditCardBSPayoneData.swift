@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import MobilabPaymentCore
 
-public struct CreditCardBSPayoneData {
+struct CreditCardBSPayoneData {
     let cardPan: String
     let cardType: String
     let cardExpireDate: String

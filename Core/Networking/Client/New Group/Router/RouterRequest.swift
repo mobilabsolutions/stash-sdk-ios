@@ -71,10 +71,7 @@ extension RouterRequestProtocol {
         }
 
         urlRequest.addValue(getContentTypeHeader(), forHTTPHeaderField: "Content-Type")
-        for header in self.getHeaders() {
-            urlRequest.addHeader(customHeader: header)
-        }
-
+        urlRequest.addHeaders(customHeaders: self.getCustomHeaders())
         return urlRequest
     }
 
