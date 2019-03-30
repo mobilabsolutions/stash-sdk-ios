@@ -9,8 +9,6 @@ Hello and welcome to MobilabPayment iOS SDK
 
 - BSPayone [Credit Cards / SEPA]
 - Braintree [PayPal]
-
-#### Coming soon
 - Adyen [Credit Cards / SEPA]
 
 ## Requirements
@@ -131,7 +129,7 @@ registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.
 
 ### Registering a PayPal account
 
-Currently, only Braintree PSP allows registering a PayPal account so be sure you register it with the SDK. To get a tokenization key needed for Braintree PSP module initialization please follow this [link](https://developers.braintreepayments.com/guides/authorization/tokenization-key/ios/v4#obtaining-a-tokenization-key)
+Currently, only Braintree PSP allows registering a PayPal account.
 
 #### Setup for app switch
 
