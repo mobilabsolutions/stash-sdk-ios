@@ -20,7 +20,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
 
-        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Card"), (.sepa, "Sepa"), (.payPal, "PayPal")]
+        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Credit Card"), (.sepa, "Sepa"), (.payPal, "PayPal")]
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
         for methodType in supportedMethodTypes {
@@ -30,7 +30,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
     func testCanAddCreditCard() {
         let app = XCUIApplication()
-        navigateToViewController(for: "Card", app: app)
+        navigateToViewController(for: "Credit Card", app: app)
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["Name"].tap()
@@ -55,7 +55,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
     func testRejectsInvalidCardNumber() {
         let app = XCUIApplication()
-        navigateToViewController(for: "Card", app: app)
+        navigateToViewController(for: "Credit Card", app: app)
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["Name"].tap()

@@ -107,7 +107,7 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         if let paymentMethodType = self.paymentMethodType {
             switch paymentMethodType {
             case .creditCard:
-                self.nameLabel.text = "Card"
+                self.nameLabel.text = "Credit Card"
                 self.methodImageView.image = UIConstants.creditCardImage
             case .sepa:
                 self.nameLabel.text = "Sepa"

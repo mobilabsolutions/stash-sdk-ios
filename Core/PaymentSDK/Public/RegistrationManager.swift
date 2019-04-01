@@ -89,7 +89,10 @@ public class RegistrationManager {
             return wrapped
         }
 
-        selectionViewController.selectablePaymentMethods = InternalPaymentSDK.sharedInstance.pspCoordinator.getSupportedPaymentMethodTypeUserInterfaces()
+        let methods = InternalPaymentSDK.sharedInstance.pspCoordinator
+            .getSupportedPaymentMethodTypeUserInterfaces()
+        selectionViewController.setSelectablePaymentMethods(methods: methods)
+
         selectionViewController.selectedPaymentMethodCallback = { selectedType in
             let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: selectedType.internalPaymentMethodType)
             guard var paymentMethodViewController = provider.viewController(for: selectedType, billingData: billingData,

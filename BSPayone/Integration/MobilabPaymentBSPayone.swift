@@ -38,7 +38,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     }
 
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
-        return [.sepa, .creditCard]
+        return [.creditCard, .sepa]
     }
 
     public func viewController(for methodType: PaymentMethodType,
