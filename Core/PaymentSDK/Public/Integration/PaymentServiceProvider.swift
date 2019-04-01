@@ -1,16 +1,22 @@
 //
-import MobilabPaymentUI
 //  PSPIntegrationProtocol.swift
 //  MLPaymentSDK
 //
 //  Created by Borna Beakovic on 27/02/2019.
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
+
+import MobilabPaymentUI
 import UIKit
 
-public enum MobilabPaymentProvider: String {
+public enum MobilabPaymentProvider: String, Codable {
     case bsPayone = "BS_PAYONE"
     case braintree = "BRAINTREE"
+    case adyen = "ADYEN"
+}
+
+public enum PaymentServiceProviderError: Error {
+    case missingOrInvalidConfigurationData
 }
 
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide

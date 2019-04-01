@@ -15,24 +15,27 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        guard let clientToken = registrationRequest.pspData.braintreeClientToken else {
-            completion(.failure(MLError(description: BraintreeIntegrationError.invalidClientToken.description(), code: 1)))
-            return
-        }
+        do {
+            let pspData = try registrationRequest.pspData.toPSPData(type: BraintreeData.self)
 
-        let paypalViewController = PayPalViewController(clientToken: clientToken)
-        paypalViewController.didCreatePaymentMethodCompletion = { method in
-            if let payPalData = method as? PayPalData {
-                completion(.success(payPalData.nonce))
-            } else {
-                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+            let paypalViewController = PayPalViewController(clientToken: pspData.clientToken)
+            paypalViewController.didCreatePaymentMethodCompletion = { method in
+                if let payPalData = method as? PayPalData {
+                    completion(.success(payPalData.nonce))
+                } else {
+                    fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+                }
             }
-        }
+            guard let presentingViewController = registrationRequest.viewController else {
+                fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+            }
+            presentingViewController.present(paypalViewController, animated: true, completion: nil)
 
-        guard let presentingViewController = registrationRequest.viewController else {
-            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
+            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
+        } catch {
+            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in Braintree module", code: 3)))
         }
-        presentingViewController.present(paypalViewController, animated: true, completion: nil)
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {

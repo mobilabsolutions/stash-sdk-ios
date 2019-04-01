@@ -146,8 +146,8 @@ class ModuleIntegrationTests: XCTestCase {
         }) { request -> OHHTTPStubsResponse in
 
             let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
-                ? "update_alias_success.json"
-                : "create_alias_success.json"
+                ? "core_update_alias_success.json"
+                : "core_create_alias_success.json"
 
             if let isTestString = request.allHTTPHeaderFields?["PSP-Test-Mode"],
                 let isTest = Bool(isTestString),

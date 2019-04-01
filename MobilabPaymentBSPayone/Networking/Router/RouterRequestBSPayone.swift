@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 enum RouterServiceBSPayone {
-    case registerCreditCard(CreditCardBSPayoneData, PSPExtra)
+    case registerCreditCard(CreditCardBSPayoneData, BSPayoneData)
 }
 
 struct RouterRequestBSPayone: RouterRequestProtocol {
@@ -24,7 +24,8 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         switch self.service {
         case let .registerCreditCard(creditCardData, pspData):
 
-            let url = self.getBaseURL().append("mid", value: pspData.merchantId)
+            let url = self.getBaseURL()
+                .append("mid", value: pspData.merchantId)
                 .append("portalid", value: pspData.portalId)
                 .append("api_version", value: pspData.apiVersion)
                 .append("mode", value: "test")
@@ -61,15 +62,6 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         switch self.service {
         case .registerCreditCard:
             return "application/json"
-        }
-    }
-
-    func getAuthorizationHeader() -> String {
-        switch self.service {
-        case .registerCreditCard:
-            // let token = MLConfigurationBuilder.sharedInstance.configuration?.publicToken
-            // return "Bearer \(token!.toBase64())"
-            return ""
         }
     }
 }
