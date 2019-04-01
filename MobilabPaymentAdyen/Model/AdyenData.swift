@@ -12,7 +12,7 @@ import MobilabPaymentCore
 public struct AdyenData: Codable {
     /// Api key used for Adyen authentification
     public let apiKey: String
-    /// Adyen merhcant account
+    /// Adyen merchant account
     public let merchantAccount: String
     /// Adyen shopper reference
     public let shopperReference: String

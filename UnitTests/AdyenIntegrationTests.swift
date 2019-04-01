@@ -14,144 +14,152 @@ class AdyenIntegrationTests: XCTestCase {
     private var provider: PaymentServiceProvider?
     private let adyenHost = "checkout-test.adyen.com"
 
-    #warning("Uncomment once Adyen is fully integrated")
-    /*
-     override func setUp() {
-         super.setUp()
+    override func setUp() {
+        super.setUp()
 
-         // Put setup code here. This method is called before the invocation of each test method in the class.
-         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
-         configuration.loggingEnabled = true
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        configuration.loggingEnabled = true
 
-         let provider = MobilabPaymentAdyen()
-         self.provider = provider
+        let provider = MobilabPaymentAdyen()
+        self.provider = provider
 
-         MobilabPaymentSDK.configure(configuration: configuration)
-         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
-     }
+        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
 
-     func testCreditCard() throws {
-         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
-             guard let path = OHPathForFile("adyen_credit_card_success.json", type(of: self))
-             else { Swift.fatalError("Expected file adyen_credit_card_success.json to exist.") }
-             return fixture(filePath: path, status: 200, headers: [:])
-         }
+        stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
 
-         let expectation = self.expectation(description: "Registering credit card succeeds")
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+                ? "core_update_alias_success.json"
+                : "core_create_alias_adyen_success.json"
 
-         let billingData = BillingData(email: "mirza@miki.com")
-         let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
-                                                 holderName: "Holder Name", billingData: billingData)
+            guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+            else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+    }
 
-         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
-             switch result {
-             case .success: expectation.fulfill()
-             case let .failure(error):
-                 XCTFail("An error occurred while adding a credit card: \(error.failureReason ?? "unknown error")")
-                 expectation.fulfill()
-             }
-         })
+    func testCreditCard() throws {
+        stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("adyen_credit_card_success.json", type(of: self))
+            else { Swift.fatalError("Expected file adyen_credit_card_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
 
-         waitForExpectations(timeout: 20) { error in
-             XCTAssertNil(error)
-         }
-     }
+        let expectation = self.expectation(description: "Registering credit card succeeds")
 
-     func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
-         let expectation = self.expectation(description: "Registering invalid credit card fails")
+        let billingData = BillingData(email: "mirza@miki.com")
+        let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
+                                                holderName: "Holder Name", billingData: billingData)
 
-         let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
-                                                 holderName: "Holder Name", billingData: BillingData())
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
+            switch result {
+            case .success: expectation.fulfill()
+            case let .failure(error):
+                XCTFail("An error occurred while adding a credit card: \(error.failureReason ?? "unknown error")")
+                expectation.fulfill()
+            }
+        })
 
-         XCTAssertEqual(creditCardData.cardType, .unknown)
+        waitForExpectations(timeout: 20) { error in
+            XCTAssertNil(error)
+        }
+    }
 
-         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
-             switch result {
-             case .success:
-                 XCTFail("Adding an invalid credit card should not succeed")
-                 expectation.fulfill()
-             case .failure:
-                 expectation.fulfill()
-             }
-         })
+    func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
+        let expectation = self.expectation(description: "Registering invalid credit card fails")
 
-         waitForExpectations(timeout: 5) { error in
-             XCTAssertNil(error)
-         }
-     }
+        let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
+                                                holderName: "Holder Name", billingData: BillingData())
 
-     func testAddSEPA() throws {
-         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
-             guard let path = OHPathForFile("adyen_sepa_success.json", type(of: self))
-             else { Swift.fatalError("Expected file adyen_sepa_success.json to exist.") }
-             return fixture(filePath: path, status: 200, headers: [:])
-         }
+        XCTAssertEqual(creditCardData.cardType, .unknown)
 
-         let expectation = self.expectation(description: "Registering SEPA succeeds")
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
+            switch result {
+            case .success:
+                XCTFail("Adding an invalid credit card should not succeed")
+                expectation.fulfill()
+            case .failure:
+                expectation.fulfill()
+            }
+        })
 
-         let billingData = BillingData(email: "max@mustermann.de",
-                                       name: "Max Mustermann",
-                                       address1: "Address1",
-                                       address2: "Address2",
-                                       zip: "817754",
-                                       city: "Cologne",
-                                       state: nil,
-                                       country: "Germany",
-                                       phone: "1231231123",
-                                       languageId: "deu")
+        waitForExpectations(timeout: 5) { error in
+            XCTAssertNil(error)
+        }
+    }
 
-         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
+    func testAddSEPA() throws {
+        stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("adyen_sepa_success.json", type(of: self))
+            else { Swift.fatalError("Expected file adyen_sepa_success.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
 
-         let registerManager = MobilabPaymentSDK.getRegistrationManager()
-         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
-             switch result {
-             case .success: expectation.fulfill()
-             case let .failure(error):
-                 XCTFail("An error occurred while adding SEPA: \(error.errorDescription ?? "unknown error")")
-                 expectation.fulfill()
-             }
-         }
+        let expectation = self.expectation(description: "Registering SEPA succeeds")
 
-         self.waitForExpectations(timeout: 20) { error in
-             XCTAssertNil(error)
-         }
-     }
+        let billingData = BillingData(email: "max@mustermann.de",
+                                      name: "Max Mustermann",
+                                      address1: "Address1",
+                                      address2: "Address2",
+                                      zip: "817754",
+                                      city: "Cologne",
+                                      state: nil,
+                                      country: "Germany",
+                                      phone: "1231231123",
+                                      languageId: "deu")
 
-     func testHasCorrectPaymentMethodUITypes() {
-         let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+        let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
-         XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+        let registerManager = MobilabPaymentSDK.getRegistrationManager()
+        registerManager.registerSEPAAccount(sepaData: sepaData) { result in
+            switch result {
+            case .success: expectation.fulfill()
+            case let .failure(error):
+                XCTFail("An error occurred while adding SEPA: \(error.errorDescription ?? "unknown error")")
+                expectation.fulfill()
+            }
+        }
 
-         for value in expected {
-             XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
-         }
-     }
+        self.waitForExpectations(timeout: 20) { error in
+            XCTAssertNil(error)
+        }
+    }
 
-     func testCorrectlyPropagatesBSError() {
-         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
-             guard let path = OHPathForFile("adyen_credit_card_failure.json", type(of: self))
-             else { Swift.fatalError("Expected file adyen_credit_card_failure.json to exist.") }
-             return fixture(filePath: path, status: 200, headers: [:])
-         }
+//    func testHasCorrectPaymentMethodUITypes() {
+//        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+//
+//        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+//
+//        for value in expected {
+//            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
+//        }
+//    }
 
-         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
+    func testCorrectlyPropagatesAdyenError() {
+        stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("adyen_credit_card_failure.json", type(of: self))
+            else { Swift.fatalError("Expected file adyen_credit_card_failure.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
 
-         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                 expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
-         else { XCTFail("Credit Card data should be valid"); return }
+        let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
-         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
-             switch result {
-             case .success: XCTFail("Should not have returned success when creating an alias fails")
-             case let .failure(error): XCTAssertEqual(error.title, "PSP Error")
-             }
+        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
 
-             resultExpectation.fulfill()
-         }
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+            switch result {
+            case .success: XCTFail("Should not have returned success when creating an alias fails")
+            case let .failure(error): XCTAssertEqual(error.title, "PSP Error")
+            }
 
-         wait(for: [resultExpectation], timeout: 20)
-     }
-     */
+            resultExpectation.fulfill()
+        }
+
+        wait(for: [resultExpectation], timeout: 20)
+    }
 }

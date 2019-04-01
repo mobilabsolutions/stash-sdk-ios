@@ -1,0 +1,10 @@
+{
+    "aliasId":"hjkVAZujTaZtJdKf8sSv",
+    "psp": {
+        "type":"ADYEN",
+        "apiKey":"987654432542546",
+        "merchantAccount":"12345",
+        "shopperReference":"12345678",
+        "returnUrl":"company.url.com"
+    }
+}

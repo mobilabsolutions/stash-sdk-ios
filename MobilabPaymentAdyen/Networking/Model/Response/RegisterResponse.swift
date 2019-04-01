@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 enum ResultCode: String, Codable {
-    case authorised = "Authorised"
+    case authorised = "Authorized"
     case refused = "Refused"
     case redirectShopper = "RedirectShopper"
     case received = "Received"

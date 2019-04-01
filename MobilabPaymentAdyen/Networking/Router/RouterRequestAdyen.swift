@@ -56,7 +56,7 @@ struct RouterRequestAdyen: RouterRequestProtocol {
                                      "storeDetails": true]
         }
 
-        return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        return try? JSONSerialization.data(withJSONObject: body)
     }
 
     func getHTTPMethod() -> HTTPMethod {

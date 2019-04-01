@@ -33,7 +33,9 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
 
         } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
             completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
-        } catch {}
+        } catch {
+            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in Braintree module", code: 3)))
+        }
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {

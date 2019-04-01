@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(MLMobilabBSPayone) public class MobilabAdyenBridge: NSObject {
+@objc(MLMobilabAdyen) public class MobilabAdyenBridge: NSObject {
     @objc public static func createModule() -> Any {
         return MobilabPaymentAdyen()
     }

@@ -29,6 +29,10 @@
 		BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */; };
 		BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */; };
 		BA0B9BBA224FB6D10029FC8D /* AdyenIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */; };
+		BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */; };
+		BA0B9BC4225207CA0029FC8D /* adyen_sepa_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BBF224FB98A0029FC8D /* adyen_sepa_success.json */; };
+		BA0B9BC5225207CC0029FC8D /* adyen_credit_card_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BBE224FB98A0029FC8D /* adyen_credit_card_failure.json */; };
+		BA0B9BC6225207CE0029FC8D /* adyen_credit_card_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BC0224FB98A0029FC8D /* adyen_credit_card_success.json */; };
 		BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		BA21F4F9224D664D004CEAA2 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96B224D635F006C3A1D /* RegisterResponse.swift */; };
 		BA21F4FA224D664E004CEAA2 /* RegisterResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96A224D635F006C3A1D /* RegisterResponseError.swift */; };
@@ -404,6 +408,7 @@
 		BA0B9BBE224FB98A0029FC8D /* adyen_credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_credit_card_failure.json; sourceTree = "<group>"; };
 		BA0B9BBF224FB98A0029FC8D /* adyen_sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_sepa_success.json; sourceTree = "<group>"; };
 		BA0B9BC0224FB98A0029FC8D /* adyen_credit_card_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_credit_card_success.json; sourceTree = "<group>"; };
+		BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_create_alias_adyen_success.json; sourceTree = "<group>"; };
 		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalViewController.swift; sourceTree = "<group>"; };
 		BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCore.framework; path = Carthage/Build/iOS/BraintreeCore.framework; sourceTree = "<group>"; };
@@ -957,6 +962,7 @@
 			isa = PBXGroup;
 			children = (
 				E1FDE0E5224D007B00BB960D /* core_create_alias_success.json */,
+				BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */,
 				E1FDE0E7224D04BC00BB960D /* core_update_alias_success.json */,
 			);
 			path = Core;
@@ -1688,10 +1694,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1FDE0E8224D04BC00BB960D /* core_update_alias_success.json in Resources */,
+				BA0B9BC5225207CC0029FC8D /* adyen_credit_card_failure.json in Resources */,
 				E117E020224BA41400E4C591 /* bs_sepa_success.json in Resources */,
 				E117E01C224BA0FD00E4C591 /* bs_credit_card_success.json in Resources */,
+				BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */,
 				E1FDE0E6224D007B00BB960D /* core_create_alias_success.json in Resources */,
 				E117E01E224BA18D00E4C591 /* bs_credit_card_failure.json in Resources */,
+				BA0B9BC4225207CA0029FC8D /* adyen_sepa_success.json in Resources */,
+				BA0B9BC6225207CE0029FC8D /* adyen_credit_card_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

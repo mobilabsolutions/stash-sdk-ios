@@ -13,7 +13,7 @@ import UIKit
 public class MobilabPaymentAdyen: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
 
-    let networkingClient: NetworkClientAdyen?
+    let networkingClient: NetworkClientAdyen
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
@@ -67,7 +67,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     private func handleCreditCardRequest(creditCardData: CreditCardAdyenData, pspData: AdyenData,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        self.networkingClient?.registerCreditCard(creditCardData: creditCardData, pspData: pspData, completion: { result in
+        self.networkingClient.registerCreditCard(creditCardData: creditCardData, pspData: pspData, completion: { result in
             switch result {
             case let .success(value): completion(.success(.some(value)))
             case let .failure(error): completion(.failure(error))
@@ -77,7 +77,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     private func handleSEPARequest(sepaData: SEPAAdyenData, pspData: AdyenData,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        self.networkingClient?.registerSEPA(sepaData: sepaData, pspData: pspData, completion: { result in
+        self.networkingClient.registerSEPA(sepaData: sepaData, pspData: pspData, completion: { result in
             switch result {
             case let .success(value): completion(.success(.some(value)))
             case let .failure(error): completion(.failure(error))
