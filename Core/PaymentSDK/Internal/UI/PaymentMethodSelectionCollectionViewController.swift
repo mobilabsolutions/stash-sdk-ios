@@ -19,7 +19,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     private let cellInset: CGFloat = 16
     private let headerHeight: CGFloat = 195
 
-    var selectablePaymentMethods: [PaymentMethodType] = [] {
+    private var selectablePaymentMethods: [PaymentMethodType] = [] {
         didSet {
             self.collectionView.reloadData()
         }
@@ -92,5 +92,21 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
 
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: self.headerHeight)
+    }
+
+    func setSelectablePaymentMethods(methods: [PaymentMethodType]) {
+        self.selectablePaymentMethods = methods.sorted(by: { $0.uiPriority < $1.uiPriority })
+    }
+}
+
+private extension PaymentMethodType {
+    /// The priority from which the cells should be ordered. Lower number means
+    /// higher priority.
+    var uiPriority: Int {
+        switch self {
+        case .creditCard: return 0
+        case .payPal: return 1
+        case .sepa: return 2
+        }
     }
 }
