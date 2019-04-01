@@ -26,7 +26,9 @@ class AdyenIntegrationTests: XCTestCase {
 
         MobilabPaymentSDK.configure(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
+    }
 
+    func testCreditCard() throws {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
 
             let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
@@ -37,9 +39,7 @@ class AdyenIntegrationTests: XCTestCase {
             else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
             return fixture(filePath: path, status: 200, headers: [:])
         }
-    }
 
-    func testCreditCard() throws {
         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("adyen_credit_card_success.json", type(of: self))
             else { Swift.fatalError("Expected file adyen_credit_card_success.json to exist.") }
@@ -67,31 +67,18 @@ class AdyenIntegrationTests: XCTestCase {
         }
     }
 
-    func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
-        let expectation = self.expectation(description: "Registering invalid credit card fails")
-
-        let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
-                                                holderName: "Holder Name", billingData: BillingData())
-
-        XCTAssertEqual(creditCardData.cardType, .unknown)
-
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
-            switch result {
-            case .success:
-                XCTFail("Adding an invalid credit card should not succeed")
-                expectation.fulfill()
-            case .failure:
-                expectation.fulfill()
-            }
-        })
-
-        waitForExpectations(timeout: 5) { error in
-            XCTAssertNil(error)
-        }
-    }
-
     func testAddSEPA() throws {
+        stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
+
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+                ? "core_update_alias_success.json"
+                : "core_create_alias_adyen_success.json"
+
+            guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+            else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("adyen_sepa_success.json", type(of: self))
             else { Swift.fatalError("Expected file adyen_sepa_success.json to exist.") }
@@ -128,17 +115,28 @@ class AdyenIntegrationTests: XCTestCase {
         }
     }
 
-//    func testHasCorrectPaymentMethodUITypes() {
-//        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
-//
-//        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
-//
-//        for value in expected {
-//            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
-//        }
-//    }
+    //    func testHasCorrectPaymentMethodUITypes() {
+    //        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+    //
+    //        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+    //
+    //        for value in expected {
+    //            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
+    //        }
+    //    }
 
     func testCorrectlyPropagatesAdyenError() {
+        stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
+
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+                ? "core_update_alias_success.json"
+                : "core_create_alias_adyen_success.json"
+
+            guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+            else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
         stub(condition: isHost(self.adyenHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("adyen_credit_card_failure.json", type(of: self))
             else { Swift.fatalError("Expected file adyen_credit_card_failure.json to exist.") }
@@ -161,5 +159,10 @@ class AdyenIntegrationTests: XCTestCase {
         }
 
         wait(for: [resultExpectation], timeout: 20)
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        OHHTTPStubs.removeAllStubs()
     }
 }
