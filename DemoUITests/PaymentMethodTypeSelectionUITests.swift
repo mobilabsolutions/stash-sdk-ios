@@ -117,6 +117,39 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
+    func testFailsForLiveMode() {
+        let app = XCUIApplication()
+        app.tabBars.buttons["Bookmarks"].tap()
+
+        guard let testModeSwitch = app.switches.allElementsBoundByIndex.last,
+            testModeSwitch.value as? String == "1"
+        else { XCTFail("Test Mode switch should exist and be enabled"); return }
+
+        testModeSwitch.tap()
+
+        app.buttons["Trigger Register UI"].tap()
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.staticTexts["Credit Card"].tap()
+
+        collectionViewsQuery.textFields["Name"].tap()
+        collectionViewsQuery.textFields["Name"].typeText("Max Mustermann")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+
+        collectionViewsQuery.textFields["CVV"].tap()
+        collectionViewsQuery.textFields["CVV"].typeText("123")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Error"))
+        app.alerts.firstMatch.buttons.firstMatch.tap()
+    }
+
     private func navigateToViewController(for paymentMethodTypeTitle: String, app: XCUIApplication) {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
