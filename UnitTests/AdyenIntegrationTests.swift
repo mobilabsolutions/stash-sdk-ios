@@ -28,6 +28,12 @@ class AdyenIntegrationTests: XCTestCase {
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
+    override func tearDown() {
+        super.tearDown()
+        OHHTTPStubs.removeAllStubs()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+    }
+
     func testCreditCard() throws {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
 
@@ -115,15 +121,15 @@ class AdyenIntegrationTests: XCTestCase {
         }
     }
 
-    //    func testHasCorrectPaymentMethodUITypes() {
-    //        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
-    //
-    //        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
-    //
-    //        for value in expected {
-    //            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
-    //        }
-    //    }
+    func testHasCorrectPaymentMethodUITypes() {
+        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+
+        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+
+        for value in expected {
+            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
+        }
+    }
 
     func testCorrectlyPropagatesAdyenError() {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
@@ -159,10 +165,5 @@ class AdyenIntegrationTests: XCTestCase {
         }
 
         wait(for: [resultExpectation], timeout: 20)
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        OHHTTPStubs.removeAllStubs()
     }
 }

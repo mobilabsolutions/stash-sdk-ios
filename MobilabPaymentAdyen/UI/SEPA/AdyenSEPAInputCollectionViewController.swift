@@ -1,6 +1,6 @@
 //
-//  SEPAInputCollectionViewController.swift
-//  MobilabPaymentBSPayone
+//  AdyenSEPAInputCollectionViewController.swift
+//  MobilabPaymentAdyen
 //
 //  Created by Robert on 19.03.19.
 //  Copyright © 2019 MobiLab. All rights reserved.
@@ -9,7 +9,7 @@
 import MobilabPaymentCore
 import UIKit
 
-class SEPAInputCollectionViewController: FormCollectionViewController {
+class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
     private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
@@ -37,14 +37,8 @@ class SEPAInputCollectionViewController: FormCollectionViewController {
                                                                textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
 
-        let bicCell = FormCellModel.FormCellType.TextData(necessaryData: .bic,
-                                                          title: "BIC",
-                                                          placeholder: "XXX",
-                                                          setup: nil,
-                                                          didUpdate: nil)
-
         super.init(billingData: billingData, configuration: configuration, cellModels: [
-            FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell)), FormCellModel(type: .text(bicCell)),
+            FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell))
         ], formTitle: "Sepa")
 
         self.formConsumer = self
@@ -60,7 +54,7 @@ class SEPAInputCollectionViewController: FormCollectionViewController {
     }
 }
 
-extension SEPAInputCollectionViewController: FormConsumer {
+extension AdyenSEPAInputCollectionViewController: FormConsumer {
     func consumeValues(data: [NecessaryData: String]) throws {
         var errors: [NecessaryData: ValidationError] = [:]
 
@@ -68,16 +62,11 @@ extension SEPAInputCollectionViewController: FormConsumer {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if data[.bic] == nil || data[.bic]?.isEmpty == true {
-            errors[.bic] = SEPAValidationError.noData(explanation: "Please provide a valid BIC")
-        }
-
         if data[.holderName] == nil || data[.holderName]?.isEmpty == true {
             errors[.holderName] = SEPAValidationError.noData(explanation: "Please provide a valid card holder name")
         }
 
         guard let iban = data[.iban],
-            let bic = data[.bic],
             let name = data[.holderName],
             errors.isEmpty
         else { throw FormConsumerError(errors: errors) }
@@ -94,7 +83,7 @@ extension SEPAInputCollectionViewController: FormConsumer {
                                          languageId: billingData?.languageId)
 
         do {
-            let sepa = try SEPAData(iban: iban, bic: bic, billingData: newBillingData)
+            let sepa = try SEPAData(iban: iban, bic: nil, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
         } catch let error as MLError {
             errors[.iban] = SEPAValidationError.sepaValidationFailed(explanation: error.failureReason ?? "Please provide a valid IBAN")

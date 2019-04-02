@@ -1,5 +1,5 @@
 //
-//  CreditCardInputCollectionViewController.swift
+//  BSCreditCardInputCollectionViewController.swift
 //  MobilabPaymentBSPayone
 //
 //  Created by Robert on 18.03.19.
@@ -9,7 +9,7 @@
 import MobilabPaymentCore
 import UIKit
 
-class CreditCardInputCollectionViewController: FormCollectionViewController {
+class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 
     private static let methodTypeImageViewWidth: CGFloat = 30
     private static let methodTypeImageViewHeight: CGFloat = 22
@@ -106,8 +106,8 @@ class CreditCardInputCollectionViewController: FormCollectionViewController {
                                                             textField.textContentType = .creditCardNumber
                                                             let imageView = UIImageView(frame: CGRect(x: 0,
                                                                                                       y: 0,
-                                                                                                      width: CreditCardInputCollectionViewController.methodTypeImageViewWidth,
-                                                                                                      height: CreditCardInputCollectionViewController.methodTypeImageViewHeight))
+                                                                                                      width: BSCreditCardInputCollectionViewController.methodTypeImageViewWidth,
+                                                                                                      height: BSCreditCardInputCollectionViewController.methodTypeImageViewHeight))
                                                             imageView.contentMode = .scaleAspectFit
                                                             textField.rightView = imageView
                                                            },
@@ -140,7 +140,7 @@ class CreditCardInputCollectionViewController: FormCollectionViewController {
     }
 }
 
-extension CreditCardInputCollectionViewController: FormConsumer {
+extension BSCreditCardInputCollectionViewController: FormConsumer {
     func consumeValues(data: [NecessaryData : String]) throws {
         let createdData = CreditCardParsedData.create(holderNameText: data[.holderName],
                                                       cardNumberText: data[.cardNumber],

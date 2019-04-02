@@ -19,9 +19,9 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
 
-            if let creditCardRequest = try getCreditCardDate(from: registrationRequest) {
+            if let creditCardRequest = try getCreditCardData(from: registrationRequest) {
                 self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspData: pspData, completion: completion)
-            } else if self.isSepaRequest(registrationRequest: registrationRequest) {
+            } else if let _ = try getSepaData(from: registrationRequest) {
                 completion(.success(nil))
             } else {
                 #warning("Update codes here when errors are finalized")
@@ -31,6 +31,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
             completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
         } catch BSIntegrationError.unsupportedCreditCardType {
             completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
+        } catch BSIntegrationError.missingBIC {
+            completion(.failure(MLError(title: "BIC missing", description: "For SEPA payments with BS Payone, BIC is required", code: 1)))
         } catch {
             completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
         }
@@ -49,10 +51,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+            return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
                                                            configuration: configuration)
         case .sepa:
-            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+            return CustomBackButtonContainerViewController(viewController: BSSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
                                                            configuration: configuration)
         case .payPal:
             return nil
@@ -74,7 +76,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         })
     }
 
-    private func getCreditCardDate(from registrationRequest: RegistrationRequest) throws -> CreditCardBSPayoneData? {
+    private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardBSPayoneData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData
         else { return nil }
 
@@ -89,11 +91,22 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         return bsCreditCardRequest
     }
 
+    private func getSepaData(from registrationRequest: RegistrationRequest) throws -> SEPABSPayoneData? {
+        guard let data = registrationRequest.registrationData as? SEPAData
+            else { return nil }
+
+        guard let bic = data.bic
+            else { throw BSIntegrationError.missingBIC }
+
+        return SEPABSPayoneData(iban: data.iban, bic: bic)
+    }
+
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
     }
 
     private enum BSIntegrationError: Error {
         case unsupportedCreditCardType
+        case missingBIC
     }
 }

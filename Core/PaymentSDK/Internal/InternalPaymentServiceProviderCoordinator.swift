@@ -21,7 +21,8 @@ class InternalPaymentServiceProviderCoordinator {
         }
 
         self.providers.append(provider)
-        for (_, element) in paymentMethodTypes.enumerated() {
+        
+        for element in paymentMethodTypes {
             self.store[element.internalPaymentMethodType] = provider
         }
     }
@@ -44,5 +45,10 @@ class InternalPaymentServiceProviderCoordinator {
 
     func getSupportedPaymentMethodTypeUserInterfaces() -> [PaymentMethodType] {
         return self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces }
+    }
+
+    func removeAllProviders() {
+        self.store = [:]
+        self.providers = []
     }
 }

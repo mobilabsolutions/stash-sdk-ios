@@ -44,7 +44,7 @@ struct CreditCardExtra: Codable {
 
 struct SepaExtra: Codable {
     let iban: String
-    let bic: String
+    let bic: String?
     let name: String?
     let email: String?
     let street: String?

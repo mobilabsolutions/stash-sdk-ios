@@ -29,6 +29,11 @@ class BSPayoneIntegrationTests: XCTestCase {
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
+    override func tearDown() {
+        super.tearDown()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+    }
+
     func testCreditCard() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_credit_card_success.json", type(of: self))

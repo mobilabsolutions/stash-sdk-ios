@@ -90,7 +90,7 @@ import UIKit
     @objc(MLSEPAData) public class SEPADataBridge: NSObject, SEPADataInitializible {
         let sepaData: SEPAData
 
-        @objc public required init(iban: String, bic: String, billingData: BillingData) throws {
+        @objc public required init(iban: String, bic: String?, billingData: BillingData) throws {
             self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
         }
     }

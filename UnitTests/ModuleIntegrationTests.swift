@@ -46,6 +46,7 @@ class ModuleIntegrationTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
     }
 
     func testHandleRegistrationRequestCalled() throws {

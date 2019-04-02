@@ -14,6 +14,13 @@ import XCTest
 @testable import MobilabPaymentCore
 
 class SDKConfiguraionTests: XCTestCase {
+
+    override func tearDown() {
+        super.tearDown()
+
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+    }
+
     func testPSPRegistersForSupportedPaymentMethodTypes() {
         let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
