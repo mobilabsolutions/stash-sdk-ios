@@ -7,43 +7,10 @@
 //
 
 import MobilabPaymentCore
-import MobilabPaymentUI
 import UIKit
 
-class SEPAInputCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
-    PaymentMethodDataProvider, DoneButtonUpdater {
-    private let textReuseIdentifier = "textCell"
-    private let headerReuseIdentifier = "header"
-
-    private let cellInset: CGFloat = 18
-    private let defaultCellHeight: CGFloat = 85
-    private let defaultHeaderHeight: CGFloat = 65
-    private let lastCellHeightSurplus: CGFloat = 16
-    private let errorCellHeightSurplus: CGFloat = 18
-
-    var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
-    var doneButtonUpdating: DoneButtonUpdating?
-
-    private let billingData: BillingData?
-    private let configuration: PaymentMethodUIConfiguration
-
-    private var fieldData: [NecessaryData: String] = [:]
-
-    private enum SEPANecessaryDataCell: Int, CaseIterable {
-        case nameCell = 0
-        case ibanCell
-        case bicCell
-
-        var necessaryData: [NecessaryData] {
-            switch self {
-            case .nameCell: return [.holderName]
-            case .ibanCell: return [.iban]
-            case .bicCell: return [.bic]
-            }
-        }
-    }
-
-    private enum ValidationError: CustomStringConvertible {
+class SEPAInputCollectionViewController: FormCollectionViewController {
+    private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
 
@@ -55,154 +22,65 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         }
     }
 
-    private var errors: [NecessaryData: ValidationError] = [:]
-
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
-        self.billingData = billingData
-        self.configuration = configuration
+        let nameCell = FormCellModel.FormCellType.TextData(necessaryData: .holderName,
+                                                           title: "Name",
+                                                           placeholder: "Name",
+                                                           setup: nil,
+                                                           didUpdate: nil)
 
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
+                                                           title: "IBAN",
+                                                           placeholder: "XX123",
+                                                           setup: nil,
+                                                           didUpdate: { _, textField in
+                                                               textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
+        })
 
-        if let name = billingData?.name {
-            self.fieldData[.holderName] = name
-        }
+        let bicCell = FormCellModel.FormCellType.TextData(necessaryData: .bic,
+                                                          title: "BIC",
+                                                          placeholder: "XXX",
+                                                          setup: nil,
+                                                          didUpdate: nil)
+
+        super.init(billingData: billingData, configuration: configuration, cellModels: [
+            FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell)), FormCellModel(type: .text(bicCell)),
+        ], formTitle: "Sepa")
+
+        self.formConsumer = self
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        self.billingData = nil
-        self.configuration = PaymentMethodUIConfiguration()
-
-        super.init(coder: aDecoder)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Register cell classes
-        self.collectionView.register(TextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.textReuseIdentifier)
-        self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
-
-        self.collectionView.backgroundColor = self.configuration.backgroundColor
-        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
-    }
-
-    func errorWhileCreatingPaymentMethod(error: MLError) {
+    override func errorWhileCreatingPaymentMethod(error: MLError) {
         UIViewControllerTools.showAlert(on: self, title: "Error",
                                         body: "Could not create SEPA method: \(error.errorDescription ?? "Unknown error")")
     }
-
-    private func isDone() -> Bool {
-        return SEPANecessaryDataCell.allCases
-            .flatMap { $0.necessaryData }
-            .allSatisfy { self.fieldData[$0] != nil }
-    }
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in _: UICollectionView) -> Int {
-        return 1
-    }
-
-    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return SEPANecessaryDataCell.allCases.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let necessaryDataCell = SEPANecessaryDataCell(rawValue: indexPath.item)
-        else { fatalError("Index path does not correspond to any necessary data item") }
-
-        let toReturn: UICollectionViewCell
-
-        switch necessaryDataCell {
-        case .nameCell:
-            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[.holderName], title: "Name", placeholder: "Name", dataType: .holderName,
-                       error: errors[.holderName]?.description, configuration: configuration, delegate: self)
-
-            toReturn = cell
-        case .ibanCell:
-            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[.iban], title: "IBAN", placeholder: "XX123", dataType: .iban, textFieldUpdateCallback: { textField in
-                textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
-            }, error: errors[.iban]?.description, configuration: configuration, delegate: self)
-            toReturn = cell
-        case .bicCell:
-            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[.bic], title: "BIC", placeholder: "XXX", dataType: .bic, error: errors[.bic]?.description, configuration: configuration, delegate: self)
-
-            toReturn = cell
-        }
-
-        if indexPath.item == 0 {
-            toReturn.layer.cornerRadius = 4
-            toReturn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            toReturn.layer.masksToBounds = true
-        } else if indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1 {
-            toReturn.layer.cornerRadius = 4
-            toReturn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            toReturn.layer.masksToBounds = true
-        }
-
-        return toReturn
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as? TitleHeaderView
-        else { fatalError("Should be able to dequeue TitleHeaderView as header supplementary vie for \(self.headerReuseIdentifier)") }
-
-        view.title = "Sepa"
-        view.configuration = configuration
-
-        return view
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        let isError = SEPANecessaryDataCell(rawValue: indexPath.row)?.necessaryData
-            .contains(where: { self.errors[$0] != nil }) ?? false
-
-        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (isError ? errorCellHeightSurplus : 0)
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
-    }
-
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
-        return 0
-    }
-
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultHeaderHeight)
-    }
 }
 
-extension SEPAInputCollectionViewController: DataPointProvidingDelegate {
-    func didUpdate(value: String?, for dataPoint: NecessaryData) {
-        self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
-        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
-        self.errors[dataPoint] = nil
-    }
-}
+extension SEPAInputCollectionViewController: FormConsumer {
+    func consumeValues(data: [NecessaryData: String]) throws {
+        var errors: [NecessaryData: ValidationError] = [:]
 
-extension SEPAInputCollectionViewController: DoneButtonViewDelegate {
-    func didTapDoneButton() {
-        self.errors = [:]
-
-        if self.fieldData[.iban] == nil || self.fieldData[.iban]?.isEmpty == true {
-            errors[.iban] = .noData(explanation: "Please provide a valid IBAN")
+        if data[.iban] == nil || data[.iban]?.isEmpty == true {
+            errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if self.fieldData[.bic] == nil || self.fieldData[.bic]?.isEmpty == true {
-            errors[.bic] = .noData(explanation: "Please provide a valid BIC")
+        if data[.bic] == nil || data[.bic]?.isEmpty == true {
+            errors[.bic] = SEPAValidationError.noData(explanation: "Please provide a valid BIC")
         }
 
-        if self.fieldData[.holderName] == nil || self.fieldData[.holderName]?.isEmpty == true {
-            errors[.holderName] = .noData(explanation: "Please provide a valid card holder name")
+        if data[.holderName] == nil || data[.holderName]?.isEmpty == true {
+            errors[.holderName] = SEPAValidationError.noData(explanation: "Please provide a valid card holder name")
         }
 
-        guard let iban = fieldData[.iban],
-            let bic = fieldData[.bic],
-            let name = fieldData[.holderName],
+        guard let iban = data[.iban],
+            let bic = data[.bic],
+            let name = data[.holderName],
             errors.isEmpty
-        else { self.collectionView.reloadData(); return }
+        else { throw FormConsumerError(errors: errors) }
 
         let newBillingData = BillingData(email: billingData?.email,
                                          name: name,
@@ -219,8 +97,8 @@ extension SEPAInputCollectionViewController: DoneButtonViewDelegate {
             let sepa = try SEPAData(iban: iban, bic: bic, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
         } catch let error as MLError {
-            errors[.iban] = .sepaValidationFailed(explanation: error.failureReason ?? "Please provide a valid IBAN")
-            collectionView.reloadData()
+            errors[.iban] = SEPAValidationError.sepaValidationFailed(explanation: error.failureReason ?? "Please provide a valid IBAN")
+            throw FormConsumerError(errors: errors)
         } catch {
             UIViewControllerTools.showAlert(on: self, title: "Error",
                                             body: "An error occurred while adding SEPA: \(error.localizedDescription)")

@@ -6,7 +6,6 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentUI
 import UIKit
 
 @objc(MLMobilabPaymentSDK) public class MobilabPaymentSDKBridge: NSObject {

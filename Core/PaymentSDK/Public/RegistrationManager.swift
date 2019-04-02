@@ -6,7 +6,6 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentUI
 import UIKit
 
 /// Type used for registering payment methods of different types

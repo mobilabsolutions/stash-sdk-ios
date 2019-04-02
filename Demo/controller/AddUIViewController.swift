@@ -7,7 +7,6 @@
 //
 
 import MobilabPaymentCore
-import MobilabPaymentUI
 import UIKit
 
 class AddUIViewController: UIViewController {
