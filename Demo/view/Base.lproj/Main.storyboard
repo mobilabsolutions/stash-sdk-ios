@@ -235,13 +235,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MDS-Fs-yIi">
+                                <rect key="frame" x="296" y="411" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Test Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YN9-06-GXV">
+                                <rect key="frame" x="30" y="411" width="258" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="YN9-06-GXV" firstAttribute="leading" secondItem="7y1-DK-44m" secondAttribute="leading" id="6lm-vs-j8L"/>
+                            <constraint firstItem="MDS-Fs-yIi" firstAttribute="leading" secondItem="YN9-06-GXV" secondAttribute="trailing" constant="8" id="8ux-pB-JY0"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerX" secondItem="0Qt-8J-RJD" secondAttribute="centerX" id="BnX-0u-vcS"/>
+                            <constraint firstItem="YN9-06-GXV" firstAttribute="top" secondItem="7y1-DK-44m" secondAttribute="bottom" constant="16" id="Eqs-pV-efw"/>
                             <constraint firstItem="LGv-sU-i7a" firstAttribute="trailing" secondItem="ZKN-fH-dMu" secondAttribute="trailing" id="FD6-6E-WOA"/>
+                            <constraint firstItem="MDS-Fs-yIi" firstAttribute="trailing" secondItem="LGv-sU-i7a" secondAttribute="trailing" id="Gwc-4a-6TV"/>
+                            <constraint firstItem="YN9-06-GXV" firstAttribute="bottom" secondItem="MDS-Fs-yIi" secondAttribute="bottom" id="OOq-0o-NyE"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerY" secondItem="0Qt-8J-RJD" secondAttribute="centerY" id="XHi-PY-qii"/>
                             <constraint firstItem="7y1-DK-44m" firstAttribute="bottom" secondItem="LGv-sU-i7a" secondAttribute="bottom" id="YP9-fD-Aum"/>
+                            <constraint firstItem="YN9-06-GXV" firstAttribute="top" secondItem="MDS-Fs-yIi" secondAttribute="top" id="Ysk-GR-nwP"/>
                             <constraint firstItem="7y1-DK-44m" firstAttribute="leading" secondItem="ZKN-fH-dMu" secondAttribute="leading" id="asC-AT-T3x"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="leading" secondItem="0Qt-8J-RJD" secondAttribute="leading" constant="30" id="bre-nV-GkV"/>
                             <constraint firstItem="LGv-sU-i7a" firstAttribute="leading" secondItem="7y1-DK-44m" secondAttribute="trailing" constant="8" id="cAu-mN-Haz"/>
@@ -254,6 +269,7 @@
                     <connections>
                         <outlet property="customConfigurationSwitch" destination="LGv-sU-i7a" id="6B1-RN-8B0"/>
                         <outlet property="triggerRegisterUIButton" destination="ZKN-fH-dMu" id="6jH-fs-jPn"/>
+                        <outlet property="useTestModeSwitch" destination="MDS-Fs-yIi" id="hSl-dp-vYq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NnX-1N-bd8" userLabel="First Responder" sceneMemberID="firstResponder"/>
