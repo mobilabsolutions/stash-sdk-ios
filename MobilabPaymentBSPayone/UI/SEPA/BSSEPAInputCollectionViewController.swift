@@ -45,7 +45,7 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
 
         super.init(billingData: billingData, configuration: configuration, cellModels: [
             FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell)), FormCellModel(type: .text(bicCell)),
-        ], formTitle: "Sepa")
+        ], formTitle: "SEPA")
 
         self.formConsumer = self
     }

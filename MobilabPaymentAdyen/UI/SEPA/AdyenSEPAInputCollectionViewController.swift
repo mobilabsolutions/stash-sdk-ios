@@ -39,7 +39,7 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
 
         super.init(billingData: billingData, configuration: configuration, cellModels: [
             FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell))
-        ], formTitle: "Sepa")
+        ], formTitle: "SEPA")
 
         self.formConsumer = self
     }

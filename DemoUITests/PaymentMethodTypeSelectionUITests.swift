@@ -20,7 +20,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()
 
-        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Credit Card"), (.sepa, "Sepa"), (.payPal, "PayPal")]
+        let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Credit Card"), (.sepa, "SEPA"), (.payPal, "PayPal")]
 
         XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
         for methodType in supportedMethodTypes {
@@ -77,7 +77,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
     func testRejectsSEPA() {
         let app = XCUIApplication()
-        navigateToViewController(for: "Sepa", app: app)
+        navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["Name"].tap()
@@ -97,7 +97,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
     func testCanAddSepaMethod() {
         let app = XCUIApplication()
-        navigateToViewController(for: "Sepa", app: app)
+        navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["Name"].tap()
@@ -119,7 +119,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
     func testReturnKeyNavigationIsEnabled() {
         let app = XCUIApplication()
-        navigateToViewController(for: "Sepa", app: app)
+        navigateToViewController(for: "SEPA", app: app)
 
         let name = "Max Mustermann"
 
