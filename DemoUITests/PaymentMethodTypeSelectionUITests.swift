@@ -128,11 +128,10 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", app: app)
 
-        let name = "Max Mustermann"
-
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["Name"].tap()
-        collectionViewsQuery.textFields["Name"].typeText(name)
+
+        app.keys["M"].tap()
 
         // Tap on the "continue" keyboard button
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
@@ -159,7 +158,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         // This text should now be in the IBAN text field
         XCTAssertEqual(ibanText, "A")
         // There should not have been any effect on the name field
-        XCTAssertEqual(name, nameFieldText)
+        XCTAssertEqual(nameFieldText, "M")
 
         XCTAssertEqual(app.keyboards.count, 0, "After tapping the continue button on the last text field, the keyboard should disappear")
     }
