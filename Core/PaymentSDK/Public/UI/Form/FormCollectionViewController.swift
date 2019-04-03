@@ -86,7 +86,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let toReturn: UICollectionViewCell
+        let toReturn: UICollectionViewCell & NextCellEnabled
 
         switch self.cellModels[indexPath.row].type {
         case let .text(data):
@@ -123,6 +123,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             toReturn = cell
         }
 
+        toReturn.nextCellSwitcher = self
+
         if indexPath.item == 0 {
             toReturn.layer.cornerRadius = 4
             toReturn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -131,6 +133,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             toReturn.layer.cornerRadius = 4
             toReturn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             toReturn.layer.masksToBounds = true
+
+            toReturn.isLastCell = true
         }
 
         return toReturn
@@ -184,5 +188,22 @@ extension FormCollectionViewController: DoneButtonViewDelegate {
         } catch {
             print("Error while validating: \(error). This should not happen.")
         }
+    }
+}
+
+extension FormCollectionViewController: NextCellSwitcher {
+    func switchToNextCell(from cell: UICollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell)
+            else { return }
+
+        if indexPath.item == collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1 {
+            cell.endEditing(true)
+            return
+        }
+
+        guard let nextCell = collectionView.cellForItem(at: IndexPath(item: indexPath.item + 1, section: indexPath.section)) as? NextCellEnabled
+            else { return }
+
+        nextCell.selectCell()
     }
 }

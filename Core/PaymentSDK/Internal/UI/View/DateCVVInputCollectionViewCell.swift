@@ -8,7 +8,15 @@
 
 import UIKit
 
-class DateCVVInputCollectionViewCell: UICollectionViewCell {
+class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
+    weak var nextCellSwitcher: NextCellSwitcher?
+
+    var isLastCell: Bool = false {
+        didSet {
+            self.cvvTextField.returnKeyType = isLastCell ? .done : .continue
+        }
+    }
+
     private var date: (month: Int, year: Int)?
 
     private var cvv: String? {
@@ -67,7 +75,18 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
                      textColor: configuration.textColor,
                      backgroundColor: configuration.cellBackgroundColor)
         }
+
+        dateTextField.returnKeyType = .continue
+        cvvTextField.returnKeyType = .continue
+
+        dateTextField.delegate = self
+        cvvTextField.delegate = self
+
         self.contentView.backgroundColor = configuration.cellBackgroundColor
+    }
+
+    func selectCell() {
+        dateTextField.becomeFirstResponder()
     }
 
     override init(frame: CGRect) {
@@ -216,5 +235,17 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
         let selectedYear = pickerView.selectedRow(inComponent: 1) + currentYear()
         self.dateTextField.text = String(format: "%02d/%02d", pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
         self.dateTextFieldEditingChanged()
+    }
+}
+
+extension DateCVVInputCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == dateTextField {
+            cvvTextField.becomeFirstResponder()
+        } else {
+            nextCellSwitcher?.switchToNextCell(from: self)
+        }
+
+        return false
     }
 }

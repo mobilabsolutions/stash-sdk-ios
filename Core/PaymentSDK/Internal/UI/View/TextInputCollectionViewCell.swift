@@ -8,7 +8,16 @@
 
 import UIKit
 
-class TextInputCollectionViewCell: UICollectionViewCell {
+class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
+
+    weak var nextCellSwitcher: NextCellSwitcher?
+
+    var isLastCell: Bool = false {
+        didSet {
+            self.textField.returnKeyType = isLastCell ? .done : .continue
+        }
+    }
+
     private var text: String? {
         didSet {
             self.textField.text = text
@@ -101,6 +110,14 @@ class TextInputCollectionViewCell: UICollectionViewCell {
         self.subtitleLabel.textColor = configuration.textColor
 
         setupTextField?(self.textField)
+
+        self.textField.returnKeyType = .continue
+        self.textField.delegate = self
+    }
+
+
+    func selectCell() {
+        self.textField.becomeFirstResponder()
     }
 
     override init(frame: CGRect) {
@@ -165,5 +182,12 @@ class TextInputCollectionViewCell: UICollectionViewCell {
         self.errorText = nil
         self.placeholder = nil
         self.text = nil
+    }
+}
+
+extension TextInputCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.nextCellSwitcher?.switchToNextCell(from: self)
+        return false
     }
 }

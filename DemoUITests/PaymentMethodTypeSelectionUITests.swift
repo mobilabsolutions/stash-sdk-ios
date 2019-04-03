@@ -117,6 +117,46 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
+    func testReturnKeyNavigationIsEnabled() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Sepa", app: app)
+
+        let name = "Max Mustermann"
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["Name"].tap()
+        collectionViewsQuery.textFields["Name"].typeText(name)
+
+        // Tap on the "continue" keyboard button
+        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
+        app.keys["A"].tap()
+
+        // Tap on the "continue" keyboard button
+        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
+        app.keys["B"].tap()
+
+        // Tap on the "continue" keyboard button
+        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
+
+        guard let nameFieldText = collectionViewsQuery.textFields["Name"].value as? String
+            else { XCTFail("Could not retrieve string value from name text field"); return }
+
+        guard let ibanText = collectionViewsQuery.textFields["XX123"].value as? String
+            else { XCTFail("Could not retrieve string value from IBAN text field"); return }
+
+        guard let bicText = collectionViewsQuery.textFields["XXX"].value as? String
+            else { XCTFail("Could not retrieve string value from BIC text field"); return }
+
+        // This text should now be in the IBAN text field
+        XCTAssertEqual(bicText, "B")
+        // This text should now be in the IBAN text field
+        XCTAssertEqual(ibanText, "A")
+        // There should not have been any effect on the name field
+        XCTAssertEqual(name, nameFieldText)
+
+        XCTAssertEqual(app.keyboards.count, 0, "After tapping the continue button on the last text field, the keyboard should disappear")
+    }
+
     private func navigateToViewController(for paymentMethodTypeTitle: String, app: XCUIApplication) {
         app.tabBars.buttons["Bookmarks"].tap()
         app.buttons["Trigger Register UI"].tap()

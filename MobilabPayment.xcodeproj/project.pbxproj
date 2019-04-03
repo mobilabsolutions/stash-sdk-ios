@@ -212,6 +212,7 @@
 		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
+		E1995B1B2253A13800BF24A2 /* NextCellEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */; };
 		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1C9A848223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */; };
 		E1C9A85E22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */; };
@@ -526,6 +527,7 @@
 		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
+		E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextCellEnabled.swift; sourceTree = "<group>"; };
 		E1A1D11522422EC700BB6577 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerTools.swift; sourceTree = "<group>"; };
@@ -1076,6 +1078,9 @@
 		BAA9826E224A4CE000D551DE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E1995B192253A0E000BF24A2 /* Form */,
+				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
+				E162FF8B2243959800413764 /* UIConstants.swift */,
 				BAA9826F224A4CF000D551DE /* LoadingViewController.swift */,
 			);
 			path = UI;
@@ -1205,11 +1210,8 @@
 		E1068EAC2252535A00ACC93C /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
+				E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */,
 				E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */,
-				E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */,
-				E1068EAD2252549C00ACC93C /* FormCellModel.swift */,
-				E1068EB122533D3700ACC93C /* FormConsumer.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -1360,16 +1362,25 @@
 		E17648E9223A663500889920 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E162FFBD2243CD0500413764 /* Resources */,
 				E1068EAC2252535A00ACC93C /* Form */,
-				E162FF8B2243959800413764 /* UIConstants.swift */,
 				E1068E9222522A2800ACC93C /* View */,
 				E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */,
 				E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */,
 				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
-				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
-				E162FFBD2243CD0500413764 /* Resources */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E1995B192253A0E000BF24A2 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				E1068EAD2252549C00ACC93C /* FormCellModel.swift */,
+				E1068EB122533D3700ACC93C /* FormConsumer.swift */,
+				E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */,
+				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
+			);
+			path = Form;
 			sourceTree = "<group>";
 		};
 		E1C9A846223FA7E30099DB2E /* UI */ = {
@@ -1836,6 +1847,7 @@
 				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
 				E1068E9F22522B2000ACC93C /* SubtitleLabel.swift in Sources */,
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
+				E1995B1B2253A13800BF24A2 /* NextCellEnabled.swift in Sources */,
 				E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */,
 				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
 				1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */,
