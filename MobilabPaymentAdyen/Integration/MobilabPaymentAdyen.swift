@@ -25,15 +25,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
             } else if let sepaData = try getSEPAData(from: registrationRequest) {
                 self.handleSEPARequest(sepaData: sepaData, pspData: pspData, completion: completion)
             } else {
-                #warning("Update codes here when errors are finalized")
-                completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
+                completion(.failure(MobilabPaymentError.pspCreditCardTypeNotSupported))
             }
-        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
-            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
-        } catch AdyenIntegrationError.missingHolderName {
-            completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
         } catch {
-            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
+            completion(.failure(MobilabPaymentError.pspUnknownError(pspIdentifier)))
         }
     }
 
@@ -88,7 +85,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
-        guard let holderName = cardData.holderName else { throw AdyenIntegrationError.missingHolderName }
+        guard let holderName = cardData.holderName else { throw MobilabPaymentError.creditCardMissingHolderName }
 
         let bsCreditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
                                                       expiryMonth: String(cardData.expiryMonth),
@@ -103,17 +100,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         else { return nil }
 
         guard let ownerName = data.billingData.name
-        else { throw AdyenIntegrationError.missingHolderName }
+        else { throw MobilabPaymentError.billingMissingName }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban)
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
-    }
-
-    private enum AdyenIntegrationError: Error {
-        case missingOrInvalidConfigurationData
-        case missingHolderName
     }
 }

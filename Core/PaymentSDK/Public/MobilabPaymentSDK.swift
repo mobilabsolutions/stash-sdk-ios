@@ -9,7 +9,7 @@
 import Foundation
 import MobilabPaymentUI
 
-public typealias RegistrationResult = NetworkClientResult<String, MLError>
+public typealias RegistrationResult = NetworkClientResult<String, MobilabPaymentError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 public class MobilabPaymentSDK {

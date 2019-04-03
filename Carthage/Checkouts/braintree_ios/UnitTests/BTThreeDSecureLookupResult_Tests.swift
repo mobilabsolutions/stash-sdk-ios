@@ -1,6 +1,7 @@
 import XCTest
 
 class BTThreeDSecureLookupResult_Tests: XCTestCase {
+    
     func testRequiresUserAuthentication_whenAcsUrlIsPresent_returnsTrue() {
         let lookup = BTThreeDSecureLookupResult()
         lookup.acsURL = URL(string: "http://example.com")

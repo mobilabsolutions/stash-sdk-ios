@@ -150,8 +150,8 @@ class CreditCardDataField: UIView, DataField {
             let creditCard = try CreditCardData(cardNumber: number, cvv: cvv, expiryMonth: month, expiryYear: year,
                                                 holderName: nameField.text, billingData: billingData)
             self.delegate?.addCreditCard(method: creditCard)
-        } catch let error as MLError {
-            self.delegate?.showError(title: error.title, description: error.failureReason ?? "The card number is invalid")
+        } catch let error as MobilabPaymentError {
+            self.delegate?.showError(title: error.title, description: error.description)
         } catch {
             self.delegate?.showError(title: "Credit Card Invalid", description: "The provided number is invalid.")
         }

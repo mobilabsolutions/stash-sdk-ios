@@ -51,7 +51,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "Credit Card added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
+                                                          body: error.description)
                 }
             }
         }
@@ -66,7 +66,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "SEPA added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
+                                                          body: error.description )
                 }
             }
         }
@@ -81,7 +81,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "SEPA added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
+                                                          body: error.description)
                 }
             }
         }
@@ -101,7 +101,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     private func addViewForCurrentDataField() {
-        var field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
+        let field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
         field.delegate = self
 
         field.translatesAutoresizingMaskIntoConstraints = false

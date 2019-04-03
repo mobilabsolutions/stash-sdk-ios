@@ -9,15 +9,12 @@
 import Foundation
 import MobilabPaymentCore
 
-struct RegisterResponseError: MLErrorConvertible, Codable {
+struct RegisterResponseError: MobilabPaymentErrorConvertible, Codable {
     let resultCode: ResultCode
     let refusalReason: String
 
-    func toMLError() -> MLError {
-        #warning("Find sensible default value for code once errors are finalized")
-        return MLError(title: "PSP Error",
-                       description: self.refusalReason,
-                       code: -1)
+    func toMobilabPaymentError() -> MobilabPaymentError {
+        return MobilabPaymentError.pspError(self.refusalReason)
     }
 
     enum CodingKeys: String, CodingKey {

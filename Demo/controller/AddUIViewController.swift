@@ -48,7 +48,7 @@ class AddUIViewController: UIViewController {
                     AliasManager.shared.save(alias: Alias(alias: value, expirationYear: nil, expirationMonth: nil, type: .unknown))
                 case let .failure(error):
                     self?.dismiss(animated: true, completion: {
-                        self?.showAlert(title: "Error", body: error.failureReason ?? "An error occurred while adding a payment method")
+                        self?.showAlert(title: "Error", body: error.description ?? "An error occurred while adding a payment method")
                     })
                     print("An error occurred while creating a payment method")
                 }

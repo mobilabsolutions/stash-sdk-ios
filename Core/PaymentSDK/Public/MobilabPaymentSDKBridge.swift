@@ -95,29 +95,40 @@ import UIKit
             self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
         }
     }
+    
+    @objc(MLError) public class MobilabPaymentErrorBridge: NSObject {
+        let title: String
+        let errorDescription: String
+        
+        public init(mobilabPaymentError: MobilabPaymentError) {
+            self.title = mobilabPaymentError.title
+            self.errorDescription = mobilabPaymentError.description
+            super.init()
+        }
+    }
 
-    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (String?, MLError?) -> Void) {
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, completion: @escaping (String?, MLError?) -> Void) {
+    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerSEPAAccount(sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
-                                                   completion: @escaping (String?, MLError?) -> Void) {
+                                                   completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController, completion: @escaping (String?, MLError?) -> Void) {
+    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController, completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerPayPal(presentingViewController: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
-    private func bridgedCompletion(completion: @escaping (String?, MLError?) -> Void) -> RegistrationResultCompletion {
+    private func bridgedCompletion(completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {
         let bridged: ((RegistrationResult) -> Void) = { result in
             switch result {
             case let .success(alias): completion(alias, nil)
-            case let .failure(error): completion(nil, error)
+            case let .failure(error): completion(nil, MobilabPaymentErrorBridge(mobilabPaymentError:error))
             }
         }
 

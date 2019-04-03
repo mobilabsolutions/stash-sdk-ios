@@ -157,9 +157,9 @@ class CreditCardInputCollectionViewController: UICollectionViewController, Payme
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
-    func errorWhileCreatingPaymentMethod(error: MLError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "Could not create credit card method: \(error.errorDescription ?? "Unknown error")")
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        UIViewControllerTools.showAlert(on: self, title: error.title,
+                                        body: "Could not create credit card method: \(error.description)")
     }
 
     private func isDone() -> Bool {
@@ -312,8 +312,8 @@ extension CreditCardInputCollectionViewController: DoneButtonViewDelegate {
             else { self.errors[.cardNumber] = .noKnownCreditCardProvider; return }
 
             self.didCreatePaymentMethodCompletion?(creditCard)
-        } catch let error as MLError {
-            self.errors[.cardNumber] = .creditCardValidationFailed(message: error.failureReason ?? "Please enter a valid credit card")
+        } catch let error as MobilabPaymentError {
+            self.errors[.cardNumber] = .creditCardValidationFailed(message: error.description)
             self.collectionView.reloadData()
         } catch {
             UIViewControllerTools.showAlert(on: self, title: "Error",

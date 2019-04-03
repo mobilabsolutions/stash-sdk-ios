@@ -10,19 +10,10 @@ import Foundation
 import MobilabPaymentUI
 
 enum SDKError: Error {
-    case configurationMissing
-    case clientMissing
-    case providerMissing
     case providerNotSupportingPaymentMethod(providerName: String)
 
     func description() -> String {
         switch self {
-        case .configurationMissing:
-            return "SDK configuration is missing"
-        case .clientMissing:
-            return "SDK network client is missing"
-        case .providerMissing:
-            return "SDK Provider to found. Please add default provider"
         case let .providerNotSupportingPaymentMethod(name):
             return "Provider \(name) does not support registered payment method types"
         }
@@ -33,7 +24,7 @@ class InternalPaymentSDK {
     private var _configuration: MobilabPaymentConfiguration?
     var configuration: MobilabPaymentConfiguration {
         guard let config = self._configuration else {
-            fatalError(SDKError.configurationMissing.description())
+            fatalError(MobilabPaymentError.configurationMissing.description)
         }
         return config
     }
@@ -41,7 +32,7 @@ class InternalPaymentSDK {
     private var _networkingClient: NetworkClientCore?
     var networkingClient: NetworkClientCore {
         guard let client = self._networkingClient else {
-            fatalError(SDKError.clientMissing.description())
+            fatalError(MobilabPaymentError.clientMissing.description)
         }
         return client
     }
@@ -56,8 +47,8 @@ class InternalPaymentSDK {
             let url = try configuration.endpointUrl()
             self._networkingClient = NetworkClientCore(url: url)
             self._configuration = configuration
-        } catch let error as ConfigurationError {
-            fatalError(error.description())
+        } catch let error as MobilabPaymentError {
+            fatalError(error.description)
         } catch {
             fatalError()
         }

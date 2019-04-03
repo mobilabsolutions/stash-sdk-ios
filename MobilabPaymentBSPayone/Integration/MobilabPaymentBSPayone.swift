@@ -25,15 +25,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
             } else if self.isSepaRequest(registrationRequest: registrationRequest) {
                 completion(.success(nil))
             } else {
-                #warning("Update codes here when errors are finalized")
-                completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
+                completion(.failure(MobilabPaymentError.pspUnknownPaymentMethodData))
             }
-        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
-            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
-        } catch BSIntegrationError.unsupportedCreditCardType {
-            completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
         } catch {
-            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
+            completion(.failure(MobilabPaymentError.pspUnknownError(pspIdentifier)))
         }
     }
 
@@ -80,7 +77,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw BSIntegrationError.unsupportedCreditCardType }
+        else { throw MobilabPaymentError.pspCreditCardTypeNotSupported }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
@@ -92,9 +89,5 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
-    }
-
-    private enum BSIntegrationError: Error {
-        case unsupportedCreditCardType
     }
 }

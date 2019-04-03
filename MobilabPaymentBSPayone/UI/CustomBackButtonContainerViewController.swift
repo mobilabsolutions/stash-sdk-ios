@@ -80,7 +80,7 @@ class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDa
         self.view.endEditing(true)
     }
 
-    func errorWhileCreatingPaymentMethod(error: MLError) {
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         self.viewController.errorWhileCreatingPaymentMethod(error: error)
     }
 }

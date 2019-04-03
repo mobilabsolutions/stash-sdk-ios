@@ -86,9 +86,9 @@ class SEPAInputCollectionViewController: UICollectionViewController, UICollectio
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
-    func errorWhileCreatingPaymentMethod(error: MLError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "Could not create SEPA method: \(error.errorDescription ?? "Unknown error")")
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        UIViewControllerTools.showAlert(on: self, title: error.title,
+                                        body: "Could not create SEPA method: \(error.description)")
     }
 
     private func isDone() -> Bool {
@@ -218,8 +218,8 @@ extension SEPAInputCollectionViewController: DoneButtonViewDelegate {
         do {
             let sepa = try SEPAData(iban: iban, bic: bic, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
-        } catch let error as MLError {
-            errors[.iban] = .sepaValidationFailed(explanation: error.failureReason ?? "Please provide a valid IBAN")
+        } catch let error as MobilabPaymentError {
+            errors[.iban] = .sepaValidationFailed(explanation: error.description)
             collectionView.reloadData()
         } catch {
             UIViewControllerTools.showAlert(on: self, title: "Error",

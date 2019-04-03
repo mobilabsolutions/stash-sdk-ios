@@ -53,7 +53,7 @@ public struct PSPExtra: Codable {
             let encodedData = try JSONEncoder().encode(self)
             return try JSONDecoder().decode(type, from: encodedData)
         } catch {
-            throw PaymentServiceProviderError.missingOrInvalidConfigurationData
+            throw MobilabPaymentError.pspInvalidConfigurationData
         }
     }
 }

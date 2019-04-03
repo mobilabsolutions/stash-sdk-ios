@@ -149,8 +149,8 @@ class SEPADataField: UIView, DataField {
         do {
             let sepa = try SEPAData(iban: iban, bic: bic, billingData: billingData)
             self.delegate?.addSEPA(method: sepa)
-        } catch let error as MLError {
-            self.delegate?.showError(title: error.title, description: error.failureReason ?? "The provided IBAN is not valid.")
+        } catch let error as MobilabPaymentError {
+            self.delegate?.showError(title: error.title, description: error.description)
         } catch {
             self.delegate?.showError(title: "IBAN invalid", description: "The provided IBAN is not valid.")
         }

@@ -9,17 +9,15 @@
 import Foundation
 import MobilabPaymentCore
 
-struct RegisterCreditCardResponseError: MLErrorConvertible, Codable {
+struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable {
+    
     let status: StatusType
     let errorCode: String
     let errorMessage: String
     let customerMessage: String
 
-    func toMLError() -> MLError {
-        #warning("Find sensible default value for code once errors are finalized")
-        return MLError(title: "PSP Error",
-                       description: self.errorMessage,
-                       code: Int(self.errorCode) ?? -1)
+    func toMobilabPaymentError() -> MobilabPaymentError {
+        return MobilabPaymentError.pspError(self.errorMessage)
     }
 
     enum CodingKeys: String, CodingKey {
