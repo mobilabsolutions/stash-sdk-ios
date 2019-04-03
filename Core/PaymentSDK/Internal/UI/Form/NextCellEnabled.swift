@@ -11,7 +11,7 @@ import UIKit
 protocol NextCellEnabled: class {
     var nextCellSwitcher: NextCellSwitcher? { get set }
     var isLastCell: Bool { get set }
-    
+
     func selectCell()
 }
 

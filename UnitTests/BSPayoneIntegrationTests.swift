@@ -121,7 +121,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         let expected: Set = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
 
         guard let supported = provider?.supportedPaymentMethodTypeUserInterfaces
-            else { XCTFail("Could not get supported payment method types for UI from BS provider"); return }
+        else { XCTFail("Could not get supported payment method types for UI from BS provider"); return }
 
         XCTAssertEqual(expected, Set(supported), "BSPayone should allow UI payment methods: \(expected) but allows: \(supported)")
     }

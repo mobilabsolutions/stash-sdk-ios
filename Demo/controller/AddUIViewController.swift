@@ -12,8 +12,8 @@ import UIKit
 class AddUIViewController: UIViewController {
     @IBOutlet private var triggerRegisterUIButton: UIButton!
     @IBOutlet private var customConfigurationSwitch: UISwitch!
-    @IBOutlet weak var pspPickerView: UIPickerView!
-    
+    @IBOutlet var pspPickerView: UIPickerView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.triggerRegisterUIButton.layer.cornerRadius = 5

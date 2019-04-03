@@ -13,7 +13,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     var isLastCell: Bool = false {
         didSet {
-            self.cvvTextField.returnKeyType = isLastCell ? .done : .continue
+            self.cvvTextField.returnKeyType = self.isLastCell ? .done : .continue
         }
     }
 
@@ -76,17 +76,17 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
                      backgroundColor: configuration.cellBackgroundColor)
         }
 
-        dateTextField.returnKeyType = .continue
-        cvvTextField.returnKeyType = .continue
+        self.dateTextField.returnKeyType = .continue
+        self.cvvTextField.returnKeyType = .continue
 
-        dateTextField.delegate = self
-        cvvTextField.delegate = self
+        self.dateTextField.delegate = self
+        self.cvvTextField.delegate = self
 
         self.contentView.backgroundColor = configuration.cellBackgroundColor
     }
 
     func selectCell() {
-        dateTextField.becomeFirstResponder()
+        self.dateTextField.becomeFirstResponder()
     }
 
     override init(frame: CGRect) {
@@ -174,7 +174,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             self.pickerView.selectRow(date.year, inComponent: 1, animated: false)
         } else {
             // Select next year
-            pickerView.selectRow(1, inComponent: 1, animated: false)
+            self.pickerView.selectRow(1, inComponent: 1, animated: false)
         }
 
         self.dateTextField.inputView = self.pickerView
@@ -210,11 +210,11 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 }
 
 extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
-     func numberOfComponents(in _: UIPickerView) -> Int {
+    func numberOfComponents(in _: UIPickerView) -> Int {
         return 2
     }
 
-     func pickerView(_: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0: return self.numberOfMonths
         case 1: return self.numberOfYearsToShow
@@ -222,7 +222,7 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
         }
     }
 
-     func pickerView(_: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
             return String(format: "%02d", row + 1)
@@ -231,7 +231,7 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
         }
     }
 
-     func pickerView(_ pickerView: UIPickerView, didSelectRow _: Int, inComponent _: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow _: Int, inComponent _: Int) {
         let selectedYear = pickerView.selectedRow(inComponent: 1) + currentYear()
         self.dateTextField.text = String(format: "%02d/%02d", pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
         self.dateTextFieldEditingChanged()
@@ -240,10 +240,10 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
 
 extension DateCVVInputCollectionViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == dateTextField {
-            cvvTextField.becomeFirstResponder()
+        if textField == self.dateTextField {
+            self.cvvTextField.becomeFirstResponder()
         } else {
-            nextCellSwitcher?.switchToNextCell(from: self)
+            self.nextCellSwitcher?.switchToNextCell(from: self)
         }
 
         return false

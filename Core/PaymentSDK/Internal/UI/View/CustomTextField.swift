@@ -84,7 +84,7 @@ class CustomTextField: UITextField {
         }
     }
 
-   override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(x: bounds.maxX - self.rightViewInset.x - self.rightViewWidth,
                       y: self.rightViewInset.y, width: self.rightViewWidth, height: bounds.height - 2 * self.rightViewInset.y)
     }

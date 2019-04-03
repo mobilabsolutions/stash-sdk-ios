@@ -14,7 +14,6 @@ import XCTest
 @testable import MobilabPaymentCore
 
 class SDKConfiguraionTests: XCTestCase {
-
     override func tearDown() {
         super.tearDown()
 

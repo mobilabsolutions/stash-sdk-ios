@@ -145,13 +145,13 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
 
         guard let nameFieldText = collectionViewsQuery.textFields["Name"].value as? String
-            else { XCTFail("Could not retrieve string value from name text field"); return }
+        else { XCTFail("Could not retrieve string value from name text field"); return }
 
         guard let ibanText = collectionViewsQuery.textFields["XX123"].value as? String
-            else { XCTFail("Could not retrieve string value from IBAN text field"); return }
+        else { XCTFail("Could not retrieve string value from IBAN text field"); return }
 
         guard let bicText = collectionViewsQuery.textFields["XXX"].value as? String
-            else { XCTFail("Could not retrieve string value from BIC text field"); return }
+        else { XCTFail("Could not retrieve string value from BIC text field"); return }
 
         // This text should now be in the IBAN text field
         XCTAssertEqual(bicText, "B")

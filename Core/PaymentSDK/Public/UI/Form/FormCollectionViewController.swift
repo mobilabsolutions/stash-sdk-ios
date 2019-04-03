@@ -194,15 +194,15 @@ extension FormCollectionViewController: DoneButtonViewDelegate {
 extension FormCollectionViewController: NextCellSwitcher {
     func switchToNextCell(from cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell)
-            else { return }
+        else { return }
 
-        if indexPath.item == collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1 {
+        if indexPath.item == self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) - 1 {
             cell.endEditing(true)
             return
         }
 
         guard let nextCell = collectionView.cellForItem(at: IndexPath(item: indexPath.item + 1, section: indexPath.section)) as? NextCellEnabled
-            else { return }
+        else { return }
 
         nextCell.selectCell()
     }

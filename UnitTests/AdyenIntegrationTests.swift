@@ -121,7 +121,7 @@ class AdyenIntegrationTests: XCTestCase {
         let expected: Set = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
 
         guard let supported = provider?.supportedPaymentMethodTypeUserInterfaces
-            else { XCTFail("Could not get supported payment method types for UI from Adyen provider"); return }
+        else { XCTFail("Could not get supported payment method types for UI from Adyen provider"); return }
 
         XCTAssertEqual(expected, Set(supported), "Adyen should allow UI payment methods: \(expected) but allows: \(supported)")
     }

@@ -21,7 +21,7 @@ class InternalPaymentServiceProviderCoordinator {
         }
 
         self.providers.append(provider)
-        
+
         for element in paymentMethodTypes {
             self.store[element.internalPaymentMethodType] = provider
         }

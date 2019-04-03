@@ -10,7 +10,6 @@ import MobilabPaymentCore
 import UIKit
 
 class AdyenCreditCardInputCollectionViewController: FormCollectionViewController {
-
     private static let methodTypeImageViewWidth: CGFloat = 30
     private static let methodTypeImageViewHeight: CGFloat = 22
 
@@ -89,31 +88,31 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
-                                                           title: "Credit card number",
-                                                           placeholder: "1234",
-                                                           setup: { (_, textField) in
-                                                            textField.rightViewMode = .always
-                                                            textField.textContentType = .creditCardNumber
-                                                            let imageView = UIImageView(frame: CGRect(x: 0,
-                                                                                                      y: 0,
-                                                                                                      width: AdyenCreditCardInputCollectionViewController.methodTypeImageViewWidth,
-                                                                                                      height: AdyenCreditCardInputCollectionViewController.methodTypeImageViewHeight))
-                                                            imageView.contentMode = .scaleAspectFit
-                                                            textField.rightView = imageView
-                                                           },
-                                                           didUpdate: { (_, textField) in
-                                                            let imageView = textField.rightView as? UIImageView
+                                                             title: "Credit card number",
+                                                             placeholder: "1234",
+                                                             setup: { _, textField in
+                                                                 textField.rightViewMode = .always
+                                                                 textField.textContentType = .creditCardNumber
+                                                                 let imageView = UIImageView(frame: CGRect(x: 0,
+                                                                                                           y: 0,
+                                                                                                           width: AdyenCreditCardInputCollectionViewController.methodTypeImageViewWidth,
+                                                                                                           height: AdyenCreditCardInputCollectionViewController.methodTypeImageViewHeight))
+                                                                 imageView.contentMode = .scaleAspectFit
+                                                                 textField.rightView = imageView
+                                                             },
+                                                             didUpdate: { _, textField in
+                                                                 let imageView = textField.rightView as? UIImageView
 
-                                                            let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
-                                                            let image = possibleCardType != .unknown ? possibleCardType.image : nil
-                                                            imageView?.image = image
+                                                                 let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
+                                                                 let image = possibleCardType != .unknown ? possibleCardType.image : nil
+                                                                 imageView?.image = image
 
-                                                            textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
+                                                                 textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
 
         super.init(billingData: billingData, configuration: configuration, cellModels: [
             FormCellModel(type: .text(numberData)),
-            FormCellModel(type: .dateCVV)
+            FormCellModel(type: .dateCVV),
         ], formTitle: "Credit Card")
 
         self.formConsumer = self
@@ -123,14 +122,14 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
         fatalError("init(coder:) not implemented")
     }
 
-    override  func errorWhileCreatingPaymentMethod(error: MLError) {
+    override func errorWhileCreatingPaymentMethod(error: MLError) {
         UIViewControllerTools.showAlert(on: self, title: "Error",
                                         body: "Could not create credit card method: \(error.errorDescription ?? "Unknown error")")
     }
 }
 
 extension AdyenCreditCardInputCollectionViewController: FormConsumer {
-    func consumeValues(data: [NecessaryData : String]) throws {
+    func consumeValues(data: [NecessaryData: String]) throws {
         let createdData = CreditCardParsedData.create(holderNameText: data[.holderName],
                                                       cardNumberText: data[.cardNumber],
                                                       cvvText: data[.cvv],
@@ -142,7 +141,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
         }
 
         guard let parsedData = createdData.0
-            else { return }
+        else { return }
 
         do {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
@@ -155,7 +154,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
             self.didCreatePaymentMethodCompletion?(creditCard)
         } catch let error as MLError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
-                .creditCardValidationFailed(message: error.failureReason ?? "Please enter a valid credit card")])
+                    .creditCardValidationFailed(message: error.failureReason ?? "Please enter a valid credit card")])
         }
     }
 }

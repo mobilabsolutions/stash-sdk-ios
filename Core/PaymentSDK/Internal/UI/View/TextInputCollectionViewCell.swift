@@ -9,12 +9,11 @@
 import UIKit
 
 class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
-
     weak var nextCellSwitcher: NextCellSwitcher?
 
     var isLastCell: Bool = false {
         didSet {
-            self.textField.returnKeyType = isLastCell ? .done : .continue
+            self.textField.returnKeyType = self.isLastCell ? .done : .continue
         }
     }
 
@@ -115,7 +114,6 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         self.textField.delegate = self
     }
 
-
     func selectCell() {
         self.textField.becomeFirstResponder()
     }
@@ -186,7 +184,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 }
 
 extension TextInputCollectionViewCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_: UITextField) -> Bool {
         self.nextCellSwitcher?.switchToNextCell(from: self)
         return false
     }

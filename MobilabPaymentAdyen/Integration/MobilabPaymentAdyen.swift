@@ -90,10 +90,10 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         guard let holderName = cardData.holderName else { throw AdyenIntegrationError.missingHolderName }
 
         let creditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
-                                                      expiryMonth: String(cardData.expiryMonth),
-                                                      expiryYear: String(cardData.expiryYear),
-                                                      cvc: cardData.cvv,
-                                                      holderName: holderName)
+                                                    expiryMonth: String(cardData.expiryMonth),
+                                                    expiryYear: String(cardData.expiryYear),
+                                                    cvc: cardData.cvv,
+                                                    holderName: holderName)
         return creditCardRequest
     }
 
