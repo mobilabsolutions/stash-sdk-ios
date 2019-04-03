@@ -37,7 +37,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-            XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType)
+            XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType,
+                          "Expected registration data to be of type \(RegistrationDataType.self) but was \(type(of: registrationRequest.registrationData))")
             self.registrationRequestCalledExpectation?.fulfill()
             completion(self.completionResultToReturn)
         }
@@ -92,7 +93,7 @@ class ModuleIntegrationTests: XCTestCase {
             case .success:
                 XCTFail("Should not have returned success when module fails")
             case let .failure(propagatedError):
-                XCTAssertEqual(error.code, propagatedError.code)
+                XCTAssertEqual(error.code, propagatedError.code, "Expected error code to be \(error.code) but was \(propagatedError.code)")
             }
 
             resultExpectation.fulfill()

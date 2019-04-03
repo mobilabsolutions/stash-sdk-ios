@@ -62,9 +62,12 @@ class SDKConfiguraionTests: XCTestCase {
         let providerUsedForSepa = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)
         let providerUsedForPayPal = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .payPal)
 
-        XCTAssertEqual(creditCardProvider.pspIdentifier, providerUsedForCreditCard.pspIdentifier)
-        XCTAssertEqual(sepaProvider.pspIdentifier, providerUsedForSepa.pspIdentifier)
-        XCTAssertEqual(payPalProvider.pspIdentifier, providerUsedForPayPal.pspIdentifier)
+        XCTAssertEqual(creditCardProvider.pspIdentifier, providerUsedForCreditCard.pspIdentifier,
+                       "Expected CC psp identifier to be \(creditCardProvider.pspIdentifier) but was \(providerUsedForCreditCard.pspIdentifier)")
+        XCTAssertEqual(sepaProvider.pspIdentifier, providerUsedForSepa.pspIdentifier,
+                       "Expected SEPA psp identifier to be \(sepaProvider.pspIdentifier) but was \(providerUsedForSepa.pspIdentifier)")
+        XCTAssertEqual(payPalProvider.pspIdentifier, providerUsedForPayPal.pspIdentifier,
+                       "Expected PayPal psp identifier to be \(payPalProvider.pspIdentifier) but was \(providerUsedForPayPal.pspIdentifier)")
     }
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {

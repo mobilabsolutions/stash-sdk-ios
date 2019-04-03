@@ -22,9 +22,12 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
         let supportedMethodTypes: [(PaymentMethodType, String)] = [(.creditCard, "Credit Card"), (.sepa, "SEPA"), (.payPal, "PayPal")]
 
-        XCTAssertEqual(app.cells.count, supportedMethodTypes.count)
+        XCTAssertEqual(app.cells.count, supportedMethodTypes.count,
+                       "There should be \(supportedMethodTypes.count) payment methods on selection screen but only saw \(app.cells.count)")
+
         for methodType in supportedMethodTypes {
-            XCTAssertTrue(app.cells.staticTexts.allElementsBoundByIndex.map({ $0.label }).contains(methodType.1), "Methods should contain \(methodType.1)")
+            XCTAssertTrue(app.cells.staticTexts.allElementsBoundByIndex.map({ $0.label }).contains(methodType.1),
+                          "Methods should contain \(methodType.1)")
         }
     }
 
@@ -49,7 +52,8 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
         waitForElementToAppear(element: app.alerts.firstMatch)
 
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid credit card")
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
@@ -72,7 +76,8 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists)
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists,
+                      "Expected failure label to exist when adding a card with invalid number")
     }
 
     func testRejectsSEPA() {
@@ -92,7 +97,8 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists)
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists,
+                      "Expected failure label to exist when adding a SEPA method with invalid number")
     }
 
     func testCanAddSepaMethod() {
@@ -113,7 +119,8 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid SEPA method")
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
@@ -174,7 +181,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 //        let payPalCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "PayPal")).element
 //        payPalCell.tap()
 //
-//        XCTAssertTrue(app.activityIndicators.element.exists)
+//        XCTAssertTrue(app.activityIndicators.element.exists, "Expected activity indicator to exist for loading view for PayPal registration")
 //    }
 //
 //    func testPayPalViewIsShown() {

@@ -15,8 +15,8 @@ class SEPADataTests: XCTestCase {
         let uncleanNumbers = ["DE7551 2108001 245126 199", "de7 5-512-1080-0124-5126-199", "ba393-385-804-800-211-234", " aT48 32000 000123 45864"]
 
         for (cleanNumber, uncleanNumber) in zip(cleanNumbers, uncleanNumbers) {
-            XCTAssertEqual(cleanNumber, SEPAUtils.cleanedIban(number: uncleanNumber))
-            XCTAssertEqual(cleanNumber, SEPAUtils.cleanedIban(number: cleanNumber))
+            XCTAssertEqual(cleanNumber, SEPAUtils.cleanedIban(number: uncleanNumber), "Formatting \(uncleanNumber) should result in \(cleanNumber)")
+            XCTAssertEqual(cleanNumber, SEPAUtils.cleanedIban(number: cleanNumber), "Formatting clean number \(cleanNumber) should not change it")
         }
     }
 
@@ -52,8 +52,10 @@ class SEPADataTests: XCTestCase {
                            "CY21002001950000357001234567", "SV43ACAT00000000000000123123"]
 
         for (current, expected) in zip(unformatted, formatted) {
-            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: current)), expected)
-            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: expected)), expected)
+            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: current)), expected,
+                           "Formatting \(current) should result in \(expected)")
+            XCTAssertEqual(attributedStringToSpacedString(attributed: SEPAUtils.formattedIban(number: expected)), expected,
+                           "Formatting formatted number \(expected) should not change it")
         }
     }
 }
