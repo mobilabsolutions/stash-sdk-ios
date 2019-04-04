@@ -49,7 +49,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
 
         waitForElementToAppear(element: app.alerts.firstMatch)
 
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.lowercased().contains("success"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
@@ -113,7 +113,7 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"))
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.lowercased().contains("success"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
@@ -146,7 +146,8 @@ class PaymentMethodTypeSelectionUITests: XCTestCase {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Error"))
+        waitForElementToAppear(element: app.alerts.firstMatch)
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.lowercased().contains("error"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 

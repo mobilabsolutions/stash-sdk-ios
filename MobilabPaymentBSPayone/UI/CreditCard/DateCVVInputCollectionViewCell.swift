@@ -155,9 +155,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell {
             self.pickerView.selectRow(date.month, inComponent: 0, animated: false)
             self.pickerView.selectRow(date.year, inComponent: 1, animated: false)
         } else {
-            let year = Calendar.current.component(.year, from: Date())
             // Select next year
-            pickerView.selectRow(1, inComponent: 1, animated: false)
+            self.pickerView.selectRow(1, inComponent: 1, animated: false)
         }
 
         self.dateTextField.inputView = self.pickerView

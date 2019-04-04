@@ -95,11 +95,11 @@ import UIKit
             self.sepaData = try SEPAData(iban: iban, bic: bic, billingData: billingData)
         }
     }
-    
+
     @objc(MLError) public class MobilabPaymentErrorBridge: NSObject {
         let title: String
         let errorDescription: String
-        
+
         public init(mobilabPaymentError: MobilabPaymentError) {
             self.title = mobilabPaymentError.title
             self.errorDescription = mobilabPaymentError.description
@@ -128,7 +128,7 @@ import UIKit
         let bridged: ((RegistrationResult) -> Void) = { result in
             switch result {
             case let .success(alias): completion(alias, nil)
-            case let .failure(error): completion(nil, MobilabPaymentErrorBridge(mobilabPaymentError:error))
+            case let .failure(error): completion(nil, MobilabPaymentErrorBridge(mobilabPaymentError: error))
             }
         }
 

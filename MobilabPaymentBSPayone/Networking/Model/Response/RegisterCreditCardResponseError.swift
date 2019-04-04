@@ -10,7 +10,6 @@ import Foundation
 import MobilabPaymentCore
 
 struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable {
-    
     let status: StatusType
     let errorCode: String
     let errorMessage: String

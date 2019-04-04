@@ -30,7 +30,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         } catch let error as MobilabPaymentError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.pspUnknownError(pspIdentifier)))
+            completion(.failure(MobilabPaymentError.pspUnknownError(self.pspIdentifier)))
         }
     }
 

@@ -18,7 +18,6 @@ public protocol NetworkClient {
 }
 
 public extension NetworkClient {
-
     func fetch<T: Decodable, S: Decodable & MobilabPaymentErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 
@@ -47,7 +46,7 @@ public extension NetworkClient {
     }
 
     private func handleResponse<T: Decodable, S: MobilabPaymentErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
-                                                                                 decodingType: T.Type, errorType: S.Type?) throws -> T {
+                                                                                             decodingType: T.Type, errorType: S.Type?) throws -> T {
         if let error = error as NSError? {
             throw MobilabPaymentError.requestFailed(error.code, error.localizedDescription)
         }

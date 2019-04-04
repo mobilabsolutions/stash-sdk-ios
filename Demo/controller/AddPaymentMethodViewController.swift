@@ -66,7 +66,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
                     self?.clearInputs()
                     self?.showAlert(title: "Success", body: "SEPA added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.description )
+                                                          body: error.description)
                 }
             }
         }
@@ -101,7 +101,7 @@ class AddPaymentMethodViewController: UIViewController, DataFieldDelegate {
     }
 
     private func addViewForCurrentDataField() {
-        let field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
+        var field = dataFields[paymentMethodSwitch.selectedSegmentIndex]
         field.delegate = self
 
         field.translatesAutoresizingMaskIntoConstraints = false

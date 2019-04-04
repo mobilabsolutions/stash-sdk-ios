@@ -47,7 +47,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
-                XCTFail("An error occurred while adding a credit card: \(error.failureReason ?? "unknown error")")
+                XCTFail("An error occurred while adding a credit card: \(error.description)")
                 expectation.fulfill()
             }
         })
@@ -108,7 +108,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
-                XCTFail("An error occurred while adding SEPA: \(error.errorDescription ?? "unknown error")")
+                XCTFail("An error occurred while adding SEPA: \(error.description)")
                 expectation.fulfill()
             }
         }
@@ -144,7 +144,9 @@ class BSPayoneIntegrationTests: XCTestCase {
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
-            case let .failure(error): XCTAssertEqual(error.title, "PSP Error")
+            case let .failure(error):
+                guard case MobilabPaymentError.pspError = error
+                else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
             }
 
             resultExpectation.fulfill()

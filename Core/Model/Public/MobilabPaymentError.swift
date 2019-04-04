@@ -8,8 +8,7 @@
 
 import Foundation
 
-public enum MobilabPaymentError : Error {
-    
+public enum MobilabPaymentError: Error, Equatable {
     /// SDK configuration is missing
     case configurationMissing
     /// SDK configuration is missing
@@ -37,7 +36,7 @@ public enum MobilabPaymentError : Error {
     case billingMissingName
     /// Card extra could not be extracted
     case cardExtraNotExtractable
-    
+
     /// Backend error with a custome message
     case backendError(String)
     /// SDK UI error with a custom message
@@ -60,11 +59,9 @@ public enum MobilabPaymentError : Error {
     case responseNotValid
     /// Unknown MobilabPayment error
     case unknown
-    
 }
 
-public enum MobilabPaymentApiError<S: MobilabPaymentErrorConvertible> : Error, MobilabPaymentErrorConvertible {
-
+public enum MobilabPaymentApiError<S: MobilabPaymentErrorConvertible>: Error, MobilabPaymentErrorConvertible {
     case apiError(S)
 
     public func toMobilabPaymentError() -> MobilabPaymentError {
@@ -75,9 +72,7 @@ public enum MobilabPaymentApiError<S: MobilabPaymentErrorConvertible> : Error, M
     }
 }
 
-
 extension MobilabPaymentError {
-    
     public var title: String {
         switch self {
         case .configurationMissing, .clientMissing, .publicKeyNotSet, .endpointNotSet, .endpointNotValid, .paymentMethodIsMissingProvider, .providerNotSupportingPaymentMethod:
@@ -99,16 +94,14 @@ extension MobilabPaymentError {
         case .sdkUIError:
             return "SDK UI error"
         case .pspError, .pspUnknownPaymentMethodData, .pspInvalidConfigurationData, .pspCreditCardTypeNotSupported, .pspUnknownError:
-            return "PSP error"
+            return "PSP Error"
         case .apiError, .requestFailed, .responseNotValid, .unknown:
             return "Api error"
         }
     }
-    
 }
 
-extension MobilabPaymentError : CustomStringConvertible {
-    
+extension MobilabPaymentError: CustomStringConvertible {
     public var description: String {
         switch self {
         case .configurationMissing:
@@ -121,27 +114,27 @@ extension MobilabPaymentError : CustomStringConvertible {
             return "SDK Endpoint is not set"
         case .endpointNotValid:
             return "SDK Endpoint is not valid"
-        case .paymentMethodIsMissingProvider(let paymentMethod):
+        case let .paymentMethodIsMissingProvider(paymentMethod):
             return "Payment service provider missing for \(paymentMethod)"
-        case .providerNotSupportingPaymentMethod(let provider, let paymentMethod):
+        case let .providerNotSupportingPaymentMethod(provider, paymentMethod):
             return "Payment service provider \(provider) missing for \(paymentMethod)"
         case .invalidIBAN:
             return "The provided IBAN is not valid"
         case .invalidCreditCardNumber:
-            return "CVV should be numeric"
-        case .invalidCVV:
             return "Credit card number is not valid"
+        case .invalidCVV:
+            return "CVV should be numeric"
         case .creditCardMissingHolderName:
             return "Credit card holder name is missing"
         case .billingMissingName:
             return "Billing data name is missing"
         case .cardExtraNotExtractable:
             return "Internal SDK error: Could not read alias extra from payment method"
-        case .backendError(let message):
+        case let .backendError(message):
             return message
-        case .sdkUIError(let message):
+        case let .sdkUIError(message):
             return message ?? "An error occurred while the user was adding a payment method using the module UI"
-        case .pspError(let message):
+        case let .pspError(message):
             return message
         case .pspUnknownPaymentMethodData:
             return "Unknown payment method data"
@@ -149,11 +142,11 @@ extension MobilabPaymentError : CustomStringConvertible {
             return "The provided configuration data is invalid"
         case .pspCreditCardTypeNotSupported:
             return "The provided credit card type is not supported"
-        case .pspUnknownError(let provider):
+        case let .pspUnknownError(provider):
             return "An unknown error occurred while handling payment method registration in \(provider) module"
-        case .apiError(let error):
+        case let .apiError(error):
             return error
-        case .requestFailed( _, let error):
+        case let .requestFailed(_, error):
             return error
         case .responseNotValid:
             return "Response not valid"

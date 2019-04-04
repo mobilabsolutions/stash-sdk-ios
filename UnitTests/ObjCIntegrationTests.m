@@ -149,8 +149,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
         XCTAssertNotNil(alias);
         XCTAssertNil(error);
         // These are nil, since error is nil. We want to make sure that we can access these values, though (that the code compiles).
-        XCTAssertNil([error failureReason]);
-        XCTAssertTrue([error code] == (long)nil);
+        XCTAssertNil([error description]);
         [expectation fulfill];
     }];
 
