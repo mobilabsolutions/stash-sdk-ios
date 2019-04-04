@@ -154,4 +154,31 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         wait(for: [resultExpectation], timeout: 20)
     }
+
+    func testCorrectlyPropagatesTemporaryBSError() {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("bs_credit_card_temp_failure.json", type(of: self))
+            else { Swift.fatalError("Expected file bs_credit_card_temp_failure.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
+        let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
+
+        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
+
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+            switch result {
+            case .success: XCTFail("Should not have returned success when creating an alias fails")
+            case let .failure(error):
+                guard case MobilabPaymentError.pspTemporaryError = error
+                else { XCTFail("An error in the PSP should be propagated as a pspTemporaryError"); break }
+            }
+
+            resultExpectation.fulfill()
+        }
+
+        wait(for: [resultExpectation], timeout: 20)
+    }
 }

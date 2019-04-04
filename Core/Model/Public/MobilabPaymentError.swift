@@ -43,6 +43,8 @@ public enum MobilabPaymentError: Error, Equatable {
     case sdkUIError(String?)
     /// PSP related error with a custom message
     case pspError(String)
+    /// Temporary PSP error with a custom message
+    case pspTemporaryError(String)
     /// Unkown payment method data found in PSP module
     case pspUnknownPaymentMethodData
     /// Invalid configuration data in PSP module
@@ -93,7 +95,8 @@ extension MobilabPaymentError {
             return "Backend error"
         case .sdkUIError:
             return "SDK UI error"
-        case .pspError, .pspUnknownPaymentMethodData, .pspInvalidConfigurationData, .pspCreditCardTypeNotSupported, .pspUnknownError:
+        case .pspError, .pspUnknownPaymentMethodData, .pspInvalidConfigurationData, .pspCreditCardTypeNotSupported,
+             .pspUnknownError, .pspTemporaryError:
             return "PSP Error"
         case .apiError, .requestFailed, .responseNotValid, .unknown:
             return "Api error"
@@ -135,6 +138,8 @@ extension MobilabPaymentError: CustomStringConvertible {
         case let .sdkUIError(message):
             return message ?? "An error occurred while the user was adding a payment method using the module UI"
         case let .pspError(message):
+            return message
+        case let .pspTemporaryError(message):
             return message
         case .pspUnknownPaymentMethodData:
             return "Unknown payment method data"

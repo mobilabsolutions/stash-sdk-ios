@@ -208,6 +208,7 @@
 		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
+		E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */; };
 		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */; };
 		E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */; };
@@ -528,6 +529,7 @@
 		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
+		E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_temp_failure.json; sourceTree = "<group>"; };
 		E1A1D11522422EC700BB6577 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerTools.swift; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 				E117E01B224BA0FD00E4C591 /* bs_credit_card_success.json */,
 				E117E01D224BA18D00E4C591 /* bs_credit_card_failure.json */,
 				E117E01F224BA41400E4C591 /* bs_sepa_success.json */,
+				E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */,
 			);
 			path = BSPayone;
 			sourceTree = "<group>";
@@ -1693,6 +1696,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */,
 				E1FDE0E8224D04BC00BB960D /* core_update_alias_success.json in Resources */,
 				BA0B9BC5225207CC0029FC8D /* adyen_credit_card_failure.json in Resources */,
 				E117E020224BA41400E4C591 /* bs_sepa_success.json in Resources */,
