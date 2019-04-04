@@ -34,7 +34,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         } catch let error as MobilabPaymentError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.pspUnknownError(self.pspIdentifier)))
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
     }
 

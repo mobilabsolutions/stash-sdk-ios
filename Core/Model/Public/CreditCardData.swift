@@ -61,10 +61,10 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         guard let _ = Int(cvv)
-        else { throw MobilabPaymentError.invalidCVV }
+        else { throw MobilabPaymentError.validation(.invalidCVV) }
 
         guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { throw MobilabPaymentError.invalidCreditCardNumber }
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
 
         self.holderName = holderName
         self.cardNumber = cleanedNumber

@@ -39,7 +39,7 @@ public extension NetworkClient {
             } catch let errorType as MobilabPaymentApiError<S> {
                 completion(.failure(errorType.toMobilabPaymentError()))
             } catch {
-                completion(.failure(MobilabPaymentError.unknown))
+                completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
             }
         }
         dataTask.resume()
@@ -48,11 +48,11 @@ public extension NetworkClient {
     private func handleResponse<T: Decodable, S: MobilabPaymentErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
                                                                                              decodingType: T.Type, errorType: S.Type?) throws -> T {
         if let error = error as NSError? {
-            throw MobilabPaymentError.requestFailed(error.code, error.localizedDescription)
+            throw MobilabPaymentError.network(.requestFailed(code: error.code, description: error.localizedDescription))
         }
 
         guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {
-            throw MobilabPaymentError.responseNotValid
+            throw MobilabPaymentError.network(.responseInvalid)
         }
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
@@ -74,14 +74,15 @@ public extension NetworkClient {
             } catch NetworkClientError.shouldTryDecodingErrorResponse {
                 fallthrough
             } catch {
-                throw MobilabPaymentError.responseNotValid
+                throw MobilabPaymentError.network(.responseInvalid)
             }
 
         default:
             if let type = errorType, let answer = try? JSONDecoder().decode(type, from: receivedData) {
-                throw MobilabPaymentApiError<S>.apiError(answer)
+                throw MobilabPaymentApiError<S>(error: answer)
             }
-            throw MobilabPaymentError.responseNotValid
+
+            throw MobilabPaymentError.network(.responseInvalid)
         }
     }
 }

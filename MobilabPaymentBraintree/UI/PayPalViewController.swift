@@ -46,7 +46,8 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
                 self.didCreatePaymentMethodCompletion?(payPalData)
                 self.dismiss(animated: true, completion: nil)
             } else if let error = error {
-                self.errorWhileCreatingPaymentMethod(error: MobilabPaymentError.pspError(error.localizedDescription))
+                #warning("Figure out what we want to do with errors here")
+                self.errorWhileCreatingPaymentMethod(error: MobilabPaymentError.other(GenericErrorDetails.from(error: error)))
             } else {
                 // Buyer canceled payment approval
                 self.dismiss(animated: true, completion: nil)

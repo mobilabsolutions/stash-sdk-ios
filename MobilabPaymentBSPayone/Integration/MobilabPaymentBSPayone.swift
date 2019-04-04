@@ -25,12 +25,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
             } else if self.isSepaRequest(registrationRequest: registrationRequest) {
                 completion(.success(nil))
             } else {
-                completion(.failure(MobilabPaymentError.pspUnknownPaymentMethodData))
+                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
         } catch let error as MobilabPaymentError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.pspUnknownError(self.pspIdentifier)))
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -77,7 +77,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw MobilabPaymentError.pspCreditCardTypeNotSupported }
+        else { throw MobilabPaymentError.validation(.cardTypeNotSupported) }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,

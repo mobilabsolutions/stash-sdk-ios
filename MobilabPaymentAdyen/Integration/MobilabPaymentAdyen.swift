@@ -25,12 +25,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
             } else if let sepaData = try getSEPAData(from: registrationRequest) {
                 self.handleSEPARequest(sepaData: sepaData, pspData: pspData, completion: completion)
             } else {
-                completion(.failure(MobilabPaymentError.pspCreditCardTypeNotSupported))
+                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
         } catch let error as MobilabPaymentError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.pspUnknownError(self.pspIdentifier)))
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -85,7 +85,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
-        guard let holderName = cardData.holderName else { throw MobilabPaymentError.creditCardMissingHolderName }
+        guard let holderName = cardData.holderName else { throw MobilabPaymentError.validation(.creditCardMissingHolderName) }
 
         let bsCreditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
                                                       expiryMonth: String(cardData.expiryMonth),
@@ -100,7 +100,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         else { return nil }
 
         guard let ownerName = data.billingData.name
-        else { throw MobilabPaymentError.billingMissingName }
+        else { throw MobilabPaymentError.validation(.billingMissingName) }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban)
     }

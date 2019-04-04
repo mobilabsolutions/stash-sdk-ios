@@ -31,9 +31,10 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
 
         switch self.errorCode {
         case isContainedIn(temporaryErrors):
-            return MobilabPaymentError.pspTemporaryError(self.errorMessage)
+            return MobilabPaymentError.temporary(TemporaryErrorDetails(description: self.errorMessage, thirdPartyErrorCode: self.errorCode))
         default:
-            return MobilabPaymentError.pspError(self.errorMessage)
+            #warning("Update this with correct data when PSP error mapping is done")
+            return MobilabPaymentError.other(GenericErrorDetails(description: self.errorMessage, thirdPartyErrorCode: self.errorCode))
         }
     }
 

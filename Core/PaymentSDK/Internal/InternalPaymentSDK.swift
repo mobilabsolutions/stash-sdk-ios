@@ -24,7 +24,7 @@ class InternalPaymentSDK {
     private var _configuration: MobilabPaymentConfiguration?
     var configuration: MobilabPaymentConfiguration {
         guard let config = self._configuration else {
-            fatalError(MobilabPaymentError.configurationMissing.description)
+            fatalError(SDKConfigurationError.configurationMissing.description)
         }
         return config
     }
@@ -32,7 +32,7 @@ class InternalPaymentSDK {
     private var _networkingClient: NetworkClientCore?
     var networkingClient: NetworkClientCore {
         guard let client = self._networkingClient else {
-            fatalError(MobilabPaymentError.clientMissing.description)
+            fatalError(SDKConfigurationError.clientMissing.description)
         }
         return client
     }

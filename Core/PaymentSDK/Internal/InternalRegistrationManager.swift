@@ -14,7 +14,7 @@ class InternalRegistrationManager {
     func addMethod(paymentMethod: PaymentMethod, completion: @escaping RegistrationResultCompletion, presentingViewController: UIViewController? = nil) {
         guard let cardExtra = paymentMethod.toAliasExtra()
         else {
-            completion(.failure(MobilabPaymentError.cardExtraNotExtractable))
+            completion(.failure(MobilabPaymentError.validation(.cardExtraNotExtractable)))
             return
         }
 

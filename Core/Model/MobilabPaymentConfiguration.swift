@@ -35,15 +35,15 @@ import Foundation
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
     @objc public func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
-            throw MobilabPaymentError.publicKeyNotSet
+            throw MobilabPaymentError.configuration(.publicKeyNotSet)
         }
 
         guard !self.endpoint.isEmpty else {
-            throw MobilabPaymentError.endpointNotSet
+            throw MobilabPaymentError.configuration(.endpointNotSet)
         }
 
         guard let url = URL(string: self.endpoint) else {
-            throw MobilabPaymentError.endpointNotValid
+            throw MobilabPaymentError.configuration(.endpointNotValid)
         }
 
         return url

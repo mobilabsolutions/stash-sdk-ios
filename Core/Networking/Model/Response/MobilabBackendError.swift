@@ -14,6 +14,8 @@ struct MobilabBackendError: Codable {
 
 extension MobilabBackendError: MobilabPaymentErrorConvertible {
     func toMobilabPaymentError() -> MobilabPaymentError {
-        return MobilabPaymentError.backendError(self.message)
+        #warning("When error format of BE is decided, update this")
+        let details = GenericErrorDetails(title: "Error", description: message)
+        return MobilabPaymentError.other(details)
     }
 }

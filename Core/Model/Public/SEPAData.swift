@@ -24,7 +24,7 @@ public struct SEPAData: RegistrationData, SEPADataInitializible {
     public init(iban: String, bic: String, billingData: BillingData) throws {
         let cleanedIban = SEPAUtils.cleanedIban(number: iban)
         guard SEPAUtils.isValid(cleanedNumber: cleanedIban)
-        else { throw MobilabPaymentError.invalidIBAN }
+        else { throw MobilabPaymentError.validation(.invalidIBAN) }
 
         self.iban = cleanedIban
         self.bic = bic
