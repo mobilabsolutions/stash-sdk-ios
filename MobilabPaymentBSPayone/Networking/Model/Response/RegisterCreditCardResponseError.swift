@@ -16,17 +16,21 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
     let customerMessage: String?
 
     func toMobilabPaymentError() -> MobilabPaymentError {
+        let temporaryErrors: Set = [
+            // Card issuer not available
+            "1", "91",
+            // DB Connection Failure
+            "909",
+            // Status Change Not Possible
+            "950",
+            // Maintenance
+            "990", "991",
+            // Service Unavailable
+            "6502",
+        ]
+
         switch self.errorCode {
-        // Card issuer not available
-        case "1", "91": fallthrough
-        // DB Connection Failure
-        case "909": fallthrough
-        // Status Change Not Possible
-        case "950": fallthrough
-        // Maintenance
-        case "990", "991": fallthrough
-        // Service Unavailable
-        case "6502":
+        case isContainedIn(temporaryErrors):
             return MobilabPaymentError.pspTemporaryError(self.errorMessage)
         default:
             return MobilabPaymentError.pspError(self.errorMessage)

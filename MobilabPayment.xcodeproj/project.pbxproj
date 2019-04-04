@@ -209,6 +209,7 @@
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
 		E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */; };
+		E1995B1F22560BD200BF24A2 /* PatternUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */; };
 		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift */; };
 		E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A850223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift */; };
@@ -530,6 +531,7 @@
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
 		E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_temp_failure.json; sourceTree = "<group>"; };
+		E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternUtilities.swift; sourceTree = "<group>"; };
 		E1A1D11522422EC700BB6577 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerTools.swift; sourceTree = "<group>"; };
@@ -1103,6 +1105,7 @@
 				E1C9A846223FA7E30099DB2E /* UI */,
 				BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */,
 				BACD61942226B03600E3ACC3 /* Info.plist */,
+				E1995B2022560BDA00BF24A2 /* Utilities */,
 			);
 			path = MobilabPaymentBSPayone;
 			sourceTree = "<group>";
@@ -1347,6 +1350,14 @@
 				E162FFC32243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E1995B2022560BDA00BF24A2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E1C9A846223FA7E30099DB2E /* UI */ = {
@@ -1996,6 +2007,7 @@
 				BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */,
 				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
 				E1C9A848223FA81A0099DB2E /* CreditCardInputCollectionViewController.swift in Sources */,
+				E1995B1F22560BD200BF24A2 /* PatternUtilities.swift in Sources */,
 				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,
 				BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */,
 				E1C9A851223FAB940099DB2E /* DateCVVInputCollectionViewCell.swift in Sources */,
