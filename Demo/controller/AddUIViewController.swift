@@ -21,6 +21,7 @@ class AddUIViewController: UIViewController {
     @IBOutlet var pspPickerView: UIPickerView!
 
     private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
+    private var pspIsSetUp = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,9 @@ class AddUIViewController: UIViewController {
     }
 
     private func setupPspForSDK(psp: MobilabPaymentProvider) {
+        guard !pspIsSetUp
+        else { return }
+
         let provider: PaymentServiceProvider
 
         switch psp {
@@ -86,6 +90,8 @@ class AddUIViewController: UIViewController {
 
         let pspBraintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
         MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
+
+        pspIsSetUp = true
     }
 
     private func configureSDK(testModeEnabled: Bool) {
