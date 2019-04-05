@@ -48,7 +48,7 @@ MobilabPaymentSDK.addProvider(provider: braintreePSP)
 #### Using the SDK in test mode
 
 The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
-To configure the SDK to use test mode, simply prepend the `test` subdomain to your endpoint URL. Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+To configure the SDK to use test mode, simply prepend the `test.` subdomain to your endpoint URL (if the corresponding Load Balancer has been set up). Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
 
 For example:
 
