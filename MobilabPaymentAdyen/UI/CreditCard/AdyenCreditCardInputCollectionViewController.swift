@@ -41,6 +41,11 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                            expirationYearText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
+            if holderNameText == nil || holderNameText?.isEmpty == true {
+                #warning("Update this - the holder name might not be necessary")
+                errors[.holderName] = .noData(explanation: "Need a holder name. Will be updated with new module.")
+            }
+
             if cardNumberText == nil || cardNumberText?.isEmpty == true {
                 errors[.cardNumber] = .noData(explanation: "Please provide your card number")
             }
@@ -70,6 +75,7 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                 errors[.expirationYear] = .noData(explanation: "Please provide an expiration date in the future")
             }
 
+            #warning("If the holder name is not necessary, also update this")
             guard let holderName = holderNameText,
                 let cardNumber = cardNumberText, let cvv = cvvText,
                 let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
