@@ -12,7 +12,7 @@ import UIKit
 class AddUIViewController: UIViewController {
     @IBOutlet private var triggerRegisterUIButton: UIButton!
     @IBOutlet private var customConfigurationSwitch: UISwitch!
-    @IBOutlet var pspPickerView: UIPickerView!
+    @IBOutlet var useTestModeSwitch: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,7 @@ class AddUIViewController: UIViewController {
         self.triggerRegisterUIButton.layer.masksToBounds = true
 
         self.triggerRegisterUIButton.addTarget(self, action: #selector(self.triggerRegisterUI), for: .touchUpInside)
+        self.useTestModeSwitch.addTarget(self, action: #selector(self.didToggleTestMode), for: .valueChanged)
     }
 
     @objc private func triggerRegisterUI() {
@@ -52,5 +53,12 @@ class AddUIViewController: UIViewController {
                 }
             }
         }
+    }
+
+    @objc private func didToggleTestMode() {
+        guard let mainTabBar = self.tabBarController as? MainTabBarController
+        else { return }
+
+        mainTabBar.didSetTestMode(enabled: self.useTestModeSwitch.isOn)
     }
 }
