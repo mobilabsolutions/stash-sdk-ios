@@ -7,7 +7,6 @@
 //
 
 import MobilabPaymentCore
-import MobilabPaymentUI
 import UIKit
 
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
@@ -20,9 +19,9 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
 
-            if let creditCardRequest = try getCreditCardDate(from: registrationRequest) {
+            if let creditCardRequest = try getCreditCardData(from: registrationRequest) {
                 self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspData: pspData, completion: completion)
-            } else if self.isSepaRequest(registrationRequest: registrationRequest) {
+            } else if let _ = try getSepaData(from: registrationRequest) {
                 completion(.success(nil))
             } else {
                 completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
@@ -47,10 +46,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+            return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
                                                            configuration: configuration)
         case .sepa:
-            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+            return CustomBackButtonContainerViewController(viewController: BSSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
                                                            configuration: configuration)
         case .payPal:
             return nil
@@ -72,7 +71,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         })
     }
 
-    private func getCreditCardDate(from registrationRequest: RegistrationRequest) throws -> CreditCardBSPayoneData? {
+    private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardBSPayoneData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData
         else { return nil }
 
@@ -85,6 +84,16 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                                          cardCVC2: cardData.cvv)
 
         return bsCreditCardRequest
+    }
+
+    private func getSepaData(from registrationRequest: RegistrationRequest) throws -> SEPABSPayoneData? {
+        guard let data = registrationRequest.registrationData as? SEPAData
+        else { return nil }
+
+        guard let bic = data.bic
+        else { throw MobilabPaymentError.validation(.bicMissing) }
+
+        return SEPABSPayoneData(iban: data.iban, bic: bic)
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {

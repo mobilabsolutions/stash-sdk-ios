@@ -29,6 +29,11 @@ class BSPayoneIntegrationTests: XCTestCase {
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
+    override func tearDown() {
+        super.tearDown()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+    }
+
     func testCreditCard() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_credit_card_success.json", type(of: self))
@@ -52,9 +57,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 20) { error in
-            XCTAssertNil(error)
-        }
+        waitForExpectations(timeout: 20)
     }
 
     func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
@@ -63,7 +66,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
                                                 holderName: "Holder Name", billingData: BillingData())
 
-        XCTAssertEqual(creditCardData.cardType, .unknown)
+        XCTAssertEqual(creditCardData.cardType, .unknown, "Type of credit card is \(creditCardData.cardType) should be unknown.")
 
         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
@@ -76,9 +79,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 5) { error in
-            XCTAssertNil(error)
-        }
+        waitForExpectations(timeout: 5)
     }
 
     func testAddSEPA() throws {
@@ -113,19 +114,16 @@ class BSPayoneIntegrationTests: XCTestCase {
             }
         }
 
-        self.waitForExpectations(timeout: 20) { error in
-            XCTAssertNil(error)
-        }
+        self.waitForExpectations(timeout: 20)
     }
 
     func testHasCorrectPaymentMethodUITypes() {
-        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+        let expected: Set = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
 
-        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
+        guard let supported = provider?.supportedPaymentMethodTypeUserInterfaces
+        else { XCTFail("Could not get supported payment method types for UI from BS provider"); return }
 
-        for value in expected {
-            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
-        }
+        XCTAssertEqual(expected, Set(supported), "BSPayone should allow UI payment methods: \(expected) but allows: \(supported)")
     }
 
     func testCorrectlyPropagatesBSError() {

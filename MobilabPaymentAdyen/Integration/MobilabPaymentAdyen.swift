@@ -7,7 +7,6 @@
 //
 
 import MobilabPaymentCore
-import MobilabPaymentUI
 import UIKit
 
 public class MobilabPaymentAdyen: PaymentServiceProvider {
@@ -38,24 +37,24 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         return [.sepa, .creditCard]
     }
 
-//    public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
-//        return [.sepa, .creditCard]
-//    }
-//
-//    public func viewController(for methodType: PaymentMethodType,
-//                               billingData: BillingData?,
-//                               configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
-//        switch methodType {
-//        case .creditCard:
-//            return CustomBackButtonContainerViewController(viewController: CreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
-//                                                           configuration: configuration)
-//        case .sepa:
-//            return CustomBackButtonContainerViewController(viewController: SEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
-//                                                           configuration: configuration)
-//        case .payPal:
-//            return nil
-//        }
-//    }
+    public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
+        return [.sepa, .creditCard]
+    }
+
+    public func viewController(for methodType: PaymentMethodType,
+                               billingData: BillingData?,
+                               configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        switch methodType {
+        case .creditCard:
+            return CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                           configuration: configuration)
+        case .sepa:
+            return CustomBackButtonContainerViewController(viewController: AdyenSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                           configuration: configuration)
+        case .payPal:
+            return nil
+        }
+    }
 
     public init() {
         self.networkingClient = NetworkClientAdyen()
@@ -87,12 +86,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
         guard let holderName = cardData.holderName else { throw MobilabPaymentError.validation(.creditCardMissingHolderName) }
 
-        let bsCreditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
-                                                      expiryMonth: String(cardData.expiryMonth),
-                                                      expiryYear: String(cardData.expiryYear),
-                                                      cvc: cardData.cvv,
-                                                      holderName: holderName)
-        return bsCreditCardRequest
+        let creditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
+                                                    expiryMonth: String(cardData.expiryMonth),
+                                                    expiryYear: String(cardData.expiryYear),
+                                                    cvc: cardData.cvv,
+                                                    holderName: holderName)
+        return creditCardRequest
     }
 
     private func getSEPAData(from registrationRequest: RegistrationRequest) throws -> SEPAAdyenData? {

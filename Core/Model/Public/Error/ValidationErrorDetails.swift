@@ -23,6 +23,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
     case cardExtraNotExtractable
     /// The given PSP does not support the cards of this type
     case cardTypeNotSupported
+    /// The PSP requires the BIC to be present but it is missing
+    case bicMissing
 
     public var description: String {
         switch self {
@@ -40,6 +42,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "Internal SDK error: Could not read alias extra from payment method"
         case .cardTypeNotSupported:
             return "Card type not supported by PSP"
+        case .bicMissing:
+            return "The BIC is required but missing"
         }
     }
 
@@ -59,6 +63,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "Card extra not extractable"
         case .cardTypeNotSupported:
             return "Card type not supported"
+        case .bicMissing:
+            return "BIC required"
         }
     }
 }

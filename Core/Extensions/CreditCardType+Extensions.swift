@@ -6,7 +6,7 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentUI
+import UIKit
 
 public extension CreditCardData.CreditCardType {
     var image: UIImage? {

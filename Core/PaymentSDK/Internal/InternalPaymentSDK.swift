@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MobilabPaymentUI
 
 enum SDKError: Error {
     case providerNotSupportingPaymentMethod(providerName: String)

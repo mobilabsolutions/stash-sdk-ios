@@ -60,6 +60,12 @@
                 <a class="nav-group-task-link" href="Classes/CreditCardUtils.html">CreditCardUtils</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CustomBackButtonContainerViewController.html">CustomBackButtonContainerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/FormCollectionViewController.html">FormCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/LoadingViewController.html">LoadingViewController</a>
               </li>
               <li class="nav-group-task">
@@ -92,6 +98,12 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/SEPAUtils.html">SEPAUtils</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/UIConstants.html">UIConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/UIViewControllerTools.html">UIViewControllerTools</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -110,6 +122,9 @@
                 <a class="nav-group-task-link" href="Enums/MobilabPaymentProvider.html">MobilabPaymentProvider</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/NecessaryData.html">NecessaryData</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/NetworkClientError.html">NetworkClientError</a>
               </li>
               <li class="nav-group-task">
@@ -118,11 +133,34 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/PaymentMethodType.html">PaymentMethodType</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/PaymentServiceProviderError.html">PaymentServiceProviderError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DoneButtonUpdater.html">DoneButtonUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DoneButtonUpdating.html">DoneButtonUpdating</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DoneButtonViewDelegate.html">DoneButtonViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/FormConsumer.html">FormConsumer</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/MLErrorConvertible.html">MLErrorConvertible</a>
               </li>
@@ -153,13 +191,25 @@
                 <a class="nav-group-task-link" href="Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:18MobilabPaymentCore6HeaderV">Header</a>
+                <a class="nav-group-task-link" href="Structs/FormCellModel.html">FormCellModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FormCellModel/FormCellType.html">– FormCellType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FormConsumerError.html">FormConsumerError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Header.html">Header</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PSPExtra.html">PSPExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PayPalData.html">PayPalData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/RegistrationRequest.html">RegistrationRequest</a>
@@ -177,6 +227,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:18MobilabPaymentCore15ValidationErrora">ValidationError</a>
               </li>
             </ul>
           </li>
@@ -411,7 +464,67 @@ currently supports</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MobilabPaymentProvider</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MobilabPaymentProvider</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore0B20ServiceProviderErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/PaymentServiceProviderError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B20ServiceProviderErrorO">PaymentServiceProviderError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Enums/PaymentServiceProviderError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PaymentServiceProviderError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore13NecessaryDataO"></a>
+                    <a name="//apple_ref/swift/Enum/NecessaryData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore13NecessaryDataO">NecessaryData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Enums/NecessaryData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">NecessaryData</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>

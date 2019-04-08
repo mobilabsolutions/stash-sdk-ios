@@ -37,7 +37,8 @@ class ModuleIntegrationTests: XCTestCase {
 
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-            XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType)
+            XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType,
+                          "Expected registration data to be of type \(RegistrationDataType.self) but was \(type(of: registrationRequest.registrationData))")
             self.registrationRequestCalledExpectation?.fulfill()
             completion(self.completionResultToReturn)
         }
@@ -46,6 +47,7 @@ class ModuleIntegrationTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
     }
 
     func testHandleRegistrationRequestCalled() throws {
