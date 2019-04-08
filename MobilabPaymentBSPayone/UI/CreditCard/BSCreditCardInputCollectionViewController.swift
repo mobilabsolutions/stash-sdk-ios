@@ -62,7 +62,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
             }
 
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "mm/yy"
+            dateFormatter.dateFormat = "MM/yy"
             dateFormatter.calendar = Calendar.current
 
             if let month = expirationMonthText,
