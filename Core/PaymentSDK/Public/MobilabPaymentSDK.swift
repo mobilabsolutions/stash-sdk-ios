@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MobilabPaymentUI
 
 public typealias RegistrationResult = NetworkClientResult<String, MLError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)

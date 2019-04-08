@@ -28,6 +28,12 @@ class AdyenIntegrationTests: XCTestCase {
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
+    override func tearDown() {
+        super.tearDown()
+        OHHTTPStubs.removeAllStubs()
+        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+    }
+
     func testCreditCard() throws {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
 
@@ -62,9 +68,7 @@ class AdyenIntegrationTests: XCTestCase {
             }
         })
 
-        waitForExpectations(timeout: 20) { error in
-            XCTAssertNil(error)
-        }
+        waitForExpectations(timeout: 20)
     }
 
     func testAddSEPA() throws {
@@ -110,20 +114,17 @@ class AdyenIntegrationTests: XCTestCase {
             }
         }
 
-        self.waitForExpectations(timeout: 20) { error in
-            XCTAssertNil(error)
-        }
+        self.waitForExpectations(timeout: 20)
     }
 
-    //    func testHasCorrectPaymentMethodUITypes() {
-    //        let expected = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
-    //
-    //        XCTAssertEqual(expected.count, provider?.supportedPaymentMethodTypeUserInterfaces.count)
-    //
-    //        for value in expected {
-    //            XCTAssertTrue(self.provider?.supportedPaymentMethodTypeUserInterfaces.contains(value) ?? false)
-    //        }
-    //    }
+    func testHasCorrectPaymentMethodUITypes() {
+        let expected: Set = [PaymentMethodType.creditCard, PaymentMethodType.sepa]
+
+        guard let supported = provider?.supportedPaymentMethodTypeUserInterfaces
+        else { XCTFail("Could not get supported payment method types for UI from Adyen provider"); return }
+
+        XCTAssertEqual(expected, Set(supported), "Adyen should allow UI payment methods: \(expected) but allows: \(supported)")
+    }
 
     func testCorrectlyPropagatesAdyenError() {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
@@ -152,17 +153,13 @@ class AdyenIntegrationTests: XCTestCase {
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
-            case let .failure(error): XCTAssertEqual(error.title, "PSP Error")
+            case let .failure(error): XCTAssertEqual(error.title, "PSP Error",
+                                                     "Expected error title \"PSP Error\" for error in Adyen PSP but got \"\(error.title)\"")
             }
 
             resultExpectation.fulfill()
         }
 
         wait(for: [resultExpectation], timeout: 20)
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        OHHTTPStubs.removeAllStubs()
     }
 }

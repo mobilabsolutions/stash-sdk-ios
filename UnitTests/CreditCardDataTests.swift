@@ -41,10 +41,12 @@ class CreditCardDataTests: XCTestCase {
         for (number, type) in self.validExampleNumbers + self.invalidExampleNumbers {
             let cleanedNumber = CreditCardUtils.cleanedNumber(number: number)
             let creditCardUtilsDeterminedType = CreditCardUtils.cardTypeFromNumber(cleanedNumber: cleanedNumber)
-            XCTAssertEqual(creditCardUtilsDeterminedType, type, "Card \(number) should have type \(type) but has type \(creditCardUtilsDeterminedType)")
+            XCTAssertEqual(creditCardUtilsDeterminedType, type,
+                           "Card \(number) should have type \(type) but has type \(creditCardUtilsDeterminedType)")
 
             if let card = try? CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData()) {
-                XCTAssertEqual(card.cardType, creditCardUtilsDeterminedType)
+                XCTAssertEqual(card.cardType, creditCardUtilsDeterminedType,
+                               "Expected card type \(creditCardUtilsDeterminedType) for credit card data but got \(card.cardType)")
             }
         }
     }
@@ -66,8 +68,9 @@ class CreditCardDataTests: XCTestCase {
         let uncleanNumbers = ["3782-8224-6310-005", "5555 5555-5555 4444", "37 93 57 04 72 49 69 0", "4111 1111 1111 1111"]
 
         for (cleanNumber, uncleanNumber) in zip(cleanNumbers, uncleanNumbers) {
-            XCTAssertEqual(cleanNumber, CreditCardUtils.cleanedNumber(number: uncleanNumber))
-            XCTAssertEqual(cleanNumber, CreditCardUtils.cleanedNumber(number: cleanNumber))
+            XCTAssertEqual(cleanNumber, CreditCardUtils.cleanedNumber(number: uncleanNumber),
+                           "Cleaning \(uncleanNumber) did not result in \(cleanNumber)")
+            XCTAssertEqual(cleanNumber, CreditCardUtils.cleanedNumber(number: cleanNumber), "Cleaning a clean number should not change the number")
         }
     }
 
@@ -97,9 +100,12 @@ class CreditCardDataTests: XCTestCase {
         }
 
         for ((formatted, type), unformatted) in zip(formatted, unformatted) {
-            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted, for: type)))
-            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted)))
-            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: formatted, for: type)))
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted, for: type)),
+                           "Did not get \"\(formatted)\" when formatting \"\(unformatted)\"")
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: unformatted)),
+                           "Did not get \"\(formatted)\" when formatting \"\(unformatted)\" without explicitely providing a card type")
+            XCTAssertEqual(formatted, attributedStringToSpacedString(attributed: CreditCardUtils.formattedNumber(number: formatted, for: type)),
+                           "Formatting formatted \(formatted) did not result in the same formatted number")
         }
     }
 }

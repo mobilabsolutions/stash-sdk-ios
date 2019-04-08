@@ -60,6 +60,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/BraintreeData.html">BraintreeData</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -77,10 +85,6 @@
 <ul>
 <li>BSPayone [Credit Cards / SEPA]</li>
 <li>Braintree [PayPal]</li>
-</ul>
-<h4 id='coming-soon' class='heading'>Coming soon</h4>
-
-<ul>
 <li>Adyen [Credit Cards / SEPA]</li>
 </ul>
 <h2 id='requirements' class='heading'>Requirements</h2>
@@ -194,7 +198,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 </code></pre>
 <h3 id='registering-a-paypal-account' class='heading'>Registering a PayPal account</h3>
 
-<p>Currently, only Braintree PSP allows registering a PayPal account so be sure you register it with the SDK. To get a tokenization key needed for Braintree PSP module initialization please follow this <a href="https://developers.braintreepayments.com/guides/authorization/tokenization-key/ios/v4#obtaining-a-tokenization-key">link</a></p>
+<p>Currently, only Braintree PSP allows registering a PayPal account.</p>
 <h4 id='setup-for-app-switch' class='heading'>Setup for app switch</h4>
 
 <p>PayPal account registration flow involves switching to another app or  <code>SFSafariViewController</code>  for authentication, so you must register a URL type and configure your app to return from app switches.</p>

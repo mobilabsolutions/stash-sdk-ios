@@ -6,7 +6,6 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import MobilabPaymentUI
 import UIKit
 
 class PaymentMethodSelectionCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -94,7 +93,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
         return CGSize(width: collectionView.frame.width, height: self.headerHeight)
     }
 
-    func setSelectablePaymentMethods(methods: [PaymentMethodType]) {
+    func setSelectablePaymentMethods(methods: Set<PaymentMethodType>) {
         self.selectablePaymentMethods = methods.sorted(by: { $0.uiPriority < $1.uiPriority })
     }
 }
