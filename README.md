@@ -30,7 +30,7 @@ Add `github "mobilab/mobilabpayment_ios"` to your `Cartfile`, and [add the frame
 
 To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the public key as well as the backend endpoint that should be used by the SDK.
 
-To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Use the `addProvider` method to register PSP with the SDK.
+To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Use the `registerProvider` method to register PSP with the SDK.
 ```swift
 import MobilabPaymentCore
 import MobilabPaymentBSPayone
@@ -38,11 +38,11 @@ import MobilabPaymentBSPayone
 let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
 MobilabPaymentSDK.configure(configuration: configuration)
 
-let bsPayonePSP = MobilabPaymentBSPayone(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I")
-MobilabPaymentSDK.addProvider(provider: bsPayonePSP)
+let bsPayonePSP = MobilabPaymentBSPayone()
+MobilabPaymentSDK.registerProvider(provider: bsPayonePSP, forPaymentMethodTypes: .creditCard, .sepa)
 
-let braintreePSP = MobilabPaymentBraintree(tokenizationKey: "123454321...", urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-MobilabPaymentSDK.addProvider(provider: braintreePSP)
+let braintreePSP = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+MobilabPaymentSDK.registerProvider(provider: braintreePSP, forPaymentMethodTypes: .payPal)
 ```
 
 #### Using the SDK in test mode
@@ -67,13 +67,13 @@ MobilabPaymentSDK.configure(configuration: configuration)
 
 ## Registering payment method
 
-To register a payment method you need an instance of `RegistrationManager` class.
+To register a payment method you need an instance of the `RegistrationManager` class.
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegisterManager()
 ```
 
-As SDK allows usage of multiple PSP, when registering payment method you need to set a PSP you wanna utilize for that payment method.
+As the SDK allows usage of multiple PSPs, when registering payment method you need to set a PSP you wanna utilize for that payment method.
 Depending on the payment method that is used, some registration methods also require additional data to be supplied.
 
 ### Registering a credit card
@@ -122,14 +122,14 @@ let registrationManager = MobilabPaymentSDK.getRegisterManager()
 registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
     switch result {
     case let .success(alias): print("Received alias for SEPA account: \(alias)")
-    case let .failure(error): print("Error (\(error.code)) while registering SEPA account")
+    case let .failure(error): print("Error (\(error.description)) while registering SEPA account")
     }
 }
 ```
 
 ### Registering a PayPal account
 
-Currently, only Braintree PSP allows registering a PayPal account.
+Currently, only the Braintree PSP allows registering a PayPal account.
 
 #### Setup for app switch
 
@@ -183,7 +183,7 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
             self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }
     case let .failure(error):
-        self?.showAlert(title: "Failure", body: error.errorDescription ?? "An error occurred while adding payment method")
+        self?.showAlert(title: "Failure", body: error.description)
     }
 }
 ```
@@ -202,7 +202,7 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
             self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }
     case let .failure(error):
-        self?.showAlert(title: "Failure", body: error.errorDescription ?? "An error occurred while adding payment method")
+        self?.showAlert(title: "Failure", body: error.description)
     }
 }
 ```
