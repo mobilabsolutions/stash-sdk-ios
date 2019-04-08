@@ -89,7 +89,12 @@ struct RouterRequestCore: RouterRequestProtocol {
     }
 
     func getHeaders() -> [Header] {
-        var headers = [Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey)]
+        #warning("Update this once idempotency mechanism is implemented")
+        var headers = [
+            Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey),
+            Header(field: "Idempotent-Key", value: UUID().uuidString),
+        ]
+
         if InternalPaymentSDK.sharedInstance.configuration.useTestMode {
             headers.append(Header(field: "PSP-Test-Mode", value: "true"))
         }
