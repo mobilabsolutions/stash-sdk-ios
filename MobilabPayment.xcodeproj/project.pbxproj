@@ -187,6 +187,22 @@
 		E11C3C93223BA78500F94F56 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */; };
 		E11C3C97223BF00700F94F56 /* MLErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */; };
+		E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E14D5CFD225CCD2100BB20CA /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E14D5CFE225CCD5C00BB20CA /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E14D5CFF225CCD5C00BB20CA /* Adyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E14D5D00225CCD5C00BB20CA /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E14D5D01225CCD5C00BB20CA /* AdyenCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E14D5D02225CCD5C00BB20CA /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E14D5D03225CCD5C00BB20CA /* AdyenInternal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E14D5D04225CCD5C00BB20CA /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E14D5D05225CCD5C00BB20CA /* AdyenSEPA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */; };
+		E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */; };
+		E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */; };
+		E14D5D0D225CD77B00BB20CA /* SEPAPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -327,14 +343,18 @@
 				BA2A3AE3223BCE2700689A3A /* BraintreeDropIn.framework in Embed Frameworks */,
 				BA2A3ADF223BCE2700689A3A /* BraintreeCard.framework in Embed Frameworks */,
 				BA2A3AE5223BCE2700689A3A /* BraintreePaymentFlow.framework in Embed Frameworks */,
+				E14D5D05225CCD5C00BB20CA /* AdyenSEPA.framework in Embed Frameworks */,
 				BA2A3AF1223BCE5E00689A3A /* BraintreePayPal.framework in Embed Frameworks */,
 				BA2A3AE9223BCE2700689A3A /* PayPalDataCollector.framework in Embed Frameworks */,
 				E1D90152224A7E9E0067BB8A /* Crashlytics.framework in Embed Frameworks */,
+				E14D5D01225CCD5C00BB20CA /* AdyenCard.framework in Embed Frameworks */,
 				BA945A33223A890100C39300 /* MobilabPaymentBraintree.framework in Embed Frameworks */,
 				E1131F752236638A0025A711 /* MobilabPaymentCore.framework in Embed Frameworks */,
 				BA2A3AE7223BCE2700689A3A /* BraintreeUIKit.framework in Embed Frameworks */,
 				E1D90154224A7E9E0067BB8A /* Fabric.framework in Embed Frameworks */,
 				BA2A3AEB223BCE2700689A3A /* PayPalOneTouch.framework in Embed Frameworks */,
+				E14D5D03225CCD5C00BB20CA /* AdyenInternal.framework in Embed Frameworks */,
+				E14D5CFF225CCD5C00BB20CA /* Adyen.framework in Embed Frameworks */,
 				BA2A3AED223BCE2700689A3A /* PayPalUtils.framework in Embed Frameworks */,
 				BA09A95B224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Embed Frameworks */,
 				BA2A3AE1223BCE2700689A3A /* BraintreeCore.framework in Embed Frameworks */,
@@ -489,6 +509,14 @@
 		E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLErrorConvertible.swift; sourceTree = "<group>"; };
 		E1209BC12248DFE10060CD63 /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
+		E14D5CF6225CCD2100BB20CA /* Adyen.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Adyen.framework; path = Carthage/Build/iOS/Adyen.framework; sourceTree = "<group>"; };
+		E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenCard.framework; path = Carthage/Build/iOS/AdyenCard.framework; sourceTree = "<group>"; };
+		E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenInternal.framework; path = Carthage/Build/iOS/AdyenInternal.framework; sourceTree = "<group>"; };
+		E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenSEPA.framework; path = Carthage/Build/iOS/AdyenSEPA.framework; sourceTree = "<group>"; };
+		E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenPaymentControllerWrapper.swift; sourceTree = "<group>"; };
+		E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodPreparator.swift; sourceTree = "<group>"; };
+		E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPreparator.swift; sourceTree = "<group>"; };
+		E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAPreparator.swift; sourceTree = "<group>"; };
 		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
@@ -577,6 +605,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */,
+				E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */,
+				E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */,
+				E14D5CFD225CCD2100BB20CA /* AdyenSEPA.framework in Frameworks */,
 				BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,14 +621,18 @@
 				BA2A3AE2223BCE2700689A3A /* BraintreeDropIn.framework in Frameworks */,
 				BA2A3ADE223BCE2700689A3A /* BraintreeCard.framework in Frameworks */,
 				BA2A3AE4223BCE2700689A3A /* BraintreePaymentFlow.framework in Frameworks */,
+				E14D5D04225CCD5C00BB20CA /* AdyenSEPA.framework in Frameworks */,
 				BA2A3AF0223BCE5E00689A3A /* BraintreePayPal.framework in Frameworks */,
 				BA2A3AE8223BCE2700689A3A /* PayPalDataCollector.framework in Frameworks */,
 				E1D90151224A7E9E0067BB8A /* Crashlytics.framework in Frameworks */,
+				E14D5D00225CCD5C00BB20CA /* AdyenCard.framework in Frameworks */,
 				BA945A32223A890100C39300 /* MobilabPaymentBraintree.framework in Frameworks */,
 				E1131F742236638A0025A711 /* MobilabPaymentCore.framework in Frameworks */,
 				BA2A3AE6223BCE2700689A3A /* BraintreeUIKit.framework in Frameworks */,
 				E1D90153224A7E9E0067BB8A /* Fabric.framework in Frameworks */,
 				BA2A3AEA223BCE2700689A3A /* PayPalOneTouch.framework in Frameworks */,
+				E14D5D02225CCD5C00BB20CA /* AdyenInternal.framework in Frameworks */,
+				E14D5CFE225CCD5C00BB20CA /* Adyen.framework in Frameworks */,
 				BA2A3AEC223BCE2700689A3A /* PayPalUtils.framework in Frameworks */,
 				BA09A95A224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Frameworks */,
 				BA2A3AE0223BCE2700689A3A /* BraintreeCore.framework in Frameworks */,
@@ -856,6 +892,10 @@
 				BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */,
 				E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */,
 				BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */,
+				E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */,
+				E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */,
+				E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */,
+				E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -1100,6 +1140,10 @@
 		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E14D5CF6225CCD2100BB20CA /* Adyen.framework */,
+				E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */,
+				E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */,
+				E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */,
 				E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */,
 				BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */,
 				BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */,
@@ -1924,8 +1968,12 @@
 				BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */,
 				BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */,
 				BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */,
+				E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */,
+				E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */,
 				BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */,
+				E14D5D0D225CD77B00BB20CA /* SEPAPreparator.swift in Sources */,
 				E1068EB922535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift in Sources */,
+				E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */,
 				BA0B9BB2224FA91A0029FC8D /* AdyenData.swift in Sources */,
 				E1068EB722535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift in Sources */,
 				BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */,
@@ -2326,6 +2374,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MobilabPaymentAdyen/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2354,6 +2406,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MobilabPaymentAdyen/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;

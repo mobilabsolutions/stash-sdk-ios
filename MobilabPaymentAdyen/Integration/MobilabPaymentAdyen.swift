@@ -6,6 +6,9 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import Adyen
+import AdyenCard
+import AdyenSEPA
 import MobilabPaymentCore
 import UIKit
 
