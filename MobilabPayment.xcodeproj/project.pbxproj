@@ -30,15 +30,8 @@
 		BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */; };
 		BA0B9BBA224FB6D10029FC8D /* AdyenIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */; };
 		BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */; };
-		BA0B9BC4225207CA0029FC8D /* adyen_sepa_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BBF224FB98A0029FC8D /* adyen_sepa_success.json */; };
-		BA0B9BC5225207CC0029FC8D /* adyen_credit_card_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BBE224FB98A0029FC8D /* adyen_credit_card_failure.json */; };
-		BA0B9BC6225207CE0029FC8D /* adyen_credit_card_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BC0224FB98A0029FC8D /* adyen_credit_card_success.json */; };
 		BA21F4F8224D65A3004CEAA2 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
-		BA21F4F9224D664D004CEAA2 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96B224D635F006C3A1D /* RegisterResponse.swift */; };
-		BA21F4FA224D664E004CEAA2 /* RegisterResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96A224D635F006C3A1D /* RegisterResponseError.swift */; };
 		BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */; };
-		BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */; };
-		BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */; };
 		BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */; };
 		BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */; };
 		BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */; };
@@ -135,8 +128,6 @@
 		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
-		BAE6FAFE2225715F00D3A71B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* Result.swift */; };
-		BAE6FAFF2225715F00D3A71B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6FAFD2225715F00D3A71B /* Result.swift */; };
 		BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
@@ -237,6 +228,7 @@
 		E1D558F42264AA5200BC856A /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
 		E1D558F52264AA5200BC856A /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
 		E1D558F62264AB8C00BC856A /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E1D558F72264C12100BC856A /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
 		E1D90151224A7E9E0067BB8A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; };
 		E1D90152224A7E9E0067BB8A /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1D90153224A7E9E0067BB8A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; };
@@ -416,18 +408,11 @@
 		BA09A956224D60E8006C3A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA09A961224D6182006C3A1D /* MobilabPaymentBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentBSPayone.swift; sourceTree = "<group>"; };
 		BA09A962224D6182006C3A1D /* MobilabBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBSPayoneBridge.swift; sourceTree = "<group>"; };
-		BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestAdyen.swift; sourceTree = "<group>"; };
-		BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientAdyen.swift; sourceTree = "<group>"; };
-		BA09A96A224D635F006C3A1D /* RegisterResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponseError.swift; sourceTree = "<group>"; };
-		BA09A96B224D635F006C3A1D /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAdyenData.swift; sourceTree = "<group>"; };
 		BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenData.swift; sourceTree = "<group>"; };
 		BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSPayoneData.swift; sourceTree = "<group>"; };
 		BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeData.swift; sourceTree = "<group>"; };
 		BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenIntegrationTests.swift; sourceTree = "<group>"; };
-		BA0B9BBE224FB98A0029FC8D /* adyen_credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_credit_card_failure.json; sourceTree = "<group>"; };
-		BA0B9BBF224FB98A0029FC8D /* adyen_sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_sepa_success.json; sourceTree = "<group>"; };
-		BA0B9BC0224FB98A0029FC8D /* adyen_credit_card_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = adyen_credit_card_success.json; sourceTree = "<group>"; };
 		BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_create_alias_adyen_success.json; sourceTree = "<group>"; };
 		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalViewController.swift; sourceTree = "<group>"; };
@@ -483,7 +468,6 @@
 		BAD6463D222EC29500771DC0 /* PSPExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPExtra.swift; sourceTree = "<group>"; };
 		BAD6464D2230799F00771DC0 /* Codable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extras.swift"; sourceTree = "<group>"; };
 		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
-		BAE6FAFD2225715F00D3A71B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
 		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
 		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -618,6 +602,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D558F72264C12100BC856A /* AdyenSEPA.framework in Frameworks */,
 				E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */,
 				E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */,
 				E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */,
@@ -864,7 +849,6 @@
 		1DFA538B20DAB0410065CCC3 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				BAE6FAFD2225715F00D3A71B /* Result.swift */,
 				BA3A33B422296B6F00B7A635 /* AliasResponse.swift */,
 				E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */,
 				E11C3C96223BF00700F94F56 /* MLErrorConvertible.swift */,
@@ -891,7 +875,6 @@
 			children = (
 				BA0B9BB0224FA8FC0029FC8D /* Model */,
 				BA09A95F224D614C006C3A1D /* Integration */,
-				BA09A960224D6154006C3A1D /* Networking */,
 				E1068EB322535BB500ACC93C /* UI */,
 				BA09A956224D60E8006C3A1D /* Info.plist */,
 			);
@@ -912,64 +895,13 @@
 			path = Integration;
 			sourceTree = "<group>";
 		};
-		BA09A960224D6154006C3A1D /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A967224D632F006C3A1D /* Model */,
-				BA09A964224D626B006C3A1D /* Router */,
-				BA09A963224D6266006C3A1D /* Client */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		BA09A963224D6266006C3A1D /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A966224D6272006C3A1D /* NetworkClientAdyen.swift */,
-			);
-			path = Client;
-			sourceTree = "<group>";
-		};
-		BA09A964224D626B006C3A1D /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A965224D6270006C3A1D /* RouterRequestAdyen.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		BA09A967224D632F006C3A1D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A969224D633B006C3A1D /* Response */,
-				BA09A968224D6335006C3A1D /* Request */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		BA09A968224D6335006C3A1D /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */,
-				BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */,
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
-		BA09A969224D633B006C3A1D /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				BA09A96B224D635F006C3A1D /* RegisterResponse.swift */,
-				BA09A96A224D635F006C3A1D /* RegisterResponseError.swift */,
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
 		BA0B9BB0224FA8FC0029FC8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */,
 				E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */,
+				BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */,
+				BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1008,16 +940,6 @@
 				E1FDE0E7224D04BC00BB960D /* core_update_alias_success.json */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		BA0B9BBD224FB8D90029FC8D /* Adyen */ = {
-			isa = PBXGroup;
-			children = (
-				BA0B9BC0224FB98A0029FC8D /* adyen_credit_card_success.json */,
-				BA0B9BBE224FB98A0029FC8D /* adyen_credit_card_failure.json */,
-				BA0B9BBF224FB98A0029FC8D /* adyen_sepa_success.json */,
-			);
-			path = Adyen;
 			sourceTree = "<group>";
 		};
 		BA2A3AB9223BADE100689A3A /* UI */ = {
@@ -1333,7 +1255,6 @@
 		E117E01A224BA0C300E4C591 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA0B9BBD224FB8D90029FC8D /* Adyen */,
 				BA0B9BBC224FB8D50029FC8D /* Core */,
 				BA0B9BBB224FB85E0029FC8D /* BSPayone */,
 			);
@@ -1677,30 +1598,34 @@
 				TargetAttributes = {
 					1DC5CB9420D2BF5E002058C1 = {
 						CreatedOnToolsVersion = 9.3.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					1DC5CB9D20D2BF5E002058C1 = {
 						CreatedOnToolsVersion = 9.3.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					BA09A952224D60E8006C3A1D = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					BA8D070C2226AE56004F699A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					BA945A2A223A890100C39300 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					BACD61902226B03600E3ACC3 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					E11C3BFE223AB64F00F94F56 = {
 						CreatedOnToolsVersion = 10.1;
 					};
 					E11C3C86223BA5E100F94F56 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = BA8D070C2226AE56004F699A;
 					};
 				};
@@ -1748,14 +1673,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1FDE0E8224D04BC00BB960D /* core_update_alias_success.json in Resources */,
-				BA0B9BC5225207CC0029FC8D /* adyen_credit_card_failure.json in Resources */,
 				E117E020224BA41400E4C591 /* bs_sepa_success.json in Resources */,
 				E117E01C224BA0FD00E4C591 /* bs_credit_card_success.json in Resources */,
 				BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */,
 				E1FDE0E6224D007B00BB960D /* core_create_alias_success.json in Resources */,
 				E117E01E224BA18D00E4C591 /* bs_credit_card_failure.json in Resources */,
-				BA0B9BC4225207CA0029FC8D /* adyen_sepa_success.json in Resources */,
-				BA0B9BC6225207CE0029FC8D /* adyen_credit_card_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,6 +1776,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PayPalOneTouch.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PayPalUtils.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenSEPA.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenCard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Adyen.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenInternal.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -1924,7 +1850,6 @@
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */,
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
-				BAE6FAFE2225715F00D3A71B /* Result.swift in Sources */,
 				E1068EB222533D3700ACC93C /* FormConsumer.swift in Sources */,
 				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
@@ -1963,7 +1888,6 @@
 				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
 				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
 				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
-				BAE6FAFF2225715F00D3A71B /* Result.swift in Sources */,
 				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,
 				E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */,
 				E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */,
@@ -1977,12 +1901,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA21F4F9224D664D004CEAA2 /* RegisterResponse.swift in Sources */,
-				BA21F4FA224D664E004CEAA2 /* RegisterResponseError.swift in Sources */,
 				BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */,
 				BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */,
-				BA21F4FE224D6657004CEAA2 /* NetworkClientAdyen.swift in Sources */,
-				BA21F4FD224D6655004CEAA2 /* RouterRequestAdyen.swift in Sources */,
 				E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */,
 				E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */,
 				BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */,
@@ -2298,7 +2218,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2324,7 +2244,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2350,7 +2270,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/MobilabPaymentTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2375,7 +2295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/MobilabPaymentTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2383,6 +2303,7 @@
 		BA09A95C224D60E8006C3A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -2407,7 +2328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.adyen;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2415,6 +2336,7 @@
 		BA09A95D224D60E8006C3A1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -2438,7 +2360,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.adyen;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2466,7 +2388,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2494,7 +2416,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2526,7 +2448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Braintree;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2557,7 +2479,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Braintree;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2587,7 +2509,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2615,7 +2537,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.BSPayone;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2689,7 +2611,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Demo;
 			};
@@ -2714,7 +2636,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Demo;
 			};

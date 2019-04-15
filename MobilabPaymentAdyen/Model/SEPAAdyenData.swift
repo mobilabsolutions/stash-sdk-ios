@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import MobilabPaymentCore
 
-public struct SEPAAdyenData: Codable {
+struct SEPAAdyenData {
     let ownerName: String
     let ibanNumber: String
+    let billingData: BillingData?
 }

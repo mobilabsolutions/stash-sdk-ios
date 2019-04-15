@@ -13,7 +13,7 @@ import MobilabPaymentCore
 class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     private var billingData: BillingData?
     private var paymentMethodPreparator: PaymentMethodPreparator?
-    private var resultCallback: ((MobilabPaymentCore.Result<String, Error>) -> Void)?
+    private var resultCallback: ((Swift.Result<String, Error>) -> Void)?
 
     private var controller: PaymentController?
     private let tokenForSessionIdExchange: (String) -> Void
@@ -31,7 +31,7 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     func continueRegistration(sessionId: String,
                               billingData: BillingData?,
                               paymentMethodPreparator: PaymentMethodPreparator,
-                              resultCallback: @escaping (MobilabPaymentCore.Result<String, Error>) -> Void) {
+                              resultCallback: @escaping (Swift.Result<String, Error>) -> Void) {
         self.billingData = billingData
         self.paymentMethodPreparator = paymentMethodPreparator
         self.resultCallback = resultCallback
