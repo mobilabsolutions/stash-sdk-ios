@@ -26,6 +26,12 @@ class AdyenAliasCreationDetail: AliasCreationDetail {
         try super.init(from: decoder)
     }
 
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(token, forKey: .token)
+        try container.encode(returnUrl, forKey: .returnUrl)
+    }
+
     private enum CodingKeys: CodingKey {
         case token
         case returnUrl
