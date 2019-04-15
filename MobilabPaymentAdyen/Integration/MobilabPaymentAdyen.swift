@@ -17,15 +17,25 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     let networkingClient: NetworkClientAdyen
 
+    private var controllerForIdempotencyKey: [String: AdyenPaymentControllerWrapper] = [:]
+
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                          idempotencyKey: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
+            let controller = try getPaymentController(for: idempotencyKey)
 
             if let creditCardData = try getCreditCardData(from: registrationRequest) {
-                self.handleCreditCardRequest(creditCardData: creditCardData, pspData: pspData, completion: completion)
+                self.handleCreditCardRequest(creditCardData: creditCardData,
+                                             pspData: pspData,
+                                             controller: controller,
+                                             completion: completion)
             } else if let sepaData = try getSEPAData(from: registrationRequest) {
-                self.handleSEPARequest(sepaData: sepaData, pspData: pspData, completion: completion)
+                self.handleSEPARequest(sepaData: sepaData,
+                                       pspData: pspData,
+                                       controller: controller,
+                                       completion: completion)
             } else {
                 #warning("Update codes here when errors are finalized")
                 completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
@@ -37,6 +47,21 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         } catch {
             completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
         }
+    }
+
+    public func provideAliasCreationDetail(for _: RegistrationData,
+                                           idempotencyKey: String,
+                                           completion: @escaping (MobilabPaymentCore.Result<AliasCreationDetail?, MLError>) -> Void) {
+        #warning("Update this return URL")
+        guard let returnUrl = URL(string: "app://mobilabpayment")
+        else { completion(.failure(MLError(description: "App return URL not valid", code: 1234))); return }
+
+        let controller = AdyenPaymentControllerWrapper { token in
+            let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: returnUrl)
+            completion(.success(creationDetail))
+        }
+
+        self.controllerForIdempotencyKey[idempotencyKey] = controller
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -68,6 +93,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }
 
     private func handleCreditCardRequest(creditCardData: CreditCardAdyenData, pspData: AdyenData,
+                                         controller _: AdyenPaymentControllerWrapper,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.networkingClient.registerCreditCard(creditCardData: creditCardData, pspData: pspData, completion: { result in
             switch result {
@@ -78,6 +104,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }
 
     private func handleSEPARequest(sepaData: SEPAAdyenData, pspData: AdyenData,
+                                   controller _: AdyenPaymentControllerWrapper,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.networkingClient.registerSEPA(sepaData: sepaData, pspData: pspData, completion: { result in
             switch result {
@@ -85,6 +112,13 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
             case let .failure(error): completion(.failure(error))
             }
         })
+    }
+
+    private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
+        guard let controller = self.controllerForIdempotencyKey[idempotencyKey]
+        else { throw AdyenIntegrationError.missingPaymentController }
+
+        return controller
     }
 
     private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
@@ -117,5 +151,6 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     private enum AdyenIntegrationError: Error {
         case missingOrInvalidConfigurationData
         case missingHolderName
+        case missingPaymentController
     }
 }

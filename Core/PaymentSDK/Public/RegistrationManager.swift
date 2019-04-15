@@ -16,11 +16,13 @@ public class RegistrationManager {
     ///   - creditCardData: The credit card data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerCreditCard(creditCardData: CreditCardData, completion: @escaping RegistrationResultCompletion) {
+    public func registerCreditCard(creditCardData: CreditCardData,
+                                   idempotencyKey: String = UUID().uuidString,
+                                   completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion)
     }
 
     /// Register a SEPA account
@@ -29,11 +31,13 @@ public class RegistrationManager {
     ///   - sepaData: The SEPA data to use for registration
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerSEPAAccount(sepaData: SEPAData, completion: @escaping RegistrationResultCompletion) {
+    public func registerSEPAAccount(sepaData: SEPAData,
+                                    idempotencyKey: String = UUID().uuidString,
+                                    completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion)
+        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion)
     }
 
     /// Starts the flow for PayPal registration
@@ -42,11 +46,13 @@ public class RegistrationManager {
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
 
-    public func registerPayPal(presentingViewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+    public func registerPayPal(presentingViewController: UIViewController,
+                               idempotencyKey: String = UUID().uuidString,
+                               completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: PayPalData(nonce: nil), type: .payPal)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, completion: completion, presentingViewController: presentingViewController)
+        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion, presentingViewController: presentingViewController)
     }
 
     /// Allow the user to select a payment method type and input its data from module-generated UI

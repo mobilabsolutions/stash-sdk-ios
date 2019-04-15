@@ -11,19 +11,16 @@ import Foundation
 import MobilabPaymentCore
 
 class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
-    private(set) var controller: PaymentController?
-    private let billingData: BillingData?
+    private var billingData: BillingData?
+    private var paymentMethodPreparator: PaymentMethodPreparator?
+    private var resultCallback: ((MobilabPaymentCore.Result<String, Error>) -> Void)?
 
-    private let paymentMethodPreparator: PaymentMethodPreparator
-    private let tokenForSessionIdExchange: (String, (String) -> Void) -> Void
-    private let resultCallback: (Result<String>) -> Void
+    private var controller: PaymentController?
+    private let tokenForSessionIdExchange: (String) -> Void
+    private var sessionIdResponseHandler: Completion<String>?
 
-    init(paymentMethodPreparator: PaymentMethodPreparator, billingData: BillingData?,
-         tokenForSessionIdExchange: @escaping (String, (String) -> Void) -> Void, resultCallback: @escaping (Result<String>) -> Void) {
-        self.billingData = billingData
-        self.paymentMethodPreparator = paymentMethodPreparator
+    init(tokenForSessionIdExchange: @escaping (String) -> Void) {
         self.tokenForSessionIdExchange = tokenForSessionIdExchange
-        self.resultCallback = resultCallback
     }
 
     func start() {
@@ -31,14 +28,25 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
         self.controller?.start()
     }
 
+    func continueRegistration(sessionId: String,
+                              billingData: BillingData?,
+                              paymentMethodPreparator: PaymentMethodPreparator,
+                              resultCallback: @escaping (MobilabPaymentCore.Result<String, Error>) -> Void) {
+        self.billingData = billingData
+        self.paymentMethodPreparator = paymentMethodPreparator
+        self.resultCallback = resultCallback
+
+        self.sessionIdResponseHandler?(sessionId)
+    }
+
     func requestPaymentSession(withToken token: String, for _: PaymentController, responseHandler: @escaping Completion<String>) {
-        self.tokenForSessionIdExchange(token, responseHandler)
+        self.tokenForSessionIdExchange(token)
+        self.sessionIdResponseHandler = responseHandler
     }
 
     func selectPaymentMethod(from paymentMethods: SectionedPaymentMethods, for paymentController: PaymentController, selectionHandler: @escaping Completion<PaymentMethod>) {
-        #warning("Handle case where this is nil")
-        guard let method = self.paymentMethodPreparator.preparedPaymentMethod(from: paymentMethods, for: paymentController)
-        else { return }
+        guard let method = self.paymentMethodPreparator?.preparedPaymentMethod(from: paymentMethods, for: paymentController)
+        else { self.resultCallback?(.failure(MLError(description: "Payment method type not supported by PSP", code: 1234))); return }
 
         selectionHandler(method)
     }
@@ -47,12 +55,12 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
         #warning("Do something here")
     }
 
-    func didFinish(with result: Result<PaymentResult>, for _: PaymentController) {
+    func didFinish(with result: Adyen.Result<PaymentResult>, for _: PaymentController) {
         switch result {
         case let .success(result):
-            self.resultCallback(.success(result.payload))
+            self.resultCallback?(.success(result.payload))
         case let .failure(error):
-            self.resultCallback(.failure(error))
+            self.resultCallback?(.failure(error))
         }
     }
 

@@ -21,7 +21,7 @@ public enum PaymentServiceProviderError: Error {
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
-    typealias RegistrationResult = NetworkClientResult<String?, MLError>
+    typealias RegistrationResult = Result<String?, MLError>
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend
@@ -31,8 +31,20 @@ public protocol PaymentServiceProvider {
     ///
     /// - Parameters:
     ///   - registrationRequest: the registration request data
+    ///   - idempotencyKey: the request's idempotency key that should be used to ensure idempotency of actions
     ///   - completion: A completion returning the generated PSP alias (if present) or an error
-    func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping RegistrationResultCompletion)
+    func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                   idempotencyKey: String,
+                                   completion: @escaping RegistrationResultCompletion)
+
+    /// Handle a request for registering a payment method with the PSP
+    ///
+    /// - Parameters:
+    ///   - paymentMethodData: the payment method data that will be registered
+    ///   - completion: A completion returning the generated AliasCreationDetail (if necessary) or an error if something went wrong
+    func provideAliasCreationDetail(for paymentMethodData: RegistrationData,
+                                    idempotencyKey: String,
+                                    completion: @escaping (Result<AliasCreationDetail?, MLError>) -> Void)
 
     /// All payment method types which module supports
     var supportedPaymentMethodTypes: [PaymentMethodType] { get }
@@ -53,6 +65,12 @@ public protocol PaymentServiceProvider {
 }
 
 public extension PaymentServiceProvider {
+    func provideAliasCreationDetail(for _: RegistrationData,
+                                    idempotencyKey _: String,
+                                    completion: @escaping (Result<AliasCreationDetail?, MLError>) -> Void) {
+        completion(.success(nil))
+    }
+
     var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return []
     }
