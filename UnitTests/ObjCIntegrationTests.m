@@ -23,7 +23,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void) testCreateConfiguration {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 
     XCTAssertFalse(configuration.loggingEnabled, @"Logging should not be enabled when creating a new configuration");
 
@@ -39,7 +39,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void) testCreateInvalidConfiguration {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"not a url"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"not a url"];
     NSError *error = nil;
     NSURL *endpointUrl = [configuration endpointUrlAndReturnError:&error];
 
@@ -49,7 +49,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void) testAddConfigurationAndProviderToSDK {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
@@ -71,7 +71,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     }];
 
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
@@ -122,7 +122,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     }];
 
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 

@@ -21,7 +21,7 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPRegistersForSupportedPaymentMethodTypes() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
@@ -33,7 +33,7 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPFailsToRegisterForSupportedPaymentMethodTypes() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
@@ -45,7 +45,7 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPUsedForRegisteringProvidedPaymentMethods() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
@@ -70,7 +70,7 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
