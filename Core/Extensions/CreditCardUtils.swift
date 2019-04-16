@@ -19,6 +19,15 @@ public class CreditCardUtils {
         return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
     }
 
+    public static func validateCVV(cvv: String) throws {
+        #warning("Update error once errors are finalized")
+        guard let _ = Int(cvv)
+        else { throw MLError(title: "Credit card validation error", description: "CVV should be numeric", code: 105) }
+
+        guard cvv.count == 3 || cvv.count == 4
+        else { throw MLError(title: "Credit card validation error", description: "CVV should be three or four digits long", code: 106) }
+    }
+
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {
         let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }

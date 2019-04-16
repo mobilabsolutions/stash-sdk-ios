@@ -43,7 +43,13 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                 errors[.cardNumber] = .noData(explanation: "Please provide your card number")
             }
 
-            if cvvText == nil || cvvText.flatMap({ Int($0) }) == nil {
+            if let cvv = cvvText {
+                do {
+                    try CreditCardUtils.validateCVV(cvv: cvv)
+                } catch {
+                    errors[.cvv] = .noData(explanation: "Please provide a valid CVV")
+                }
+            } else {
                 errors[.cvv] = .noData(explanation: "Please provide a valid CVV")
             }
 
