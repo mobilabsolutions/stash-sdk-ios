@@ -148,4 +148,15 @@ class AdyenIntegrationTests: XCTestCase {
 
         wait(for: [resultExpectation], timeout: 20)
     }
+
+    func testCorrectlySerializesAdyenAliasCreationDetail() throws {
+        let token = "test-token"
+        let url = URL(string: "app://test-token-url")!
+
+        let creationDetail: AliasCreationDetail = AdyenAliasCreationDetail(token: token, returnUrl: url)
+        let encoded = try JSONEncoder().encode(creationDetail)
+        let decoded = try JSONDecoder().decode(AdyenAliasCreationDetail.self, from: encoded)
+
+        XCTAssertEqual(decoded.token, token, "Should deserialize same token as was serialized")
+    }
 }
