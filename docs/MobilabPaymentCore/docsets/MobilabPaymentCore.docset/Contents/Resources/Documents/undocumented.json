@@ -29,6 +29,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/CreditCardUtils.swift",
+      "line": 22,
+      "symbol": "CreditCardUtils.validateCVV(cvv:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/SEPAUtils.swift",
       "line": 11,
       "symbol": "SEPAUtils",

@@ -51,7 +51,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///
     /// - Parameters:
     ///   - cardNumber: The credit card number. Spaces and dashes are allowed and will be filtered out.
-    ///   - cvv: The CVV
+    ///   - cvv: The CVV (three or four digit integer)
     ///   - expiryMonth: The month in which the credit card expires: 1 (January) - 12 (December)
     ///   - expiryYear: The year in which the credit card expires: 0-99
     ///   - holderName: The name of the credit card holder. Not required by every PSP
