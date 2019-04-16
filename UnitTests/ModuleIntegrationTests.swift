@@ -19,7 +19,7 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         var publicKey: String {
-            return "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I"
+            return "mobilab-D4eWavRIslrUCQnnH6cn"
         }
 
         var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -55,7 +55,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
                                                 registrationRequestCalledExpectation: expectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
         MobilabPaymentSDK.configure(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
@@ -79,7 +79,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.configure(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
@@ -168,7 +168,7 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-nF7kU7xY8ESLgflavGW9CpUv1I", endpoint: paymentEndpoint)
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: paymentEndpoint)
         configuration.useTestMode = true
 
         MobilabPaymentSDK.configure(configuration: configuration)
