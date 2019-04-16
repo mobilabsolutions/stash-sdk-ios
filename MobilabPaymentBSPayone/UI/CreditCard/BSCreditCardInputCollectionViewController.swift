@@ -132,11 +132,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
-
-    override func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "Could not create credit card method: \(error.description)")
-    }
 }
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {

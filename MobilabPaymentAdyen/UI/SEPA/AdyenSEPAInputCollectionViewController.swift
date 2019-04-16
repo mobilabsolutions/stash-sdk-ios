@@ -47,11 +47,6 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "Could not create SEPA method: \(error.description)")
-    }
 }
 
 extension AdyenSEPAInputCollectionViewController: FormConsumer {

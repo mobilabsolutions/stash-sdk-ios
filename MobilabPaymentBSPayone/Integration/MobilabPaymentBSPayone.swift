@@ -81,7 +81,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
                                                          cardExpireDate: String(format: "%02d%02d", cardData.expiryYear, cardData.expiryMonth),
-                                                         cardCVC2: cardData.cvv)
+                                                         cardCVC2: cardData.cvv, billingData: cardData.billingData)
 
         return bsCreditCardRequest
     }

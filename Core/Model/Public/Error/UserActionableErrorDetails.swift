@@ -9,6 +9,12 @@
 import Foundation
 
 public struct UserActionableErrorDetails: CustomStringConvertible, TitleProviding {
+    public let title: String = "Error"
     public let description: String
-    public let title: String
+    public let thirdPartyErrorCode: String
+
+    public init(description: String, thirdPartyErrorCode: String) {
+        self.description = description
+        self.thirdPartyErrorCode = thirdPartyErrorCode
+    }
 }
