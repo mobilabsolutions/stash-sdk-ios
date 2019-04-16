@@ -1,0 +1,33 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentAdyen/Integration/MobilabAdyenBridge.swift",
+      "line": 11,
+      "symbol": "MobilabAdyenBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentAdyen/Integration/MobilabAdyenBridge.swift",
+      "line": 12,
+      "symbol": "MobilabAdyenBridge.createModule()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentAdyen/Integration/MobilabPaymentAdyen.swift",
+      "line": 15,
+      "symbol": "MobilabPaymentAdyen",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentAdyen/Integration/MobilabPaymentAdyen.swift",
+      "line": 91,
+      "symbol": "MobilabPaymentAdyen.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open"
+}

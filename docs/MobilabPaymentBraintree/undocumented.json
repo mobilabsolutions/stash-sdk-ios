@@ -30,14 +30,14 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabPaymentBraintree.swift",
-      "line": 53,
+      "line": 55,
       "symbol": "MobilabPaymentBraintree.init(urlScheme:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabPaymentBraintree.swift",
-      "line": 59,
+      "line": 61,
       "symbol": "MobilabPaymentBraintree.handleOpen(url:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

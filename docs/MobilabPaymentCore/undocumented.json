@@ -470,27 +470,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Networking/Model/Response/NetworkClientResult.swift",
-      "line": 4,
-      "symbol": "NetworkClientResult",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Networking/Model/Response/NetworkClientResult.swift",
-      "line": 5,
-      "symbol": "NetworkClientResult.success(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Networking/Model/Response/NetworkClientResult.swift",
-      "line": 6,
-      "symbol": "NetworkClientResult.failure(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
       "line": 11,
       "symbol": "PaymentMethodUIConfiguration",
@@ -649,6 +628,20 @@
       "line": 20,
       "symbol": "DoneButtonUpdater.doneButtonUpdating",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/AliasCreationDetail.swift",
+      "line": 11,
+      "symbol": "AliasCreationDetail",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/AliasCreationDetail.swift",
+      "line": 12,
+      "symbol": "AliasCreationDetail.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {

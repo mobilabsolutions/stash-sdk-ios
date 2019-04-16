@@ -23,7 +23,7 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Integration/MobilabPaymentBSPayone.swift",
-      "line": 62,
+      "line": 65,
       "symbol": "MobilabPaymentBSPayone.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

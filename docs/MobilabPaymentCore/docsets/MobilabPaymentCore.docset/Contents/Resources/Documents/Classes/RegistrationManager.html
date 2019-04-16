@@ -54,6 +54,9 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AliasCreationDetail.html">AliasCreationDetail</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/BillingData.html">BillingData</a>
               </li>
               <li class="nav-group-task">
@@ -126,9 +129,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/NetworkClientError.html">NetworkClientError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/NetworkClientResult.html">NetworkClientResult</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PaymentMethodType.html">PaymentMethodType</a>
@@ -258,9 +258,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data10completionyAA0ghJ0V_yAA19NetworkClientResultOySSAA7MLErrorCGctF"></a>
-                    <a name="//apple_ref/swift/Method/registerCreditCard(creditCardData:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data10completionyAA0ghJ0V_yAA19NetworkClientResultOySSAA7MLErrorCGctF">registerCreditCard(creditCardData:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSys6ResultOySSAA7MLErrorCGctF"></a>
+                    <a name="//apple_ref/swift/Method/registerCreditCard(creditCardData:idempotencyKey:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSys6ResultOySSAA7MLErrorCGctF">registerCreditCard(creditCardData:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -275,7 +275,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardData.html">CreditCardData</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardData.html">CreditCardData</a></span><span class="p">,</span>
+                               <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                               <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -317,9 +319,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData10completionyAA8SEPADataV_yAA19NetworkClientResultOySSAA7MLErrorCGctF"></a>
-                    <a name="//apple_ref/swift/Method/registerSEPAAccount(sepaData:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData10completionyAA8SEPADataV_yAA19NetworkClientResultOySSAA7MLErrorCGctF">registerSEPAAccount(sepaData:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSys6ResultOySSAA7MLErrorCGctF"></a>
+                    <a name="//apple_ref/swift/Method/registerSEPAAccount(sepaData:idempotencyKey:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSys6ResultOySSAA7MLErrorCGctF">registerSEPAAccount(sepaData:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -334,7 +336,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="kt"><a href="../Structs/SEPAData.html">SEPAData</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="kt"><a href="../Structs/SEPAData.html">SEPAData</a></span><span class="p">,</span>
+                                <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                                <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -376,9 +380,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC14registerPayPal24presentingViewController10completionySo06UIViewK0C_yAA19NetworkClientResultOySSAA7MLErrorCGctF"></a>
-                    <a name="//apple_ref/swift/Method/registerPayPal(presentingViewController:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC14registerPayPal24presentingViewController10completionySo06UIViewK0C_yAA19NetworkClientResultOySSAA7MLErrorCGctF">registerPayPal(presentingViewController:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC14registerPayPal24presentingViewController14idempotencyKey10completionySo06UIViewK0C_SSys6ResultOySSAA7MLErrorCGctF"></a>
+                    <a name="//apple_ref/swift/Method/registerPayPal(presentingViewController:idempotencyKey:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC14registerPayPal24presentingViewController14idempotencyKey10completionySo06UIViewK0C_SSys6ResultOySSAA7MLErrorCGctF">registerPayPal(presentingViewController:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -393,7 +397,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerPayPal</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerPayPal</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
+                           <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                           <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -423,9 +429,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on11billingData10completionySo16UIViewControllerC_AA07BillingL0CSgyAA19NetworkClientResultOySSAA7MLErrorCGctF"></a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on11billingData10completionySo16UIViewControllerC_AA07BillingL0CSgys6ResultOySSAA7MLErrorCGctF"></a>
                     <a name="//apple_ref/swift/Method/registerPaymentMethodUsingUI(on:billingData:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on11billingData10completionySo16UIViewControllerC_AA07BillingL0CSgyAA19NetworkClientResultOySSAA7MLErrorCGctF">registerPaymentMethodUsingUI(on:billingData:completion:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on11billingData10completionySo16UIViewControllerC_AA07BillingL0CSgys6ResultOySSAA7MLErrorCGctF">registerPaymentMethodUsingUI(on:billingData:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
