@@ -14,14 +14,10 @@ public enum MobilabPaymentProvider: String, Codable {
     case adyen = "ADYEN"
 }
 
-public enum PaymentServiceProviderError: Error {
-    case missingOrInvalidConfigurationData
-}
-
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
-    typealias RegistrationResult = NetworkClientResult<String?, MLError>
+    typealias RegistrationResult = NetworkClientResult<String?, MobilabPaymentError>
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend

@@ -47,7 +47,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         case unknown = "UNKNOWN"
     }
 
-    /// Initialize a new credit card. Validates credit card using Luhn's algorithm - if the validation fails, an MLError is thrown
+    /// Initialize a new credit card. Validates credit card using Luhn's algorithm - if the validation fails, a MobilabPaymentError is thrown
     ///
     /// - Parameters:
     ///   - cardNumber: The credit card number. Spaces and dashes are allowed and will be filtered out.
@@ -56,14 +56,14 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///   - expiryYear: The year in which the credit card expires: 0-99
     ///   - holderName: The name of the credit card holder. Not required by every PSP
     ///   - billingData: The billing data to use when registering with the PSP
-    /// - Throws: An MLError if validation is not successful
+    /// - Throws: An MobilabPaymentError if validation is not successful
     public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         try CreditCardUtils.validateCVV(cvv: cvv)
 
         guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { throw MLError(title: "Credit card validation error", description: "Credit card number is not valid", code: 106) }
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
 
         self.holderName = holderName
         self.cardNumber = cleanedNumber

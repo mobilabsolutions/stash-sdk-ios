@@ -74,8 +74,8 @@ class ModuleIntegrationTests: XCTestCase {
         let calledExpectation = XCTestExpectation(description: "Handle registration is called")
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
-        let error = MLError(title: "Test Failure",
-                            description: "Sample test failure", code: 123)
+        let errorDetails = GenericErrorDetails(description: "Sample error")
+        let error = MobilabPaymentError.other(errorDetails)
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
@@ -93,7 +93,8 @@ class ModuleIntegrationTests: XCTestCase {
             case .success:
                 XCTFail("Should not have returned success when module fails")
             case let .failure(propagatedError):
-                XCTAssertEqual(error.code, propagatedError.code, "Expected error code to be \(error.code) but was \(propagatedError.code)")
+                guard case .other = propagatedError
+                else { XCTFail("Propagated error should be the same as the module error"); return }
             }
 
             resultExpectation.fulfill()
@@ -162,7 +163,8 @@ class ModuleIntegrationTests: XCTestCase {
             } else {
                 XCTFail("Should have test header and test header should have value of true")
                 stubExpectation.fulfill()
-                return OHHTTPStubsResponse(error: MLError(title: "Wrong request sent", description: "Request should have test header set to true", code: -123))
+                let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
+                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
             }
         }
 

@@ -52,7 +52,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
-                XCTFail("An error occurred while adding a credit card: \(error.failureReason ?? "unknown error")")
+                XCTFail("An error occurred while adding a credit card: \(error.description)")
                 expectation.fulfill()
             }
         })
@@ -109,7 +109,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             switch result {
             case .success: expectation.fulfill()
             case let .failure(error):
-                XCTFail("An error occurred while adding SEPA: \(error.errorDescription ?? "unknown error")")
+                XCTFail("An error occurred while adding SEPA: \(error.description)")
                 expectation.fulfill()
             }
         }
@@ -142,8 +142,37 @@ class BSPayoneIntegrationTests: XCTestCase {
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
-            case let .failure(error): XCTAssertEqual(error.title, "PSP Error",
-                                                     "The title of the provided error should be \"PSP Error\" but was \(error.title)")
+            case let .failure(error):
+                #warning("Take care of this once the error mapping for BS Payone is done")
+                guard case MobilabPaymentError.userActionable = error
+                else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
+            }
+
+            resultExpectation.fulfill()
+        }
+
+        wait(for: [resultExpectation], timeout: 20)
+    }
+
+    func testCorrectlyPropagatesTemporaryBSError() {
+        stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
+            guard let path = OHPathForFile("bs_credit_card_temp_failure.json", type(of: self))
+            else { Swift.fatalError("Expected file bs_credit_card_temp_failure.json to exist.") }
+            return fixture(filePath: path, status: 200, headers: [:])
+        }
+
+        let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
+
+        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+        else { XCTFail("Credit Card data should be valid"); return }
+
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+            switch result {
+            case .success: XCTFail("Should not have returned success when creating an alias fails")
+            case let .failure(error):
+                guard case MobilabPaymentError.temporary = error
+                else { XCTFail("An error in the PSP should be propagated as a pspTemporaryError"); break }
             }
 
             resultExpectation.fulfill()

@@ -24,7 +24,7 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         switch self.service {
         case let .registerCreditCard(creditCardData, pspData):
 
-            let url = self.getBaseURL()
+            var url = self.getBaseURL()
                 .append("mid", value: pspData.merchantId)
                 .append("portalid", value: pspData.portalId)
                 .append("api_version", value: pspData.apiVersion)
@@ -39,6 +39,11 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
                 .append("cardexpiredate", value: creditCardData.cardExpireDate)
                 .append("cardcvc2", value: creditCardData.cardCVC2)
                 .append("storecarddata", value: "yes")
+
+            if let locale = creditCardData.billingData?.languageId
+                ?? Locale.current.languageCode?.split(separator: "-").first.flatMap({ String($0) }) {
+                url = url.append("language", value: locale)
+            }
 
             return url
         }

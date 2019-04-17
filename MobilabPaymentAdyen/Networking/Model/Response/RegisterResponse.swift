@@ -1,5 +1,5 @@
 //
-//  RegisterCreditCardResponse.swift
+//  RegisterResponse.swift
 //  MobilabPaymentBSPayone
 //
 //  Created by Borna Beakovic on 01/03/2019.

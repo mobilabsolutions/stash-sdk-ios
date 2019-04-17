@@ -20,12 +20,8 @@ public class CreditCardUtils {
     }
 
     public static func validateCVV(cvv: String) throws {
-        #warning("Update error once errors are finalized")
-        guard let _ = Int(cvv)
-        else { throw MLError(title: "Credit card validation error", description: "CVV should be numeric", code: 105) }
-
-        guard cvv.count == 3 || cvv.count == 4
-        else { throw MLError(title: "Credit card validation error", description: "CVV should be three or four digits long", code: 106) }
+        guard let _ = Int(cvv), cvv.count == 3 || cvv.count == 4
+        else { throw MobilabPaymentError.validation(.invalidCVV) }
     }
 
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {

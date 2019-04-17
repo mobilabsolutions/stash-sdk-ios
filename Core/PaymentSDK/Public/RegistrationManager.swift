@@ -74,15 +74,7 @@ public class RegistrationManager {
                     DispatchQueue.main.async {
                         dataProvider?.errorWhileCreatingPaymentMethod(error: error)
                     }
-
-                    // The SDK user should not necessarily need to know about the specific errors that might happen but should
-                    // get a high-level overview of what went wrong
-                    #warning("Update this once errors are finalized")
-                    let wrappedError = MLError(title: "Payment method UI error",
-                                               description: error.errorDescription
-                                                   ?? "An error occurred while the user was adding a payment method using the module UI",
-                                               code: 107)
-                    completion(.failure(wrappedError))
+                    completion(.failure(error))
                 }
             }
             return wrapped

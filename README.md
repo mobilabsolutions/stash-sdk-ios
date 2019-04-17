@@ -70,7 +70,7 @@ MobilabPaymentSDK.configure(configuration: configuration)
 To register a payment method you need an instance of the `RegistrationManager` class.
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 ```
 
 As the SDK allows usage of multiple PSPs, when registering payment method you need to set a PSP you wanna utilize for that payment method.
@@ -90,7 +90,7 @@ guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: 
                                         expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
     switch result {
     case let .success(alias): print("Received alias for credit card: \(alias)")
@@ -118,7 +118,7 @@ let billingData = BillingData(email: "max@mustermann.de",
 guard let sepaData = try? SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 else { XCTFail("SEPA data should be valid"); return }
 
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
     switch result {
     case let .success(alias): print("Received alias for SEPA account: \(alias)")
@@ -151,7 +151,7 @@ func application(_: UIApplication, open url: URL, options: [UIApplication.OpenUR
 Now you are ready to register a PayPal account. 
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerPayPal(presentingViewController: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -175,7 +175,7 @@ Typical usage of this functionality might look like this:
 
 ```swift
 
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {
     case let .success(value):
@@ -191,7 +191,7 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
 It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. Simply pass along an updated `PaymentMethodUIConfiguration`:
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegisterManager()
+let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, fontColor: .black, buttonColor: .black)
 MobilabPaymentSDK.configureUI(configuration: uiConfiguration)
 
