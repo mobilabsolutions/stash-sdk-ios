@@ -8,39 +8,17 @@
 
 import Foundation
 
-private enum ApiError<S: MLErrorConvertible>: Error, MLErrorConvertible {
-    case requestFailed(Int, String)
-    case apiErrorResponse(S)
-    case responseNotValid
-    case unknown
-
-    func toMLError() -> MLError {
-        switch self {
-        case let .requestFailed(code, localizedDescription):
-            return MLError(description: localizedDescription, code: code)
-        case .responseNotValid:
-            return MLError(description: "Response not valid", code: 1)
-        case let .apiErrorResponse(error):
-            return error.toMLError()
-        case .unknown:
-            return MLError(description: "Unknown error", code: 2)
-        }
-    }
-}
-
 public enum NetworkClientError: Error {
     case shouldTryDecodingErrorResponse
 }
 
 public protocol NetworkClient {
-    typealias Completion<T> = ((NetworkClientResult<T, MLError>) -> Void)
-    func fetch<T: Decodable, S: Decodable & MLErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>)
+    typealias Completion<T> = ((NetworkClientResult<T, MobilabPaymentError>) -> Void)
+    func fetch<T: Decodable, S: Decodable & MobilabPaymentErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>)
 }
 
 public extension NetworkClient {
-    typealias DecodingDataCompletionHandler = (Decodable?, MLError?) -> Void
-
-    func fetch<T: Decodable, S: Decodable & MLErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
+    func fetch<T: Decodable, S: Decodable & MobilabPaymentErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
@@ -58,23 +36,23 @@ public extension NetworkClient {
             do {
                 let decoded = try self.handleResponse(data: data, response: response, error: error, decodingType: responseType, errorType: errorType)
                 completion(.success(decoded))
-            } catch let errorType as ApiError<S> {
-                completion(.failure(errorType.toMLError()))
+            } catch let errorType as MobilabPaymentApiError<S> {
+                completion(.failure(errorType.toMobilabPaymentError()))
             } catch {
-                completion(.failure(ApiError<S>.unknown.toMLError()))
+                completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
             }
         }
         dataTask.resume()
     }
 
-    private func handleResponse<T: Decodable, S: MLErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
-                                                                                 decodingType: T.Type, errorType: S.Type?) throws -> T {
+    private func handleResponse<T: Decodable, S: MobilabPaymentErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
+                                                                                             decodingType: T.Type, errorType: S.Type?) throws -> T {
         if let error = error as NSError? {
-            throw ApiError<S>.requestFailed(error.code, error.localizedDescription)
+            throw MobilabPaymentError.network(.requestFailed(code: error.code, description: error.localizedDescription))
         }
 
         guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {
-            throw ApiError<S>.responseNotValid
+            throw MobilabPaymentError.network(.responseInvalid)
         }
 
         let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
@@ -96,14 +74,15 @@ public extension NetworkClient {
             } catch NetworkClientError.shouldTryDecodingErrorResponse {
                 fallthrough
             } catch {
-                throw ApiError<S>.responseNotValid
+                throw MobilabPaymentError.network(.responseInvalid)
             }
 
         default:
             if let type = errorType, let answer = try? JSONDecoder().decode(type, from: receivedData) {
-                throw ApiError<S>.apiErrorResponse(answer)
+                throw MobilabPaymentApiError<S>(error: answer)
             }
-            throw ApiError<S>.responseNotValid
+
+            throw MobilabPaymentError.network(.responseInvalid)
         }
     }
 }

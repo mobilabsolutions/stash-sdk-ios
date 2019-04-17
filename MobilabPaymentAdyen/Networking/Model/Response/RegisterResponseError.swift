@@ -1,6 +1,6 @@
 //
-//  RegisterCreditCardResponseError.swift
-//  MobilabPaymentBSPayone
+//  RegisterResponseError.swift
+//  MobilabPaymentAdyen
 //
 //  Created by Robert on 18.03.19.
 //  Copyright © 2019 MobiLab. All rights reserved.
@@ -9,19 +9,12 @@
 import Foundation
 import MobilabPaymentCore
 
-struct RegisterResponseError: MLErrorConvertible, Codable {
+struct RegisterResponseError: MobilabPaymentErrorConvertible, Codable {
     let resultCode: ResultCode
     let refusalReason: String
 
-    func toMLError() -> MLError {
-        #warning("Find sensible default value for code once errors are finalized")
-        return MLError(title: "PSP Error",
-                       description: self.refusalReason,
-                       code: -1)
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case resultCode
-        case refusalReason
+    func toMobilabPaymentError() -> MobilabPaymentError {
+        #warning("Perform correct mapping of result code to errors here")
+        return MobilabPaymentError.other(GenericErrorDetails(description: self.refusalReason, thirdPartyErrorCode: self.resultCode.rawValue))
     }
 }

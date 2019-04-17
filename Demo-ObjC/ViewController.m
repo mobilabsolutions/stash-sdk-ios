@@ -43,20 +43,25 @@
 
     __weak typeof(self) weakSelf = self;
     [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
-        if (alias != nil) {
-            NSLog(@"Got alias: %@", alias);
-            [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"];
-        }
-        else {
-            NSLog(@"Got error: %@", [error failureReason]);
-            [weakSelf showAlertWithTitle:@"Error" andBody:[NSString stringWithFormat:@"%@", [error failureReason]]];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (alias != nil) {
+                NSLog(@"Got alias: %@", alias);
+                [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"
+                            onViewController:[self presentedViewController]];
+            }
+            else {
+                NSLog(@"Got error: %@", [error description]);
+                [weakSelf showAlertWithTitle:@"Error" andBody:[NSString stringWithFormat:@"%@", [error description]]
+                            onViewController:[self presentedViewController]];
+            }
+        });
     }];
 }
 
-- (void) showAlertWithTitle: (NSString *)title andBody: (NSString *)body {
+- (void) showAlertWithTitle: (NSString *)title andBody: (NSString *)body onViewController: (UIViewController *)viewController {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:alert animated:YES completion:nil];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [viewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end

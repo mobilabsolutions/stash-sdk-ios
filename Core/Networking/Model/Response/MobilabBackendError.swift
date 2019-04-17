@@ -12,9 +12,10 @@ struct MobilabBackendError: Codable {
     let message: String
 }
 
-extension MobilabBackendError: MLErrorConvertible {
-    func toMLError() -> MLError {
-        #warning("Update this when error codes are finalized")
-        return MLError(description: self.message, code: 103)
+extension MobilabBackendError: MobilabPaymentErrorConvertible {
+    func toMobilabPaymentError() -> MobilabPaymentError {
+        #warning("When error format of BE is decided, update this")
+        let details = GenericErrorDetails(title: "Error", description: message)
+        return MobilabPaymentError.other(details)
     }
 }

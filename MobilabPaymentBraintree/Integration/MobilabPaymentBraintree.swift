@@ -30,10 +30,10 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             }
             presentingViewController.present(paypalViewController, animated: true, completion: nil)
 
-        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
-            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
         } catch {
-            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in Braintree module", code: 3)))
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -61,16 +61,5 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             return BTAppSwitch.handleOpen(url, options: options)
         }
         return false
-    }
-
-    private enum BraintreeIntegrationError: Error {
-        case invalidClientToken
-
-        func description() -> String {
-            switch self {
-            case .invalidClientToken:
-                return "Invalid client token"
-            }
-        }
     }
 }

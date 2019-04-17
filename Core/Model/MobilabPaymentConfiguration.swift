@@ -8,31 +8,6 @@
 
 import Foundation
 
-/// An error rooting from configuration issues
-public enum ConfigurationError: Error {
-    /// The SDK's public key is not set
-    case publicKeyNotSet
-    /// The SDK's endpoint is not set
-    case endpointNotSet
-    /// The provided SDK endpoint is not a valid URL
-    case endpointNotValid
-    /// The SDK's payment provider was not set
-    case providerNotSet
-
-    func description() -> String {
-        switch self {
-        case .publicKeyNotSet:
-            return "SDK Public key is not set!"
-        case .endpointNotSet:
-            return "SDK Endpoint is not set"
-        case .endpointNotValid:
-            return "SDK Endpoint is not valid"
-        case .providerNotSet:
-            return "No Provider found. Please add default provider"
-        }
-    }
-}
-
 /// The SDK configuration
 @objc(MLMobilabPaymentConfiguration) public class MobilabPaymentConfiguration: NSObject {
     /// Whether or not the SDK should write log messages to the console detailing the steps it takes
@@ -60,15 +35,15 @@ public enum ConfigurationError: Error {
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
     @objc public func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
-            throw ConfigurationError.publicKeyNotSet
+            throw MobilabPaymentError.configuration(.publicKeyNotSet)
         }
 
         guard !self.endpoint.isEmpty else {
-            throw ConfigurationError.endpointNotSet
+            throw MobilabPaymentError.configuration(.endpointNotSet)
         }
 
         guard let url = URL(string: self.endpoint) else {
-            throw ConfigurationError.endpointNotValid
+            throw MobilabPaymentError.configuration(.endpointNotValid)
         }
 
         return url

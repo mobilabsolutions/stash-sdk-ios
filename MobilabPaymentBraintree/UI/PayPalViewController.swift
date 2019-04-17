@@ -32,24 +32,22 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.view.backgroundColor = UIColor.clear
 
-        // Example: Initialize BTAPIClient, if you haven't already
         guard let braintreeClient = BTAPIClient(authorization: clientToken) else {
-            fatalError("Braintree client can't be authorized with applied tokenization key")
+            fatalError("Braintree client can't be authorized with applied client token")
         }
         let payPalDriver = BTPayPalDriver(apiClient: braintreeClient)
         payPalDriver.viewControllerPresentingDelegate = self
-        payPalDriver.appSwitchDelegate = self // Optional
+        payPalDriver.appSwitchDelegate = self
 
         let request = BTPayPalRequest()
-        request.billingAgreementDescription = "Your agremeent description" // Displayed in customer's PayPal account
         payPalDriver.requestBillingAgreement(request) { (tokenizedPayPalAccount, error) -> Void in
             if let tokenizedPayPalAccount = tokenizedPayPalAccount {
                 let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce)
                 self.didCreatePaymentMethodCompletion?(payPalData)
                 self.dismiss(animated: true, completion: nil)
-            } else if error != nil {
-                #warning("Handle request billing agreement error here")
-                self.dismiss(animated: true, completion: nil)
+            } else if let error = error {
+                #warning("Figure out what we want to do with errors here")
+                self.errorWhileCreatingPaymentMethod(error: MobilabPaymentError.other(GenericErrorDetails.from(error: error)))
             } else {
                 // Buyer canceled payment approval
                 self.dismiss(animated: true, completion: nil)
@@ -67,8 +65,8 @@ class PayPalViewController: UIViewController, PaymentMethodDataProvider, BTAppSw
         present(viewController, animated: true, completion: nil)
     }
 
-    func errorWhileCreatingPaymentMethod(error: MLError) {
-        let alert = UIAlertController(title: error.title, message: error.failureReason ?? "An error occurred while adding a PayPal method (\(error.code))",
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        let alert = UIAlertController(title: error.title, message: error.description,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 

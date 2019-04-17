@@ -24,17 +24,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
             } else if let _ = try getSepaData(from: registrationRequest) {
                 completion(.success(nil))
             } else {
-                #warning("Update codes here when errors are finalized")
-                completion(.failure(MLError(title: "PSP Error", description: "Unknown payment method parameters", code: 0)))
+                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
-        } catch PaymentServiceProviderError.missingOrInvalidConfigurationData {
-            completion(.failure(MLError(title: "Missing configuration data", description: "Provided configuration data is wrong", code: 1)))
-        } catch BSIntegrationError.unsupportedCreditCardType {
-            completion(.failure(MLError(title: "Unsupported Credit Card Type", description: "The provided credit card type is not supported", code: 1)))
-        } catch BSIntegrationError.missingBIC {
-            completion(.failure(MLError(title: "BIC missing", description: "For SEPA payments with BS Payone, BIC is required", code: 1)))
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
         } catch {
-            completion(.failure(MLError(title: "Unknown error occurred", description: "An unknown error occurred while handling payment method registration in BS module", code: 3)))
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -81,12 +76,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw BSIntegrationError.unsupportedCreditCardType }
+        else { throw MobilabPaymentError.validation(.cardTypeNotSupported) }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
                                                          cardExpireDate: String(format: "%02d%02d", cardData.expiryYear, cardData.expiryMonth),
-                                                         cardCVC2: cardData.cvv)
+                                                         cardCVC2: cardData.cvv, billingData: cardData.billingData)
 
         return bsCreditCardRequest
     }
@@ -96,17 +91,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let bic = data.bic
-        else { throw BSIntegrationError.missingBIC }
+        else { throw MobilabPaymentError.validation(.bicMissing) }
 
         return SEPABSPayoneData(iban: data.iban, bic: bic)
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
-    }
-
-    private enum BSIntegrationError: Error {
-        case unsupportedCreditCardType
-        case missingBIC
     }
 }
