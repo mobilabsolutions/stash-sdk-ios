@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ConfigurationError Enumeration Reference</title>
+    <title>PSPErrorDetails Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/ConfigurationError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/PSPErrorDetails" class="dashAnchor"></a>
 
-    <a title="ConfigurationError Enumeration Reference"></a>
+    <a title="PSPErrorDetails Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">MobilabPaymentCore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      ConfigurationError Enumeration Reference
+      PSPErrorDetails Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -72,9 +72,6 @@
                 <a class="nav-group-task-link" href="../Classes/LoadingViewController.html">LoadingViewController</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/MLError.html">MLError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentConfiguration.html">MobilabPaymentConfiguration</a>
               </li>
               <li class="nav-group-task">
@@ -99,6 +96,9 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
               </li>
               <li class="nav-group-task">
@@ -113,13 +113,13 @@
             <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConfigurationError.html">ConfigurationError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/MLResponseType.html">MLResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MobilabPaymentError.html">MobilabPaymentError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/MobilabPaymentProvider.html">MobilabPaymentProvider</a>
@@ -131,10 +131,16 @@
                 <a class="nav-group-task-link" href="../Enums/NetworkClientError.html">NetworkClientError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/NetworkErrorDetails.html">NetworkErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PaymentMethodType.html">PaymentMethodType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/PaymentServiceProviderError.html">PaymentServiceProviderError</a>
+                <a class="nav-group-task-link" href="../Enums/SDKConfigurationError.html">SDKConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ValidationErrorDetails.html">ValidationErrorDetails</a>
               </li>
             </ul>
           </li>
@@ -162,7 +168,7 @@
                 <a class="nav-group-task-link" href="../Protocols/FormConsumer.html">FormConsumer</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/MLErrorConvertible.html">MLErrorConvertible</a>
+                <a class="nav-group-task-link" href="../Protocols/MobilabPaymentErrorConvertible.html">MobilabPaymentErrorConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/NetworkClient.html">NetworkClient</a>
@@ -178,6 +184,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/TitleProviding.html">TitleProviding</a>
               </li>
             </ul>
           </li>
@@ -200,7 +209,16 @@
                 <a class="nav-group-task-link" href="../Structs/FormConsumerError.html">FormConsumerError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GenericErrorDetails.html">GenericErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Header.html">Header</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MobilabPaymentApiError.html">MobilabPaymentApiError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PSPErrorDetails.html">PSPErrorDetails</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
@@ -216,6 +234,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/SEPAData.html">SEPAData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TemporaryErrorDetails.html">TemporaryErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/UserActionableErrorDetails.html">UserActionableErrorDetails</a>
               </li>
             </ul>
           </li>
@@ -239,14 +263,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>ConfigurationError</h1>
+            <h1>PSPErrorDetails</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ConfigurationError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PSPErrorDetails</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/TitleProviding.html">TitleProviding</a></span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>An error rooting from configuration issues</p>
+            <p>Undocumented</p>
 
           </div>
         </section>
@@ -258,9 +282,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore18ConfigurationErrorO15publicKeyNotSetyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/publicKeyNotSet" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore18ConfigurationErrorO15publicKeyNotSetyA2CmF">publicKeyNotSet</a>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -268,14 +292,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The SDK&rsquo;s public key is not set</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">publicKeyNotSet</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -285,9 +308,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore18ConfigurationErrorO14endpointNotSetyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/endpointNotSet" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore18ConfigurationErrorO14endpointNotSetyA2CmF">endpointNotSet</a>
+                    <a name="/s:18MobilabPaymentCore15PSPErrorDetailsV5titleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore15PSPErrorDetailsV5titleSSvp">title</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,68 +318,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The SDK&rsquo;s endpoint is not set</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">endpointNotSet</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18MobilabPaymentCore18ConfigurationErrorO16endpointNotValidyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/endpointNotValid" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore18ConfigurationErrorO16endpointNotValidyA2CmF">endpointNotValid</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The provided SDK endpoint is not a valid URL</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">endpointNotValid</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18MobilabPaymentCore18ConfigurationErrorO14providerNotSetyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/providerNotSet" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore18ConfigurationErrorO14providerNotSetyA2CmF">providerNotSet</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The SDK&rsquo;s payment provider was not set</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">providerNotSet</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>

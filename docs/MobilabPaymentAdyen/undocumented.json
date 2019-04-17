@@ -23,7 +23,7 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentAdyen/Integration/MobilabPaymentAdyen.swift",
-      "line": 91,
+      "line": 88,
       "symbol": "MobilabPaymentAdyen.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

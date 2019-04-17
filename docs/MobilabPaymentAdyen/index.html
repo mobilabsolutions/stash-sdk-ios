@@ -138,7 +138,7 @@ To configure the SDK to use test mode, simply prepend the <code>test.</code> sub
 <h2 id='registering-payment-method' class='heading'>Registering payment method</h2>
 
 <p>To register a payment method you need an instance of the <code>RegistrationManager</code> class.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 </code></pre>
 
 <p>As the SDK allows usage of multiple PSPs, when registering payment method you need to set a PSP you wanna utilize for that payment method.
@@ -155,7 +155,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
                                         <span class="nv">expiryMonth</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="nv">holderName</span><span class="p">:</span> <span class="s">"Max Mustermann"</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="n">billingData</span><span class="p">)</span>
 <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Credit card data is not valid"</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">mobilabProvider</span><span class="p">:</span> <span class="kt">MobilabPaymentProvider</span><span class="o">.</span><span class="n">bsPayone</span><span class="p">,</span> <span class="nv">creditCardData</span><span class="p">:</span> <span class="n">creditCard</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for credit card: </span><span class="se">\(</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
@@ -180,7 +180,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 <span class="k">guard</span> <span class="k">let</span> <span class="nv">sepaData</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">SEPAData</span><span class="p">(</span><span class="nv">iban</span><span class="p">:</span> <span class="s">"DE75512108001245126199"</span><span class="p">,</span> <span class="nv">bic</span><span class="p">:</span> <span class="s">"COLSDE33XXX"</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="n">billingData</span><span class="p">)</span>
 <span class="k">else</span> <span class="p">{</span> <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"SEPA data should be valid"</span><span class="p">);</span> <span class="k">return</span> <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">mobilabProvider</span><span class="p">:</span> <span class="kt">MobilabPaymentProvider</span><span class="o">.</span><span class="n">bsPayone</span><span class="p">,</span> <span class="nv">sepaData</span><span class="p">:</span> <span class="n">sepaData</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for SEPA account: </span><span class="se">\(</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
@@ -210,7 +210,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 </code></pre>
 
 <p>Now you are ready to register a PayPal account. </p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPayPal</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
             <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
                 <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
@@ -231,7 +231,7 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 
 <p>Typical usage of this functionality might look like this:</p>
 <pre class="highlight swift"><code>
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -245,7 +245,7 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 </code></pre>
 
 <p>It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. Simply pass along an updated <code>PaymentMethodUIConfiguration</code>:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegisterManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">uiConfiguration</span> <span class="o">=</span> <span class="kt">PaymentMethodUIConfiguration</span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="o">.</span><span class="n">white</span><span class="p">,</span> <span class="nv">fontColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">buttonColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">)</span>
 <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">configureUI</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">uiConfiguration</span><span class="p">)</span>
 

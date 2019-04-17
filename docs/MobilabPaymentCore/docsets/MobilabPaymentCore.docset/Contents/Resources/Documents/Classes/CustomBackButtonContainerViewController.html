@@ -72,9 +72,6 @@
                 <a class="nav-group-task-link" href="../Classes/LoadingViewController.html">LoadingViewController</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/MLError.html">MLError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentConfiguration.html">MobilabPaymentConfiguration</a>
               </li>
               <li class="nav-group-task">
@@ -99,6 +96,9 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
               </li>
               <li class="nav-group-task">
@@ -113,13 +113,13 @@
             <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConfigurationError.html">ConfigurationError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/MLResponseType.html">MLResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MobilabPaymentError.html">MobilabPaymentError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/MobilabPaymentProvider.html">MobilabPaymentProvider</a>
@@ -131,10 +131,16 @@
                 <a class="nav-group-task-link" href="../Enums/NetworkClientError.html">NetworkClientError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/NetworkErrorDetails.html">NetworkErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PaymentMethodType.html">PaymentMethodType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/PaymentServiceProviderError.html">PaymentServiceProviderError</a>
+                <a class="nav-group-task-link" href="../Enums/SDKConfigurationError.html">SDKConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ValidationErrorDetails.html">ValidationErrorDetails</a>
               </li>
             </ul>
           </li>
@@ -162,7 +168,7 @@
                 <a class="nav-group-task-link" href="../Protocols/FormConsumer.html">FormConsumer</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/MLErrorConvertible.html">MLErrorConvertible</a>
+                <a class="nav-group-task-link" href="../Protocols/MobilabPaymentErrorConvertible.html">MobilabPaymentErrorConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/NetworkClient.html">NetworkClient</a>
@@ -178,6 +184,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/TitleProviding.html">TitleProviding</a>
               </li>
             </ul>
           </li>
@@ -200,7 +209,16 @@
                 <a class="nav-group-task-link" href="../Structs/FormConsumerError.html">FormConsumerError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GenericErrorDetails.html">GenericErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Header.html">Header</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MobilabPaymentApiError.html">MobilabPaymentApiError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PSPErrorDetails.html">PSPErrorDetails</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
@@ -216,6 +234,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/SEPAData.html">SEPAData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TemporaryErrorDetails.html">TemporaryErrorDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/UserActionableErrorDetails.html">UserActionableErrorDetails</a>
               </li>
             </ul>
           </li>
@@ -365,9 +389,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore0B18MethodDataProviderP018errorWhileCreatingbD00G0yAA7MLErrorC_tF"></a>
+                    <a name="/s:18MobilabPaymentCore0B18MethodDataProviderP018errorWhileCreatingbD00G0yAA0aB5ErrorO_tF"></a>
                     <a name="//apple_ref/swift/Method/errorWhileCreatingPaymentMethod(error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore0B18MethodDataProviderP018errorWhileCreatingbD00G0yAA7MLErrorC_tF">errorWhileCreatingPaymentMethod(error:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B18MethodDataProviderP018errorWhileCreatingbD00G0yAA0aB5ErrorO_tF">errorWhileCreatingPaymentMethod(error:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -381,7 +405,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">errorWhileCreatingPaymentMethod</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/MLError.html">MLError</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">errorWhileCreatingPaymentMethod</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/MobilabPaymentError.html">MobilabPaymentError</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>AliasCreationDetail Class Reference</title>
+    <title>ValidationErrorDetails Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/AliasCreationDetail" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/ValidationErrorDetails" class="dashAnchor"></a>
 
-    <a title="AliasCreationDetail Class Reference"></a>
+    <a title="ValidationErrorDetails Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">MobilabPaymentCore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      AliasCreationDetail Class Reference
+      ValidationErrorDetails Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -263,10 +263,10 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>AliasCreationDetail</h1>
+            <h1>ValidationErrorDetails</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">AliasCreationDetail</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ValidationErrorDetails</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TitleProviding.html">TitleProviding</a></span></code></pre>
 
                 </div>
               </div>
@@ -282,9 +282,251 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19AliasCreationDetailCACycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19AliasCreationDetailCACycfc">init()</a>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO11invalidIBANyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidIBAN" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO11invalidIBANyA2CmF">invalidIBAN</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SEPA IBAN is invalid</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidIBAN</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO23invalidCreditCardNumberyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidCreditCardNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO23invalidCreditCardNumberyA2CmF">invalidCreditCardNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Credit card number is invalid</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidCreditCardNumber</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO10invalidCVVyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidCVV" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO10invalidCVVyA2CmF">invalidCVV</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Credit card CVV is invalid</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidCVV</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO27creditCardMissingHolderNameyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/creditCardMissingHolderName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO27creditCardMissingHolderNameyA2CmF">creditCardMissingHolderName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Credit card data is missing holder name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">creditCardMissingHolderName</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO18billingMissingNameyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/billingMissingName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO18billingMissingNameyA2CmF">billingMissingName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Billing data is missing name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">billingMissingName</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO23cardExtraNotExtractableyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cardExtraNotExtractable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO23cardExtraNotExtractableyA2CmF">cardExtraNotExtractable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Card extra could not be extracted</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardExtraNotExtractable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO20cardTypeNotSupportedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cardTypeNotSupported" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO20cardTypeNotSupportedyA2CmF">cardTypeNotSupported</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The given PSP does not support the cards of this type</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardTypeNotSupported</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO10bicMissingyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/bicMissing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO10bicMissingyA2CmF">bicMissing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The PSP requires the BIC to be present but it is missing</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bicMissing</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO5titleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO5titleSSvp">title</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,7 +541,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

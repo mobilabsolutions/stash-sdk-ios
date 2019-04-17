@@ -49,6 +49,51 @@ class BasePaymentModulesTests: BaseUITest {
                       "Expected failure label to exist when adding a card with invalid number")
     }
 
+    func testRejectsInvalidCVV() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["Name"].tap()
+        collectionViewsQuery.textFields["Name"].typeText("Max Mustermann")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+
+        collectionViewsQuery.textFields["CVV"].tap()
+        collectionViewsQuery.textFields["CVV"].typeText("12345")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "valid CVV")).element.exists,
+                      "Expected failure label to exist when adding a card with invalid CVV")
+
+        collectionViewsQuery.textFields["CVV"].tap()
+        deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV"], app: app)
+
+        collectionViewsQuery.textFields["CVV"].typeText("12")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "valid CVV")).element.exists,
+                      "Expected failure label to exist when adding a card with invalid CVV")
+
+        collectionViewsQuery.textFields["CVV"].tap()
+        deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV"], app: app)
+
+        collectionViewsQuery.textFields["CVV"].typeText("abc")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "valid CVV")).element.exists,
+                      "Expected failure label to exist when adding a card with invalid CVV")
+    }
+
     func testRejectsSEPA() {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", app: app)
@@ -107,5 +152,13 @@ class BasePaymentModulesTests: BaseUITest {
         XCTAssertEqual(nameFieldText, "M")
 
         XCTAssertEqual(app.keyboards.count, 0, "After tapping the continue button on the last text field, the keyboard should disappear")
+    }
+
+    func deleteTextFieldText(textField: XCUIElement, app _: XCUIApplication) {
+        guard let currentText = textField.value as? String
+        else { return }
+
+        let deleteText = currentText.map({ _ in XCUIKeyboardKey.delete.rawValue })
+        textField.typeText(deleteText.joined())
     }
 }
