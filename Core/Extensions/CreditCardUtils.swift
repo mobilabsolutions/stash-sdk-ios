@@ -19,6 +19,11 @@ public class CreditCardUtils {
         return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
     }
 
+    public static func validateCVV(cvv: String) throws {
+        guard let _ = Int(cvv), cvv.count == 3 || cvv.count == 4
+        else { throw MobilabPaymentError.validation(.invalidCVV) }
+    }
+
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {
         let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }
