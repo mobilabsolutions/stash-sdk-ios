@@ -28,11 +28,11 @@ class ModuleIntegrationTests: XCTestCase {
 
         let completionResultToReturn: PaymentServiceProvider.RegistrationResult
         let registrationRequestCalledExpectation: XCTestExpectation?
-        let aliasCreationDetailResult: Result<AliasCreationDetail?, MLError>
+        let aliasCreationDetailResult: Result<AliasCreationDetail?, MobilabPaymentError>
 
         init(completionResultToReturn: PaymentServiceProvider.RegistrationResult,
              registrationRequestCalledExpectation: XCTestExpectation?,
-             aliasCreationDetailResult: Result<AliasCreationDetail?, MLError> = .success(nil)) {
+             aliasCreationDetailResult: Result<AliasCreationDetail?, MobilabPaymentError> = .success(nil)) {
             self.completionResultToReturn = completionResultToReturn
             self.registrationRequestCalledExpectation = registrationRequestCalledExpectation
             self.aliasCreationDetailResult = aliasCreationDetailResult
@@ -47,7 +47,7 @@ class ModuleIntegrationTests: XCTestCase {
             completion(self.completionResultToReturn)
         }
 
-        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String, completion: @escaping (Result<AliasCreationDetail?, MLError>) -> Void) {
+        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
             completion(self.aliasCreationDetailResult)
         }
     }
@@ -112,8 +112,8 @@ class ModuleIntegrationTests: XCTestCase {
         let calledExpectation = XCTestExpectation(description: "Handle registration is called")
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
-        let error = MLError(title: "Test Failure",
-                            description: "Sample test failure", code: 123)
+        let errorDetails = GenericErrorDetails(description: "Sample error")
+        let error = MobilabPaymentError.other(errorDetails)
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
@@ -133,7 +133,8 @@ class ModuleIntegrationTests: XCTestCase {
             case .success:
                 XCTFail("Should not have returned success when module fails")
             case let .failure(propagatedError):
-                XCTAssertEqual(error.code, propagatedError.code, "Expected error code to be \(error.code) but was \(propagatedError.code)")
+                guard case .other = propagatedError
+                else { XCTFail("Propagated error should be the same as the module error"); return }
             }
 
             resultExpectation.fulfill()
@@ -203,7 +204,8 @@ class ModuleIntegrationTests: XCTestCase {
             } else {
                 XCTFail("Should have test header and test header should have value of true")
                 stubExpectation.fulfill()
-                return OHHTTPStubsResponse(error: MLError(title: "Wrong request sent", description: "Request should have test header set to true", code: -123))
+                let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
+                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
             }
         }
 
@@ -258,7 +260,7 @@ class ModuleIntegrationTests: XCTestCase {
 
             return true
         }) { _ -> OHHTTPStubsResponse in
-            OHHTTPStubsResponse(error: MLError(title: "Sample Error", description: "Returning an error here since we don't need to continue", code: -123))
+            OHHTTPStubsResponse(error: MobilabPaymentError.other(GenericErrorDetails(description: "Sample error")))
         }
 
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: paymentEndpoint)
@@ -283,7 +285,7 @@ class ModuleIntegrationTests: XCTestCase {
         let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")
         doesNotCallRegistration.isInverted = true
 
-        let error = MLError(description: "An error occurred", code: 123)
+        let error = MobilabPaymentError.other(GenericErrorDetails(description: "An error occurred"))
 
         let module = TestModule<CreditCardData>(completionResultToReturn: .success("This should not be returned"),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,

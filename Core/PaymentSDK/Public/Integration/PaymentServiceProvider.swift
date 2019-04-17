@@ -14,14 +14,10 @@ public enum MobilabPaymentProvider: String, Codable {
     case adyen = "ADYEN"
 }
 
-public enum PaymentServiceProviderError: Error {
-    case missingOrInvalidConfigurationData
-}
-
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
-    typealias RegistrationResult = Result<String?, MLError>
+    typealias RegistrationResult = Result<String?, MobilabPaymentError>
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend
@@ -44,7 +40,7 @@ public protocol PaymentServiceProvider {
     ///   - completion: A completion returning the generated AliasCreationDetail (if necessary) or an error if something went wrong
     func provideAliasCreationDetail(for paymentMethodData: RegistrationData,
                                     idempotencyKey: String,
-                                    completion: @escaping (Result<AliasCreationDetail?, MLError>) -> Void)
+                                    completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void)
 
     /// All payment method types which module supports
     var supportedPaymentMethodTypes: [PaymentMethodType] { get }
@@ -67,7 +63,7 @@ public protocol PaymentServiceProvider {
 public extension PaymentServiceProvider {
     func provideAliasCreationDetail(for _: RegistrationData,
                                     idempotencyKey _: String,
-                                    completion: @escaping (Result<AliasCreationDetail?, MLError>) -> Void) {
+                                    completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
         completion(.success(nil))
     }
 

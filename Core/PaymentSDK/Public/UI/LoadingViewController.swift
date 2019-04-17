@@ -11,7 +11,7 @@ import UIKit
 public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
 
-    public func errorWhileCreatingPaymentMethod(error _: MLError) {
+    public func errorWhileCreatingPaymentMethod(error _: MobilabPaymentError) {
         #warning("Handle PayPal error here")
     }
 

@@ -151,8 +151,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
         XCTAssertNotNil(alias, @"Registering a valid SEPA method should return an alias");
         XCTAssertNil(error, @"Registering a valid SEPA method should not return any error but got %@", error);
         // These are nil, since error is nil. We want to make sure that we can access these values, though (that the code compiles).
-        XCTAssertNil([error failureReason]);
-        XCTAssertTrue([error code] == (long)nil);
+        XCTAssertNil([error description]);
         [expectation fulfill];
     }];
 

@@ -37,8 +37,7 @@ class InternalRegistrationManager {
                              presentingViewController: UIViewController?) {
         guard let cardExtra = paymentMethod.toAliasExtra()
         else {
-            completion(.failure(MLError(title: "Card extra not extractable",
-                                        description: "Internal SDK error: Could not read alias extra from payment method", code: 102)))
+            completion(.failure(MobilabPaymentError.validation(.cardExtraNotExtractable)))
             return
         }
 

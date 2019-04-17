@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol MLErrorConvertible {
-    func toMLError() -> MLError
+public protocol MobilabPaymentErrorConvertible {
+    func toMobilabPaymentError() -> MobilabPaymentError
 }

@@ -132,11 +132,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
-
-    override func errorWhileCreatingPaymentMethod(error: MLError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "Could not create credit card method: \(error.errorDescription ?? "Unknown error")")
-    }
 }
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
@@ -166,9 +161,9 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
             else { throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError.noKnownCreditCardProvider]) }
 
             self.didCreatePaymentMethodCompletion?(creditCard)
-        } catch let error as MLError {
+        } catch let error as MobilabPaymentError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
-                    .creditCardValidationFailed(message: error.failureReason ?? "Please enter a valid credit card")])
+                    .creditCardValidationFailed(message: error.description)])
         }
     }
 }

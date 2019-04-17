@@ -18,9 +18,11 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     private var controller: PaymentController?
     private let tokenForSessionIdExchange: (String) -> Void
     private var sessionIdResponseHandler: Completion<String>?
+    private let providerIdentifier: String
 
-    init(tokenForSessionIdExchange: @escaping (String) -> Void) {
+    init(providerIdentifier: String, tokenForSessionIdExchange: @escaping (String) -> Void) {
         self.tokenForSessionIdExchange = tokenForSessionIdExchange
+        self.providerIdentifier = providerIdentifier
     }
 
     func start() {
@@ -46,7 +48,12 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
 
     func selectPaymentMethod(from paymentMethods: SectionedPaymentMethods, for paymentController: PaymentController, selectionHandler: @escaping Completion<PaymentMethod>) {
         guard let method = self.paymentMethodPreparator?.preparedPaymentMethod(from: paymentMethods, for: paymentController)
-        else { self.resultCallback?(.failure(MLError(description: "Payment method type not supported by PSP", code: 1234))); return }
+        else {
+            let error = MobilabPaymentError.configuration(.providerNotSupportingPaymentMethod(provider: self.providerIdentifier,
+                                                                                              paymentMethod: self.paymentMethodPreparator?.paymentMethodType ?? "Unknown"))
+            self.resultCallback?(.failure(error))
+            return
+        }
 
         selectionHandler(method)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias RegistrationResult = Result<String, MLError>
+public typealias RegistrationResult = Result<String, MobilabPaymentError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 public class MobilabPaymentSDK {

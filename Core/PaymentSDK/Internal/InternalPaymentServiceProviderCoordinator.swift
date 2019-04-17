@@ -17,7 +17,8 @@ class InternalPaymentServiceProviderCoordinator {
         let paymentMethodTypesToRegister = Set(paymentMethodTypes.map({ $0.hashValue }))
 
         guard paymentMethodTypesToRegister.subtracting(providerSupportedPaymentMethodTypes).count == 0 else {
-            fatalError(SDKError.providerNotSupportingPaymentMethod(providerName: provider.pspIdentifier.rawValue).description())
+            fatalError(SDKConfigurationError.providerNotSupportingPaymentMethod(provider: provider.pspIdentifier.rawValue,
+                                                                                paymentMethod: "\(paymentMethodTypes)").description)
         }
 
         self.providers.append(provider)
@@ -29,7 +30,7 @@ class InternalPaymentServiceProviderCoordinator {
 
     func getProvider(forPaymentMethodType paymentMethodType: InternalPaymentMethodType) -> PaymentServiceProvider {
         guard let defaultProvider = self.providers.first else {
-            fatalError(SDKError.providerMissing.description())
+            fatalError(SDKConfigurationError.paymentMethodIsMissingProvider(paymentMethodType.rawValue).description)
         }
 
         if let registeredProvider = self.store[paymentMethodType] {

@@ -64,9 +64,29 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
-    open func errorWhileCreatingPaymentMethod(error: MLError) {
-        UIViewControllerTools.showAlert(on: self, title: "Error",
-                                        body: "An error occurred: \(error.errorDescription ?? "Unknown error")")
+    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        switch error {
+        case .configuration:
+            UIViewControllerTools.showAlert(on: self, title: "Configuration Error",
+                                            body: "A configuration error occurred. This should not happen.")
+        case .network:
+            UIViewControllerTools.showAlert(on: self, title: "Network Error",
+                                            body: "An error occurred. Please retry.")
+        case let .temporary(error):
+            let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
+            UIViewControllerTools.showAlert(on: self, title: "Temporary Error",
+                                            body: "A temporary error \(insertedErrorCode)occurred. Please retry.")
+        case let .userActionable(error):
+            UIViewControllerTools.showAlert(on: self, title: "Error",
+                                            body: "An error occurred: \(error.description)")
+        case let .validation(error):
+            UIViewControllerTools.showAlert(on: self, title: "Validation Error",
+                                            body: error.description)
+        case let .other(error):
+            let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
+            UIViewControllerTools.showAlert(on: self, title: "Error",
+                                            body: "An error \(insertedErrorCode)occurred.")
+        }
     }
 
     private func isDone() -> Bool {
@@ -183,7 +203,7 @@ extension FormCollectionViewController: DoneButtonViewDelegate {
         } catch let error as FormConsumerError {
             self.errors = error.errors
             self.collectionView.reloadData()
-        } catch let error as MLError {
+        } catch let error as MobilabPaymentError {
             self.errorWhileCreatingPaymentMethod(error: error)
         } catch {
             print("Error while validating: \(error). This should not happen.")
