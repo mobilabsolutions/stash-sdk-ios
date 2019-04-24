@@ -22,9 +22,11 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
     /// There is no PSP set for payment method
     case paymentMethodIsMissingProvider(String)
     /// PSP does not support provided payment method/s
-    case providerNotSupportingPaymentMethod(String, String)
+    case providerNotSupportingPaymentMethod(provider: String, paymentMethod: String)
     /// The used PSP was not configured correctly
     case pspInvalidConfiguration
+    /// The return URL that is set for a given PSP is invalid
+    case invalidReturnURL
 
     public var description: String {
         switch self {
@@ -44,6 +46,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
             return "Payment service provider \(provider) missing for \(paymentMethod)"
         case .pspInvalidConfiguration:
             return "The payment service provider module was not correctly set up"
+        case .invalidReturnURL:
+            return "The return URL provided for the given PSP is invalid"
         }
     }
 

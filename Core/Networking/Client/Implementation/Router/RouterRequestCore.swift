@@ -55,8 +55,8 @@ struct RouterRequestCore: RouterRequestProtocol {
 
     func getHttpBody() -> Data? {
         switch self.service {
-        case .createAlias:
-            return nil
+        case let .createAlias(data):
+            return try? JSONEncoder().encode(data)
 
         case let .updateAlias(data):
             return try? JSONEncoder().encode(data)

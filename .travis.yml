@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode10.1
+osx_image: xcode10.2
 
 cache:
   directories:
@@ -10,7 +10,7 @@ env:
   global:
     - PROJECT_NAME="MobilabPayment.xcodeproj"
   matrix:
-    - DESTINATION="OS=12.1,name=iPhone X"
+    - DESTINATION="OS=12.2,name=iPhone X"
 
 before_install:
   - brew install carthage || true

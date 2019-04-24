@@ -120,9 +120,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH010completionyAA0gH0V_yAA19NetworkClientResultOySSSgAA7MLErrorCGctF"></a>
-                    <a name="//apple_ref/swift/Method/handleRegistrationRequest(registrationRequest:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH010completionyAA0gH0V_yAA19NetworkClientResultOySSSgAA7MLErrorCGctF">handleRegistrationRequest(registrationRequest:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey10completionyAA0gH0V_SSys6ResultOySSSgAA0aB5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/handleRegistrationRequest(registrationRequest:idempotencyKey:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey10completionyAA0gH0V_SSys6ResultOySSSgAA0aB5ErrorOGctF">handleRegistrationRequest(registrationRequest:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,7 +136,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">handleRegistrationRequest</span><span class="p">(</span><span class="nv">registrationRequest</span><span class="p">:</span> <span class="kt">RegistrationRequest</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">PaymentServiceProvider</span><span class="o">.</span><span class="kt">RegistrationResultCompletion</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">handleRegistrationRequest</span><span class="p">(</span><span class="nv">registrationRequest</span><span class="p">:</span> <span class="kt">RegistrationRequest</span><span class="p">,</span>
+                                      <span class="n">idempotencyKey</span> <span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                      <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">PaymentServiceProvider</span><span class="o">.</span><span class="kt">RegistrationResultCompletion</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

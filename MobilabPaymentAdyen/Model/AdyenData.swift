@@ -9,13 +9,10 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct AdyenData: Codable {
-    /// Api key used for Adyen authentification
-    public let apiKey: String
-    /// Adyen merchant account
-    public let merchantAccount: String
-    /// Adyen shopper reference
-    public let shopperReference: String
+struct AdyenData: Codable {
     /// Return URL for Adyen
-    public let returnUrl: String
+    let returnUrl: String
+
+    /// The created payment session ID
+    let sessionID: String
 }

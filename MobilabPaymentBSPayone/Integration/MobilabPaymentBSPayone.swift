@@ -15,6 +15,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     let networkingClient: NetworkClientBSPayone?
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                          idempotencyKey _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)

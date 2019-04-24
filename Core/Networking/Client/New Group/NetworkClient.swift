@@ -13,7 +13,7 @@ public enum NetworkClientError: Error {
 }
 
 public protocol NetworkClient {
-    typealias Completion<T> = ((NetworkClientResult<T, MobilabPaymentError>) -> Void)
+    typealias Completion<T> = ((Result<T, MobilabPaymentError>) -> Void)
     func fetch<T: Decodable, S: Decodable & MobilabPaymentErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>)
 }
 

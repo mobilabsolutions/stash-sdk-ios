@@ -13,7 +13,9 @@ import UIKit
 public class MobilabPaymentBraintree: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
 
-    public func handleRegistrationRequest(registrationRequest: RegistrationRequest, completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+    public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
+                                          idempotencyKey _: String,
+                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BraintreeData.self)
 

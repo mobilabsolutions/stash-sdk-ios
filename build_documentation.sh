@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-schemes=( "MobilabPaymentCore" "MobilabPaymentBSPayone" "MobilabPaymentBraintree" )
+schemes=( "MobilabPaymentCore" "MobilabPaymentBSPayone" "MobilabPaymentBraintree" "MobilabPaymentAdyen" )
 
 for scheme in "${schemes[@]}"
 do
