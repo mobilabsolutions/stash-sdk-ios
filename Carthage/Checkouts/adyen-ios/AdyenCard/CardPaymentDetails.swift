@@ -12,84 +12,84 @@ public extension Array where Element == PaymentDetail {
         get {
             return self[encryptedCardNumberKey]
         }
-
+        
         set {
             self[encryptedCardNumberKey] = newValue
         }
     }
-
+    
     /// The payment detail for Encrypted Security Code
     var encryptedSecurityCode: PaymentDetail? {
         get {
             return self[encryptedSecurityCodeKey]
         }
-
+        
         set {
             self[encryptedSecurityCodeKey] = newValue
         }
     }
-
+    
     /// The payment detail for Encrypted Expiry Month
     var encryptedExpiryMonth: PaymentDetail? {
         get {
             return self[encryptedExpiryMonthKey]
         }
-
+        
         set {
             self[encryptedExpiryMonthKey] = newValue
         }
     }
-
+    
     /// The payment detail for Encrypted Expiry Year
     var encryptedExpiryYear: PaymentDetail? {
         get {
             return self[encryptedExpiryYearKey]
         }
-
+        
         set {
             self[encryptedExpiryYearKey] = newValue
         }
     }
-
+    
     /// The payment detail for Cardholder Name
     var cardholderName: PaymentDetail? {
         get {
             return self[cardholderNameKey]
         }
-
+        
         set {
             self[cardholderNameKey] = newValue
         }
     }
-
+    
     /// The payment detail for Installments
     var installments: PaymentDetail? {
         get {
             return self[cardInstallmentsKey]
         }
-
+        
         set {
             self[cardInstallmentsKey] = newValue
         }
     }
-
+    
     /// The payment detail for a 3D-Secure 2.0 fingerprint.
     var threeDS2Fingerprint: PaymentDetail? {
         get {
             return self[threeDS2FingerprintKey]
         }
-
+        
         set {
             self[threeDS2FingerprintKey] = newValue
         }
     }
-
+    
     /// The payment detail for a 3D-Secure 2.0 challenge result.
     var threeDS2ChallengeResult: PaymentDetail? {
         get {
             return self[threeDS2ChallengeResultKey]
         }
-
+        
         set {
             self[threeDS2ChallengeResultKey] = newValue
         }
@@ -97,17 +97,21 @@ public extension Array where Element == PaymentDetail {
 }
 
 public extension IdentificationPaymentDetails {
+    
     /// The 3D-Secure 2.0 fingerprint token.
     var threeDS2FingerprintToken: String? {
         return userInfo[threeDS2FingerprintTokenKey]
     }
+    
 }
 
 public extension ChallengePaymentDetails {
+    
     /// The 3D-Secure 2.0 challenge token.
     var threeDS2ChallengeToken: String? {
         return userInfo[threeDS2ChallengeTokenKey]
     }
+    
 }
 
 private let encryptedCardNumberKey = "encryptedCardNumber"

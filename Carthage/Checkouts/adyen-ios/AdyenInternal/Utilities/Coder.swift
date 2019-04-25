@@ -8,13 +8,13 @@ import Foundation
 
 public final class Coder {
     public static func decode<T: Decodable>(_ data: Data) throws -> T {
-        return try self.decoder.decode(T.self, from: data)
+        return try decoder.decode(T.self, from: data)
     }
-
+    
     public static func decode<T: Decodable>(_ string: String) throws -> T {
-        return try self.decode(Data(string.utf8))
+        return try decode(Data(string.utf8))
     }
-
+    
     public static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         if #available(iOS 10.0, *) {
@@ -22,24 +22,24 @@ public final class Coder {
         } else {
             decoder.dateDecodingStrategy = .customISO8601
         }
-
+        
         return decoder
     }()
-
+    
     public static func encode<T: Encodable>(_ value: T) throws -> Data {
-        return try self.encoder.encode(value)
+        return try encoder.encode(value)
     }
-
+    
     public static func encode<T: Encodable>(_ value: T) throws -> String {
         let data: Data = try encode(value)
-
+        
         guard let string = String(data: data, encoding: .utf8) else {
             fatalError("Failed to convert data to UTF-8 string.")
         }
-
+        
         return string
     }
-
+    
     public static let encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         if #available(iOS 10.0, *) {
@@ -47,9 +47,10 @@ public final class Coder {
         } else {
             encoder.dateEncodingStrategy = .customISO8601
         }
-
+        
         return encoder
     }()
+    
 }
 
 extension Formatter {
@@ -61,7 +62,7 @@ extension Formatter {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
         return formatter
     }()
-
+    
     static let iso8601noFS: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)

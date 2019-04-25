@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 
 public extension UIFont {
+    
     func scaledFont(forTextStyle textStyle: UIFont.TextStyle) -> UIFont? {
         if #available(iOS 11.0, *) {
             return UIFontMetrics.default.scaledFont(for: self)
@@ -16,11 +17,12 @@ public extension UIFont {
             let defaultBodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle, compatibleWith: defaultTraitCollection)
             let fontSizeAdjustment = self.pointSize - defaultBodyFontDescriptor.pointSize
             let fontSize = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle).pointSize + fontSizeAdjustment
-
+            
             let scaledFont = self.withSize(fontSize)
             return scaledFont
         } else {
             return nil
         }
     }
+    
 }

@@ -14,51 +14,52 @@ protocol GiroPaySearchControllerDelegate: class {
 }
 
 class GiroPaySearchController {
+    
     init(delegate: GiroPaySearchControllerDelegate, paymentMethod: PaymentMethod, paymentSession: PaymentSession) {
         self.delegate = delegate
         self.paymentMethod = paymentMethod
         self.paymentSession = paymentSession
     }
-
+    
     // MARK: - Public
-
+    
     var searchString: String = "" {
         didSet {
-            self.didUpdateSearchString()
+            didUpdateSearchString()
         }
     }
-
+    
     // MARK: - Private
-
+    
     private let minimumNetworkSearchStringLength = 4
     private let paymentSession: PaymentSession
     private let paymentMethod: PaymentMethod
-
+    
     private var baseString = ""
     private var baseResults = [GiroPayIssuer]()
     private weak var delegate: GiroPaySearchControllerDelegate?
-
+    
     private func didUpdateSearchString() {
-        guard self.searchString.count >= minimumNetworkSearchStringLength else {
-            self.notityEmptySet()
+        guard searchString.count >= minimumNetworkSearchStringLength else {
+            notityEmptySet()
             return
         }
-
+        
         let prefix = String(searchString.prefix(4))
-
-        if prefix != self.baseString {
-            self.baseString = prefix
-            self.fetchIssuersForString()
+        
+        if prefix != baseString {
+            baseString = prefix
+            fetchIssuersForString()
         } else {
-            self.notityDataChange()
+            notityDataChange()
         }
     }
-
+    
     private func fetchIssuersForString() {
         let request = GiroPayIssuersRequest(searchString: baseString, paymentSession: paymentSession, paymentMethod: paymentMethod)
-
+        
         delegate?.didStartNetworkRequest()
-
+        
         APIClient().perform(request) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -68,36 +69,37 @@ class GiroPaySearchController {
                     self?.baseResults = response.issuers ?? []
                     self?.notityDataChange()
                 }
-
+                
                 self?.delegate?.didFinishNetworkRequest()
             }
         }
     }
-
+    
     private func notityEmptySet() {
         self.delegate?.didUpdate(with: [])
     }
-
+    
     private func notityDataChange() {
-        self.delegate?.didUpdate(with: self.filteredResults())
+        self.delegate?.didUpdate(with: filteredResults())
     }
-
+    
     private func filteredResults() -> [GiroPayIssuer] {
         let searchSubstrings = searchString.split(separator: " ")
-
-        return self.baseResults.filter({
+        
+        return baseResults.filter({
             $0.bankName.containsIgnoringCase(subStrings: searchSubstrings) ||
                 $0.bic.containsIgnoringCase(string: searchString) ||
                 $0.blz.containsIgnoringCase(string: searchString)
         })
     }
+    
 }
 
 private extension String {
     func containsIgnoringCase(string: String) -> Bool {
         return self.range(of: string, options: .caseInsensitive) != nil
     }
-
+    
     func containsIgnoringCase(subStrings: [Substring]) -> Bool {
         return subStrings.map({
             self.containsIgnoringCase(string: String($0))

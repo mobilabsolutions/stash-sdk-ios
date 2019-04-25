@@ -10,10 +10,10 @@ import Foundation
 @objc class PaymentManagerResult: NSObject {
     @objc
     public let status: PaymentManagerResultStatus
-
+    
     @objc
     public let error: Swift.Error?
-
+    
     public init(result: Result<PaymentResult>) {
         switch result {
         case let .success(payment):
@@ -31,7 +31,7 @@ import Foundation
             case .pending:
                 self.status = .pending
             }
-
+            
             self.error = nil
         case let .failure(error):
             switch error {
@@ -39,13 +39,15 @@ import Foundation
                 self.status = .cancelled
             default:
                 self.status = .error
+                break
             }
-
+            
             self.error = error
         }
-
+        
         super.init()
     }
+    
 }
 
 @objc enum PaymentManagerResultStatus: Int {

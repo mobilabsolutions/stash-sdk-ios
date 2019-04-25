@@ -11,8 +11,17 @@ import UIKit
 public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
 
-    public func errorWhileCreatingPaymentMethod(error _: MobilabPaymentError) {
-        #warning("Handle PayPal error here")
+    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        
+        if error == MobilabPaymentError.psp(BraintreeError.userCancelledPayPal) {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            present(alert, animated: true)
+        }
     }
 
     public override func viewDidLoad() {

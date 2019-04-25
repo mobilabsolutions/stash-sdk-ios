@@ -72,6 +72,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         case .network:
             UIViewControllerTools.showAlert(on: self, title: "Network Error",
                                             body: "An error occurred. Please retry.")
+        case .psp:
+            UIViewControllerTools.showAlert(on: self, title: "PSP Error",
+                                            body: "An error occurred. Please retry.")
         case let .temporary(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
             UIViewControllerTools.showAlert(on: self, title: "Temporary Error",

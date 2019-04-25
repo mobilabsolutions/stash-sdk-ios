@@ -35,7 +35,6 @@
 		BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* MobilabPaymentAdyen.swift */; };
 		BA21F500224D665B004CEAA2 /* MobilabAdyenBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */; };
 		BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */; };
-		BA2A3ABB223BBA1000689A3A /* PayPalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */; };
 		BA2A3AC4223BBAD200689A3A /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
 		BA2A3AC5223BBAD200689A3A /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
 		BA2A3AC6223BBAD200689A3A /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
@@ -95,6 +94,7 @@
 		BA6D6790224460FB00463E0F /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
 		BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67922244683900463E0F /* FatalErrorAssertion.swift */; };
 		BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */; };
+		BA84B3662271C6790016E255 /* PayPalUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84B3652271C6790016E255 /* PayPalUIManager.swift */; };
 		BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D070F2226AE56004F699A /* AppDelegate.swift */; };
 		BA8D07152226AE56004F699A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07132226AE56004F699A /* Main.storyboard */; };
 		BA8D07172226AE57004F699A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07162226AE57004F699A /* Assets.xcassets */; };
@@ -425,7 +425,6 @@
 		BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenIntegrationTests.swift; sourceTree = "<group>"; };
 		BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_create_alias_adyen_success.json; sourceTree = "<group>"; };
 		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
-		BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalViewController.swift; sourceTree = "<group>"; };
 		BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCore.framework; path = Carthage/Build/iOS/BraintreeCore.framework; sourceTree = "<group>"; };
 		BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeDropIn.framework; path = Carthage/Build/iOS/BraintreeDropIn.framework; sourceTree = "<group>"; };
 		BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalOneTouch.framework; path = Carthage/Build/iOS/PayPalOneTouch.framework; sourceTree = "<group>"; };
@@ -447,6 +446,7 @@
 		BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationTests.swift; sourceTree = "<group>"; };
 		BA6D67922244683900463E0F /* FatalErrorAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorAssertion.swift; sourceTree = "<group>"; };
 		BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
+		BA84B3652271C6790016E255 /* PayPalUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalUIManager.swift; sourceTree = "<group>"; };
 		BA8D070D2226AE56004F699A /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8D070F2226AE56004F699A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA8D07142226AE56004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -962,14 +962,6 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		BA2A3AB9223BADE100689A3A /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				BA2A3ABA223BBA1000689A3A /* PayPalViewController.swift */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
 		BA3A33A122293CBA00B7A635 /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -1052,7 +1044,6 @@
 			isa = PBXGroup;
 			children = (
 				BA0B9BB6224FAE5F0029FC8D /* Model */,
-				BA2A3AB9223BADE100689A3A /* UI */,
 				BA945A38223AE7C200C39300 /* Integration */,
 				BA945A2D223A890100C39300 /* MobilabPaymentBraintree.h */,
 				BA945A2E223A890100C39300 /* Info.plist */,
@@ -1063,6 +1054,7 @@
 		BA945A38223AE7C200C39300 /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				BA84B3652271C6790016E255 /* PayPalUIManager.swift */,
 				BA945A39223AE7C200C39300 /* MobilabPaymentBraintree.swift */,
 				BABC7D62224229F900028C29 /* MobilabBraintreeBridge.swift */,
 			);
@@ -1992,8 +1984,8 @@
 			files = (
 				BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */,
 				BABC7D63224229F900028C29 /* MobilabBraintreeBridge.swift in Sources */,
+				BA84B3662271C6790016E255 /* PayPalUIManager.swift in Sources */,
 				BA5F8253223AE85400D92D3E /* MobilabPaymentBraintree.swift in Sources */,
-				BA2A3ABB223BBA1000689A3A /* PayPalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

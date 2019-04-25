@@ -95,7 +95,8 @@ public class RegistrationManager {
             guard var paymentMethodViewController = provider.viewController(for: selectedType, billingData: billingData,
                                                                             configuration: uiConfiguration)
             else { fatalError("Payment method view controller for selected type not present in module") }
-            paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, weak paymentMethodViewController] method in
+            
+            paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, unowned paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {
                     self?.registerCreditCard(creditCardData: creditCardData,
                                              completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
@@ -103,7 +104,7 @@ public class RegistrationManager {
                     self?.registerSEPAAccount(sepaData: sepaData,
                                               completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else if method is PayPalData {
-                    self?.registerPayPal(presentingViewController: viewController, completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
+                    self?.registerPayPal(presentingViewController: paymentMethodViewController, completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
                 }

@@ -8,14 +8,15 @@
 import Foundation
 
 internal extension Coder {
-    static func decode<T: Decodable>(resourceNamed name: String) throws -> T {
+    internal static func decode<T: Decodable>(resourceNamed name: String) throws -> T {
         let bundle = Bundle(for: PaymentSessionTests.self)
         guard let url = bundle.url(forResource: name, withExtension: "json") else {
             fatalError("Can't find resource named \"\(name)\".")
         }
-
+        
         let data = try Data(contentsOf: url)
-
-        return try self.decode(data)
+        
+        return try decode(data)
     }
+    
 }

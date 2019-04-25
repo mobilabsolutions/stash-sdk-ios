@@ -12,7 +12,7 @@ public extension Array where Element == PaymentDetail {
         get {
             return self[weChatResultCodeKey]
         }
-
+        
         set {
             self[weChatResultCodeKey] = newValue
         }

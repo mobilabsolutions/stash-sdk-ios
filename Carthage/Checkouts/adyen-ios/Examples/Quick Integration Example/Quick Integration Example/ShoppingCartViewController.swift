@@ -10,57 +10,58 @@ import UIKit
 class ShoppingCartViewController: UIViewController {
     @IBOutlet var contentImageView: UIImageView!
     @IBOutlet var actionButton: UIButton!
-
+    
     let demoServerURL = URL(string: "https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/paymentSession")!
-
+    
     lazy var appearance: Appearance = {
         var appearance = Appearance()
         appearance.tintColor = #colorLiteral(red: 0.4107530117, green: 0.8106812239, blue: 0.7224243283, alpha: 1)
         return appearance
     }()
-
+    
     lazy var checkoutController = CheckoutController(presentingViewController: self, delegate: self, appearance: appearance)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         guard Configuration.appSecretKey.isEmpty == false else {
             fatalError("Please fill in a secret key in the Configuration.swift file.")
         }
     }
-
-    @IBAction private func checkout(_: Any) {
-        self.checkoutController.start()
+    
+    @IBAction private func checkout(_ sender: Any) {
+        checkoutController.start()
     }
-
+    
     @objc
     private func presentInitialScreen() {
         UIView.transition(
-            with: self.contentImageView,
+            with: contentImageView,
             duration: 0.3,
             options: .transitionCrossDissolve,
             animations: { self.contentImageView.image = #imageLiteral(resourceName: "Checkout window") }
         )
-        self.actionButton.setImage(#imageLiteral(resourceName: "Btn_cta"), for: .normal)
-        self.actionButton.removeTarget(self, action: #selector(self.presentInitialScreen), for: .touchUpInside)
-        self.actionButton.addTarget(self, action: #selector(self.checkout(_:)), for: .touchUpInside)
+        actionButton.setImage(#imageLiteral(resourceName: "Btn_cta"), for: .normal)
+        actionButton.removeTarget(self, action: #selector(presentInitialScreen), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(checkout(_:)), for: .touchUpInside)
     }
-
+    
     @objc
     private func presentSuccessScreen() {
-        self.contentImageView.image = #imageLiteral(resourceName: "Success")
-        self.actionButton.setImage(#imageLiteral(resourceName: "back-to-shop"), for: .normal)
-        self.actionButton.removeTarget(self, action: #selector(self.checkout(_:)), for: .touchUpInside)
-        self.actionButton.addTarget(self, action: #selector(self.presentInitialScreen), for: .touchUpInside)
+        contentImageView.image = #imageLiteral(resourceName: "Success")
+        actionButton.setImage(#imageLiteral(resourceName: "back-to-shop"), for: .normal)
+        actionButton.removeTarget(self, action: #selector(checkout(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(presentInitialScreen), for: .touchUpInside)
     }
-
+    
     @objc
     private func presentFailureScreen() {
-        self.contentImageView.image = #imageLiteral(resourceName: "Failure")
-        self.actionButton.setImage(#imageLiteral(resourceName: "try-again"), for: .normal)
-        self.actionButton.removeTarget(self, action: #selector(self.checkout(_:)), for: .touchUpInside)
-        self.actionButton.addTarget(self, action: #selector(self.presentInitialScreen), for: .touchUpInside)
+        contentImageView.image = #imageLiteral(resourceName: "Failure")
+        actionButton.setImage(#imageLiteral(resourceName: "try-again"), for: .normal)
+        actionButton.removeTarget(self, action: #selector(checkout(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(presentInitialScreen), for: .touchUpInside)
     }
+    
 }
 
 extension ShoppingCartViewController: CheckoutControllerDelegate {
@@ -68,26 +69,26 @@ extension ShoppingCartViewController: CheckoutControllerDelegate {
         let paymentDetails: [String: Any] = [
             "amount": [
                 "value": 17408,
-                "currency": "EUR",
+                "currency": "EUR"
             ],
             "reference": "iOS & M+M Black dress & accessories",
             "countryCode": "NL",
             "shopperLocale": "nl_NL",
             "shopperReference": "shopper@company.com",
             "returnUrl": "example-shopping-app://",
-            "token": token,
+            "token": token
         ]
-
+        
         var request = URLRequest(url: demoServerURL)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: paymentDetails, options: [])
         request.allHTTPHeaderFields = [
             "Content-Type": "application/json",
-            "X-Demo-Server-API-Key": Configuration.appSecretKey,
+            "X-Demo-Server-API-Key": Configuration.appSecretKey
         ]
-
+        
         let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: request) { data, _, error in
+        let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 print(error)
                 checkoutController.cancel()
@@ -95,7 +96,7 @@ extension ShoppingCartViewController: CheckoutControllerDelegate {
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { fatalError() }
                     guard let paymentSession = json["paymentSession"] as? String else { fatalError() }
-
+                    
                     responseHandler(paymentSession)
                 } catch {
                     fatalError("Failed to parse payment session response: \(error)")
@@ -104,11 +105,11 @@ extension ShoppingCartViewController: CheckoutControllerDelegate {
         }
         task.resume()
     }
-
-    func didFinish(with result: Result<PaymentResult>, for _: CheckoutController) {
+    
+    func didFinish(with result: Result<PaymentResult>, for checkoutController: CheckoutController) {
         var isSuccess = false
         var isCancelled = false
-
+        
         switch result {
         case let .success(paymentResult):
             isSuccess = (paymentResult.status == .received || paymentResult.status == .authorised)
@@ -120,11 +121,12 @@ extension ShoppingCartViewController: CheckoutControllerDelegate {
                 break
             }
         }
-
+        
         if isSuccess {
-            self.presentSuccessScreen()
+            presentSuccessScreen()
         } else if !isCancelled {
-            self.presentFailureScreen()
+            presentFailureScreen()
         }
     }
+    
 }
