@@ -23,11 +23,14 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
-        let nameCell = FormCellModel.FormCellType.TextData(necessaryData: .holderName,
-                                                           title: "Name",
-                                                           placeholder: "Name",
-                                                           setup: nil,
-                                                           didUpdate: nil)
+        let nameCell = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
+                                                                 firstTitle: "First Name",
+                                                                 firstPlaceholder: "First Name",
+                                                                 secondNecessaryData: .holderLastName,
+                                                                 secondTitle: "Last Name",
+                                                                 secondPlaceholder: "Last Name",
+                                                                 setup: nil,
+                                                                 didUpdate: nil)
 
         let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
@@ -44,7 +47,9 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                           didUpdate: nil)
 
         super.init(billingData: billingData, configuration: configuration, cellModels: [
-            FormCellModel(type: .text(nameCell)), FormCellModel(type: .text(ibanCell)), FormCellModel(type: .text(bicCell)),
+            FormCellModel(type: .pairedText(nameCell)),
+            FormCellModel(type: .text(ibanCell)),
+            FormCellModel(type: .text(bicCell)),
         ], formTitle: "SEPA")
 
         self.formConsumer = self
@@ -67,18 +72,25 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
             errors[.bic] = SEPAValidationError.noData(explanation: "Please provide a valid BIC")
         }
 
-        if data[.holderName] == nil || data[.holderName]?.isEmpty == true {
-            errors[.holderName] = SEPAValidationError.noData(explanation: "Please provide a valid card holder name")
+        if data[.holderFirstName] == nil || data[.holderFirstName]?.isEmpty == true {
+            errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid first name")
+        }
+
+        if data[.holderLastName] == nil || data[.holderLastName]?.isEmpty == true {
+            errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
 
         guard let iban = data[.iban],
             let bic = data[.bic],
-            let name = data[.holderName],
+            let firstName = data[.holderFirstName],
+            let lastName = data[.holderLastName],
             errors.isEmpty
         else { throw FormConsumerError(errors: errors) }
 
+        let fullName: String = firstName.count > 0 ? (lastName.count == 0 ? firstName : firstName + " " + lastName) : lastName
+
         let newBillingData = BillingData(email: billingData?.email,
-                                         name: name,
+                                         name: fullName,
                                          address1: billingData?.address1,
                                          address2: billingData?.address2,
                                          zip: billingData?.zip,

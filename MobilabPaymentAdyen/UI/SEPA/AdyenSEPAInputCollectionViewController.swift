@@ -23,7 +23,7 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
-        let nameCell = FormCellModel.FormCellType.TextData(necessaryData: .holderName,
+        let nameCell = FormCellModel.FormCellType.TextData(necessaryData: .holderFullName,
                                                            title: "Name",
                                                            placeholder: "Name",
                                                            setup: nil,
@@ -57,12 +57,12 @@ extension AdyenSEPAInputCollectionViewController: FormConsumer {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if data[.holderName] == nil || data[.holderName]?.isEmpty == true {
-            errors[.holderName] = SEPAValidationError.noData(explanation: "Please provide a valid card holder name")
+        if data[.holderFullName] == nil || data[.holderFullName]?.isEmpty == true {
+            errors[.holderFullName] = SEPAValidationError.noData(explanation: "Please provide a valid card holder name")
         }
 
         guard let iban = data[.iban],
-            let name = data[.holderName],
+            let name = data[.holderFullName],
             errors.isEmpty
         else { throw FormConsumerError(errors: errors) }
 
