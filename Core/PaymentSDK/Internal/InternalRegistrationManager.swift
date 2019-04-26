@@ -10,21 +10,38 @@ import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
+    private let idempotencyManager = IdempotencyManager<String, MobilabPaymentError>()
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil) {
+        if let result = idempotencyManager
+            .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion) {
+            if case let .fulfilled(returnableResult) = result {
+                completion(returnableResult)
+            }
+
+            return
+        }
+
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
+
+        let idempotencySettingCompletion: RegistrationResultCompletion = { result in
+            self.idempotencyManager.setAndEndIdempotencyHandling(result: result, for: idempotencyKey)
+            completion(result)
+        }
 
         provider.provideAliasCreationDetail(for: paymentMethod.methodData, idempotencyKey: idempotencyKey) { creationDetailResult in
             switch creationDetailResult {
-            case let .success(detail): self.createAlias(provider: provider,
-                                                        paymentMethod: paymentMethod,
-                                                        aliasCreationDetail: detail,
-                                                        idempotencyKey: idempotencyKey,
-                                                        completion: completion,
-                                                        presentingViewController: presentingViewController)
-            case let .failure(error): completion(.failure(error))
+            case let .success(detail):
+                self.createAlias(provider: provider,
+                                 paymentMethod: paymentMethod,
+                                 aliasCreationDetail: detail,
+                                 idempotencyKey: idempotencyKey,
+                                 completion: idempotencySettingCompletion,
+                                 presentingViewController: presentingViewController)
+            case let .failure(error):
+                idempotencySettingCompletion(.failure(error))
             }
         }
     }
@@ -41,7 +58,10 @@ class InternalRegistrationManager {
             return
         }
 
-        let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue, aliasDetail: aliasCreationDetail)
+        let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue,
+                                                    aliasDetail: aliasCreationDetail,
+                                                    idempotencyKey: idempotencyKey)
+
         self.networkingClient.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
@@ -68,7 +88,10 @@ class InternalRegistrationManager {
                                            idempotencyKey: idempotencyKey, completion: { resultRegistration in
                                                switch resultRegistration {
                                                case let .success(pspAlias):
-                                                   let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: paymentMethodExtra)
+                                                   let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId,
+                                                                                               pspAlias: pspAlias,
+                                                                                               extra: paymentMethodExtra,
+                                                                                               idempotencyKey: idempotencyKey)
                                                    self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
                                                        switch resultRegistration {
                                                        case .success:

@@ -1,0 +1,137 @@
+//
+//  IdempotencyTests.swift
+//  MobilabPaymentTests
+//
+//  Created by Robert on 26.04.19.
+//  Copyright © 2019 MobiLab. All rights reserved.
+//
+
+@testable import MobilabPaymentCore
+import XCTest
+
+class IdempotencyTests: XCTestCase {
+    private var manager = IdempotencyManager<String, Error>()
+
+    override func setUp() {
+        self.manager = IdempotencyManager<String, Error>()
+    }
+
+    func testCorrectlyHandlesMultipleDifferentIdempotencyKeys() {
+        let doesNotUseEnqueueableClosure = XCTestExpectation(description: "The idempotency handling should not use the enqueued closure if every key is only called once")
+        doesNotUseEnqueueableClosure.isInverted = true
+
+        let keys = ["1", "2", "3", "4", "5"]
+        for key in keys {
+            let result = manager.getIdempotencyResultOrStartSession(for: key) { _ in
+                doesNotUseEnqueueableClosure.fulfill()
+            }
+
+            XCTAssertNil(result, "There should not be a result when calling with a key for the first time")
+        }
+
+        for key in keys {
+            self.manager.setAndEndIdempotencyHandling(result: .success(self.createSuccessMessage(for: key)), for: key)
+        }
+
+        for key in keys {
+            let result = manager.getIdempotencyResultOrStartSession(for: key) { _ in
+                doesNotUseEnqueueableClosure.fulfill()
+            }
+
+            XCTAssertNotNil(result, "There should be a result when calling the idempotency mechanism for the second time")
+
+            guard let existingResult = result
+            else { continue }
+
+            switch existingResult {
+            case .pending: XCTFail("After the result has been set for a key, it should not return a pending result")
+            case let .fulfilled(result):
+                guard case let .success(successMessage) = result
+                else { XCTFail("The provided result should be successful"); continue }
+
+                XCTAssertEqual(successMessage, self.createSuccessMessage(for: key))
+            }
+        }
+
+        wait(for: [doesNotUseEnqueueableClosure], timeout: 0.5)
+    }
+
+    func testCorrectlyHandlesMultipleThreads() {
+        let doesNotUseEnqueueableClosure = XCTestExpectation(description: "The idempotency handling should not use the enqueued closure if every key is only called once")
+        doesNotUseEnqueueableClosure.isInverted = true
+
+        let numberOfThreads = 100
+
+        let allThreadsEnd = XCTestExpectation(description: "Every thread should get a result")
+        allThreadsEnd.expectedFulfillmentCount = numberOfThreads
+
+        let keys = Array(repeating: { UUID().uuidString }, count: numberOfThreads).map { $0() }
+        for key in keys {
+            let thread = Thread {
+                let result = self.manager.getIdempotencyResultOrStartSession(for: key) { _ in
+                    doesNotUseEnqueueableClosure.fulfill()
+                }
+
+                XCTAssertNil(result)
+                self.manager.setAndEndIdempotencyHandling(result: .success(self.createSuccessMessage(for: key)), for: key)
+
+                Thread.sleep(forTimeInterval: 0.2)
+
+                let fulfilledResult = self.manager.getIdempotencyResultOrStartSession(for: key) { _ in
+                    doesNotUseEnqueueableClosure.fulfill()
+                }
+
+                XCTAssertNotNil(fulfilledResult, "After a result has been set for a key, it should also be returned")
+
+                if let fulfilled = fulfilledResult,
+                    case let .fulfilled(returningResult) = fulfilled,
+                    case let .success(successMessage) = returningResult {
+                    XCTAssertEqual(successMessage, self.createSuccessMessage(for: key))
+                } else {
+                    XCTFail("After a result has been set, the returned idempotency result should be fulfilled")
+                }
+
+                allThreadsEnd.fulfill()
+            }
+
+            thread.start()
+        }
+
+        wait(for: [doesNotUseEnqueueableClosure, allThreadsEnd], timeout: 5)
+    }
+
+    func testCorrectlyHandlesMultipleThreadsForSameKey() {
+        let key = "Test-Key"
+        let numberOfThreads = 100
+        let successResultString = "Success"
+
+        let usesEnqueueableClosure = self.expectation(description: "The idempotency handling should use the enqueued closure when a key request happens more than once")
+        usesEnqueueableClosure.expectedFulfillmentCount = numberOfThreads - 1
+
+        for _ in 0..<numberOfThreads {
+            let thread = Thread {
+                _ = self.manager.getIdempotencyResultOrStartSession(for: key, potentiallyEnqueueing: { result in
+                    switch result {
+                    case .failure: XCTFail("Should return a successful response when the result is set and is also successful")
+                    case let .success(message): XCTAssertEqual(message, successResultString)
+                    }
+
+                    usesEnqueueableClosure.fulfill()
+                })
+            }
+
+            thread.start()
+        }
+
+        // Wait until _after_ all threads have been created and have gotten the idempotency result
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            self.manager.setAndEndIdempotencyHandling(result: .success(successResultString), for: key)
+        }
+
+        wait(for: [usesEnqueueableClosure], timeout: 5)
+    }
+
+    private func createSuccessMessage(for key: String) -> String {
+        return "Success-Key-\(key)"
+    }
+}
