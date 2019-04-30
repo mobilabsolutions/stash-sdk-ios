@@ -69,8 +69,8 @@ class InternalRegistrationManager {
                                                switch resultRegistration {
                                                case let .success(pspAlias):
                                                    let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId, pspAlias: pspAlias, extra: paymentMethodExtra)
-                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
-                                                       switch resultRegistration {
+                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
+                                                       switch updateResult {
                                                        case .success:
                                                            completion(.success(alias.aliasId))
                                                        case let .failure(error):

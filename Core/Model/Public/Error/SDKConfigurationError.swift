@@ -27,6 +27,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
     case pspInvalidConfiguration
     /// The return URL that is set for a given PSP is invalid
     case invalidReturnURL
+    /// The backend is configured incorrectly for the performed action
+    case invalidBackendConfiguration(description: String, code: String)
 
     public var description: String {
         switch self {
@@ -48,6 +50,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
             return "The payment service provider module was not correctly set up"
         case .invalidReturnURL:
             return "The return URL provided for the given PSP is invalid"
+        case let .invalidBackendConfiguration(description, code):
+            return "Invalid backend configuration: \(description) (\(code))"
         }
     }
 

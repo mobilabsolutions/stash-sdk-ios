@@ -12,12 +12,11 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
-        
-        if error == MobilabPaymentError.psp(BraintreeError.userCancelledPayPal) {
+        if case MobilabPaymentError.userActionable = error {
             self.navigationController?.popViewController(animated: true)
         } else {
             let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { _ in
                 self.navigationController?.popViewController(animated: true)
             }))
             present(alert, animated: true)
@@ -26,7 +25,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        self.view.backgroundColor = UIConstants.iceBlue
 
         self.showActivityIndicatory()
 
