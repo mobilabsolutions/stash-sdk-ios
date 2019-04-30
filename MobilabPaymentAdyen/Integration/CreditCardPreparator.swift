@@ -25,16 +25,16 @@ struct CreditCardPreparator: PaymentMethodPreparator {
         else { return nil }
 
         let card = CardEncryptor.Card(
-            number: creditCardData.number,
-            securityCode: creditCardData.cvc,
-            expiryMonth: creditCardData.expiryMonth,
-            expiryYear: creditCardData.expiryYear
+            number: self.creditCardData.number,
+            securityCode: self.creditCardData.cvc,
+            expiryMonth: self.creditCardData.expiryMonth,
+            expiryYear: self.creditCardData.expiryYear
         )
 
         let encryptedCard = CardEncryptor.encryptedCard(for: card, publicKey: publicKey, generationDate: generationDate)
 
         var method = paymentMethod
-        method.details.cardholderName?.value = billingData?.name
+        method.details.cardholderName?.value = self.billingData?.name?.fullName
         method.details.encryptedCardNumber?.value = encryptedCard.number
         method.details.encryptedSecurityCode?.value = encryptedCard.securityCode
         method.details.encryptedExpiryMonth?.value = encryptedCard.expiryMonth

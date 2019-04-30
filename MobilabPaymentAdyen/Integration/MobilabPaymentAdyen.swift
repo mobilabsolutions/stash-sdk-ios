@@ -155,7 +155,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         guard let data = registrationRequest.registrationData as? SEPAData
         else { return nil }
 
-        guard let ownerName = data.billingData.name
+        guard let ownerName = data.billingData.name?.fullName
         else { throw MobilabPaymentError.validation(.billingMissingName) }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData)

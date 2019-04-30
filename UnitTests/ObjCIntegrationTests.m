@@ -90,11 +90,14 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                            languageId:nil];
 
     NSError *error;
+    
+    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
+    
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4111 1111 1111 1111"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:@"Max Mustermann"
+                                                                     holderName:name.fullName
                                                                     billingData:billingData
                                                                           error:&error];
 
@@ -129,8 +132,10 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"sepa"]];
 
+    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
+
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
-                                                                 name:@"Max Mustermann"
+                                                                 name:name
                                                              address1:nil
                                                              address2:nil
                                                                   zip:nil
@@ -159,8 +164,10 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 }
 
 - (void) testNilifiesInvalidCreditCardAndSEPAData {
+    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
+
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
-                                                                 name:@"Max Mustermann"
+                                                                 name:name
                                                              address1:nil
                                                              address2:nil
                                                                   zip:nil
@@ -171,11 +178,12 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
     NSError *error;
+    
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4511 1511 1511 1511"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:@"Max Mustermann"
+                                                                     holderName:name.fullName
                                                                     billingData:billingData
                                                                           error:&error];
     XCTAssertNotNil(error);

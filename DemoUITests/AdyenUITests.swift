@@ -25,11 +25,11 @@ class AdyenUITests: BaseUITest {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", with: "ADYEN", app: app)
 
-        let expectedCells = ["Name", "IBAN"]
+        let expectedCells = ["First Name", "IBAN"]
 
         let cells = app.collectionViews.cells
 
-        waitForElementToAppear(element: cells.staticTexts["Name"])
+        waitForElementToAppear(element: cells.staticTexts["First Name"])
 
         XCTAssertEqual(cells.count, expectedCells.count, "Adyen SEPA should have \(expectedCells.count) cells but has \(cells.count)")
 

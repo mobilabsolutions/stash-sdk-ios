@@ -50,7 +50,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             else { return }
 
             switch dataType {
-            case .holderName:
+            case .holderFullName:
                 self.textField.textContentType = .name
                 self.textField.autocapitalizationType = .words
             case .cardNumber:
