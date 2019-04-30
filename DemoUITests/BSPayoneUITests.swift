@@ -14,8 +14,11 @@ class BSPayoneUITests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Name"].tap()
-        collectionViewsQuery.textFields["Name"].typeText("Max Mustermann")
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
@@ -24,6 +27,7 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
 
         app.collectionViews.firstMatch.tap()
+        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
@@ -37,8 +41,11 @@ class BSPayoneUITests: BaseUITest {
         navigateToViewController(for: "Credit Card", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Name"].tap()
-        collectionViewsQuery.textFields["Name"].typeText("Max Mustermann")
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["1234"].tap()
         collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
@@ -73,8 +80,11 @@ class BSPayoneUITests: BaseUITest {
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.staticTexts["Credit Card"].tap()
 
-        collectionViewsQuery.textFields["Name"].tap()
-        collectionViewsQuery.textFields["Name"].typeText("Max Mustermann")
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["1234"].tap()
         collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
