@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SimpleNameProvider: NameProviding {
+@objc(MLSimpleNameProvider) public class SimpleNameProvider: NSObject, NameProviding {
     public let firstName: String
     public let lastName: String
 
@@ -16,7 +16,7 @@ public class SimpleNameProvider: NameProviding {
         return "\(self.firstName) \(self.lastName)"
     }
 
-    public init(firstName: String, lastName: String) {
+    @objc public init(firstName: String, lastName: String) {
         self.firstName = firstName
         self.lastName = lastName
     }

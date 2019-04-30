@@ -91,8 +91,10 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         let expectation = self.expectation(description: "Registering SEPA succeeds")
 
+        let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+
         let billingData = BillingData(email: "max@mustermann.de",
-                                      name: "Max Mustermann",
+                                      name: name,
                                       address1: "Address1",
                                       address2: "Address2",
                                       zip: "817754",
@@ -135,8 +137,10 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
+        let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+
         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+                                                expiryMonth: 9, expiryYear: 0, holderName: name.fullName, billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
@@ -163,8 +167,10 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
+        let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+
         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                expiryMonth: 9, expiryYear: 0, holderName: "Max Mustermann", billingData: BillingData())
+                                                expiryMonth: 9, expiryYear: 0, holderName: name.fullName, billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
