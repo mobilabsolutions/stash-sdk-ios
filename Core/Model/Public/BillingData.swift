@@ -14,7 +14,7 @@ import Foundation
     /// The email address associated with the billing data
     @objc public let email: String?
     /// The name of the person to bill
-    @objc public let name: String?
+    @objc public let name: NameProviding?
     /// First (real-world) address part
     @objc public let address1: String?
     /// Second (real-world) address part
@@ -34,7 +34,7 @@ import Foundation
 
     /// Initialize the billing data with select properties
     @objc public init(email: String? = nil,
-                      name: String? = nil,
+                      name: NameProviding? = nil,
                       address1: String? = nil,
                       address2: String? = nil,
                       zip: String? = nil,

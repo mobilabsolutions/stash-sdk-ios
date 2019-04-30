@@ -87,10 +87,9 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
             errors.isEmpty
         else { throw FormConsumerError(errors: errors) }
 
-        let fullName: String = firstName.count > 0 ? (lastName.count == 0 ? firstName : firstName + " " + lastName) : lastName
-
+        let name = SimpleNameProvider(firstName: firstName, lastName: lastName)
         let newBillingData = BillingData(email: billingData?.email,
-                                         name: fullName,
+                                         name: name,
                                          address1: billingData?.address1,
                                          address2: billingData?.address2,
                                          zip: billingData?.zip,

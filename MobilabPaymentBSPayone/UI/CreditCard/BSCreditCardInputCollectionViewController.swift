@@ -28,8 +28,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     }
 
     private struct CreditCardParsedData {
-        let firstName: String
-        let lastName: String
+        let name: SimpleNameProvider
         let cardNumber: String
         let cvv: String
         let expirationMonth: Int
@@ -44,9 +43,11 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
             if holderFirstNameText == nil || holderFirstNameText?.isEmpty == true {
-                errors[.holderFirstName] = .noData(explanation: "Please provide the card holder first name")
-            } else if holderLastNameText == nil || holderLastNameText?.isEmpty == true {
-                errors[.holderLastName] = .noData(explanation: "Please provide the card holder last name")
+                errors[.holderFirstName] = .noData(explanation: "Please provide a valid first name")
+            }
+
+            if holderLastNameText == nil || holderLastNameText?.isEmpty == true {
+                errors[.holderLastName] = .noData(explanation: "Please provide a valid last name")
             }
 
             if cardNumberText == nil || cardNumberText?.isEmpty == true {
@@ -92,8 +93,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors.isEmpty
             else { return (nil, errors) }
 
-            let parsedData = CreditCardParsedData(firstName: holderFirstName,
-                                                  lastName: holderLastName,
+            let name = SimpleNameProvider(firstName: holderFirstName, lastName: holderLastName)
+            let parsedData = CreditCardParsedData(name: name,
                                                   cardNumber: cardNumber,
                                                   cvv: cvv,
                                                   expirationMonth: expirationMonth,
@@ -104,13 +105,13 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
-                                                                     firstTitle: "Cardholder first name",
-                                                                     firstPlaceholder: "First Name",
-                                                                     secondNecessaryData: .holderLastName,
-                                                                     secondTitle: "Cardholder last name",
-                                                                     secondPlaceholder: "Last Name",
-                                                                     setup: nil,
-                                                                     didUpdate: nil)
+                                                                 firstTitle: "First Name",
+                                                                 firstPlaceholder: "First Name",
+                                                                 secondNecessaryData: .holderLastName,
+                                                                 secondTitle: "Last Name",
+                                                                 secondPlaceholder: "Last Name",
+                                                                 setup: nil,
+                                                                 didUpdate: nil)
 
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
                                                              title: "Credit card number",
@@ -151,7 +152,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
     func consumeValues(data: [NecessaryData: String]) throws {
-        
         let createdData = CreditCardParsedData.create(holderFirstNameText: data[.holderFirstName],
                                                       holderLastNameText: data[.holderLastName],
                                                       cardNumberText: data[.cardNumber],
@@ -167,16 +167,11 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
         else { return }
 
         do {
-            let firstName = parsedData.firstName
-            let lastName = parsedData.lastName
-            
-            let fullName: String = firstName.count > 0 ? (lastName.count == 0 ? firstName : firstName + " " + lastName) : lastName
-
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
-                                                holderName: fullName,
+                                                holderName: parsedData.name.fullName,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil
