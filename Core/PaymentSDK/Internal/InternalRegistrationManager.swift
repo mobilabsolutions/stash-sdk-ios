@@ -10,7 +10,10 @@ import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private let idempotencyManager = IdempotencyManager<String, MobilabPaymentError>()
+    private typealias CachingIdempotencyManager = IdempotencyManager<String,
+                                                                     MobilabPaymentError,
+                                                                     UserDefaultsCacher<String, MobilabPaymentError>>
+    private let idempotencyManager = CachingIdempotencyManager(cacher: UserDefaultsCacher(suiteIdentifier: "idempotency-manager-cache"))
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
                    completion: @escaping RegistrationResultCompletion,

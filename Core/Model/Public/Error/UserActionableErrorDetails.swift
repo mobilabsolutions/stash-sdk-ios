@@ -18,3 +18,5 @@ public struct UserActionableErrorDetails: CustomStringConvertible, TitleProvidin
         self.thirdPartyErrorCode = thirdPartyErrorCode
     }
 }
+
+extension UserActionableErrorDetails: Codable {}

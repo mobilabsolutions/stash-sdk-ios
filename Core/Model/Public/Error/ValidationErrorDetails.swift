@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
+public enum ValidationErrorDetails: String, CustomStringConvertible, TitleProviding {
     /// SEPA IBAN is invalid
     case invalidIBAN
     /// Credit card number is invalid
@@ -68,3 +68,5 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
         }
     }
 }
+
+extension ValidationErrorDetails: Codable {}

@@ -46,3 +46,95 @@ public struct MobilabPaymentApiError<S: MobilabPaymentErrorConvertible>: Error, 
         return self.error.toMobilabPaymentError()
     }
 }
+
+extension MobilabPaymentError: Codable {
+    var typeIdentifier: String {
+        switch self {
+        case .configuration:
+            return MobilabPaymentError.configurationTypeIdentifier
+        case .network:
+            return MobilabPaymentError.networkTypeIdentifier
+        case .other:
+            return MobilabPaymentError.otherTypeIdentifier
+        case .temporary:
+            return MobilabPaymentError.temporaryTypeIdentifier
+        case .userActionable:
+            return MobilabPaymentError.userActionableTypeIdentifier
+        case .validation:
+            return MobilabPaymentError.validationTypeIdentifier
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: MobilabPaymentErrorKeys.self)
+        let type = try container.decode(String.self, forKey: .type)
+
+        switch type {
+        case MobilabPaymentError.configurationTypeIdentifier:
+            self = .configuration(try container.decode(SDKConfigurationError.self, forKey: .details))
+        case MobilabPaymentError.networkTypeIdentifier:
+            self = .network(try container.decode(NetworkErrorDetails.self, forKey: .details))
+        case MobilabPaymentError.otherTypeIdentifier:
+            self = .other(try container.decode(GenericErrorDetails.self, forKey: .details))
+        case MobilabPaymentError.temporaryTypeIdentifier:
+            self = .temporary(try container.decode(TemporaryErrorDetails.self, forKey: .details))
+        case MobilabPaymentError.userActionableTypeIdentifier:
+            self = .userActionable(try container.decode(UserActionableErrorDetails.self, forKey: .details))
+        case MobilabPaymentError.validationTypeIdentifier:
+            self = .validation(try container.decode(ValidationErrorDetails.self, forKey: .details))
+        default:
+            throw DecodingError.dataCorruptedError(forKey: .type, in: container,
+                                                   debugDescription: "Could not decode MobilabPaymentError for type \(type)")
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: MobilabPaymentErrorKeys.self)
+
+        try container.encode(self.typeIdentifier, forKey: .type)
+
+        switch self {
+        case let .configuration(details):
+            try container.encode(details, forKey: .details)
+        case let .network(details):
+            try container.encode(details, forKey: .details)
+        case let .other(details):
+            try container.encode(details, forKey: .details)
+        case let .temporary(details):
+            try container.encode(details, forKey: .details)
+        case let .userActionable(details):
+            try container.encode(details, forKey: .details)
+        case let .validation(details):
+            try container.encode(details, forKey: .details)
+        }
+    }
+
+    private static var configurationTypeIdentifier: String {
+        return "CONFIGURATION"
+    }
+
+    private static var networkTypeIdentifier: String {
+        return "NETWORK"
+    }
+
+    private static var otherTypeIdentifier: String {
+        return "OTHER"
+    }
+
+    private static var temporaryTypeIdentifier: String {
+        return "TEMPORARY"
+    }
+
+    private static var userActionableTypeIdentifier: String {
+        return "USER_ACTIONABLE"
+    }
+
+    private static var validationTypeIdentifier: String {
+        return "VALIDATION"
+    }
+}
+
+private enum MobilabPaymentErrorKeys: CodingKey {
+    case type
+    case details
+}

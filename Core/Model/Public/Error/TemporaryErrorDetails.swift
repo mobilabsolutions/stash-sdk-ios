@@ -19,3 +19,5 @@ public struct TemporaryErrorDetails: TitleProviding, CustomStringConvertible {
         self.thirdPartyErrorCode = thirdPartyErrorCode
     }
 }
+
+extension TemporaryErrorDetails: Codable {}

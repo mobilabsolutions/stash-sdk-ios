@@ -8,7 +8,14 @@
 
 import Foundation
 
-class IdempotencyManager<T: Codable, U: Error> {
+class IdempotencyManager<T: Codable, U: Error & Codable, C: Cacher> where C.Key == String, C.Value == IdempotencyResult<T, U> {
+    private let cacher: C
+
+    init(cacher: C) {
+        self.cacher = cacher
+        self.idempotencyResults = cacher.getCachedValues()
+    }
+
     private var idempotencyResults = [String: IdempotencyResult<T, U>]()
     private let idempotencyResultsLock = DispatchSemaphore(value: 1)
     /// Completions that should be called once a _started_ idempotency mechanism for a key completes.
@@ -53,6 +60,8 @@ class IdempotencyManager<T: Codable, U: Error> {
             enqueuedCompletionsForKeyLock.signal()
 
             lock.signal()
+
+            cacher.cache(.pending, for: key)
 
             return nil
         }
@@ -106,10 +115,82 @@ class IdempotencyManager<T: Codable, U: Error> {
         enqueuedCompletionsForKeyLock.signal()
 
         lock?.signal()
+
+        cacher.cache(idempotencyResult, for: key)
     }
 }
 
-enum IdempotencyResult<T: Codable, U: Error> {
+enum IdempotencyResult<T: Codable, U: Error & Codable>: Codable {
     case pending
     case fulfilled(result: Result<T, U>)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: IdempotencyResultKey.self)
+        let type = try container.decode(String.self, forKey: .type)
+
+        switch type {
+        case "PENDING":
+            self = .pending
+        case "FULFILLED":
+            let resultContaining = try container.decode(ResultContaining<T, U>.self, forKey: .result)
+            self = .fulfilled(result: resultContaining.result)
+        default:
+            throw DecodingError.dataCorruptedError(forKey: .type, in: container,
+                                                   debugDescription: "Could not decode IdempotencyResult for unknown type \(type)")
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: IdempotencyResultKey.self)
+
+        switch self {
+        case let .fulfilled(result):
+            try container.encode("FULFILLED", forKey: .type)
+            try container.encode(ResultContaining(result: result), forKey: .result)
+        case .pending:
+            try container.encode("PENDING", forKey: .type)
+        }
+    }
+
+    private enum IdempotencyResultKey: CodingKey {
+        case type
+        case result
+    }
+}
+
+private struct ResultContaining<T: Codable, U: Codable & Error>: Codable {
+    let result: Result<T, U>
+
+    init(result: Result<T, U>) {
+        self.result = result
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: ResultContainingKey.self)
+        let isSuccess = try container.decode(Bool.self, forKey: .isSuccess)
+
+        if isSuccess {
+            self.result = .success(try container.decode(T.self, forKey: .result))
+        } else {
+            self.result = .failure(try container.decode(U.self, forKey: .result))
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: ResultContainingKey.self)
+
+        switch self.result {
+        case let .failure(error):
+            try container.encode(false, forKey: .isSuccess)
+            try container.encode(error, forKey: .result)
+        case let .success(value):
+            try container.encode(true, forKey: .isSuccess)
+            try container.encode(value, forKey: .result)
+        }
+    }
+
+    private enum ResultContainingKey: CodingKey {
+        case isSuccess
+        case result
+    }
 }
