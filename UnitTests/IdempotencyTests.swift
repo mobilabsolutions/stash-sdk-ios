@@ -10,10 +10,25 @@
 import XCTest
 
 class IdempotencyTests: XCTestCase {
-    private var manager = IdempotencyManager<String, Error>()
+    private struct NoCacher<T: Codable, U: Error & Codable>: Cacher {
+        typealias Value = IdempotencyResult<T, U>
+        typealias Key = String
+
+        func cache(_: IdempotencyResult<T, U>, for _: String) {
+            // Intentionally empty
+        }
+
+        func getCachedValues() -> [String: IdempotencyResult<T, U>] {
+            return [:]
+        }
+    }
+
+    private struct CodableError: Error, Codable {}
+
+    private var manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher())
 
     override func setUp() {
-        self.manager = IdempotencyManager<String, Error>()
+        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher())
     }
 
     func testCorrectlyHandlesMultipleDifferentIdempotencyKeys() {
