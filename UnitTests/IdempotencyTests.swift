@@ -14,21 +14,27 @@ class IdempotencyTests: XCTestCase {
         typealias Value = IdempotencyResult<T, U>
         typealias Key = String
 
+        let cachedValues: [String: IdempotencyResult<T, U>]
+
         func cache(_: IdempotencyResult<T, U>, for _: String) {
             // Intentionally empty
         }
 
         func getCachedValues() -> [String: IdempotencyResult<T, U>] {
-            return [:]
+            return self.cachedValues
         }
     }
 
-    private struct CodableError: Error, Codable {}
+    private struct CodableError: Error, Codable, IdempotencyApplicationFailureProviding {
+        static func createErrorForPendingRequestSinceLastStart() -> IdempotencyTests.CodableError {
+            return CodableError()
+        }
+    }
 
-    private var manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher())
+    private var manager: IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>!
 
     override func setUp() {
-        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher())
+        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher(cachedValues: [:]))
     }
 
     func testCorrectlyHandlesMultipleDifferentIdempotencyKeys() {
@@ -144,6 +150,31 @@ class IdempotencyTests: XCTestCase {
         }
 
         wait(for: [usesEnqueueableClosure], timeout: 5)
+    }
+
+    func testCorrectlyHandlesPendingCachedValues() {
+        let pendingKey = "Pending-Cached-Key"
+        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher(cachedValues: [pendingKey: .pending]))
+
+        let doesNotUseEnqueueableClosure = XCTestExpectation(description: "The idempotency handling should not use the enqueued closure if the key is cached")
+        doesNotUseEnqueueableClosure.isInverted = true
+
+        let result = self.manager.getIdempotencyResultOrStartSession(for: pendingKey) { _ in
+            doesNotUseEnqueueableClosure.fulfill()
+        }
+
+        XCTAssertNotNil(result)
+
+        if case let .fulfilled(fulfilledResult)? = result {
+            switch fulfilledResult {
+            case .success: XCTFail("A pending result should be treated as a failure")
+            case .failure: break
+            }
+        } else {
+            XCTFail("If a value is cached as pending on creation of the cacher, it should be handled as an error that happened before the application quit")
+        }
+
+        wait(for: [doesNotUseEnqueueableClosure], timeout: 0.5)
     }
 
     private func createSuccessMessage(for key: String) -> String {

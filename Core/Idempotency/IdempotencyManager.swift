@@ -8,12 +8,20 @@
 
 import Foundation
 
-class IdempotencyManager<T: Codable, U: Error & Codable, C: Cacher> where C.Key == String, C.Value == IdempotencyResult<T, U> {
+class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplicationFailureProviding, C: Cacher>
+    where C.Key == String, C.Value == IdempotencyResult<T, U> {
     private let cacher: C
 
     init(cacher: C) {
         self.cacher = cacher
-        self.idempotencyResults = cacher.getCachedValues()
+        self.idempotencyResults = cacher.getCachedValues().mapValues { value in
+            if case .pending = value {
+                let error = U.createErrorForPendingRequestSinceLastStart()
+                return .fulfilled(result: Result<T, U>.failure(error))
+            }
+
+            return value
+        }
     }
 
     private var idempotencyResults = [String: IdempotencyResult<T, U>]()
@@ -193,4 +201,8 @@ private struct ResultContaining<T: Codable, U: Codable & Error>: Codable {
         case isSuccess
         case result
     }
+}
+
+protocol IdempotencyApplicationFailureProviding {
+    static func createErrorForPendingRequestSinceLastStart() -> Self
 }

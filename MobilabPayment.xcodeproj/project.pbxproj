@@ -182,7 +182,8 @@
 		E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F482273100D001F9925 /* IdempotencyTests.swift */; };
 		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
 		E14662572278AA8C00512710 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662562278AA8C00512710 /* Cacher.swift */; };
-		E14662592278B02100512710 /* UserDefaultsCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662582278B02100512710 /* UserDefaultsCacher.swift */; };
+		E146625B2279E7FB00512710 /* UserDefaultsCacherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */; };
+		E146625D2279E8DD00512710 /* IdempotencyResultUserDefaultsCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625C2279E8DD00512710 /* IdempotencyResultUserDefaultsCacher.swift */; };
 		E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
 		E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
 		E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
@@ -520,7 +521,8 @@
 		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
 		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
 		E14662562278AA8C00512710 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
-		E14662582278B02100512710 /* UserDefaultsCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCacher.swift; sourceTree = "<group>"; };
+		E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCacherTests.swift; sourceTree = "<group>"; };
+		E146625C2279E8DD00512710 /* IdempotencyResultUserDefaultsCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdempotencyResultUserDefaultsCacher.swift; sourceTree = "<group>"; };
 		E14D5CF6225CCD2100BB20CA /* Adyen.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Adyen.framework; path = Carthage/Build/iOS/Adyen.framework; sourceTree = "<group>"; };
 		E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenCard.framework; path = Carthage/Build/iOS/AdyenCard.framework; sourceTree = "<group>"; };
 		E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenInternal.framework; path = Carthage/Build/iOS/AdyenInternal.framework; sourceTree = "<group>"; };
@@ -796,6 +798,7 @@
 				E11C3C7C223B8F7F00F94F56 /* MobilabPaymentTests-Bridging-Header.h */,
 				BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */,
 				E11F2F482273100D001F9925 /* IdempotencyTests.swift */,
+				E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1329,10 +1332,10 @@
 		E11F2F432272EA4A001F9925 /* Idempotency */ = {
 			isa = PBXGroup;
 			children = (
+				E146625C2279E8DD00512710 /* IdempotencyResultUserDefaultsCacher.swift */,
 				E11F2F442272EA68001F9925 /* IdempotencyManager.swift */,
 				E11F2F462272FFE1001F9925 /* LockDictionary.swift */,
 				E14662562278AA8C00512710 /* Cacher.swift */,
-				E14662582278B02100512710 /* UserDefaultsCacher.swift */,
 			);
 			path = Idempotency;
 			sourceTree = "<group>";
@@ -1933,10 +1936,10 @@
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */,
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
+				E146625D2279E8DD00512710 /* IdempotencyResultUserDefaultsCacher.swift in Sources */,
 				E1068EB222533D3700ACC93C /* FormConsumer.swift in Sources */,
 				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
-				E14662592278B02100512710 /* UserDefaultsCacher.swift in Sources */,
 				E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */,
 				E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */,
 				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
@@ -1972,6 +1975,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
+				E146625B2279E7FB00512710 /* UserDefaultsCacherTests.swift in Sources */,
 				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
 				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
 				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,

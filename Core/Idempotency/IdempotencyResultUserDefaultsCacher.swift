@@ -1,5 +1,5 @@
 //
-//  UserDefaultsCacher.swift
+//  IdempotencyResultUserDefaultsCacher.swift
 //  MobilabPaymentCore
 //
 //  Created by Robert on 30.04.19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserDefaultsCacher<T: Codable, U: Error & Codable>: Cacher {
+struct IdempotencyResultUserDefaultsCacher<T: Codable, U: Error & Codable>: Cacher {
     typealias Value = IdempotencyResult<T, U>
     typealias Key = String
 
