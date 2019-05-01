@@ -11,6 +11,7 @@ import XCTest
 
 class UserDefaultsCacherTests: XCTestCase {
     private var cacher: IdempotencyResultUserDefaultsCacher<String, SimpleError>!
+    private let expiryDate = Date().addingTimeInterval(10000)
 
     private struct SimpleError: Error, Codable {
         let description: String
@@ -34,12 +35,12 @@ class UserDefaultsCacherTests: XCTestCase {
 
     func testCorrectlyCachesSimpleValue() {
         let value = "Hello, world"
-        cacher.cache(.fulfilled(result: .success(value)), for: "First-Idempotency-Key")
+        cacher.cache(.fulfilled(result: .success(value), expiry: expiryDate), for: "First-Idempotency-Key")
 
         let anotherValue = SimpleError(description: "This is an error")
-        cacher.cache(.fulfilled(result: .failure(anotherValue)), for: "Second-Idempotency-Key")
+        cacher.cache(.fulfilled(result: .failure(anotherValue), expiry: expiryDate), for: "Second-Idempotency-Key")
 
-        cacher.cache(.pending, for: "Third-Idempotency-Key")
+        cacher.cache(.pending(expiry: expiryDate), for: "Third-Idempotency-Key")
 
         let cachedValues = cacher.getCachedValues()
 
@@ -51,7 +52,7 @@ class UserDefaultsCacherTests: XCTestCase {
         XCTAssertNotNil(secondResult)
         XCTAssertNotNil(thirdResult)
 
-        if case let .fulfilled(firstFulfilled)? = firstResult {
+        if case let .fulfilled(firstFulfilled, _)? = firstResult {
             switch firstFulfilled {
             case .failure: XCTFail("The first cached value should not correspond to a failure")
             case let .success(successValue): XCTAssertEqual(successValue, value, "The correct value should be returned when caching a successful result")
@@ -60,7 +61,7 @@ class UserDefaultsCacherTests: XCTestCase {
             XCTFail("The first cached value should correspond a fulfilled value")
         }
 
-        if case let .fulfilled(secondFulfilled)? = secondResult {
+        if case let .fulfilled(secondFulfilled, _)? = secondResult {
             switch secondFulfilled {
             case let .failure(error): XCTAssertEqual(error.description, anotherValue.description)
             case .success: XCTFail("The second cached value should not correspond to a success")
@@ -76,16 +77,16 @@ class UserDefaultsCacherTests: XCTestCase {
 
     func testReplacesCachedValue() throws {
         let key = "First-Idempotency-Key"
-        cacher.cache(.pending, for: key)
+        cacher.cache(.pending(expiry: expiryDate), for: key)
 
         let resultValue = "Success result"
-        let result = IdempotencyResult<String, SimpleError>.fulfilled(result: Result.success(resultValue))
+        let result = IdempotencyResult<String, SimpleError>.fulfilled(result: Result.success(resultValue), expiry: expiryDate)
         cacher.cache(result, for: key)
 
         let cachedValues = cacher.getCachedValues()
         XCTAssertNotNil(cachedValues[key])
 
-        if case let .fulfilled(fulfilled)? = cachedValues[key] {
+        if case let .fulfilled(fulfilled, _)? = cachedValues[key] {
             XCTAssertEqual(try fulfilled.get(), resultValue)
         } else {
             XCTFail("The cached value should be a fulfilled one")
@@ -100,7 +101,7 @@ class UserDefaultsCacherTests: XCTestCase {
             let key = UUID().uuidString
             keys.insert(key)
 
-            cacher.cache(.fulfilled(result: .success(key)), for: key)
+            cacher.cache(.fulfilled(result: .success(key), expiry: expiryDate), for: key)
         }
 
         let cachedValues = cacher.getCachedValues()

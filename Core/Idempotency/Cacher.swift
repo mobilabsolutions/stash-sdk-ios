@@ -14,4 +14,7 @@ protocol Cacher {
 
     func getCachedValues() -> [Key: Value]
     func cache(_ value: Value, for key: Key)
+    func purgeExpiredValues()
+
+    var currentDateProvider: DateProviding? { get set }
 }

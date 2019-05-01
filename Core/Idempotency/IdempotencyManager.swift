@@ -11,17 +11,28 @@ import Foundation
 class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplicationFailureProviding, C: Cacher>
     where C.Key == String, C.Value == IdempotencyResult<T, U> {
     private let cacher: C
+    private let dateProvider: DateProviding
 
-    init(cacher: C) {
+    init(cacher: C, dateProvider: DateProviding = DefaultDateProvider()) {
         self.cacher = cacher
-        self.idempotencyResults = cacher.getCachedValues().mapValues { value in
-            if case .pending = value {
-                let error = U.createErrorForPendingRequestSinceLastStart()
-                return .fulfilled(result: Result<T, U>.failure(error))
-            }
+        self.dateProvider = dateProvider
 
-            return value
-        }
+        cacher.purgeExpiredValues()
+        self.idempotencyResults = cacher.getCachedValues()
+            .filter {
+                switch $0.value {
+                case let .fulfilled(_, expiry): fallthrough
+                case let .pending(expiry): return expiry > dateProvider.currentDate
+                }
+            }
+            .mapValues { value in
+                if case let .pending(expiry) = value {
+                    let error = U.createErrorForPendingRequestSinceLastStart()
+                    return .fulfilled(result: Result<T, U>.failure(error), expiry: expiry)
+                }
+
+                return value
+            }
     }
 
     private var idempotencyResults = [String: IdempotencyResult<T, U>]()
@@ -60,7 +71,7 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
             locksLock.signal()
             lock.wait()
 
-            idempotencyResults[key] = .pending
+            idempotencyResults[key] = .pending(expiry: dateProvider.expiryDate)
             idempotencyResultsLock.signal()
 
             enqueuedCompletionsForKeyLock.wait()
@@ -69,7 +80,7 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
 
             lock.signal()
 
-            cacher.cache(.pending, for: key)
+            cacher.cache(.pending(expiry: dateProvider.expiryDate), for: key)
 
             return nil
         }
@@ -107,7 +118,7 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
         locksLock.signal()
         lock?.wait()
 
-        let idempotencyResult = IdempotencyResult.fulfilled(result: result)
+        let idempotencyResult = IdempotencyResult.fulfilled(result: result, expiry: dateProvider.expiryDate)
 
         idempotencyResultsLock.wait()
         idempotencyResults[key] = idempotencyResult
@@ -129,19 +140,20 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
 }
 
 enum IdempotencyResult<T: Codable, U: Error & Codable>: Codable {
-    case pending
-    case fulfilled(result: Result<T, U>)
+    case pending(expiry: Date)
+    case fulfilled(result: Result<T, U>, expiry: Date)
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: IdempotencyResultKey.self)
         let type = try container.decode(String.self, forKey: .type)
+        let expiry = try container.decode(Date.self, forKey: .expiryDate)
 
         switch type {
         case "PENDING":
-            self = .pending
+            self = .pending(expiry: expiry)
         case "FULFILLED":
             let resultContaining = try container.decode(ResultContaining<T, U>.self, forKey: .result)
-            self = .fulfilled(result: resultContaining.result)
+            self = .fulfilled(result: resultContaining.result, expiry: expiry)
         default:
             throw DecodingError.dataCorruptedError(forKey: .type, in: container,
                                                    debugDescription: "Could not decode IdempotencyResult for unknown type \(type)")
@@ -152,17 +164,20 @@ enum IdempotencyResult<T: Codable, U: Error & Codable>: Codable {
         var container = encoder.container(keyedBy: IdempotencyResultKey.self)
 
         switch self {
-        case let .fulfilled(result):
+        case let .fulfilled(result, expiry):
             try container.encode("FULFILLED", forKey: .type)
+            try container.encode(expiry, forKey: .expiryDate)
             try container.encode(ResultContaining(result: result), forKey: .result)
-        case .pending:
+        case let .pending(expiry):
             try container.encode("PENDING", forKey: .type)
+            try container.encode(expiry, forKey: .expiryDate)
         }
     }
 
     private enum IdempotencyResultKey: CodingKey {
         case type
         case result
+        case expiryDate
     }
 }
 
@@ -205,4 +220,19 @@ private struct ResultContaining<T: Codable, U: Codable & Error>: Codable {
 
 protocol IdempotencyApplicationFailureProviding {
     static func createErrorForPendingRequestSinceLastStart() -> Self
+}
+
+protocol DateProviding {
+    var currentDate: Date { get }
+    var expiryDate: Date { get }
+}
+
+private struct DefaultDateProvider: DateProviding {
+    var currentDate: Date {
+        return Date()
+    }
+
+    var expiryDate: Date {
+        return Date().addingTimeInterval(24 * 60 * 60)
+    }
 }

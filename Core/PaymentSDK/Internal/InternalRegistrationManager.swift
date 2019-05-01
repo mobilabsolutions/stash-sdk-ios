@@ -20,7 +20,7 @@ class InternalRegistrationManager {
                    presentingViewController: UIViewController? = nil) {
         if let result = idempotencyManager
             .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion) {
-            if case let .fulfilled(returnableResult) = result {
+            if case let .fulfilled(returnableResult, _) = result {
                 completion(returnableResult)
             }
 

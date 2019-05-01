@@ -10,11 +10,17 @@
 import XCTest
 
 class IdempotencyTests: XCTestCase {
-    private struct NoCacher<T: Codable, U: Error & Codable>: Cacher {
+    private class NoCacher<T: Codable, U: Error & Codable>: Cacher {
+        var currentDateProvider: DateProviding?
+
         typealias Value = IdempotencyResult<T, U>
         typealias Key = String
 
-        let cachedValues: [String: IdempotencyResult<T, U>]
+        private var cachedValues: [String: IdempotencyResult<T, U>]
+
+        init(cachedValues: [String: IdempotencyResult<T, U>]) {
+            self.cachedValues = cachedValues
+        }
 
         func cache(_: IdempotencyResult<T, U>, for _: String) {
             // Intentionally empty
@@ -22,6 +28,15 @@ class IdempotencyTests: XCTestCase {
 
         func getCachedValues() -> [String: IdempotencyResult<T, U>] {
             return self.cachedValues
+        }
+
+        func purgeExpiredValues() {
+            self.cachedValues = self.cachedValues.filter {
+                switch $0.value {
+                case let .pending(expiry): fallthrough
+                case let .fulfilled(_, expiry): return currentDateProvider.flatMap { $0.currentDate < expiry } ?? true
+                }
+            }
         }
     }
 
@@ -66,7 +81,7 @@ class IdempotencyTests: XCTestCase {
 
             switch existingResult {
             case .pending: XCTFail("After the result has been set for a key, it should not return a pending result")
-            case let .fulfilled(result):
+            case let .fulfilled(result, _):
                 guard case let .success(successMessage) = result
                 else { XCTFail("The provided result should be successful"); continue }
 
@@ -105,7 +120,7 @@ class IdempotencyTests: XCTestCase {
                 XCTAssertNotNil(fulfilledResult, "After a result has been set for a key, it should also be returned")
 
                 if let fulfilled = fulfilledResult,
-                    case let .fulfilled(returningResult) = fulfilled,
+                    case let .fulfilled(returningResult, _) = fulfilled,
                     case let .success(successMessage) = returningResult {
                     XCTAssertEqual(successMessage, self.createSuccessMessage(for: key))
                 } else {
@@ -154,7 +169,9 @@ class IdempotencyTests: XCTestCase {
 
     func testCorrectlyHandlesPendingCachedValues() {
         let pendingKey = "Pending-Cached-Key"
-        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: NoCacher(cachedValues: [pendingKey: .pending]))
+        let expiryDate = Date().addingTimeInterval(10000)
+        let cacher = NoCacher<String, CodableError>(cachedValues: [pendingKey: .pending(expiry: expiryDate)])
+        self.manager = IdempotencyManager<String, CodableError, NoCacher<String, CodableError>>(cacher: cacher)
 
         let doesNotUseEnqueueableClosure = XCTestExpectation(description: "The idempotency handling should not use the enqueued closure if the key is cached")
         doesNotUseEnqueueableClosure.isInverted = true
@@ -165,7 +182,7 @@ class IdempotencyTests: XCTestCase {
 
         XCTAssertNotNil(result)
 
-        if case let .fulfilled(fulfilledResult)? = result {
+        if case let .fulfilled(fulfilledResult, _)? = result {
             switch fulfilledResult {
             case .success: XCTFail("A pending result should be treated as a failure")
             case .failure: break

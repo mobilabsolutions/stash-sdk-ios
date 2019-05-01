@@ -18,6 +18,8 @@ struct IdempotencyResultUserDefaultsCacher<T: Codable, U: Error & Codable>: Cach
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
+    var currentDateProvider: DateProviding?
+
     init(suiteIdentifier: String) {
         let userDefaults = UserDefaults(suiteName: suiteIdentifier)
         self.userDefaults = userDefaults ?? UserDefaults.standard
@@ -41,11 +43,41 @@ struct IdempotencyResultUserDefaultsCacher<T: Codable, U: Error & Codable>: Cach
                     guard let data = $0 as? Data
                     else { return nil }
                     return try? decoder.decode(IdempotencyResult<T, U>.self, from: data)
-                }).filter { (_, _) -> Bool in
-                    true
+                }).filter { (_, value) -> Bool in
+                    if let provider = self.currentDateProvider {
+                        switch value {
+                        case let .fulfilled(_, expiry): fallthrough
+                        case let .pending(expiry): return provider.currentDate < expiry
+                        }
+                    }
+
+                    return true
                 }
         }
 
         return values ?? [:]
+    }
+
+    func purgeExpiredValues() {
+        guard let provider = self.currentDateProvider
+        else { return }
+
+        self.queue.async {
+            for (key, value) in self.userDefaults.dictionaryRepresentation() {
+                guard let data = value as? Data
+                else { continue }
+
+                guard let result = try? self.decoder.decode(IdempotencyResult<T, U>.self, from: data)
+                else { continue }
+
+                switch result {
+                case let .fulfilled(_, expiry): fallthrough
+                case let .pending(expiry):
+                    if expiry <= provider.currentDate {
+                        self.userDefaults.removeObject(forKey: key)
+                    }
+                }
+            }
+        }
     }
 }
