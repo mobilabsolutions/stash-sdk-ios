@@ -31,12 +31,12 @@ class PaymentMethod {
             else { return nil }
 
             let extra = SepaExtra(iban: method.iban, bic: method.bic,
-                                  name: method.billingData.name, email: method.billingData.email,
+                                  name: method.billingData.name?.fullName, email: method.billingData.email,
                                   street: method.billingData.address1, country: method.billingData.country,
                                   zip: method.billingData.zip)
             return AliasExtra(sepaConfig: extra)
         case .payPal:
-            guard methodData is PayPalData
+            guard self.methodData is PayPalData
             else { return nil }
 
             let extra = PayPalExtra()

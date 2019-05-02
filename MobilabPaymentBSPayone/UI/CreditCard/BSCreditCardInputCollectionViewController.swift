@@ -28,21 +28,26 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     }
 
     private struct CreditCardParsedData {
-        let holderName: String
+        let name: SimpleNameProvider
         let cardNumber: String
         let cvv: String
         let expirationMonth: Int
         let expirationYear: Int
 
-        static func create(holderNameText: String?,
+        static func create(holderFirstNameText: String?,
+                           holderLastNameText: String?,
                            cardNumberText: String?,
                            cvvText: String?,
                            expirationMonthText: String?,
                            expirationYearText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
-            if holderNameText == nil || holderNameText?.isEmpty == true {
-                errors[.holderName] = .noData(explanation: "Please provide the card holder name")
+            if holderFirstNameText == nil || holderFirstNameText?.isEmpty == true {
+                errors[.holderFirstName] = .noData(explanation: "Please provide a valid first name")
+            }
+
+            if holderLastNameText == nil || holderLastNameText?.isEmpty == true {
+                errors[.holderLastName] = .noData(explanation: "Please provide a valid last name")
             }
 
             if cardNumberText == nil || cardNumberText?.isEmpty == true {
@@ -80,14 +85,16 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors[.expirationYear] = .noData(explanation: "Please provide an expiration date in the future")
             }
 
-            guard let holderName = holderNameText,
+            guard let holderFirstName = holderFirstNameText,
+                let holderLastName = holderLastNameText,
                 let cardNumber = cardNumberText, let cvv = cvvText,
                 let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
                 let expirationYear = expirationYearText.flatMap({ Int($0) }),
                 errors.isEmpty
             else { return (nil, errors) }
 
-            let parsedData = CreditCardParsedData(holderName: holderName,
+            let name = SimpleNameProvider(firstName: holderFirstName, lastName: holderLastName)
+            let parsedData = CreditCardParsedData(name: name,
                                                   cardNumber: cardNumber,
                                                   cvv: cvv,
                                                   expirationMonth: expirationMonth,
@@ -97,11 +104,14 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
-        let nameData = FormCellModel.FormCellType.TextData(necessaryData: .holderName,
-                                                           title: "Cardholder name",
-                                                           placeholder: "Name",
-                                                           setup: nil,
-                                                           didUpdate: nil)
+        let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
+                                                                 firstTitle: "First Name",
+                                                                 firstPlaceholder: "First Name",
+                                                                 secondNecessaryData: .holderLastName,
+                                                                 secondTitle: "Last Name",
+                                                                 secondPlaceholder: "Last Name",
+                                                                 setup: nil,
+                                                                 didUpdate: nil)
 
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
                                                              title: "Credit card number",
@@ -127,7 +137,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
         })
 
         super.init(billingData: billingData, configuration: configuration, cellModels: [
-            FormCellModel(type: .text(nameData)),
+            FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
         ], formTitle: "Credit Card")
@@ -142,7 +152,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
     func consumeValues(data: [NecessaryData: String]) throws {
-        let createdData = CreditCardParsedData.create(holderNameText: data[.holderName],
+        let createdData = CreditCardParsedData.create(holderFirstNameText: data[.holderFirstName],
+                                                      holderLastNameText: data[.holderLastName],
                                                       cardNumberText: data[.cardNumber],
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
@@ -160,7 +171,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
-                                                holderName: parsedData.holderName,
+                                                holderName: parsedData.name.fullName,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil

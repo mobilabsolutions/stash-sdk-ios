@@ -11,6 +11,7 @@ import UIKit
 open class FormCollectionViewController: UICollectionViewController, PaymentMethodDataProvider,
     UICollectionViewDelegateFlowLayout, DoneButtonUpdater {
     private let textReuseIdentifier = "textCell"
+    private let pairedTextReuseIdentifier = "pairedTextCell"
     private let dateCVVCell = "dateCVVCell"
     private let headerReuseIdentifier = "header"
 
@@ -42,10 +43,6 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.formTitle = formTitle
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-
-        if let name = billingData?.name {
-            self.fieldData[.holderName] = name
-        }
     }
 
     public required init?(coder _: NSCoder) {
@@ -57,6 +54,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         // Register cell classes
         self.collectionView.register(TextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.textReuseIdentifier)
+        self.collectionView.register(PairedTextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.pairedTextReuseIdentifier)
         self.collectionView.register(DateCVVInputCollectionViewCell.self, forCellWithReuseIdentifier: self.dateCVVCell)
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
@@ -110,20 +108,39 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         switch self.cellModels[indexPath.row].type {
         case let .text(data):
-            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: textReuseIdentifier, for: indexPath)
-            cell.setup(text: fieldData[data.necessaryData],
+            let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.textReuseIdentifier, for: indexPath)
+            cell.setup(text: self.fieldData[data.necessaryData],
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
                        textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
-                       error: errors[data.necessaryData]?.description,
+                       error: self.errors[data.necessaryData]?.description,
                        setupTextField: { data.setup?(data.necessaryData, $0) },
-                       configuration: configuration,
+                       configuration: self.configuration,
                        delegate: self)
 
             toReturn = cell
+
+        case let .pairedText(data):
+            let cell: PairedTextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.pairedTextReuseIdentifier, for: indexPath)
+            cell.setup(firstText: self.fieldData[data.firstNecessaryData],
+                       firstTitle: data.firstTitle,
+                       firstPlaceholder: data.firstPlaceholder,
+                       firstDataType: data.firstNecessaryData,
+                       secondText: self.fieldData[data.secondNecessaryData],
+                       secondTitle: data.secondTitle,
+                       secondPlaceholder: data.secondPlaceholder,
+                       secondDataType: data.secondNecessaryData,
+                       textFieldUpdateCallback: { data.didUpdate?(data.firstNecessaryData, $0) },
+                       firstError: self.errors[data.firstNecessaryData]?.description,
+                       secondError: self.errors[data.secondNecessaryData]?.description,
+                       setupTextField: { data.setup?(data.firstNecessaryData, $0) },
+                       configuration: self.configuration, delegate: self)
+
+            toReturn = cell
+
         case .dateCVV:
-            let cell: DateCVVInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: dateCVVCell, for: indexPath)
+            let cell: DateCVVInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.dateCVVCell, for: indexPath)
 
             let date: (month: Int, year: Int)?
             if let year = fieldData[.expirationYear], let yearValue = Int(year),
@@ -164,18 +181,18 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as? TitleHeaderView
         else { fatalError("Should be able to dequeue TitleHeaderView as header supplementary vie for \(self.headerReuseIdentifier)") }
 
-        view.title = formTitle
-        view.configuration = configuration
+        view.title = self.formTitle
+        view.configuration = self.configuration
 
         return view
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        let hasError = cellModels[indexPath.row].necessaryData
+        let hasError = self.cellModels[indexPath.row].necessaryData
             .contains(where: { self.errors[$0] != nil })
 
-        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (hasError ? errorCellHeightSurplus : 0)
+        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (hasError ? self.errorCellHeightSurplus : 0)
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 
