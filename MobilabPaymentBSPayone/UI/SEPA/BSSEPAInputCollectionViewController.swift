@@ -23,6 +23,15 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
+        
+        super.init(billingData: billingData, configuration: configuration, formTitle: "SEPA")
+
+        self.formConsumer = self
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let nameCell = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -31,28 +40,39 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                                  secondPlaceholder: "Last Name",
                                                                  setup: nil,
                                                                  didUpdate: nil)
-
+        
         let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
                                                            placeholder: "XX123",
                                                            setup: nil,
+                                                           didFocus: nil,
                                                            didUpdate: { _, textField in
-                                                               textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
+                                                            textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
-
+        
         let bicCell = FormCellModel.FormCellType.TextData(necessaryData: .bic,
                                                           title: "BIC",
                                                           placeholder: "XXX",
                                                           setup: nil,
+                                                          didFocus: nil,
                                                           didUpdate: nil)
-
-        super.init(billingData: billingData, configuration: configuration, cellModels: [
+        
+        let countryCell = FormCellModel.FormCellType.TextData(necessaryData: .country,
+                                                              title: "Country",
+                                                              placeholder: "Country",
+                                                              setup: nil,
+                                                              didFocus:  { [weak self] textField in
+                                                                self?.showCountrySelection()
+            },
+                                                              didUpdate: nil)
+        
+        setCellModel(cellModels:  [
             FormCellModel(type: .pairedText(nameCell)),
             FormCellModel(type: .text(ibanCell)),
             FormCellModel(type: .text(bicCell)),
-        ], formTitle: "SEPA")
+            FormCellModel(type: .text(countryCell))
+            ])
 
-        self.formConsumer = self
     }
 
     required init?(coder _: NSCoder) {

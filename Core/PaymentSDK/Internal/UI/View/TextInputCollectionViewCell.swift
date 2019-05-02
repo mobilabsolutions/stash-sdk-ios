@@ -44,6 +44,17 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         }
     }
 
+    private var textEntryBySelection: Bool = false {
+        didSet {
+            if textEntryBySelection == true {
+                let arrowImageView = UIImageView(image: UIConstants.rightArrowImage)
+                arrowImageView.contentMode = .scaleAspectFit
+                self.textField.rightView = arrowImageView
+                self.textField.rightViewMode = .always
+            }
+        }
+    }
+    
     private var dataType: NecessaryData? {
         didSet {
             guard let dataType = self.dataType
@@ -62,6 +73,11 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             case .bic:
                 self.textField.textContentType = nil
                 self.textField.autocapitalizationType = .allCharacters
+            case .country:
+                self.textField.textContentType = .name
+                self.textField.autocapitalizationType = .words
+                self.textEntryBySelection = true
+                self.textField.tintColor = .clear
             default:
                 self.textField.textContentType = nil
                 self.textField.autocapitalizationType = .sentences
@@ -76,6 +92,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private let errorLabelVerticalOffset: CGFloat = 4
 
     private weak var delegate: DataPointProvidingDelegate?
+    private var textFieldFocusGainCallback: ((UITextField) -> Void)?
     private var textFieldUpdateCallback: ((UITextField) -> Void)?
 
     private let textField = CustomTextField()
@@ -88,11 +105,13 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
                       title: String?,
                       placeholder: String?,
                       dataType: NecessaryData,
+                      textFieldFocusGainCallback: ((UITextField) -> Void)? = nil,
                       textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
                       error: String?,
                       setupTextField: ((UITextField) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
+        self.textFieldFocusGainCallback = textFieldFocusGainCallback
         self.textFieldUpdateCallback = textFieldUpdateCallback
         self.text = text
         self.title = title
@@ -155,8 +174,16 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
         self.textField.addTarget(self, action: #selector(self.didUpdateTextFieldText), for: .editingChanged)
         self.textField.addTarget(self, action: #selector(self.didEndEditingTextFieldText), for: .editingDidEnd)
+        self.textField.addTarget(self, action: #selector(self.textFieldReceivedFocus), for: .editingDidBegin)
 
         self.backgroundColor = .white
+    }
+
+    @objc private func textFieldReceivedFocus() {
+        textFieldFocusGainCallback?(self.textField)
+        if dataType == .country {
+            self.textField.resignFirstResponder()
+        }
     }
 
     @objc private func didUpdateTextFieldText() {
@@ -176,10 +203,12 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     public override func prepareForReuse() {
         super.prepareForReuse()
         self.delegate = nil
+        self.textFieldFocusGainCallback = nil
         self.textFieldUpdateCallback = nil
         self.errorText = nil
         self.placeholder = nil
         self.text = nil
+        self.textEntryBySelection = false
     }
 }
 

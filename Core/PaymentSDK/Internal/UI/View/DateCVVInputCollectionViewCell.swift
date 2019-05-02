@@ -40,7 +40,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private let defaultHorizontalToSuperviewOffset: CGFloat = 16
     private let fieldHeight: CGFloat = 40
     private let fieldToHeaderVerticalOffset: CGFloat = 8
-    private let headerToSuperViewVerticalOffset: CGFloat = 8
+    private let headerToSuperViewVerticalOffset: CGFloat = 16
     private let errorLabelVerticalOffset: CGFloat = 4
     private let numberOfMonths = 12
     private let numberOfYearsToShow = 20

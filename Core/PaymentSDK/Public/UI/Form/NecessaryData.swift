@@ -18,4 +18,5 @@ public enum NecessaryData: CaseIterable {
     case expirationYear
     case iban
     case bic
+    case country
 }

@@ -24,7 +24,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var doneButtonUpdating: DoneButtonUpdating?
 
-    private let cellModels: [FormCellModel]
+    private var cellModels: [FormCellModel]?
 
     public let billingData: BillingData?
 
@@ -36,11 +36,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
 
-    public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, cellModels: [FormCellModel], formTitle: String) {
+    public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
         self.configuration = configuration
-        self.cellModels = cellModels
         self.formTitle = formTitle
+        self.cellModels = nil
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -60,6 +60,19 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+    }
+
+    public func setCellModel(cellModels: [FormCellModel]) {
+        self.cellModels?.removeAll()
+        self.cellModels = cellModels
+    }
+    
+    public func showCountrySelection() {
+            let countryVC = UIViewController()
+            countryVC.title = "Country"
+        countryVC.view.backgroundColor = .white
+            self.navigationController?.pushViewController(countryVC, animated: true)
+            self.navigationItem.title = "Select Country"
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
@@ -87,10 +100,10 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         }
     }
 
-    private func isDone() -> Bool {
-        return self.cellModels
+    private func isDone() -> Bool {   
+        return self.cellModels?
             .flatMap { $0.necessaryData }
-            .allSatisfy { self.fieldData[$0] != nil }
+            .allSatisfy { self.fieldData[$0] != nil } ?? false
     }
 
     // MARK: UICollectionViewDataSource
@@ -100,19 +113,22 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     open override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return self.cellModels.count
+        return self.cellModels?.count ?? 0
     }
 
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell & NextCellEnabled
 
-        switch self.cellModels[indexPath.row].type {
+        guard let type = self.cellModels?[indexPath.row].type else { return UICollectionViewCell() }
+        
+        switch type {
         case let .text(data):
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.textReuseIdentifier, for: indexPath)
             cell.setup(text: self.fieldData[data.necessaryData],
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
+                       textFieldFocusGainCallback: {data.didFocus?($0) },
                        textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
                        error: self.errors[data.necessaryData]?.description,
                        setupTextField: { data.setup?(data.necessaryData, $0) },
@@ -189,10 +205,12 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        let hasError = self.cellModels[indexPath.row].necessaryData
-            .contains(where: { self.errors[$0] != nil })
-
-        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (hasError ? self.errorCellHeightSurplus : 0)
+        var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
+        
+        if let hasError = self.cellModels?[indexPath.row].necessaryData
+            .contains(where: { self.errors[$0] != nil }) {
+            additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
+        }
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 
@@ -205,7 +223,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 }
 
-extension FormCollectionViewController: DataPointProvidingDelegate {
+extension FormCollectionViewController: DataPointProvidingDelegate {    
     func didUpdate(value: String?, for dataPoint: NecessaryData) {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
         self.errors[dataPoint] = nil
