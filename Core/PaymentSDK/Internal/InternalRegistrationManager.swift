@@ -17,14 +17,21 @@ class InternalRegistrationManager {
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
                    completion: @escaping RegistrationResultCompletion,
-                   presentingViewController: UIViewController? = nil) {
-        if let result = idempotencyManager
-            .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion) {
-            if case let .fulfilled(returnableResult, _) = result {
-                completion(returnableResult)
-            }
+                   presentingViewController: UIViewController? = nil,
+                   methodType: PaymentMethodType) {
+        do {
+            if let result = try idempotencyManager
+                .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion, typeIdentifier: methodType.rawValue) {
+                if case let .fulfilled(returnableResult) = result {
+                    completion(returnableResult)
+                }
 
-            return
+                return
+            }
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
+        } catch {
+            completion(.failure(.other(GenericErrorDetails.from(error: error))))
         }
 
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)

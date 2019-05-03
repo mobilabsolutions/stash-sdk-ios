@@ -34,13 +34,21 @@ class UserDefaultsCacherTests: XCTestCase {
     }
 
     func testCorrectlyCachesSimpleValue() {
+        let typeIdentifier = "Type-ID"
+
         let value = "Hello, world"
-        cacher.cache(.fulfilled(result: .success(value), expiry: expiryDate), for: "First-Idempotency-Key")
+        let firstContainer = IdempotencyResultContainer<String, SimpleError>(idempotencyResult: .fulfilled(result: .success(value)),
+                                                                             expiry: expiryDate, typeIdentifier: typeIdentifier)
+        cacher.cache(firstContainer, for: "First-Idempotency-Key")
 
         let anotherValue = SimpleError(description: "This is an error")
-        cacher.cache(.fulfilled(result: .failure(anotherValue), expiry: expiryDate), for: "Second-Idempotency-Key")
+        let anotherContainer = IdempotencyResultContainer<String, SimpleError>(idempotencyResult: .fulfilled(result: .failure(anotherValue)),
+                                                                               expiry: expiryDate, typeIdentifier: typeIdentifier)
+        cacher.cache(anotherContainer, for: "Second-Idempotency-Key")
 
-        cacher.cache(.pending(expiry: expiryDate), for: "Third-Idempotency-Key")
+        let thirdContainer = IdempotencyResultContainer<String, SimpleError>(idempotencyResult: .pending,
+                                                                             expiry: expiryDate, typeIdentifier: typeIdentifier)
+        cacher.cache(thirdContainer, for: "Third-Idempotency-Key")
 
         let cachedValues = cacher.getCachedValues()
 
@@ -52,7 +60,7 @@ class UserDefaultsCacherTests: XCTestCase {
         XCTAssertNotNil(secondResult)
         XCTAssertNotNil(thirdResult)
 
-        if case let .fulfilled(firstFulfilled, _)? = firstResult {
+        if case let .fulfilled(firstFulfilled)? = firstResult?.idempotencyResult {
             switch firstFulfilled {
             case .failure: XCTFail("The first cached value should not correspond to a failure")
             case let .success(successValue): XCTAssertEqual(successValue, value, "The correct value should be returned when caching a successful result")
@@ -61,7 +69,7 @@ class UserDefaultsCacherTests: XCTestCase {
             XCTFail("The first cached value should correspond a fulfilled value")
         }
 
-        if case let .fulfilled(secondFulfilled, _)? = secondResult {
+        if case let .fulfilled(secondFulfilled)? = secondResult?.idempotencyResult {
             switch secondFulfilled {
             case let .failure(error): XCTAssertEqual(error.description, anotherValue.description)
             case .success: XCTFail("The second cached value should not correspond to a success")
@@ -70,23 +78,28 @@ class UserDefaultsCacherTests: XCTestCase {
             XCTFail("The second cached value should correspond a fulfilled value")
         }
 
-        if case .fulfilled? = thirdResult {
+        if case .fulfilled? = thirdResult?.idempotencyResult {
             XCTFail("The third cached value should correspond to a pending result")
         }
     }
 
     func testReplacesCachedValue() throws {
         let key = "First-Idempotency-Key"
-        cacher.cache(.pending(expiry: expiryDate), for: key)
+        let typeIdentifier = "Type-ID"
+
+        let pendingContainer = IdempotencyResultContainer<String, SimpleError>(idempotencyResult: .pending,
+                                                                               expiry: expiryDate, typeIdentifier: typeIdentifier)
+        cacher.cache(pendingContainer, for: key)
 
         let resultValue = "Success result"
-        let result = IdempotencyResult<String, SimpleError>.fulfilled(result: Result.success(resultValue), expiry: expiryDate)
-        cacher.cache(result, for: key)
+        let result = IdempotencyResult<String, SimpleError>.fulfilled(result: Result.success(resultValue))
+        let resultContainer = IdempotencyResultContainer(idempotencyResult: result, expiry: expiryDate, typeIdentifier: typeIdentifier)
+        cacher.cache(resultContainer, for: key)
 
         let cachedValues = cacher.getCachedValues()
         XCTAssertNotNil(cachedValues[key])
 
-        if case let .fulfilled(fulfilled, _)? = cachedValues[key] {
+        if case let .fulfilled(fulfilled)? = cachedValues[key]?.idempotencyResult {
             XCTAssertEqual(try fulfilled.get(), resultValue)
         } else {
             XCTFail("The cached value should be a fulfilled one")
@@ -96,12 +109,16 @@ class UserDefaultsCacherTests: XCTestCase {
     func testDealsWithLargeNumberOfCachedValues() {
         var keys: Set<String> = []
         let numberOfKeys = 1000
+        let typeIdentifier = "Type-ID"
 
         for _ in 0..<numberOfKeys {
             let key = UUID().uuidString
             keys.insert(key)
 
-            cacher.cache(.fulfilled(result: .success(key), expiry: expiryDate), for: key)
+            let container = IdempotencyResultContainer<String, SimpleError>(idempotencyResult: .fulfilled(result: .success(key)),
+                                                                            expiry: expiryDate,
+                                                                            typeIdentifier: typeIdentifier)
+            cacher.cache(container, for: key)
         }
 
         let cachedValues = cacher.getCachedValues()

@@ -9,7 +9,7 @@
 import Foundation
 
 class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplicationFailureProviding, C: Cacher>
-    where C.Key == String, C.Value == IdempotencyResult<T, U> {
+    where C.Key == String, C.Value == IdempotencyResultContainer<T, U> {
     private let cacher: C
     private let dateProvider: DateProviding
 
@@ -20,22 +20,21 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
         cacher.purgeExpiredValues()
         self.idempotencyResults = cacher.getCachedValues()
             .filter {
-                switch $0.value {
-                case let .fulfilled(_, expiry): fallthrough
-                case let .pending(expiry): return expiry > dateProvider.currentDate
-                }
+                $0.value.expiry > dateProvider.currentDate
             }
             .mapValues { value in
-                if case let .pending(expiry) = value {
+                if case .pending = value.idempotencyResult {
                     let error = U.createErrorForPendingRequestSinceLastStart()
-                    return .fulfilled(result: Result<T, U>.failure(error), expiry: expiry)
+                    return IdempotencyResultContainer(idempotencyResult: .fulfilled(result: Result<T, U>.failure(error)),
+                                                      expiry: value.expiry,
+                                                      typeIdentifier: value.typeIdentifier)
                 }
 
                 return value
             }
     }
 
-    private var idempotencyResults = [String: IdempotencyResult<T, U>]()
+    private var idempotencyResults = [String: IdempotencyResultContainer<T, U>]()
     private let idempotencyResultsLock = DispatchSemaphore(value: 1)
     /// Completions that should be called once a _started_ idempotency mechanism for a key completes.
     /// This is used in the cases where another request is started while a given request is running.
@@ -54,7 +53,9 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
     ///   - key: The idempotency key that the result should be fetched or session should be started for
     ///   - completion: The completion to enqueue to an internal list of completions for the result for the given idempotency key if it is pending
     /// - Returns: An idempotency result if one could be found or nil if none is present and a new session has been started
-    func getIdempotencyResultOrStartSession(for key: String, potentiallyEnqueueing completion: @escaping (Result<T, U>) -> Void) -> IdempotencyResult<T, U>? {
+    func getIdempotencyResultOrStartSession(for key: String,
+                                            potentiallyEnqueueing completion: @escaping (Result<T, U>) -> Void,
+                                            typeIdentifier: String) throws -> IdempotencyResult<T, U>? {
         self.locksLock.wait()
         let lock = locks[key]
         locksLock.signal()
@@ -71,7 +72,10 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
             locksLock.signal()
             lock.wait()
 
-            idempotencyResults[key] = .pending(expiry: dateProvider.expiryDate)
+            let newIdempotencyResult = IdempotencyResultContainer(idempotencyResult: IdempotencyResult<T, U>.pending,
+                                                                  expiry: dateProvider.expiryDate,
+                                                                  typeIdentifier: typeIdentifier)
+            idempotencyResults[key] = newIdempotencyResult
             idempotencyResultsLock.signal()
 
             enqueuedCompletionsForKeyLock.wait()
@@ -80,14 +84,14 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
 
             lock.signal()
 
-            cacher.cache(.pending(expiry: dateProvider.expiryDate), for: key)
+            cacher.cache(newIdempotencyResult, for: key)
 
             return nil
         }
 
         self.idempotencyResultsLock.signal()
 
-        switch result {
+        switch result.idempotencyResult {
         // If the result is already fulfilled, alas there is no currently running request for this idempotency key
         // we should just return the result directly and free the lock.
         case .fulfilled:
@@ -104,7 +108,10 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
         // currently running request to finish up.
         lock?.signal()
 
-        return result
+        guard result.typeIdentifier == typeIdentifier
+        else { throw MobilabPaymentError.other(GenericErrorDetails(description: "Idempotency key used for different payment method types. That's illegal.")) }
+
+        return result.idempotencyResult
     }
 
     /// Set a result for a given idempotency key and thereby end the current request for that key
@@ -118,42 +125,59 @@ class IdempotencyManager<T: Codable, U: Error & Codable & IdempotencyApplication
         locksLock.signal()
         lock?.wait()
 
-        let idempotencyResult = IdempotencyResult.fulfilled(result: result, expiry: dateProvider.expiryDate)
+        let idempotencyResult = IdempotencyResult.fulfilled(result: result)
+        let idempotencyResultContainer: IdempotencyResultContainer<T, U>
 
         idempotencyResultsLock.wait()
-        idempotencyResults[key] = idempotencyResult
-        idempotencyResultsLock.signal()
 
-        enqueuedCompletionsForKeyLock.wait()
-        enqueuedCompletionsForKey[key]?.forEach({ completion in
+        // Get the previously saved result
+        if let oldResult = idempotencyResults[key] {
+            idempotencyResultContainer = IdempotencyResultContainer(idempotencyResult: idempotencyResult,
+                                                                    expiry: oldResult.expiry,
+                                                                    typeIdentifier: oldResult.typeIdentifier)
+            self.idempotencyResults[key] = idempotencyResultContainer
+        } else {
+            self.idempotencyResultsLock.signal()
+            return
+        }
+
+        self.idempotencyResultsLock.signal()
+
+        self.enqueuedCompletionsForKeyLock.wait()
+        self.enqueuedCompletionsForKey[key]?.forEach({ completion in
             self.completionQueue.async {
                 completion(result)
             }
         })
-        enqueuedCompletionsForKey[key] = nil
-        enqueuedCompletionsForKeyLock.signal()
+        self.enqueuedCompletionsForKey[key] = nil
+        self.enqueuedCompletionsForKeyLock.signal()
 
         lock?.signal()
 
-        cacher.cache(idempotencyResult, for: key)
+        self.cacher.cache(idempotencyResultContainer, for: key)
     }
 }
 
+struct IdempotencyResultContainer<T: Codable, U: Error & Codable>: Codable {
+    let idempotencyResult: IdempotencyResult<T, U>
+    let expiry: Date
+    let typeIdentifier: String
+}
+
 enum IdempotencyResult<T: Codable, U: Error & Codable>: Codable {
-    case pending(expiry: Date)
-    case fulfilled(result: Result<T, U>, expiry: Date)
+    case pending
+    case fulfilled(result: Result<T, U>)
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: IdempotencyResultKey.self)
         let type = try container.decode(String.self, forKey: .type)
-        let expiry = try container.decode(Date.self, forKey: .expiryDate)
 
         switch type {
         case "PENDING":
-            self = .pending(expiry: expiry)
+            self = .pending
         case "FULFILLED":
             let resultContaining = try container.decode(ResultContaining<T, U>.self, forKey: .result)
-            self = .fulfilled(result: resultContaining.result, expiry: expiry)
+            self = .fulfilled(result: resultContaining.result)
         default:
             throw DecodingError.dataCorruptedError(forKey: .type, in: container,
                                                    debugDescription: "Could not decode IdempotencyResult for unknown type \(type)")
@@ -164,13 +188,11 @@ enum IdempotencyResult<T: Codable, U: Error & Codable>: Codable {
         var container = encoder.container(keyedBy: IdempotencyResultKey.self)
 
         switch self {
-        case let .fulfilled(result, expiry):
+        case let .fulfilled(result):
             try container.encode("FULFILLED", forKey: .type)
-            try container.encode(expiry, forKey: .expiryDate)
             try container.encode(ResultContaining(result: result), forKey: .result)
-        case let .pending(expiry):
+        case .pending:
             try container.encode("PENDING", forKey: .type)
-            try container.encode(expiry, forKey: .expiryDate)
         }
     }
 
