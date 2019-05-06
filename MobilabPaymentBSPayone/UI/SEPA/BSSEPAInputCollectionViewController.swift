@@ -32,7 +32,7 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nameCell = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
+        let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
                                                                  secondNecessaryData: .holderLastName,
@@ -41,7 +41,7 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                                  setup: nil,
                                                                  didUpdate: nil)
         
-        let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
+        let ibanData = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
                                                            placeholder: "XX123",
                                                            setup: nil,
@@ -50,27 +50,27 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                             textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
         
-        let bicCell = FormCellModel.FormCellType.TextData(necessaryData: .bic,
+        let bicData = FormCellModel.FormCellType.TextData(necessaryData: .bic,
                                                           title: "BIC",
                                                           placeholder: "XXX",
                                                           setup: nil,
                                                           didFocus: nil,
                                                           didUpdate: nil)
         
-        let countryCell = FormCellModel.FormCellType.TextData(necessaryData: .country,
+        let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
                                                               title: "Country",
                                                               placeholder: "Country",
                                                               setup: nil,
                                                               didFocus:  { [weak self] textField in
-                                                                self?.showCountrySelection()
+                                                                self?.showCountryListing()
             },
                                                               didUpdate: nil)
         
         setCellModel(cellModels:  [
-            FormCellModel(type: .pairedText(nameCell)),
-            FormCellModel(type: .text(ibanCell)),
-            FormCellModel(type: .text(bicCell)),
-            FormCellModel(type: .text(countryCell))
+            FormCellModel(type: .pairedText(nameData)),
+            FormCellModel(type: .text(ibanData)),
+            FormCellModel(type: .text(bicData)),
+            FormCellModel(type: .text(countryData))
             ])
 
     }

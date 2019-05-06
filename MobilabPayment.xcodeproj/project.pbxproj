@@ -132,6 +132,10 @@
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
+		C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */; };
+		C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */; };
+		C49F49D9227C35A500D3A986 /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = C49F49D8227C35A500D3A986 /* Countries.plist */; };
+		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
 		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
@@ -484,6 +488,10 @@
 		C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedTextInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		C41CB8F122774ADB0009F744 /* NameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameProviding.swift; sourceTree = "<group>"; };
 		C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNameProvider.swift; sourceTree = "<group>"; };
+		C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewController.swift; sourceTree = "<group>"; };
+		C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewCell.swift; sourceTree = "<group>"; };
+		C49F49D8227C35A500D3A986 /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
+		C49F49DC227C9AA400D3A986 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
 		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
 		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1204,11 +1212,13 @@
 			children = (
 				E162FFC32243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift */,
 				E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */,
+				C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */,
 				E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */,
 				E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */,
 				E162FF892243945A00413764 /* CustomTextField.swift */,
 				E162FF8D22439CD900413764 /* SubtitleLabel.swift */,
 				E162FFB92243CCE400413764 /* TitleHeaderView.swift */,
+				C49F49DC227C9AA400D3A986 /* HeaderView.swift */,
 				E1209BC12248DFE10060CD63 /* ErrorLabel.swift */,
 				E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */,
 				C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */,
@@ -1335,6 +1345,7 @@
 		E162FFBD2243CD0500413764 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C49F49D8227C35A500D3A986 /* Countries.plist */,
 				E162FFB72243C0F500413764 /* Fonts */,
 				E162FFA72243A76700413764 /* Media.xcassets */,
 			);
@@ -1375,6 +1386,7 @@
 				E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */,
 				E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */,
 				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
+				C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1716,6 +1728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1068EA222522BF200ACC93C /* Media.xcassets in Resources */,
+				C49F49D9227C35A500D3A986 /* Countries.plist in Resources */,
 				E1068EA422522BF600ACC93C /* Lato-Black.ttf in Resources */,
 				E1068EA622522BF600ACC93C /* Lato-Regular.ttf in Resources */,
 				E1068EA322522BF600ACC93C /* Lato-Medium.ttf in Resources */,
@@ -1892,6 +1905,7 @@
 				BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */,
 				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
 				E1995B3522562C4E00BF24A2 /* NetworkErrorDetails.swift in Sources */,
+				C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */,
 				E1995B3122562A5200BF24A2 /* TemporaryErrorDetails.swift in Sources */,
 				BAD64631222E840D00771DC0 /* AliasExtra.swift in Sources */,
 				1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */,
@@ -1932,6 +1946,7 @@
 				E1068EA022522B2000ACC93C /* TitleHeaderView.swift in Sources */,
 				BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */,
 				BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */,
+				C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */,
 				BAA98270224A4CF000D551DE /* LoadingViewController.swift in Sources */,
 				BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */,
 				C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */,
@@ -1939,6 +1954,7 @@
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
 				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
 				E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */,
+				C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */,
 				BA6D677222442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift in Sources */,
 				1DC5CBCA20D410F9002058C1 /* MobilabPaymentSDK.swift in Sources */,
 				E1068E9D22522B2000ACC93C /* DoneButtonView.swift in Sources */,

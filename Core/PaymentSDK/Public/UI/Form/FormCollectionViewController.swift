@@ -67,12 +67,10 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.cellModels = cellModels
     }
     
-    public func showCountrySelection() {
-            let countryVC = UIViewController()
-            countryVC.title = "Country"
-        countryVC.view.backgroundColor = .white
+    public func showCountryListing() {
+        let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
+            let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
             self.navigationController?.pushViewController(countryVC, animated: true)
-            self.navigationItem.title = "Select Country"
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {

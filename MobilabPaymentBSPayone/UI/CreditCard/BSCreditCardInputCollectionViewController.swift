@@ -154,8 +154,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                    placeholder: "Country",
                                                                    setup: nil,
                                                                    didFocus: { [weak self] textField in
-                                                                        self?.showCountrySelection()
-                                                                    },
+                                                                    self?.showCountryListing()
+            },
                                                                    didUpdate: nil)
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),

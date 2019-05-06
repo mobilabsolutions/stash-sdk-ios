@@ -26,7 +26,7 @@ class RegistrationFlowNavigationController: UINavigationController {
 
     private func sharedInit() {
         self.topViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIConstants.closeButtonImage, style: .plain, target: self, action: #selector(self.cancel))
-        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+
         self.navigationBar.shadowImage = UIImage()
         self.navigationBar.isTranslucent = true
         self.view.backgroundColor = .clear

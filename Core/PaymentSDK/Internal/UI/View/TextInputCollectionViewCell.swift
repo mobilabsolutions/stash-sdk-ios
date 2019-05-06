@@ -181,7 +181,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     @objc private func textFieldReceivedFocus() {
         textFieldFocusGainCallback?(self.textField)
-        if dataType == .country {
+        if textEntryBySelection == true {
             self.textField.resignFirstResponder()
         }
     }
