@@ -11,6 +11,15 @@ import Foundation
 enum RouterServiceCore {
     case createAlias(CreateAliasRequest)
     case updateAlias(UpdateAliasRequest)
+
+    var idempotencyKey: String {
+        switch self {
+        case let .createAlias(request):
+            return request.idempotencyKey
+        case let .updateAlias(request):
+            return request.idempotencyKey
+        }
+    }
 }
 
 struct RouterRequestCore: RouterRequestProtocol {
@@ -89,10 +98,9 @@ struct RouterRequestCore: RouterRequestProtocol {
     }
 
     func getHeaders() -> [Header] {
-        #warning("Update this once idempotency mechanism is implemented")
         var headers = [
             Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey),
-            Header(field: "Idempotent-Key", value: UUID().uuidString),
+            Header(field: "Idempotent-Key", value: service.idempotencyKey),
         ]
 
         if InternalPaymentSDK.sharedInstance.configuration.useTestMode {

@@ -14,7 +14,7 @@ public struct FormCellModel {
     var necessaryData: [NecessaryData] {
         switch self.type {
         case let .text(data): return [data.necessaryData]
-        case let .pairedText(data): return[data.firstNecessaryData, data.secondNecessaryData]
+        case let .pairedText(data): return [data.firstNecessaryData, data.secondNecessaryData]
         case .dateCVV: return [.expirationMonth, .expirationYear, .cvv]
         }
     }
@@ -47,7 +47,7 @@ public struct FormCellModel {
                 self.placeholder = placeholder
             }
         }
-        
+
         public struct PairedTextData {
             public let firstNecessaryData: NecessaryData
             public let firstTitle: String
@@ -57,7 +57,7 @@ public struct FormCellModel {
             public let secondPlaceholder: String
             public let setup: ((NecessaryData, UITextField) -> Void)?
             public let didUpdate: ((NecessaryData, UITextField) -> Void)?
-            
+
             public init(firstNecessaryData: NecessaryData,
                         firstTitle: String,
                         firstPlaceholder: String,

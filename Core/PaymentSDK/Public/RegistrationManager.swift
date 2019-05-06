@@ -22,7 +22,10 @@ public class RegistrationManager {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion)
+        internalManager.addMethod(paymentMethod: paymentMethod,
+                                  idempotencyKey: idempotencyKey,
+                                  completion: completion,
+                                  methodType: .creditCard)
     }
 
     /// Register a SEPA account
@@ -37,7 +40,10 @@ public class RegistrationManager {
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion)
+        internalManager.addMethod(paymentMethod: paymentMethod,
+                                  idempotencyKey: idempotencyKey,
+                                  completion: completion,
+                                  methodType: .sepa)
     }
 
     /// Starts the flow for PayPal registration
@@ -52,7 +58,11 @@ public class RegistrationManager {
         let paymentMethod = PaymentMethod(methodData: PayPalData(nonce: nil), type: .payPal)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion, presentingViewController: presentingViewController)
+        internalManager.addMethod(paymentMethod: paymentMethod,
+                                  idempotencyKey: idempotencyKey,
+                                  completion: completion,
+                                  presentingViewController: presentingViewController,
+                                  methodType: .payPal)
     }
 
     /// Allow the user to select a payment method type and input its data from module-generated UI

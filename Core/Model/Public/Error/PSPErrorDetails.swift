@@ -12,3 +12,5 @@ public struct PSPErrorDetails: TitleProviding, CustomStringConvertible {
     public let description: String
     public let title: String = "PSP Error"
 }
+
+extension PSPErrorDetails: Codable {}

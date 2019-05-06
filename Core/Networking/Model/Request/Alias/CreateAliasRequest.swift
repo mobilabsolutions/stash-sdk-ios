@@ -11,4 +11,5 @@ import Foundation
 struct CreateAliasRequest: Codable {
     let pspType: String
     let aliasDetail: AliasCreationDetail?
+    let idempotencyKey: String
 }
