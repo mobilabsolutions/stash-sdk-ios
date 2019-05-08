@@ -31,6 +31,8 @@ class CountryListCollectionViewController: UIViewController {
     
     weak var delegate: CountryListCollectionViewControllerProtocol?
     
+    var currentLocation: String?
+    
     private typealias GroupedCountries = Dictionary<String, [String]>
     
     private let resourceFileName = "Countries"
@@ -76,8 +78,10 @@ class CountryListCollectionViewController: UIViewController {
         return cv
     }()
     
-    init(configuration: PaymentMethodUIConfiguration) {
+    init(currentLocation: String, configuration: PaymentMethodUIConfiguration) {
+        self.currentLocation = !currentLocation.isEmpty ? currentLocation : defaultCurrentLocation
         self.configuration = configuration
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,7 +130,7 @@ class CountryListCollectionViewController: UIViewController {
                                 
             }, configuration: self.configuration)
         
-        self.countries = [HeaderType.CurrentLocation.title : [defaultCurrentLocation]]
+        self.countries = [HeaderType.CurrentLocation.title : [self.currentLocation!]]
         
         self.searchView.delegate = self
         

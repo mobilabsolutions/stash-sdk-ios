@@ -67,13 +67,14 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.cellModels = cellModels
     }
     
-    var selectedTextField: UITextField?
+    private var selectedTextField: UITextField?
     public func showCountryListing(textField: UITextField) {
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
-            let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
-            countryVC.delegate = self
-            selectedTextField = textField
-            self.navigationController?.pushViewController(countryVC, animated: true)
+        let currentLocation = textField.text ?? ""
+        let countryVC = CountryListCollectionViewController(currentLocation: currentLocation, configuration: uiConfiguration)
+        countryVC.delegate = self
+        selectedTextField = textField
+        self.navigationController?.pushViewController(countryVC, animated: true)
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
