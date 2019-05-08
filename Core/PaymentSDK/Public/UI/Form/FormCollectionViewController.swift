@@ -67,9 +67,12 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.cellModels = cellModels
     }
     
-    public func showCountryListing() {
+    var selectedTextField: UITextField?
+    public func showCountryListing(textField: UITextField) {
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
             let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
+            countryVC.delegate = self
+            selectedTextField = textField
             self.navigationController?.pushViewController(countryVC, animated: true)
     }
 
@@ -258,5 +261,14 @@ extension FormCollectionViewController: NextCellSwitcher {
         else { return }
 
         nextCell.selectCell()
+    }
+}
+
+extension FormCollectionViewController: CountryListCollectionViewControllerProtocol {
+    func didSelectCountry(name: String) {
+        didUpdate(value: name, for: NecessaryData.country)
+            selectedTextField?.text = name
+//        didChangeText(value: name)
+//        selectedTextField.didupdat
     }
 }

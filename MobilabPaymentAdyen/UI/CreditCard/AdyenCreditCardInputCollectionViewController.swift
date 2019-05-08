@@ -150,7 +150,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
-                                                expiryYear: parsedData.expirationYear,
+                                                expiryYear: parsedData.expirationYear, country: nil,
                                                 billingData: self.billingData ?? BillingData())
 
             self.didCreatePaymentMethodCompletion?(creditCard)

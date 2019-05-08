@@ -136,6 +136,8 @@
 		C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */; };
 		C49F49D9227C35A500D3A986 /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = C49F49D8227C35A500D3A986 /* Countries.plist */; };
 		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
+		C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DE22806BFA00D3A986 /* SearchView.swift */; };
+		C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49E022819C6900D3A986 /* UIView+Extensions.swift */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
 		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
@@ -492,6 +494,8 @@
 		C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewCell.swift; sourceTree = "<group>"; };
 		C49F49D8227C35A500D3A986 /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		C49F49DC227C9AA400D3A986 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C49F49DE22806BFA00D3A986 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C49F49E022819C6900D3A986 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
 		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
 		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -899,6 +903,7 @@
 				E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */,
 				BA6D67922244683900463E0F /* FatalErrorAssertion.swift */,
 				E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */,
+				C49F49E022819C6900D3A986 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1214,6 +1219,7 @@
 				E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */,
 				C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */,
 				E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */,
+				C49F49DE22806BFA00D3A986 /* SearchView.swift */,
 				E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */,
 				E162FF892243945A00413764 /* CustomTextField.swift */,
 				E162FF8D22439CD900413764 /* SubtitleLabel.swift */,
@@ -1891,6 +1897,7 @@
 				E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */,
 				BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */,
 				E17648F3223A6D2F00889920 /* PaymentMethodDataProvider.swift in Sources */,
+				C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */,
 				E1068E9822522AE100ACC93C /* DataPointProvidingDelegate.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
 				E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */,
@@ -1930,6 +1937,7 @@
 				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
 				C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */,
 				E1068EB222533D3700ACC93C /* FormConsumer.swift in Sources */,
+				C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */,
 				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
 				E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */,

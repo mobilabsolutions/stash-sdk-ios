@@ -182,7 +182,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     @objc private func textFieldReceivedFocus() {
         textFieldFocusGainCallback?(self.textField)
         if textEntryBySelection == true {
-            self.textField.resignFirstResponder()
+            self.endEditing(true)
         }
     }
 

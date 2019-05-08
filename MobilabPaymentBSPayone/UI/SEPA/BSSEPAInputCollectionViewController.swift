@@ -10,6 +10,10 @@ import MobilabPaymentCore
 import UIKit
 
 class BSSEPAInputCollectionViewController: FormCollectionViewController {
+    private var configuration: PaymentMethodUIConfiguration?
+
+    private var textFieldCountry: UITextField?
+
     private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
@@ -26,6 +30,7 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
         
         super.init(billingData: billingData, configuration: configuration, formTitle: "SEPA")
 
+        self.configuration = configuration
         self.formConsumer = self
     }
     
@@ -62,9 +67,14 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                               placeholder: "Country",
                                                               setup: nil,
                                                               didFocus:  { [weak self] textField in
-                                                                self?.showCountryListing()
+                                                                guard let newSelf = self else { return }
+//                                                                self?.showCountryListing()
+                                                                newSelf.showCountryListing(textField: textField)
+                                                                newSelf.textFieldCountry = textField
             },
-                                                              didUpdate: nil)
+                                                              didUpdate: { _, textField in
+                                                                print("Did update....")
+        })
         
         setCellModel(cellModels:  [
             FormCellModel(type: .pairedText(nameData)),
@@ -78,6 +88,16 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    private func showCountryListing() {
+//        guard let uiConfiguration = configuration else {
+//            fatalError("No UI Configuration")
+//        }
+//
+//        let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
+//        self.navigationController?.pushViewController(countryVC, animated: true)
+//        countryVC.delegate = self
+//    }
 }
 
 extension BSSEPAInputCollectionViewController: FormConsumer {
@@ -99,6 +119,10 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         if data[.holderLastName] == nil || data[.holderLastName]?.isEmpty == true {
             errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
+        
+        if data[.country] == nil || data[.country]?.isEmpty == true {
+            errors[.country] = SEPAValidationError.noData(explanation: "Please provide a valid country name")
+        }
 
         guard let iban = data[.iban],
             let bic = data[.bic],
@@ -115,7 +139,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: billingData?.country,
+                                         country: textFieldCountry?.text,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 
@@ -131,3 +155,11 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         }
     }
 }
+
+
+//extension BSSEPAInputCollectionViewController: CountryListCollectionViewControllerProtocol {
+//    func didSelectCountry(name: String) {
+//        print("Country for BSPayone: \(name)")
+//        textFieldCountry?.text = name
+//    }
+//}
