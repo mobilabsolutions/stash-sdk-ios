@@ -179,11 +179,17 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         self.backgroundColor = .white
     }
 
+    private var lastFocusedTextField: UITextField?
+
     @objc private func textFieldReceivedFocus() {
-        textFieldFocusGainCallback?(self.textField)
-        if textEntryBySelection == true {
+        //It's a fix for preventing to send repeated focus callbacks and closing the keyboard properly (required for country selection scenario)
+        if textEntryBySelection == true && lastFocusedTextField != nil {
             self.endEditing(true)
+            lastFocusedTextField = nil
+            return
         }
+        lastFocusedTextField = self.textField
+        textFieldFocusGainCallback?(self.textField)
     }
 
     @objc private func didUpdateTextFieldText() {
@@ -209,6 +215,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         self.placeholder = nil
         self.text = nil
         self.textEntryBySelection = false
+        self.lastFocusedTextField = nil
     }
 }
 

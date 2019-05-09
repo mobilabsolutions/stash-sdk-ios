@@ -26,7 +26,10 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XXX"].tap()
         collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
 
-        app.collectionViews.firstMatch.tap()
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
+//        app.collectionViews.firstMatch.tap()
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
@@ -55,6 +58,9 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["CVV"].tap()
         collectionViewsQuery.textFields["CVV"].typeText("123")
 
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+        
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
@@ -93,6 +99,9 @@ class BSPayoneUITests: BaseUITest {
 
         collectionViewsQuery.textFields["CVV"].tap()
         collectionViewsQuery.textFields["CVV"].typeText("123")
+        
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()

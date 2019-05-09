@@ -12,8 +12,8 @@ import UIKit
 class BSSEPAInputCollectionViewController: FormCollectionViewController {
     private var configuration: PaymentMethodUIConfiguration?
 
-    private var textFieldCountry: UITextField?
-
+    private var country: String? = nil
+    
     private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
@@ -67,13 +67,11 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                               placeholder: "Country",
                                                               setup: nil,
                                                               didFocus:  { [weak self] textField in
-                                                                guard let newSelf = self else { return }
-//                                                                self?.showCountryListing()
-                                                                newSelf.showCountryListing(textField: textField)
-                                                                newSelf.textFieldCountry = textField
+                                                                guard let self = self else { return }
+                                                                self.showCountryListing(textField: textField)
             },
                                                               didUpdate: { _, textField in
-                                                                print("Did update....")
+                                                                self.country = textField.text
         })
         
         setCellModel(cellModels:  [
@@ -88,16 +86,6 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    private func showCountryListing() {
-//        guard let uiConfiguration = configuration else {
-//            fatalError("No UI Configuration")
-//        }
-//
-//        let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
-//        self.navigationController?.pushViewController(countryVC, animated: true)
-//        countryVC.delegate = self
-//    }
 }
 
 extension BSSEPAInputCollectionViewController: FormConsumer {
@@ -139,7 +127,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: textFieldCountry?.text,
+                                         country: country,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 
@@ -156,10 +144,3 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
     }
 }
 
-
-//extension BSSEPAInputCollectionViewController: CountryListCollectionViewControllerProtocol {
-//    func didSelectCountry(name: String) {
-//        print("Country for BSPayone: \(name)")
-//        textFieldCountry?.text = name
-//    }
-//}

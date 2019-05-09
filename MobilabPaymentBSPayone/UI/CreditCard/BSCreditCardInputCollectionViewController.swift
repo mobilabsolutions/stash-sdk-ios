@@ -15,7 +15,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     
     private var configuration: PaymentMethodUIConfiguration?
     
-    private var textFieldCountry: UITextField?
+    private var country: String? = nil
     
     private enum CreditCardValidationError: ValidationError {
         case noData(explanation: String)
@@ -165,11 +165,11 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                    placeholder: "Country",
                                                                    setup: nil,
                                                                    didFocus: { [weak self] textField in
-                                                                    guard let newSelf = self else { return }
-                                                                    newSelf.showCountryListing(textField: textField)
-                                                                    self?.textFieldCountry = textField
+                                                                    self?.showCountryListing(textField: textField)
             },
-                                                                   didUpdate: nil)
+                                                                   didUpdate: {[weak self] _, textField in
+                                                                    self?.country = textField.text
+        })
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
@@ -181,16 +181,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
-    
-//    private func showCountryListing() {
-//        guard let uiConfiguration = configuration else {
-//            fatalError("No UI Configuration")
-//        }
-//
-////        let countryVC = CountryListCollectionViewController(configuration: uiConfiguration)
-//        self.navigationController?.pushViewController(countryVC, animated: true)
-//        countryVC.delegate = self
-//    }
 }
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
@@ -201,7 +191,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
                                                       expirationYearText: data[.expirationYear],
-                                                      countryText: textFieldCountry?.text)
+                                                      countryText: country)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
@@ -216,7 +206,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
                                                 holderName: parsedData.name.fullName,
-                                                country: textFieldCountry?.text,
+                                                country: country,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil
@@ -229,10 +219,3 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
         }
     }
 }
-//
-//extension BSCreditCardInputCollectionViewController: CountryListCollectionViewControllerProtocol {
-//    func didSelectCountry(name: String) {
-//        print("Country for Credit card: \(name)")
-//        textFieldCountry?.text = name
-//    }
-//}

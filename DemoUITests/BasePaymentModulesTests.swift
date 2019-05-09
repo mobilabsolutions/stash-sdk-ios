@@ -45,6 +45,9 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV"].tap()
         collectionViewsQuery.textFields["CVV"].typeText("123")
 
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+        
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
@@ -70,6 +73,9 @@ class BasePaymentModulesTests: BaseUITest {
 
         collectionViewsQuery.textFields["CVV"].tap()
         collectionViewsQuery.textFields["CVV"].typeText("12345")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -117,7 +123,9 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XXX"].tap()
         collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
 
-        app.collectionViews.firstMatch.tap()
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
@@ -146,6 +154,9 @@ class BasePaymentModulesTests: BaseUITest {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.keys["C"].tap()
 
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+        
         // Tap on the "continue" keyboard button
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
 
@@ -160,7 +171,12 @@ class BasePaymentModulesTests: BaseUITest {
 
         guard let bicText = collectionViewsQuery.textFields["XXX"].value as? String
         else { XCTFail("Could not retrieve string value from BIC text field"); return }
+        
+        guard let countryText = collectionViewsQuery.textFields["Country"].value as? String
+        else { XCTFail("Could not retrieve string value from Country text field"); return }
 
+        // This text should now be in the Country text field
+        XCTAssertEqual(countryText, "Germany")
         // This text should now be in the BIC text field
         XCTAssertEqual(bicText, "C")
         // This text should now be in the IBAN text field
