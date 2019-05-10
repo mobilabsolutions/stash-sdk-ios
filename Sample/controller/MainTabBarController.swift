@@ -31,13 +31,13 @@ class MainTabBarController: UITabBarController {
         // items
         let itemsVC = ItemsController(configuration: configuration)
 
-        let itemsNavController = self.templateNavController(tabTitle: "Items", tabImage: UIConstants.itemsImage, rootViewController: itemsVC)
+        let itemsNavController = self.templateNavigationController(tabTitle: "Items", tabImage: UIConstants.itemsImage, rootViewController: itemsVC)
 
         let paymentVC = PaymentController(configuration: configuration)
-        let paymentNavController = self.templateNavController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
+        let paymentNavController = self.templateNavigationController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
 
         let checkoutVC = CheckoutController(configuration: configuration)
-        let checkoutNavController = self.templateNavController(tabTitle: "Check-out", tabImage: UIConstants.checkoutImage, rootViewController: checkoutVC)
+        let checkoutNavController = self.templateNavigationController(tabTitle: "Check-out", tabImage: UIConstants.checkoutImage, rootViewController: checkoutVC)
 
         self.viewControllers = [itemsNavController, checkoutNavController, paymentNavController]
 
@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController {
         tabBar.barTintColor = self.configuration.cellBackgroundColor
     }
 
-    func templateNavController(tabTitle title: String, tabImage image: UIImage?, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
+    func templateNavigationController(tabTitle title: String, tabImage image: UIImage?, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
         let navController = CustomNavigationController(rootViewController: rootViewController)
         navController.tabBarItem.image = image
         navController.tabBarItem.title = title
