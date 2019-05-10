@@ -133,7 +133,6 @@
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
 		C42D567822842F8D00312CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D567722842F8D00312CC1 /* AppDelegate.swift */; };
-		C42D569F22842FAC00312CC1 /* UIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D568822842FA700312CC1 /* UIConfiguration.swift */; };
 		C42D56A022842FAC00312CC1 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D568922842FA700312CC1 /* UIConstants.swift */; };
 		C42D56A122842FAC00312CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D568A22842FA700312CC1 /* Assets.xcassets */; };
 		C42D56A222842FAC00312CC1 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C42D568C22842FA700312CC1 /* Lato-Bold.ttf */; };
@@ -142,14 +141,13 @@
 		C42D56A522842FAC00312CC1 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C42D568F22842FA700312CC1 /* Lato-Medium.ttf */; };
 		C42D56A622842FAC00312CC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D569122842FA800312CC1 /* LaunchScreen.storyboard */; };
 		C42D56A722842FAC00312CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D569322842FA800312CC1 /* Main.storyboard */; };
-		C42D56A822842FAC00312CC1 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569522842FA800312CC1 /* TitleHeaderView.swift */; };
-		C42D56A922842FAC00312CC1 /* SubTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569622842FA800312CC1 /* SubTitleLabel.swift */; };
 		C42D56AA22842FAC00312CC1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569822842FAA00312CC1 /* BaseCollectionViewController.swift */; };
 		C42D56AB22842FAC00312CC1 /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569922842FAA00312CC1 /* CheckoutController.swift */; };
 		C42D56AC22842FAC00312CC1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569A22842FAA00312CC1 /* MainTabBarController.swift */; };
 		C42D56AD22842FAC00312CC1 /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569B22842FAA00312CC1 /* ItemsController.swift */; };
 		C42D56AE22842FAC00312CC1 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569C22842FAA00312CC1 /* PaymentController.swift */; };
 		C42D56AF22842FAC00312CC1 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569D22842FAA00312CC1 /* CustomNavigationController.swift */; };
+		C42D56B02285944400312CC1 /* MobilabPaymentCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
 		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
@@ -512,7 +510,6 @@
 		C42D567522842F8D00312CC1 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D567722842F8D00312CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D568322842F8E00312CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C42D568822842FA700312CC1 /* UIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConfiguration.swift; sourceTree = "<group>"; };
 		C42D568922842FA700312CC1 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		C42D568A22842FA700312CC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42D568C22842FA700312CC1 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -521,8 +518,6 @@
 		C42D568F22842FA700312CC1 /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
 		C42D569222842FA800312CC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42D569422842FA800312CC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C42D569522842FA800312CC1 /* TitleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
-		C42D569622842FA800312CC1 /* SubTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTitleLabel.swift; sourceTree = "<group>"; };
 		C42D569822842FAA00312CC1 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		C42D569922842FAA00312CC1 /* CheckoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutController.swift; sourceTree = "<group>"; };
 		C42D569A22842FAA00312CC1 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -743,6 +738,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42D56B02285944400312CC1 /* MobilabPaymentCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,7 +1275,6 @@
 		C42D568722842FA700312CC1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C42D568822842FA700312CC1 /* UIConfiguration.swift */,
 				C42D568922842FA700312CC1 /* UIConstants.swift */,
 				C42D568A22842FA700312CC1 /* Assets.xcassets */,
 				C42D568B22842FA700312CC1 /* Fonts */,
@@ -1303,8 +1298,6 @@
 			children = (
 				C42D569122842FA800312CC1 /* LaunchScreen.storyboard */,
 				C42D569322842FA800312CC1 /* Main.storyboard */,
-				C42D569522842FA800312CC1 /* TitleHeaderView.swift */,
-				C42D569622842FA800312CC1 /* SubTitleLabel.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2221,10 +2214,7 @@
 			files = (
 				C42D56AF22842FAC00312CC1 /* CustomNavigationController.swift in Sources */,
 				C42D56AD22842FAC00312CC1 /* ItemsController.swift in Sources */,
-				C42D56A922842FAC00312CC1 /* SubTitleLabel.swift in Sources */,
-				C42D56A822842FAC00312CC1 /* TitleHeaderView.swift in Sources */,
 				C42D56AC22842FAC00312CC1 /* MainTabBarController.swift in Sources */,
-				C42D569F22842FAC00312CC1 /* UIConfiguration.swift in Sources */,
 				C42D56AA22842FAC00312CC1 /* BaseCollectionViewController.swift in Sources */,
 				C42D56AE22842FAC00312CC1 /* PaymentController.swift in Sources */,
 				C42D56AB22842FAC00312CC1 /* CheckoutController.swift in Sources */,
@@ -2489,7 +2479,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2516,7 +2506,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

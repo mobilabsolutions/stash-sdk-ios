@@ -6,29 +6,30 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
+import MobilabPaymentCore
 import UIKit
 
 class CheckoutController: BaseCollectionViewController {
-
     // MARK: - Properties
-    private let configuration: UIConfiguration
-    
+
+    private let configuration: PaymentMethodUIConfiguration
+
     // MARK: - Initializers
-    
-    init(configuration: UIConfiguration) {
+
+    override init(configuration: PaymentMethodUIConfiguration) {
         self.configuration = configuration
-        super.init(configuration: configuration, title: "Check-out")
+        super.init(configuration: configuration)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
+        setTitle(title: "Check-out")
     }
-    
+
     // MARK: - Helpers
-    
 }

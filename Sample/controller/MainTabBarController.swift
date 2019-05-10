@@ -6,60 +6,50 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
+import MobilabPaymentCore
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
     // MARK: - Properties
-    lazy var configuration = UIConfiguration()
 
-    
+    let configuration = PaymentMethodUIConfiguration()
+
     // MARK: - Initializers
-    
+
     convenience init() {
         self.init()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.delegate = self
-        
-        setupTabBar()
+        self.setupTabBar()
     }
 
     // MARK: - Helpers
-    
+
     private func setupTabBar() {
-        //items
+        // items
         let itemsVC = ItemsController(configuration: configuration)
-        let itemsNavController = templateNavController(title: "Items", imageName: "items", rootViewController: itemsVC)
+
+        let itemsNavController = self.templateNavController(tabTitle: "Items", tabImage: UIConstants.itemsImage, rootViewController: itemsVC)
 
         let paymentVC = PaymentController(configuration: configuration)
-        let paymentNavController = templateNavController(title: "Payment", imageName: "payment", rootViewController: paymentVC)
+        let paymentNavController = self.templateNavController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
 
         let checkoutVC = CheckoutController(configuration: configuration)
-        let checkoutNavController = templateNavController(title: "Checkout", imageName: "checkout", rootViewController: checkoutVC)
+        let checkoutNavController = self.templateNavController(tabTitle: "Check-out", tabImage: UIConstants.checkoutImage, rootViewController: checkoutVC)
 
         self.viewControllers = [itemsNavController, checkoutNavController, paymentNavController]
-        
-        tabBar.tintColor = configuration.buttonColor
-         #warning("Use color codes from Payment SDK")
-        tabBar.barTintColor = configuration.cellBackgroundColor
+
+        tabBar.tintColor = self.configuration.buttonColor
+        tabBar.barTintColor = self.configuration.cellBackgroundColor
     }
-    
-    func templateNavController(title: String, imageName: String, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
-        let navController  = CustomNavigationController(rootViewController: rootViewController)
-        navController.tabBarItem.image = UIImage(named: imageName)
+
+    func templateNavController(tabTitle title: String, tabImage image: UIImage?, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
+        let navController = CustomNavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.image = image
         navController.tabBarItem.title = title
-//        navController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font : UIConstants.defaultFont(of: 10, type: UIConstants.DefaultFontType.medium)], for: .normal)
+
         return navController
     }
 }
-
-//extension MainTabBarController: UITabBarControllerDelegate {
-//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        print("Here")
-//        return true
-//    }
-//}
