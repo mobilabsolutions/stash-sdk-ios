@@ -12,11 +12,11 @@ import UIKit
 class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     private static let methodTypeImageViewWidth: CGFloat = 30
     private static let methodTypeImageViewHeight: CGFloat = 22
-    
+
     private var configuration: PaymentMethodUIConfiguration?
-    
-    private var country: String? = nil
-    
+
+    private var country: String?
+
     private enum CreditCardValidationError: ValidationError {
         case noData(explanation: String)
         case creditCardValidationFailed(message: String)
@@ -77,7 +77,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
             if expirationMonthText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
                 errors[.expirationMonth] = .noData(explanation: "Please provide a valid expiration date")
             }
-            
+
             if countryText == nil {
                 errors[.country] = .noData(explanation: "Please provide country")
             }
@@ -109,23 +109,22 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                   cardNumber: cardNumber,
                                                   cvv: cvv,
                                                   expirationMonth: expirationMonth,
-                                                  expirationYear: expirationYear, country: country)
+                                                  expirationYear: expirationYear,
+                                                  country: country)
             return (parsedData, [:])
         }
     }
-    
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
         super.init(billingData: billingData, configuration: configuration, formTitle: "Credit Card")
-        
+
         self.configuration = configuration
         self.formConsumer = self
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -134,50 +133,49 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  secondPlaceholder: "Last Name",
                                                                  setup: nil,
                                                                  didUpdate: nil)
-        
+
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
                                                              title: "Credit card number",
                                                              placeholder: "1234",
                                                              setup: { _, textField in
-                                                                textField.rightViewMode = .always
-                                                                textField.textContentType = .creditCardNumber
-                                                                let imageView = UIImageView(frame: CGRect(x: 0,
-                                                                                                          y: 0,
-                                                                                                          width: BSCreditCardInputCollectionViewController.methodTypeImageViewWidth,
-                                                                                                          height: BSCreditCardInputCollectionViewController.methodTypeImageViewHeight))
-                                                                imageView.contentMode = .scaleAspectFit
-                                                                textField.rightView = imageView
-        },
+                                                                 textField.rightViewMode = .always
+                                                                 textField.textContentType = .creditCardNumber
+                                                                 let imageView = UIImageView(frame: CGRect(x: 0,
+                                                                                                           y: 0,
+                                                                                                           width: BSCreditCardInputCollectionViewController.methodTypeImageViewWidth,
+                                                                                                           height: BSCreditCardInputCollectionViewController.methodTypeImageViewHeight))
+                                                                 imageView.contentMode = .scaleAspectFit
+                                                                 textField.rightView = imageView
+                                                             },
                                                              didFocus: nil,
                                                              didUpdate: { _, textField in
-                                                                let imageView = textField.rightView as? UIImageView
-                                                                
-                                                                let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
-                                                                let image = possibleCardType != .unknown ? possibleCardType.image : nil
-                                                                imageView?.image = image
-                                                                
-                                                                textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
+                                                                 let imageView = textField.rightView as? UIImageView
+
+                                                                 let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
+                                                                 let image = possibleCardType != .unknown ? possibleCardType.image : nil
+                                                                 imageView?.image = image
+
+                                                                 textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
-        
 
         let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
-                                                                   title: "Country",
-                                                                   placeholder: "Country",
-                                                                   setup: nil,
-                                                                   didFocus: { [weak self] textField in
-                                                                    self?.showCountryListing(textField: textField)
-            },
-                                                                   didUpdate: {[weak self] _, textField in
-                                                                    self?.country = textField.text
+                                                              title: "Country",
+                                                              placeholder: "Country",
+                                                              setup: nil,
+                                                              didFocus: { [weak self] textField in
+                                                                  self?.showCountryListing(textField: textField)
+                                                              },
+                                                              didUpdate: { [weak self] _, textField in
+                                                                  self?.country = textField.text
         })
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
-            FormCellModel(type: .text(countryData))
-            ])
+            FormCellModel(type: .text(countryData)),
+        ])
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
@@ -191,7 +189,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
                                                       expirationYearText: data[.expirationYear],
-                                                      countryText: country)
+                                                      countryText: self.country)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
@@ -206,7 +204,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
                                                 holderName: parsedData.name.fullName,
-                                                country: country,
+                                                country: self.country,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil

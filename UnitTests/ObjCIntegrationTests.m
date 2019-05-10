@@ -142,7 +142,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                   zip:nil
                                                                  city:nil
                                                                 state:nil
-                                                              country:@"DE"
+                                                              country:@"Germany"
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
@@ -174,7 +174,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                   zip:nil
                                                                  city:nil
                                                                 state:nil
-                                                              country:@"DE"
+                                                              country:@"Germany"
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 

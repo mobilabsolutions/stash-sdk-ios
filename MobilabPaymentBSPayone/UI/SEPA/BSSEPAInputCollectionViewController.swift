@@ -12,8 +12,8 @@ import UIKit
 class BSSEPAInputCollectionViewController: FormCollectionViewController {
     private var configuration: PaymentMethodUIConfiguration?
 
-    private var country: String? = nil
-    
+    private var country: String?
+
     private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
@@ -27,16 +27,15 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
-        
         super.init(billingData: billingData, configuration: configuration, formTitle: "SEPA")
 
         self.configuration = configuration
         self.formConsumer = self
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -45,42 +44,40 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                                  secondPlaceholder: "Last Name",
                                                                  setup: nil,
                                                                  didUpdate: nil)
-        
+
         let ibanData = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
                                                            placeholder: "XX123",
                                                            setup: nil,
                                                            didFocus: nil,
                                                            didUpdate: { _, textField in
-                                                            textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
+                                                               textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
-        
+
         let bicData = FormCellModel.FormCellType.TextData(necessaryData: .bic,
                                                           title: "BIC",
                                                           placeholder: "XXX",
                                                           setup: nil,
                                                           didFocus: nil,
                                                           didUpdate: nil)
-        
+
         let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
                                                               title: "Country",
                                                               placeholder: "Country",
                                                               setup: nil,
-                                                              didFocus:  { [weak self] textField in
-                                                                guard let self = self else { return }
-                                                                self.showCountryListing(textField: textField)
-            },
-                                                              didUpdate: { _, textField in
-                                                                self.country = textField.text
+                                                              didFocus: { [weak self] textField in
+                                                                  self?.showCountryListing(textField: textField)
+                                                              },
+                                                              didUpdate: { [weak self] _, textField in
+                                                                  self?.country = textField.text
         })
-        
-        setCellModel(cellModels:  [
+
+        setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(ibanData)),
             FormCellModel(type: .text(bicData)),
-            FormCellModel(type: .text(countryData))
-            ])
-
+            FormCellModel(type: .text(countryData)),
+        ])
     }
 
     required init?(coder _: NSCoder) {
@@ -107,7 +104,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         if data[.holderLastName] == nil || data[.holderLastName]?.isEmpty == true {
             errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
-        
+
         if data[.country] == nil || data[.country]?.isEmpty == true {
             errors[.country] = SEPAValidationError.noData(explanation: "Please provide a valid country name")
         }
@@ -127,7 +124,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: country,
+                                         country: self.country,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 
@@ -143,4 +140,3 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         }
     }
 }
-

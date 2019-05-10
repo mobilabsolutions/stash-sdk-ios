@@ -36,6 +36,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
 
+    private weak var selectedCountryTextField: UITextField?
+
     public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
         self.configuration = configuration
@@ -66,14 +68,13 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.cellModels?.removeAll()
         self.cellModels = cellModels
     }
-    
-    private var selectedTextField: UITextField?
+
     public func showCountryListing(textField: UITextField) {
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let currentLocation = textField.text ?? ""
         let countryVC = CountryListCollectionViewController(currentLocation: currentLocation, configuration: uiConfiguration)
         countryVC.delegate = self
-        selectedTextField = textField
+        self.selectedCountryTextField = textField
         self.navigationController?.pushViewController(countryVC, animated: true)
     }
 
@@ -102,7 +103,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         }
     }
 
-    private func isDone() -> Bool {   
+    private func isDone() -> Bool {
         return self.cellModels?
             .flatMap { $0.necessaryData }
             .allSatisfy { self.fieldData[$0] != nil } ?? false
@@ -122,7 +123,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let toReturn: UICollectionViewCell & NextCellEnabled
 
         guard let type = self.cellModels?[indexPath.row].type else { return UICollectionViewCell() }
-        
+
         switch type {
         case let .text(data):
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.textReuseIdentifier, for: indexPath)
@@ -130,7 +131,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
-                       textFieldFocusGainCallback: {data.didFocus?($0) },
+                       textFieldFocusGainCallback: { data.didFocus?($0) },
                        textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
                        error: self.errors[data.necessaryData]?.description,
                        setupTextField: { data.setup?(data.necessaryData, $0) },
@@ -208,7 +209,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
-        
+
         if let hasError = self.cellModels?[indexPath.row].necessaryData
             .contains(where: { self.errors[$0] != nil }) {
             additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
@@ -225,7 +226,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 }
 
-extension FormCollectionViewController: DataPointProvidingDelegate {    
+extension FormCollectionViewController: DataPointProvidingDelegate {
     func didUpdate(value: String?, for dataPoint: NecessaryData) {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
         self.errors[dataPoint] = nil
@@ -265,11 +266,9 @@ extension FormCollectionViewController: NextCellSwitcher {
     }
 }
 
-extension FormCollectionViewController: CountryListCollectionViewControllerProtocol {
+extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
     func didSelectCountry(name: String) {
-        didUpdate(value: name, for: NecessaryData.country)
-            selectedTextField?.text = name
-//        didChangeText(value: name)
-//        selectedTextField.didupdat
+        self.didUpdate(value: name, for: NecessaryData.country)
+        self.selectedCountryTextField?.text = name
     }
 }

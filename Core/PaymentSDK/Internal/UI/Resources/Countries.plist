@@ -53,7 +53,6 @@
 		<string>Comoros</string>
 		<string>Congo</string>
 		<string>Costa Rica</string>
-		<string>country debt</string>
 		<string>Croatia</string>
 		<string>Cuba</string>
 		<string>Cyprus</string>
@@ -108,7 +107,6 @@
 	<key>I</key>
 	<array>
 		<string>Iceland</string>
-		<string>in usa</string>
 		<string>India</string>
 		<string>Indonesia</string>
 		<string>Iran</string>
@@ -213,7 +211,6 @@
 		<string>Sao Tome</string>
 		<string>Saudi Arabia</string>
 		<string>scotland</string>
-		<string>scottish</string>
 		<string>Senegal</string>
 		<string>Serbia</string>
 		<string>Seychelles</string>
@@ -262,7 +259,6 @@
 		<string>United Kingdom</string>
 		<string>United States</string>
 		<string>Uruguay</string>
-		<string>USA</string>
 		<string>Uzbekistan</string>
 	</array>
 	<key>V</key>
