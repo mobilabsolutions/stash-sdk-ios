@@ -117,25 +117,13 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
-    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData: AdyenData,
-                                   controller: AdyenPaymentControllerWrapper,
-                                   idempotencyKey: String,
+    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData _: AdyenData,
+                                   controller _: AdyenPaymentControllerWrapper,
+                                   idempotencyKey _: String,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         let billingData = sepaData.billingData ?? BillingData()
-        let sepaPreparator = SEPAPreparator(billingData: billingData, sepaData: sepaData)
-        controller.continueRegistration(sessionId: pspData.paymentSession,
-                                        billingData: billingData,
-                                        paymentMethodPreparator: sepaPreparator) { result in
-            switch result {
-            case let .success(token):
-                let aliasExtra = AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData)
-                completion(.success(Registration(pspAlias: token, aliasExtra: aliasExtra)))
-            case let .failure(error):
-                let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
-                completion(.failure(mlError))
-            }
-            self.controllerForIdempotencyKey[idempotencyKey] = nil
-        }
+        let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData))
+        completion(.success(registration))
     }
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {

@@ -222,7 +222,6 @@
 		E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */; };
 		E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */; };
 		E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */; };
-		E14D5D0D225CD77B00BB20CA /* SEPAPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -579,7 +578,6 @@
 		E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenPaymentControllerWrapper.swift; sourceTree = "<group>"; };
 		E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodPreparator.swift; sourceTree = "<group>"; };
 		E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPreparator.swift; sourceTree = "<group>"; };
-		E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAPreparator.swift; sourceTree = "<group>"; };
 		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
@@ -986,7 +984,6 @@
 				E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */,
 				E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */,
 				E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */,
-				E14D5D0C225CD77B00BB20CA /* SEPAPreparator.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -2170,7 +2167,6 @@
 				E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */,
 				E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */,
 				BA21F4FF224D6659004CEAA2 /* MobilabPaymentAdyen.swift in Sources */,
-				E14D5D0D225CD77B00BB20CA /* SEPAPreparator.swift in Sources */,
 				E1068EB922535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift in Sources */,
 				E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */,
 				E1D558F022648DE900BC856A /* AdyenAliasCreationDetail.swift in Sources */,
