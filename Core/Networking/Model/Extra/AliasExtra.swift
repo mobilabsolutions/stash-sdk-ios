@@ -8,48 +8,41 @@
 
 import Foundation
 
-struct AliasExtra: Codable {
+public struct AliasExtra {
     let ccConfig: CreditCardExtra?
-    let sepaConfig: SepaExtra?
+    let sepaConfig: SEPAExtra?
     let payPalConfig: PayPalExtra?
-    let paymentMethod: InternalPaymentMethodType
+    let personalData: PersonalData?
 
-    init(ccConfig: CreditCardExtra) {
+    let paymentMethod: InternalPaymentMethodType
+    let payload: String?
+
+    public init(ccConfig: CreditCardExtra, billingData: BillingData, payload: String? = nil) {
         self.paymentMethod = .creditCard
         self.ccConfig = ccConfig
         self.sepaConfig = nil
         self.payPalConfig = nil
+        self.personalData = PersonalData(billingData: billingData)
+        self.payload = payload
     }
 
-    init(sepaConfig: SepaExtra) {
+    public init(sepaConfig: SEPAExtra, billingData: BillingData, payload: String? = nil) {
         self.paymentMethod = .sepa
         self.sepaConfig = sepaConfig
         self.ccConfig = nil
         self.payPalConfig = nil
+        self.personalData = PersonalData(billingData: billingData)
+        self.payload = payload
     }
 
-    init(payPalConfig: PayPalExtra) {
+    public init(payPalConfig: PayPalExtra, billingData: BillingData, payload: String? = nil) {
         self.paymentMethod = .payPal
         self.payPalConfig = payPalConfig
         self.ccConfig = nil
         self.sepaConfig = nil
+        self.personalData = PersonalData(billingData: billingData)
+        self.payload = payload
     }
 }
 
-struct CreditCardExtra: Codable {
-    let ccExpiry: String
-    let ccMask: Int
-    let ccType: String
-}
-
-struct SepaExtra: Codable {
-    let iban: String
-    let bic: String?
-    let name: String?
-    let email: String?
-    let street: String?
-    let country: String?
-    let zip: String?
-}
-
-struct PayPalExtra: Codable {}
+extension AliasExtra: Codable {}

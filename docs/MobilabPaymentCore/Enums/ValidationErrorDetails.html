@@ -102,6 +102,9 @@
                 <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SimpleNameProvider.html">SimpleNameProvider</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/UIConstants.html">UIConstants</a>
               </li>
               <li class="nav-group-task">
@@ -171,6 +174,9 @@
                 <a class="nav-group-task-link" href="../Protocols/MobilabPaymentErrorConvertible.html">MobilabPaymentErrorConvertible</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/NameProviding.html">NameProviding</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/NetworkClient.html">NetworkClient</a>
               </li>
               <li class="nav-group-task">
@@ -194,10 +200,16 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AliasExtra.html">AliasExtra</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CreditCardExtra.html">CreditCardExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/FormCellModel.html">FormCellModel</a>
@@ -227,13 +239,22 @@
                 <a class="nav-group-task-link" href="../Structs/PayPalData.html">PayPalData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PayPalExtra.html">PayPalExtra</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RegistrationRequest.html">RegistrationRequest</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/SEPAData.html">SEPAData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SEPAExtra.html">SEPAExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TemporaryErrorDetails.html">TemporaryErrorDetails</a>
@@ -266,7 +287,7 @@
             <h1>ValidationErrorDetails</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ValidationErrorDetails</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TitleProviding.html">TitleProviding</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ValidationErrorDetails</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TitleProviding.html">TitleProviding</a></span></code></pre>
 
                 </div>
               </div>
@@ -489,6 +510,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bicMissing</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore22ValidationErrorDetailsO21invalidExpirationYearyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidExpirationYear" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore22ValidationErrorDetailsO21invalidExpirationYearyA2CmF">invalidExpirationYear</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The expiration year is invalid</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidExpirationYear</span></code></pre>
 
                         </div>
                       </div>

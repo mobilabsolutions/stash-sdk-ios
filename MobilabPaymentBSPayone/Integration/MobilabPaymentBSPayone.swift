@@ -19,11 +19,20 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
+            let billingData = getBillingData(from: registrationRequest) ?? BillingData()
 
-            if let creditCardRequest = try getCreditCardData(from: registrationRequest) {
-                self.handleCreditCardRequest(creditCardRequest: creditCardRequest, pspData: pspData, completion: completion)
-            } else if let _ = try getSepaData(from: registrationRequest) {
-                completion(.success(nil))
+            if let creditCardRequest = try getCreditCardData(from: registrationRequest),
+                let creditCardData = registrationRequest.registrationData as? CreditCardData,
+                let creditCardExtra = creditCardData.toCreditCardExtra() {
+                self.handleCreditCardRequest(creditCardRequest: creditCardRequest,
+                                             pspData: pspData,
+                                             creditCardExtra: creditCardExtra,
+                                             billingData: billingData,
+                                             completion: completion)
+            } else if let _ = try getSepaData(from: registrationRequest),
+                let sepaData = registrationRequest.registrationData as? SEPAData {
+                let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.toSEPAExtra(), billingData: billingData))
+                completion(.success(registration))
             } else {
                 completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
@@ -62,11 +71,16 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         self.pspIdentifier = .bsPayone
     }
 
-    private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData, pspData: BSPayoneData,
+    private func handleCreditCardRequest(creditCardRequest: CreditCardBSPayoneData,
+                                         pspData: BSPayoneData,
+                                         creditCardExtra: CreditCardExtra,
+                                         billingData: BillingData,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspData: pspData, completion: { result in
             switch result {
-            case let .success(value): completion(.success(.some(value)))
+            case let .success(value):
+                let registration = Registration(pspAlias: value, aliasExtra: AliasExtra(ccConfig: creditCardExtra, billingData: billingData))
+                completion(.success(registration))
             case let .failure(error): completion(.failure(error))
             }
         })
@@ -95,6 +109,16 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { throw MobilabPaymentError.validation(.bicMissing) }
 
         return SEPABSPayoneData(iban: data.iban, bic: bic)
+    }
+
+    private func getBillingData(from registrationRequest: RegistrationRequest) -> BillingData? {
+        if let data = registrationRequest.registrationData as? SEPAData {
+            return data.billingData
+        } else if let data = registrationRequest.registrationData as? CreditCardData {
+            return data.billingData
+        }
+
+        return nil
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {

@@ -10,9 +10,9 @@ import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private typealias CachingIdempotencyManager = IdempotencyManager<String,
+    private typealias CachingIdempotencyManager = IdempotencyManager<String?,
                                                                      MobilabPaymentError,
-                                                                     IdempotencyResultUserDefaultsCacher<String, MobilabPaymentError>>
+                                                                     IdempotencyResultUserDefaultsCacher<String?, MobilabPaymentError>>
     private let idempotencyManager = CachingIdempotencyManager(cacher: IdempotencyResultUserDefaultsCacher(suiteIdentifier: "idempotency-manager-cache"))
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
@@ -62,12 +62,6 @@ class InternalRegistrationManager {
                              idempotencyKey: String,
                              completion: @escaping RegistrationResultCompletion,
                              presentingViewController: UIViewController?) {
-        guard let cardExtra = paymentMethod.toAliasExtra()
-        else {
-            completion(.failure(MobilabPaymentError.validation(.cardExtraNotExtractable)))
-            return
-        }
-
         let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue,
                                                     aliasDetail: aliasCreationDetail,
                                                     idempotencyKey: idempotencyKey)
@@ -75,7 +69,11 @@ class InternalRegistrationManager {
         self.networkingClient.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
-                self.performRegistration(with: response, for: paymentMethod, paymentMethodExtra: cardExtra, viewController: presentingViewController, idempotencyKey: idempotencyKey, completion: completion)
+                self.performRegistration(with: response,
+                                         for: paymentMethod,
+                                         viewController: presentingViewController,
+                                         idempotencyKey: idempotencyKey,
+                                         completion: completion)
             case let .failure(error):
                 completion(.failure(error))
             }
@@ -84,7 +82,6 @@ class InternalRegistrationManager {
 
     private func performRegistration(with alias: AliasResponse,
                                      for paymentMethod: PaymentMethod,
-                                     paymentMethodExtra: AliasExtra,
                                      viewController: UIViewController?,
                                      idempotencyKey: String,
                                      completion: @escaping RegistrationResultCompletion) {
@@ -97,13 +94,14 @@ class InternalRegistrationManager {
         provider.handleRegistrationRequest(registrationRequest: registrationRequest,
                                            idempotencyKey: idempotencyKey, completion: { resultRegistration in
                                                switch resultRegistration {
-                                               case let .success(pspAlias):
+                                               case let .success(pspResult):
                                                    let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId,
-                                                                                               pspAlias: pspAlias,
-                                                                                               extra: paymentMethodExtra,
+                                                                                               pspAlias: pspResult.pspAlias,
+                                                                                               extra: pspResult.aliasExtra,
                                                                                                idempotencyKey: idempotencyKey)
-                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { _ in
-                                                       switch resultRegistration {
+
+                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
+                                                       switch updateResult {
                                                        case .success:
                                                            completion(.success(alias.aliasId))
                                                        case let .failure(error):
