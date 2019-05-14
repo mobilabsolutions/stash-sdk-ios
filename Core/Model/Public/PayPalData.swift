@@ -8,10 +8,14 @@
 
 import Foundation
 
-public struct PayPalData: RegistrationData {
-    public let nonce: String?
+public struct PayPalPlaceholderData: RegistrationData {}
 
-    public init(nonce: String?) {
+public struct PayPalData: RegistrationData {
+    public let nonce: String
+    public let deviceData: String
+
+    public init(nonce: String, deviceData: String) {
         self.nonce = nonce
+        self.deviceData = deviceData
     }
 }

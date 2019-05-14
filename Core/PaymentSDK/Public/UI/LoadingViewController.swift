@@ -29,7 +29,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
 
         self.showActivityIndicatory()
 
-        let payPalData = PayPalData(nonce: nil)
+        let payPalData = PayPalPlaceholderData()
         self.didCreatePaymentMethodCompletion?(payPalData)
     }
 

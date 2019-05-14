@@ -7,6 +7,7 @@
 //
 
 import BraintreeCore
+import BraintreeDataCollector
 import BraintreePayPal
 import MobilabPaymentCore
 import UIKit
@@ -28,6 +29,9 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
         guard let braintreeClient = BTAPIClient(authorization: clientToken) else {
             fatalError("Braintree client can't be authorized with applied client token")
         }
+
+        let dataCollector = BTDataCollector(apiClient: braintreeClient)
+
         let payPalDriver = BTPayPalDriver(apiClient: braintreeClient)
         payPalDriver.viewControllerPresentingDelegate = self
         payPalDriver.appSwitchDelegate = self
@@ -35,8 +39,10 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
         let request = BTPayPalRequest()
         payPalDriver.requestBillingAgreement(request) { (tokenizedPayPalAccount, error) -> Void in
             if let tokenizedPayPalAccount = tokenizedPayPalAccount {
-                let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce)
-                self.didCreatePaymentMethodCompletion?(payPalData)
+                dataCollector.collectCardFraudData { deviceData in
+                    let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce, deviceData: deviceData)
+                    self.didCreatePaymentMethodCompletion?(payPalData)
+                }
             } else if let error = error {
                 self.errorWhileUsingPayPal?(MobilabPaymentError.other(GenericErrorDetails.from(error: error)))
             } else {

@@ -49,7 +49,7 @@ public class RegistrationManager {
     public func registerPayPal(presentingViewController: UIViewController,
                                idempotencyKey: String = UUID().uuidString,
                                completion: @escaping RegistrationResultCompletion) {
-        let paymentMethod = PaymentMethod(methodData: PayPalData(nonce: nil), type: .payPal)
+        let paymentMethod = PaymentMethod(methodData: PayPalPlaceholderData(), type: .payPal)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey, completion: completion, presentingViewController: presentingViewController)
@@ -95,7 +95,7 @@ public class RegistrationManager {
             guard var paymentMethodViewController = provider.viewController(for: selectedType, billingData: billingData,
                                                                             configuration: uiConfiguration)
             else { fatalError("Payment method view controller for selected type not present in module") }
-            
+
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, unowned paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {
                     self?.registerCreditCard(creditCardData: creditCardData,
@@ -103,7 +103,7 @@ public class RegistrationManager {
                 } else if let sepaData = method as? SEPAData {
                     self?.registerSEPAAccount(sepaData: sepaData,
                                               completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
-                } else if method is PayPalData {
+                } else if let payPalMethod = method as? PayPalPlaceholderData {
                     self?.registerPayPal(presentingViewController: paymentMethodViewController, completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")

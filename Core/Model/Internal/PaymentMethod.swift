@@ -36,10 +36,10 @@ class PaymentMethod {
                                   zip: method.billingData.zip)
             return AliasExtra(sepaConfig: extra)
         case .payPal:
-            guard methodData is PayPalData
+            guard let method = methodData as? PayPalData
             else { return nil }
 
-            let extra = PayPalExtra()
+            let extra = PayPalExtra(nonce: method.nonce, deviceData: method.deviceData)
             return AliasExtra(payPalConfig: extra)
         default:
             return nil
