@@ -21,8 +21,8 @@ class CountryListCollectionViewController: UIViewController {
     var currentLocation: String?
 
     private enum HeaderType: Int {
-        case CurrentLocation = 0
-        case AllCountries
+        case currentLocation = 0
+        case allCountries
 
         var index: Int {
             return self.rawValue
@@ -30,7 +30,7 @@ class CountryListCollectionViewController: UIViewController {
 
         var title: String {
             switch self {
-            case .CurrentLocation: return "Current Location"
+            case .currentLocation: return "Current Location"
             default: return ""
             }
         }
@@ -59,7 +59,7 @@ class CountryListCollectionViewController: UIViewController {
 
     private var countries: GroupedCountries = GroupedCountries()
     private var allCountries: GroupedCountries = GroupedCountries()
-    private var countryHeaders: [String] = [HeaderType.CurrentLocation.title]
+    private var countryHeaders: [String] = [HeaderType.currentLocation.title]
     private var allCountryHeaders = [String]()
 
     private var isSearching: Bool = false
@@ -102,24 +102,17 @@ class CountryListCollectionViewController: UIViewController {
         self.headerView.configuration = self.configuration
 
         self.headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                               bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor,
-                               paddingTop: 0, paddingLeft: 0,
-                               paddingBottom: 0, paddingRight: 0,
-                               width: 0, height: self.titleHeaderHeight)
+                               right: view.safeAreaLayoutGuide.rightAnchor,
+                               height: self.titleHeaderHeight)
 
         view.addSubview(self.searchView)
         self.searchView.anchor(top: self.headerView.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                               bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor,
-                               paddingTop: 0, paddingLeft: 0,
-                               paddingBottom: 0, paddingRight: 0,
-                               width: 0, height: self.searchBarHeight)
+                               right: view.safeAreaLayoutGuide.rightAnchor,
+                               height: self.searchBarHeight)
 
         view.addSubview(self.collectionView)
         self.collectionView.anchor(top: self.searchView.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                                   bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor,
-                                   paddingTop: 0, paddingLeft: 0,
-                                   paddingBottom: 0, paddingRight: 0,
-                                   width: 0, height: 0)
+                                   bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
 
         self.searchView.setup(text: nil,
                               borderColor: .clear,
@@ -133,7 +126,7 @@ class CountryListCollectionViewController: UIViewController {
 
         }, configuration: self.configuration)
 
-        self.countries = [HeaderType.CurrentLocation.title: [self.currentLocation!]]
+        self.countries = [HeaderType.currentLocation.title: [self.currentLocation!]]
         self.searchView.delegate = self
 
         self.setupCollectionView()
@@ -199,7 +192,7 @@ class CountryListCollectionViewController: UIViewController {
                 self.reload()
 
             } catch let err {
-                fatalError(err.localizedDescription)
+                print("Error while reading countries from file: \(err.localizedDescription)")
             }
         }
     }
@@ -238,7 +231,7 @@ class CountryListCollectionViewController: UIViewController {
             var newGrouping = GroupedCountries()
 
             for (startingLetterKey, countries) in groupedCountries {
-                if startingLetterKey == HeaderType.CurrentLocation.title {
+                if startingLetterKey == HeaderType.currentLocation.title {
                     continue
                 }
                 let result = countries.filter { (countryName) -> Bool in
@@ -305,7 +298,7 @@ extension CountryListCollectionViewController: UICollectionViewDelegateFlowLayou
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let height = section == HeaderType.CurrentLocation.rawValue ? self.currentLocationHeaderHeight : self.headerHeight
+        let height = section == HeaderType.currentLocation.rawValue ? self.currentLocationHeaderHeight : self.headerHeight
         return CGSize(width: collectionView.frame.width, height: height)
     }
 }

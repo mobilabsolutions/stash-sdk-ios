@@ -24,7 +24,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var doneButtonUpdating: DoneButtonUpdating?
 
-    private var cellModels: [FormCellModel]?
+    private var cellModels: [FormCellModel] = []
 
     public let billingData: BillingData?
 
@@ -42,7 +42,6 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.billingData = billingData
         self.configuration = configuration
         self.formTitle = formTitle
-        self.cellModels = nil
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -65,7 +64,6 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func setCellModel(cellModels: [FormCellModel]) {
-        self.cellModels?.removeAll()
         self.cellModels = cellModels
     }
 
@@ -104,9 +102,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     private func isDone() -> Bool {
-        return self.cellModels?
+        return self.cellModels.count == 0 ? false : self.cellModels
             .flatMap { $0.necessaryData }
-            .allSatisfy { self.fieldData[$0] != nil } ?? false
+            .allSatisfy { self.fieldData[$0] != nil }
     }
 
     // MARK: UICollectionViewDataSource
@@ -116,13 +114,13 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     open override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return self.cellModels?.count ?? 0
+        return self.cellModels.count
     }
 
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell & NextCellEnabled
 
-        guard let type = self.cellModels?[indexPath.row].type else { return UICollectionViewCell() }
+        let type = self.cellModels[indexPath.row].type
 
         switch type {
         case let .text(data):
@@ -210,10 +208,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        if let hasError = self.cellModels?[indexPath.row].necessaryData
-            .contains(where: { self.errors[$0] != nil }) {
-            additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
-        }
+        let hasError = self.cellModels[indexPath.row].necessaryData.contains(where: { self.errors[$0] != nil })
+        additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
+
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 

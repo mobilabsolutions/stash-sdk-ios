@@ -80,28 +80,24 @@ class SearchView: UIView {
 
     private func sharedInit() {
         addSubview(self.imageView)
-        self.imageView.anchor(top: nil, left: leftAnchor,
-                              bottom: nil, right: nil, paddingTop: 0,
+        self.imageView.anchor(left: leftAnchor,
+                              centerY: centerYAnchor,
                               paddingLeft: self.defaultHorizontalToSuperviewOffset + self.defaultHorizontalToSuperviewOffset,
-                              paddingBottom: 0, paddingRight: 0,
                               width: self.imageDimension.width, height: self.imageDimension.height)
-        self.imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
         addSubview(self.textField)
-        self.textField.anchor(top: nil, left: self.imageView.rightAnchor,
-                              bottom: nil, right: nil,
-                              paddingTop: 0, paddingLeft: self.defaultInterItemOffset,
-                              paddingBottom: 0, paddingRight: 0,
-                              width: 0, height: self.fieldHeight)
-        self.textField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        self.textField.anchor(left: self.imageView.rightAnchor,
+                              centerY: centerYAnchor,
+                              paddingLeft: self.defaultInterItemOffset,
+                              height: self.fieldHeight)
 
         addSubview(self.cancelButton)
-        self.cancelButton.anchor(top: nil, left: self.textField.rightAnchor,
-                                 bottom: nil, right: rightAnchor,
-                                 paddingTop: 0, paddingLeft: self.defaultInterItemOffset,
-                                 paddingBottom: 0, paddingRight: self.defaultHorizontalToSuperviewOffset,
+        self.cancelButton.anchor(left: self.textField.rightAnchor,
+                                 right: rightAnchor,
+                                 centerY: centerYAnchor,
+                                 paddingLeft: self.defaultInterItemOffset,
+                                 paddingRight: self.defaultHorizontalToSuperviewOffset,
                                  width: self.buttonWidth, height: self.fieldHeight)
-        self.cancelButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         self.cancelButton.isHidden = true
 
         self.textField.addTarget(self, action: #selector(self.didUpdateTextFieldText), for: .editingChanged)
