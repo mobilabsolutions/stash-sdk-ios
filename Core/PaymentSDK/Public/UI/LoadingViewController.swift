@@ -12,6 +12,17 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var billingData: BillingData?
 
+    private let uiConfiguration: PaymentMethodUIConfiguration
+
+    public init(uiConfiguration: PaymentMethodUIConfiguration) {
+        self.uiConfiguration = uiConfiguration
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         if case MobilabPaymentError.userActionable = error {
             self.navigationController?.popViewController(animated: true)
@@ -26,7 +37,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIConstants.iceBlue
+        self.view.backgroundColor = self.uiConfiguration.backgroundColor
 
         self.showActivityIndicatory()
 
@@ -37,6 +48,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
     func showActivityIndicatory() {
         let activityView = UIActivityIndicatorView(style: .whiteLarge)
         activityView.center = self.view.center
+        activityView.color = uiConfiguration.mediumEmphasisColor
 
         self.view.addSubview(activityView)
         activityView.startAnimating()
