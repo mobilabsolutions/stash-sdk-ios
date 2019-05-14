@@ -16,33 +16,4 @@ class PaymentMethod {
         self.methodData = methodData
         self.type = type
     }
-
-    func toAliasExtra() -> AliasExtra? {
-        switch self.type {
-        case .creditCard:
-            guard let method = methodData as? CreditCardData, let cardMask = method.cardMask
-            else { return nil }
-
-            let extra = CreditCardExtra(ccExpiry: "\(method.expiryYear)\(String(format: "%02d", method.expiryMonth))",
-                                        ccMask: cardMask, ccType: method.cardType.rawValue)
-            return AliasExtra(ccConfig: extra)
-        case .sepa:
-            guard let method = methodData as? SEPAData
-            else { return nil }
-
-            let extra = SepaExtra(iban: method.iban, bic: method.bic,
-                                  name: method.billingData.name, email: method.billingData.email,
-                                  street: method.billingData.address1, country: method.billingData.country,
-                                  zip: method.billingData.zip)
-            return AliasExtra(sepaConfig: extra)
-        case .payPal:
-            guard let method = methodData as? PayPalData
-            else { return nil }
-
-            let extra = PayPalExtra(nonce: method.nonce, deviceData: method.deviceData)
-            return AliasExtra(payPalConfig: extra)
-        default:
-            return nil
-        }
-    }
 }

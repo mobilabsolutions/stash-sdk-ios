@@ -119,8 +119,10 @@ import UIKit
         self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController, completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPayPal(presentingViewController: viewController, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController,
+                                            billingData: BillingData?,
+                                            completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerPayPal(presentingViewController: viewController, billingData: billingData, completion: self.bridgedCompletion(completion: completion))
     }
 
     private func bridgedCompletion(completion: @escaping (String?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {

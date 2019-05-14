@@ -30,4 +30,8 @@ public struct SEPAData: RegistrationData, SEPADataInitializible {
         self.bic = bic
         self.billingData = billingData
     }
+
+    public func toSEPAExtra() -> SEPAExtra {
+        return SEPAExtra(iban: self.iban, bic: self.bic)
+    }
 }

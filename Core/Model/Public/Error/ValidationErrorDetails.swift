@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
+public enum ValidationErrorDetails: String, CustomStringConvertible, TitleProviding {
     /// SEPA IBAN is invalid
     case invalidIBAN
     /// Credit card number is invalid
@@ -25,6 +25,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
     case cardTypeNotSupported
     /// The PSP requires the BIC to be present but it is missing
     case bicMissing
+    /// The expiration year is invalid
+    case invalidExpirationYear
 
     public var description: String {
         switch self {
@@ -44,6 +46,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "Card type not supported by PSP"
         case .bicMissing:
             return "The BIC is required but missing"
+        case .invalidExpirationYear:
+            return "The expiration year is invalid"
         }
     }
 
@@ -65,6 +69,10 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "Card type not supported"
         case .bicMissing:
             return "BIC required"
+        case .invalidExpirationYear:
+            return "Credit card validation error"
         }
     }
 }
+
+extension ValidationErrorDetails: Codable {}

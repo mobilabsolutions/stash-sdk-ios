@@ -13,4 +13,5 @@ struct SEPAAdyenData {
     let ownerName: String
     let ibanNumber: String
     let billingData: BillingData?
+    let sepaExtra: SEPAExtra
 }

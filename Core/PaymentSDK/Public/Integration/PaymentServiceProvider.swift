@@ -17,7 +17,7 @@ public enum MobilabPaymentProvider: String, Codable {
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
-    typealias RegistrationResult = Result<String?, MobilabPaymentError>
+    typealias RegistrationResult = Result<Registration, MobilabPaymentError>
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend

@@ -23,3 +23,5 @@ public struct GenericErrorDetails: TitleProviding, CustomStringConvertible {
         return GenericErrorDetails(title: "Error", description: error.localizedDescription)
     }
 }
+
+extension GenericErrorDetails: Codable {}

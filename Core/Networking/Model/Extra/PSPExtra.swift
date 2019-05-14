@@ -13,6 +13,10 @@ import Foundation
 public struct PSPExtra: Codable {
     /// The type of payment service provider used.
     public let type: MobilabPaymentProvider
+    /// The mode of the payment service provider. Example: "test"
+    public let mode: String?
+    /// The id of the merchant associated with the key
+    public let merchantId: String?
 
     // BSPayone Data
     /// The API version of the BSPayone to use
@@ -21,8 +25,6 @@ public struct PSPExtra: Codable {
     public let encoding: String?
     /// The hash to use with the BSPayone
     public let hash: String?
-    /// The id of the merchant associated with the key
-    public let merchantId: String?
     /// The BSPayone portal id
     public let portalId: String?
     /// The BSPayone account id
@@ -31,22 +33,13 @@ public struct PSPExtra: Codable {
     public let request: String?
     /// The response type to use when interfacing with BS Payone
     public let responseType: String?
-    /// The mode of the payment service provider. Example: "test"
-    public let mode: String?
 
     // Braintree Data
     /// Client token used for initializing Braintree SDK
     public let clientToken: String?
 
     // Adyen Data
-    /// Api key used for Adyen authentification
-    public let apiKey: String?
-    /// Adyen merhcant account
-    public let merchantAccount: String?
-    /// Adyen shopper reference
-    public let shopperReference: String?
-    /// Return URL for Adyen
-    public let returnUrl: String?
+    public let paymentSession: String?
 
     public func toPSPData<T: Decodable>(type: T.Type) throws -> T {
         do {

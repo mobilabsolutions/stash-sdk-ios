@@ -9,7 +9,9 @@
 import Foundation
 
 public enum NecessaryData: CaseIterable {
-    case holderName
+    case holderFullName
+    case holderFirstName
+    case holderLastName
     case cardNumber
     case cvv
     case expirationMonth

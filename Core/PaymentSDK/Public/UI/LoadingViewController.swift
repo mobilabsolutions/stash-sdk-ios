@@ -10,6 +10,7 @@ import UIKit
 
 public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
+    public var billingData: BillingData?
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         if case MobilabPaymentError.userActionable = error {
@@ -29,7 +30,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
 
         self.showActivityIndicatory()
 
-        let payPalData = PayPalPlaceholderData()
+        let payPalData = PayPalPlaceholderData(billingData: billingData)
         self.didCreatePaymentMethodCompletion?(payPalData)
     }
 

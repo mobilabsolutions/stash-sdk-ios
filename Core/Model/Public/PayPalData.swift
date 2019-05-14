@@ -8,7 +8,13 @@
 
 import Foundation
 
-public struct PayPalPlaceholderData: RegistrationData {}
+public struct PayPalPlaceholderData: RegistrationData {
+    public let billingData: BillingData?
+
+    public init(billingData: BillingData?) {
+        self.billingData = billingData
+    }
+}
 
 public struct PayPalData: RegistrationData {
     public let nonce: String
