@@ -12,8 +12,6 @@ import UIKit
 class BSSEPAInputCollectionViewController: FormCollectionViewController {
     private var configuration: PaymentMethodUIConfiguration?
 
-    private var country: String?
-
     private enum SEPAValidationError: ValidationError {
         case noData(explanation: String)
         case sepaValidationFailed(explanation: String)
@@ -68,9 +66,7 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                               didFocus: { [weak self] textField in
                                                                   self?.showCountryListing(textField: textField)
                                                               },
-                                                              didUpdate: { [weak self] _, textField in
-                                                                  self?.country = textField.text
-        })
+                                                              didUpdate: nil)
 
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
@@ -106,7 +102,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         }
 
         if data[.country] == nil || data[.country]?.isEmpty == true {
-            errors[.country] = SEPAValidationError.noData(explanation: "Please provide a valid country name")
+            errors[.country] = SEPAValidationError.noData(explanation: "Please provide a valid country")
         }
 
         guard let iban = data[.iban],
@@ -124,7 +120,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: self.country,
+                                         country: self.country?.alpha2Code,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 

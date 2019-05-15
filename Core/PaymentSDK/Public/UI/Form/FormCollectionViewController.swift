@@ -28,6 +28,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     public let billingData: BillingData?
 
+    public var country: Country?
+
     private let configuration: PaymentMethodUIConfiguration
     private let formTitle: String
 
@@ -264,7 +266,8 @@ extension FormCollectionViewController: NextCellSwitcher {
 
 extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
     func didSelectCountry(country: Country) {
-        self.didUpdate(value: country.alpha2Code, for: NecessaryData.country) // sending 2 digit ISO country-code
+        self.country = country
+        self.didUpdate(value: country.alpha2Code, for: NecessaryData.country) // sending 2 digit ISO country-cod
         self.selectedCountryTextField?.text = country.name
     }
 }

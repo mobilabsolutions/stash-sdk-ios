@@ -15,8 +15,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 
     private var configuration: PaymentMethodUIConfiguration?
 
-    private var country: String?
-
     private enum CreditCardValidationError: ValidationError {
         case noData(explanation: String)
         case creditCardValidationFailed(message: String)
@@ -37,7 +35,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
         let cvv: String
         let expirationMonth: Int
         let expirationYear: Int
-        let country: String
+        let country: Country
 
         static func create(holderFirstNameText: String?,
                            holderLastNameText: String?,
@@ -45,7 +43,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                            cvvText: String?,
                            expirationMonthText: String?,
                            expirationYearText: String?,
-                           countryText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
+                           country: Country?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
             if holderFirstNameText == nil || holderFirstNameText?.isEmpty == true {
@@ -78,7 +76,11 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors[.expirationMonth] = .noData(explanation: "Please provide a valid expiration date")
             }
 
-            if countryText == nil {
+            if let country = country {
+                if country.alpha2Code.isEmpty {
+                    errors[.country] = .noData(explanation: "Country code cannot be blank")
+                }
+            } else {
                 errors[.country] = .noData(explanation: "Please provide country")
             }
 
@@ -100,7 +102,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 let cardNumber = cardNumberText, let cvv = cvvText,
                 let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
                 let expirationYear = expirationYearText.flatMap({ Int($0) }),
-                let country = countryText,
+                let country = country,
                 errors.isEmpty
             else { return (nil, errors) }
 
@@ -165,9 +167,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                               didFocus: { [weak self] textField in
                                                                   self?.showCountryListing(textField: textField)
                                                               },
-                                                              didUpdate: { [weak self] _, textField in
-                                                                  self?.country = textField.text
-        })
+                                                              didUpdate: nil)
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
@@ -189,7 +189,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
                                                       expirationYearText: data[.expirationYear],
-                                                      countryText: self.country)
+                                                      country: self.country)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
@@ -204,7 +204,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
                                                 holderName: parsedData.name.fullName,
-                                                country: self.country,
+                                                country: self.country?.alpha2Code,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil
