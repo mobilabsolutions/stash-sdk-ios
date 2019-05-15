@@ -120,7 +120,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: self.country?.alpha2Code,
+                                         country: billingData?.country,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 
