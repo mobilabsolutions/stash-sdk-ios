@@ -11,14 +11,13 @@ import UIKit
 // MARK: - Protocol
 
 protocol CountryListCollectionViewControllerDelegate: class {
-    func didSelectCountry(name: String)
+    func didSelectCountry(country: Country)
 }
 
 class CountryListCollectionViewController: UIViewController {
     // MARK: - Properties
 
     weak var delegate: CountryListCollectionViewControllerDelegate?
-    var currentLocation: String?
 
     private enum HeaderType: Int {
         case currentLocation = 0
@@ -36,7 +35,7 @@ class CountryListCollectionViewController: UIViewController {
         }
     }
 
-    private typealias GroupedCountries = [String: [String]]
+    private typealias GroupedCountries = [String: [Country]]
 
     private let resourceFileName = "Countries"
     private let resourceFileExtension = "plist"
@@ -45,7 +44,7 @@ class CountryListCollectionViewController: UIViewController {
     private let titleHeaderReuseIdentifier = "titleHeader"
     private let headerReuseIdentifier = "headerId"
 
-    private let defaultCurrentLocation: String = "Germany"
+    private var currentLocation: Country = Country(name: "Germany", alpha2Code: "DE")
 
     private let configuration: PaymentMethodUIConfiguration
 
@@ -57,10 +56,14 @@ class CountryListCollectionViewController: UIViewController {
     private let headerHeight: CGFloat = 30
     private let searchBarHeight: CGFloat = 57
 
-    private var countries: GroupedCountries = GroupedCountries()
-    private var allCountries: GroupedCountries = GroupedCountries()
-    private var countryHeaders: [String] = [HeaderType.currentLocation.title]
-    private var allCountryHeaders = [String]()
+    private var currentLocationHeaderTitle: String = HeaderType.currentLocation.title
+    private var headerTitles: [String] = []
+    private var allHeaderTitles = [String]()
+
+    private var groupedCountries: GroupedCountries = GroupedCountries()
+    private var allGroupedCountries: GroupedCountries = GroupedCountries()
+
+    private var currentCountryName: String?
 
     private var isSearching: Bool = false
 
@@ -82,8 +85,8 @@ class CountryListCollectionViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(currentLocation: String, configuration: PaymentMethodUIConfiguration) {
-        self.currentLocation = !currentLocation.isEmpty ? currentLocation : self.defaultCurrentLocation
+    init(countryName: String, configuration: PaymentMethodUIConfiguration) {
+        self.currentCountryName = countryName
         self.configuration = configuration
 
         super.init(nibName: nil, bundle: nil)
@@ -126,10 +129,25 @@ class CountryListCollectionViewController: UIViewController {
 
         }, configuration: self.configuration)
 
-        self.countries = [HeaderType.currentLocation.title: [self.currentLocation!]]
+        self.groupedCountries = [HeaderType.currentLocation.title: [self.currentLocation]]
         self.searchView.delegate = self
 
         self.setupCollectionView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if self.headerTitles.count == 0 {
+            self.readCountries()
+            if let name = self.currentCountryName {
+                let country = self.getCountry(from: name)
+                if let country = country {
+                    self.currentLocation = country
+                }
+            }
+            self.reload()
+        }
     }
 
     private func setupCollectionView() {
@@ -149,14 +167,6 @@ class CountryListCollectionViewController: UIViewController {
         self.collectionView.delegate = self
     }
 
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if self.countries.keys.count == 1 {
-            self.readCountries()
-        }
-    }
-
     // MARK: - Helpers
 
     override func removeFromParent() {
@@ -166,35 +176,45 @@ class CountryListCollectionViewController: UIViewController {
     }
 
     private func readCountries() {
-        DispatchQueue.global(qos: .background).async {
-            let bundle = Bundle(for: CountryListCollectionViewController.self)
+        DispatchQueue.global(qos: .background).sync {
+            let countries = Locale.current.getAllCountriesWithCodes()
+            (self.groupedCountries, self.headerTitles) = self.groupByFirstLetter(countries: countries)
+            // keep a backup (used during search)
+            self.allGroupedCountries = self.groupedCountries
+            self.allHeaderTitles = self.headerTitles
+        }
+    }
 
-            guard let url = bundle.url(forResource: self.resourceFileName, withExtension: self.resourceFileExtension, subdirectory: "") else {
-                fatalError("\(self.resourceFileName).\(self.resourceFileExtension) not found!")
+    private func groupByFirstLetter(countries: [Country]) -> (GroupedCountries, [String]) {
+        var groupedCountries: GroupedCountries = [:]
+        var headerTitles: [String] = []
+        let alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+        var singleGroup: [Country] = []
+        for alphabet in alphabets {
+            singleGroup = countries.filter { (country) -> Bool in
+                country.name.first == alphabet
             }
+            groupedCountries[String(alphabet)] = singleGroup
+            headerTitles.append(String(alphabet))
+        }
+        return (groupedCountries, headerTitles)
+    }
 
-            do {
-                let data = try Data(contentsOf: url)
-                let list = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? GroupedCountries
-
-                guard let countriesDictionary = list else { return }
-                let keys = Array(countriesDictionary.keys.sorted())
-
-                for key in keys {
-                    if let countriesStartingWithAlphabet = countriesDictionary[key] {
-                        self.countries[key] = countriesStartingWithAlphabet
-                    }
-                }
-                self.countryHeaders.append(contentsOf: keys)
-
-                self.allCountries = self.countries
-                self.allCountryHeaders = self.countryHeaders // keep a backup
-                self.reload()
-
-            } catch let err {
-                print("Error while reading countries from file: \(err.localizedDescription)")
+    private func getCountry(from countryName: String) -> Country? {
+        guard let firstAlphabet = countryName.first else {
+            print("Error: Could not retrieve first alphabet from country - \(countryName)")
+            return nil
+        }
+        if let countriesStartingWithAlphabet = self.groupedCountries[String(firstAlphabet)] {
+            let country = countriesStartingWithAlphabet.filter {
+                $0.name.caseInsensitiveCompare(countryName) == .orderedSame
+            }
+            if country.count > 0 {
+                return country[0]
             }
         }
+        return nil
     }
 
     private func reload() {
@@ -206,8 +226,8 @@ class CountryListCollectionViewController: UIViewController {
     private func handleSearch(with keyword: String) {
         self.stopTimer()
 
-        countries = self.allCountries
-        self.countryHeaders = self.allCountryHeaders
+        self.groupedCountries = self.allGroupedCountries
+        self.headerTitles = self.allHeaderTitles
 
         if keyword.count == 0 {
             self.reload()
@@ -215,7 +235,7 @@ class CountryListCollectionViewController: UIViewController {
         }
 
         self.isSearching = true
-        let countries = self.countries
+        let countries = self.groupedCountries
 
         // add some delay to fetch. This is to avoid fetch call for every character change in searchbar
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
@@ -234,15 +254,15 @@ class CountryListCollectionViewController: UIViewController {
                 if startingLetterKey == HeaderType.currentLocation.title {
                     continue
                 }
-                let result = countries.filter { (countryName) -> Bool in
-                    countryName.localizedCaseInsensitiveContains(keyword)
+                let result = countries.filter { (country) -> Bool in
+                    country.name.localizedCaseInsensitiveContains(keyword)
                 }
                 if result.count > 0 {
                     newGrouping[startingLetterKey] = result
                 }
             }
-            self.countries = newGrouping
-            self.countryHeaders = self.countries.keys.sorted()
+            self.groupedCountries = newGrouping
+            self.headerTitles = self.groupedCountries.keys.sorted()
         }
     }
 
@@ -253,12 +273,21 @@ class CountryListCollectionViewController: UIViewController {
 
 extension CountryListCollectionViewController: UICollectionViewDataSource {
     public func numberOfSections(in _: UICollectionView) -> Int {
-        return self.countryHeaders.count
+        return self.isSearching == true ? self.headerTitles.count : 1 + self.headerTitles.count
     }
 
     public func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let withAlphabet = self.countryHeaders[section]
-        return self.countries[withAlphabet]?.count ?? 0
+        if self.isSearching == true {
+            let withAlphabet = self.headerTitles[section]
+            return self.groupedCountries[withAlphabet]?.count ?? 0
+
+        } else {
+            if section == HeaderType.currentLocation.index {
+                return 1
+            }
+            let withAlphabet = self.headerTitles[section - 1]
+            return self.groupedCountries[withAlphabet]?.count ?? 0
+        }
     }
 
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -267,8 +296,11 @@ extension CountryListCollectionViewController: UICollectionViewDataSource {
         let section = indexPath.section
         header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.headerReuseIdentifier, for: indexPath) as? HeaderView
 
-        header?.title = self.countryHeaders[section]
-
+        if self.isSearching {
+            header?.title = self.headerTitles[section]
+        } else {
+            header?.title = (section == HeaderType.currentLocation.index ? self.currentLocationHeaderTitle : self.headerTitles[section - 1])
+        }
         header?.configuration = self.configuration
 
         return header ?? UICollectionReusableView()
@@ -279,9 +311,21 @@ extension CountryListCollectionViewController: UICollectionViewDataSource {
         else { fatalError("Wrong cell type for CountryListCollectionViewController. Should be CountryListCollectionViewCell") }
 
         let section = indexPath.section
-        let withAlphabet = self.countryHeaders[section]
-        if let countries = self.countries[withAlphabet] {
-            cell.countryName = countries[indexPath.row]
+
+        if self.isSearching {
+            let withAlphabet = self.headerTitles[section]
+            if let countries = self.groupedCountries[withAlphabet] {
+                cell.countryName = countries[indexPath.row].name
+            }
+        } else {
+            if section == HeaderType.currentLocation.index {
+                cell.countryName = self.currentLocation.name
+            } else {
+                let withAlphabet = self.headerTitles[section - 1]
+                if let countries = self.groupedCountries[withAlphabet] {
+                    cell.countryName = countries[indexPath.row].name
+                }
+            }
         }
         cell.configuration = self.configuration
         return cell
@@ -307,24 +351,38 @@ extension CountryListCollectionViewController: UICollectionViewDelegate {
     public func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = indexPath.section
 
-        let withAlphabet = self.countryHeaders[section]
-        guard let countries = self.countries[withAlphabet] else {
-            print("No countries for specified key(alphabet)")
-            return
+        var selectedCountry: Country
+        if self.isSearching {
+            let withAlphabet = self.headerTitles[section]
+            guard let countries = self.groupedCountries[withAlphabet] else {
+                print("No countries for specified key(alphabet)")
+                return
+            }
+            selectedCountry = countries[indexPath.row]
+        } else {
+            if section == HeaderType.currentLocation.index {
+                selectedCountry = self.currentLocation
+            } else {
+                let withAlphabet = self.headerTitles[section - 1]
+                guard let countries = self.groupedCountries[withAlphabet] else {
+                    print("No countries for specified key(alphabet)")
+                    return
+                }
+                selectedCountry = countries[indexPath.row]
+            }
         }
-
-        let name = countries[indexPath.row]
-        delegate?.didSelectCountry(name: name)
+        self.delegate?.didSelectCountry(country: selectedCountry)
         self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension CountryListCollectionViewController: SearchViewDelegate {
     func didCancelSearch() {
+        self.stopTimer()
         self.isSearching = false
+        self.groupedCountries = self.allGroupedCountries
+        self.headerTitles = self.allHeaderTitles
         self.searchView.clear()
-        self.countries = self.allCountries
-        self.countryHeaders = self.allCountryHeaders
         self.reload()
     }
 }

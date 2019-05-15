@@ -68,9 +68,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func showCountryListing(textField: UITextField) {
-        let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
-        let currentLocation = textField.text ?? ""
-        let countryVC = CountryListCollectionViewController(currentLocation: currentLocation, configuration: uiConfiguration)
+        let countryName = textField.text ?? ""
+        let countryVC = CountryListCollectionViewController(countryName: countryName, configuration: configuration)
         countryVC.delegate = self
         self.selectedCountryTextField = textField
         self.navigationController?.pushViewController(countryVC, animated: true)
@@ -264,8 +263,8 @@ extension FormCollectionViewController: NextCellSwitcher {
 }
 
 extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
-    func didSelectCountry(name: String) {
-        self.didUpdate(value: name, for: NecessaryData.country)
-        self.selectedCountryTextField?.text = name
+    func didSelectCountry(country: Country) {
+        self.didUpdate(value: country.alpha2Code, for: NecessaryData.country) // sending 2 digit ISO country-code
+        self.selectedCountryTextField?.text = country.name
     }
 }
