@@ -94,6 +94,6 @@ class BraintreeUITests: BaseUITest {
         cancelButton.tap()
 
         self.waitForElementToAppear(element: payPalCell, timeout: 10)
-        XCTAssertTrue(payPalCell, "Expected to return to main payment method screen")
+        XCTAssertTrue(payPalCell.exists, "Expected to return to main payment method screen")
     }
 }
