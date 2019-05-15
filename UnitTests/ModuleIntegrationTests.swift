@@ -103,7 +103,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
@@ -130,7 +130,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                            expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                            expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
@@ -164,7 +164,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
@@ -227,7 +227,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
@@ -283,7 +283,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
@@ -311,7 +311,7 @@ class ModuleIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "Germany", billingData: BillingData())
+                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in

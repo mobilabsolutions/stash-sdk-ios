@@ -98,7 +98,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:name.fullName
-                                                                        country: @"Germany"
+                                                                        country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
 
@@ -142,7 +142,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                   zip:nil
                                                                  city:nil
                                                                 state:nil
-                                                              country:@"Germany"
+                                                              country:@"DE"
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
@@ -174,7 +174,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                   zip:nil
                                                                  city:nil
                                                                 state:nil
-                                                              country:@"Germany"
+                                                              country:@"DE"
                                                                 phone:nil
                                                            languageId:[[NSLocale currentLocale] languageCode]];
 
@@ -185,7 +185,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:name.fullName
-                                                                    country: @"Germany"
+                                                                    country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
     XCTAssertNotNil(error);

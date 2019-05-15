@@ -134,6 +134,7 @@
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
 		C42D56BE228AC53B00312CC1 /* Locale+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */; };
 		C42D56C0228AE38300312CC1 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56BF228AE38300312CC1 /* Country.swift */; };
+		C42D56C2228C32A400312CC1 /* SEPACountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56C1228C32A400312CC1 /* SEPACountryTests.swift */; };
 		C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */; };
 		C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */; };
 		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
@@ -493,6 +494,7 @@
 		C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNameProvider.swift; sourceTree = "<group>"; };
 		C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extension.swift"; sourceTree = "<group>"; };
 		C42D56BF228AE38300312CC1 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		C42D56C1228C32A400312CC1 /* SEPACountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPACountryTests.swift; sourceTree = "<group>"; };
 		C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewController.swift; sourceTree = "<group>"; };
 		C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewCell.swift; sourceTree = "<group>"; };
 		C49F49DC227C9AA400D3A986 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 				E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */,
 				E11C3C7C223B8F7F00F94F56 /* MobilabPaymentTests-Bridging-Header.h */,
 				BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */,
+				C42D56C1228C32A400312CC1 /* SEPACountryTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1989,6 +1992,7 @@
 				E17648DF2239522000889920 /* SEPADataTests.swift in Sources */,
 				BA0B9BBA224FB6D10029FC8D /* AdyenIntegrationTests.swift in Sources */,
 				1DC5CBA420D2BF5E002058C1 /* BSPayoneIntegrationTests.swift in Sources */,
+				C42D56C2228C32A400312CC1 /* SEPACountryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

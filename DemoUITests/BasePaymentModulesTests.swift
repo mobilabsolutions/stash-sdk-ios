@@ -47,7 +47,7 @@ class BasePaymentModulesTests: BaseUITest {
 
         collectionViewsQuery.textFields["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
-        
+
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
@@ -155,8 +155,8 @@ class BasePaymentModulesTests: BaseUITest {
         app.keys["C"].tap()
 
         collectionViewsQuery.textFields["Country"].tap()
-        app.collectionViews.cells.element(boundBy: 0).tap()
-        
+        app.collectionViews.cells.element(boundBy: 3).tap()
+
         // Tap on the "continue" keyboard button
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
 
@@ -171,12 +171,12 @@ class BasePaymentModulesTests: BaseUITest {
 
         guard let bicText = collectionViewsQuery.textFields["XXX"].value as? String
         else { XCTFail("Could not retrieve string value from BIC text field"); return }
-        
+
         guard let countryText = collectionViewsQuery.textFields["Country"].value as? String
         else { XCTFail("Could not retrieve string value from Country text field"); return }
 
         // This text should now be in the Country text field
-        XCTAssertEqual(countryText, "Germany")
+        XCTAssertEqual(countryText, "Algeria")
         // This text should now be in the BIC text field
         XCTAssertEqual(bicText, "C")
         // This text should now be in the IBAN text field

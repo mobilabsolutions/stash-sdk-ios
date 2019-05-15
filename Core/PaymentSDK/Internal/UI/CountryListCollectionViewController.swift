@@ -72,6 +72,8 @@ class CountryListCollectionViewController: UIViewController {
     private let headerView: TitleHeaderView = {
         let view = TitleHeaderView()
         view.title = "Select Your Country"
+        view.accessibilityIdentifier = "HeaderView"
+
         return view
     }()
 
@@ -98,6 +100,8 @@ class CountryListCollectionViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.view.accessibilityIdentifier = "CountrySelectionView"
 
         view.backgroundColor = self.configuration.backgroundColor
 

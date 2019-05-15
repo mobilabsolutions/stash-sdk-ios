@@ -70,7 +70,12 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func showCountryListing(textField: UITextField) {
-        let countryName = textField.text ?? ""
+        var countryName = textField.text ?? ""
+        // get device locale if textfield is empty
+        if countryName.isEmpty {
+            let deviceCountry = Locale.current.getDeviceRegion()
+            countryName = deviceCountry?.name ?? ""
+        }
         let countryVC = CountryListCollectionViewController(countryName: countryName, configuration: configuration)
         countryVC.delegate = self
         self.selectedCountryTextField = textField
