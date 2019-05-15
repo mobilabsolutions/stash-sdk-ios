@@ -19,6 +19,7 @@ class AdyenIntegrationTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
+        configuration.useTestMode = true
 
         let provider = MobilabPaymentAdyen()
         self.provider = provider
@@ -39,7 +40,7 @@ class AdyenIntegrationTests: XCTestCase {
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com")
-        let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "737", expiryMonth: 10, expiryYear: 20,
+        let creditCardData = try CreditCardData(cardNumber: "3600 6666 3333 44", cvv: "737", expiryMonth: 10, expiryYear: 20,
                                                 holderName: "Holder Name", billingData: billingData)
 
         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
