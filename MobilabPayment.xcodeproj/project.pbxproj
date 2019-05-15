@@ -1822,6 +1822,7 @@
 					1DC5CB9D20D2BF5E002058C1 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1020;
+						TestTargetID = BA8D070C2226AE56004F699A;
 					};
 					BA09A952224D60E8006C3A1D = {
 						CreatedOnToolsVersion = 10.2;
@@ -2564,6 +2565,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
 			};
 			name = Debug;
 		};
@@ -2589,6 +2591,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/MobilabPaymentTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
 			};
 			name = Release;
 		};

@@ -173,7 +173,7 @@ class ModuleIntegrationTests: XCTestCase {
             resultExpectation.fulfill()
         }
 
-        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 2, enforceOrder: true)
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4, enforceOrder: true)
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {
