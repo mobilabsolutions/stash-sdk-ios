@@ -9,10 +9,30 @@
 import XCTest
 
 class AdyenUITests: BaseUITest {
-    #warning("Implement this test")
     func testCanCreateCreditCard() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
+
+        collectionViewsQuery.textFields["CVV"].tap()
+        collectionViewsQuery.textFields["CVV"].typeText("737")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        waitForElementToAppear(element: app.alerts.firstMatch)
+
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid credit card")
+        app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
     #warning("Implement this test")

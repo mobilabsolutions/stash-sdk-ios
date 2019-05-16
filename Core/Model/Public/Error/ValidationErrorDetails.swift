@@ -25,6 +25,8 @@ public enum ValidationErrorDetails: String, CustomStringConvertible, TitleProvid
     case cardTypeNotSupported
     /// The PSP requires the BIC to be present but it is missing
     case bicMissing
+    /// The expiration year is invalid
+    case invalidExpirationYear
 
     public var description: String {
         switch self {
@@ -44,6 +46,8 @@ public enum ValidationErrorDetails: String, CustomStringConvertible, TitleProvid
             return "Card type not supported by PSP"
         case .bicMissing:
             return "The BIC is required but missing"
+        case .invalidExpirationYear:
+            return "The expiration year is invalid"
         }
     }
 
@@ -65,6 +69,8 @@ public enum ValidationErrorDetails: String, CustomStringConvertible, TitleProvid
             return "Card type not supported"
         case .bicMissing:
             return "BIC required"
+        case .invalidExpirationYear:
+            return "Credit card validation error"
         }
     }
 }

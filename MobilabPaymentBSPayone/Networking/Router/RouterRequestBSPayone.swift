@@ -40,7 +40,7 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
                 .append("cardcvc2", value: creditCardData.cardCVC2)
                 .append("storecarddata", value: "yes")
 
-            if let locale = creditCardData.billingData?.languageId
+            if let locale = creditCardData.billingData.languageId
                 ?? Locale.current.languageCode?.split(separator: "-").first.flatMap({ String($0) }) {
                 url = url.append("language", value: locale)
             }

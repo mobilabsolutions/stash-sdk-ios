@@ -21,11 +21,17 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
 
             let paypalViewController = PayPalViewController(clientToken: pspData.clientToken)
             paypalViewController.didCreatePaymentMethodCompletion = { method in
-                if let payPalData = method as? PayPalData {
-                    completion(.success(payPalData.nonce))
-                } else {
-                    fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+                guard let payPalData = method as? PayPalData
+                else { fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData") }
+
+                guard let nonce = payPalData.nonce
+                else {
+                    completion(.failure(MobilabPaymentError.other(GenericErrorDetails(description: "Nonce missing in PayPal data"))))
+                    return
                 }
+
+                let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(payPalConfig: PayPalExtra(nonce: nonce, deviceData: ""), billingData: BillingData()))
+                completion(.success(registration))
             }
             guard let presentingViewController = registrationRequest.viewController else {
                 fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")

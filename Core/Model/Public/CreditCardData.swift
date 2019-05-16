@@ -73,4 +73,13 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         self.billingData = billingData
         self.cardType = CreditCardUtils.cardTypeFromNumber(cleanedNumber: cleanedNumber)
     }
+
+    public func toCreditCardExtra() -> CreditCardExtra? {
+        guard let cardMask = self.cardMask
+        else { return nil }
+
+        return CreditCardExtra(ccExpiry: "\(String(format: "%02d", self.expiryMonth))/\(String(format: "%02d", self.expiryYear))",
+                               ccMask: cardMask,
+                               ccType: self.cardType.rawValue)
+    }
 }

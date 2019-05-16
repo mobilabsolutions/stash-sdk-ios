@@ -17,6 +17,13 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     private var controllerForIdempotencyKey: [String: AdyenPaymentControllerWrapper] = [:]
 
+    private let dateExtractingDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy"
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        return dateFormatter
+    }()
+
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                           idempotencyKey: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
@@ -50,11 +57,8 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                            idempotencyKey: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
         #warning("Update this return URL")
-        guard let returnUrl = URL(string: "app://mobilabpayment")
-        else { completion(.failure(MobilabPaymentError.configuration(.invalidReturnURL))); return }
-
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
-            let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: returnUrl)
+            let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
             completion(.success(creationDetail))
         }
 
@@ -94,14 +98,17 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                          controller: AdyenPaymentControllerWrapper,
                                          idempotencyKey: String,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        let billingData = creditCardData.billingData
+        let billingData = creditCardData.billingData ?? BillingData()
         let creditCardPreparator = CreditCardPreparator(billingData: billingData, creditCardData: creditCardData)
-        controller.continueRegistration(sessionId: pspData.sessionID,
+        controller.continueRegistration(sessionId: pspData.paymentSession,
                                         billingData: billingData,
                                         paymentMethodPreparator: creditCardPreparator) { result in
             switch result {
             case let .success(token):
-                completion(.success(token))
+                let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(ccConfig: creditCardData.creditCardExtra,
+                                                                                      billingData: billingData,
+                                                                                      payload: token))
+                completion(.success(registration))
             case let .failure(error):
                 let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
                 completion(.failure(mlError))
@@ -110,24 +117,13 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
-    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData: AdyenData,
-                                   controller: AdyenPaymentControllerWrapper,
-                                   idempotencyKey: String,
+    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData _: AdyenData,
+                                   controller _: AdyenPaymentControllerWrapper,
+                                   idempotencyKey _: String,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        let billingData = sepaData.billingData
-        let sepaPreparator = SEPAPreparator(billingData: billingData, sepaData: sepaData)
-        controller.continueRegistration(sessionId: pspData.sessionID,
-                                        billingData: billingData,
-                                        paymentMethodPreparator: sepaPreparator) { result in
-            switch result {
-            case let .success(token):
-                completion(.success(token))
-            case let .failure(error):
-                let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
-                completion(.failure(mlError))
-            }
-            self.controllerForIdempotencyKey[idempotencyKey] = nil
-        }
+        let billingData = sepaData.billingData ?? BillingData()
+        let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData))
+        completion(.success(registration))
     }
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
@@ -140,14 +136,20 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
-        guard let holderName = cardData.holderName else { throw MobilabPaymentError.validation(.creditCardMissingHolderName) }
+        guard let extra = cardData.toCreditCardExtra()
+        else { throw MobilabPaymentError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
+
+        guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
+        else { throw MobilabPaymentError.validation(.invalidExpirationYear) }
+
+        let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
 
         let creditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
                                                     expiryMonth: String(cardData.expiryMonth),
-                                                    expiryYear: String(cardData.expiryYear),
+                                                    expiryYear: String(fullYearComponent),
                                                     cvc: cardData.cvv,
-                                                    holderName: holderName,
-                                                    billingData: cardData.billingData)
+                                                    billingData: cardData.billingData,
+                                                    creditCardExtra: extra)
         return creditCardRequest
     }
 
@@ -158,7 +160,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         guard let ownerName = data.billingData.name?.fullName
         else { throw MobilabPaymentError.validation(.billingMissingName) }
 
-        return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData)
+        return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData, sepaExtra: data.toSEPAExtra())
     }
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
