@@ -28,7 +28,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public let holderName: String?
     /// The type of credit card (e.g. visa or mastercard) the number is associated with. This is determined on card initialization
     public let cardType: CreditCardType
-    /// Name of the country in which credit card was issued. Not required for every PSP.
+    /// The country field takes an ISO country code. e.g. 'DE' for Germany and is mandatory for some PSPs (e.g. BSPayone)
     public let country: String?
 
     /// The card mask (i.e. last 4 digits) of the card number

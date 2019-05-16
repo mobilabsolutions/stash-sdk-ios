@@ -15,11 +15,9 @@ extension Locale {
 
         var countries: [Country] = []
 
-        var index = 0
-        for name in countryNames {
+        for (index, name) in countryNames.enumerated() {
             let code = countryCodes[index]
             countries.append(Country(name: name, alpha2Code: code))
-            index += 1
         }
         countries = countries.sorted(by: { $0.name < $1.name })
         return countries

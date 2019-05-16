@@ -1,5 +1,5 @@
 //
-//  SEPACountryTests.swift
+//  CountryDataTests.swift
 //  MobilabPaymentTests
 //
 //  Created by Rupali Ghate on 15.05.19.
@@ -9,7 +9,7 @@
 @testable import MobilabPaymentCore
 import XCTest
 
-class SEPACountryTests: XCTestCase {
+class CountryDataTests: XCTestCase {
     func testShouldCorrectlyReadsCountries() {
         let countries = Locale.current.getAllCountriesWithCodes()
         XCTAssertFalse(countries.isEmpty)
