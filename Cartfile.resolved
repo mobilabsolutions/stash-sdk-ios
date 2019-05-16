@@ -1,4 +1,4 @@
 github "AliSoftware/OHHTTPStubs" "8.0.0"
-github "adyen/adyen-ios" "2.8.0"
+github "adyen/adyen-ios" "2.8.1"
 github "braintree/braintree-ios-drop-in" "7.1.0"
 github "braintree/braintree_ios" "4.23.0"
