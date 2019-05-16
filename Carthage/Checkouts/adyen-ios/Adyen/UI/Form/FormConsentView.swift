@@ -11,62 +11,62 @@ import UIKit
 public class FormConsentView: UIView {
     public init() {
         super.init(frame: .zero)
-
-        addSubview(self.titleLabel)
-        addSubview(self.consentSwitch)
-
-        self.configureConstraints()
+        
+        addSubview(titleLabel)
+        addSubview(consentSwitch)
+        
+        configureConstraints()
     }
-
-    public required init(coder _: NSCoder) {
+    
+    public required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Public
-
+    
     public var title: String? {
         didSet {
             guard let title = title else {
                 return
             }
-
+            
             let attributedTitle = NSAttributedString(string: title, attributes: Appearance.shared.textAttributes)
             titleLabel.attributedText = attributedTitle
             dynamicTypeController.observeDynamicType(for: titleLabel, withTextAttributes: Appearance.shared.textAttributes, textStyle: .body)
             accessibilityLabel = title
         }
     }
-
+    
     public var isSelected: Bool {
         set {
-            self.consentSwitch.isOn = isSelected
+            consentSwitch.isOn = isSelected
         }
         get {
-            return self.consentSwitch.isOn
+            return consentSwitch.isOn
         }
     }
-
+    
     public var onValueChanged: ((Bool) -> Void)?
-
+    
     // MARK: - Private
-
+    
     private let dynamicTypeController = DynamicTypeController()
-
+    
     private func configureConstraints() {
         let constraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-
+            
             consentSwitch.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20.0),
             consentSwitch.trailingAnchor.constraint(equalTo: trailingAnchor),
             consentSwitch.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-
-            bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            
+            bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16)
         ]
-
+        
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.numberOfLines = 0
@@ -75,7 +75,7 @@ public class FormConsentView: UIView {
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return titleLabel
     }()
-
+    
     private lazy var consentSwitch: UISwitch = {
         let consentSwitch = UISwitch(frame: .zero)
         consentSwitch.isOn = false
@@ -86,8 +86,9 @@ public class FormConsentView: UIView {
         consentSwitch.addTarget(self, action: #selector(consentSwitchValueChanged), for: .valueChanged)
         return consentSwitch
     }()
-
+    
     @objc private func consentSwitchValueChanged() {
-        self.onValueChanged?(self.consentSwitch.isOn)
+        onValueChanged?(consentSwitch.isOn)
     }
+    
 }

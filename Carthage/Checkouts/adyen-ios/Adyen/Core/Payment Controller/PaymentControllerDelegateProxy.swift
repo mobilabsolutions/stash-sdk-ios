@@ -10,48 +10,48 @@ import Foundation
 internal class PaymentControllerDelegateProxy: PaymentControllerDelegate {
     /// The delegate to forward to.
     internal private(set) weak var delegate: PaymentControllerDelegate!
-
+    
     /// Initializes the delegate proxy.
     ///
     /// - Parameter delegate: The delegate to forward to.
     internal init(delegate: PaymentControllerDelegate) {
         self.delegate = delegate
     }
-
+    
     // MARK: - PaymentControllerDelegate
-
+    
     func requestPaymentSession(withToken token: String, for paymentController: PaymentController, responseHandler: @escaping (String) -> Void) {
-        self.dispatch {
+        dispatch {
             self.delegate?.requestPaymentSession(withToken: token, for: paymentController, responseHandler: responseHandler)
         }
     }
-
+    
     func selectPaymentMethod(from paymentMethods: SectionedPaymentMethods, for paymentController: PaymentController, selectionHandler: @escaping (PaymentMethod) -> Void) {
-        self.dispatch {
+        dispatch {
             self.delegate?.selectPaymentMethod(from: paymentMethods, for: paymentController, selectionHandler: selectionHandler)
         }
     }
-
+    
     func redirect(to url: URL, for paymentController: PaymentController) {
-        self.dispatch {
+        dispatch {
             self.delegate?.redirect(to: url, for: paymentController)
         }
     }
-
+    
     func didFinish(with result: Result<PaymentResult>, for paymentController: PaymentController) {
-        self.dispatch {
+        dispatch {
             self.delegate?.didFinish(with: result, for: paymentController)
         }
     }
-
+    
     func provideAdditionalDetails(_ additionalDetails: AdditionalPaymentDetails, for paymentMethod: PaymentMethod, detailsHandler: @escaping Completion<[PaymentDetail]>) {
-        self.dispatch {
+        dispatch {
             self.delegate?.provideAdditionalDetails(additionalDetails, for: paymentMethod, detailsHandler: detailsHandler)
         }
     }
-
+    
     // MARK: - Private
-
+    
     private func dispatch(_ closure: @escaping () -> Void) {
         if Thread.isMainThread {
             closure()
@@ -59,4 +59,5 @@ internal class PaymentControllerDelegateProxy: PaymentControllerDelegate {
             DispatchQueue.main.async(execute: closure)
         }
     }
+    
 }

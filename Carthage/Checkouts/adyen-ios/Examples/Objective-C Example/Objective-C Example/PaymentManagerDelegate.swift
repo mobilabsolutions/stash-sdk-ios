@@ -8,4 +8,5 @@ import Foundation
 
 @objc protocol PaymentManagerDelegate {
     func paymentManager(_ paymentManager: PaymentManager, didFinishWithResult result: PaymentManagerResult)
+    
 }

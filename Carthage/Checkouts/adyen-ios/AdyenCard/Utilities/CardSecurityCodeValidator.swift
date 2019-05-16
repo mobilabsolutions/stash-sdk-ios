@@ -5,22 +5,24 @@
 //
 
 class CardSecurityCodeValidator: NumericValidator {
+    
     func isMaxLength(_ string: String) -> Bool {
-        return string.count >= self.maxLength
+        return string.count >= maxLength
     }
-
+    
     func isValid(_ string: String) -> Bool {
         let sanitized = sanitize(string)
         let minLength = 3
         let isValid = sanitized.count >= minLength && sanitized.count <= maxLength
         return isValid
     }
-
+    
     func format(_ string: String) -> String {
         return sanitize(string)
     }
-
+    
     // MARK: - Private
-
+    
     private let maxLength = 4
+    
 }

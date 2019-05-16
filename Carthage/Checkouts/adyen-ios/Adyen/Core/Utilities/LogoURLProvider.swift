@@ -13,23 +13,24 @@ internal struct LogoURLProvider {
         guard var components = URLComponents(string: componentsString) else {
             return nil
         }
-
+        
         let pathComponents = ["small", paymentMethod.type, selectItem?.identifier].compactMap { $0 }
         components.path += pathComponents.joined(separator: "/") + LogoURLProvider.logoPathSuffix
-
+        
         guard let url = components.url else {
             return nil
         }
-
+        
         return url
     }
-
+    
     private static var logoPathSuffix: String {
         let scale = Int(UIScreen.main.scale)
         if scale > 1 {
             return "@\(scale)x.png"
         }
-
+        
         return ".png"
     }
+    
 }

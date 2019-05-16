@@ -16,11 +16,11 @@ class KlarnaSSNValidator: NumericValidator {
     func isValid(_ string: String) -> Bool {
         return string.count > 12
     }
-
+    
     func isMaxLength(_ string: String) -> Bool {
         return string.count >= 13
     }
-
+    
     func format(_ string: String) -> String {
         let sanitized = sanitize(string)
         let lowerIndex = sanitized.count < 8 ? sanitized.count : 8

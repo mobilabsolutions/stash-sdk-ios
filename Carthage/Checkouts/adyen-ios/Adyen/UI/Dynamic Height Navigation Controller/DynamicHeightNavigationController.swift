@@ -11,49 +11,49 @@ import UIKit
 internal class DynamicHeightNavigationController: UINavigationController {
     init() {
         super.init(nibName: nil, bundle: nil)
-
+        
         modalPresentationCapturesStatusBarAppearance = true
         delegate = self
-
-        if self.shouldPresentAsFormSheet {
+        
+        if shouldPresentAsFormSheet {
             modalPresentationStyle = .formSheet
         } else {
             transitioningDelegate = self
             modalPresentationStyle = .custom
-
+            
             preferredContentSize = CGSize(width: view.bounds.width, height: 0.0)
         }
     }
-
-    required init?(coder _: NSCoder) {
+    
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Status Bar
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         guard isFullScreen else {
             return presentingViewController?.preferredStatusBarStyle ?? .default
         }
-
+        
         return Appearance.shared.preferredStatusBarStyle ?? .default
     }
-
+    
     // MARK: - Private
-
+    
     private var isFullScreen: Bool {
         return preferredContentSize == CGSize.zero
     }
-
+    
     private var shouldPresentAsFormSheet: Bool {
         let size = UIApplication.shared.keyWindow?.bounds.size ?? .zero
-
+        
         // The largest side length on an iPhone
         let minimumSideLengthForForPresentation: CGFloat = 414
-        if size.width > minimumSideLengthForForPresentation, size.height > minimumSideLengthForForPresentation {
+        if size.width > minimumSideLengthForForPresentation && size.height > minimumSideLengthForForPresentation {
             return true
         }
-
+        
         return false
     }
 }
@@ -61,7 +61,7 @@ internal class DynamicHeightNavigationController: UINavigationController {
 // MARK: - UINavigationControllerDelegate
 
 extension DynamicHeightNavigationController: UINavigationControllerDelegate {
-    func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // This forces full-screen presentation.
         if viewController.preferredContentSize == CGSize.zero {
             preferredContentSize = viewController.preferredContentSize
@@ -73,7 +73,7 @@ extension DynamicHeightNavigationController: UINavigationControllerDelegate {
 // MARK: - UIViewControllerTransitioningDelegate
 
 extension DynamicHeightNavigationController: UIViewControllerTransitioningDelegate {
-    internal func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source _: UIViewController) -> UIPresentationController? {
+    internal func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return DynamicHeightPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

@@ -27,6 +27,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
     case pspInvalidConfiguration
     /// The return URL that is set for a given PSP is invalid
     case invalidReturnURL
+    /// The backend is configured incorrectly for the performed action
+    case invalidBackendConfiguration(description: String, code: String)
 
     public var description: String {
         switch self {
@@ -48,6 +50,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
             return "The payment service provider module was not correctly set up"
         case .invalidReturnURL:
             return "The return URL provided for the given PSP is invalid"
+        case let .invalidBackendConfiguration(description, code):
+            return "Invalid backend configuration: \(description) (\(code))"
         }
     }
 
@@ -81,6 +85,9 @@ extension SDKConfigurationError: Codable {
             try container.encode("PSP_INVALID_CONFIGURATION", forKey: .type)
         case .invalidReturnURL:
             try container.encode("INVALID_RETURN_URL", forKey: .type)
+        case let .invalidBackendConfiguration(description, code):
+            try container.encode("INVALID_BACKEND_CONFIGURATION", forKey: .type)
+            try container.encode(CodableTwoTuple(first: description, second: code), forKey: .details)
         }
     }
 
@@ -109,6 +116,9 @@ extension SDKConfigurationError: Codable {
             self = .pspInvalidConfiguration
         case "INVALID_RETURN_URL":
             self = .invalidReturnURL
+        case "INVALID_BACKEND_CONFIGURATION":
+            let details = try container.decode(CodableTwoTuple<String, String>.self, forKey: .details)
+            self = .invalidBackendConfiguration(description: details.first, code: details.second)
         default:
             throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "The type \(type) does not exist for decoding SDKConfigurationError")
         }

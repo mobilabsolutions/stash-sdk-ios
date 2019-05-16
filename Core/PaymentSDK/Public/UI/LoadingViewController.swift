@@ -10,24 +10,45 @@ import UIKit
 
 public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
+    public var billingData: BillingData?
 
-    public func errorWhileCreatingPaymentMethod(error _: MobilabPaymentError) {
-        #warning("Handle PayPal error here")
+    private let uiConfiguration: PaymentMethodUIConfiguration
+
+    public init(uiConfiguration: PaymentMethodUIConfiguration) {
+        self.uiConfiguration = uiConfiguration
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        if case MobilabPaymentError.userActionable = error {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            present(alert, animated: true)
+        }
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        self.view.backgroundColor = self.uiConfiguration.backgroundColor
 
         self.showActivityIndicatory()
 
-        let payPalData = PayPalData(nonce: nil)
+        let payPalData = PayPalPlaceholderData(billingData: billingData)
         self.didCreatePaymentMethodCompletion?(payPalData)
     }
 
     func showActivityIndicatory() {
         let activityView = UIActivityIndicatorView(style: .whiteLarge)
         activityView.center = self.view.center
+        activityView.color = uiConfiguration.mediumEmphasisColor
 
         self.view.addSubview(activityView)
         activityView.startAnimating()

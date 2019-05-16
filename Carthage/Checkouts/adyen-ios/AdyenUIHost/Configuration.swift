@@ -9,11 +9,11 @@ import Foundation
 // Fill in your app identifier and secret key here.
 struct Configuration {
     static var appSecretKey = ""
-
+    
     static var isFilledIn: Bool {
         return appSecretKey.isEmpty == false
     }
-
+    
     // Checks if SecretKey was defined in compile time via SECRET_KEY user defined build setting.
     static func readApiKeyFromUserDefinedBuildSettings() {
         if let apiKey = Bundle(for: AppDelegate.self).object(forInfoDictionaryKey: "SecretKey") as? String,
