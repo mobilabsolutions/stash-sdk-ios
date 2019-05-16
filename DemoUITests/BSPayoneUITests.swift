@@ -54,8 +54,8 @@ class BSPayoneUITests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("123")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
         collectionViewsQuery.textFields["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
@@ -96,8 +96,8 @@ class BSPayoneUITests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("123")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
         collectionViewsQuery.textFields["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
