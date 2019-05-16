@@ -109,6 +109,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
             let bic = data[.bic],
             let firstName = data[.holderFirstName],
             let lastName = data[.holderLastName],
+            let countryCode = self.country?.alpha2Code,
             errors.isEmpty
         else { throw FormConsumerError(errors: errors) }
 
@@ -120,7 +121,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          zip: billingData?.zip,
                                          city: billingData?.city,
                                          state: billingData?.state,
-                                         country: billingData?.country,
+                                         country: countryCode,
                                          phone: billingData?.phone,
                                          languageId: billingData?.languageId)
 

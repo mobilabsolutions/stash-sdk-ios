@@ -35,7 +35,7 @@ class SearchView: UIView {
     private let defaultInterItemOffset: CGFloat = 4
     private let imageDimension: (width: CGFloat, height: CGFloat) = (24, 24)
     private let fieldHeight: CGFloat = 40
-    private let buttonWidth: CGFloat = 70
+    private let buttonWidth: CGFloat = 24
 
     private var textFieldFocusGainCallback: ((UITextField) -> Void)?
     private var textFieldUpdateCallback: ((UITextField) -> Void)?
@@ -59,8 +59,8 @@ class SearchView: UIView {
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)
+        button.setImage(UIConstants.closeButtonImage, for: .normal)
         button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
-        button.backgroundColor = .gray
         return button
     }()
 

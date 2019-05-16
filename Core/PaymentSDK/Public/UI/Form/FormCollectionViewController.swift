@@ -272,7 +272,6 @@ extension FormCollectionViewController: NextCellSwitcher {
 extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
     func didSelectCountry(country: Country) {
         self.country = country
-        self.didUpdate(value: country.alpha2Code, for: NecessaryData.country) // sending 2 digit ISO country-cod
         self.selectedCountryTextField?.text = country.name
     }
 }

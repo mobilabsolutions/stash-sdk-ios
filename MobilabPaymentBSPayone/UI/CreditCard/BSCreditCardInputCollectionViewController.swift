@@ -137,7 +137,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  didUpdate: nil)
 
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
-                                                             title: "Credit card number",
+                                                             title: "Credit Card Number",
                                                              placeholder: "1234",
                                                              setup: { _, textField in
                                                                  textField.rightViewMode = .always
@@ -204,7 +204,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
                                                 holderName: parsedData.name.fullName,
-                                                country: self.country?.alpha2Code,
+                                                country: parsedData.country.alpha2Code,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil

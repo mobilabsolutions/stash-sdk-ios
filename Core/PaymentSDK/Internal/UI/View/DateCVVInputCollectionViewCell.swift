@@ -64,7 +64,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         self.dateError = dateError
         self.cvvError = cvvError
 
-        self.errorLabel.text = (dateError.flatMap({ $0 + "\n" }) ?? "") + (cvvError ?? "")
+        self.errorLabel.text = (dateError.flatMap { $0 + "\n" } ?? "") + (cvvError ?? "")
         self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
 
         self.dateTitleLabel.textColor = configuration.textColor
@@ -140,7 +140,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     fileprivate func setupCVVTextField() {
         self.cvvTextField.translatesAutoresizingMaskIntoConstraints = false
 
-        self.cvvTextField.placeholder = "CVV"
+        self.cvvTextField.placeholder = "CVV/CVC"
         self.cvvTextField.keyboardType = .numberPad
 
         self.cvvTextField.addTarget(self, action: #selector(self.cvvTextFieldEditingChanged), for: .editingChanged)
@@ -157,7 +157,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     }
 
     fileprivate func setupLabels() {
-        self.cvvTitleLabel.text = "CVV"
+        self.cvvTitleLabel.text = "CVV/CVC"
         self.dateTitleLabel.text = "Expiration date"
 
         self.cvvTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -184,7 +184,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         if let text = self.dateTextField.text, !text.isEmpty {
             self.dateTextField.text = text
         } else {
-            let selectedYear = self.pickerView.selectedRow(inComponent: 1) + currentYear()
+            let selectedYear = self.pickerView.selectedRow(inComponent: 1) + self.currentYear()
             self.dateTextField.text = String(format: "%02d/%02d", self.pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
             self.dateTextFieldEditingChanged()
         }
@@ -232,7 +232,7 @@ extension DateCVVInputCollectionViewCell: UIPickerViewDelegate, UIPickerViewData
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow _: Int, inComponent _: Int) {
-        let selectedYear = pickerView.selectedRow(inComponent: 1) + currentYear()
+        let selectedYear = pickerView.selectedRow(inComponent: 1) + self.currentYear()
         self.dateTextField.text = String(format: "%02d/%02d", pickerView.selectedRow(inComponent: 0) + 1, selectedYear % 100)
         self.dateTextFieldEditingChanged()
     }

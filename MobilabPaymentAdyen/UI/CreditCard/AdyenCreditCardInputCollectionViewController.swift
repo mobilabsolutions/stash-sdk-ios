@@ -93,38 +93,38 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
         self.formConsumer = self
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
-                                                             title: "Credit card number",
+                                                             title: "Credit Card Number",
                                                              placeholder: "1234",
                                                              setup: { _, textField in
-                                                                textField.rightViewMode = .always
-                                                                textField.textContentType = .creditCardNumber
-                                                                let imageView = UIImageView(frame: CGRect(x: 0,
-                                                                                                          y: 0,
-                                                                                                          width: AdyenCreditCardInputCollectionViewController.methodTypeImageViewWidth,
-                                                                                                          height: AdyenCreditCardInputCollectionViewController.methodTypeImageViewHeight))
-                                                                imageView.contentMode = .scaleAspectFit
-                                                                textField.rightView = imageView
-        },
+                                                                 textField.rightViewMode = .always
+                                                                 textField.textContentType = .creditCardNumber
+                                                                 let imageView = UIImageView(frame: CGRect(x: 0,
+                                                                                                           y: 0,
+                                                                                                           width: AdyenCreditCardInputCollectionViewController.methodTypeImageViewWidth,
+                                                                                                           height: AdyenCreditCardInputCollectionViewController.methodTypeImageViewHeight))
+                                                                 imageView.contentMode = .scaleAspectFit
+                                                                 textField.rightView = imageView
+                                                             },
                                                              didFocus: nil,
                                                              didUpdate: { _, textField in
-                                                                let imageView = textField.rightView as? UIImageView
-                                                                
-                                                                let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
-                                                                let image = possibleCardType != .unknown ? possibleCardType.image : nil
-                                                                imageView?.image = image
-                                                                
-                                                                textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
+                                                                 let imageView = textField.rightView as? UIImageView
+
+                                                                 let possibleCardType = CreditCardUtils.cardTypeFromNumber(number: textField.text ?? "")
+                                                                 let image = possibleCardType != .unknown ? possibleCardType.image : nil
+                                                                 imageView?.image = image
+
+                                                                 textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
-        
+
         setCellModel(cellModels: [
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
-            ])
+        ])
     }
 
     required init?(coder _: NSCoder) {
