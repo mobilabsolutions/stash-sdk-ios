@@ -16,13 +16,23 @@ class AliasCollectionViewCell: UICollectionViewCell {
     func setup(for alias: Alias) {
         self.aliasLabel.text = alias.alias
 
+        let typeLabelText: String
+
         switch alias.type {
         case .creditCard:
-            self.typeLabel.text = "CC"
+            typeLabelText = "CC"
         case .sepa:
-            self.typeLabel.text = "SEPA"
+            typeLabelText = "SEPA"
+        case .payPal:
+            typeLabelText = "PayPal"
         case .unknown:
-            self.typeLabel.text = "Unknown"
+            typeLabelText = "Unknown"
+        }
+
+        if let humanReadable = alias.humanReadableId {
+            self.typeLabel.text = typeLabelText + " (\(humanReadable))"
+        } else {
+            self.typeLabel.text = typeLabelText
         }
 
         if let month = alias.expirationMonth, let year = alias.expirationYear {

@@ -32,3 +32,5 @@ extension PaymentMethodType {
         }
     }
 }
+
+extension PaymentMethodType: Codable {}

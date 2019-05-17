@@ -229,6 +229,17 @@
 		E15E0707228DAE4F007F5FA4 /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
 		E15E0708228DAE4F007F5FA4 /* PayPalOneTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15E0709228DAE64007F5FA4 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */; };
+		E15E070C228EAA44007F5FA4 /* BraintreeDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; };
+		E15E070D228EAA44007F5FA4 /* BraintreeDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E070E228EAA44007F5FA4 /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E15E070F228EAA44007F5FA4 /* Adyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0710228EAA44007F5FA4 /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E15E0711228EAA44007F5FA4 /* AdyenCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0712228EAA44007F5FA4 /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E15E0713228EAA44007F5FA4 /* AdyenInternal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0714228EAA44007F5FA4 /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -421,16 +432,21 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E15E0711228EAA44007F5FA4 /* AdyenCard.framework in Embed Frameworks */,
+				E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */,
+				E15E0713228EAA44007F5FA4 /* AdyenInternal.framework in Embed Frameworks */,
 				E1D9015A224A84660067BB8A /* BraintreePayPal.framework in Embed Frameworks */,
 				E1D90166224A84660067BB8A /* PayPalDataCollector.framework in Embed Frameworks */,
 				E1D9015C224A84660067BB8A /* BraintreeCard.framework in Embed Frameworks */,
 				E1D9015E224A84660067BB8A /* BraintreeCore.framework in Embed Frameworks */,
+				E15E070F228EAA44007F5FA4 /* Adyen.framework in Embed Frameworks */,
 				E1D90156224A84480067BB8A /* MobilabPaymentBraintree.framework in Embed Frameworks */,
 				E1D90182224A88BA0067BB8A /* BraintreeDropIn.framework in Embed Frameworks */,
 				E1D9016A224A84660067BB8A /* PayPalUtils.framework in Embed Frameworks */,
 				E1D90164224A84660067BB8A /* BraintreeUIKit.framework in Embed Frameworks */,
 				E1D90184224A88BA0067BB8A /* PayPalOneTouch.framework in Embed Frameworks */,
 				E1D90162224A84660067BB8A /* BraintreePaymentFlow.framework in Embed Frameworks */,
+				E15E070D228EAA44007F5FA4 /* BraintreeDataCollector.framework in Embed Frameworks */,
 				E11C3C25223AB69D00F94F56 /* MobilabPaymentBSPayone.framework in Embed Frameworks */,
 				E11C3C21223AB69D00F94F56 /* MobilabPaymentCore.framework in Embed Frameworks */,
 			);
@@ -609,6 +625,7 @@
 		E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPreparator.swift; sourceTree = "<group>"; };
 		E15E06F6228DA9B2007F5FA4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E15E06F7228DA9B2007F5FA4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPRegistration.swift; sourceTree = "<group>"; };
 		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
@@ -789,16 +806,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E15E0710228EAA44007F5FA4 /* AdyenCard.framework in Frameworks */,
+				E15E0714228EAA44007F5FA4 /* AdyenSEPA.framework in Frameworks */,
+				E15E0712228EAA44007F5FA4 /* AdyenInternal.framework in Frameworks */,
 				E1D90159224A84660067BB8A /* BraintreePayPal.framework in Frameworks */,
 				E1D90165224A84660067BB8A /* PayPalDataCollector.framework in Frameworks */,
 				E1D9015B224A84660067BB8A /* BraintreeCard.framework in Frameworks */,
 				E1D9015D224A84660067BB8A /* BraintreeCore.framework in Frameworks */,
+				E15E070E228EAA44007F5FA4 /* Adyen.framework in Frameworks */,
 				E1D90155224A84480067BB8A /* MobilabPaymentBraintree.framework in Frameworks */,
 				E1D90169224A84660067BB8A /* PayPalUtils.framework in Frameworks */,
 				E1D90163224A84660067BB8A /* BraintreeUIKit.framework in Frameworks */,
 				E1D90161224A84660067BB8A /* BraintreePaymentFlow.framework in Frameworks */,
 				E1D90183224A88BA0067BB8A /* PayPalOneTouch.framework in Frameworks */,
 				E11C3C20223AB69D00F94F56 /* MobilabPaymentCore.framework in Frameworks */,
+				E15E070C228EAA44007F5FA4 /* BraintreeDataCollector.framework in Frameworks */,
 				E11C3C24223AB69D00F94F56 /* MobilabPaymentBSPayone.framework in Frameworks */,
 				E1D90181224A88BA0067BB8A /* BraintreeDropIn.framework in Frameworks */,
 			);
@@ -1243,6 +1265,7 @@
 				E1466262227C399F00512710 /* CreditCardExtra.swift */,
 				E1466264227C39BF00512710 /* SEPAExtra.swift */,
 				E1466266227C39D900512710 /* PayPalExtra.swift */,
+				E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2180,6 +2203,7 @@
 				E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
 				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
+				E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */,
 				E1068EA022522B2000ACC93C /* TitleHeaderView.swift in Sources */,
 				BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */,
 				BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */,

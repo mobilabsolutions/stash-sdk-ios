@@ -93,7 +93,7 @@ else { fatalError("Credit card data is not valid") }
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
     switch result {
-    case let .success(alias): print("Received alias for credit card: \(alias)")
+    case let .success(registration): print("Received alias for credit card: \(registration.alias)")
     case let .failure(error): print("Error (\(error.code)) while registering credit card")
     }
 }
@@ -121,7 +121,7 @@ else { XCTFail("SEPA data should be valid"); return }
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
     switch result {
-    case let .success(alias): print("Received alias for SEPA account: \(alias)")
+    case let .success(registration): print("Received alias for SEPA account: \(registration.alias)")
     case let .failure(error): print("Error (\(error.description)) while registering SEPA account")
     }
 }
@@ -155,10 +155,8 @@ let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerPayPal(presentingViewController: self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case let .success(alias):
-                    self?.save(alias: alias, expirationMonth: nil, expirationYear: nil, type: .sepa)
-                    self?.clearInputs()
-                    self?.showAlert(title: "Success", body: "SEPA added successfully.")
+                case let .success(registration):
+                    self?.showAlert(title: "Success", body: "PayPal added successfully.")
                 case let .failure(error): self?.showAlert(title: error.title,
                                                           body: error.errorDescription ?? "An error occurred when adding the credit card")
                 }
@@ -178,7 +176,7 @@ Typical usage of this functionality might look like this:
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {
-    case let .success(value):
+    case let .success(registration):
         self?.dismiss(animated: true) {
             self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }
@@ -197,7 +195,7 @@ MobilabPaymentSDK.configureUI(configuration: uiConfiguration)
 
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {
-    case let .success(value):
+    case let .success(registration):
         self?.dismiss(animated: true) {
             self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }

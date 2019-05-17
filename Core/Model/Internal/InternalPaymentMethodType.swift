@@ -16,3 +16,14 @@ enum InternalPaymentMethodType: String, Codable {
     case applePay = "APPLE_PAY"
     case klarna = "KLARNA"
 }
+
+extension InternalPaymentMethodType {
+    var publicPaymentMethodType: PaymentMethodType? {
+        switch self {
+        case .creditCard: return .creditCard
+        case .sepa: return .sepa
+        case .payPal: return .payPal
+        default: return nil
+        }
+    }
+}

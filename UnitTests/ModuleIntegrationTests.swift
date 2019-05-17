@@ -319,8 +319,8 @@ class ModuleIntegrationTests: XCTestCase {
         wait(for: [doesNotCallRegistration, resultExpectation], timeout: 2, enforceOrder: true)
     }
 
-    private func createTestRegistration(withTitle title: String) -> Registration {
+    private func createTestRegistration(withTitle title: String) -> PSPRegistration {
         let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: 1234, ccType: "VISA"), billingData: BillingData())
-        return Registration(pspAlias: title, aliasExtra: aliasExtra)
+        return PSPRegistration(pspAlias: title, aliasExtra: aliasExtra)
     }
 }

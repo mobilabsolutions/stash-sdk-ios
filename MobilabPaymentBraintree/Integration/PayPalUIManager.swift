@@ -40,7 +40,7 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
         payPalDriver.requestBillingAgreement(request) { (tokenizedPayPalAccount, error) -> Void in
             if let tokenizedPayPalAccount = tokenizedPayPalAccount {
                 dataCollector.collectCardFraudData { deviceData in
-                    let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce, deviceData: deviceData)
+                    let payPalData = PayPalData(nonce: tokenizedPayPalAccount.nonce, deviceData: deviceData, email: tokenizedPayPalAccount.email)
                     self.didCreatePaymentMethodCompletion?(payPalData)
                 }
             } else if let error = error {
