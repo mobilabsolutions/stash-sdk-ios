@@ -69,8 +69,12 @@ public final class UIConstants {
         return UIImage(named: "sepa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
-    public class var paypalImage: UIImage? {
+    public class var payPalImage: UIImage? {
         return UIImage(named: "paypal", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var payPalGreyImage: UIImage? {
+        return UIImage(named: "paypalGrey", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var rightArrowImage: UIImage? {
