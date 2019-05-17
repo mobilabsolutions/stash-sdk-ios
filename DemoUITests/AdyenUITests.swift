@@ -22,8 +22,8 @@ class AdyenUITests: BaseUITest {
         app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
         app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("737")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
