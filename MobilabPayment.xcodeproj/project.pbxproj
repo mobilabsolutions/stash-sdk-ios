@@ -236,7 +236,6 @@
 		E15E0707228DAE4F007F5FA4 /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
 		E15E0708228DAE4F007F5FA4 /* PayPalOneTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15E0709228DAE64007F5FA4 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
-		E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */; };
 		E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */; };
 		E15E070C228EAA44007F5FA4 /* BraintreeDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; };
 		E15E070D228EAA44007F5FA4 /* BraintreeDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -248,6 +247,7 @@
 		E15E0713228EAA44007F5FA4 /* AdyenInternal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15E0714228EAA44007F5FA4 /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
 		E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -528,7 +528,7 @@
 		BA6D67922244683900463E0F /* FatalErrorAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorAssertion.swift; sourceTree = "<group>"; };
 		BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
 		BA84B3652271C6790016E255 /* PayPalUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalUIManager.swift; sourceTree = "<group>"; };
-		BA8D070D2226AE56004F699A /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8D070D2226AE56004F699A /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8D070F2226AE56004F699A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA8D07142226AE56004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA8D07162226AE57004F699A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -571,6 +571,7 @@
 		C49F49DE22806BFA00D3A986 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C49F49E022819C6900D3A986 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		C42D567522842F8D00312CC1 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42D567522842F8D00312CC1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D567722842F8D00312CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D568322842F8E00312CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42D568922842FA700312CC1 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
@@ -600,7 +601,7 @@
 		E117E01D224BA18D00E4C591 /* bs_credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_failure.json; sourceTree = "<group>"; };
 		E117E01F224BA41400E4C591 /* bs_sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_sepa_success.json; sourceTree = "<group>"; };
 		E11C3BF8223AB53700F94F56 /* MobilabAdyenBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabAdyenBridge.swift; sourceTree = "<group>"; };
-		E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11C3BFF223AB64F00F94F56 /* Sample-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C01223AB64F00F94F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E11C3C02223AB64F00F94F56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E11C3C04223AB64F00F94F56 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -612,7 +613,7 @@
 		E11C3C10223AB65000F94F56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCIntegrationTests.m; sourceTree = "<group>"; };
 		E11C3C7C223B8F7F00F94F56 /* MobilabPaymentTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobilabPaymentTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11C3C87223BA5E100F94F56 /* SampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11C3C8B223BA5E100F94F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11C3C94223BEF3100F94F56 /* MobilabBackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabBackendError.swift; sourceTree = "<group>"; };
 		E11C3C96223BF00700F94F56 /* MobilabPaymentErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentErrorConvertible.swift; sourceTree = "<group>"; };
@@ -873,10 +874,10 @@
 				BA945A2C223A890100C39300 /* MobilabPaymentBraintree */,
 				BA09A954224D60E8006C3A1D /* MobilabPaymentAdyen */,
 				1DC5CBA220D2BF5E002058C1 /* UnitTests */,
-				BA8D070E2226AE56004F699A /* Demo */,
-				E11C3C00223AB64F00F94F56 /* Demo-ObjC */,
-				E11C3C88223BA5E100F94F56 /* DemoUITests */,
-				C42D567622842F8D00312CC1 /* Sample */,
+				BA8D070E2226AE56004F699A /* Sample */,
+				E11C3C00223AB64F00F94F56 /* Sample-ObjC */,
+				E11C3C88223BA5E100F94F56 /* SampleUITests */,
+				C42D567622842F8D00312CC1 /* Demo */,
 				BACD619E2226B15500E3ACC3 /* Frameworks */,
 				1DC5CB9620D2BF5E002058C1 /* Products */,
 			);
@@ -887,13 +888,13 @@
 			children = (
 				1DC5CB9520D2BF5E002058C1 /* MobilabPaymentCore.framework */,
 				1DC5CB9E20D2BF5E002058C1 /* MobilabPaymentTests.xctest */,
-				BA8D070D2226AE56004F699A /* Demo.app */,
+				BA8D070D2226AE56004F699A /* Sample.app */,
 				BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */,
 				BA945A2B223A890100C39300 /* MobilabPaymentBraintree.framework */,
-				E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */,
-				E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */,
+				E11C3BFF223AB64F00F94F56 /* Sample-ObjC.app */,
+				E11C3C87223BA5E100F94F56 /* SampleUITests.xctest */,
 				BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */,
-				C42D567522842F8D00312CC1 /* Sample.app */,
+				C42D567522842F8D00312CC1 /* Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1182,7 +1183,7 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
-		BA8D070E2226AE56004F699A /* Demo */ = {
+		BA8D070E2226AE56004F699A /* Sample */ = {
 			isa = PBXGroup;
 			children = (
 				E1663E0322368D3800372658 /* model */,
@@ -1191,7 +1192,7 @@
 				E1131F79223666340025A711 /* view */,
 				E1131F78223666240025A711 /* controller */,
 			);
-			path = Demo;
+			path = Sample;
 			sourceTree = "<group>";
 		};
 		BA945A2C223A890100C39300 /* MobilabPaymentBraintree */ = {
@@ -1343,7 +1344,7 @@
 			path = Integration;
 			sourceTree = "<group>";
 		};
-		C42D567622842F8D00312CC1 /* Sample */ = {
+		C42D567622842F8D00312CC1 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				E15E06F5228DA981007F5FA4 /* other */,
@@ -1354,7 +1355,7 @@
 				C42D567722842F8D00312CC1 /* AppDelegate.swift */,
 				C42D568322842F8E00312CC1 /* Info.plist */,
 			);
-			path = Sample;
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		C42D568722842FA700312CC1 /* UI */ = {
@@ -1503,7 +1504,7 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		E11C3C00223AB64F00F94F56 /* Demo-ObjC */ = {
+		E11C3C00223AB64F00F94F56 /* Sample-ObjC */ = {
 			isa = PBXGroup;
 			children = (
 				E11C3C01223AB64F00F94F56 /* AppDelegate.h */,
@@ -1516,10 +1517,10 @@
 				E11C3C0F223AB65000F94F56 /* Info.plist */,
 				E11C3C10223AB65000F94F56 /* main.m */,
 			);
-			path = "Demo-ObjC";
+			path = "Sample-ObjC";
 			sourceTree = "<group>";
 		};
-		E11C3C88223BA5E100F94F56 /* DemoUITests */ = {
+		E11C3C88223BA5E100F94F56 /* SampleUITests */ = {
 			isa = PBXGroup;
 			children = (
 				E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */,
@@ -1529,7 +1530,7 @@
 				E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */,
 				E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */,
 			);
-			path = DemoUITests;
+			path = SampleUITests;
 			sourceTree = "<group>";
 		};
 		E11F2F432272EA4A001F9925 /* Idempotency */ = {
@@ -1782,9 +1783,9 @@
 			productReference = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BA8D070C2226AE56004F699A /* Demo */ = {
+		BA8D070C2226AE56004F699A /* Sample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildConfigurationList = BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Sample" */;
 			buildPhases = (
 				BA8D07092226AE56004F699A /* Sources */,
 				BA8D070A2226AE56004F699A /* Frameworks */,
@@ -1801,9 +1802,9 @@
 				BA945A31223A890100C39300 /* PBXTargetDependency */,
 				BA09A959224D60E8006C3A1D /* PBXTargetDependency */,
 			);
-			name = Demo;
+			name = Sample;
 			productName = Demo;
-			productReference = BA8D070D2226AE56004F699A /* Demo.app */;
+			productReference = BA8D070D2226AE56004F699A /* Sample.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BA945A2A223A890100C39300 /* MobilabPaymentBraintree */ = {
@@ -1842,9 +1843,9 @@
 			productReference = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C42D567422842F8D00312CC1 /* Sample */ = {
+		C42D567422842F8D00312CC1 /* Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C42D568622842F8E00312CC1 /* Build configuration list for PBXNativeTarget "Sample" */;
+			buildConfigurationList = C42D568622842F8E00312CC1 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
 				C42D567122842F8D00312CC1 /* Sources */,
 				C42D567222842F8D00312CC1 /* Frameworks */,
@@ -1857,14 +1858,14 @@
 			dependencies = (
 				E15E0703228DACE5007F5FA4 /* PBXTargetDependency */,
 			);
-			name = Sample;
+			name = Demo;
 			productName = Sample;
-			productReference = C42D567522842F8D00312CC1 /* Sample.app */;
+			productReference = C42D567522842F8D00312CC1 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E11C3BFE223AB64F00F94F56 /* Demo-ObjC */ = {
+		E11C3BFE223AB64F00F94F56 /* Sample-ObjC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "Demo-ObjC" */;
+			buildConfigurationList = E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "Sample-ObjC" */;
 			buildPhases = (
 				E11C3BFB223AB64F00F94F56 /* Sources */,
 				E11C3BFC223AB64F00F94F56 /* Frameworks */,
@@ -1878,14 +1879,14 @@
 				E11C3C27223AB69D00F94F56 /* PBXTargetDependency */,
 				E1D90158224A84480067BB8A /* PBXTargetDependency */,
 			);
-			name = "Demo-ObjC";
+			name = "Sample-ObjC";
 			productName = "Demo-ObjC";
-			productReference = E11C3BFF223AB64F00F94F56 /* Demo-ObjC.app */;
+			productReference = E11C3BFF223AB64F00F94F56 /* Sample-ObjC.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E11C3C86223BA5E100F94F56 /* DemoUITests */ = {
+		E11C3C86223BA5E100F94F56 /* SampleUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "DemoUITests" */;
+			buildConfigurationList = E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "SampleUITests" */;
 			buildPhases = (
 				E11C3C83223BA5E100F94F56 /* Sources */,
 				E11C3C84223BA5E100F94F56 /* Frameworks */,
@@ -1896,9 +1897,9 @@
 			dependencies = (
 				E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */,
 			);
-			name = DemoUITests;
+			name = SampleUITests;
 			productName = DemoUITests;
-			productReference = E11C3C87223BA5E100F94F56 /* DemoUITests.xctest */;
+			productReference = E11C3C87223BA5E100F94F56 /* SampleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -1966,11 +1967,11 @@
 				BACD61902226B03600E3ACC3 /* MobilabPaymentBSPayone */,
 				BA945A2A223A890100C39300 /* MobilabPaymentBraintree */,
 				BA09A952224D60E8006C3A1D /* MobilabPaymentAdyen */,
-				BA8D070C2226AE56004F699A /* Demo */,
+				BA8D070C2226AE56004F699A /* Sample */,
 				1DC5CB9D20D2BF5E002058C1 /* MobilabPaymentTests */,
-				E11C3BFE223AB64F00F94F56 /* Demo-ObjC */,
-				E11C3C86223BA5E100F94F56 /* DemoUITests */,
-				C42D567422842F8D00312CC1 /* Sample */,
+				E11C3BFE223AB64F00F94F56 /* Sample-ObjC */,
+				E11C3C86223BA5E100F94F56 /* SampleUITests */,
+				C42D567422842F8D00312CC1 /* Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -2141,7 +2142,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n/bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\nfi;\n";
+			shellScript = "if [ -f \"${SRCROOT}/Demo/other/add-fabric.sh\" ]; then\n/bin/sh \"${SRCROOT}/Demo/other/add-fabric.sh\"\nfi;\n";
 		};
 		E1C9A85F224147FA0099DB2E /* Add Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2160,7 +2161,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"${SRCROOT}/Demo/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Demo/other/add-fabric.sh\"\nfi;\n";
+			shellScript = "if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\nfi;\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2427,12 +2428,12 @@
 		};
 		E11C3C80223BA4EC00F94F56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BA8D070C2226AE56004F699A /* Demo */;
+			target = BA8D070C2226AE56004F699A /* Sample */;
 			targetProxy = E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */;
 		};
 		E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BA8D070C2226AE56004F699A /* Demo */;
+			target = BA8D070C2226AE56004F699A /* Sample */;
 			targetProxy = E11C3C8C223BA5E100F94F56 /* PBXContainerItemProxy */;
 		};
 		E15E0703228DACE5007F5FA4 /* PBXTargetDependency */ = {
@@ -2695,7 +2696,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/Sample";
 			};
 			name = Debug;
 		};
@@ -2721,7 +2722,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/MobilabPaymentTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/Sample";
 			};
 			name = Release;
 		};
@@ -2803,7 +2804,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Demo/other",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/other/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sample/other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2811,7 +2812,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2832,14 +2833,14 @@
 					"$(PROJECT_DIR)/Demo/other",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/other/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sample/other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2979,7 +2980,7 @@
 					"$(PROJECT_DIR)/Sample/other",
 					"$(PROJECT_DIR)/Demo/other",
 				);
-				INFOPLIST_FILE = Sample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2987,7 +2988,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3006,14 +3007,14 @@
 					"$(PROJECT_DIR)/Sample/other",
 					"$(PROJECT_DIR)/Demo/other",
 				);
-				INFOPLIST_FILE = Sample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3031,7 +3032,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "Demo-ObjC/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sample-ObjC/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3039,7 +3040,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.payment.Demo-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.payment.Sample-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3056,14 +3057,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "Demo-ObjC/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sample-ObjC/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.payment.Demo-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.payment.Sample-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3078,7 +3079,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = DemoUITests/Info.plist;
+				INFOPLIST_FILE = SampleUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3087,11 +3088,11 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.SampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Demo;
+				TEST_TARGET_NAME = Sample;
 			};
 			name = Debug;
 		};
@@ -3104,7 +3105,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = DemoUITests/Info.plist;
+				INFOPLIST_FILE = SampleUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3112,11 +3113,11 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.DemoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.SampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Demo;
+				TEST_TARGET_NAME = Sample;
 			};
 			name = Release;
 		};
@@ -3159,7 +3160,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Demo" */ = {
+		BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "Sample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA8D071D2226AE57004F699A /* Debug */,
@@ -3186,7 +3187,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42D568622842F8E00312CC1 /* Build configuration list for PBXNativeTarget "Sample" */ = {
+		C42D568622842F8E00312CC1 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42D568422842F8E00312CC1 /* Debug */,
@@ -3195,7 +3196,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "Demo-ObjC" */ = {
+		E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "Sample-ObjC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11C3C13223AB65000F94F56 /* Debug */,
@@ -3204,7 +3205,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "DemoUITests" */ = {
+		E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "SampleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11C3C8F223BA5E100F94F56 /* Debug */,
