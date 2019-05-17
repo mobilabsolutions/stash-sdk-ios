@@ -11,7 +11,7 @@ import Foundation
 extension Locale {
     public func getAllCountriesWithCodes() -> ([Country]) {
         let countryCodes = Locale.isoRegionCodes
-        let countryNames = countryCodes.compactMap { Locale.current.localizedString(forRegionCode: $0) }
+        let countryNames = countryCodes.map { Locale.current.localizedString(forRegionCode: $0) ?? $0 }
 
         var countries: [Country] = []
 

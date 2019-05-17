@@ -69,7 +69,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.cellModels = cellModels
     }
 
-    public func showCountryListing(textField: UITextField) {
+    public func showCountryListing(textField: UITextField, on viewController: UIViewController) {
         var countryName = textField.text ?? ""
         // get device locale if textfield is empty
         if countryName.isEmpty {
@@ -79,7 +79,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let countryVC = CountryListCollectionViewController(countryName: countryName, configuration: configuration)
         countryVC.delegate = self
         self.selectedCountryTextField = textField
-        self.navigationController?.pushViewController(countryVC, animated: true)
+        viewController.navigationController?.pushViewController(countryVC, animated: true)
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {

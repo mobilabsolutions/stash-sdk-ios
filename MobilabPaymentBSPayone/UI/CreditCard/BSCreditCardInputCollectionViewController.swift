@@ -127,6 +127,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.parent?.navigationItem.title = ""
+
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -165,7 +167,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                               placeholder: "Country",
                                                               setup: nil,
                                                               didFocus: { [weak self] textField in
-                                                                  self?.showCountryListing(textField: textField)
+                                                                  guard let self = self else { return }
+                                                                  self.showCountryListing(textField: textField, on: self)
                                                               },
                                                               didUpdate: nil)
         setCellModel(cellModels: [
