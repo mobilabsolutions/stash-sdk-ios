@@ -10,9 +10,6 @@ import Foundation
 import MobilabPaymentCore
 
 struct AdyenData: Codable {
-    /// Return URL for Adyen
-    let returnUrl: String
-
     /// The created payment session ID
-    let sessionID: String
+    let paymentSession: String
 }

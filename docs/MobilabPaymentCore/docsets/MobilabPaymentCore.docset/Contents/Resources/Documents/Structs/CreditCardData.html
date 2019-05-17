@@ -96,10 +96,16 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SimpleNameProvider.html">SimpleNameProvider</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/UIConstants.html">UIConstants</a>
@@ -171,6 +177,9 @@
                 <a class="nav-group-task-link" href="../Protocols/MobilabPaymentErrorConvertible.html">MobilabPaymentErrorConvertible</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/NameProviding.html">NameProviding</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/NetworkClient.html">NetworkClient</a>
               </li>
               <li class="nav-group-task">
@@ -180,7 +189,7 @@
                 <a class="nav-group-task-link" href="../Protocols/PaymentServiceProvider.html">PaymentServiceProvider</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a>
+                <a class="nav-group-task-link" href="../Protocols/RegistrationData.html">RegistrationData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
@@ -194,10 +203,16 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AliasExtra.html">AliasExtra</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CreditCardExtra.html">CreditCardExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/FormCellModel.html">FormCellModel</a>
@@ -218,22 +233,34 @@
                 <a class="nav-group-task-link" href="../Structs/MobilabPaymentApiError.html">MobilabPaymentApiError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PSPErrorDetails.html">PSPErrorDetails</a>
+                <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
+                <a class="nav-group-task-link" href="../Structs/PSPRegistration.html">PSPRegistration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PayPalData.html">PayPalData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PayPalExtra.html">PayPalExtra</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RegistrationRequest.html">RegistrationRequest</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/SEPAData.html">SEPAData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SEPAExtra.html">SEPAExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TemporaryErrorDetails.html">TemporaryErrorDetails</a>
@@ -266,7 +293,7 @@
             <h1>CreditCardData</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CreditCardData</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a></span><span class="p">,</span> <span class="kt">CreditCardDataInitializible</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CreditCardData</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RegistrationData.html">RegistrationData</a></span><span class="p">,</span> <span class="kt">CreditCardDataInitializible</span></code></pre>
 
                 </div>
               </div>
@@ -498,6 +525,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV15humanReadableIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/humanReadableId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV15humanReadableIdSSSgvp">humanReadableId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A human readable identifier for this credit card. Derived from the card number in the form XXXXXXXXXXXX 4111.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">humanReadableId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:18MobilabPaymentCore14CreditCardDataV0dE4TypeO"></a>
                     <a name="//apple_ref/swift/Enum/CreditCardType" class="dashAnchor"></a>
                     <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV0dE4TypeO">CreditCardType</a>
@@ -630,6 +684,33 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV02todE5ExtraAA0deH0VSgyF"></a>
+                    <a name="//apple_ref/swift/Method/toCreditCardExtra()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV02todE5ExtraAA0deH0VSgyF">toCreditCardExtra()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toCreditCardExtra</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CreditCardExtra.html">CreditCardExtra</a></span><span class="p">?</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

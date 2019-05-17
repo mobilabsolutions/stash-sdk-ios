@@ -95,10 +95,16 @@
                 <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/SEPAUtils.html">SEPAUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/SimpleNameProvider.html">SimpleNameProvider</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/UIConstants.html">UIConstants</a>
@@ -170,6 +176,9 @@
                 <a class="nav-group-task-link" href="Protocols/MobilabPaymentErrorConvertible.html">MobilabPaymentErrorConvertible</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/NameProviding.html">NameProviding</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/NetworkClient.html">NetworkClient</a>
               </li>
               <li class="nav-group-task">
@@ -179,7 +188,7 @@
                 <a class="nav-group-task-link" href="Protocols/PaymentServiceProvider.html">PaymentServiceProvider</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a>
+                <a class="nav-group-task-link" href="Protocols/RegistrationData.html">RegistrationData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
@@ -193,10 +202,16 @@
             <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AliasExtra.html">AliasExtra</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CreditCardExtra.html">CreditCardExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/FormCellModel.html">FormCellModel</a>
@@ -217,22 +232,34 @@
                 <a class="nav-group-task-link" href="Structs/MobilabPaymentApiError.html">MobilabPaymentApiError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/PSPErrorDetails.html">PSPErrorDetails</a>
+                <a class="nav-group-task-link" href="Structs/PSPExtra.html">PSPExtra</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/PSPExtra.html">PSPExtra</a>
+                <a class="nav-group-task-link" href="Structs/PSPRegistration.html">PSPRegistration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PayPalData.html">PayPalData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PayPalExtra.html">PayPalExtra</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/RegistrationRequest.html">RegistrationRequest</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/SEPAData.html">SEPAData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/SEPAExtra.html">SEPAExtra</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/TemporaryErrorDetails.html">TemporaryErrorDetails</a>
@@ -354,7 +381,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 <span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">mobilabProvider</span><span class="p">:</span> <span class="kt">MobilabPaymentProvider</span><span class="o">.</span><span class="n">bsPayone</span><span class="p">,</span> <span class="nv">creditCardData</span><span class="p">:</span> <span class="n">creditCard</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for credit card: </span><span class="se">\(</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for credit card: </span><span class="se">\(</span><span class="n">registration</span><span class="o">.</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Error (</span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">code</span><span class="se">)</span><span class="s">) while registering credit card"</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -379,7 +406,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 <span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">mobilabProvider</span><span class="p">:</span> <span class="kt">MobilabPaymentProvider</span><span class="o">.</span><span class="n">bsPayone</span><span class="p">,</span> <span class="nv">sepaData</span><span class="p">:</span> <span class="n">sepaData</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for SEPA account: </span><span class="se">\(</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for SEPA account: </span><span class="se">\(</span><span class="n">registration</span><span class="o">.</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Error (</span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">description</span><span class="se">)</span><span class="s">) while registering SEPA account"</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -410,10 +437,8 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPayPal</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
             <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
                 <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-                <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span>
-                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">save</span><span class="p">(</span><span class="nv">alias</span><span class="p">:</span> <span class="n">alias</span><span class="p">,</span> <span class="nv">expirationMonth</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">expirationYear</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="o">.</span><span class="n">sepa</span><span class="p">)</span>
-                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">clearInputs</span><span class="p">()</span>
-                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"SEPA added successfully."</span><span class="p">)</span>
+                <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
+                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"PayPal added successfully."</span><span class="p">)</span>
                 <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
                                                           <span class="nv">body</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">errorDescription</span> <span class="p">??</span> <span class="s">"An error occurred when adding the credit card"</span><span class="p">)</span>
                 <span class="p">}</span>
@@ -430,7 +455,7 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 <span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
         <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"Successfully registered payment method"</span><span class="p">)</span>
         <span class="p">}</span>
@@ -447,7 +472,7 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
         <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"Successfully registered payment method"</span><span class="p">)</span>
         <span class="p">}</span>

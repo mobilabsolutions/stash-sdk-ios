@@ -7,16 +7,18 @@
 import Foundation
 
 public extension Array where Element == PaymentDetail {
+    
     /// The payment detail for a Giro Pay BIC.
     var giroPayBic: PaymentDetail? {
         get {
             return self[bicKey]
         }
-
+        
         set {
             self[bicKey] = newValue
         }
     }
+    
 }
 
 private let bicKey = "bic"

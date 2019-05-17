@@ -205,7 +205,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     }
 
     private func currentYear() -> Int {
-        return Calendar.current.component(.year, from: Date())
+        return Calendar(identifier: .gregorian).component(.year, from: Date())
     }
 }
 

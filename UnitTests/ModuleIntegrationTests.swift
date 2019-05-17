@@ -52,7 +52,7 @@ class ModuleIntegrationTests: XCTestCase {
         }
     }
 
-    private class TestAliasCreationDetail: AliasCreationDetail {
+    private class TestCreateAliasDetail: AliasCreationDetail {
         let identifier: String
 
         init(identifier: String) {
@@ -76,11 +76,6 @@ class ModuleIntegrationTests: XCTestCase {
         }
     }
 
-    private struct TestCreateAliasRequest: Codable {
-        let pspType: String
-        let aliasDetail: TestAliasCreationDetail?
-    }
-
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
@@ -89,7 +84,9 @@ class ModuleIntegrationTests: XCTestCase {
 
     func testHandleRegistrationRequestCalled() throws {
         let expectation = XCTestExpectation(description: "Handle registration is called")
-        let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
+
+        let registration = createTestRegistration(withTitle: "Test alias")
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
@@ -152,7 +149,9 @@ class ModuleIntegrationTests: XCTestCase {
         let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")
         doesNotCallRegistration.isInverted = true
 
-        let module = TestModule<CreditCardData>(completionResultToReturn: .success("This should not be returned"), registrationRequestCalledExpectation: doesNotCallRegistration)
+        let registration = createTestRegistration(withTitle: "This should not be returned")
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
+                                                registrationRequestCalledExpectation: doesNotCallRegistration)
 
         let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.useTestMode = true
@@ -174,14 +173,14 @@ class ModuleIntegrationTests: XCTestCase {
             resultExpectation.fulfill()
         }
 
-        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 2, enforceOrder: true)
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4, enforceOrder: true)
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {
         let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
 
         let expectation = XCTestExpectation(description: "Handle registration is called")
-        let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
                                                 registrationRequestCalledExpectation: expectation)
 
         let stubExpectation = XCTestExpectation(description: "Includes correct test header for create and update alias")
@@ -238,9 +237,9 @@ class ModuleIntegrationTests: XCTestCase {
         let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
         let creationDetailIdentifier = "my-creation-detail-id"
 
-        let module = TestModule<CreditCardData>(completionResultToReturn: .success("Test alias"),
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
                                                 registrationRequestCalledExpectation: nil,
-                                                aliasCreationDetailResult: .success(TestAliasCreationDetail(identifier: creationDetailIdentifier)))
+                                                aliasCreationDetailResult: .success(TestCreateAliasDetail(identifier: creationDetailIdentifier)))
 
         let stubExpectation = XCTestExpectation(description: "Includes correct creation alias")
 
@@ -251,19 +250,14 @@ class ModuleIntegrationTests: XCTestCase {
             else { return false }
 
             guard let httpBody = request.ohhttpStubs_httpBody,
-                let request = try? JSONDecoder().decode(TestCreateAliasRequest.self, from: httpBody)
+                let request = try? JSONDecoder().decode(TestCreateAliasDetail.self, from: httpBody)
             else {
                 XCTFail("Request should have an http body")
                 stubExpectation.fulfill()
                 return false
             }
 
-            if let creationDetail = request.aliasDetail {
-                XCTAssertEqual(creationDetail.identifier, creationDetailIdentifier)
-            } else {
-                XCTFail("Create alias request with alias creation detail should send the detail in its http body")
-            }
-
+            XCTAssertEqual(request.identifier, creationDetailIdentifier)
             stubExpectation.fulfill()
 
             return true
@@ -297,7 +291,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let error = MobilabPaymentError.other(GenericErrorDetails(description: "An error occurred"))
 
-        let module = TestModule<CreditCardData>(completionResultToReturn: .success("This should not be returned"),
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "This should not be returned")),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,
                                                 aliasCreationDetailResult: .failure(error))
 
@@ -323,5 +317,10 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         wait(for: [doesNotCallRegistration, resultExpectation], timeout: 2, enforceOrder: true)
+    }
+
+    private func createTestRegistration(withTitle title: String) -> PSPRegistration {
+        let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: 1234, ccType: "VISA"), billingData: BillingData())
+        return PSPRegistration(pspAlias: title, aliasExtra: aliasExtra)
     }
 }

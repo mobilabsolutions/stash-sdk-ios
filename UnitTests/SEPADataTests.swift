@@ -58,4 +58,14 @@ class SEPADataTests: XCTestCase {
                            "Formatting formatted number \(expected) should not change it")
         }
     }
+
+    func testCorrectlyCreatesHumanReadableIdentifier() throws {
+        let numbers = ["DE75512108001245126199", "DE75512108001245126199", "BA393385804800211234", "AT483200000012345864",
+                       "CY21002001950000357001234567", "SV43ACAT00000000000000123123"]
+
+        for number in numbers {
+            let sepa = try SEPAData(iban: number, bic: nil, billingData: BillingData())
+            XCTAssertEqual(number, sepa.humanReadableId, "The human readable identifier should be equal to the IBAN but is instead \(sepa.humanReadableId ?? "nil")")
+        }
+    }
 }

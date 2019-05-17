@@ -12,11 +12,12 @@ public extension Array where Element == PaymentDetail {
         get {
             return self[issuerKey]
         }
-
+        
         set {
             self[issuerKey] = newValue
         }
     }
+    
 }
 
 private let issuerKey = "issuer"

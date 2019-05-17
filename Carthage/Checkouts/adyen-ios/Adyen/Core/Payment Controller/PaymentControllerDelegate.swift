@@ -17,7 +17,7 @@ public protocol PaymentControllerDelegate: AnyObject {
     ///   - token: The token to submit to the /paymentSession endpoint.
     ///   - responseHandler: The closure to invoke when payment session has been received.
     func requestPaymentSession(withToken token: String, for paymentController: PaymentController, responseHandler: @escaping Completion<String>)
-
+    
     /// Invoked when the payment methods available to complete the payment are retrieved.
     /// Use this opportunity to present a list of payment methods to the user and asking the user to fill the required payment details.
     ///
@@ -28,7 +28,7 @@ public protocol PaymentControllerDelegate: AnyObject {
     ///   - paymentController: The payment controller that requires a payment method.
     ///   - selectionHandler: The closure to invoke when a payment method has been selected.
     func selectPaymentMethod(from paymentMethods: SectionedPaymentMethods, for paymentController: PaymentController, selectionHandler: @escaping Completion<PaymentMethod>)
-
+    
     /// Invoked when a redirect to a URL is required in order to complete the payment.
     /// It's recommended to use either `SFSafariViewController` or `UIApplication`'s `openURL:` to perform the redirect.
     ///
@@ -38,7 +38,7 @@ public protocol PaymentControllerDelegate: AnyObject {
     ///   - url: The URL to redirect the user to.
     ///   - paymentController: The payment controller that requires a redirect.
     func redirect(to url: URL, for paymentController: PaymentController)
-
+    
     /// Invoked when the payment is finished.
     ///
     /// A successful result contains a `payload`. Submit this `payload` through your backend to the `/payments/result` endpoint to verify the integrity of the payment.
@@ -47,7 +47,7 @@ public protocol PaymentControllerDelegate: AnyObject {
     ///   - result: The result of the payment.
     ///   - paymentController: The payment controller that finished the payment.
     func didFinish(with result: Result<PaymentResult>, for paymentController: PaymentController)
-
+    
     /// Invoked when additional payment details are needed.
     ///
     /// - Parameters:

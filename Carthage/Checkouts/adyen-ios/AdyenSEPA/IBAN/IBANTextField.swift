@@ -8,7 +8,7 @@ import AdyenInternal
 import Foundation
 //
 ///// A text field object designed for the entry of an IBAN value. This field formats and validates the IBAN in real time.
-// internal class IBANTextField: UITextField {
+//internal class IBANTextField: UITextField {
 //
 //    // MARK: - Initializing
 //
@@ -82,4 +82,4 @@ import Foundation
 //        }
 //    }
 //
-// }
+//}

@@ -9,50 +9,51 @@ import XCTest
 class SEPADirectDebitTests: TestCase {
     override func setUp() {
         super.setUp()
-
+        
         setCountry("NL", currency: "EUR")
         startCheckout()
         selectPaymentMethod("SEPA Direct Debit")
     }
-
+    
     func testSuccessfulPayment() {
         // Find the pay button and ensure it's disabled.
-        XCTAssertFalse(self.payButton.isEnabled)
-
+        XCTAssertFalse(payButton.isEnabled)
+        
         // Enter the IBAN.
-        self.ibanField.typeText("nl13test0123456789")
-
+        ibanField.typeText("nl13test0123456789")
+        
         // The pay button should be disabled while waiting for the user to complete input.
-        XCTAssertFalse(self.payButton.isEnabled)
-
+        XCTAssertFalse(payButton.isEnabled)
+        
         // Enter the name.
-        self.nameField.tap()
-        self.nameField.typeText("A. Klaassen")
-
+        nameField.tap()
+        nameField.typeText("A. Klaassen")
+        
         // After completing the input, the pay button should be enabled.
-        XCTAssertTrue(self.payButton.isEnabled)
-
+        XCTAssertTrue(payButton.isEnabled)
+        
         // Tap the pay button.
-        self.payButton.tap()
-
+        payButton.tap()
+        
         dismissSuccessAlert()
     }
-
+    
     // MARK: Elements
-
+    
     private var contentView: XCUIElement {
         return app.scrollViews.first
     }
-
+    
     private var ibanField: XCUIElement {
-        return self.contentView.textFields["iban-field"]
+        return contentView.textFields["iban-field"]
     }
-
+    
     private var nameField: XCUIElement {
-        return self.contentView.textFields["name-field"]
+        return contentView.textFields["name-field"]
     }
-
+    
     private var payButton: XCUIElement {
-        return self.contentView.buttons["pay-button"]
+        return contentView.buttons["pay-button"]
     }
+    
 }

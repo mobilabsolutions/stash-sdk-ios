@@ -11,8 +11,10 @@ public extension PaymentController {
     enum Error: Swift.Error {
         /// Indicates the payment was cancelled by the user.
         case cancelled
-
+        
         /// Indicates the payment could not be completed because the user returned from a redirect through an invalid URL.
         case invalidReturnURL
+        
     }
+    
 }

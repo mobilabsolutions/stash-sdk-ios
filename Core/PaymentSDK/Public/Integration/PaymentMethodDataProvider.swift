@@ -15,3 +15,8 @@ public protocol PaymentMethodDataProvider {
     /// A method that is called when an error occurs during payment method creation
     func errorWhileCreatingPaymentMethod(error: MobilabPaymentError)
 }
+
+public extension PaymentMethodDataProvider {
+    
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {}
+}

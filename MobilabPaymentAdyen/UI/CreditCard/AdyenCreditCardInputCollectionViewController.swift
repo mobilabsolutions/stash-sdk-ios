@@ -63,7 +63,7 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/yy"
-            dateFormatter.calendar = Calendar.current
+            dateFormatter.calendar = Calendar(identifier: .gregorian)
 
             if let month = expirationMonthText,
                 let year = expirationYearText,

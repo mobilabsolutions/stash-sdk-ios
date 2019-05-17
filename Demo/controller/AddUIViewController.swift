@@ -61,7 +61,13 @@ class AddUIViewController: UIViewController {
                     self?.dismiss(animated: true) {
                         self?.showAlert(title: "Success", body: "Successfully registered payment method")
                     }
-                    AliasManager.shared.save(alias: Alias(alias: value, expirationYear: nil, expirationMonth: nil, type: .unknown))
+
+                    let alias = Alias(alias: value.alias ?? "No alias provided",
+                                      humanReadableId: value.humanReadableIdentifier,
+                                      expirationYear: nil,
+                                      expirationMonth: nil,
+                                      type: AliasType(paymentMethodType: value.paymentMethodType))
+                    AliasManager.shared.save(alias: alias)
                 case .failure:
                     break
                 }

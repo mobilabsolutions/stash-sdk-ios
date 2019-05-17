@@ -1,0 +1,40 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Integration/MobilabBSPayoneBridge.swift",
+      "line": 11,
+      "symbol": "MobilabBSPayoneBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Integration/MobilabBSPayoneBridge.swift",
+      "line": 12,
+      "symbol": "MobilabBSPayoneBridge.createModule()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Integration/MobilabPaymentBSPayone.swift",
+      "line": 12,
+      "symbol": "MobilabPaymentBSPayone",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Integration/MobilabPaymentBSPayone.swift",
+      "line": 69,
+      "symbol": "MobilabPaymentBSPayone.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBSPayone/Model/BSPayoneData.swift",
+      "line": 11,
+      "symbol": "BSPayoneData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open"
+}

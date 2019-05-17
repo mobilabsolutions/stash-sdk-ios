@@ -2,8 +2,9 @@ import XCTest
 
 // See also BTCard_Internal_Tests
 class BTCard_Tests: XCTestCase {
+
     func testInitialization_savesStandardProperties() {
-        let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2038", cvv: "123")
+        let card = BTCard(number: "4111111111111111", expirationMonth:"12", expirationYear:"2038", cvv: "123")
 
         XCTAssertEqual(card.number!, "4111111111111111")
         XCTAssertEqual(card.expirationMonth!, "12")
@@ -49,11 +50,11 @@ class BTCard_Tests: XCTestCase {
                 "country_code_alpha2": "US",
                 "country_code_alpha3": "USA",
                 "country_code_numeric": "840",
-                "postal_code": "94107",
+                "postal_code": "94107"
             ],
             "options": ["validate": true],
-            "cardholder_name": "Brian Tree",
-        ])
+            "cardholder_name": "Brian Tree"
+            ])
 
         XCTAssertEqual(card.number, "4111111111111111")
         XCTAssertEqual(card.expirationMonth, "12")
@@ -99,7 +100,7 @@ class BTCard_Tests: XCTestCase {
         let card = BTCard(parameters: [
             "cvv": "123",
             "billing_address": ["postal_code": "94949"],
-        ])
+            ])
 
         XCTAssertNil(card.number)
         XCTAssertNil(card.expirationMonth)
@@ -124,11 +125,11 @@ class BTCard_Tests: XCTestCase {
                 "region": "CA",
                 "country_name": "United States of America",
                 "country_code_alpha2": "US",
-                "postal_code": "94107",
+                "postal_code": "94107"
             ],
             "options": ["validate": false],
-            "cardholder_name": "Brian Tree",
-        ])
+            "cardholder_name": "Brian Tree"
+            ])
 
         XCTAssertEqual(card.parameters() as NSObject, [
             "number": "4111111111111111",
@@ -144,11 +145,11 @@ class BTCard_Tests: XCTestCase {
                 "region": "CA",
                 "country_name": "United States of America",
                 "country_code_alpha2": "US",
-                "postal_code": "94107",
+                "postal_code": "94107"
             ],
             "options": ["validate": false],
-            "cardholder_name": "Brian Tree",
-        ] as NSObject)
+            "cardholder_name": "Brian Tree"
+            ] as NSObject)
     }
 
     func testParameters_whenInitializedWithCustomParameters_returnsExpectedValues() {
@@ -156,7 +157,7 @@ class BTCard_Tests: XCTestCase {
             "cvv": "123",
             "billing_address": ["postal_code": "94949"],
             "options": ["foo": "bar"],
-        ])
+            ])
 
         XCTAssertEqual(card.parameters() as NSObject, [
             "cvv": "123",
@@ -165,15 +166,15 @@ class BTCard_Tests: XCTestCase {
                 "foo": "bar",
                 "validate": false,
             ],
-        ] as NSObject)
+            ] as NSObject)
     }
 
     func testParameters_whenShouldValidateIsSetToNewValue_returnsExpectedValues() {
         let card = BTCard(parameters: ["options": ["validate": false]])
         card.shouldValidate = true
         XCTAssertEqual(card.parameters() as NSObject, [
-            "options": ["validate": true],
-        ] as NSObject)
+            "options": [ "validate": true ],
+            ] as NSObject)
     }
 
     func testGraphQLParameters_whenInitializedWithInitWithParameters_returnsExpectedValues() {
@@ -192,11 +193,11 @@ class BTCard_Tests: XCTestCase {
                 "country_name": "United States of America",
                 "country_code_alpha2": "US",
                 "country_code_alpha3": "USA",
-                "postal_code": "94107",
+                "postal_code": "94107"
             ],
             "options": ["validate": false],
-            "cardholder_name": "Brian Tree",
-        ])
+            "cardholder_name": "Brian Tree"
+            ])
 
         XCTAssertEqual(card.graphQLParameters() as NSObject, [
             "operationName": "TokenizeCreditCard",
@@ -220,12 +221,12 @@ class BTCard_Tests: XCTestCase {
                             "countryName": "United States of America",
                             "countryCodeAlpha2": "US",
                             "countryCode": "USA",
-                            "postalCode": "94107",
+                            "postalCode": "94107"
                         ],
                     ],
-                    "options": ["validate": false],
-                ],
-            ],
+                    "options": ["validate": false]
+                ]
+            ]
         ] as NSObject)
     }
 
@@ -238,11 +239,11 @@ class BTCard_Tests: XCTestCase {
             "variables": [
                 "input": [
                     "creditCard": [
-                        "cvv": "123",
+                        "cvv": "123"
                     ],
-                    "options": ["validate": false],
-                ],
-            ],
+                    "options": ["validate": false]
+                ]
+            ]
         ] as NSObject)
     }
 
@@ -251,7 +252,7 @@ class BTCard_Tests: XCTestCase {
             "cvv": "123",
             "billing_address": ["postal_code": "94949"],
             "options": ["foo": "bar"],
-        ])
+            ])
 
         XCTAssertEqual(card.graphQLParameters() as NSObject, [
             "operationName": "TokenizeCreditCard",
@@ -264,16 +265,16 @@ class BTCard_Tests: XCTestCase {
                     ],
                     "options": [
                         "validate": false,
-                    ],
-                ],
-            ],
+                    ]
+                ]
+            ]
         ] as NSObject)
     }
 
     func testGraphQLParameters_whenShouldValidateIsSetToNewValue_returnsExpectedValues() {
         let card = BTCard(parameters: [
             "cvv": "123",
-            "options": ["validate": false],
+            "options": ["validate": false]
         ])
         card.shouldValidate = true
         XCTAssertEqual(card.graphQLParameters() as NSObject, [
@@ -284,9 +285,9 @@ class BTCard_Tests: XCTestCase {
                     "creditCard": [
                         "cvv": "123",
                     ],
-                    "options": ["validate": true],
-                ],
-            ],
+                    "options": [ "validate": true ],
+                ]
+            ]
         ] as NSObject)
     }
 }

@@ -11,9 +11,10 @@ import MobilabPaymentCore
 
 class AdyenAliasCreationDetail: AliasCreationDetail {
     let token: String
-    let returnUrl: URL
+    let returnUrl: String
+    let channel: String = "ios"
 
-    init(token: String, returnUrl: URL) {
+    init(token: String, returnUrl: String) {
         self.token = token
         self.returnUrl = returnUrl
         super.init()
@@ -22,7 +23,7 @@ class AdyenAliasCreationDetail: AliasCreationDetail {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.token = try container.decode(String.self, forKey: .token)
-        self.returnUrl = try container.decode(URL.self, forKey: .returnUrl)
+        self.returnUrl = try container.decode(String.self, forKey: .returnUrl)
         try super.init(from: decoder)
     }
 
@@ -30,10 +31,12 @@ class AdyenAliasCreationDetail: AliasCreationDetail {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(token, forKey: .token)
         try container.encode(returnUrl, forKey: .returnUrl)
+        try container.encode(channel, forKey: .channel)
     }
 
     private enum CodingKeys: CodingKey {
         case token
         case returnUrl
+        case channel
     }
 }

@@ -1,8 +1,8 @@
 //
-//  RegisterCreditCardRequest.swift
+//  CreditCardBSPayoneData.swift
 //  MobilabPaymentBSPayone
 //
-//  Created by Borna Beakovic on 01/03/2019.
+//  Created by Robert on 03.05.19.
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
@@ -14,5 +14,5 @@ struct CreditCardBSPayoneData {
     let cardType: String
     let cardExpireDate: String
     let cardCVC2: String
-    let billingData: BillingData?
+    let billingData: BillingData
 }

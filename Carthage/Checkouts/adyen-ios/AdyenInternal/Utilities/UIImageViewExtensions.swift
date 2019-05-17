@@ -10,11 +10,11 @@ import UIKit
 public extension UIImageView {
     func downloadImage(from url: URL?) {
         image = nil
-
+        
         guard let url = url else {
             return
         }
-
+        
         let session = URLSession.shared
         let task = session.dataTask(with: url) { data, response, error in
             guard
@@ -24,11 +24,12 @@ public extension UIImageView {
             else {
                 return
             }
-
+            
             DispatchQueue.main.async {
                 self.image = image
             }
         }
         task.resume()
     }
+    
 }

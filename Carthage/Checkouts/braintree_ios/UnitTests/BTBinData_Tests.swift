@@ -1,6 +1,7 @@
 import XCTest
 
 class BTBinData_Tests: XCTestCase {
+    
     func testBinData_withCompleteJSON() {
         let json = BTJSON(value: [
             "description": "Visa ending in 11",
@@ -17,10 +18,10 @@ class BTBinData_Tests: XCTestCase {
                 "payroll": "No",
                 "issuingBank": "US",
                 "countryOfIssuance": "Something",
-                "productId": "123",
+                "productId": "123"
             ],
             "nonce": "fake-nonce",
-        ])
+            ])
         let binData = BTBinData(json: json["binData"] as! BTJSON)
 
         XCTAssertEqual(binData.prepaid, "Yes")
@@ -33,11 +34,11 @@ class BTBinData_Tests: XCTestCase {
         XCTAssertEqual(binData.countryOfIssuance, "Something")
         XCTAssertEqual(binData.productId, "123")
     }
-
+    
     func testBinData_withEmptyJSON() {
         let json = BTJSON(value: [
-            "some": "value",
-        ])
+            "some": "value"
+            ])
         let binData = BTBinData(json: json["binData"] as! BTJSON)
 
         XCTAssertEqual(binData.prepaid, "Unknown")
@@ -50,14 +51,14 @@ class BTBinData_Tests: XCTestCase {
         XCTAssertEqual(binData.countryOfIssuance, "")
         XCTAssertEqual(binData.productId, "")
     }
-
+    
     func testBinData_withPartialJSON() {
         let binData = BTBinData(json: BTJSON(value: [
             "prepaid": "Yes",
             "healthcare": "Yes",
             "countryOfIssuance": "Something",
-            "productId": "123",
-        ]))
+            "productId": "123"
+            ]))
 
         XCTAssertEqual(binData.prepaid, "Yes")
         XCTAssertEqual(binData.healthcare, "Yes")
@@ -69,4 +70,5 @@ class BTBinData_Tests: XCTestCase {
         XCTAssertEqual(binData.countryOfIssuance, "Something")
         XCTAssertEqual(binData.productId, "123")
     }
+    
 }
