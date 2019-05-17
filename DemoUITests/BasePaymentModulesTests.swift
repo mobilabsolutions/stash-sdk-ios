@@ -42,8 +42,11 @@ class BasePaymentModulesTests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("123")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -68,8 +71,11 @@ class BasePaymentModulesTests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("12345")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("12345")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -77,10 +83,10 @@ class BasePaymentModulesTests: BaseUITest {
         XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "valid CVV")).element.exists,
                       "Expected failure label to exist when adding a card with invalid CVV")
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        self.deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV"], app: app)
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        self.deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV/CVC"], app: app)
 
-        collectionViewsQuery.textFields["CVV"].typeText("12")
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("12")
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -88,10 +94,10 @@ class BasePaymentModulesTests: BaseUITest {
         XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "valid CVV")).element.exists,
                       "Expected failure label to exist when adding a card with invalid CVV")
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        self.deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV"], app: app)
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        self.deleteTextFieldText(textField: collectionViewsQuery.textFields["CVV/CVC"], app: app)
 
-        collectionViewsQuery.textFields["CVV"].typeText("abc")
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("abc")
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -117,7 +123,9 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XXX"].tap()
         collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
 
-        app.collectionViews.firstMatch.tap()
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
@@ -146,6 +154,9 @@ class BasePaymentModulesTests: BaseUITest {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.keys["C"].tap()
 
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 3).tap()
+
         // Tap on the "continue" keyboard button
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
 
@@ -161,6 +172,11 @@ class BasePaymentModulesTests: BaseUITest {
         guard let bicText = collectionViewsQuery.textFields["XXX"].value as? String
         else { XCTFail("Could not retrieve string value from BIC text field"); return }
 
+        guard let countryText = collectionViewsQuery.textFields["Country"].value as? String
+        else { XCTFail("Could not retrieve string value from Country text field"); return }
+
+        // This text should now be in the Country text field
+        XCTAssertEqual(countryText, "Algeria")
         // This text should now be in the BIC text field
         XCTAssertEqual(bicText, "C")
         // This text should now be in the IBAN text field

@@ -30,8 +30,8 @@ class CreditCardDataTests: XCTestCase {
     ]
 
     func testCorrectlyParsesCardMask() throws {
-        let first = try CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
-        let second = try CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData())
+        let first = try CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
+        let second = try CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
 
         XCTAssertEqual(first.cardMask, 1111, "Card mask should equal last four digits of card number")
         XCTAssertEqual(second.cardMask, 4, "Card mask should equal last four digits of card number")
@@ -44,7 +44,7 @@ class CreditCardDataTests: XCTestCase {
             XCTAssertEqual(creditCardUtilsDeterminedType, type,
                            "Card \(number) should have type \(type) but has type \(creditCardUtilsDeterminedType)")
 
-            if let card = try? CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 9, expiryYear: 21, billingData: BillingData()) {
+            if let card = try? CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData()) {
                 XCTAssertEqual(card.cardType, creditCardUtilsDeterminedType,
                                "Expected card type \(creditCardUtilsDeterminedType) for credit card data but got \(card.cardType)")
             }
@@ -114,7 +114,13 @@ class CreditCardDataTests: XCTestCase {
         let humanReadableIdentifiers = ["XXXXXXXXXXX 0005", "XXXXXXXXXXXX 4444", "XXXXXXXXXXX 9690", "XXXXXXXXXXXX 1111"]
 
         for (number, humanReadable) in zip(numbers, humanReadableIdentifiers) {
-            let creditCard = try CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 10, expiryYear: 50, billingData: BillingData())
+            let creditCard = try CreditCardData(cardNumber: number,
+                                                cvv: "123",
+                                                expiryMonth: 10,
+                                                expiryYear: 50,
+                                                country: "DE",
+                                                billingData: BillingData())
+
             XCTAssertEqual(creditCard.humanReadableId, humanReadable, "The human readable identifier for \(creditCard.cardNumber) should be \(humanReadable) but is \(creditCard.humanReadableId ?? "nil")")
         }
     }

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreditCardDataInitializible {
-    init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws
+    init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, country: String?, billingData: BillingData) throws
 }
 
 /// CreditCardData contains all data necessary for registering a credit card with a payment service provider
@@ -28,6 +28,8 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public let holderName: String?
     /// The type of credit card (e.g. visa or mastercard) the number is associated with. This is determined on card initialization
     public let cardType: CreditCardType
+    /// The country field takes an ISO country code. e.g. 'DE' for Germany and is mandatory for some PSPs (e.g. BSPayone)
+    public let country: String?
 
     /// The number of digits that should be used to create the card mask
     private let numberOfDigitsForCardMask = 4
@@ -66,9 +68,11 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///   - expiryMonth: The month in which the credit card expires: 1 (January) - 12 (December)
     ///   - expiryYear: The year in which the credit card expires: 0-99
     ///   - holderName: The name of the credit card holder. Not required by every PSP
+    ///   - country: ISO code of the country of the credit card holder. Not required by every PSP.
     ///   - billingData: The billing data to use when registering with the PSP
     /// - Throws: An MobilabPaymentError if validation is not successful
-    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) throws {
+
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, country: String?, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         guard cleanedNumber.count > numberOfDigitsForCardMask
@@ -86,6 +90,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         self.expiryYear = expiryYear
         self.billingData = billingData
         self.cardType = CreditCardUtils.cardTypeFromNumber(cleanedNumber: cleanedNumber)
+        self.country = country
     }
 
     public func toCreditCardExtra() -> CreditCardExtra? {

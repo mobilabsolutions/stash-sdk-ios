@@ -26,7 +26,9 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XXX"].tap()
         collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
 
-        app.collectionViews.firstMatch.tap()
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
@@ -52,8 +54,11 @@ class BSPayoneUITests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("123")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -91,13 +96,66 @@ class BSPayoneUITests: BaseUITest {
 
         collectionViewsQuery.textFields["MM/YY"].tap()
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("123")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Error"))
         app.alerts.firstMatch.buttons.firstMatch.tap()
+    }
+
+    func testCountrySelectionSearchFieldPresent() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "SEPA", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["Country"].tap()
+
+        let view = app.otherElements["CountrySelectionView"]
+        let searchView = view.otherElements["SearchView"]
+        XCTAssertNotNil(searchView.textFields["Search Country"])
+    }
+
+    func testCountryScreenDataPresent() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "SEPA", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["Country"].tap()
+
+        XCTAssertTrue(collectionViewsQuery.cells.count > 0)
+    }
+
+    func testCountryCurrentLocationDisplaysLastSearchedCountry() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["Country"].tap()
+
+        let view = app.otherElements["CountrySelectionView"]
+
+        let searchView = view.otherElements["SearchView"]
+        searchView.textFields["Search Country"].tap()
+        searchView.textFields["Search Country"].typeText("Zimbabwe")
+
+        let firstChild = view.collectionViews.children(matching: .cell).element(boundBy: 0)
+        let label = firstChild.staticTexts["Zimbabwe"]
+        let exists = NSPredicate(format: "exists == 1")
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
+
+        XCTAssertTrue(view.collectionViews.cells.count == 1) // should be only one entry with the searched country name
+
+        view.collectionViews.staticTexts["Zimbabwe"].tap() // goes back to previous screen
+
+        collectionViewsQuery.textFields["Country"].tap() // previous screen
+
+        XCTAssertNotNil(view.collectionViews.cells.staticTexts["Zimbabwe"]) // current location contains last selected country name
     }
 }

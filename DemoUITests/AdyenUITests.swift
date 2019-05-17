@@ -22,8 +22,8 @@ class AdyenUITests: BaseUITest {
         app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
         app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
 
-        collectionViewsQuery.textFields["CVV"].tap()
-        collectionViewsQuery.textFields["CVV"].typeText("737")
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
@@ -62,10 +62,10 @@ class AdyenUITests: BaseUITest {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
 
-        let expectedCells = [["Credit card number"], ["Expiration date", "CVV"]]
+        let expectedCells = [["Credit Card Number"], ["Expiration date", "CVV/CVC"]]
         let cells = app.collectionViews.cells
 
-        waitForElementToAppear(element: cells.staticTexts["Credit card number"])
+        waitForElementToAppear(element: cells.staticTexts["Credit Card Number"])
 
         XCTAssertEqual(cells.count, expectedCells.count, "Adyen Credit Card should have \(expectedCells.count) cells but has \(cells.count)")
 

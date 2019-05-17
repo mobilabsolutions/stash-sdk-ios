@@ -33,14 +33,17 @@ public struct FormCellModel {
             public let title: String
             public let placeholder: String
             public let setup: ((NecessaryData, UITextField) -> Void)?
+            public let didFocus: ((UITextField) -> Void)?
             public let didUpdate: ((NecessaryData, UITextField) -> Void)?
 
             public init(necessaryData: NecessaryData,
                         title: String,
                         placeholder: String,
                         setup: ((NecessaryData, UITextField) -> Void)?,
+                        didFocus: ((UITextField) -> Void)?,
                         didUpdate: ((NecessaryData, UITextField) -> Void)?) {
                 self.didUpdate = didUpdate
+                self.didFocus = didFocus
                 self.setup = setup
                 self.title = title
                 self.necessaryData = necessaryData

@@ -8,22 +8,22 @@
 
 import UIKit
 
-class TitleHeaderView: UICollectionReusableView {
+class TitleHeaderView: HeaderView {
     private static let defaultTextColor = UIConstants.dark
 
-    var title: String? {
+    override var title: String? {
         didSet {
             self.label.text = self.title
         }
     }
 
-    var configuration: PaymentMethodUIConfiguration? {
+    override var configuration: PaymentMethodUIConfiguration? {
         didSet {
             self.label.textColor = self.configuration?.textColor ?? TitleHeaderView.defaultTextColor
+            self.backgroundColor = self.configuration?.backgroundColor
         }
     }
 
-    private let label = SubtitleLabel()
     private let horizontalToSuperViewOffset: CGFloat = 18
     private let verticalToSuperViewOffset: CGFloat = 16
 
@@ -37,18 +37,10 @@ class TitleHeaderView: UICollectionReusableView {
         self.sharedInit()
     }
 
-    private func sharedInit() {
+    override func sharedInit() {
+        super.sharedInit()
+        
         self.label.font = UIConstants.defaultFont(of: 24, type: .black)
         self.label.textColor = UIConstants.dark
-        self.label.translatesAutoresizingMaskIntoConstraints = false
-
-        self.addSubview(self.label)
-
-        NSLayoutConstraint.activate([
-            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalToSuperViewOffset),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -horizontalToSuperViewOffset),
-            self.label.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalToSuperViewOffset),
-            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalToSuperViewOffset),
-        ])
     }
 }

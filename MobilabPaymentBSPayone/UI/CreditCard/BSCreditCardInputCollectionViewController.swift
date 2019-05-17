@@ -13,6 +13,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     private static let methodTypeImageViewWidth: CGFloat = 30
     private static let methodTypeImageViewHeight: CGFloat = 22
 
+    private var configuration: PaymentMethodUIConfiguration?
+
     private enum CreditCardValidationError: ValidationError {
         case noData(explanation: String)
         case creditCardValidationFailed(message: String)
@@ -33,13 +35,15 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
         let cvv: String
         let expirationMonth: Int
         let expirationYear: Int
+        let country: Country
 
         static func create(holderFirstNameText: String?,
                            holderLastNameText: String?,
                            cardNumberText: String?,
                            cvvText: String?,
                            expirationMonthText: String?,
-                           expirationYearText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
+                           expirationYearText: String?,
+                           country: Country?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
             if holderFirstNameText == nil || holderFirstNameText?.isEmpty == true {
@@ -72,6 +76,14 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors[.expirationMonth] = .noData(explanation: "Please provide a valid expiration date")
             }
 
+            if let country = country {
+                if country.alpha2Code.isEmpty {
+                    errors[.country] = .noData(explanation: "Country code cannot be blank")
+                }
+            } else {
+                errors[.country] = .noData(explanation: "Please provide country")
+            }
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/yy"
             dateFormatter.calendar = Calendar(identifier: .gregorian)
@@ -90,6 +102,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 let cardNumber = cardNumberText, let cvv = cvvText,
                 let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
                 let expirationYear = expirationYearText.flatMap({ Int($0) }),
+                let country = country,
                 errors.isEmpty
             else { return (nil, errors) }
 
@@ -98,12 +111,24 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                   cardNumber: cardNumber,
                                                   cvv: cvv,
                                                   expirationMonth: expirationMonth,
-                                                  expirationYear: expirationYear)
+                                                  expirationYear: expirationYear,
+                                                  country: country)
             return (parsedData, [:])
         }
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
+        super.init(billingData: billingData, configuration: configuration, formTitle: "Credit Card")
+
+        self.configuration = configuration
+        self.formConsumer = self
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.parent?.navigationItem.title = ""
+
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -114,7 +139,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  didUpdate: nil)
 
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
-                                                             title: "Credit card number",
+                                                             title: "Credit Card Number",
                                                              placeholder: "1234",
                                                              setup: { _, textField in
                                                                  textField.rightViewMode = .always
@@ -126,6 +151,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  imageView.contentMode = .scaleAspectFit
                                                                  textField.rightView = imageView
                                                              },
+                                                             didFocus: nil,
                                                              didUpdate: { _, textField in
                                                                  let imageView = textField.rightView as? UIImageView
 
@@ -136,13 +162,21 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
 
-        super.init(billingData: billingData, configuration: configuration, cellModels: [
+        let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
+                                                              title: "Country",
+                                                              placeholder: "Country",
+                                                              setup: nil,
+                                                              didFocus: { [weak self] textField in
+                                                                  guard let self = self else { return }
+                                                                  self.showCountryListing(textField: textField, on: self)
+                                                              },
+                                                              didUpdate: nil)
+        setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
-        ], formTitle: "Credit Card")
-
-        self.formConsumer = self
+            FormCellModel(type: .text(countryData)),
+        ])
     }
 
     required init?(coder _: NSCoder) {
@@ -157,7 +191,8 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                       cardNumberText: data[.cardNumber],
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
-                                                      expirationYearText: data[.expirationYear])
+                                                      expirationYearText: data[.expirationYear],
+                                                      country: self.country)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
@@ -172,6 +207,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
                                                 holderName: parsedData.name.fullName,
+                                                country: parsedData.country.alpha2Code,
                                                 billingData: self.billingData ?? BillingData())
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil

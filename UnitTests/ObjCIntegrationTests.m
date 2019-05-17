@@ -98,6 +98,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:name.fullName
+                                                                        country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
 
@@ -185,6 +186,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                     expiryMonth:10
                                                                      expiryYear:21
                                                                      holderName:name.fullName
+                                                                    country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
     XCTAssertNotNil(error);

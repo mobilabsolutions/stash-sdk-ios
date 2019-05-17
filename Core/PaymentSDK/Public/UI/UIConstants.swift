@@ -116,6 +116,10 @@ public final class UIConstants {
     public class var jcbImage: UIImage? {
         return UIImage(named: "jcb", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
+    
+    public class var searchImage: UIImage? {
+        return UIImage(named: "search", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
 
     enum DefaultFontType: String {
         case black = "Black"

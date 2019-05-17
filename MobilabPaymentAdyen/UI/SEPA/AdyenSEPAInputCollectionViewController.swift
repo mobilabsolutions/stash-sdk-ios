@@ -23,6 +23,13 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
+        super.init(billingData: billingData, configuration: configuration, formTitle: "SEPA")
+        self.formConsumer = self
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let nameCell = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -31,22 +38,22 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
                                                                  secondPlaceholder: "Last Name",
                                                                  setup: nil,
                                                                  didUpdate: nil)
-
+        
         let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
                                                            placeholder: "XX123",
                                                            setup: nil,
+                                                           didFocus: nil,
                                                            didUpdate: { _, textField in
-                                                               textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
+                                                            textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
 
-        super.init(billingData: billingData, configuration: configuration, cellModels: [
-            FormCellModel(type: .pairedText(nameCell)), FormCellModel(type: .text(ibanCell)),
-        ], formTitle: "SEPA")
-
-        self.formConsumer = self
+        setCellModel(cellModels: [
+                    FormCellModel(type: .pairedText(nameCell)),
+                    FormCellModel(type: .text(ibanCell)),
+                ])
     }
-
+    
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -85,7 +85,6 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
 
         self.contentView.backgroundColor = .white
         self.arrowImageView.image = UIConstants.rightArrowImage
-
         self.arrowImageView.contentMode = .scaleAspectFit
         self.methodImageView.contentMode = .scaleAspectFill
 

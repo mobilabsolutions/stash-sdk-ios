@@ -24,9 +24,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var doneButtonUpdating: DoneButtonUpdating?
 
-    private let cellModels: [FormCellModel]
+    private var cellModels: [FormCellModel] = []
 
     public let billingData: BillingData?
+
+    public var country: Country?
 
     private let configuration: PaymentMethodUIConfiguration
     private let formTitle: String
@@ -36,10 +38,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
 
-    public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, cellModels: [FormCellModel], formTitle: String) {
+    private weak var selectedCountryTextField: UITextField?
+
+    public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
         self.configuration = configuration
-        self.cellModels = cellModels
         self.formTitle = formTitle
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -60,6 +63,23 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+    }
+
+    public func setCellModel(cellModels: [FormCellModel]) {
+        self.cellModels = cellModels
+    }
+
+    public func showCountryListing(textField: UITextField, on viewController: UIViewController) {
+        var countryName = textField.text ?? ""
+        // get device locale if textfield is empty
+        if countryName.isEmpty {
+            let deviceCountry = Locale.current.getDeviceRegion()
+            countryName = deviceCountry?.name ?? ""
+        }
+        let countryVC = CountryListCollectionViewController(countryName: countryName, configuration: configuration)
+        countryVC.delegate = self
+        self.selectedCountryTextField = textField
+        viewController.navigationController?.pushViewController(countryVC, animated: true)
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
@@ -88,7 +108,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     private func isDone() -> Bool {
-        return self.cellModels
+        return self.cellModels.count == 0 ? false : self.cellModels
             .flatMap { $0.necessaryData }
             .allSatisfy { self.fieldData[$0] != nil }
     }
@@ -106,13 +126,16 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell & NextCellEnabled
 
-        switch self.cellModels[indexPath.row].type {
+        let type = self.cellModels[indexPath.row].type
+
+        switch type {
         case let .text(data):
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.textReuseIdentifier, for: indexPath)
             cell.setup(text: self.fieldData[data.necessaryData],
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
+                       textFieldFocusGainCallback: { data.didFocus?($0) },
                        textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
                        error: self.errors[data.necessaryData]?.description,
                        setupTextField: { data.setup?(data.necessaryData, $0) },
@@ -189,10 +212,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        let hasError = self.cellModels[indexPath.row].necessaryData
-            .contains(where: { self.errors[$0] != nil })
+        var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        let additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0) + (hasError ? self.errorCellHeightSurplus : 0)
+        let hasError = self.cellModels[indexPath.row].necessaryData.contains(where: { self.errors[$0] != nil })
+        additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
+
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 
@@ -242,5 +266,12 @@ extension FormCollectionViewController: NextCellSwitcher {
         else { return }
 
         nextCell.selectCell()
+    }
+}
+
+extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
+    func didSelectCountry(country: Country) {
+        self.country = country
+        self.selectedCountryTextField?.text = country.name
     }
 }

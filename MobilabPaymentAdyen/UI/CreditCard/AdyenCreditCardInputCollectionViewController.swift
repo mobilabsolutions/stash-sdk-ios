@@ -89,8 +89,16 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
     }
 
     init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration) {
+        super.init(billingData: billingData, configuration: configuration, formTitle: "Credit Card")
+
+        self.formConsumer = self
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
-                                                             title: "Credit card number",
+                                                             title: "Credit Card Number",
                                                              placeholder: "1234",
                                                              setup: { _, textField in
                                                                  textField.rightViewMode = .always
@@ -102,6 +110,7 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                                                                  imageView.contentMode = .scaleAspectFit
                                                                  textField.rightView = imageView
                                                              },
+                                                             didFocus: nil,
                                                              didUpdate: { _, textField in
                                                                  let imageView = textField.rightView as? UIImageView
 
@@ -112,12 +121,10 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                                                                  textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
 
-        super.init(billingData: billingData, configuration: configuration, cellModels: [
+        setCellModel(cellModels: [
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
-        ], formTitle: "Credit Card")
-
-        self.formConsumer = self
+        ])
     }
 
     required init?(coder _: NSCoder) {
@@ -143,7 +150,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
-                                                expiryYear: parsedData.expirationYear,
+                                                expiryYear: parsedData.expirationYear, country: nil,
                                                 billingData: self.billingData ?? BillingData())
 
             self.didCreatePaymentMethodCompletion?(creditCard)

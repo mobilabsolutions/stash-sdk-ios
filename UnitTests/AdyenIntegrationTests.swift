@@ -41,7 +41,7 @@ class AdyenIntegrationTests: XCTestCase {
 
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = try CreditCardData(cardNumber: "3600 6666 3333 44", cvv: "737", expiryMonth: 10, expiryYear: 20,
-                                                holderName: "Holder Name", billingData: billingData)
+                                                holderName: "Holder Name", country: "DE",billingData: billingData)
 
         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
@@ -68,7 +68,7 @@ class AdyenIntegrationTests: XCTestCase {
                                       zip: "817754",
                                       city: "Cologne",
                                       state: nil,
-                                      country: "Germany",
+                                      country: "DE",
                                       phone: "1231231123",
                                       languageId: "deu")
 
@@ -113,7 +113,7 @@ class AdyenIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 
         guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                expiryMonth: 9, expiryYear: 0, holderName: name.fullName, billingData: BillingData())
+                                                expiryMonth: 9, expiryYear: 0, holderName: name.fullName, country: "DE", billingData: BillingData())
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in

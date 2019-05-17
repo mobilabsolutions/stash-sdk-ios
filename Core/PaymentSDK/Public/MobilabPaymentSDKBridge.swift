@@ -80,10 +80,10 @@ import UIKit
     @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
         let creditCardData: CreditCardData
 
-        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, billingData: BillingData) throws {
+        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, country: String?, billingData: BillingData) throws {
             self.creditCardData = try CreditCardData(cardNumber: cardNumber, cvv: cvv,
                                                      expiryMonth: expiryMonth, expiryYear: expiryYear,
-                                                     holderName: holderName, billingData: billingData)
+                                                     holderName: holderName, country: country, billingData: billingData)
         }
     }
 
