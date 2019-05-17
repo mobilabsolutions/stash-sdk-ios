@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import MobilabPaymentCore
 
 struct Alias: Codable {
     let alias: String
+    let humanReadableId: String?
     let expirationYear: Int?
     let expirationMonth: Int?
     let type: AliasType
@@ -18,5 +20,14 @@ struct Alias: Codable {
 enum AliasType: String, Codable {
     case creditCard
     case sepa
+    case payPal
     case unknown
+
+    init(paymentMethodType: PaymentMethodType) {
+        switch paymentMethodType {
+        case .creditCard: self = .creditCard
+        case .sepa: self = .sepa
+        case .payPal: self = .payPal
+        }
+    }
 }

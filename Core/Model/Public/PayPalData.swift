@@ -14,14 +14,24 @@ public struct PayPalPlaceholderData: RegistrationData {
     public init(billingData: BillingData?) {
         self.billingData = billingData
     }
+
+    public var humanReadableId: String? {
+        return nil
+    }
 }
 
 public struct PayPalData: RegistrationData {
     public let nonce: String
     public let deviceData: String
+    public let email: String?
 
-    public init(nonce: String, deviceData: String) {
+    public init(nonce: String, deviceData: String, email: String?) {
         self.nonce = nonce
         self.deviceData = deviceData
+        self.email = email
+    }
+
+    public var humanReadableId: String? {
+        return self.email
     }
 }

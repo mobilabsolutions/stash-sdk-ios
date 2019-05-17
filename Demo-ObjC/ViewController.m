@@ -42,10 +42,10 @@
     [MLMobilabPaymentSDK configureUIWithConfiguration:configuration];
 
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(NSString * _Nullable alias, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (alias != nil) {
-                NSLog(@"Got alias: %@", alias);
+            if (registration != nil) {
+                NSLog(@"Got alias: %@", registration.alias);
                 [weakSelf showAlertWithTitle:@"Success" andBody:@"Successfully registered payment method"
                             onViewController:[self presentedViewController]];
             }

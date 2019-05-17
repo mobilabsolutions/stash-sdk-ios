@@ -105,9 +105,9 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                         paymentMethodPreparator: creditCardPreparator) { result in
             switch result {
             case let .success(token):
-                let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(ccConfig: creditCardData.creditCardExtra,
-                                                                                      billingData: billingData,
-                                                                                      payload: token))
+                let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(ccConfig: creditCardData.creditCardExtra,
+                                                                                         billingData: billingData,
+                                                                                         payload: token))
                 completion(.success(registration))
             case let .failure(error):
                 let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
@@ -122,7 +122,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                    idempotencyKey _: String,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         let billingData = sepaData.billingData ?? BillingData()
-        let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData))
+        let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData))
         completion(.success(registration))
     }
 

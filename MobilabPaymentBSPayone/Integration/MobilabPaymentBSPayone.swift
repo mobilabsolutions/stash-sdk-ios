@@ -31,7 +31,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                              completion: completion)
             } else if let _ = try getSepaData(from: registrationRequest),
                 let sepaData = registrationRequest.registrationData as? SEPAData {
-                let registration = Registration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.toSEPAExtra(), billingData: billingData))
+                let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.toSEPAExtra(), billingData: billingData))
                 completion(.success(registration))
             } else {
                 completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
@@ -79,7 +79,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspData: pspData, completion: { result in
             switch result {
             case let .success(value):
-                let registration = Registration(pspAlias: value, aliasExtra: AliasExtra(ccConfig: creditCardExtra, billingData: billingData))
+                let registration = PSPRegistration(pspAlias: value, aliasExtra: AliasExtra(ccConfig: creditCardExtra, billingData: billingData))
                 completion(.success(registration))
             case let .failure(error): completion(.failure(error))
             }
