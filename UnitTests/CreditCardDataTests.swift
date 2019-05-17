@@ -114,7 +114,13 @@ class CreditCardDataTests: XCTestCase {
         let humanReadableIdentifiers = ["XXXXXXXXXXX 0005", "XXXXXXXXXXXX 4444", "XXXXXXXXXXX 9690", "XXXXXXXXXXXX 1111"]
 
         for (number, humanReadable) in zip(numbers, humanReadableIdentifiers) {
-            let creditCard = try CreditCardData(cardNumber: number, cvv: "123", expiryMonth: 10, expiryYear: 50, billingData: BillingData())
+            let creditCard = try CreditCardData(cardNumber: number,
+                                                cvv: "123",
+                                                expiryMonth: 10,
+                                                expiryYear: 50,
+                                                country: "DE",
+                                                billingData: BillingData())
+
             XCTAssertEqual(creditCard.humanReadableId, humanReadable, "The human readable identifier for \(creditCard.cardNumber) should be \(humanReadable) but is \(creditCard.humanReadableId ?? "nil")")
         }
     }
