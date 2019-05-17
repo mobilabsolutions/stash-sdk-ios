@@ -29,9 +29,20 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     /// The type of credit card (e.g. visa or mastercard) the number is associated with. This is determined on card initialization
     public let cardType: CreditCardType
 
+    /// The number of digits that should be used to create the card mask
+    private let numberOfDigitsForCardMask = 4
+
     /// The card mask (i.e. last 4 digits) of the card number
     public var cardMask: Int? {
-        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -4)..<cardNumber.endIndex])
+        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -numberOfDigitsForCardMask)..<cardNumber.endIndex])
+    }
+
+    /// A human readable identifier for this credit card. Derived from the card number in the form XXXXXXXXXXXX 4111.
+    public var humanReadableId: String? {
+        let maskStartIndex = cardNumber.index(cardNumber.endIndex, offsetBy: -numberOfDigitsForCardMask)
+        let maskString = self.cardNumber[maskStartIndex..<cardNumber.endIndex]
+        let other = self.cardNumber[cardNumber.startIndex..<maskStartIndex].replacingOccurrences(of: "[0-9]", with: "X", options: .regularExpression, range: nil)
+        return other + " " + maskString
     }
 
     public enum CreditCardType: String, CaseIterable {
@@ -59,6 +70,9 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     /// - Throws: An MobilabPaymentError if validation is not successful
     public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
+
+        guard cleanedNumber.count > numberOfDigitsForCardMask
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
 
         try CreditCardUtils.validateCVV(cvv: cvv)
 

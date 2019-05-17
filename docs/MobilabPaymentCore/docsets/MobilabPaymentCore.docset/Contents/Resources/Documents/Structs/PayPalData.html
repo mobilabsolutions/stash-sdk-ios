@@ -96,6 +96,9 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
               </li>
               <li class="nav-group-task">
@@ -186,7 +189,7 @@
                 <a class="nav-group-task-link" href="../Protocols/PaymentServiceProvider.html">PaymentServiceProvider</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a>
+                <a class="nav-group-task-link" href="../Protocols/RegistrationData.html">RegistrationData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RouterRequestProtocol.html">RouterRequestProtocol</a>
@@ -230,16 +233,19 @@
                 <a class="nav-group-task-link" href="../Structs/MobilabPaymentApiError.html">MobilabPaymentApiError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PSPErrorDetails.html">PSPErrorDetails</a>
+                <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PSPExtra.html">PSPExtra</a>
+                <a class="nav-group-task-link" href="../Structs/PSPRegistration.html">PSPRegistration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PayPalData.html">PayPalData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PayPalExtra.html">PayPalExtra</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
@@ -287,7 +293,7 @@
             <h1>PayPalData</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PayPalData</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:18MobilabPaymentCore16RegistrationDataP">RegistrationData</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PayPalData</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RegistrationData.html">RegistrationData</a></span></code></pre>
 
                 </div>
               </div>
@@ -303,9 +309,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore10PayPalDataV5nonceSSSgvp"></a>
+                    <a name="/s:18MobilabPaymentCore10PayPalDataV5nonceSSvp"></a>
                     <a name="//apple_ref/swift/Property/nonce" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV5nonceSSSgvp">nonce</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV5nonceSSvp">nonce</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -320,7 +326,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -330,9 +336,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore10PayPalDataV5nonceACSSSg_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(nonce:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV5nonceACSSSg_tcfc">init(nonce:)</a>
+                    <a name="/s:18MobilabPaymentCore10PayPalDataV06deviceF0SSvp"></a>
+                    <a name="//apple_ref/swift/Property/deviceData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV06deviceF0SSvp">deviceData</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -347,7 +353,88 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">deviceData</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore10PayPalDataV5emailSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/email" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV5emailSSSgvp">email</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore10PayPalDataV5nonce06deviceF05emailACSS_S2SSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(nonce:deviceData:email:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV5nonce06deviceF05emailACSS_S2SSgtcfc">init(nonce:deviceData:email:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">deviceData</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore10PayPalDataV15humanReadableIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/humanReadableId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore10PayPalDataV15humanReadableIdSSSgvp">humanReadableId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">humanReadableId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

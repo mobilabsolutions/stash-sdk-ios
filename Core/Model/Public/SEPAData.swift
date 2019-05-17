@@ -34,4 +34,9 @@ public struct SEPAData: RegistrationData, SEPADataInitializible {
     public func toSEPAExtra() -> SEPAExtra {
         return SEPAExtra(iban: self.iban, bic: self.bic)
     }
+
+    /// The human readable identifier for this SEPA payment method. Equivalent to the method's IBAN.
+    public var humanReadableId: String? {
+        return self.iban
+    }
 }
