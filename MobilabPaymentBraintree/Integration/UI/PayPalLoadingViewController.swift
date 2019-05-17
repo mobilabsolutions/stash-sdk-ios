@@ -1,20 +1,30 @@
 //
-//  LoadingViewController.swift
+//  PayPalLoadingViewController.swift
 //  MobilabPayment
 //
 //  Created by Borna Beakovic on 26/03/2019.
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
+import MobilabPaymentCore
 import UIKit
 
-public class LoadingViewController: UIViewController, PaymentMethodDataProvider {
-    public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
-    public var billingData: BillingData?
+class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
+    var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
+    var billingData: BillingData?
 
     private let uiConfiguration: PaymentMethodUIConfiguration
+    private let payPalImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIConstants.payPalImage
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
 
-    public init(uiConfiguration: PaymentMethodUIConfiguration) {
+    private let payPalImageWidth: CGFloat = 70
+    private let payPalImageTopOffset: CGFloat = 65
+
+    init(uiConfiguration: PaymentMethodUIConfiguration) {
         self.uiConfiguration = uiConfiguration
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,7 +33,7 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         if case MobilabPaymentError.userActionable = error {
             self.navigationController?.popViewController(animated: true)
         } else {
@@ -35,9 +45,10 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
         }
     }
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = self.uiConfiguration.backgroundColor
+        self.addPayPalLogoView()
 
         self.showActivityIndicatory()
 
@@ -45,12 +56,23 @@ public class LoadingViewController: UIViewController, PaymentMethodDataProvider 
         self.didCreatePaymentMethodCompletion?(payPalData)
     }
 
-    func showActivityIndicatory() {
+    private func showActivityIndicatory() {
         let activityView = UIActivityIndicatorView(style: .whiteLarge)
         activityView.center = self.view.center
         activityView.color = uiConfiguration.mediumEmphasisColor
 
         self.view.addSubview(activityView)
         activityView.startAnimating()
+    }
+
+    private func addPayPalLogoView() {
+        self.payPalImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.payPalImageView)
+
+        NSLayoutConstraint.activate([
+            self.payPalImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.payPalImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: payPalImageTopOffset),
+            self.payPalImageView.widthAnchor.constraint(equalToConstant: payPalImageWidth),
+        ])
     }
 }

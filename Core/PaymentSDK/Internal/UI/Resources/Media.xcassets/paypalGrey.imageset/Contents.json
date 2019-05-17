@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sepa.png",
+      "filename" : "paypalGrey.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sepa@2x.png",
+      "filename" : "paypalGrey@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "sepa@3x.png",
+      "filename" : "paypalGrey@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

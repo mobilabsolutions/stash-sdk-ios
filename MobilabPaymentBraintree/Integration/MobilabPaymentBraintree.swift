@@ -54,7 +54,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
 
     public func viewController(for _: PaymentMethodType, billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
-        let viewController = LoadingViewController(uiConfiguration: configuration)
+        let viewController = PayPalLoadingViewController(uiConfiguration: configuration)
         viewController.billingData = billingData
         return viewController
     }
