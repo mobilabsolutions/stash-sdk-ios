@@ -62,6 +62,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
+        self.collectionView.contentInsetAdjustmentBehavior = .always
+
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
@@ -85,25 +87,31 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         switch error {
         case .configuration:
-            UIViewControllerTools.showAlert(on: self, title: "Configuration Error",
-                                            body: "A configuration error occurred. This should not happen.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
+                                                  body: "A configuration error occurred. This should not happen.",
+                                                  uiConfiguration: self.configuration)
         case .network:
-            UIViewControllerTools.showAlert(on: self, title: "Network Error",
-                                            body: "An error occurred. Please retry.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Network Error",
+                                                  body: "An error occurred. Please retry.",
+                                                  uiConfiguration: self.configuration)
         case let .temporary(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
-            UIViewControllerTools.showAlert(on: self, title: "Temporary Error",
-                                            body: "A temporary error \(insertedErrorCode)occurred. Please retry.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
+                                                  body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
+                                                  uiConfiguration: self.configuration)
         case let .userActionable(error):
-            UIViewControllerTools.showAlert(on: self, title: "Error",
-                                            body: "An error occurred: \(error.description)")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
+                                                  body: "An error occurred: \(error.description)",
+                                                  uiConfiguration: self.configuration)
         case let .validation(error):
-            UIViewControllerTools.showAlert(on: self, title: "Validation Error",
-                                            body: error.description)
+            UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
+                                                  body: error.description,
+                                                  uiConfiguration: self.configuration)
         case let .other(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
-            UIViewControllerTools.showAlert(on: self, title: "Error",
-                                            body: "An error \(insertedErrorCode)occurred.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
+                                                  body: "An error \(insertedErrorCode)occurred.",
+                                                  uiConfiguration: self.configuration)
         }
     }
 
@@ -225,7 +233,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultHeaderHeight)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right,
+                      height: self.defaultHeaderHeight)
     }
 }
 

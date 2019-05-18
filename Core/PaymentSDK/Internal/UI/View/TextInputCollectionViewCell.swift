@@ -46,7 +46,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     private var textEntryBySelection: Bool = false {
         didSet {
-            if textEntryBySelection == true {
+            if self.textEntryBySelection == true {
                 let arrowImageView = UIImageView(image: UIConstants.rightArrowImage)
                 arrowImageView.contentMode = .scaleAspectFit
                 self.textField.rightView = arrowImageView
@@ -54,7 +54,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             }
         }
     }
-    
+
     private var dataType: NecessaryData? {
         didSet {
             guard let dataType = self.dataType
@@ -182,14 +182,14 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private var lastFocusedTextField: UITextField?
 
     @objc private func textFieldReceivedFocus() {
-        //It's a fix for preventing to send repeated focus callbacks and closing the keyboard properly (required for country selection scenario)
-        if textEntryBySelection == true && lastFocusedTextField != nil {
+        // It's a fix for preventing to send repeated focus callbacks and closing the keyboard properly (required for country selection scenario)
+        if self.textEntryBySelection == true, self.lastFocusedTextField != nil {
             self.endEditing(true)
-            lastFocusedTextField = nil
+            self.lastFocusedTextField = nil
             return
         }
-        lastFocusedTextField = self.textField
-        textFieldFocusGainCallback?(self.textField)
+        self.lastFocusedTextField = self.textField
+        self.textFieldFocusGainCallback?(self.textField)
     }
 
     @objc private func didUpdateTextFieldText() {

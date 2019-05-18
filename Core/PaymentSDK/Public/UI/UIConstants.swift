@@ -45,6 +45,10 @@ public final class UIConstants {
         return UIColor(red: 239.0 / 255.0, green: 78.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
     }
 
+    public class var salmon: UIColor {
+        return UIColor(red: 248.0 / 255.0, green: 106.0 / 255.0, blue: 106.0 / 255.0, alpha: 1.0)
+    }
+
     public class var disabledColor: UIColor {
         return UIColor.black.withAlphaComponent(0.38)
     }
@@ -116,9 +120,13 @@ public final class UIConstants {
     public class var jcbImage: UIImage? {
         return UIImage(named: "jcb", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
-    
+
     public class var searchImage: UIImage? {
         return UIImage(named: "search", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var alertImage: UIImage? {
+        return UIImage(named: "alert", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     enum DefaultFontType: String {

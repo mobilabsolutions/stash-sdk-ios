@@ -17,6 +17,5 @@ public protocol PaymentMethodDataProvider {
 }
 
 public extension PaymentMethodDataProvider {
-    
-    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {}
+    func errorWhileCreatingPaymentMethod(error _: MobilabPaymentError) {}
 }

@@ -16,7 +16,9 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     private let minimumLineSpacing: CGFloat = 8
     private let backgroundColor = UIConstants.iceBlue
     private let cellInset: CGFloat = 16
-    private let headerHeight: CGFloat = 195
+    private var headerHeight: CGFloat {
+        return min(self.view.frame.height * 0.3, 195)
+    }
 
     private var selectablePaymentMethods: [PaymentMethodType] = [] {
         didSet {
@@ -44,6 +46,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
                                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
+        self.collectionView.contentInsetAdjustmentBehavior = .always
     }
 
     // MARK: UICollectionViewDataSource
@@ -71,7 +74,8 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.cellHeight)
+        return CGSize(width: self.collectionView.frame.width - 2 * self.cellInset - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right,
+                      height: self.cellHeight)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
