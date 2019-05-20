@@ -29,7 +29,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
     private let horizontalOffset: CGFloat = 8
     private let methodImageViewVerticalOffset: CGFloat = 4
     private let methodImageViewHorizontalOffset: CGFloat = 8
-    private let methodImageViewWidth: CGFloat = 42
+    private let methodImageViewWidth: CGFloat = 30
+    private let methodImageViewHeight: CGFloat = 20
+    private let methodImageContainerViewWidth: CGFloat = 42
+    private let methodImageContainerViewHeight: CGFloat = 28
     private let arrowImageViewWidth: CGFloat = 24
 
     override init(frame: CGRect) {
@@ -65,10 +68,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(methodImageViewContainer)
 
         NSLayoutConstraint.activate([
-            methodImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor, constant: methodImageViewVerticalOffset),
-            methodImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor, constant: -methodImageViewVerticalOffset),
-            methodImageView.leadingAnchor.constraint(equalTo: methodImageViewContainer.leadingAnchor, constant: methodImageViewHorizontalOffset),
-            methodImageView.trailingAnchor.constraint(equalTo: methodImageViewContainer.trailingAnchor, constant: -methodImageViewHorizontalOffset),
+            methodImageView.centerYAnchor.constraint(equalTo: methodImageViewContainer.centerYAnchor),
+            methodImageView.centerXAnchor.constraint(equalTo: methodImageViewContainer.centerXAnchor),
+            methodImageView.widthAnchor.constraint(equalToConstant: methodImageViewWidth),
+            methodImageView.heightAnchor.constraint(equalToConstant: methodImageViewHeight),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalOffset),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalOffset),
             nameLabel.leadingAnchor.constraint(equalTo: methodImageViewContainer.trailingAnchor, constant: horizontalOffset),
@@ -76,7 +79,8 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
             methodImageViewContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: horizontalOffset),
             methodImageViewContainer.topAnchor.constraint(equalTo: nameLabel.topAnchor),
             methodImageViewContainer.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            methodImageViewContainer.widthAnchor.constraint(equalToConstant: methodImageViewWidth),
+            methodImageViewContainer.widthAnchor.constraint(equalToConstant: methodImageContainerViewWidth),
+            methodImageViewContainer.heightAnchor.constraint(equalToConstant: methodImageContainerViewHeight),
             arrowImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor),
             arrowImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor),
             arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2 * horizontalOffset),
@@ -86,7 +90,7 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
         self.contentView.backgroundColor = .white
         self.arrowImageView.image = UIConstants.rightArrowImage
         self.arrowImageView.contentMode = .scaleAspectFit
-        self.methodImageView.contentMode = .scaleAspectFill
+        self.methodImageView.contentMode = .scaleAspectFit
 
         methodImageViewContainer.backgroundColor = UIConstants.veryLightPink
 
@@ -112,7 +116,7 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
                 self.methodImageView.image = UIConstants.sepaImage
             case .payPal:
                 self.nameLabel.text = "PayPal"
-                self.methodImageView.image = UIConstants.payPalGreyImage
+                self.methodImageView.image = UIConstants.payPalNoTextImage
             }
         }
     }

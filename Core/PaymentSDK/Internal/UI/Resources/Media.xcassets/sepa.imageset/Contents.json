@@ -1,18 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "sepa.png",
       "idiom" : "universal",
+      "filename" : "sepa.png",
       "scale" : "1x"
     },
     {
-      "filename" : "sepa@2x.png",
       "idiom" : "universal",
+      "filename" : "sepa@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "sepa@3x.png",
       "idiom" : "universal",
+      "filename" : "sepa@3x.png",
       "scale" : "3x"
     }
   ],
