@@ -22,7 +22,7 @@ class PaymentMethodCell: UICollectionViewCell {
 
     private let cellInternalOffsetLeft: CGFloat = 8
     private let cellInternalOffsetRight: CGFloat = 16
-    private let iconDimentions: (width: CGFloat, height: CGFloat) = (46, 30)
+    private let iconDimentions: (width: CGFloat, height: CGFloat) = (60, 40)
     private let deleteButtonDimentions: (width: CGFloat, height: CGFloat) = (24, 24)
     private let titleHeight: CGFloat = 22
     private let subTitleHeight: CGFloat = 16
