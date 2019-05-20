@@ -1,6 +1,6 @@
 //
 //  UIConstants.swift
-//  Sample
+//  Demo
 //
 //  Created by Rupali Ghate on 08.05.19.
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
@@ -20,6 +20,18 @@ extension UIConstants {
 
     public class var checkoutImage: UIImage? {
         return UIImage(named: "checkout", in: Bundle.main, compatibleWith: nil)
+    }
+
+    public class var creditCardImage: UIImage? {
+        return maestroImage?.withRenderingMode(.alwaysOriginal)
+    }
+
+    public class var deleteImage: UIImage? {
+        return UIImage(named: "delete", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    }
+
+    public class var addImage: UIImage? {
+        return UIImage(named: "add", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
 
     enum DefaultFontType: String {
