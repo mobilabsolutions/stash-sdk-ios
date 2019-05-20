@@ -10,7 +10,7 @@ import MobilabPaymentCore
 import UIKit
 
 struct PaymentMethod {
-    let imageName: String
     let type: PaymentMethodType
-    let details: String
+    let alias: String?
+    let humanReadableIdentifier: String?
 }

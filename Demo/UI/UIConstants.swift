@@ -22,10 +22,6 @@ extension UIConstants {
         return UIImage(named: "checkout", in: Bundle.main, compatibleWith: nil)
     }
 
-    public class var creditCardImage: UIImage? {
-        return maestroImage?.withRenderingMode(.alwaysOriginal)
-    }
-
     public class var deleteImage: UIImage? {
         return UIImage(named: "delete", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }

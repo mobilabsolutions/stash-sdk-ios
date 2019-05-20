@@ -30,7 +30,7 @@ class PaymentMethodController: BaseCollectionViewController {
     private let addPaymentMethodSectionInsets: UIEdgeInsets
 
     private let paymentMethodListCellHeight: CGFloat = 86
-    private let addPaymentMethodCellHeight: CGFloat = 70
+    private let addPaymentMethodCellHeight: CGFloat = 55
     private let paymentMethodListSectionLineSpacing: CGFloat = 8
     private let addPaymentMethodSectionLineSpacing: CGFloat = 18
 
@@ -83,9 +83,10 @@ class PaymentMethodController: BaseCollectionViewController {
         let toReturn: UICollectionViewCell
 
         if indexPath.section == SectionType.PaymentMethodList.index {
-            let cell: PaymentMethodCell = collectionView.dequeueCell(reuseIdentifier: self.paymentMethodCellId, for: indexPath)
+            let cell: PaymentMethodCell = collectionView.dequeueCell(reuseIdentifier: self.paymentMethodCellId, for: indexPath) // PaymentSDK method
             let paymentMethod = self.registeredPaymentMethods[indexPath.row]
-            cell.setup(image: UIConstants.creditCardImage, title: paymentMethod.type.rawValue, subTitle: paymentMethod.details)
+            let cellImage = self.getImage(for: paymentMethod.type)
+            cell.setup(image: cellImage, title: paymentMethod.type.rawValue, subTitle: paymentMethod.humanReadableIdentifier)
             cell.delegate = self
             toReturn = cell
         } else {
@@ -132,7 +133,12 @@ class PaymentMethodController: BaseCollectionViewController {
         switch result {
         case let .success(value):
             DispatchQueue.main.async {
-                self.addNewItem(with: PaymentMethod(imageName: "", type: .creditCard, details: "4111 1111 1111 1111"))
+                let readableDetails = (value.paymentMethodType == .creditCard && value.humanReadableIdentifier != nil) ?
+                    self.formatCardDetails(cardNumber: value.humanReadableIdentifier!) : value.humanReadableIdentifier
+
+                let paymentMethod = PaymentMethod(type: value.paymentMethodType, alias: value.alias, humanReadableIdentifier: readableDetails)
+                self.addNewItem(for: paymentMethod)
+
                 self.dismiss(animated: true) {
                     UIViewControllerTools.showAlert(on: self, title: "Success", body: "Successfully registered payment method")
                 }
@@ -143,11 +149,29 @@ class PaymentMethodController: BaseCollectionViewController {
         }
     }
 
-    private func addNewItem(with paymentMethod: PaymentMethod) {
-        // TODO: Add actual data when available
+    #warning("should include card expiry date as well")
+    private func formatCardDetails(cardNumber: String) -> String? {
+        let formattedDetails = cardNumber.count < 4 ? cardNumber : String(cardNumber.suffix(4))
+        return "X-" + formattedDetails + " \u{2022} " // "\u{2022}" for  bullet symbol
+    }
+
+    private func addNewItem(for paymentMethod: PaymentMethod) {
         self.registeredPaymentMethods.insert(paymentMethod, at: 0)
         let indexPath = IndexPath(item: 0, section: 0)
         self.collectionView.insertItems(at: [indexPath])
+    }
+
+    private func getImage(for type: PaymentMethodType) -> UIImage? {
+        var image: UIImage?
+        switch type {
+        case .creditCard:
+            image = UIConstants.creditCardImage
+        case .payPal:
+            image = UIConstants.payPalImage
+        case .sepa:
+            image = UIConstants.sepaImage
+        }
+        return image
     }
 }
 

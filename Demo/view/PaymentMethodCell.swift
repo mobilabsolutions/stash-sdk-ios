@@ -93,6 +93,12 @@ class PaymentMethodCell: UICollectionViewCell {
     private func setupViews() {
         backgroundColor = .white
 
+        layer.shadowColor = UIColor(white: 0, alpha: 0.05).cgColor
+        layer.shadowRadius = 0
+        layer.shadowOpacity = 0.6
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.masksToBounds = false
+
         addSubview(self.cellImageView)
         self.cellImageView.anchor(left: leftAnchor,
                                   centerY: self.centerYAnchor,
