@@ -50,7 +50,6 @@ class SearchView: UIView {
 
     private let textField: CustomTextField = {
         let textField = CustomTextField()
-        textField.clearButtonMode = .always
         return textField
     }()
 
