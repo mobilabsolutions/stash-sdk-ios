@@ -23,9 +23,6 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
 
-        collectionViewsQuery.textFields["XXX"].tap()
-        collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
-
         collectionViewsQuery.textFields["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
