@@ -9,7 +9,6 @@
 import Foundation
 
 public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding {
-    case userActionable(UserActionableErrorDetails)
     case validation(ValidationErrorDetails)
     case configuration(SDKConfigurationError)
     case network(NetworkErrorDetails)
@@ -18,7 +17,6 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
 
     public var title: String {
         switch self {
-        case let .userActionable(details): return details.title
         case let .validation(details): return details.title
         case let .configuration(details): return details.title
         case let .network(details): return details.title
@@ -29,7 +27,6 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
 
     public var description: String {
         switch self {
-        case let .userActionable(details): return details.description
         case let .validation(details): return details.description
         case let .configuration(details): return details.description
         case let .network(details): return details.description
@@ -58,8 +55,6 @@ extension MobilabPaymentError: Codable {
             return MobilabPaymentError.otherTypeIdentifier
         case .temporary:
             return MobilabPaymentError.temporaryTypeIdentifier
-        case .userActionable:
-            return MobilabPaymentError.userActionableTypeIdentifier
         case .validation:
             return MobilabPaymentError.validationTypeIdentifier
         }
@@ -78,8 +73,6 @@ extension MobilabPaymentError: Codable {
             self = .other(try container.decode(GenericErrorDetails.self, forKey: .details))
         case MobilabPaymentError.temporaryTypeIdentifier:
             self = .temporary(try container.decode(TemporaryErrorDetails.self, forKey: .details))
-        case MobilabPaymentError.userActionableTypeIdentifier:
-            self = .userActionable(try container.decode(UserActionableErrorDetails.self, forKey: .details))
         case MobilabPaymentError.validationTypeIdentifier:
             self = .validation(try container.decode(ValidationErrorDetails.self, forKey: .details))
         default:
@@ -101,8 +94,6 @@ extension MobilabPaymentError: Codable {
         case let .other(details):
             try container.encode(details, forKey: .details)
         case let .temporary(details):
-            try container.encode(details, forKey: .details)
-        case let .userActionable(details):
             try container.encode(details, forKey: .details)
         case let .validation(details):
             try container.encode(details, forKey: .details)

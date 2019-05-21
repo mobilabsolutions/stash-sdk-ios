@@ -94,9 +94,6 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
             UIViewControllerTools.showAlert(on: self, title: "Temporary Error",
                                             body: "A temporary error \(insertedErrorCode)occurred. Please retry.")
-        case let .userActionable(error):
-            UIViewControllerTools.showAlert(on: self, title: "Error",
-                                            body: "An error occurred: \(error.description)")
         case let .validation(error):
             UIViewControllerTools.showAlert(on: self, title: "Validation Error",
                                             body: error.description)
