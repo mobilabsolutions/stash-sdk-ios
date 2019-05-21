@@ -129,6 +129,10 @@ public final class UIConstants {
         return UIImage(named: "alert", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
+    public class var crossImage: UIImage? {
+        return UIImage(named: "cross", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
     enum DefaultFontType: String {
         case black = "Black"
         case bold = "Bold"

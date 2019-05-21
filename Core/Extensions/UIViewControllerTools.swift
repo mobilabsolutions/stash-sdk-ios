@@ -19,8 +19,8 @@ public final class UIViewControllerTools {
         viewController.present(alert, animated: true, completion: nil)
     }
 
-    class func showAlertBanner(on viewController: UIViewController, title: String, body: String, uiConfiguration: PaymentMethodUIConfiguration) {
-        let banner = AlertBanner(title: title, subtitle: body, configuration: uiConfiguration)
+    class func showAlertBanner(on viewController: UIViewController & AlertBannerDelegate, title: String, body: String, uiConfiguration: PaymentMethodUIConfiguration) {
+        let banner = AlertBanner(title: title, subtitle: body, configuration: uiConfiguration, delegate: viewController)
         banner.translatesAutoresizingMaskIntoConstraints = false
 
         let view: UIView = viewController.parent?.view ?? viewController.view

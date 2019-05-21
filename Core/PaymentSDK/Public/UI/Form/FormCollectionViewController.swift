@@ -387,3 +387,9 @@ extension FormCollectionViewController: CountryListCollectionViewControllerDeleg
         self.selectedCountryTextField?.text = country.name
     }
 }
+
+extension FormCollectionViewController: AlertBannerDelegate {
+    func close(banner: AlertBanner) {
+        banner.removeFromSuperview()
+    }
+}
