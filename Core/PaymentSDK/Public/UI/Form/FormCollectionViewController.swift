@@ -37,6 +37,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
+    private var fieldErrorDelegates: [NecessaryData: FormFieldErrorDelegate] = [:]
 
     private weak var selectedCountryTextField: UITextField?
 
@@ -132,7 +133,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let toReturn: UICollectionViewCell & NextCellEnabled
+        let toReturn: UICollectionViewCell & NextCellEnabled & FormFieldErrorDelegate
 
         let type = self.cellModels[indexPath.row].type
 
@@ -143,12 +144,17 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
-                       textFieldFocusGainCallback: { data.didFocus?($0) },
-                       textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
+                       textFieldGainFocusCallback: { [weak self] field, dataPoint in
+                           self?.checkPreviousCellsValidity(from: indexPath, dataPoint: dataPoint)
+                           data.didFocus?(field)
+                       },
+                       textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        error: self.errors[data.necessaryData]?.description,
-                       setupTextField: { data.setup?(data.necessaryData, $0) },
+                       setupTextField: { data.setup?($1, $0) },
                        configuration: self.configuration,
                        delegate: self)
+
+            self.fieldErrorDelegates[data.necessaryData] = cell
 
             toReturn = cell
 
@@ -162,11 +168,16 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        secondTitle: data.secondTitle,
                        secondPlaceholder: data.secondPlaceholder,
                        secondDataType: data.secondNecessaryData,
-                       textFieldUpdateCallback: { data.didUpdate?(data.firstNecessaryData, $0) },
+                       textFieldFocusGainCallback: { [weak self] _, dataPoint in self?.checkPreviousCellsValidity(from: indexPath,
+                                                                                                                  dataPoint: dataPoint) },
+                       textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        firstError: self.errors[data.firstNecessaryData]?.description,
                        secondError: self.errors[data.secondNecessaryData]?.description,
-                       setupTextField: { data.setup?(data.firstNecessaryData, $0) },
+                       setupTextField: { field, dataPoint in data.setup?(dataPoint, field) },
                        configuration: self.configuration, delegate: self)
+
+            self.fieldErrorDelegates[data.firstNecessaryData] = cell
+            self.fieldErrorDelegates[data.secondNecessaryData] = cell
 
             toReturn = cell
 
@@ -185,8 +196,14 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        cvv: self.fieldData[.cvv],
                        dateError: self.errors[.expirationMonth]?.description ?? self.errors[.expirationYear]?.description,
                        cvvError: self.errors[.cvv]?.description,
+                       textFieldGainFocusCallback: { [weak self] _, dataPoint in self?.checkPreviousCellsValidity(from: indexPath,
+                                                                                                                  dataPoint: dataPoint) },
                        delegate: self,
                        configuration: self.configuration)
+
+            self.fieldErrorDelegates[.cvv] = cell
+            self.fieldErrorDelegates[.expirationYear] = cell
+            self.fieldErrorDelegates[.expirationMonth] = cell
 
             toReturn = cell
         }
@@ -222,8 +239,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        let hasError = self.cellModels[indexPath.row].necessaryData.contains(where: { self.errors[$0] != nil })
-        additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
+        let numberOfErrors = self.cellModels[indexPath.row].necessaryData.filter({ self.errors[$0] != nil }).count
+        additionalHeight += CGFloat(numberOfErrors) * self.errorCellHeightSurplus
 
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
@@ -236,12 +253,47 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         return CGSize(width: self.view.frame.width - 2 * self.cellInset - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right,
                       height: self.defaultHeaderHeight)
     }
+
+    private func checkPreviousCellsValidity(from indexPath: IndexPath, dataPoint: NecessaryData) {
+        let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+        var previousValuesInCurrentCell: [NecessaryData: Int] = [:]
+
+        for previousDataPoint in self.cellModels[indexPath.item].necessaryData {
+            guard dataPoint != previousDataPoint
+            else { break }
+            previousValuesInCurrentCell[previousDataPoint] = indexPath.item
+        }
+
+        let valuesToConsider = self.cellModels[0..<indexPath.item].enumerated().reduce([NecessaryData: Int]()) { dict, value in
+            var dict = dict
+            value.element.necessaryData.forEach { dict[$0] = value.offset }
+            return dict
+        }.merging(previousValuesInCurrentCell) { _, new in new }
+
+        let newErrors = validationResult?.errors.filter { valuesToConsider[$0.key] != nil }
+        self.errors = self.errors.merging(newErrors ?? [:], uniquingKeysWith: { _, new in new })
+
+        for (dataPoint, error) in self.errors {
+            self.fieldErrorDelegates[dataPoint]?.setError(description: error.description, forDataPoint: dataPoint)
+        }
+
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 extension FormCollectionViewController: DataPointProvidingDelegate {
     func didUpdate(value: String?, for dataPoint: NecessaryData) {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
-        self.errors[dataPoint] = nil
+
+        if self.errors[dataPoint] != nil {
+            let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+            self.errors[dataPoint] = validationResult?.errors[dataPoint]
+            self.fieldErrorDelegates[dataPoint]?.setError(description: errors[dataPoint]?.description, forDataPoint: dataPoint)
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
+
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 }

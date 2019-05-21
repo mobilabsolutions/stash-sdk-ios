@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
+class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFieldErrorDelegate {
     weak var nextCellSwitcher: NextCellSwitcher?
 
     var isLastCell: Bool = false {
@@ -58,16 +58,16 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private var firstErrorText: String? {
         didSet {
             self.firstTextField.set(hasInvalidData: self.firstErrorText != nil)
-            self.errorLabel.text = self.firstErrorText
-            self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil
+            self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
+            self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
         }
     }
 
     private var secondErrorText: String? {
         didSet {
             self.secondTextField.set(hasInvalidData: self.secondErrorText != nil)
-            self.errorLabel.text = self.secondErrorText
-            self.errorLabelZeroHeightConstraint?.isActive = self.secondErrorText == nil
+            self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
+            self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
         }
     }
 
@@ -110,7 +110,8 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private let errorLabelVerticalOffset: CGFloat = 4
 
     private weak var delegate: DataPointProvidingDelegate?
-    private var textFieldUpdateCallback: ((UITextField) -> Void)?
+    private var textFieldFocusGainCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let firstTextField = CustomTextField()
     private let firstSubTitleLabel = SubtitleLabel()
@@ -130,12 +131,14 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
                       secondTitle: String?,
                       secondPlaceholder: String?,
                       secondDataType: NecessaryData,
-                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
+                      textFieldFocusGainCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       firstError: String?,
                       secondError: String?,
-                      setupTextField: ((UITextField) -> Void)? = nil,
+                      setupTextField: ((UITextField, NecessaryData) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
+        self.textFieldFocusGainCallback = textFieldFocusGainCallback
         self.textFieldUpdateCallback = textFieldUpdateCallback
         self.firstText = firstText
         self.firstTitle = firstTitle
@@ -153,15 +156,16 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             $0.setup(borderColor: configuration.mediumEmphasisColor,
                      placeholderColor: configuration.mediumEmphasisColor,
                      textColor: configuration.textColor,
-                     backgroundColor: configuration.cellBackgroundColor)
+                     backgroundColor: configuration.cellBackgroundColor,
+                     errorBorderColor: configuration.errorMessageColor)
         }
 
         self.contentView.backgroundColor = configuration.cellBackgroundColor
         self.firstSubTitleLabel.textColor = configuration.textColor
         self.secondSubTitleLabel.textColor = configuration.textColor
 
-        setupTextField?(self.firstTextField)
-        setupTextField?(self.secondTextField)
+        setupTextField?(self.firstTextField, firstDataType)
+        setupTextField?(self.secondTextField, secondDataType)
 
         self.firstTextField.returnKeyType = .continue
         self.firstTextField.delegate = self
@@ -171,6 +175,7 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
         self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
         self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
+        self.errorLabel.uiConfiguration = configuration
     }
 
     func selectCell() {
@@ -237,11 +242,10 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     }
 
     @objc private func didUpdateTextFieldText(_ textField: UITextField) {
-        self.textFieldUpdateCallback?(textField)
-
         guard let type = (textField == self.firstTextField ? self.firstDataType : self.secondDataType)
         else { return }
 
+        self.textFieldUpdateCallback?(textField, type)
         self.delegate?.didUpdate(value: textField.text?.trimmingCharacters(in: .whitespaces), for: type)
     }
 
@@ -262,6 +266,14 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
         self.firstText = nil
         self.secondText = nil
     }
+
+    func setError(description: String?, forDataPoint dataPoint: NecessaryData) {
+        if dataPoint == self.firstDataType {
+            self.firstErrorText = description
+        } else if dataPoint == self.secondDataType {
+            self.secondErrorText = description
+        }
+    }
 }
 
 extension PairedTextInputCollectionViewCell: UITextFieldDelegate {
@@ -272,5 +284,12 @@ extension PairedTextInputCollectionViewCell: UITextFieldDelegate {
             self.nextCellSwitcher?.switchToNextCell(from: self)
         }
         return false
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let type = (textField == self.firstTextField ? self.firstDataType : self.secondDataType)
+        else { return }
+
+        self.textFieldFocusGainCallback?(textField, type)
     }
 }

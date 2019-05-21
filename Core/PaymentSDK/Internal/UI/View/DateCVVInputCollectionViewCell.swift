@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
+class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFieldErrorDelegate {
     weak var nextCellSwitcher: NextCellSwitcher?
 
     var isLastCell: Bool = false {
@@ -27,13 +27,17 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     private var dateError: String? {
         didSet {
+            self.errorLabel.text = (self.dateError.flatMap { $0 + "\n" } ?? "") + (self.cvvError ?? "")
             self.dateTextField.set(hasInvalidData: self.dateError != nil)
+            self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
         }
     }
 
     private var cvvError: String? {
         didSet {
+            self.errorLabel.text = (self.dateError.flatMap { $0 + "\n" } ?? "") + (self.cvvError ?? "")
             self.cvvTextField.set(hasInvalidData: self.cvvError != nil)
+            self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
         }
     }
 
@@ -46,6 +50,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private let numberOfYearsToShow = 20
 
     private var delegate: DataPointProvidingDelegate?
+    private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let dateTextField = CustomTextField()
     private let cvvTextField = CustomTextField()
@@ -57,15 +62,24 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
 
-    func setup(date: (month: Int, year: Int)?, cvv: String?, dateError: String?, cvvError: String?, delegate: DataPointProvidingDelegate, configuration: PaymentMethodUIConfiguration) {
+    func setup(date: (month: Int, year: Int)?,
+               cvv: String?,
+               dateError: String?,
+               cvvError: String?,
+               textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+               delegate: DataPointProvidingDelegate,
+               configuration: PaymentMethodUIConfiguration) {
         self.date = date
         self.cvv = cvv
         self.delegate = delegate
         self.dateError = dateError
         self.cvvError = cvvError
 
+        self.textFieldGainFocusCallback = textFieldGainFocusCallback
+
         self.errorLabel.text = (dateError.flatMap { $0 + "\n" } ?? "") + (cvvError ?? "")
         self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
+        self.errorLabel.uiConfiguration = configuration
 
         self.dateTitleLabel.textColor = configuration.textColor
         self.cvvTitleLabel.textColor = configuration.textColor
@@ -73,7 +87,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             $0.setup(borderColor: configuration.mediumEmphasisColor,
                      placeholderColor: configuration.mediumEmphasisColor,
                      textColor: configuration.textColor,
-                     backgroundColor: configuration.cellBackgroundColor)
+                     backgroundColor: configuration.cellBackgroundColor,
+                     errorBorderColor: configuration.errorMessageColor)
         }
 
         self.dateTextField.returnKeyType = .continue
@@ -97,6 +112,14 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.sharedInit()
+    }
+
+    func setError(description: String?, forDataPoint dataPoint: NecessaryData) {
+        if dataPoint == .expirationMonth || dataPoint == .expirationYear {
+            self.dateError = description
+        } else {
+            self.cvvError = description
+        }
     }
 
     private func sharedInit() {
@@ -247,5 +270,9 @@ extension DateCVVInputCollectionViewCell: UITextFieldDelegate {
         }
 
         return false
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.textFieldGainFocusCallback?(textField, textField == self.dateTextField ? .expirationYear : .cvv)
     }
 }

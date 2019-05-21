@@ -44,7 +44,7 @@ class CustomTextField: UITextField {
         self.borderColor = hasInvalidData ? CustomTextField.errorBorderColor : CustomTextField.defaultBorderColor
     }
 
-    func setup(borderColor: UIColor?, placeholderColor: UIColor?, textColor: UIColor?, backgroundColor: UIColor?) {
+    func setup(borderColor: UIColor?, placeholderColor: UIColor?, textColor: UIColor?, backgroundColor: UIColor?, errorBorderColor _: UIColor?) {
         self.borderColor = borderColor ?? CustomTextField.defaultBorderColor
         self.placeholderColor = placeholderColor ?? CustomTextField.defaultPlaceholderColor
         self.textColor = textColor
