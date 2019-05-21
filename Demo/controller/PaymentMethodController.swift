@@ -13,8 +13,8 @@ class PaymentMethodController: BaseCollectionViewController {
     // MARK: - Properties
 
     private enum SectionType: Int {
-        case PaymentMethodList = 0
-        case AddPaymentMethod
+        case paymentMethodList = 0
+        case addPaymentMethod
 
         var index: Int {
             return self.rawValue
@@ -30,7 +30,7 @@ class PaymentMethodController: BaseCollectionViewController {
     private let addPaymentMethodSectionInsets: UIEdgeInsets
 
     private let paymentMethodListCellHeight: CGFloat = 86
-    private let addPaymentMethodCellHeight: CGFloat = 55
+    private let addPaymentMethodCellHeight: CGFloat = 70
     private let paymentMethodListSectionLineSpacing: CGFloat = 8
     private let addPaymentMethodSectionLineSpacing: CGFloat = 18
 
@@ -59,7 +59,7 @@ class PaymentMethodController: BaseCollectionViewController {
         setTitle(title: "Payment Methods")
 
         self.collectionView.register(PaymentMethodCell.self, forCellWithReuseIdentifier: self.paymentMethodCellId)
-        self.collectionView.register(CustomLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
+        self.collectionView.register(CustomIconLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
     }
 
     // MARK: - Collectionview methods
@@ -69,52 +69,48 @@ class PaymentMethodController: BaseCollectionViewController {
     }
 
     override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == SectionType.PaymentMethodList.index ? self.registeredPaymentMethods.count : 1
+        return section == SectionType.paymentMethodList.index ? self.registeredPaymentMethods.count : 1
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width - (self.defaultInsetValue * 2)
 
-        return indexPath.section == SectionType.PaymentMethodList.index ? CGSize(width: width, height: self.paymentMethodListCellHeight) :
+        return indexPath.section == SectionType.paymentMethodList.index ? CGSize(width: width, height: self.paymentMethodListCellHeight) :
             CGSize(width: width, height: self.addPaymentMethodCellHeight)
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell
 
-        if indexPath.section == SectionType.PaymentMethodList.index {
+        if indexPath.section == SectionType.paymentMethodList.index {
             let cell: PaymentMethodCell = collectionView.dequeueCell(reuseIdentifier: self.paymentMethodCellId, for: indexPath) // PaymentSDK method
             let paymentMethod = self.registeredPaymentMethods[indexPath.row]
-            let cellImage = self.getImage(for: paymentMethod.type)
-            cell.setup(image: cellImage, title: paymentMethod.type.rawValue, subTitle: paymentMethod.humanReadableIdentifier)
+            let image = self.getImage(for: paymentMethod.type)
+            let title = self.getName(for: paymentMethod.type)
+            cell.setup(image: image, title: title, subTitle: paymentMethod.humanReadableIdentifier, configuration: nil)
             cell.delegate = self
             toReturn = cell
         } else {
-            let cell: CustomLabelCell = collectionView.dequeueCell(reuseIdentifier: self.addPaymentMethodCellId, for: indexPath) // PaymentSDK method
-            cell.setup(title: "Add new payment method", configuration: nil)
+            let cell: CustomIconLabelCell = collectionView.dequeueCell(reuseIdentifier: self.addPaymentMethodCellId, for: indexPath) // PaymentSDK method
+            cell.setup(title: "Add new payment method", iconImage: UIConstants.addImage, configuration: nil)
             toReturn = cell
         }
-        toReturn.layer.cornerRadius = self.cellRadius
-        toReturn.layer.masksToBounds = false
-
         return toReturn
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return section == SectionType.PaymentMethodList.index ? self.paymentMethodListSectionLineSpacing : self.addPaymentMethodSectionLineSpacing
+        return section == SectionType.paymentMethodList.index ? self.paymentMethodListSectionLineSpacing : self.addPaymentMethodSectionLineSpacing
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == SectionType.PaymentMethodList.index {
+        if section == SectionType.paymentMethodList.index {
             return self.paymentMethodListSectionInsets
         }
         return self.addPaymentMethodSectionInsets
     }
 
     override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-
-        if indexPath.section == SectionType.AddPaymentMethod.index {
+        if indexPath.section == SectionType.addPaymentMethod.index {
             self.addNewPaymentMethod()
         }
     }
@@ -152,7 +148,7 @@ class PaymentMethodController: BaseCollectionViewController {
     #warning("should include card expiry date as well")
     private func formatCardDetails(cardNumber: String) -> String? {
         let formattedDetails = cardNumber.count < 4 ? cardNumber : String(cardNumber.suffix(4))
-        return "X-" + formattedDetails + " \u{2022} " // "\u{2022}" for  bullet symbol
+        return "X-" + formattedDetails + " • "
     }
 
     private func addNewItem(for paymentMethod: PaymentMethod) {
@@ -162,16 +158,27 @@ class PaymentMethodController: BaseCollectionViewController {
     }
 
     private func getImage(for type: PaymentMethodType) -> UIImage? {
-        var image: UIImage?
+        let image: UIImage?
         switch type {
         case .creditCard:
-            image = UIConstants.creditCardImage
+            image = UIConstants.maestroImage
         case .payPal:
             image = UIConstants.payPalImage
         case .sepa:
             image = UIConstants.sepaImage
         }
         return image
+    }
+
+    private func getName(for type: PaymentMethodType) -> String {
+        switch type {
+        case .creditCard:
+            return "Credit Card"
+        case .payPal:
+            return "PayPal"
+        case .sepa:
+            return "SEPA"
+        }
     }
 }
 

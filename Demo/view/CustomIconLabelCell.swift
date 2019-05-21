@@ -1,5 +1,5 @@
 //
-//  CustomLabelCell.swift
+//  CustomIconLabelCell.swift
 //  Demo
 //
 //  Created by Rupali Ghate on 13.05.19.
@@ -9,8 +9,12 @@
 import MobilabPaymentCore
 import UIKit
 
-class CustomLabelCell: UICollectionViewCell {
+class CustomIconLabelCell: BaseCell {
     // MARK- Properties
+
+    private let cellInternalOffset: CGFloat = 16
+    private let titleHeight: CGFloat = 22
+    private let iconDimentions: (width: CGFloat, height: CGFloat) = (24, 24)
 
     private var configuration: PaymentMethodUIConfiguration? {
         didSet {
@@ -18,22 +22,30 @@ class CustomLabelCell: UICollectionViewCell {
         }
     }
 
-    private let cellInternalOffset: CGFloat = 8
-    private let titleHeight: CGFloat = 22
+    private let iconImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+
+        return iv
+    }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIConstants.defaultFont(of: 16, type: .medium)
         label.textColor = UIConstants.aquamarine
-        label.text = "Credit Card"
+        label.text = ""
 
         return label
     }()
 
     // MARK- Public methods
 
-    func setup(title: String?, configuration: PaymentMethodUIConfiguration?) {
+    func setup(title: String?, iconImage: UIImage?, configuration: PaymentMethodUIConfiguration?) {
         self.titleLabel.text = title
+
+        if let iconImage = iconImage {
+            self.iconImageView.image = iconImage
+        }
 
         if let configuration = configuration {
             self.configuration = configuration
@@ -55,24 +67,22 @@ class CustomLabelCell: UICollectionViewCell {
 
     // MARK: - Handlers
 
-    @objc private func handleDelete() {}
-
     // MARK- Helpers
 
     private func setupViews() {
-        backgroundColor = .clear
-        self.layer.borderColor = UIConstants.aquamarine.cgColor
-        self.layer.borderWidth = 1
+        addSubview(self.iconImageView)
+        self.iconImageView.anchor(left: leftAnchor, centerY: centerYAnchor,
+                                  paddingLeft: self.cellInternalOffset,
+                                  width: self.iconDimentions.width, height: self.iconDimentions.height)
 
         addSubview(self.titleLabel)
-
-        self.titleLabel.anchor(centerX: centerXAnchor, centerY: centerYAnchor,
-                               height: 22)
+        self.titleLabel.anchor(left: self.iconImageView.rightAnchor, centerY: centerYAnchor,
+                               paddingLeft: self.cellInternalOffset,
+                               height: self.titleHeight)
     }
 
     private func updateStyling() {
-        self.titleLabel.textColor = self.configuration?.textColor ?? self.titleLabel.textColor
         backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
-        self.layer.borderColor = self.configuration?.textColor.cgColor ?? self.titleLabel.textColor.cgColor
+        self.titleLabel.textColor = self.configuration?.textColor ?? self.titleLabel.textColor
     }
 }

@@ -15,19 +15,24 @@ protocol PaymentMethodCellDelegate: class {
     func didSelectDeleteOption(from cell: UICollectionViewCell)
 }
 
-class PaymentMethodCell: UICollectionViewCell {
+class PaymentMethodCell: BaseCell {
     // MARK- Properties
 
-    var delegate: PaymentMethodCellDelegate?
+    weak var delegate: PaymentMethodCellDelegate?
 
-    private let cellInternalOffsetLeft: CGFloat = 8
+    private let cellInternalOffsetLeft: CGFloat = 24
     private let cellInternalOffsetRight: CGFloat = 16
-    private let iconDimentions: (width: CGFloat, height: CGFloat) = (60, 40)
+    private let iconDimentions: (width: CGFloat, height: CGFloat) = (48, 33)
     private let deleteButtonDimentions: (width: CGFloat, height: CGFloat) = (24, 24)
     private let titleHeight: CGFloat = 22
     private let subTitleHeight: CGFloat = 16
     private let labelVerticalPadding: CGFloat = 24
-    private let labelHorizontalPadding: CGFloat = 70
+
+    private var configuration: PaymentMethodUIConfiguration? {
+        didSet {
+            self.updateStyling()
+        }
+    }
 
     private let cellImageView: UIImageView = {
         let iv = UIImageView()
@@ -64,10 +69,14 @@ class PaymentMethodCell: UICollectionViewCell {
 
     // MARK- Public methods
 
-    func setup(image: UIImage?, title: String?, subTitle: String?) {
+    func setup(image: UIImage?, title: String?, subTitle: String?, configuration: PaymentMethodUIConfiguration?) {
         self.cellImageView.image = image
         self.titleLabel.text = title
         self.subTitleLabel.text = subTitle
+
+        if let configuration = configuration {
+            self.configuration = configuration
+        }
     }
 
     // MARK- Initialzers
@@ -91,14 +100,6 @@ class PaymentMethodCell: UICollectionViewCell {
     // MARK- Helpers
 
     private func setupViews() {
-        backgroundColor = .white
-
-        layer.shadowColor = UIColor(white: 0, alpha: 0.05).cgColor
-        layer.shadowRadius = 0
-        layer.shadowOpacity = 0.6
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.masksToBounds = false
-
         addSubview(self.cellImageView)
         self.cellImageView.anchor(left: leftAnchor,
                                   centerY: self.centerYAnchor,
@@ -106,13 +107,13 @@ class PaymentMethodCell: UICollectionViewCell {
                                   width: self.iconDimentions.width, height: self.iconDimentions.height)
 
         addSubview(self.titleLabel)
-        self.titleLabel.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor,
-                               paddingTop: self.labelVerticalPadding, paddingLeft: self.labelHorizontalPadding, paddingRight: self.cellInternalOffsetRight,
+        self.titleLabel.anchor(top: topAnchor, left: self.cellImageView.rightAnchor, right: rightAnchor,
+                               paddingTop: self.labelVerticalPadding, paddingLeft: self.cellInternalOffsetLeft, paddingRight: self.cellInternalOffsetRight,
                                height: self.titleHeight)
 
         addSubview(self.subTitleLabel)
-        self.subTitleLabel.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
-                                  paddingLeft: self.labelHorizontalPadding, paddingBottom: self.labelVerticalPadding, paddingRight: self.cellInternalOffsetRight,
+        self.subTitleLabel.anchor(left: self.cellImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor,
+                                  paddingLeft: self.cellInternalOffsetLeft, paddingBottom: self.labelVerticalPadding, paddingRight: self.cellInternalOffsetRight,
                                   height: self.subTitleHeight)
 
         addSubview(self.deleteButton)
@@ -120,5 +121,11 @@ class PaymentMethodCell: UICollectionViewCell {
                                  centerY: self.centerYAnchor,
                                  paddingRight: self.cellInternalOffsetRight,
                                  width: self.deleteButtonDimentions.width, height: self.deleteButtonDimentions.height)
+    }
+
+    private func updateStyling() {
+        backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
+        self.titleLabel.textColor = self.configuration?.textColor ?? self.titleLabel.textColor
+        self.subTitleLabel.textColor = self.configuration?.textColor ?? self.subTitleLabel.textColor
     }
 }
