@@ -37,7 +37,9 @@
                                                                                                         buttonColor:nil
                                                                                                 mediumEmphasisColor:[UIColor lightTextColor]
                                                                                                 cellBackgroundColor:[UIColor darkGrayColor] buttonTextColor:nil
-                                                                                                buttonDisabledColor: [[UIColor whiteColor] colorWithAlphaComponent: 0.4]];
+                                                                                                buttonDisabledColor: [[UIColor whiteColor]
+                                                                                                                      colorWithAlphaComponent: 0.4]
+                                                                                                  errorMessageColor:nil errorMessageTextColor:nil];
 
     [MLMobilabPaymentSDK configureUIWithConfiguration:configuration];
 
