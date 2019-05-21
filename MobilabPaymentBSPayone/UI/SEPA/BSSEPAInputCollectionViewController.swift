@@ -53,13 +53,6 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                                textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
 
-        let bicData = FormCellModel.FormCellType.TextData(necessaryData: .bic,
-                                                          title: "BIC",
-                                                          placeholder: "XXX",
-                                                          setup: nil,
-                                                          didFocus: nil,
-                                                          didUpdate: nil)
-
         let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
                                                               title: "Country",
                                                               placeholder: "Country",
@@ -73,7 +66,6 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(ibanData)),
-            FormCellModel(type: .text(bicData)),
             FormCellModel(type: .text(countryData)),
         ])
     }
@@ -91,10 +83,6 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if data[.bic] == nil || data[.bic]?.isEmpty == true {
-            errors[.bic] = SEPAValidationError.noData(explanation: "Please provide a valid BIC")
-        }
-
         if data[.holderFirstName] == nil || data[.holderFirstName]?.isEmpty == true {
             errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid first name")
         }
@@ -108,7 +96,6 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         }
 
         guard let iban = data[.iban],
-            let bic = data[.bic],
             let firstName = data[.holderFirstName],
             let lastName = data[.holderLastName],
             let countryCode = self.country?.alpha2Code,
@@ -128,7 +115,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
                                          languageId: billingData?.languageId)
 
         do {
-            let sepa = try SEPAData(iban: iban, bic: bic, billingData: newBillingData)
+            let sepa = try SEPAData(iban: iban, bic: nil, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
         } catch let error as MobilabPaymentError {
             errors[.iban] = SEPAValidationError.sepaValidationFailed(explanation: error.description)

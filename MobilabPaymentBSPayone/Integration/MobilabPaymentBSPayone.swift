@@ -105,10 +105,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         guard let data = registrationRequest.registrationData as? SEPAData
         else { return nil }
 
-        guard let bic = data.bic
-        else { throw MobilabPaymentError.validation(.bicMissing) }
-
-        return SEPABSPayoneData(iban: data.iban, bic: bic)
+        return SEPABSPayoneData(iban: data.iban)
     }
 
     private func getBillingData(from registrationRequest: RegistrationRequest) -> BillingData? {
