@@ -110,7 +110,9 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
     private let errorLabelVerticalOffset: CGFloat = 4
 
     private weak var delegate: DataPointProvidingDelegate?
-    private var textFieldFocusGainCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)?
+
     private var textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let firstTextField = CustomTextField()
@@ -131,15 +133,18 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
                       secondTitle: String?,
                       secondPlaceholder: String?,
                       secondDataType: NecessaryData,
-                      textFieldFocusGainCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       firstError: String?,
                       secondError: String?,
                       setupTextField: ((UITextField, NecessaryData) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
-        self.textFieldFocusGainCallback = textFieldFocusGainCallback
+        self.textFieldGainFocusCallback = textFieldGainFocusCallback
+        self.textFieldLoseFocusCallback = textFieldLoseFocusCallback
         self.textFieldUpdateCallback = textFieldUpdateCallback
+
         self.firstText = firstText
         self.firstTitle = firstTitle
         self.firstPlaceholderText = firstPlaceholder
@@ -290,6 +295,13 @@ extension PairedTextInputCollectionViewCell: UITextFieldDelegate {
         guard let type = (textField == self.firstTextField ? self.firstDataType : self.secondDataType)
         else { return }
 
-        self.textFieldFocusGainCallback?(textField, type)
+        self.textFieldGainFocusCallback?(textField, type)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let type = (textField == self.firstTextField ? self.firstDataType : self.secondDataType)
+        else { return }
+
+        self.textFieldLoseFocusCallback?(textField, type)
     }
 }

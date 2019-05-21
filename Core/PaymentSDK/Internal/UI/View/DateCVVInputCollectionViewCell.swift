@@ -51,6 +51,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
 
     private var delegate: DataPointProvidingDelegate?
     private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let dateTextField = CustomTextField()
     private let cvvTextField = CustomTextField()
@@ -67,6 +68,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
                dateError: String?,
                cvvError: String?,
                textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+               textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                delegate: DataPointProvidingDelegate,
                configuration: PaymentMethodUIConfiguration) {
         self.date = date
@@ -76,6 +78,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.cvvError = cvvError
 
         self.textFieldGainFocusCallback = textFieldGainFocusCallback
+        self.textFieldLoseFocusCallback = textFieldLoseFocusCallback
 
         self.errorLabel.text = (dateError.flatMap { $0 + "\n" } ?? "") + (cvvError ?? "")
         self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
@@ -274,5 +277,9 @@ extension DateCVVInputCollectionViewCell: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.textFieldGainFocusCallback?(textField, textField == self.dateTextField ? .expirationYear : .cvv)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.textFieldLoseFocusCallback?(textField, textField == self.dateTextField ? .expirationYear : .cvv)
     }
 }

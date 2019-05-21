@@ -157,6 +157,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                            self?.updateFieldIdleTimer(for: dataPoint)
                            data.didFocus?(field)
                        },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
                        textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        error: self.errors[data.necessaryData]?.description,
                        setupTextField: { data.setup?($1, $0) },
@@ -177,10 +178,13 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        secondTitle: data.secondTitle,
                        secondPlaceholder: data.secondPlaceholder,
                        secondDataType: data.secondNecessaryData,
-                       textFieldFocusGainCallback: { [weak self] _, dataPoint in
+                       textFieldGainFocusCallback: { [weak self] _, dataPoint in
                            self?.updateFieldIdleTimer(for: dataPoint)
                            self?.checkPreviousCellsValidity(from: indexPath,
-                                                            dataPoint: dataPoint) },
+                                                            dataPoint: dataPoint)
+
+                       },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
                        textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        firstError: self.errors[data.firstNecessaryData]?.description,
                        secondError: self.errors[data.secondNecessaryData]?.description,
@@ -210,7 +214,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        textFieldGainFocusCallback: { [weak self] _, dataPoint in
                            self?.updateFieldIdleTimer(for: dataPoint)
                            self?.checkPreviousCellsValidity(from: indexPath,
-                                                            dataPoint: dataPoint) },
+                                                            dataPoint: dataPoint)
+                       },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
                        delegate: self,
                        configuration: self.configuration)
 
@@ -296,18 +302,33 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     private func updateFieldIdleTimer(for dataPoint: NecessaryData) {
         let newTimer = Timer.scheduledTimer(withTimeInterval: numberOfSecondsUntilIdleFieldValidation, repeats: false) { [weak self] _ in
-            guard let self = self
-            else { return }
-
-            let validationResult = self.formConsumer?.validate(data: self.fieldData)
-
-            self.errors[dataPoint] = validationResult?.errors[dataPoint]
-            self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
-            self.collectionView.collectionViewLayout.invalidateLayout()
+            self?.updateErrorForSingleDataPoint(dataPoint: dataPoint)
         }
 
         self.currentIdleFieldTimer?.timer.invalidate()
         self.currentIdleFieldTimer = (newTimer, dataPoint)
+    }
+
+    private func formFieldDidLoseFocus(for dataPoint: NecessaryData) {
+        self.currentIdleFieldTimer?.timer.invalidate()
+        self.currentIdleFieldTimer = nil
+        self.updateErrorForSingleDataPoint(dataPoint: dataPoint)
+    }
+
+    private func updateErrorForSingleDataPoint(dataPoint: NecessaryData) {
+        let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+        let hadError = self.errors[dataPoint] != nil
+        let hasError = validationResult?.errors[dataPoint] != nil
+
+        self.errors[dataPoint] = validationResult?.errors[dataPoint]
+        self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
+
+        if hadError != hasError {
+            // We need to recompute cell heights because there is a new error
+            // or an old error disappeared
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 }
 

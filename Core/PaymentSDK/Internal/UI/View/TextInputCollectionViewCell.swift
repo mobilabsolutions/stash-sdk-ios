@@ -93,6 +93,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
 
     private weak var delegate: DataPointProvidingDelegate?
     private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)?
     private var textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let textField = CustomTextField()
@@ -106,13 +107,16 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
                       placeholder: String?,
                       dataType: NecessaryData,
                       textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       error: String?,
                       setupTextField: ((UITextField, NecessaryData) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
         self.textFieldGainFocusCallback = textFieldGainFocusCallback
+        self.textFieldLoseFocusCallback = textFieldLoseFocusCallback
         self.textFieldUpdateCallback = textFieldUpdateCallback
+
         self.text = text
         self.title = title
         self.placeholder = placeholder
@@ -235,5 +239,12 @@ extension TextInputCollectionViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_: UITextField) -> Bool {
         self.nextCellSwitcher?.switchToNextCell(from: self)
         return false
+    }
+
+    func textFieldDidEndEditing(_: UITextField) {
+        guard let type = self.dataType
+        else { return }
+
+        self.textFieldLoseFocusCallback?(self.textField, type)
     }
 }
