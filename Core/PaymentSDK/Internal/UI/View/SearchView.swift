@@ -167,9 +167,4 @@ extension SearchView: UITextFieldDelegate {
         self.textField.resignFirstResponder()
         return false
     }
-
-    func textFieldShouldClear(_: UITextField) -> Bool {
-        self.delegate?.didCancelSearch()
-        return true
-    }
 }
