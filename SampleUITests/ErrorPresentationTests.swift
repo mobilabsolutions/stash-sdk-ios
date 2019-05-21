@@ -14,7 +14,8 @@ class ErrorPresentationTests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["XXX"].tap()
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         let numberOfIncorrectCells = collectionViewsQuery.staticTexts
             .containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).allElementsBoundByIndex.count
@@ -28,8 +29,8 @@ class ErrorPresentationTests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["XXX"].tap()
-        collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
 
         let previousNumberOfIncorrectCells = collectionViewsQuery.staticTexts
             .containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).allElementsBoundByIndex.count
