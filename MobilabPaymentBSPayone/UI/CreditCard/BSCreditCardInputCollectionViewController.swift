@@ -54,8 +54,14 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors[.holderLastName] = .noData(explanation: "Please provide a valid last name")
             }
 
-            if cardNumberText == nil || cardNumberText?.isEmpty == true {
-                errors[.cardNumber] = .noData(explanation: "Please provide your card number")
+            if let cardNumber = cardNumberText, cardNumber.isEmpty == false {
+                do {
+                    try CreditCardUtils.validateCreditCardNumber(cardNumber: cardNumber)
+                } catch {
+                    errors[.cardNumber] = .noData(explanation: "Please provide a valid card number")
+                }
+            } else {
+                errors[.cardNumber] = .noData(explanation: "Please provide a valid card number")
             }
 
             if let cvv = cvvText {
@@ -185,7 +191,25 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 }
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
+    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+        do {
+            _ = try self.createCreditCardData(data: data)
+        } catch let error as FormConsumerError {
+            return error
+        } catch {
+            // Should not happen
+        }
+
+        return nil
+    }
+
     func consumeValues(data: [NecessaryData: String]) throws {
+        guard let card = try createCreditCardData(data: data)
+        else { return }
+        self.didCreatePaymentMethodCompletion?(card)
+    }
+
+    private func createCreditCardData(data: [NecessaryData: String]) throws -> CreditCardData? {
         let createdData = CreditCardParsedData.create(holderFirstNameText: data[.holderFirstName],
                                                       holderLastNameText: data[.holderLastName],
                                                       cardNumberText: data[.cardNumber],
@@ -199,7 +223,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
         }
 
         guard let parsedData = createdData.0
-        else { return }
+        else { return nil }
 
         do {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
@@ -213,7 +237,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
             guard creditCard.cardType.bsCardTypeIdentifier != nil
             else { throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError.noKnownCreditCardProvider]) }
 
-            self.didCreatePaymentMethodCompletion?(creditCard)
+            return creditCard
         } catch let error as MobilabPaymentError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
                     .creditCardValidationFailed(message: error.description)])

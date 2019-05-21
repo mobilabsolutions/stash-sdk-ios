@@ -58,14 +58,18 @@ import UIKit
                                    mediumEmphasisColor: UIColor?,
                                    cellBackgroundColor: UIColor?,
                                    buttonTextColor: UIColor?,
-                                   buttonDisabledColor: UIColor?) {
+                                   buttonDisabledColor: UIColor?,
+                                   errorMessageColor: UIColor?,
+                                   errorMessageTextColor: UIColor?) {
             self.configuration = PaymentMethodUIConfiguration(backgroundColor: backgroundColor,
                                                               textColor: textColor,
                                                               buttonColor: buttonColor,
                                                               mediumEmphasisColor: mediumEmphasisColor,
                                                               cellBackgroundColor: cellBackgroundColor,
                                                               buttonTextColor: buttonTextColor,
-                                                              buttonDisabledColor: buttonDisabledColor)
+                                                              buttonDisabledColor: buttonDisabledColor,
+                                                              errorMessageColor: errorMessageColor,
+                                                              errorMessageTextColor: errorMessageTextColor)
         }
     }
 }

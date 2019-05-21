@@ -9,6 +9,12 @@
 import UIKit
 
 class ErrorLabel: UILabel {
+    var uiConfiguration: PaymentMethodUIConfiguration? {
+        didSet {
+            self.textColor = uiConfiguration?.errorMessageColor ?? UIConstants.coral
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.sharedInit()
@@ -21,7 +27,7 @@ class ErrorLabel: UILabel {
 
     private func sharedInit() {
         self.font = UIConstants.defaultFont(of: 12, type: .medium)
-        self.textColor = UIConstants.coral
+        self.textColor = self.uiConfiguration?.errorMessageColor ?? UIConstants.coral
         self.numberOfLines = 0
     }
 }

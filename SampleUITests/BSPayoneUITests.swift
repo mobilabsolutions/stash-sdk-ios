@@ -105,8 +105,7 @@ class BSPayoneUITests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Error"))
-        app.alerts.firstMatch.buttons.firstMatch.tap()
+        waitForElementToAppear(element: app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Error")).firstMatch)
     }
 
     func testCountrySelectionSearchFieldPresent() {

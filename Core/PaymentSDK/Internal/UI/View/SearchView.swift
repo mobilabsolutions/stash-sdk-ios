@@ -51,8 +51,6 @@ class SearchView: UIView {
     private let textField: CustomTextField = {
         let textField = CustomTextField()
         textField.clearButtonMode = .always
-        textField.setup(borderColor: .clear, placeholderColor: nil, textColor: nil, backgroundColor: nil)
-
         return textField
     }()
 
@@ -150,7 +148,9 @@ class SearchView: UIView {
 
         self.textField.setup(borderColor: borderColor,
                              placeholderColor: configuration.mediumEmphasisColor,
-                             textColor: configuration.textColor, backgroundColor: configuration.cellBackgroundColor)
+                             textColor: configuration.textColor,
+                             backgroundColor: configuration.cellBackgroundColor,
+                             errorBorderColor: configuration.errorMessageColor)
 
         self.backgroundColor = configuration.cellBackgroundColor
 

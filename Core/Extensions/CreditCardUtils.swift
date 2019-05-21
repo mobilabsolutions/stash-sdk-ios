@@ -24,6 +24,16 @@ public class CreditCardUtils {
         else { throw MobilabPaymentError.validation(.invalidCVV) }
     }
 
+    public static func validateCreditCardNumber(cardNumber: String) throws {
+        let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
+
+        guard cleanedNumber.count > CreditCardData.numberOfDigitsForCardMask
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
+
+        guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
+    }
+
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {
         let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }

@@ -20,6 +20,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private let defaultHeaderHeight: CGFloat = 65
     private let lastCellHeightSurplus: CGFloat = 16
     private let errorCellHeightSurplus: CGFloat = 18
+    private let numberOfSecondsUntilIdleFieldValidation: TimeInterval = 3
 
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var doneButtonUpdating: DoneButtonUpdating?
@@ -37,6 +38,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
+    private var fieldErrorDelegates: [NecessaryData: FormFieldErrorDelegate] = [:]
+
+    private var currentIdleFieldTimer: (timer: Timer, dataPoint: NecessaryData)?
 
     private weak var selectedCountryTextField: UITextField?
 
@@ -62,7 +66,14 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
+        self.collectionView.contentInsetAdjustmentBehavior = .always
+
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.currentIdleFieldTimer?.timer.invalidate()
     }
 
     public func setCellModel(cellModels: [FormCellModel]) {
@@ -85,25 +96,31 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         switch error {
         case .configuration:
-            UIViewControllerTools.showAlert(on: self, title: "Configuration Error",
-                                            body: "A configuration error occurred. This should not happen.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
+                                                  body: "A configuration error occurred. This should not happen.",
+                                                  uiConfiguration: self.configuration)
         case .network:
-            UIViewControllerTools.showAlert(on: self, title: "Network Error",
-                                            body: "An error occurred. Please retry.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Network Error",
+                                                  body: "An error occurred. Please retry.",
+                                                  uiConfiguration: self.configuration)
         case let .temporary(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
-            UIViewControllerTools.showAlert(on: self, title: "Temporary Error",
-                                            body: "A temporary error \(insertedErrorCode)occurred. Please retry.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
+                                                  body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
+                                                  uiConfiguration: self.configuration)
         case let .userActionable(error):
-            UIViewControllerTools.showAlert(on: self, title: "Error",
-                                            body: "An error occurred: \(error.description)")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
+                                                  body: "An error occurred: \(error.description)",
+                                                  uiConfiguration: self.configuration)
         case let .validation(error):
-            UIViewControllerTools.showAlert(on: self, title: "Validation Error",
-                                            body: error.description)
+            UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
+                                                  body: error.description,
+                                                  uiConfiguration: self.configuration)
         case let .other(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
-            UIViewControllerTools.showAlert(on: self, title: "Error",
-                                            body: "An error \(insertedErrorCode)occurred.")
+            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
+                                                  body: "An error \(insertedErrorCode)occurred.",
+                                                  uiConfiguration: self.configuration)
         }
     }
 
@@ -124,7 +141,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let toReturn: UICollectionViewCell & NextCellEnabled
+        let toReturn: UICollectionViewCell & NextCellEnabled & FormFieldErrorDelegate
 
         let type = self.cellModels[indexPath.row].type
 
@@ -135,12 +152,19 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
-                       textFieldFocusGainCallback: { data.didFocus?($0) },
-                       textFieldUpdateCallback: { data.didUpdate?(data.necessaryData, $0) },
+                       textFieldGainFocusCallback: { [weak self] field, dataPoint in
+                           self?.checkPreviousCellsValidity(from: indexPath, dataPoint: dataPoint)
+                           self?.updateFieldIdleTimer(for: dataPoint)
+                           data.didFocus?(field)
+                       },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
+                       textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        error: self.errors[data.necessaryData]?.description,
-                       setupTextField: { data.setup?(data.necessaryData, $0) },
+                       setupTextField: { data.setup?($1, $0) },
                        configuration: self.configuration,
                        delegate: self)
+
+            self.fieldErrorDelegates[data.necessaryData] = cell
 
             toReturn = cell
 
@@ -154,11 +178,21 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        secondTitle: data.secondTitle,
                        secondPlaceholder: data.secondPlaceholder,
                        secondDataType: data.secondNecessaryData,
-                       textFieldUpdateCallback: { data.didUpdate?(data.firstNecessaryData, $0) },
+                       textFieldGainFocusCallback: { [weak self] _, dataPoint in
+                           self?.updateFieldIdleTimer(for: dataPoint)
+                           self?.checkPreviousCellsValidity(from: indexPath,
+                                                            dataPoint: dataPoint)
+
+                       },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
+                       textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        firstError: self.errors[data.firstNecessaryData]?.description,
                        secondError: self.errors[data.secondNecessaryData]?.description,
-                       setupTextField: { data.setup?(data.firstNecessaryData, $0) },
+                       setupTextField: { field, dataPoint in data.setup?(dataPoint, field) },
                        configuration: self.configuration, delegate: self)
+
+            self.fieldErrorDelegates[data.firstNecessaryData] = cell
+            self.fieldErrorDelegates[data.secondNecessaryData] = cell
 
             toReturn = cell
 
@@ -177,8 +211,18 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        cvv: self.fieldData[.cvv],
                        dateError: self.errors[.expirationMonth]?.description ?? self.errors[.expirationYear]?.description,
                        cvvError: self.errors[.cvv]?.description,
+                       textFieldGainFocusCallback: { [weak self] _, dataPoint in
+                           self?.updateFieldIdleTimer(for: dataPoint)
+                           self?.checkPreviousCellsValidity(from: indexPath,
+                                                            dataPoint: dataPoint)
+                       },
+                       textFieldLoseFocusCallback: { [weak self] in self?.formFieldDidLoseFocus(for: $1) },
                        delegate: self,
                        configuration: self.configuration)
+
+            self.fieldErrorDelegates[.cvv] = cell
+            self.fieldErrorDelegates[.expirationYear] = cell
+            self.fieldErrorDelegates[.expirationMonth] = cell
 
             toReturn = cell
         }
@@ -214,8 +258,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        let hasError = self.cellModels[indexPath.row].necessaryData.contains(where: { self.errors[$0] != nil })
-        additionalHeight += (hasError ? self.errorCellHeightSurplus : 0)
+        let numberOfErrors = self.cellModels[indexPath.row].necessaryData.filter({ self.errors[$0] != nil }).count
+        additionalHeight += CGFloat(numberOfErrors) * self.errorCellHeightSurplus
 
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
@@ -225,14 +269,82 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultHeaderHeight)
+        return CGSize(width: self.view.frame.width - 2 * self.cellInset - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right,
+                      height: self.defaultHeaderHeight)
+    }
+
+    private func checkPreviousCellsValidity(from indexPath: IndexPath, dataPoint: NecessaryData) {
+        let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+        var previousValuesInCurrentCell: [NecessaryData: Int] = [:]
+
+        for previousDataPoint in self.cellModels[indexPath.item].necessaryData {
+            guard dataPoint != previousDataPoint
+            else { break }
+            previousValuesInCurrentCell[previousDataPoint] = indexPath.item
+        }
+
+        let valuesToConsider = self.cellModels[0..<indexPath.item].enumerated().reduce([NecessaryData: Int]()) { dict, value in
+            var dict = dict
+            value.element.necessaryData.forEach { dict[$0] = value.offset }
+            return dict
+        }.merging(previousValuesInCurrentCell) { _, new in new }
+
+        let newErrors = validationResult?.errors.filter { valuesToConsider[$0.key] != nil }
+        self.errors = self.errors.merging(newErrors ?? [:], uniquingKeysWith: { _, new in new })
+
+        for (dataPoint, error) in self.errors {
+            self.fieldErrorDelegates[dataPoint]?.setError(description: error.description, forDataPoint: dataPoint)
+        }
+
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    private func updateFieldIdleTimer(for dataPoint: NecessaryData) {
+        let newTimer = Timer.scheduledTimer(withTimeInterval: numberOfSecondsUntilIdleFieldValidation, repeats: false) { [weak self] _ in
+            self?.updateErrorForSingleDataPoint(dataPoint: dataPoint)
+        }
+
+        self.currentIdleFieldTimer?.timer.invalidate()
+        self.currentIdleFieldTimer = (newTimer, dataPoint)
+    }
+
+    private func formFieldDidLoseFocus(for dataPoint: NecessaryData) {
+        self.currentIdleFieldTimer?.timer.invalidate()
+        self.currentIdleFieldTimer = nil
+        self.updateErrorForSingleDataPoint(dataPoint: dataPoint)
+    }
+
+    private func updateErrorForSingleDataPoint(dataPoint: NecessaryData) {
+        let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+        let hadError = self.errors[dataPoint] != nil
+        let hasError = validationResult?.errors[dataPoint] != nil
+
+        self.errors[dataPoint] = validationResult?.errors[dataPoint]
+        self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
+
+        if hadError != hasError {
+            // We need to recompute cell heights because there is a new error
+            // or an old error disappeared
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 }
 
 extension FormCollectionViewController: DataPointProvidingDelegate {
     func didUpdate(value: String?, for dataPoint: NecessaryData) {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
-        self.errors[dataPoint] = nil
+        self.updateFieldIdleTimer(for: dataPoint)
+
+        if self.errors[dataPoint] != nil {
+            let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+            self.errors[dataPoint] = validationResult?.errors[dataPoint]
+            self.fieldErrorDelegates[dataPoint]?.setError(description: errors[dataPoint]?.description, forDataPoint: dataPoint)
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
+
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 }
@@ -273,5 +385,11 @@ extension FormCollectionViewController: CountryListCollectionViewControllerDeleg
     func didSelectCountry(country: Country) {
         self.country = country
         self.selectedCountryTextField?.text = country.name
+    }
+}
+
+extension FormCollectionViewController: AlertBannerDelegate {
+    func close(banner: AlertBanner) {
+        banner.removeFromSuperview()
     }
 }
