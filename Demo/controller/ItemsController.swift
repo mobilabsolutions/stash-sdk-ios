@@ -1,6 +1,6 @@
 //
 //  ItemsController.swift
-//  Sample
+//  Demo
 //
 //  Created by Rupali Ghate on 08.05.19.
 //  Copyright © 2019 Rupali Ghate. All rights reserved.

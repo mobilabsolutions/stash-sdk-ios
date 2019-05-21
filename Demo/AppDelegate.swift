@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Sample
+//  Demo
 //
 //  Created by Rupali Ghate on 09.05.19.
 //  Copyright © 2019 MobiLab. All rights reserved.

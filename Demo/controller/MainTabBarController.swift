@@ -1,6 +1,6 @@
 //
 //  MainTabBarController.swift
-//  Sample
+//  Demo
 //
 //  Created by Rupali Ghate on 08.05.19.
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
 
         let itemsNavController = self.templateNavigationController(tabTitle: "Items", tabImage: UIConstants.itemsImage, rootViewController: itemsVC)
 
-        let paymentVC = PaymentController(configuration: configuration)
+        let paymentVC = PaymentMethodController(configuration: configuration)
         let paymentNavController = self.templateNavigationController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
 
         let checkoutVC = CheckoutController(configuration: configuration)
