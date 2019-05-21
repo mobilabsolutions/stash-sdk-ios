@@ -51,7 +51,7 @@ class BasePaymentModulesTests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists,
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).element.exists,
                       "Expected failure label to exist when adding a card with invalid number")
     }
 
@@ -129,7 +129,7 @@ class BasePaymentModulesTests: BaseUITest {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "not valid")).element.exists,
+        XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).element.exists,
                       "Expected failure label to exist when adding a SEPA method with invalid number")
     }
 
