@@ -20,6 +20,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private let defaultHeaderHeight: CGFloat = 65
     private let lastCellHeightSurplus: CGFloat = 16
     private let errorCellHeightSurplus: CGFloat = 18
+    private let numberOfSecondsUntilIdleFieldValidation: TimeInterval = 3
 
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     public var doneButtonUpdating: DoneButtonUpdating?
@@ -38,6 +39,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private var fieldData: [NecessaryData: String] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
     private var fieldErrorDelegates: [NecessaryData: FormFieldErrorDelegate] = [:]
+
+    private var currentIdleFieldTimer: (timer: Timer, dataPoint: NecessaryData)?
 
     private weak var selectedCountryTextField: UITextField?
 
@@ -66,6 +69,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.collectionView.contentInsetAdjustmentBehavior = .always
 
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.currentIdleFieldTimer?.timer.invalidate()
     }
 
     public func setCellModel(cellModels: [FormCellModel]) {
@@ -146,6 +154,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        dataType: data.necessaryData,
                        textFieldGainFocusCallback: { [weak self] field, dataPoint in
                            self?.checkPreviousCellsValidity(from: indexPath, dataPoint: dataPoint)
+                           self?.updateFieldIdleTimer(for: dataPoint)
                            data.didFocus?(field)
                        },
                        textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
@@ -168,8 +177,10 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        secondTitle: data.secondTitle,
                        secondPlaceholder: data.secondPlaceholder,
                        secondDataType: data.secondNecessaryData,
-                       textFieldFocusGainCallback: { [weak self] _, dataPoint in self?.checkPreviousCellsValidity(from: indexPath,
-                                                                                                                  dataPoint: dataPoint) },
+                       textFieldFocusGainCallback: { [weak self] _, dataPoint in
+                           self?.updateFieldIdleTimer(for: dataPoint)
+                           self?.checkPreviousCellsValidity(from: indexPath,
+                                                            dataPoint: dataPoint) },
                        textFieldUpdateCallback: { field, dataPoint in data.didUpdate?(dataPoint, field) },
                        firstError: self.errors[data.firstNecessaryData]?.description,
                        secondError: self.errors[data.secondNecessaryData]?.description,
@@ -196,8 +207,10 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
                        cvv: self.fieldData[.cvv],
                        dateError: self.errors[.expirationMonth]?.description ?? self.errors[.expirationYear]?.description,
                        cvvError: self.errors[.cvv]?.description,
-                       textFieldGainFocusCallback: { [weak self] _, dataPoint in self?.checkPreviousCellsValidity(from: indexPath,
-                                                                                                                  dataPoint: dataPoint) },
+                       textFieldGainFocusCallback: { [weak self] _, dataPoint in
+                           self?.updateFieldIdleTimer(for: dataPoint)
+                           self?.checkPreviousCellsValidity(from: indexPath,
+                                                            dataPoint: dataPoint) },
                        delegate: self,
                        configuration: self.configuration)
 
@@ -280,11 +293,28 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         self.collectionView.collectionViewLayout.invalidateLayout()
     }
+
+    private func updateFieldIdleTimer(for dataPoint: NecessaryData) {
+        let newTimer = Timer.scheduledTimer(withTimeInterval: numberOfSecondsUntilIdleFieldValidation, repeats: false) { [weak self] _ in
+            guard let self = self
+            else { return }
+
+            let validationResult = self.formConsumer?.validate(data: self.fieldData)
+
+            self.errors[dataPoint] = validationResult?.errors[dataPoint]
+            self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
+
+        self.currentIdleFieldTimer?.timer.invalidate()
+        self.currentIdleFieldTimer = (newTimer, dataPoint)
+    }
 }
 
 extension FormCollectionViewController: DataPointProvidingDelegate {
     func didUpdate(value: String?, for dataPoint: NecessaryData) {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
+        self.updateFieldIdleTimer(for: dataPoint)
 
         if self.errors[dataPoint] != nil {
             let validationResult = self.formConsumer?.validate(data: self.fieldData)
