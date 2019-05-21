@@ -249,6 +249,7 @@
 		E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */; };
 		E15E3E282293ECA900EE19EE /* FormFieldErrorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */; };
+		E15E3E2B229425FD00EE19EE /* ErrorPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */; };
 		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
 		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
 		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
@@ -645,6 +646,7 @@
 		E15E06F7228DA9B2007F5FA4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPRegistration.swift; sourceTree = "<group>"; };
 		E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldErrorDelegate.swift; sourceTree = "<group>"; };
+		E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationTests.swift; sourceTree = "<group>"; };
 		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
@@ -1528,6 +1530,7 @@
 		E11C3C88223BA5E100F94F56 /* SampleUITests */ = {
 			isa = PBXGroup;
 			children = (
+				E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */,
 				E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */,
 				E11C3C8B223BA5E100F94F56 /* Info.plist */,
 				E1995B36225749A600BF24A2 /* BSPayoneUITests.swift */,
@@ -2388,6 +2391,7 @@
 			files = (
 				E1995B39225749D900BF24A2 /* BaseUITest.swift in Sources */,
 				E1995B37225749A600BF24A2 /* BSPayoneUITests.swift in Sources */,
+				E15E3E2B229425FD00EE19EE /* ErrorPresentationTests.swift in Sources */,
 				E1995B3D22574AC500BF24A2 /* BasePaymentModulesTests.swift in Sources */,
 				E1995B3F22574B5500BF24A2 /* AdyenUITests.swift in Sources */,
 				E1995B3B22574A6800BF24A2 /* BraintreeUITests.swift in Sources */,

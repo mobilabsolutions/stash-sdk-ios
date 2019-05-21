@@ -49,6 +49,7 @@ class AdyenUITests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
 
+        app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
