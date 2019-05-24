@@ -9,10 +9,10 @@
 import Foundation
 
 extension Float {
-    func toCurrency(with locale: Locale = Locale.current) -> String? {
+    func toCurrency() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = locale
+        formatter.currencySymbol = "€"
         return formatter.string(from: NSNumber(value: self))
     }
 }

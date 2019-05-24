@@ -192,7 +192,6 @@
 		C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DE22806BFA00D3A986 /* SearchView.swift */; };
 		C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49E022819C6900D3A986 /* UIView+Extensions.swift */; };
 		C4F6BAB8229409A200A747BB /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F6BAB7229409A200A747BB /* BaseCell.swift */; };
-		C4F6BAC22298306500A747BB /* LocaleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F6BAC12298306500A747BB /* LocaleIdentifier.swift */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
 		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
@@ -671,7 +670,6 @@
 		C49F49DE22806BFA00D3A986 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C49F49E022819C6900D3A986 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		C4F6BAB7229409A200A747BB /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
-		C4F6BAC12298306500A747BB /* LocaleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleIdentifier.swift; sourceTree = "<group>"; };
 		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
 		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
 		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1460,7 +1458,6 @@
 				C422EEEB228F130A009F7415 /* Alias.swift */,
 				C422EEE1228F122A009F7415 /* PaymentMethod.swift */,
 				C422EF0D2292FAB3009F7415 /* Item.swift */,
-				C4F6BAC12298306500A747BB /* LocaleIdentifier.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2487,7 +2484,6 @@
 				C422EEB6228F1024009F7415 /* AliasManager.swift in Sources */,
 				C42D567822842F8D00312CC1 /* AppDelegate.swift in Sources */,
 				C422EED2228F10FD009F7415 /* MainTabBarController.swift in Sources */,
-				C4F6BAC22298306500A747BB /* LocaleIdentifier.swift in Sources */,
 				C422EED5228F10FD009F7415 /* CustomNavigationController.swift in Sources */,
 				C4F6BAB8229409A200A747BB /* BaseCell.swift in Sources */,
 				C42D56A022842FAC00312CC1 /* UIConstants.swift in Sources */,
