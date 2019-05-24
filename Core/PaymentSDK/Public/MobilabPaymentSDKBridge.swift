@@ -165,16 +165,6 @@ import UIKit
                                                   completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController,
-                                            billingData: BillingData?,
-                                            idempotencyKey: String,
-                                            completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPayPal(presentingViewController: viewController,
-                                    billingData: billingData,
-                                    idempotencyKey: idempotencyKey,
-                                    completion: self.bridgedCompletion(completion: completion))
-    }
-
     private func bridgedCompletion(completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {
         let bridged: ((RegistrationResult) -> Void) = { result in
             switch result {

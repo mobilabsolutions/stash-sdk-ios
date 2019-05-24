@@ -48,28 +48,6 @@ public class RegistrationManager {
                                   methodType: .sepa)
     }
 
-    /// Starts the flow for PayPal registration
-    ///
-    /// - Parameters:
-    ///   - presentingViewController: The view controller that the PayPal UI should be presented on top of
-    ///   - billingData: The billing data that should be prefilled when registering the payment method
-    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
-    ///   - completion: A completion called when the registration is complete.
-    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
-    public func registerPayPal(presentingViewController: UIViewController,
-                               billingData: BillingData?,
-                               idempotencyKey: String = UUID().uuidString,
-                               completion: @escaping RegistrationResultCompletion) {
-        let paymentMethod = PaymentMethod(methodData: PayPalPlaceholderData(billingData: billingData), type: .payPal)
-
-        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        internalManager.addMethod(paymentMethod: paymentMethod,
-                                  idempotencyKey: idempotencyKey,
-                                  completion: completion,
-                                  presentingViewController: presentingViewController,
-                                  methodType: .payPal)
-    }
-
     /// Allow the user to select a payment method type and input its data from module-generated UI
     ///
     /// - Parameters:
@@ -116,6 +94,28 @@ public class RegistrationManager {
 
         let navigationController = RegistrationFlowNavigationController(rootViewController: rootViewController)
         viewController.present(navigationController, animated: true, completion: nil)
+    }
+
+    /// Starts the flow for PayPal registration
+    ///
+    /// - Parameters:
+    ///   - presentingViewController: The view controller that the PayPal UI should be presented on top of
+    ///   - billingData: The billing data that should be prefilled when registering the payment method
+    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - completion: A completion called when the registration is complete.
+    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    private func registerPayPal(presentingViewController: UIViewController,
+                                billingData: BillingData?,
+                                idempotencyKey: String = UUID().uuidString,
+                                completion: @escaping RegistrationResultCompletion) {
+        let paymentMethod = PaymentMethod(methodData: PayPalPlaceholderData(billingData: billingData), type: .payPal)
+
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
+        internalManager.addMethod(paymentMethod: paymentMethod,
+                                  idempotencyKey: idempotencyKey,
+                                  completion: completion,
+                                  presentingViewController: presentingViewController,
+                                  methodType: .payPal)
     }
 
     private func selectionViewController(for paymentMethods: Set<PaymentMethodType>, uiConfiguration: PaymentMethodUIConfiguration) -> PaymentMethodSelectionCollectionViewController {

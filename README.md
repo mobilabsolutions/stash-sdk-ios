@@ -152,16 +152,16 @@ Now you are ready to register a PayPal account.
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-registrationManager.registerPayPal(presentingViewController: self) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(registration):
-                    self?.showAlert(title: "Success", body: "PayPal added successfully.")
-                case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
-                }
-            }
+registrationManager.registerPaymentMethodUsingUI(on viewController: self, specificPaymentMethod: .payPal) { [weak self] result in
+    switch result {
+    case let .success(registration):
+        self?.dismiss(animated: true) {
+            self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }
+    case let .failure(error):
+        self?.showAlert(title: "Failure", body: error.description)
+    }
+}
 ```
 
 ### Using the module UI for adding a payment method
