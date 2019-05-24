@@ -179,7 +179,9 @@
 		C422EF0A22929B61009F7415 /* PayPalUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C422EF0B22929BB0009F7415 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15E06F6228DA9B2007F5FA4 /* Crashlytics.framework */; };
 		C422EF0C22929BB0009F7415 /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E15E06F6228DA9B2007F5FA4 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C422EF152293DDB5009F7415 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EF142293DDB5009F7415 /* BaseCell.swift */; };
+		C422EF0E2292FAB3009F7415 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EF0D2292FAB3009F7415 /* Item.swift */; };
+		C422EF102292FD93009F7415 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EF0F2292FD93009F7415 /* ItemCell.swift */; };
+		C422EF1222931E6E009F7415 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EF1122931E6E009F7415 /* Extensions.swift */; };
 		C42D567822842F8D00312CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D567722842F8D00312CC1 /* AppDelegate.swift */; };
 		C42D56A022842FAC00312CC1 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D568922842FA700312CC1 /* UIConstants.swift */; };
 		C42D56A122842FAC00312CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D568A22842FA700312CC1 /* Assets.xcassets */; };
@@ -217,6 +219,7 @@
 		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
 		C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DE22806BFA00D3A986 /* SearchView.swift */; };
 		C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49E022819C6900D3A986 /* UIView+Extensions.swift */; };
+		C4F6BAB8229409A200A747BB /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F6BAB7229409A200A747BB /* BaseCell.swift */; };
 		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
 		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
 		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
@@ -684,7 +687,9 @@
 		C422EEDA228F11CA009F7415 /* PaymentMethodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodCell.swift; sourceTree = "<group>"; };
 		C422EEE1228F122A009F7415 /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		C422EEEB228F130A009F7415 /* Alias.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
-		C422EF142293DDB5009F7415 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		C422EF0D2292FAB3009F7415 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		C422EF0F2292FD93009F7415 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		C422EF1122931E6E009F7415 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C42D567522842F8D00312CC1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D567722842F8D00312CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D568322842F8E00312CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -724,6 +729,7 @@
 		C49F49DC227C9AA400D3A986 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C49F49DE22806BFA00D3A986 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C49F49E022819C6900D3A986 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C4F6BAB7229409A200A747BB /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
 		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
 		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1514,13 +1520,23 @@
 			children = (
 				C422EEEB228F130A009F7415 /* Alias.swift */,
 				C422EEE1228F122A009F7415 /* PaymentMethod.swift */,
+				C422EF0D2292FAB3009F7415 /* Item.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		C422EF1322931E74009F7415 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C422EF1122931E6E009F7415 /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C42D567622842F8D00312CC1 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				C422EF1322931E74009F7415 /* Extensions */,
 				C422EEE0228F122A009F7415 /* model */,
 				C422EEB2228F1024009F7415 /* Services */,
 				E15E06F5228DA981007F5FA4 /* other */,
@@ -1557,11 +1573,12 @@
 		C42D569022842FA800312CC1 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C4F6BAB7229409A200A747BB /* BaseCell.swift */,
 				C422EED9228F11C9009F7415 /* CustomIconLabelCell.swift */,
 				C422EEDA228F11CA009F7415 /* PaymentMethodCell.swift */,
 				C42D569122842FA800312CC1 /* LaunchScreen.storyboard */,
 				C42D569322842FA800312CC1 /* Main.storyboard */,
-				C422EF142293DDB5009F7415 /* BaseCell.swift */,
+				C422EF0F2292FD93009F7415 /* ItemCell.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2536,16 +2553,19 @@
 				C42D567822842F8D00312CC1 /* AppDelegate.swift in Sources */,
 				C422EED2228F10FD009F7415 /* MainTabBarController.swift in Sources */,
 				C422EED5228F10FD009F7415 /* CustomNavigationController.swift in Sources */,
+				C4F6BAB8229409A200A747BB /* BaseCell.swift in Sources */,
 				C42D56A022842FAC00312CC1 /* UIConstants.swift in Sources */,
 				C422EED6228F10FD009F7415 /* CheckoutController.swift in Sources */,
 				C422EEEC228F130A009F7415 /* Alias.swift in Sources */,
 				C422EED3228F10FD009F7415 /* ItemsController.swift in Sources */,
+				C422EF102292FD93009F7415 /* ItemCell.swift in Sources */,
 				C422EEB5228F1024009F7415 /* PaymentMethodManager.swift in Sources */,
 				C422EEDB228F11CA009F7415 /* CustomIconLabelCell.swift in Sources */,
+				C422EF0E2292FAB3009F7415 /* Item.swift in Sources */,
 				C422EEB8228F1035009F7415 /* PaymentMethodController.swift in Sources */,
 				C422EED4228F10FD009F7415 /* BaseCollectionViewController.swift in Sources */,
+				C422EF1222931E6E009F7415 /* Extensions.swift in Sources */,
 				C422EEDC228F11CA009F7415 /* PaymentMethodCell.swift in Sources */,
-				C422EF152293DDB5009F7415 /* BaseCell.swift in Sources */,
 				C422EEE2228F122A009F7415 /* PaymentMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3112,7 +3132,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3142,7 +3162,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3177,7 +3197,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3205,7 +3225,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3224,7 +3244,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -3249,7 +3269,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F68CV5R3U6;
+				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

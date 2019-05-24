@@ -9,13 +9,15 @@
 import UIKit
 
 class BaseCell: UICollectionViewCell {
+    let cornerRadius: CGFloat = 8
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .white
 
         layer.masksToBounds = false
-        layer.cornerRadius = 8
+        layer.cornerRadius = self.cornerRadius
 
         layer.shadowColor = UIColor(white: 0, alpha: 0.05).cgColor
         layer.shadowRadius = 0
