@@ -23,7 +23,7 @@ before_script:
 
 script:
   - set -e
-  - set -o pipefile
+  - set -o pipefail
   - echo "Starting Unit Tests"
   - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test | xcpretty -f `xcpretty-travis-formatter`
   - echo "Starting UI Tests"
