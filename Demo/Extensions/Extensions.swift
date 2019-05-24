@@ -9,18 +9,10 @@
 import Foundation
 
 extension Float {
-    func toCurrency(with currencySign: String = "$") -> String {
-        var separator = "."
-        switch currencySign {
-        case "€": separator = ","
-        default:
-            break
-        }
-
-        // placement of currency sign (before or after the number) and decimal seperator
-        let formattedCurrency = currencySign == "€" ? "\(String(self).replacingOccurrences(of: ".", with: separator)) \(currencySign)" :
-            "\(currencySign) \(String(self))"
-
-        return formattedCurrency
+    func toCurrency(with locale: Locale = Locale.current) -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = locale
+        return formatter.string(from: NSNumber(value: self))
     }
 }

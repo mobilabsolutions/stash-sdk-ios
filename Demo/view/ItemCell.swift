@@ -29,7 +29,7 @@ class ItemCell: BaseCell {
             }
             self.titleLabel.text = item.title.capitalized
             self.descriptionLabel.text = item.description
-            self.priceLabel.text = item.price.toCurrency(with: "€")
+            self.priceLabel.text = item.price.toCurrency(with: Locale(identifier: "es_ES"))
         }
     }
 
