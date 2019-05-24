@@ -50,7 +50,6 @@ class SearchView: UIView {
 
     private let textField: CustomTextField = {
         let textField = CustomTextField()
-        textField.clearButtonMode = .always
         return textField
     }()
 
@@ -167,10 +166,5 @@ extension SearchView: UITextFieldDelegate {
     func textFieldShouldReturn(_: UITextField) -> Bool {
         self.textField.resignFirstResponder()
         return false
-    }
-
-    func textFieldShouldClear(_: UITextField) -> Bool {
-        self.delegate?.didCancelSearch()
-        return true
     }
 }
