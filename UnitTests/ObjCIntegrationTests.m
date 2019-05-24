@@ -85,8 +85,11 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
+    NSError *error;
+    
+    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
-                                                                 name:nil
+                                                                 name:name
                                                              address1:nil
                                                              address2:nil
                                                                   zip:nil
@@ -94,17 +97,13 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:nil
                                                                 phone:nil
-                                                           languageId:nil];
+                                                           languageId:nil
+                                                              basedOn:nil];
 
-    NSError *error;
-    
-    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
-    
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4111 1111 1111 1111"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:name.fullName
                                                                         country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
@@ -155,7 +154,8 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:@"DE"
                                                                 phone:nil
-                                                           languageId:[[NSLocale currentLocale] languageCode]];
+                                                           languageId:[[NSLocale currentLocale] languageCode]
+                                                              basedOn: nil];
 
     NSError *error;
     MLSEPAData * sepaData = [[MLSEPAData alloc] initWithIban:@"DE75512108001245126199" bic:@"COLSDE33XXX" billingData:billingData error:&error];
@@ -190,7 +190,8 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:@"DE"
                                                                 phone:nil
-                                                           languageId:[[NSLocale currentLocale] languageCode]];
+                                                           languageId:[[NSLocale currentLocale] languageCode]
+                                                              basedOn: nil];
 
     NSError *error;
     
@@ -198,7 +199,6 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:name.fullName
                                                                     country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];

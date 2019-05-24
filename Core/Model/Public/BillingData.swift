@@ -42,16 +42,17 @@ import Foundation
                       state: String? = nil,
                       country: String? = nil,
                       phone: String? = nil,
-                      languageId: String? = nil) {
-        self.name = name
-        self.email = email
-        self.address1 = address1
-        self.address2 = address2
-        self.zip = zip
-        self.city = city
-        self.state = state
-        self.country = country
-        self.phone = phone
-        self.languageId = languageId
+                      languageId: String? = nil,
+                      basedOn billingData: BillingData? = nil) {
+        self.name = name ?? billingData?.name
+        self.email = email ?? billingData?.email
+        self.address1 = address1 ?? billingData?.address1
+        self.address2 = address2 ?? billingData?.address2
+        self.zip = zip ?? billingData?.zip
+        self.city = city ?? billingData?.city
+        self.state = state ?? billingData?.state
+        self.country = country ?? billingData?.country
+        self.phone = phone ?? billingData?.phone
+        self.languageId = languageId ?? billingData?.languageId
     }
 }

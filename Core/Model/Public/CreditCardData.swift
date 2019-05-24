@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreditCardDataInitializible {
-    init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, country: String?, billingData: BillingData) throws
+    init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws
 }
 
 /// CreditCardData contains all data necessary for registering a credit card with a payment service provider
@@ -22,10 +22,9 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public let expiryMonth: Int
     /// The year in which the credit card expires: 0-99
     public let expiryYear: Int
-    /// The billing data to use when registering the credit card with the PSP
+    /// The billing data to use when registering the credit card with the PSP.
+    /// Some PSPs require the holder name to be specified here.
     public let billingData: BillingData
-    /// The name of the credit card holder. Not required by every PSP
-    public let holderName: String?
     /// The type of credit card (e.g. visa or mastercard) the number is associated with. This is determined on card initialization
     public let cardType: CreditCardType
     /// The country field takes an ISO country code. e.g. 'DE' for Germany and is mandatory for some PSPs (e.g. BSPayone)
@@ -67,18 +66,16 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///   - cvv: The CVV (three or four digit integer)
     ///   - expiryMonth: The month in which the credit card expires: 1 (January) - 12 (December)
     ///   - expiryYear: The year in which the credit card expires: 0-99
-    ///   - holderName: The name of the credit card holder. Not required by every PSP
     ///   - country: ISO code of the country of the credit card holder. Not required by every PSP.
     ///   - billingData: The billing data to use when registering with the PSP
     /// - Throws: An MobilabPaymentError if validation is not successful
 
-    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, country: String?, billingData: BillingData) throws {
+    public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         try CreditCardUtils.validateCVV(cvv: cvv)
         try CreditCardUtils.validateCreditCardNumber(cardNumber: cardNumber)
 
-        self.holderName = holderName
         self.cardNumber = cleanedNumber
         self.cvv = cvv
         self.expiryMonth = expiryMonth
@@ -94,6 +91,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
 
         return CreditCardExtra(ccExpiry: "\(String(format: "%02d", self.expiryMonth))/\(String(format: "%02d", self.expiryYear))",
                                ccMask: cardMask,
-                               ccType: self.cardType.rawValue)
+                               ccType: self.cardType.rawValue,
+                               ccHolderName: self.billingData.name?.fullName)
     }
 }

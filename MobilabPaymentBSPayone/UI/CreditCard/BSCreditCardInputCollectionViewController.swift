@@ -226,13 +226,14 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
         else { return nil }
 
         do {
+            let billingData = BillingData(name: parsedData.name, basedOn: self.billingData)
+
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear,
-                                                holderName: parsedData.name.fullName,
                                                 country: parsedData.country.alpha2Code,
-                                                billingData: self.billingData ?? BillingData())
+                                                billingData: billingData)
 
             guard creditCard.cardType.bsCardTypeIdentifier != nil
             else { throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError.noKnownCreditCardProvider]) }
