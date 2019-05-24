@@ -68,6 +68,28 @@ class SDKConfiguraionTests: XCTestCase {
                        "Expected PayPal psp identifier to be \(payPalProvider.pspIdentifier) but was \(providerUsedForPayPal.pspIdentifier)")
     }
 
+    func testCorrectPaymentMethodTypesAreReturned() {
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        MobilabPaymentSDK.initialize(configuration: configuration)
+
+        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+
+        let creditCardProvider = MobilabPaymentBSPayone()
+        MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
+
+        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard])
+
+        let sepaProvider = MobilabPaymentBSPayone()
+        MobilabPaymentSDK.registerProvider(provider: sepaProvider, forPaymentMethodTypes: .sepa)
+
+        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard, .sepa])
+
+        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
+
+        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard, .sepa, .payPal])
+    }
+
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         MobilabPaymentSDK.initialize(configuration: configuration)

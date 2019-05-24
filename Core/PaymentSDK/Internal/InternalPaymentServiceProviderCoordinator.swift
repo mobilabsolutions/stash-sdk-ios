@@ -41,11 +41,11 @@ class InternalPaymentServiceProviderCoordinator {
     }
 
     func getSupportedPaymentMethodTypes() -> Set<PaymentMethodType> {
-        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypes })
+        return Set(self.store.keys.compactMap { $0.publicPaymentMethodType })
     }
 
     func getSupportedPaymentMethodTypeUserInterfaces() -> Set<PaymentMethodType> {
-        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces })
+        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces }).intersection(self.getSupportedPaymentMethodTypes())
     }
 
     func removeAllProviders() {

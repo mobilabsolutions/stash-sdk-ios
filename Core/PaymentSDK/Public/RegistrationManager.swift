@@ -96,6 +96,10 @@ public class RegistrationManager {
         viewController.present(navigationController, animated: true, completion: nil)
     }
 
+    public var availablePaymentMethodTypes: Set<PaymentMethodType> {
+        return InternalPaymentSDK.sharedInstance.getAvailablePaymentMethodTypes()
+    }
+
     /// Starts the flow for PayPal registration
     ///
     /// - Parameters:

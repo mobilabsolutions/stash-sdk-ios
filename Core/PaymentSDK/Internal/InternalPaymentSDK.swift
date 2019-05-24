@@ -76,6 +76,10 @@ class InternalPaymentSDK {
         return InternalRegistrationManager()
     }
 
+    func getAvailablePaymentMethodTypes() -> Set<PaymentMethodType> {
+        return self.pspCoordinator.getSupportedPaymentMethodTypes()
+    }
+
     func resetInitialization() {
         self.wasInitialized = false
     }
