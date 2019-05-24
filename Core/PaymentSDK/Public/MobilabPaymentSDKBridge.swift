@@ -122,6 +122,22 @@ import UIKit
         }
     }
 
+    @objc(MLPaymentMethodType) public enum PaymentMethodTypeBridge: Int {
+        case none = 0
+        case creditCard
+        case payPal
+        case sepa
+
+        fileprivate var paymentMethodType: PaymentMethodType? {
+            switch self {
+            case .none: return nil
+            case .creditCard: return .creditCard
+            case .payPal: return .payPal
+            case .sepa: return .sepa
+            }
+        }
+    }
+
     @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
                                         idempotencyKey: idempotencyKey,
@@ -135,9 +151,12 @@ import UIKit
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
+                                                   specificPaymentMethod: PaymentMethodTypeBridge,
+                                                   billingData _: BillingData?,
                                                    idempotencyKey: String,
                                                    completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerPaymentMethodUsingUI(on: viewController,
+                                                  specificPaymentMethod: specificPaymentMethod.paymentMethodType,
                                                   idempotencyKey: idempotencyKey,
                                                   completion: self.bridgedCompletion(completion: completion))
     }

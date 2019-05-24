@@ -17,10 +17,13 @@ let testModeDefaultEnabled = true
 class AddUIViewController: UIViewController {
     @IBOutlet private var triggerRegisterUIButton: UIButton!
     @IBOutlet private var customConfigurationSwitch: UISwitch!
-    @IBOutlet var useTestModeSwitch: UISwitch!
-    @IBOutlet var pspPickerView: UIPickerView!
+    @IBOutlet private var useTestModeSwitch: UISwitch!
+    @IBOutlet private var pspPickerView: UIPickerView!
+    @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
+    @IBOutlet private var triggerSpecificRegisterButton: UIButton!
 
     private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
+    private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
 
     override func viewDidLoad() {
@@ -29,12 +32,21 @@ class AddUIViewController: UIViewController {
         self.triggerRegisterUIButton.layer.masksToBounds = true
 
         self.triggerRegisterUIButton.addTarget(self, action: #selector(self.triggerRegisterUI), for: .touchUpInside)
+        self.triggerSpecificRegisterButton.addTarget(self, action: #selector(self.triggerSpecificRegisterUI), for: .touchUpInside)
 
         self.pspPickerView.delegate = self
         self.pspPickerView.dataSource = self
     }
 
     @objc private func triggerRegisterUI() {
+        self.startRegistration(paymentMethodType: nil)
+    }
+
+    @objc private func triggerSpecificRegisterUI() {
+        self.startRegistration(paymentMethodType: self.paymentMethodTypes[specificPaymentMethodControl.selectedSegmentIndex])
+    }
+
+    private func startRegistration(paymentMethodType: PaymentMethodType?) {
         self.setupPspForSDK(psp: self.pspTypes[pspPickerView.selectedRow(inComponent: 0)])
         self.configureSDK(testModeEnabled: self.useTestModeSwitch.isOn)
 
@@ -54,25 +66,26 @@ class AddUIViewController: UIViewController {
         }
 
         MobilabPaymentSDK.configureUI(configuration: configuration)
-        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: self) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(value):
-                    self?.dismiss(animated: true) {
-                        self?.showAlert(title: "Success", body: "Successfully registered payment method")
-                    }
+        MobilabPaymentSDK.getRegistrationManager()
+            .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .success(value):
+                        self?.dismiss(animated: true) {
+                            self?.showAlert(title: "Success", body: "Successfully registered payment method")
+                        }
 
-                    let alias = Alias(alias: value.alias ?? "No alias provided",
-                                      humanReadableId: value.humanReadableIdentifier,
-                                      expirationYear: nil,
-                                      expirationMonth: nil,
-                                      type: AliasType(paymentMethodType: value.paymentMethodType))
-                    AliasManager.shared.save(alias: alias)
-                case .failure:
-                    break
+                        let alias = Alias(alias: value.alias ?? "No alias provided",
+                                          humanReadableId: value.humanReadableIdentifier,
+                                          expirationYear: nil,
+                                          expirationMonth: nil,
+                                          type: AliasType(paymentMethodType: value.paymentMethodType))
+                        AliasManager.shared.save(alias: alias)
+                    case .failure:
+                        break
+                    }
                 }
             }
-        }
     }
 
     private func setupPspForSDK(psp: MobilabPaymentProvider) {
