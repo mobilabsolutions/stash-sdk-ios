@@ -28,7 +28,7 @@ class ItemCell: BaseCell {
                 self.itemImageView.image = UIImage(named: imageName)
             }
             self.titleLabel.text = item.title.capitalized
-            self.descriptionLabel.text = item.description
+            self.descriptionLabel.text = item.description?.capitalized
             self.priceLabel.text = item.price.toCurrency(with: Locale(identifier: "es_ES"))
         }
     }
