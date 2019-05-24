@@ -44,7 +44,9 @@
     [MLMobilabPaymentSDK configureUIWithConfiguration:configuration];
 
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self
+                                                                  idempotencyKey: [[NSUUID new] UUIDString]
+                                                                      completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (registration != nil) {
                 NSLog(@"Got alias: %@", registration.alias);

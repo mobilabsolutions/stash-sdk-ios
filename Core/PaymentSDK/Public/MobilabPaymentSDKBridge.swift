@@ -122,23 +122,34 @@ import UIKit
         }
     }
 
-    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
+                                        idempotencyKey: idempotencyKey,
+                                        completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerSEPAAccount(sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, idempotencyKey: String, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerSEPAAccount(sepaData: sepaData.sepaData,
+                                         idempotencyKey: idempotencyKey,
+                                         completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
+                                                   idempotencyKey: String,
                                                    completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
+        self.manager.registerPaymentMethodUsingUI(on: viewController,
+                                                  idempotencyKey: idempotencyKey,
+                                                  completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController,
                                             billingData: BillingData?,
+                                            idempotencyKey: String,
                                             completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPayPal(presentingViewController: viewController, billingData: billingData, completion: self.bridgedCompletion(completion: completion))
+        self.manager.registerPayPal(presentingViewController: viewController,
+                                    billingData: billingData,
+                                    idempotencyKey: idempotencyKey,
+                                    completion: self.bridgedCompletion(completion: completion))
     }
 
     private func bridgedCompletion(completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {

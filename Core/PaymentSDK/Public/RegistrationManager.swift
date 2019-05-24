@@ -1,5 +1,5 @@
 //
-//  RegisterManager.swift
+//  RegistrationManager.swift
 //  MLPaymentSDK
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
@@ -53,8 +53,8 @@ public class RegistrationManager {
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
 
     public func registerPayPal(presentingViewController: UIViewController,
-                               idempotencyKey: String = UUID().uuidString,
                                billingData: BillingData?,
+                               idempotencyKey: String = UUID().uuidString,
                                completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: PayPalPlaceholderData(billingData: billingData), type: .payPal)
 
@@ -76,7 +76,9 @@ public class RegistrationManager {
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerPaymentMethodUsingUI(on viewController: UIViewController,
+                                             specificPaymentMethod _: PaymentMethodType? = nil,
                                              billingData: BillingData? = nil,
+                                             idempotencyKey: String = UUID().uuidString,
                                              completion: @escaping RegistrationResultCompletion) {
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let selectionViewController = PaymentMethodSelectionCollectionViewController(configuration: uiConfiguration)
@@ -110,13 +112,16 @@ public class RegistrationManager {
             paymentMethodViewController.didCreatePaymentMethodCompletion = { [weak self, unowned paymentMethodViewController] method in
                 if let creditCardData = method as? CreditCardData {
                     self?.registerCreditCard(creditCardData: creditCardData,
+                                             idempotencyKey: idempotencyKey,
                                              completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else if let sepaData = method as? SEPAData {
                     self?.registerSEPAAccount(sepaData: sepaData,
+                                              idempotencyKey: idempotencyKey,
                                               completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else if method is PayPalPlaceholderData {
                     self?.registerPayPal(presentingViewController: paymentMethodViewController,
                                          billingData: billingData,
+                                         idempotencyKey: idempotencyKey,
                                          completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")

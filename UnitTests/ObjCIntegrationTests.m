@@ -107,7 +107,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard
+                                                                        idempotencyKey: [[NSUUID new] UUIDString]
+                                                                            completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"A registration should be returned when registering a valid credit card");
         XCTAssertNil(error, @"There should not be an error when registering a valid credit card but got %@", error);
         [expectation fulfill];
@@ -153,7 +155,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData
+                                                                   idempotencyKey:[[NSUUID new] UUIDString]
+                                                                       completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"Registering a valid SEPA method should return a registration");
         XCTAssertNotNil(registration.alias, @"The alias should not be nil when registering with BS Payone");
         XCTAssertNil(error, @"Registering a valid SEPA method should not return any error but got %@", error);
