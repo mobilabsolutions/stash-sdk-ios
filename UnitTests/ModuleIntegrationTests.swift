@@ -76,10 +76,15 @@ class ModuleIntegrationTests: XCTestCase {
         }
     }
 
+    override func setUp() {
+        super.setUp()
+        SDKResetter.resetMobilabSDK()
+    }
+
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
-        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+        SDKResetter.resetMobilabSDK()
     }
 
     func testHandleRegistrationRequestCalled() throws {
@@ -92,7 +97,7 @@ class ModuleIntegrationTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
@@ -119,7 +124,7 @@ class ModuleIntegrationTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.useTestMode = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
@@ -155,7 +160,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
@@ -218,7 +223,7 @@ class ModuleIntegrationTests: XCTestCase {
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
@@ -269,7 +274,7 @@ class ModuleIntegrationTests: XCTestCase {
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module
@@ -297,7 +302,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
 
         self.module = module

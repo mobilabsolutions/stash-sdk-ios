@@ -16,6 +16,8 @@ class AdyenIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        SDKResetter.resetMobilabSDK()
+
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
@@ -24,7 +26,7 @@ class AdyenIntegrationTests: XCTestCase {
         let provider = MobilabPaymentAdyen()
         self.provider = provider
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
         MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
 
         OHHTTPStubs.removeAllStubs()
@@ -33,7 +35,7 @@ class AdyenIntegrationTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
-        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+        SDKResetter.resetMobilabSDK()
     }
 
     func testCreditCard() throws {

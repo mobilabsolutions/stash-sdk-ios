@@ -9,5 +9,4 @@
 #ifndef MobilabPaymentTests_Bridging_Header_h
 #define MobilabPaymentTests_Bridging_Header_h
 
-
 #endif /* MobilabPaymentTests_Bridging_Header_h */

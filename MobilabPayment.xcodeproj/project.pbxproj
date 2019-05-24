@@ -311,6 +311,7 @@
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
 		E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189618E22647C810044D3CE /* AliasCreationDetail.swift */; };
 		E1970DB42297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */; };
+		E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB7229844B200D075A7 /* SDKResetter.swift */; };
 		E1995B1B2253A13800BF24A2 /* NextCellEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */; };
 		E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */; };
 		E1995B1F22560BD200BF24A2 /* PatternUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */; };
@@ -758,6 +759,7 @@
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
 		E189618E22647C810044D3CE /* AliasCreationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCreationDetail.swift; sourceTree = "<group>"; };
 		E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificPaymentMethodRegistrationTests.swift; sourceTree = "<group>"; };
+		E1970DB7229844B200D075A7 /* SDKResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKResetter.swift; sourceTree = "<group>"; };
 		E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextCellEnabled.swift; sourceTree = "<group>"; };
 		E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_temp_failure.json; sourceTree = "<group>"; };
 		E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternUtilities.swift; sourceTree = "<group>"; };
@@ -1032,6 +1034,7 @@
 				C42D56C1228C32A400312CC1 /* CountryDataTests.swift */,
 				E11F2F482273100D001F9925 /* IdempotencyTests.swift */,
 				E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */,
+				E1970DB7229844B200D075A7 /* SDKResetter.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -2396,6 +2399,7 @@
 				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
 				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
 				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,
+				E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */,
 				E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */,
 				E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */,
 				E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */,

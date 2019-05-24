@@ -12,8 +12,8 @@ public class MobilabPaymentSDK {
     /// Configure the SDK
     ///
     /// - Parameter configuration: The configuration to use for subsequent operations
-    public static func configure(configuration: MobilabPaymentConfiguration) {
-        InternalPaymentSDK.sharedInstance.configure(configuration: configuration)
+    public static func initialize(configuration: MobilabPaymentConfiguration) {
+        InternalPaymentSDK.sharedInstance.initialize(configuration: configuration)
     }
 
     /// Configure the SDK's UI

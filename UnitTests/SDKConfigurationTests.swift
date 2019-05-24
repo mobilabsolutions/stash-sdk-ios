@@ -16,13 +16,12 @@ import XCTest
 class SDKConfiguraionTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
-
-        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+        SDKResetter.resetMobilabSDK()
     }
 
     func testPSPRegistersForSupportedPaymentMethodTypes() {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
 
@@ -34,7 +33,7 @@ class SDKConfiguraionTests: XCTestCase {
 
     func testPSPFailsToRegisterForSupportedPaymentMethodTypes() {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
 
@@ -46,7 +45,7 @@ class SDKConfiguraionTests: XCTestCase {
 
     func testPSPUsedForRegisteringProvidedPaymentMethods() {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
@@ -71,7 +70,7 @@ class SDKConfiguraionTests: XCTestCase {
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         let creditCardProvider = MobilabPaymentBSPayone()
         MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)

@@ -10,7 +10,7 @@ import UIKit
 
 @objc(MLMobilabPaymentSDK) public class MobilabPaymentSDKBridge: NSObject {
     @objc public static func configure(configuration: MobilabPaymentConfiguration) {
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
     }
 
     @objc public static func configureUI(configuration: MLPaymentMethodUIConfiguration) {
@@ -70,6 +70,10 @@ import UIKit
                                                               buttonDisabledColor: buttonDisabledColor,
                                                               errorMessageColor: errorMessageColor,
                                                               errorMessageTextColor: errorMessageTextColor)
+        }
+
+        init(configuration: PaymentMethodUIConfiguration) {
+            self.configuration = configuration
         }
     }
 }

@@ -50,6 +50,6 @@ class PaymentMethodManager {
         configuration.loggingEnabled = true
         configuration.useTestMode = self.testModeEnabled
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
     }
 }

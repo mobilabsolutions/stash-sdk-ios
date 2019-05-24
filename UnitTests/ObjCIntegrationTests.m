@@ -11,6 +11,7 @@
 @import MobilabPaymentBSPayone;
 @import OHHTTPStubs;
 
+#import "MobilabPaymentTests-Swift.h"
 #import <XCTest/XCTest.h>
 
 @interface ObjCIntegrationTests : XCTestCase
@@ -21,35 +22,32 @@
 
 static NSString *bsPayoneHost = @"secure.pay1.de";
 
+- (void)setUp {
+    [super setUp];
+    [SDKResetter resetMobilabSDK];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [SDKResetter resetMobilabSDK];
+}
+
 - (void) testCreateConfiguration {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    uiConfiguration:nil];
 
     XCTAssertFalse(configuration.loggingEnabled, @"Logging should not be enabled when creating a new configuration");
 
     configuration.loggingEnabled = YES;
     XCTAssertTrue(configuration.loggingEnabled, @"Logging should be enabled after explicitely setting it to true");
-
-    NSError *error = nil;
-    NSURL *endpointUrl = [configuration endpointUrlAndReturnError:&error];
-
-    XCTAssertNil(error, @"Accessing the configuration URL should not result in an error but got %@", error);
-    XCTAssertNotNil(endpointUrl, @"The URL should not be nil after correctly setting up the configuration");
-}
-
-- (void) testCreateInvalidConfiguration {
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"not a url"];
-    NSError *error = nil;
-    NSURL *endpointUrl = [configuration endpointUrlAndReturnError:&error];
-
-    XCTAssertNotNil(error, @"When setting up the configuration with an invalid URL, an error should be returned");
-    XCTAssertNil(endpointUrl, @"When setting up the configuration with an invalid URL, the URL should not have a value but is %@", endpointUrl);
 }
 
 - (void) testAddConfigurationAndProviderToSDK {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    uiConfiguration:nil];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
@@ -70,8 +68,17 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
+    MLPaymentMethodUIConfiguration *uiConfiguration = [[MLPaymentMethodUIConfiguration alloc] initWithBackgroundColor:nil
+                                                                                                            textColor:nil
+                                                                                                          buttonColor:[UIColor blueColor] mediumEmphasisColor:nil
+                                                                                                  cellBackgroundColor:nil
+                                                                                                      buttonTextColor:nil
+                                                                                                  buttonDisabledColor:nil
+                                                                                                    errorMessageColor:nil
+                                                                                                errorMessageTextColor:nil];
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    uiConfiguration: uiConfiguration];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 
@@ -128,7 +135,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     }];
 
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    uiConfiguration:nil];
 
     [MLMobilabPaymentSDK configureWithConfiguration:configuration];
 

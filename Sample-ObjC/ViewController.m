@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint:@"https://payment-dev.mblb.net/api/v1"];
+                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint:@"https://payment-dev.mblb.net/api/v1" uiConfiguration:nil];
     [configuration setUseTestMode:YES];
     [configuration setLoggingEnabled:YES];
 
@@ -45,6 +45,8 @@
 
     __weak typeof(self) weakSelf = self;
     [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self
+                                                           specificPaymentMethod: MLPaymentMethodTypeNone
+                                                                     billingData: nil
                                                                   idempotencyKey: [[NSUUID new] UUIDString]
                                                                       completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -18,22 +18,37 @@ import Foundation
 
     let publicKey: String
     let endpoint: String
+    let uiConfiguration: PaymentMethodUIConfiguration?
 
     /// Initialize the SDK configuration
     ///
     /// - Parameters:
     ///   - publicKey: The SDK's public key for the Mobilab payment backend
     ///   - endpoint: The endpoint at which a Mobilab payment backend is deployed
-    @objc public init(publicKey: String, endpoint: String) {
+    ///   - uiConfiguration: The UI configuration that should be used for SDK-generated UI
+    public init(publicKey: String, endpoint: String, uiConfiguration: PaymentMethodUIConfiguration? = nil) {
         self.publicKey = publicKey
         self.endpoint = endpoint
+        self.uiConfiguration = uiConfiguration
+    }
+
+    /// Initialize the SDK configuration (should only be used from Objective-C, use other initializer from Swift instead)
+    ///
+    /// - Parameters:
+    ///   - publicKey: The SDK's public key for the Mobilab payment backend
+    ///   - endpoint: The endpoint at which a Mobilab payment backend is deployed
+    ///   - uiConfiguration: The UI configuration that should be used for SDK-generated UI
+    @objc public init(publicKey: String, endpoint: String, uiConfiguration: MobilabPaymentSDKBridge.MLPaymentMethodUIConfiguration?) {
+        self.publicKey = publicKey
+        self.endpoint = endpoint
+        self.uiConfiguration = uiConfiguration?.configuration
     }
 
     /// Validate and return the configuration URL
     ///
     /// - Returns: The endpoint URL
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
-    @objc public func endpointUrl() throws -> URL {
+    func endpointUrl() throws -> URL {
         guard !self.publicKey.isEmpty else {
             throw MobilabPaymentError.configuration(.publicKeyNotSet)
         }

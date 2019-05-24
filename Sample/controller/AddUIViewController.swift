@@ -25,6 +25,7 @@ class AddUIViewController: UIViewController {
     private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
+    private var sdkWasInitialized = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,11 +112,17 @@ class AddUIViewController: UIViewController {
     }
 
     private func configureSDK(testModeEnabled: Bool) {
+        guard !sdkWasInitialized
+        else { return }
+
         let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
         configuration.loggingEnabled = true
         configuration.useTestMode = testModeEnabled
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
+
+        useTestModeSwitch.isEnabled = false
+        sdkWasInitialized = true
     }
 }
 
