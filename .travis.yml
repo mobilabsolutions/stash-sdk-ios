@@ -13,6 +13,8 @@ env:
     - DESTINATION="OS=12.2,name=iPhone X"
 
 before_install:
+  - gem install xcpretty
+  - gem install xcpretty-travis-formatter
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
 
@@ -21,11 +23,12 @@ before_script:
 
 script:
   - set -e
+  - set -o pipefile
   - echo "Starting Unit Tests"
-  - travis_retry xcodebuild clean test -quiet -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test
+  - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" test | xcpretty -f `xcpretty-travis-formatter`
   - echo "Starting UI Tests"
-  - xcodebuild test -project "$PROJECT_NAME" -scheme "Sample" -destination "$DESTINATION" test
+  - xcodebuild test -project "$PROJECT_NAME" -scheme "Sample" -destination "$DESTINATION" test | xcpretty -f `xcpretty-travis-formatter`
   - echo "Building Objective-C Sample"
-  - xcodebuild -quiet -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" 
+  - xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
   - echo "Building Demo application"
-  - xcodebuild -quiet -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" 
+  - xcodebuild -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
