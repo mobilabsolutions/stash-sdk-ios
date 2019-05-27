@@ -22,8 +22,8 @@ class PaymentMethodCell: BaseCell {
 
     private let cellInternalOffsetLeft: CGFloat = 24
     private let cellInternalOffsetRight: CGFloat = 16
-    private let iconDimentions: (width: CGFloat, height: CGFloat) = (48, 33)
-    private let deleteButtonDimentions: (width: CGFloat, height: CGFloat) = (24, 24)
+    private let iconDimensions: (width: CGFloat, height: CGFloat) = (48, 33)
+    private let deleteButtonDimensions: (width: CGFloat, height: CGFloat) = (24, 24)
     private let titleHeight: CGFloat = 22
     private let subTitleHeight: CGFloat = 16
     private let labelVerticalPadding: CGFloat = 24
@@ -104,7 +104,7 @@ class PaymentMethodCell: BaseCell {
         self.cellImageView.anchor(left: leftAnchor,
                                   centerY: self.centerYAnchor,
                                   paddingLeft: self.cellInternalOffsetLeft,
-                                  width: self.iconDimentions.width, height: self.iconDimentions.height)
+                                  width: self.iconDimensions.width, height: self.iconDimensions.height)
 
         addSubview(self.titleLabel)
         self.titleLabel.anchor(top: topAnchor, left: self.cellImageView.rightAnchor, right: rightAnchor,
@@ -120,7 +120,7 @@ class PaymentMethodCell: BaseCell {
         self.deleteButton.anchor(right: rightAnchor,
                                  centerY: self.centerYAnchor,
                                  paddingRight: self.cellInternalOffsetRight,
-                                 width: self.deleteButtonDimentions.width, height: self.deleteButtonDimentions.height)
+                                 width: self.deleteButtonDimensions.width, height: self.deleteButtonDimensions.height)
     }
 
     private func updateStyling() {

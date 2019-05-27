@@ -14,7 +14,7 @@ class CustomIconLabelCell: BaseCell {
 
     private let cellInternalOffset: CGFloat = 16
     private let titleHeight: CGFloat = 22
-    private let iconDimentions: (width: CGFloat, height: CGFloat) = (24, 24)
+    private let iconDimensions: (width: CGFloat, height: CGFloat) = (24, 24)
 
     private var configuration: PaymentMethodUIConfiguration? {
         didSet {
@@ -73,7 +73,7 @@ class CustomIconLabelCell: BaseCell {
         addSubview(self.iconImageView)
         self.iconImageView.anchor(left: leftAnchor, centerY: centerYAnchor,
                                   paddingLeft: self.cellInternalOffset,
-                                  width: self.iconDimentions.width, height: self.iconDimentions.height)
+                                  width: self.iconDimensions.width, height: self.iconDimensions.height)
 
         addSubview(self.titleLabel)
         self.titleLabel.anchor(left: self.iconImageView.rightAnchor, centerY: centerYAnchor,

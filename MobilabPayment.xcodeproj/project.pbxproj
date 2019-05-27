@@ -120,6 +120,8 @@
 		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAE8FFC0222D4127005D2E47 /* MobilabPaymentBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* MobilabPaymentBSPayone.framework */; };
+		C410B842229C0A820029E90B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B841229C0A820029E90B /* BaseViewController.swift */; };
+		C410B844229C0A9A0029E90B /* CustomMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B843229C0A9A0029E90B /* CustomMessageView.swift */; };
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
@@ -136,7 +138,6 @@
 		C422EEB8228F1035009F7415 /* PaymentMethodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EEB7228F1035009F7415 /* PaymentMethodController.swift */; };
 		C422EED2228F10FD009F7415 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EECD228F10F8009F7415 /* MainTabBarController.swift */; };
 		C422EED3228F10FD009F7415 /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EECE228F10F9009F7415 /* ItemsController.swift */; };
-		C422EED4228F10FD009F7415 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EECF228F10FB009F7415 /* BaseCollectionViewController.swift */; };
 		C422EED5228F10FD009F7415 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EED0228F10FC009F7415 /* CustomNavigationController.swift */; };
 		C422EED6228F10FD009F7415 /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EED1228F10FD009F7415 /* CheckoutController.swift */; };
 		C422EEDB228F11CA009F7415 /* CustomIconLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422EED9228F11C9009F7415 /* CustomIconLabelCell.swift */; };
@@ -191,7 +192,6 @@
 		C42D56A522842FAC00312CC1 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C42D568F22842FA700312CC1 /* Lato-Medium.ttf */; };
 		C42D56A622842FAC00312CC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D569122842FA800312CC1 /* LaunchScreen.storyboard */; };
 		C42D56A722842FAC00312CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D569322842FA800312CC1 /* Main.storyboard */; };
-		C42D56AA22842FAC00312CC1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569822842FAA00312CC1 /* BaseCollectionViewController.swift */; };
 		C42D56AB22842FAC00312CC1 /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569922842FAA00312CC1 /* CheckoutController.swift */; };
 		C42D56AC22842FAC00312CC1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569A22842FAA00312CC1 /* MainTabBarController.swift */; };
 		C42D56AD22842FAC00312CC1 /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569B22842FAA00312CC1 /* ItemsController.swift */; };
@@ -205,7 +205,6 @@
 		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
 		C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DE22806BFA00D3A986 /* SearchView.swift */; };
 		C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49E022819C6900D3A986 /* UIView+Extensions.swift */; };
-		C42D56AA22842FAC00312CC1 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569822842FAA00312CC1 /* BaseCollectionViewController.swift */; };
 		C42D56AB22842FAC00312CC1 /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569922842FAA00312CC1 /* CheckoutController.swift */; };
 		C42D56AC22842FAC00312CC1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569A22842FAA00312CC1 /* MainTabBarController.swift */; };
 		C42D56AD22842FAC00312CC1 /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D569B22842FAA00312CC1 /* ItemsController.swift */; };
@@ -663,6 +662,8 @@
 		BAD6463D222EC29500771DC0 /* PSPExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPExtra.swift; sourceTree = "<group>"; };
 		BAD6464D2230799F00771DC0 /* Codable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extras.swift"; sourceTree = "<group>"; };
 		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
+		C410B841229C0A820029E90B /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C410B843229C0A9A0029E90B /* CustomMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessageView.swift; sourceTree = "<group>"; };
 		C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedTextInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		C41CB8F122774ADB0009F744 /* NameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameProviding.swift; sourceTree = "<group>"; };
 		C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNameProvider.swift; sourceTree = "<group>"; };
@@ -680,7 +681,6 @@
 		C422EEB7228F1035009F7415 /* PaymentMethodController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodController.swift; sourceTree = "<group>"; };
 		C422EECD228F10F8009F7415 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C422EECE228F10F9009F7415 /* ItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsController.swift; sourceTree = "<group>"; };
-		C422EECF228F10FB009F7415 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		C422EED0228F10FC009F7415 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		C422EED1228F10FD009F7415 /* CheckoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutController.swift; sourceTree = "<group>"; };
 		C422EED9228F11C9009F7415 /* CustomIconLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIconLabelCell.swift; sourceTree = "<group>"; };
@@ -1573,6 +1573,7 @@
 		C42D569022842FA800312CC1 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C410B843229C0A9A0029E90B /* CustomMessageView.swift */,
 				C4F6BAB7229409A200A747BB /* BaseCell.swift */,
 				C422EED9228F11C9009F7415 /* CustomIconLabelCell.swift */,
 				C422EEDA228F11CA009F7415 /* PaymentMethodCell.swift */,
@@ -1586,7 +1587,7 @@
 		C42D569722842FAA00312CC1 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				C422EECF228F10FB009F7415 /* BaseCollectionViewController.swift */,
+				C410B841229C0A820029E90B /* BaseViewController.swift */,
 				C422EED1228F10FD009F7415 /* CheckoutController.swift */,
 				C422EED0228F10FC009F7415 /* CustomNavigationController.swift */,
 				C422EECE228F10F9009F7415 /* ItemsController.swift */,
@@ -2554,7 +2555,9 @@
 				C422EED2228F10FD009F7415 /* MainTabBarController.swift in Sources */,
 				C422EED5228F10FD009F7415 /* CustomNavigationController.swift in Sources */,
 				C4F6BAB8229409A200A747BB /* BaseCell.swift in Sources */,
+				C410B842229C0A820029E90B /* BaseViewController.swift in Sources */,
 				C42D56A022842FAC00312CC1 /* UIConstants.swift in Sources */,
+				C410B844229C0A9A0029E90B /* CustomMessageView.swift in Sources */,
 				C422EED6228F10FD009F7415 /* CheckoutController.swift in Sources */,
 				C422EEEC228F130A009F7415 /* Alias.swift in Sources */,
 				C422EED3228F10FD009F7415 /* ItemsController.swift in Sources */,
@@ -2563,7 +2566,6 @@
 				C422EEDB228F11CA009F7415 /* CustomIconLabelCell.swift in Sources */,
 				C422EF0E2292FAB3009F7415 /* Item.swift in Sources */,
 				C422EEB8228F1035009F7415 /* PaymentMethodController.swift in Sources */,
-				C422EED4228F10FD009F7415 /* BaseCollectionViewController.swift in Sources */,
 				C422EF1222931E6E009F7415 /* Extensions.swift in Sources */,
 				C422EEDC228F11CA009F7415 /* PaymentMethodCell.swift in Sources */,
 				C422EEE2228F122A009F7415 /* PaymentMethod.swift in Sources */,

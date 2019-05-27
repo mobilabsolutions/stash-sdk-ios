@@ -9,7 +9,7 @@
 import MobilabPaymentCore
 import UIKit
 
-class PaymentMethodController: BaseCollectionViewController {
+class PaymentMethodController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: - Properties
 
     private enum SectionType: Int {
@@ -24,14 +24,11 @@ class PaymentMethodController: BaseCollectionViewController {
     private let addPaymentMethodCellId = "addPaymentMethod"
     private let paymentMethodCellId = "paymentMethod"
 
-    private let cellRadius: CGFloat = 8
-    private let defaultInsetValue: CGFloat = 16
-    private let paymentMethodListSectionInsets: UIEdgeInsets
-    private let addPaymentMethodSectionInsets: UIEdgeInsets
+    private lazy var paymentMethodListSectionInsets: UIEdgeInsets = self.defaultSectionInsets
+    private lazy var addPaymentMethodSectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: self.defaultInset, bottom: self.defaultInset, right: defaultInset)
 
     private let paymentMethodListCellHeight: CGFloat = 86
     private let addPaymentMethodCellHeight: CGFloat = 70
-    private let paymentMethodListSectionLineSpacing: CGFloat = 8
     private let addPaymentMethodSectionLineSpacing: CGFloat = 18
 
     private let configuration: PaymentMethodUIConfiguration
@@ -42,10 +39,6 @@ class PaymentMethodController: BaseCollectionViewController {
 
     override init(configuration: PaymentMethodUIConfiguration) {
         self.configuration = configuration
-
-        self.paymentMethodListSectionInsets = UIEdgeInsets(top: 42, left: self.defaultInsetValue, bottom: 8, right: self.defaultInsetValue)
-        self.addPaymentMethodSectionInsets = UIEdgeInsets(top: 10, left: self.defaultInsetValue, bottom: self.defaultInsetValue, right: self.defaultInsetValue)
-
         super.init(configuration: configuration)
     }
 
@@ -58,28 +51,28 @@ class PaymentMethodController: BaseCollectionViewController {
 
         setTitle(title: "Payment Methods")
 
-        self.collectionView.register(PaymentMethodCell.self, forCellWithReuseIdentifier: self.paymentMethodCellId)
-        self.collectionView.register(CustomIconLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
+        setupViews()
+        setupCollectionView()
     }
 
     // MARK: - Collectionview methods
 
-    override func numberOfSections(in _: UICollectionView) -> Int {
+    func numberOfSections(in _: UICollectionView) -> Int {
         return 2
     }
 
-    override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return section == SectionType.paymentMethodList.index ? self.registeredPaymentMethods.count : 1
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width - (self.defaultInsetValue * 2)
+        let width = view.frame.width - (self.defaultInset * 2)
 
         return indexPath.section == SectionType.paymentMethodList.index ? CGSize(width: width, height: self.paymentMethodListCellHeight) :
             CGSize(width: width, height: self.addPaymentMethodCellHeight)
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell
 
         if indexPath.section == SectionType.paymentMethodList.index {
@@ -99,7 +92,7 @@ class PaymentMethodController: BaseCollectionViewController {
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return section == SectionType.paymentMethodList.index ? self.paymentMethodListSectionLineSpacing : self.addPaymentMethodSectionLineSpacing
+        return section == SectionType.paymentMethodList.index ? self.defaultSectionLineSpacing : self.addPaymentMethodSectionLineSpacing
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -109,13 +102,25 @@ class PaymentMethodController: BaseCollectionViewController {
         return self.addPaymentMethodSectionInsets
     }
 
-    override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == SectionType.addPaymentMethod.index {
             self.addNewPaymentMethod()
         }
     }
 
     // MARK: - Helpers
+    private func setupViews() {
+        view.addSubview(collectionView)
+        collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: availableBottomAnchor, right: view.rightAnchor,
+                              paddingTop: paymentMethodListSectionInsets.top, paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset)
+    }
+
+    private func setupCollectionView() {
+        collectionView.register(PaymentMethodCell.self, forCellWithReuseIdentifier: self.paymentMethodCellId)
+        collectionView.register(CustomIconLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
 
     private func addNewPaymentMethod() {
         let paymentManager = PaymentMethodManager.shared
