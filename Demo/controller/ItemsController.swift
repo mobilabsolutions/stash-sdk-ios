@@ -13,17 +13,18 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
     // MARK: - Properties
 
     private let itemCellId = "itemCellId"
-    
+
     private let cellHeight: CGFloat = 104
-    
+
     private let items: [Item] = [Item(title: "mobiLab", description: "t-Shirt print", picture: "imageCard", price: 23.95),
                                  Item(title: "notebook paper", description: "quadrille Pads", picture: "imageCardNotes", price: 3.5),
                                  Item(title: "mobilab sticker", description: "12 sticker sheet", picture: "imageCardSticker", price: 23.95),
                                  Item(title: "mobilab pen", description: "blue color", picture: "imageCardPen", price: 23.95),
-                                 Item(title: "mobilab", description: "female T-Shirt", picture: "imageCard", price: 23.95)
-    ]
+                                 Item(title: "mobilab", description: "female T-Shirt", picture: "imageCard", price: 23.95)]
 
     private let configuration: PaymentMethodUIConfiguration
+
+    private let toast = ToastView()
 
     // MARK: - Initializers
 
@@ -41,33 +42,33 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         setTitle(title: "List of Items")
 
-        view.addSubview(collectionView)
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
-        setupCollectionView()
+        view.addSubview(self.collectionView)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
+        self.setupCollectionView()
     }
 
     private func setupCollectionView() {
-        collectionView.register(ItemCell.self, forCellWithReuseIdentifier: self.itemCellId)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.collectionView.register(ItemCell.self, forCellWithReuseIdentifier: self.itemCellId)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
-    
+
     // MARK: - Collectionview methods
-    
+
     func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return self.items.count
     }
-    
+
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width - (self.defaultInset * 2)
-        
+
         return CGSize(width: width, height: self.cellHeight)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ItemCell = collectionView.dequeueCell(reuseIdentifier: self.itemCellId, for: indexPath)
         let item = self.items[indexPath.row]
@@ -76,7 +77,7 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         return cell
     }
-    
+
     // MARK: Helpers
 
     private func addSelectedItem(item: Item) {
@@ -92,10 +93,12 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
 extension ItemsController: ItemCellDelegate {
     func didSelectAddOption(for item: Item) {
-        addSelectedItem(item: item)
+        self.addSelectedItem(item: item)
+
+        DispatchQueue.main.async {
+            ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
+        }
     }
-    
-    func didSelectRemoveOption(for item: Item) {
-        
-    }
+
+    func didSelectRemoveOption(for _: Item) {}
 }
