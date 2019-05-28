@@ -34,7 +34,7 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
     }
 
     func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
-        if case MobilabPaymentError.userActionable = error {
+        if case MobilabPaymentError.userCancelled = error {
             self.dismissLoadingViewController()
         } else {
             let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)

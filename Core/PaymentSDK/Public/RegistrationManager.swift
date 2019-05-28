@@ -92,7 +92,8 @@ public class RegistrationManager {
             rootViewController = selectionViewController
         }
 
-        let navigationController = RegistrationFlowNavigationController(rootViewController: rootViewController)
+        let navigationController = RegistrationFlowNavigationController(rootViewController: rootViewController,
+                                                                        userDidCloseCallback: { completion(.failure(.userCancelled)) })
         viewController.present(navigationController, animated: true, completion: nil)
     }
 
@@ -122,7 +123,8 @@ public class RegistrationManager {
                                   methodType: .payPal)
     }
 
-    private func selectionViewController(for paymentMethods: Set<PaymentMethodType>, uiConfiguration: PaymentMethodUIConfiguration) -> PaymentMethodSelectionCollectionViewController {
+    private func selectionViewController(for paymentMethods: Set<PaymentMethodType>,
+                                         uiConfiguration: PaymentMethodUIConfiguration) -> PaymentMethodSelectionCollectionViewController {
         let selectionViewController = PaymentMethodSelectionCollectionViewController(configuration: uiConfiguration)
         selectionViewController.setSelectablePaymentMethods(methods: paymentMethods)
         return selectionViewController
