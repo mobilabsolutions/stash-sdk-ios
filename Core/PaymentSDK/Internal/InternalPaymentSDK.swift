@@ -41,7 +41,14 @@ class InternalPaymentSDK {
     let pspCoordinator = InternalPaymentServiceProviderCoordinator()
     private(set) var uiConfiguration = PaymentMethodUIConfiguration()
 
+    let version: String
+
     static let sharedInstance = InternalPaymentSDK()
+
+    init() {
+        let infoDictionary = Bundle(for: InternalPaymentSDK.self).infoDictionary
+        self.version = "\(infoDictionary?["CFBundleShortVersionString"] ?? "0")-\(infoDictionary?["CFBundleVersionString"] ?? "0")"
+    }
 
     func initialize(configuration: MobilabPaymentConfiguration) {
         guard !wasInitialized

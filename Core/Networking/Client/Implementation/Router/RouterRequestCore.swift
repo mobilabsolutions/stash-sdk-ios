@@ -101,6 +101,7 @@ struct RouterRequestCore: RouterRequestProtocol {
         var headers = [
             Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey),
             Header(field: "Idempotent-Key", value: service.idempotencyKey),
+            Header(field: "User-Agent", value: "iOS-\(InternalPaymentSDK.sharedInstance.version)"),
         ]
 
         if InternalPaymentSDK.sharedInstance.configuration.useTestMode {

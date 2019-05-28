@@ -301,6 +301,67 @@ class ModuleIntegrationTests: XCTestCase {
         wait(for: [stubExpectation], timeout: 5)
     }
 
+    func testAddsUserAgentToCoreRequests() throws {
+        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+
+        let expectation = XCTestExpectation(description: "Handle registration is called")
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
+                                                registrationRequestCalledExpectation: expectation)
+
+        let stubExpectation = XCTestExpectation(description: "Includes correct user agent for create and update alias")
+        stubExpectation.expectedFulfillmentCount = 2
+
+        stub(condition: { request -> Bool in
+            guard let requestHost = request.url?.host,
+                let expectedHost = URL(string: paymentEndpoint)?.host,
+                requestHost == expectedHost
+            else { return false }
+            return true
+        }) { request -> OHHTTPStubsResponse in
+
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+                ? "core_update_alias_success.json"
+                : "core_create_alias_success.json"
+
+            if let userAgentString = request.allHTTPHeaderFields?["User-Agent"],
+                case let components = userAgentString.components(separatedBy: "-"),
+                components.count == 3,
+                components[0] == "iOS",
+                components[1] != "0" {
+                guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+                else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+
+                stubExpectation.fulfill()
+                return fixture(filePath: path, status: 200, headers: [:])
+            } else {
+                XCTFail("Should have user agent header")
+                stubExpectation.fulfill()
+                let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
+                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
+            }
+        }
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: paymentEndpoint,
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        configuration.useTestMode = true
+        configuration.loggingEnabled = true
+
+        MobilabPaymentSDK.initialize(configuration: configuration)
+
+        self.module = module
+
+        let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
+
+        let creditCard = try CreditCardData(cardNumber: "4111111111111111",
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
+
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+
+        wait(for: [expectation, stubExpectation], timeout: 5)
+    }
+
     func testPropagatesAliasCreationDetailError() {
         let resultExpectation = XCTestExpectation(description: "Error result is propagated to the SDK user")
         let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")

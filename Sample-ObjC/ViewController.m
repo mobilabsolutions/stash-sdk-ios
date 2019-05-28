@@ -18,15 +18,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
+    NSSet<NSNumber *> *paymentMethodTypes = [NSSet setWithObjects:[NSNumber numberWithLong:MLPaymentMethodTypeCreditCard],
+                                             [NSNumber numberWithLong:MLPaymentMethodTypeSepa], nil];
+    MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider:pspBsPayone
+                                                                                                  paymentMethodTypes:paymentMethodTypes];
+
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint:@"https://payment-dev.mblb.net/api/v1" uiConfiguration:nil];
+                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    endpoint:@"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[integration]
+                                                    uiConfiguration:nil];
     [configuration setUseTestMode:YES];
     [configuration setLoggingEnabled:YES];
 
     [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
-
-    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
-    [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
