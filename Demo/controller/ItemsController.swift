@@ -96,7 +96,7 @@ extension ItemsController: ItemCellDelegate {
         self.addSelectedItem(item: item)
 
         DispatchQueue.main.async {
-            ToastView().showMessage(withText: "Item added")
+            ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
         }
     }
 
