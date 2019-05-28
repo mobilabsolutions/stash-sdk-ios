@@ -14,6 +14,7 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
     case network(NetworkErrorDetails)
     case other(GenericErrorDetails)
     case temporary(TemporaryErrorDetails)
+    case userCancelled
 
     public var title: String {
         switch self {
@@ -22,6 +23,7 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
         case let .network(details): return details.title
         case let .other(details): return details.title
         case let .temporary(details): return details.title
+        case .userCancelled: return "User Cancelled"
         }
     }
 
@@ -32,6 +34,7 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
         case let .network(details): return details.description
         case let .other(details): return details.description
         case let .temporary(details): return details.description
+        case .userCancelled: return "Action cancelled by user"
         }
     }
 }
@@ -57,6 +60,8 @@ extension MobilabPaymentError: Codable {
             return MobilabPaymentError.temporaryTypeIdentifier
         case .validation:
             return MobilabPaymentError.validationTypeIdentifier
+        case .userCancelled:
+            return MobilabPaymentError.userCancelledTypeIdentifier
         }
     }
 
@@ -75,6 +80,8 @@ extension MobilabPaymentError: Codable {
             self = .temporary(try container.decode(TemporaryErrorDetails.self, forKey: .details))
         case MobilabPaymentError.validationTypeIdentifier:
             self = .validation(try container.decode(ValidationErrorDetails.self, forKey: .details))
+        case MobilabPaymentError.userCancelledTypeIdentifier:
+            self = .userCancelled
         default:
             throw DecodingError.dataCorruptedError(forKey: .type, in: container,
                                                    debugDescription: "Could not decode MobilabPaymentError for type \(type)")
@@ -97,6 +104,8 @@ extension MobilabPaymentError: Codable {
             try container.encode(details, forKey: .details)
         case let .validation(details):
             try container.encode(details, forKey: .details)
+        case .userCancelled:
+            break
         }
     }
 
@@ -122,6 +131,10 @@ extension MobilabPaymentError: Codable {
 
     private static var validationTypeIdentifier: String {
         return "VALIDATION"
+    }
+
+    private static var userCancelledTypeIdentifier: String {
+        return "USER_CANCELLED"
     }
 }
 

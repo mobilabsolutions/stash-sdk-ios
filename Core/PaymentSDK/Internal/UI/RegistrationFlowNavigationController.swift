@@ -9,8 +9,11 @@
 import UIKit
 
 class RegistrationFlowNavigationController: UINavigationController {
-    override init(rootViewController: UIViewController) {
+    private var userDidCloseCallback: (() -> Void)?
+
+    init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?) {
         super.init(rootViewController: rootViewController)
+        self.userDidCloseCallback = userDidCloseCallback
         self.sharedInit()
     }
 
@@ -38,6 +41,7 @@ class RegistrationFlowNavigationController: UINavigationController {
     }
 
     @objc private func cancel() {
+        self.userDidCloseCallback?()
         self.dismiss(animated: true, completion: nil)
     }
 }

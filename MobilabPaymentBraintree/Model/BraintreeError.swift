@@ -15,9 +15,7 @@ public enum BraintreeError {
 
     func asMobilabPaymentError() -> MobilabPaymentError {
         switch self {
-        case .userCancelledPayPal:
-            let errorDetails = TemporaryErrorDetails(description: "User cancelled PayPalUI", thirdPartyErrorCode: "")
-            return .temporary(errorDetails)
+        case .userCancelledPayPal: return .userCancelled
         }
     }
 }

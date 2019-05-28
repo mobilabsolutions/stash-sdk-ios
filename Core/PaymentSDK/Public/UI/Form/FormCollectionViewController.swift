@@ -117,6 +117,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             UIViewControllerTools.showAlertBanner(on: self, title: "Error",
                                                   body: "An error occurred: \(error.description) \(insertedErrorCode)",
                                                   uiConfiguration: self.configuration)
+        case .userCancelled:
+            // The user cancelled the action, we should dismiss ourselves
+            self.dismiss(animated: true, completion: nil)
         }
     }
 

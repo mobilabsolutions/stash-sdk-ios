@@ -126,7 +126,9 @@ public class RegistrationManager {
             selectionViewController.navigationController?.pushViewController(paymentMethodViewController, animated: true)
         }
 
-        let navigationController = RegistrationFlowNavigationController(rootViewController: selectionViewController)
+        let navigationController = RegistrationFlowNavigationController(rootViewController: selectionViewController,
+                                                                        userDidCloseCallback: {
+                                                                            completion(.failure(.userCancelled)) })
         viewController.present(navigationController, animated: true, completion: nil)
     }
 }
