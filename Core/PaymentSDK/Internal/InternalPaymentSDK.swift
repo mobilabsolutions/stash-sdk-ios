@@ -1,6 +1,6 @@
 //
-//  MLInternalPaymentSDK.swift
-//  MLPaymentSDK
+//  InternalPaymentSDK.swift
+//  MobilabPaymentSDK
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
@@ -57,6 +57,8 @@ class InternalPaymentSDK {
             fatalError()
         }
 
+        self.pspCoordinator.register(integrations: configuration.integrations)
+
         self.wasInitialized = true
 
         guard let uiConfiguration = configuration.uiConfiguration
@@ -66,10 +68,6 @@ class InternalPaymentSDK {
 
     func configureUI(configuration: PaymentMethodUIConfiguration) {
         self.uiConfiguration = configuration
-    }
-
-    func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {
-        self.pspCoordinator.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethodTypes)
     }
 
     func registrationManager() -> InternalRegistrationManager {

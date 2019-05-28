@@ -48,8 +48,7 @@ class AddUIViewController: UIViewController {
     }
 
     private func startRegistration(paymentMethodType: PaymentMethodType?) {
-        self.setupPspForSDK(psp: self.pspTypes[pspPickerView.selectedRow(inComponent: 0)])
-        self.configureSDK(testModeEnabled: self.useTestModeSwitch.isOn)
+        self.configureSDK(testModeEnabled: self.useTestModeSwitch.isOn, psp: self.pspTypes[pspPickerView.selectedRow(inComponent: 0)])
 
         self.pspPickerView.isUserInteractionEnabled = false
         self.pspPickerView.alpha = 0.5
@@ -89,8 +88,8 @@ class AddUIViewController: UIViewController {
             }
     }
 
-    private func setupPspForSDK(psp: MobilabPaymentProvider) {
-        guard !pspIsSetUp
+    private func configureSDK(testModeEnabled: Bool, psp: MobilabPaymentProvider) {
+        guard !sdkWasInitialized
         else { return }
 
         let provider: PaymentServiceProvider
@@ -103,19 +102,15 @@ class AddUIViewController: UIViewController {
             provider = MobilabPaymentBSPayone()
         }
 
-        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
+        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
 
-        let pspBraintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
-        MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
+        let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree)
+        guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa, .creditCard])
+        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
-        pspIsSetUp = true
-    }
-
-    private func configureSDK(testModeEnabled: Bool) {
-        guard !sdkWasInitialized
-        else { return }
-
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingEnabled = true
         configuration.useTestMode = testModeEnabled
 

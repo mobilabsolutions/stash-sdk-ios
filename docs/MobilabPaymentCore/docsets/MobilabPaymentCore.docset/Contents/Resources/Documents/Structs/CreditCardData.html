@@ -81,6 +81,9 @@
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/MLPaymentMethodUIConfiguration.html">– MLPaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderIntegrationBridge.html">– PaymentProviderIntegrationBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
               </li>
               <li class="nav-group-task">
@@ -263,6 +266,9 @@
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentProviderIntegration.html">PaymentProviderIntegration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
@@ -439,7 +445,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The billing data to use when registering the credit card with the PSP</p>
+                        <p>The billing data to use when registering the credit card with the PSP.
+Some PSPs require the holder name to be specified here.</p>
 
                       </div>
                       <div class="declaration">
@@ -447,33 +454,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10holderNameSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/holderName" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10holderNameSSSgvp">holderName</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The name of the credit card holder. Not required by every PSP</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">holderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -619,9 +599,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year10holderName7country07billingF0ACSS_SSS2iSSSgAkA07BillingF0CtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(cardNumber:cvv:expiryMonth:expiryYear:holderName:country:billingData:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year10holderName7country07billingF0ACSS_SSS2iSSSgAkA07BillingF0CtKcfc">init(cardNumber:cvv:expiryMonth:expiryYear:holderName:country:billingData:)</a>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year7country07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(cardNumber:cvv:expiryMonth:expiryYear:country:billingData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year7country07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc">init(cardNumber:cvv:expiryMonth:expiryYear:country:billingData:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -641,7 +621,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">expiryMonth</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">holderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">expiryMonth</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -694,18 +674,6 @@
                               <td>
                                 <div>
                                   <p>The year in which the credit card expires: 0-99</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>holderName</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The name of the credit card holder. Not required by every PSP</p>
                                 </div>
                               </td>
                             </tr>

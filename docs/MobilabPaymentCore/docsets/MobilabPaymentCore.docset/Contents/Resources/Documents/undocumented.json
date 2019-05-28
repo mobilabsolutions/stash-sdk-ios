@@ -36,6 +36,27 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/CreditCardUtils.swift",
+      "line": 27,
+      "symbol": "CreditCardUtils.validateCreditCardNumber(cardNumber:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/Locale+Extension.swift",
+      "line": 12,
+      "symbol": "Locale.getAllCountriesWithCodes()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/Locale+Extension.swift",
+      "line": 26,
+      "symbol": "Locale.getDeviceRegion()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/SEPAUtils.swift",
       "line": 11,
       "symbol": "SEPAUtils",
@@ -50,9 +71,23 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/SEPAUtils.swift",
+      "line": 27,
+      "symbol": "SEPAUtils.validateIBAN(iban:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/UICollectionView+Extensions.swift",
       "line": 12,
       "symbol": "UICollectionView.dequeueCell(reuseIdentifier:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/UIView+Extensions.swift",
+      "line": 12,
+      "symbol": "UIView.anchor(top:left:bottom:right:centerX:centerY:paddingTop:paddingLeft:paddingBottom:paddingRight:width:height:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -65,9 +100,30 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/UIViewControllerTools.swift",
-      "line": 14,
+      "line": 16,
       "symbol": "UIViewControllerTools.showAlert(on:title:body:)",
       "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/Country.swift",
+      "line": 11,
+      "symbol": "Country",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/Country.swift",
+      "line": 12,
+      "symbol": "Country.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/Country.swift",
+      "line": 13,
+      "symbol": "Country.alpha2Code",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -79,77 +135,77 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 48,
+      "line": 50,
       "symbol": "CreditCardData.CreditCardType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 49,
+      "line": 51,
       "symbol": "CreditCardData.CreditCardType.visa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 50,
+      "line": 52,
       "symbol": "CreditCardData.CreditCardType.mastercard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 51,
+      "line": 53,
       "symbol": "CreditCardData.CreditCardType.americanExpress",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 52,
+      "line": 54,
       "symbol": "CreditCardData.CreditCardType.diners",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 53,
+      "line": 55,
       "symbol": "CreditCardData.CreditCardType.discover",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 54,
+      "line": 56,
       "symbol": "CreditCardData.CreditCardType.jcb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 55,
+      "line": 57,
       "symbol": "CreditCardData.CreditCardType.maestroInternational",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 56,
+      "line": 58,
       "symbol": "CreditCardData.CreditCardType.carteBleue",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 57,
+      "line": 59,
       "symbol": "CreditCardData.CreditCardType.chinaUnionPay",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 58,
+      "line": 60,
       "symbol": "CreditCardData.CreditCardType.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -527,7 +583,7 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/SEPAData.swift",
-      "line": 34,
+      "line": 33,
       "symbol": "SEPAData.toSEPAExtra()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -876,6 +932,83 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": null,
+      "symbol": "CountryListCollectionViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": null,
+      "symbol": "CountryListCollectionViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": null,
+      "symbol": "CountryListCollectionViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 279,
+      "symbol": "CountryListCollectionViewController.numberOfSections(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 283,
+      "symbol": "CountryListCollectionViewController.collectionView(_:numberOfItemsInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 297,
+      "symbol": "CountryListCollectionViewController.collectionView(_:viewForSupplementaryElementOfKind:at:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 313,
+      "symbol": "CountryListCollectionViewController.collectionView(_:cellForItemAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 340,
+      "symbol": "CountryListCollectionViewController.collectionView(_:layout:sizeForItemAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 344,
+      "symbol": "CountryListCollectionViewController.collectionView(_:layout:minimumLineSpacingForSectionAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 348,
+      "symbol": "CountryListCollectionViewController.collectionView(_:layout:referenceSizeForHeaderInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/CountryListCollectionViewController.swift",
+      "line": 355,
+      "symbol": "CountryListCollectionViewController.collectionView(_:didSelectItemAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
       "line": 11,
       "symbol": "PaymentMethodUIConfiguration",
@@ -933,64 +1066,92 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
+      "line": 19,
+      "symbol": "PaymentMethodUIConfiguration.errorMessageColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
       "line": 20,
+      "symbol": "PaymentMethodUIConfiguration.errorMessageTextColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
+      "line": 22,
       "symbol": "PaymentMethodUIConfiguration.defaultBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 21,
+      "line": 23,
       "symbol": "PaymentMethodUIConfiguration.defaultTextColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 22,
+      "line": 24,
       "symbol": "PaymentMethodUIConfiguration.defaultButtonColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 23,
+      "line": 25,
       "symbol": "PaymentMethodUIConfiguration.defaultMediumEmphasisColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 24,
+      "line": 26,
       "symbol": "PaymentMethodUIConfiguration.defaultCellBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 25,
+      "line": 27,
       "symbol": "PaymentMethodUIConfiguration.defaultButtonTextColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 26,
+      "line": 28,
       "symbol": "PaymentMethodUIConfiguration.defaultButtonDisabledColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 28,
-      "symbol": "PaymentMethodUIConfiguration.init(backgroundColor:textColor:buttonColor:mediumEmphasisColor:cellBackgroundColor:buttonTextColor:buttonDisabledColor:)",
+      "line": 29,
+      "symbol": "PaymentMethodUIConfiguration.defaultErrorMessageColor",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
+      "line": 30,
+      "symbol": "PaymentMethodUIConfiguration.defaultErrorMessageTextColor",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
+      "line": 32,
+      "symbol": "PaymentMethodUIConfiguration.init(backgroundColor:textColor:buttonColor:mediumEmphasisColor:cellBackgroundColor:buttonTextColor:buttonDisabledColor:errorMessageColor:errorMessageTextColor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Internal/UI/PaymentMethodUIConfiguration.swift",
-      "line": 44,
-      "symbol": "PaymentMethodUIConfiguration.init(backgroundColor:textColor:buttonColor:mediumEmphasisColor:cellBackgroundColor:buttonTextColor:buttonDisabledColor:)",
+      "line": 52,
+      "symbol": "PaymentMethodUIConfiguration.init(backgroundColor:textColor:buttonColor:mediumEmphasisColor:cellBackgroundColor:buttonTextColor:buttonDisabledColor:errorMessageColor:errorMessageTextColor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1269,106 +1430,134 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 73,
+      "line": 81,
       "symbol": "RegistrationManagerBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 80,
+      "line": 88,
       "symbol": "RegistrationManagerBridge.CreditCardDataBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 83,
-      "symbol": "RegistrationManagerBridge.CreditCardDataBridge.init(cardNumber:cvv:expiryMonth:expiryYear:holderName:billingData:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 90,
-      "symbol": "RegistrationManagerBridge.SEPADataBridge",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 93,
-      "symbol": "RegistrationManagerBridge.SEPADataBridge.init(iban:bic:billingData:)",
+      "line": 91,
+      "symbol": "RegistrationManagerBridge.CreditCardDataBridge.init(cardNumber:cvv:expiryMonth:expiryYear:holderName:country:billingData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
       "line": 98,
+      "symbol": "RegistrationManagerBridge.SEPADataBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 101,
+      "symbol": "RegistrationManagerBridge.SEPADataBridge.init(iban:bic:billingData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 106,
       "symbol": "RegistrationManagerBridge.RegistrationBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 99,
+      "line": 107,
       "symbol": "RegistrationManagerBridge.RegistrationBridge.alias",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 100,
+      "line": 108,
       "symbol": "RegistrationManagerBridge.RegistrationBridge.paymentMethodType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 101,
+      "line": 109,
       "symbol": "RegistrationManagerBridge.RegistrationBridge.humanReadableIdentifier",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 110,
+      "line": 118,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 114,
+      "line": 122,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge.init(mobilabPaymentError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 121,
-      "symbol": "RegistrationManagerBridge.registerCreditCard(creditCardData:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 125,
-      "symbol": "RegistrationManagerBridge.registerSEPAAccount(sepaData:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
       "line": 129,
-      "symbol": "RegistrationManagerBridge.registerPaymentMethodUsingUI(on:completion:)",
+      "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 130,
+      "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 131,
+      "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.creditCard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 132,
+      "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.payPal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 133,
+      "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.sepa",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 145,
+      "symbol": "RegistrationManagerBridge.registerCreditCard(creditCardData:idempotencyKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 134,
-      "symbol": "RegistrationManagerBridge.registerPayPalAccount(presentingViewController:billingData:completion:)",
+      "line": 151,
+      "symbol": "RegistrationManagerBridge.registerSEPAAccount(sepaData:idempotencyKey:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 157,
+      "symbol": "RegistrationManagerBridge.registerPaymentMethodUsingUI(on:specificPaymentMethod:billingData:idempotencyKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1501,83 +1690,90 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
       "line": 36,
+      "symbol": "FormCellModel.FormCellType.TextData.didFocus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
+      "line": 37,
       "symbol": "FormCellModel.FormCellType.TextData.didUpdate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 38,
-      "symbol": "FormCellModel.FormCellType.TextData.init(necessaryData:title:placeholder:setup:didUpdate:)",
+      "line": 39,
+      "symbol": "FormCellModel.FormCellType.TextData.init(necessaryData:title:placeholder:setup:didFocus:didUpdate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 51,
+      "line": 54,
       "symbol": "FormCellModel.FormCellType.PairedTextData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 52,
+      "line": 55,
       "symbol": "FormCellModel.FormCellType.PairedTextData.firstNecessaryData",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 53,
+      "line": 56,
       "symbol": "FormCellModel.FormCellType.PairedTextData.firstTitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 54,
+      "line": 57,
       "symbol": "FormCellModel.FormCellType.PairedTextData.firstPlaceholder",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 55,
+      "line": 58,
       "symbol": "FormCellModel.FormCellType.PairedTextData.secondNecessaryData",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 56,
+      "line": 59,
       "symbol": "FormCellModel.FormCellType.PairedTextData.secondTitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 57,
+      "line": 60,
       "symbol": "FormCellModel.FormCellType.PairedTextData.secondPlaceholder",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 58,
+      "line": 61,
       "symbol": "FormCellModel.FormCellType.PairedTextData.setup",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 59,
+      "line": 62,
       "symbol": "FormCellModel.FormCellType.PairedTextData.didUpdate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCellModel.swift",
-      "line": 61,
+      "line": 64,
       "symbol": "FormCellModel.FormCellType.PairedTextData.init(firstNecessaryData:firstTitle:firstPlaceholder:secondNecessaryData:secondTitle:secondPlaceholder:setup:didUpdate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1598,98 +1794,126 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 25,
+      "line": 26,
       "symbol": "FormCollectionViewController.doneButtonUpdating",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 29,
+      "line": 30,
       "symbol": "FormCollectionViewController.billingData",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 34,
+      "line": 32,
+      "symbol": "FormCollectionViewController.country",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
+      "line": 37,
       "symbol": "FormCollectionViewController.formConsumer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 39,
-      "symbol": "FormCollectionViewController.init(billingData:configuration:cellModels:formTitle:)",
+      "line": 47,
+      "symbol": "FormCollectionViewController.init(billingData:configuration:formTitle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 48,
+      "line": 55,
       "symbol": "FormCollectionViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 52,
+      "line": 59,
       "symbol": "FormCollectionViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 98,
+      "line": 74,
+      "symbol": "FormCollectionViewController.viewWillDisappear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
+      "line": 79,
+      "symbol": "FormCollectionViewController.setCellModel(cellModels:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
+      "line": 83,
+      "symbol": "FormCollectionViewController.showCountryListing(textField:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
+      "line": 135,
       "symbol": "FormCollectionViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 102,
+      "line": 139,
       "symbol": "FormCollectionViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 106,
+      "line": 143,
       "symbol": "FormCollectionViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 180,
+      "line": 247,
       "symbol": "FormCollectionViewController.collectionView(_:viewForSupplementaryElementOfKind:at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 190,
+      "line": 257,
       "symbol": "FormCollectionViewController.collectionView(_:layout:sizeForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 199,
+      "line": 267,
       "symbol": "FormCollectionViewController.collectionView(_:layout:minimumLineSpacingForSectionAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 203,
+      "line": 271,
       "symbol": "FormCollectionViewController.collectionView(_:layout:referenceSizeForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormCollectionViewController.swift",
-      "line": 217,
+      "line": 353,
       "symbol": "FormCollectionViewController.didTapDoneButton()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1717,21 +1941,28 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormConsumer.swift",
-      "line": 17,
+      "line": 15,
+      "symbol": "FormConsumer.validate(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormConsumer.swift",
+      "line": 18,
       "symbol": "FormConsumerError",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormConsumer.swift",
-      "line": 18,
+      "line": 19,
       "symbol": "FormConsumerError.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/FormConsumer.swift",
-      "line": 20,
+      "line": 21,
       "symbol": "FormConsumerError.init(errors:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1807,31 +2038,10 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/LoadingViewController.swift",
-      "line": 11,
-      "symbol": "LoadingViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/LoadingViewController.swift",
-      "line": 13,
-      "symbol": "LoadingViewController.billingData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/LoadingViewController.swift",
-      "line": 17,
-      "symbol": "LoadingViewController.init(uiConfiguration:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/LoadingViewController.swift",
-      "line": 38,
-      "symbol": "LoadingViewController.viewDidLoad()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/Form/NecessaryData.swift",
+      "line": 21,
+      "symbol": "NecessaryData.country",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -1907,112 +2117,147 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 48,
-      "symbol": "UIConstants.disabledColor",
+      "symbol": "UIConstants.salmon",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 52,
+      "symbol": "UIConstants.disabledColor",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 56,
       "symbol": "UIConstants.backButtonImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 58,
+      "line": 62,
       "symbol": "UIConstants.closeButtonImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 64,
+      "line": 68,
       "symbol": "UIConstants.creditCardImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 68,
+      "line": 72,
       "symbol": "UIConstants.sepaImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 72,
-      "symbol": "UIConstants.paypalImage",
-      "symbol_kind": "source.lang.swift.decl.var.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 76,
-      "symbol": "UIConstants.rightArrowImage",
+      "symbol": "UIConstants.payPalImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 80,
-      "symbol": "UIConstants.americanExpressImage",
+      "symbol": "UIConstants.payPalNoTextImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 84,
-      "symbol": "UIConstants.dinersImage",
+      "symbol": "UIConstants.rightArrowImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 88,
-      "symbol": "UIConstants.mastercardImage",
+      "symbol": "UIConstants.americanExpressImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 92,
-      "symbol": "UIConstants.visaImage",
+      "symbol": "UIConstants.dinersImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 96,
-      "symbol": "UIConstants.maestroImage",
+      "symbol": "UIConstants.mastercardImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 100,
-      "symbol": "UIConstants.unionPayImage",
+      "symbol": "UIConstants.visaImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 104,
-      "symbol": "UIConstants.discoverImage",
+      "symbol": "UIConstants.maestroImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 108,
-      "symbol": "UIConstants.carteBleueImage",
+      "symbol": "UIConstants.unionPayImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 112,
+      "symbol": "UIConstants.discoverImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 116,
+      "symbol": "UIConstants.carteBleueImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 120,
       "symbol": "UIConstants.jcbImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 124,
+      "symbol": "UIConstants.searchImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 128,
+      "symbol": "UIConstants.alertImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
+      "line": 132,
+      "symbol": "UIConstants.crossImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     }

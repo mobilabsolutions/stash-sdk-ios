@@ -242,6 +242,7 @@
 		E11F2F452272EA68001F9925 /* IdempotencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F442272EA68001F9925 /* IdempotencyManager.swift */; };
 		E11F2F472272FFE1001F9925 /* LockDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F462272FFE1001F9925 /* LockDictionary.swift */; };
 		E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F482273100D001F9925 /* IdempotencyTests.swift */; };
+		E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */; };
 		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
 		E14662572278AA8C00512710 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662562278AA8C00512710 /* Cacher.swift */; };
 		E146625B2279E7FB00512710 /* UserDefaultsCacherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */; };
@@ -703,6 +704,7 @@
 		E11F2F482273100D001F9925 /* IdempotencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdempotencyTests.swift; sourceTree = "<group>"; };
 		E1209BC12248DFE10060CD63 /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
+		E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegration.swift; sourceTree = "<group>"; };
 		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
 		E14662562278AA8C00512710 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCacherTests.swift; sourceTree = "<group>"; };
@@ -1391,6 +1393,7 @@
 				E1466264227C39BF00512710 /* SEPAExtra.swift */,
 				E1466266227C39D900512710 /* PayPalExtra.swift */,
 				E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */,
+				E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2299,6 +2302,7 @@
 				E1068EA722522CB000ACC93C /* CustomBackButtonContainerViewController.swift in Sources */,
 				E1068E9A22522B2000ACC93C /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */,
 				E1466261227C397200512710 /* PersonalData.swift in Sources */,
+				E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */,
 				E17648DA2239466400889920 /* SEPAUtils.swift in Sources */,
 				E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */,
 				BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */,

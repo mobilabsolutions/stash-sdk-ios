@@ -19,15 +19,16 @@ class AdyenIntegrationTests: XCTestCase {
         SDKResetter.resetMobilabSDK()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        configuration.loggingEnabled = true
-        configuration.useTestMode = true
-
         let provider = MobilabPaymentAdyen()
         self.provider = provider
 
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
+        configuration.loggingEnabled = true
+        configuration.useTestMode = true
+
         MobilabPaymentSDK.initialize(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
 
         OHHTTPStubs.removeAllStubs()
     }

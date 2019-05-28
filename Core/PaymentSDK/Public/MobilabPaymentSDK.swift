@@ -23,14 +23,6 @@ public class MobilabPaymentSDK {
         InternalPaymentSDK.sharedInstance.configureUI(configuration: configuration)
     }
 
-    /// Register payment service provider to be used for registering supplied payment method types
-    ///
-    /// - Parameter provider: The payment service provider module to register
-    /// - Parameter paymentMethodTypes: Payment method types that will use selected provider
-    public static func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: PaymentMethodType...) {
-        InternalPaymentSDK.sharedInstance.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethodTypes)
-    }
-
     /// Create a registration manager to use for registering payment methods
     ///
     /// - Returns: The registration manager

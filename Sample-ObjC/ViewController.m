@@ -23,7 +23,7 @@
     [configuration setUseTestMode:YES];
     [configuration setLoggingEnabled:YES];
 
-    [MLMobilabPaymentSDK configureWithConfiguration:configuration];
+    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
 
     MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
     [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];

@@ -20,41 +20,39 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPRegistersForSupportedPaymentMethodTypes() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.initialize(configuration: configuration)
-
         let creditCardProvider = MobilabPaymentBSPayone()
 
         // Fatal error is NOT expected because provider supports selected payment method types
         notExpectFatalError {
-            MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard, .sepa)
+            guard let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.sepa, .creditCard])
+            else { fatalError("This should not happen") }
+            let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                            endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                            integrations: [integration])
+            MobilabPaymentSDK.initialize(configuration: configuration)
         }
     }
 
     func testPSPFailsToRegisterForSupportedPaymentMethodTypes() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.initialize(configuration: configuration)
-
         let creditCardProvider = MobilabPaymentBSPayone()
-
-        // Fatal error is expected because provider doesn't support selected payment method types
-        expectFatalError {
-            MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .payPal)
-        }
+        let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.payPal])
+        XCTAssertNil(integration, "It should not be possible to create an integration for a payment method type the PSP does not support")
     }
 
     func testPSPUsedForRegisteringProvidedPaymentMethods() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        MobilabPaymentSDK.initialize(configuration: configuration)
-
         let creditCardProvider = MobilabPaymentBSPayone()
-        MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
-
         let sepaProvider = MobilabPaymentBSPayone()
-        MobilabPaymentSDK.registerProvider(provider: sepaProvider, forPaymentMethodTypes: .sepa)
-
         let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-        MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
+
+        guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
+            let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
+            let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
+        else { XCTFail("Should be able to create integrations with correct types"); return }
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         let providerUsedForCreditCard = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .creditCard)
         let providerUsedForSepa = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)
@@ -69,38 +67,38 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testCorrectPaymentMethodTypesAreReturned() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let creditCardProvider = MobilabPaymentBSPayone()
+        let sepaProvider = MobilabPaymentBSPayone()
+        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+
+        guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
+            let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
+            let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
+        else { XCTFail("Should be able to create integrations with correct types"); return }
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
         MobilabPaymentSDK.initialize(configuration: configuration)
 
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-
-        let creditCardProvider = MobilabPaymentBSPayone()
-        MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
-
-        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard])
-
-        let sepaProvider = MobilabPaymentBSPayone()
-        MobilabPaymentSDK.registerProvider(provider: sepaProvider, forPaymentMethodTypes: .sepa)
-
-        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard, .sepa])
-
-        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-        MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
-
-        XCTAssertEqual(registrationManager.availablePaymentMethodTypes, [.creditCard, .sepa, .payPal])
+        XCTAssertEqual(MobilabPaymentSDK.getRegistrationManager().availablePaymentMethodTypes, [.creditCard, .sepa, .payPal])
     }
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let creditCardProvider = MobilabPaymentBSPayone()
+        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+
+        guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
+            let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
+        else { XCTFail("Should be able to create integrations with correct types"); return }
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [creditCardIntegration, payPalIntegration])
         MobilabPaymentSDK.initialize(configuration: configuration)
 
-        let creditCardProvider = MobilabPaymentBSPayone()
-        MobilabPaymentSDK.registerProvider(provider: creditCardProvider, forPaymentMethodTypes: .creditCard)
-
-        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-        MobilabPaymentSDK.registerProvider(provider: payPalProvider, forPaymentMethodTypes: .payPal)
-
-        let providerUsedForSepa = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)
-        XCTAssertEqual(creditCardProvider.pspIdentifier, providerUsedForSepa.pspIdentifier, "First registered PSP should be used as default one for all unregistered payment types")
+        expectFatalError {
+            _ = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)
+        }
     }
 }

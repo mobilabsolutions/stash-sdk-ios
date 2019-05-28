@@ -21,14 +21,16 @@ class BSPayoneIntegrationTests: XCTestCase {
         SDKResetter.resetMobilabSDK()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
-        configuration.loggingEnabled = true
-
         let provider = MobilabPaymentBSPayone()
         self.provider = provider
 
+        let integration = PaymentProviderIntegration(paymentServiceProvider: provider)
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [integration])
+        configuration.loggingEnabled = true
+
         MobilabPaymentSDK.initialize(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
     }
 
     override func tearDown() {

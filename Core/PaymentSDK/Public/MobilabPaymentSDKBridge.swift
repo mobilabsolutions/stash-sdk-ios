@@ -9,7 +9,7 @@
 import UIKit
 
 @objc(MLMobilabPaymentSDK) public class MobilabPaymentSDKBridge: NSObject {
-    @objc public static func configure(configuration: MobilabPaymentConfiguration) {
+    @objc public static func initialize(configuration: MobilabPaymentConfiguration) {
         MobilabPaymentSDK.initialize(configuration: configuration)
     }
 
@@ -19,23 +19,6 @@ import UIKit
 
     @objc public static func getRegistrationManager() -> RegistrationManagerBridge {
         return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegistrationManager())
-    }
-
-    @objc public static func registerProvider(provider: Any, paymentMethods: [Any]) {
-        guard let provider = provider as? PaymentServiceProvider
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        guard paymentMethods.count != 0
-        else { fatalError("Provide at least one payment method when registering a provider") }
-
-        let paymentMethods = paymentMethods.map({ (method) -> PaymentMethodType in
-            guard let method = method as? String
-            else { fatalError("Provided Payment method type is not a string") }
-            guard let type = PaymentMethodType(rawValue: method)
-            else { fatalError("Provided Payment Provider is not a payment provider.") }
-            return type
-        })
-
-        InternalPaymentSDK.sharedInstance.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethods)
     }
 
     @objc(MLPaymentMethodUIConfiguration) public class MLPaymentMethodUIConfiguration: NSObject {
@@ -74,6 +57,34 @@ import UIKit
 
         init(configuration: PaymentMethodUIConfiguration) {
             self.configuration = configuration
+        }
+    }
+
+    @objc(MLPaymentProviderIntegration) public class PaymentProviderIntegrationBridge: NSObject {
+        let integration: PaymentProviderIntegration
+
+        @objc public init?(paymentServiceProvider: Any, paymentMethodTypes: Set<Int>) {
+            guard let provider = paymentServiceProvider as? PaymentServiceProvider
+            else { fatalError("Provided Payment Provider is not a payment provider.") }
+
+            let paymentMethods = paymentMethodTypes.map({ (method) -> PaymentMethodType in
+                guard let bridgeType = RegistrationManagerBridge.PaymentMethodTypeBridge(rawValue: method),
+                    let type = bridgeType.paymentMethodType
+                else { fatalError("Provided value (\(method)) does not correspond to a payment method") }
+                return type
+            })
+
+            guard let integration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: Set(paymentMethods))
+            else { return nil }
+
+            self.integration = integration
+        }
+
+        @objc public init(paymentServiceProvider: Any) {
+            guard let provider = paymentServiceProvider as? PaymentServiceProvider
+            else { fatalError("Provided Payment Provider is not a payment provider.") }
+
+            self.integration = PaymentProviderIntegration(paymentServiceProvider: provider)
         }
     }
 }
@@ -119,8 +130,8 @@ import UIKit
     }
 
     @objc(MLError) public class MobilabPaymentErrorBridge: NSObject {
-        let title: String
-        let errorDescription: String
+        @objc public let title: String
+        @objc public let errorDescription: String
 
         public init(mobilabPaymentError: MobilabPaymentError) {
             self.title = mobilabPaymentError.title
