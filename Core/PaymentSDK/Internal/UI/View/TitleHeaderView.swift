@@ -39,7 +39,7 @@ class TitleHeaderView: HeaderView {
 
     override func sharedInit() {
         super.sharedInit()
-        
+
         self.label.font = UIConstants.defaultFont(of: 24, type: .black)
         self.label.textColor = UIConstants.dark
     }

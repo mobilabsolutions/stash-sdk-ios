@@ -40,7 +40,7 @@ class BaseCollectionViewController: UICollectionViewController, UICollectionView
 
     func setTitle(title: String) {
         // attributed navigation title
-        let attributes = [NSAttributedString.Key.font: UIConstants.defaultFont(of: 24, type: UIConstants.DefaultFontType.black)]
+        let attributes = [NSAttributedString.Key.font: UIConstants.defaultFont(of: 24, type: UIConstants.DefaultFontType.bold)]
 
         let titleLabel = UILabel()
         titleLabel.attributedText = NSMutableAttributedString(string: title, attributes: attributes)

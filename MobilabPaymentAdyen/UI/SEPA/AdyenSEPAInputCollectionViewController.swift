@@ -29,7 +29,7 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let nameCell = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",
@@ -38,32 +38,38 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
                                                                  secondPlaceholder: "Last Name",
                                                                  setup: nil,
                                                                  didUpdate: nil)
-        
+
         let ibanCell = FormCellModel.FormCellType.TextData(necessaryData: .iban,
                                                            title: "IBAN",
                                                            placeholder: "XX123",
                                                            setup: nil,
                                                            didFocus: nil,
                                                            didUpdate: { _, textField in
-                                                            textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
+                                                               textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
 
         setCellModel(cellModels: [
-                    FormCellModel(type: .pairedText(nameCell)),
-                    FormCellModel(type: .text(ibanCell)),
-                ])
+            FormCellModel(type: .pairedText(nameCell)),
+            FormCellModel(type: .text(ibanCell)),
+        ])
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension AdyenSEPAInputCollectionViewController: FormConsumer {
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
         var errors: [NecessaryData: ValidationError] = [:]
 
-        if data[.iban] == nil || data[.iban]?.isEmpty == true {
+        if let iban = data[.iban], iban.isEmpty == false {
+            do {
+                try SEPAUtils.validateIBAN(iban: iban)
+            } catch {
+                errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
+            }
+        } else {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
@@ -75,11 +81,18 @@ extension AdyenSEPAInputCollectionViewController: FormConsumer {
             errors[.holderLastName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
 
+        return errors.isEmpty ? nil : FormConsumerError(errors: errors)
+    }
+
+    func consumeValues(data: [NecessaryData: String]) throws {
+        if let validationError = validate(data: data) {
+            throw validationError
+        }
+
         guard let iban = data[.iban],
             let firstName = data[.holderFirstName],
-            let lastName = data[.holderLastName],
-            errors.isEmpty
-        else { throw FormConsumerError(errors: errors) }
+            let lastName = data[.holderLastName]
+        else { return }
 
         let newBillingData = BillingData(email: billingData?.email,
                                          name: SimpleNameProvider(firstName: firstName, lastName: lastName),
@@ -96,7 +109,7 @@ extension AdyenSEPAInputCollectionViewController: FormConsumer {
             let sepa = try SEPAData(iban: iban, bic: nil, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
         } catch let error as MobilabPaymentError {
-            errors[.iban] = SEPAValidationError.sepaValidationFailed(explanation: error.description)
+            let errors = [NecessaryData.iban: SEPAValidationError.sepaValidationFailed(explanation: error.description)]
             throw FormConsumerError(errors: errors)
         } catch {
             UIViewControllerTools.showAlert(on: self, title: "Error",

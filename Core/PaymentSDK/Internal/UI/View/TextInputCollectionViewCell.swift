@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
+class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFieldErrorDelegate {
     weak var nextCellSwitcher: NextCellSwitcher?
 
     var isLastCell: Bool = false {
@@ -46,7 +46,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
     private var textEntryBySelection: Bool = false {
         didSet {
-            if textEntryBySelection == true {
+            if self.textEntryBySelection == true {
                 let arrowImageView = UIImageView(image: UIConstants.rightArrowImage)
                 arrowImageView.contentMode = .scaleAspectFit
                 self.textField.rightView = arrowImageView
@@ -54,7 +54,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
             }
         }
     }
-    
+
     private var dataType: NecessaryData? {
         didSet {
             guard let dataType = self.dataType
@@ -92,8 +92,9 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private let errorLabelVerticalOffset: CGFloat = 4
 
     private weak var delegate: DataPointProvidingDelegate?
-    private var textFieldFocusGainCallback: ((UITextField) -> Void)?
-    private var textFieldUpdateCallback: ((UITextField) -> Void)?
+    private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)?
+    private var textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)?
 
     private let textField = CustomTextField()
     private let subtitleLabel = SubtitleLabel()
@@ -105,14 +106,17 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
                       title: String?,
                       placeholder: String?,
                       dataType: NecessaryData,
-                      textFieldFocusGainCallback: ((UITextField) -> Void)? = nil,
-                      textFieldUpdateCallback: ((UITextField) -> Void)? = nil,
+                      textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldLoseFocusCallback: ((UITextField, NecessaryData) -> Void)? = nil,
+                      textFieldUpdateCallback: ((UITextField, NecessaryData) -> Void)? = nil,
                       error: String?,
-                      setupTextField: ((UITextField) -> Void)? = nil,
+                      setupTextField: ((UITextField, NecessaryData) -> Void)? = nil,
                       configuration: PaymentMethodUIConfiguration,
                       delegate: DataPointProvidingDelegate) {
-        self.textFieldFocusGainCallback = textFieldFocusGainCallback
+        self.textFieldGainFocusCallback = textFieldGainFocusCallback
+        self.textFieldLoseFocusCallback = textFieldLoseFocusCallback
         self.textFieldUpdateCallback = textFieldUpdateCallback
+
         self.text = text
         self.title = title
         self.placeholder = placeholder
@@ -122,15 +126,23 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
 
         self.textField.setup(borderColor: configuration.mediumEmphasisColor,
                              placeholderColor: configuration.mediumEmphasisColor,
-                             textColor: configuration.textColor, backgroundColor: configuration.cellBackgroundColor)
+                             textColor: configuration.textColor,
+                             backgroundColor: configuration.cellBackgroundColor,
+                             errorBorderColor: configuration.errorMessageColor)
 
         self.contentView.backgroundColor = configuration.cellBackgroundColor
         self.subtitleLabel.textColor = configuration.textColor
 
-        setupTextField?(self.textField)
+        setupTextField?(self.textField, dataType)
 
         self.textField.returnKeyType = .continue
         self.textField.delegate = self
+
+        self.errorLabel.uiConfiguration = configuration
+    }
+
+    func setError(description: String?, forDataPoint _: NecessaryData) {
+        self.errorText = description
     }
 
     func selectCell() {
@@ -182,22 +194,26 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     private var lastFocusedTextField: UITextField?
 
     @objc private func textFieldReceivedFocus() {
-        //It's a fix for preventing to send repeated focus callbacks and closing the keyboard properly (required for country selection scenario)
-        if textEntryBySelection == true && lastFocusedTextField != nil {
+        // It's a fix for preventing to send repeated focus callbacks and closing the keyboard properly (required for country selection scenario)
+        if self.textEntryBySelection == true, self.lastFocusedTextField != nil {
             self.endEditing(true)
-            lastFocusedTextField = nil
+            self.lastFocusedTextField = nil
             return
         }
-        lastFocusedTextField = self.textField
-        textFieldFocusGainCallback?(self.textField)
-    }
 
-    @objc private func didUpdateTextFieldText() {
-        self.textFieldUpdateCallback?(self.textField)
+        self.lastFocusedTextField = self.textField
 
         guard let type = self.dataType
         else { return }
 
+        self.textFieldGainFocusCallback?(self.textField, type)
+    }
+
+    @objc private func didUpdateTextFieldText() {
+        guard let type = self.dataType
+        else { return }
+
+        self.textFieldUpdateCallback?(self.textField, type)
         self.delegate?.didUpdate(value: self.textField.text?.trimmingCharacters(in: .whitespaces), for: type)
     }
 
@@ -209,7 +225,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled {
     public override func prepareForReuse() {
         super.prepareForReuse()
         self.delegate = nil
-        self.textFieldFocusGainCallback = nil
+        self.textFieldGainFocusCallback = nil
         self.textFieldUpdateCallback = nil
         self.errorText = nil
         self.placeholder = nil
@@ -223,5 +239,12 @@ extension TextInputCollectionViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_: UITextField) -> Bool {
         self.nextCellSwitcher?.switchToNextCell(from: self)
         return false
+    }
+
+    func textFieldDidEndEditing(_: UITextField) {
+        guard let type = self.dataType
+        else { return }
+
+        self.textFieldLoseFocusCallback?(self.textField, type)
     }
 }

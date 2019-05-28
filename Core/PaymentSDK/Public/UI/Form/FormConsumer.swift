@@ -12,6 +12,7 @@ public typealias ValidationError = Error & CustomStringConvertible
 
 public protocol FormConsumer: class {
     func consumeValues(data: [NecessaryData: String]) throws
+    func validate(data: [NecessaryData: String]) -> FormConsumerError?
 }
 
 public struct FormConsumerError: Error {

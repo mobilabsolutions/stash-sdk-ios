@@ -23,9 +23,6 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
 
-        collectionViewsQuery.textFields["XXX"].tap()
-        collectionViewsQuery.textFields["XXX"].typeText("COLSDE33XXX")
-
         collectionViewsQuery.textFields["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
@@ -105,8 +102,7 @@ class BSPayoneUITests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Error"))
-        app.alerts.firstMatch.buttons.firstMatch.tap()
+        waitForElementToAppear(element: app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Error")).firstMatch)
     }
 
     func testCountrySelectionSearchFieldPresent() {

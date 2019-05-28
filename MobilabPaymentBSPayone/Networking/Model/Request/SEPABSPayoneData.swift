@@ -10,5 +10,4 @@ import Foundation
 
 struct SEPABSPayoneData {
     let iban: String
-    let bic: String
 }

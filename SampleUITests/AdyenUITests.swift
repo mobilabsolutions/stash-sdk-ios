@@ -35,10 +35,27 @@ class AdyenUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    #warning("Implement this test")
     func testCanCreateSEPA() {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", with: "ADYEN", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["XX123"].tap()
+        collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        waitForElementToAppear(element: app.alerts.firstMatch)
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid SEPA method")
+        app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
     func testHasCorrectFieldsForSEPA() {

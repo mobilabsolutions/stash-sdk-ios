@@ -41,7 +41,7 @@ class AdyenIntegrationTests: XCTestCase {
 
         let billingData = BillingData(email: "mirza@miki.com")
         let creditCardData = try CreditCardData(cardNumber: "3600 6666 3333 44", cvv: "737", expiryMonth: 10, expiryYear: 20,
-                                                holderName: "Holder Name", country: "DE",billingData: billingData)
+                                                holderName: "Holder Name", country: "DE", billingData: billingData)
 
         let registrationManager = MobilabPaymentSDK.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in

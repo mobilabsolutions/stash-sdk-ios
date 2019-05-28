@@ -38,6 +38,8 @@ public extension NetworkClient {
                 completion(.success(decoded))
             } catch let errorType as MobilabPaymentApiError<S> {
                 completion(.failure(errorType.toMobilabPaymentError()))
+            } catch let error as MobilabPaymentError {
+                completion(.failure(error))
             } catch {
                 completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
             }

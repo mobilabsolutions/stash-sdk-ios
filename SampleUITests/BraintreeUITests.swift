@@ -27,7 +27,6 @@ class BraintreeUITests: BaseUITest {
         let handler = addUIInterruptionMonitor(withDescription: "System Alert") {
             (alert) -> Bool in
 
-            #warning("dismissing SystemAlert of type SFAuthenticationsession is unreliable")
             // Click the second button in dialog
             let button = alert.buttons.element(boundBy: 1)
             if button.exists {

@@ -16,6 +16,8 @@ public struct PaymentMethodUIConfiguration {
     public let mediumEmphasisColor: UIColor
     public let cellBackgroundColor: UIColor
     public let buttonTextColor: UIColor
+    public let errorMessageColor: UIColor
+    public let errorMessageTextColor: UIColor
 
     public static let defaultBackgroundColor = UIConstants.iceBlue
     public static let defaultTextColor = UIConstants.dark
@@ -24,6 +26,8 @@ public struct PaymentMethodUIConfiguration {
     public static let defaultCellBackgroundColor = UIColor.white
     public static let defaultButtonTextColor = UIColor.white
     public static let defaultButtonDisabledColor = UIConstants.disabledColor
+    public static let defaultErrorMessageColor = UIConstants.salmon
+    public static let defaultErrorMessageTextColor = UIColor.white
 
     public init(backgroundColor: UIColor = PaymentMethodUIConfiguration.defaultBackgroundColor,
                 textColor: UIColor = PaymentMethodUIConfiguration.defaultTextColor,
@@ -31,7 +35,9 @@ public struct PaymentMethodUIConfiguration {
                 mediumEmphasisColor: UIColor = PaymentMethodUIConfiguration.defaultMediumEmphasisColor,
                 cellBackgroundColor: UIColor = PaymentMethodUIConfiguration.defaultCellBackgroundColor,
                 buttonTextColor: UIColor = PaymentMethodUIConfiguration.defaultButtonTextColor,
-                buttonDisabledColor: UIColor = PaymentMethodUIConfiguration.defaultButtonDisabledColor) {
+                buttonDisabledColor: UIColor = PaymentMethodUIConfiguration.defaultButtonDisabledColor,
+                errorMessageColor: UIColor = PaymentMethodUIConfiguration.defaultErrorMessageColor,
+                errorMessageTextColor: UIColor = PaymentMethodUIConfiguration.defaultErrorMessageTextColor) {
         self.backgroundColor = backgroundColor
         self.textColor = textColor
         self.buttonColor = buttonColor
@@ -39,6 +45,8 @@ public struct PaymentMethodUIConfiguration {
         self.cellBackgroundColor = cellBackgroundColor
         self.buttonTextColor = buttonTextColor
         self.buttonDisabledColor = buttonDisabledColor
+        self.errorMessageColor = errorMessageColor
+        self.errorMessageTextColor = errorMessageTextColor
     }
 
     public init(backgroundColor: UIColor?,
@@ -47,7 +55,9 @@ public struct PaymentMethodUIConfiguration {
                 mediumEmphasisColor: UIColor?,
                 cellBackgroundColor: UIColor?,
                 buttonTextColor: UIColor?,
-                buttonDisabledColor: UIColor?) {
+                buttonDisabledColor: UIColor?,
+                errorMessageColor: UIColor?,
+                errorMessageTextColor: UIColor?) {
         self.backgroundColor = backgroundColor ?? PaymentMethodUIConfiguration.defaultBackgroundColor
         self.textColor = textColor ?? PaymentMethodUIConfiguration.defaultTextColor
         self.buttonColor = buttonColor ?? PaymentMethodUIConfiguration.defaultButtonColor
@@ -55,5 +65,7 @@ public struct PaymentMethodUIConfiguration {
         self.cellBackgroundColor = cellBackgroundColor ?? PaymentMethodUIConfiguration.defaultCellBackgroundColor
         self.buttonTextColor = buttonTextColor ?? PaymentMethodUIConfiguration.defaultButtonTextColor
         self.buttonDisabledColor = buttonDisabledColor ?? PaymentMethodUIConfiguration.defaultButtonDisabledColor
+        self.errorMessageTextColor = errorMessageTextColor ?? PaymentMethodUIConfiguration.defaultErrorMessageTextColor
+        self.errorMessageColor = errorMessageColor ?? PaymentMethodUIConfiguration.defaultErrorMessageColor
     }
 }

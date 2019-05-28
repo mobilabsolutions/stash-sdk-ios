@@ -39,8 +39,14 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                            expirationYearText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
-            if cardNumberText == nil || cardNumberText?.isEmpty == true {
-                errors[.cardNumber] = .noData(explanation: "Please provide your card number")
+            if let cardNumber = cardNumberText, cardNumber.isEmpty == false {
+                do {
+                    try CreditCardUtils.validateCreditCardNumber(cardNumber: cardNumber)
+                } catch {
+                    errors[.cardNumber] = .noData(explanation: "Please provide a valid card number")
+                }
+            } else {
+                errors[.cardNumber] = .noData(explanation: "Please provide a valid card number")
             }
 
             if let cvv = cvvText {
@@ -133,7 +139,25 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 }
 
 extension AdyenCreditCardInputCollectionViewController: FormConsumer {
+    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+        do {
+            _ = try self.createCreditCardData(from: data)
+        } catch let error as FormConsumerError {
+            return error
+        } catch {
+            // Should not happen
+        }
+
+        return nil
+    }
+
     func consumeValues(data: [NecessaryData: String]) throws {
+        guard let creditCard = try createCreditCardData(from: data)
+        else { return }
+        self.didCreatePaymentMethodCompletion?(creditCard)
+    }
+
+    private func createCreditCardData(from data: [NecessaryData: String]) throws -> CreditCardData? {
         let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber],
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
@@ -144,7 +168,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
         }
 
         guard let parsedData = createdData.0
-        else { return }
+        else { return nil }
 
         do {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
@@ -153,7 +177,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
                                                 expiryYear: parsedData.expirationYear, country: nil,
                                                 billingData: self.billingData ?? BillingData())
 
-            self.didCreatePaymentMethodCompletion?(creditCard)
+            return creditCard
         } catch let error as MobilabPaymentError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
                     .creditCardValidationFailed(message: error.description)])

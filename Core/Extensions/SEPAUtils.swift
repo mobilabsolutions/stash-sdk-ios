@@ -24,6 +24,12 @@ public class SEPAUtils {
         return number.replacingOccurrences(of: "(\\s|\\-)", with: "", options: .regularExpression, range: nil).uppercased()
     }
 
+    public static func validateIBAN(iban: String) throws {
+        let cleanedIban = SEPAUtils.cleanedIban(number: iban)
+        guard SEPAUtils.isValid(cleanedNumber: cleanedIban)
+        else { throw MobilabPaymentError.validation(.invalidIBAN) }
+    }
+
     static func isValid(cleanedNumber: String) -> Bool {
         guard cleanedNumber.isAlphaNumeric
         else { return false }

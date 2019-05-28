@@ -32,16 +32,16 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public let country: String?
 
     /// The number of digits that should be used to create the card mask
-    private let numberOfDigitsForCardMask = 4
+    static let numberOfDigitsForCardMask = 4
 
     /// The card mask (i.e. last 4 digits) of the card number
     public var cardMask: Int? {
-        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -numberOfDigitsForCardMask)..<cardNumber.endIndex])
+        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)..<cardNumber.endIndex])
     }
 
     /// A human readable identifier for this credit card. Derived from the card number in the form XXXXXXXXXXXX 4111.
     public var humanReadableId: String? {
-        let maskStartIndex = cardNumber.index(cardNumber.endIndex, offsetBy: -numberOfDigitsForCardMask)
+        let maskStartIndex = cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)
         let maskString = self.cardNumber[maskStartIndex..<cardNumber.endIndex]
         let other = self.cardNumber[cardNumber.startIndex..<maskStartIndex].replacingOccurrences(of: "[0-9]", with: "X", options: .regularExpression, range: nil)
         return other + " " + maskString
@@ -75,13 +75,8 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String? = nil, country: String?, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
-        guard cleanedNumber.count > numberOfDigitsForCardMask
-        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
-
         try CreditCardUtils.validateCVV(cvv: cvv)
-
-        guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
+        try CreditCardUtils.validateCreditCardNumber(cardNumber: cardNumber)
 
         self.holderName = holderName
         self.cardNumber = cleanedNumber
