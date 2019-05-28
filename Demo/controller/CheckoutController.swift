@@ -19,7 +19,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     private let configuration: PaymentMethodUIConfiguration
     private var cartItems = [(quantity: Int, item: Item)]()
 
-    private var totalAmount: Float = 0 {
+    private var totalAmount: NSDecimalNumber = 0 {
         didSet {
             self.amountValueLabel.text = totalAmount.toCurrency()
         }
@@ -40,8 +40,8 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
         label.textAlignment = .right
         label.font = UIConstants.defaultFont(of: 24, type: .black)
         label.textColor = UIConstants.aquamarine
-        label.text = "0 €"
-        
+        label.text = NSDecimalNumber(integerLiteral: 0).toCurrency()
+
         return label
     }()
 
@@ -78,8 +78,9 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
         
         if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
             cartItems = mainTabBarController.cartItems
-            totalAmount = cartItems.reduce(0.0) { $0 + ($1.item.price * Float($1.quantity))}
-        }
+            totalAmount = cartItems.reduce(0.0) { ($1.item.price.multiplying(by:  NSDecimalNumber(value: $1.quantity))).adding($0)
+            }
+            }
 
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -169,7 +170,7 @@ extension CheckoutController: ItemCellDelegate {
         let indexPath = IndexPath(item: itemIndex, section: 0)
         collectionView.reloadItems(at: [indexPath])
 
-        totalAmount += item.price
+        totalAmount  = totalAmount.adding(item.price)
     }
 
     func didSelectRemoveOption(for item: Item) {
@@ -188,6 +189,6 @@ extension CheckoutController: ItemCellDelegate {
             cartItems[itemIndex].quantity -= 1
             collectionView.reloadItems(at: [indexPath])
         }
-        totalAmount -= price
+        totalAmount = totalAmount.subtracting(price)
     }
 }

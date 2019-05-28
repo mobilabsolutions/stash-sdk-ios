@@ -48,7 +48,7 @@ class BaseViewController: UIViewController {
         label.textAlignment = .right
         label.font = UIConstants.defaultFont(of: 24, type: .black)
         label.textColor = UIConstants.aquamarine
-        label.text = "0 €"
+        label.text = NSDecimalNumber(integerLiteral: 0).toCurrency()
         
         return label
     }()
