@@ -13,10 +13,10 @@ struct Item {
     let title: String
     let description: String?
     let picture: String?
-    let price: Float
+    let price: NSDecimalNumber
     let currency: String
 
-    init(title: String, description: String?, picture: String?, price: Float, currency: String = "€") {
+    init(title: String, description: String?, picture: String?, price: NSDecimalNumber, currency: String = "€") {
         self.id = UUID().uuidString
         self.title = title
         self.description = description

@@ -11,8 +11,9 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     // MARK: - Properties
+    var cartItems: [(quantity: Int, item: Item)] = [(Int, Item)]()
 
-    let configuration = PaymentMethodUIConfiguration()
+    private let configuration = PaymentMethodUIConfiguration()
 
     // MARK: - Initializers
 
@@ -33,11 +34,11 @@ class MainTabBarController: UITabBarController {
 
         let itemsNavController = self.templateNavigationController(tabTitle: "Items", tabImage: UIConstants.itemsImage, rootViewController: itemsVC)
 
-        let paymentVC = PaymentMethodController(configuration: configuration)
-        let paymentNavController = self.templateNavigationController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
-
         let checkoutVC = CheckoutController(configuration: configuration)
         let checkoutNavController = self.templateNavigationController(tabTitle: "Check-out", tabImage: UIConstants.checkoutImage, rootViewController: checkoutVC)
+
+        let paymentVC = PaymentMethodController(configuration: configuration)
+        let paymentNavController = self.templateNavigationController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
 
         self.viewControllers = [itemsNavController, checkoutNavController, paymentNavController]
 

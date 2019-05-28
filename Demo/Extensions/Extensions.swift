@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension Float {
+extension NSDecimalNumber {
     func toCurrency() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = "€"
-        return formatter.string(from: NSNumber(value: self))
+        return formatter.string(for: self)
     }
 }
