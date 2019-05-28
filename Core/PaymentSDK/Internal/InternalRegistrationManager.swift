@@ -10,9 +10,9 @@ import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private typealias CachingIdempotencyManager = IdempotencyManager<Registration,
+    private typealias CachingIdempotencyManager = IdempotencyManager<PaymentMethodAlias,
                                                                      MobilabPaymentError,
-                                                                     IdempotencyResultUserDefaultsCacher<Registration, MobilabPaymentError>>
+                                                                     IdempotencyResultUserDefaultsCacher<PaymentMethodAlias, MobilabPaymentError>>
     private let idempotencyManager = CachingIdempotencyManager(cacher: IdempotencyResultUserDefaultsCacher(suiteIdentifier: "idempotency-manager-cache"))
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
@@ -106,10 +106,10 @@ class InternalRegistrationManager {
                                                    self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
                                                        switch updateResult {
                                                        case .success:
-                                                           let registration = Registration(alias: alias.aliasId,
-                                                                                           paymentMethodType: publicPaymentMethodType,
-                                                                                           humanReadableIdentifier: pspResult.overwritingHumanReadableIdentifier
-                                                                                               ?? paymentMethod.methodData.humanReadableId)
+                                                           let registration = PaymentMethodAlias(alias: alias.aliasId,
+                                                                                                 paymentMethodType: publicPaymentMethodType,
+                                                                                                 extraAliasInfo: pspResult.overwritingExtraAliasInfo
+                                                                                                     ?? paymentMethod.methodData.extraAliasInfo)
                                                            completion(.success(registration))
                                                        case let .failure(error):
                                                            completion(.failure(error))

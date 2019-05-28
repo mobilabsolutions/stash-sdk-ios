@@ -54,7 +54,7 @@
                                                            specificPaymentMethod: MLPaymentMethodTypeNone
                                                                      billingData: nil
                                                                   idempotencyKey: [[NSUUID new] UUIDString]
-                                                                      completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+                                                                      completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (registration != nil) {
                 NSLog(@"Got alias: %@", registration.alias);

@@ -129,8 +129,16 @@ class PaymentMethodController: BaseCollectionViewController {
         switch result {
         case let .success(value):
             DispatchQueue.main.async {
-                let readableDetails = (value.paymentMethodType == .creditCard && value.humanReadableIdentifier != nil) ?
-                    self.formatCardDetails(cardNumber: value.humanReadableIdentifier!) : value.humanReadableIdentifier
+                let readableDetails: String
+
+                switch value.extraAliasInfo {
+                case let .creditCard(details):
+                    readableDetails = self.formatCardDetails(extra: details)
+                case let .sepa(details):
+                    readableDetails = details.maskedIban
+                case let .payPal(details):
+                    readableDetails = details.email ?? ""
+                }
 
                 let paymentMethod = PaymentMethod(type: value.paymentMethodType, alias: value.alias, humanReadableIdentifier: readableDetails)
                 self.addNewItem(for: paymentMethod)
@@ -145,10 +153,8 @@ class PaymentMethodController: BaseCollectionViewController {
         }
     }
 
-    #warning("should include card expiry date as well")
-    private func formatCardDetails(cardNumber: String) -> String? {
-        let formattedDetails = cardNumber.count < 4 ? cardNumber : String(cardNumber.suffix(4))
-        return "X-" + formattedDetails + " • "
+    private func formatCardDetails(extra: PaymentMethodAlias.CreditCardExtraInfo) -> String {
+        return extra.creditCardMask + " • \(extra.expiryMonth)/\(extra.expiryYear)"
     }
 
     private func addNewItem(for paymentMethod: PaymentMethod) {

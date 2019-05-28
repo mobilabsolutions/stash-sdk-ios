@@ -26,7 +26,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             payPalManager.didCreatePaymentMethodCompletion = { method in
                 if let payPalData = method as? PayPalData {
                     let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData())
-                    let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingHumanReadableIdentifier: payPalData.humanReadableId)
+                    let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
                     completion(.success(registration))
                 } else {
                     fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")

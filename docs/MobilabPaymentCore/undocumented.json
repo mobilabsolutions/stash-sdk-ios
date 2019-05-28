@@ -3,7 +3,7 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/CreditCardType+Extensions.swift",
       "line": 12,
-      "symbol": "CreditCardData.CreditCardType.image",
+      "symbol": "CreditCardType.image",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -72,7 +72,7 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extensions/SEPAUtils.swift",
-      "line": 27,
+      "line": 44,
       "symbol": "SEPAUtils.validateIBAN(iban:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -128,93 +128,93 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
+      "line": 42,
+      "symbol": "CreditCardData.extraAliasInfo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
+      "line": 76,
+      "symbol": "CreditCardData.toCreditCardExtra()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
       "line": null,
-      "symbol": "CreditCardData.CreditCardType",
+      "symbol": "CreditCardType",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 49,
-      "symbol": "CreditCardData.CreditCardType",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 11,
+      "symbol": "CreditCardType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 50,
-      "symbol": "CreditCardData.CreditCardType.visa",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 12,
+      "symbol": "CreditCardType.visa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 51,
-      "symbol": "CreditCardData.CreditCardType.mastercard",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 13,
+      "symbol": "CreditCardType.mastercard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 52,
-      "symbol": "CreditCardData.CreditCardType.americanExpress",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 14,
+      "symbol": "CreditCardType.americanExpress",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 53,
-      "symbol": "CreditCardData.CreditCardType.diners",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 15,
+      "symbol": "CreditCardType.diners",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 54,
-      "symbol": "CreditCardData.CreditCardType.discover",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 16,
+      "symbol": "CreditCardType.discover",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 55,
-      "symbol": "CreditCardData.CreditCardType.jcb",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 17,
+      "symbol": "CreditCardType.jcb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 56,
-      "symbol": "CreditCardData.CreditCardType.maestroInternational",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 18,
+      "symbol": "CreditCardType.maestroInternational",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 57,
-      "symbol": "CreditCardData.CreditCardType.carteBleue",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 19,
+      "symbol": "CreditCardType.chinaUnionPay",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 58,
-      "symbol": "CreditCardData.CreditCardType.chinaUnionPay",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
+      "line": 20,
+      "symbol": "CreditCardType.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 59,
-      "symbol": "CreditCardData.CreditCardType.unknown",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardData.swift",
-      "line": 88,
-      "symbol": "CreditCardData.toCreditCardExtra()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -528,49 +528,49 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
       "line": 18,
-      "symbol": "PayPalPlaceholderData.humanReadableId",
+      "symbol": "PayPalPlaceholderData.extraAliasInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 23,
+      "line": 24,
       "symbol": "PayPalData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 24,
+      "line": 25,
       "symbol": "PayPalData.nonce",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 25,
+      "line": 26,
       "symbol": "PayPalData.deviceData",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 26,
+      "line": 27,
       "symbol": "PayPalData.email",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 28,
+      "line": 29,
       "symbol": "PayPalData.init(nonce:deviceData:email:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/PayPalData.swift",
-      "line": 34,
-      "symbol": "PayPalData.humanReadableId",
+      "line": 35,
+      "symbol": "PayPalData.extraAliasInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -586,6 +586,13 @@
       "line": 33,
       "symbol": "SEPAData.toSEPAExtra()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/SEPAData.swift",
+      "line": 37,
+      "symbol": "SEPAData.extraAliasInfo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -1213,42 +1220,7 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 11,
-      "symbol": "CreditCardExtra",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 12,
-      "symbol": "CreditCardExtra.ccExpiry",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 13,
-      "symbol": "CreditCardExtra.ccMask",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 14,
-      "symbol": "CreditCardExtra.ccType",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 15,
-      "symbol": "CreditCardExtra.ccHolderName",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 17,
+      "line": 25,
       "symbol": "CreditCardExtra.init(ccExpiry:ccMask:ccType:ccHolderName:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1256,34 +1228,13 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/PSPRegistration.swift",
       "line": 21,
-      "symbol": "PSPRegistration.init(pspAlias:aliasExtra:overwritingHumanReadableIdentifier:)",
+      "symbol": "PSPRegistration.init(pspAlias:aliasExtra:overwritingExtraAliasInfo:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/PayPalExtra.swift",
-      "line": 11,
-      "symbol": "PayPalExtra",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/PayPalExtra.swift",
-      "line": 12,
-      "symbol": "PayPalExtra.deviceData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/PayPalExtra.swift",
-      "line": 13,
-      "symbol": "PayPalExtra.nonce",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/PayPalExtra.swift",
-      "line": 15,
+      "line": 21,
       "symbol": "PayPalExtra.init(nonce:deviceData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1312,8 +1263,15 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationRequest.swift",
       "line": 34,
-      "symbol": "RegistrationData.humanReadableId",
+      "symbol": "RegistrationData.extraAliasInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": null,
+      "symbol": "PaymentMethodAlias.ExtraAliasInfo",
+      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
@@ -1331,23 +1289,93 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/SEPAExtra.swift",
-      "line": 11,
-      "symbol": "SEPAExtra",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 23,
+      "symbol": "PaymentMethodAlias.ExtraAliasInfo",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 24,
+      "symbol": "PaymentMethodAlias.ExtraAliasInfo.creditCard(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 25,
+      "symbol": "PaymentMethodAlias.ExtraAliasInfo.sepa(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 26,
+      "symbol": "PaymentMethodAlias.ExtraAliasInfo.payPal(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 29,
+      "symbol": "PaymentMethodAlias.CreditCardExtraInfo",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/SEPAExtra.swift",
-      "line": 12,
-      "symbol": "SEPAExtra.iban",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 30,
+      "symbol": "PaymentMethodAlias.CreditCardExtraInfo.creditCardMask",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/SEPAExtra.swift",
-      "line": 13,
-      "symbol": "SEPAExtra.bic",
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 31,
+      "symbol": "PaymentMethodAlias.CreditCardExtraInfo.expiryMonth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 32,
+      "symbol": "PaymentMethodAlias.CreditCardExtraInfo.expiryYear",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 33,
+      "symbol": "PaymentMethodAlias.CreditCardExtraInfo.creditCardType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 36,
+      "symbol": "PaymentMethodAlias.SEPAExtraInfo",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 37,
+      "symbol": "PaymentMethodAlias.SEPAExtraInfo.maskedIban",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 40,
+      "symbol": "PaymentMethodAlias.PayPalExtraInfo",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/RegistrationResult.swift",
+      "line": 41,
+      "symbol": "PaymentMethodAlias.PayPalExtraInfo.email",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -1437,161 +1465,252 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 67,
+      "line": 66,
       "symbol": "MobilabPaymentSDKBridge.PaymentProviderIntegrationBridge.init(paymentServiceProvider:paymentMethodTypes:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 84,
+      "line": 83,
       "symbol": "MobilabPaymentSDKBridge.PaymentProviderIntegrationBridge.init(paymentServiceProvider:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 93,
+      "line": 92,
       "symbol": "RegistrationManagerBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 100,
+      "line": 99,
       "symbol": "RegistrationManagerBridge.CreditCardDataBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 103,
+      "line": 102,
       "symbol": "RegistrationManagerBridge.CreditCardDataBridge.init(cardNumber:cvv:expiryMonth:expiryYear:country:billingData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 113,
+      "line": 112,
       "symbol": "RegistrationManagerBridge.SEPADataBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 116,
+      "line": 115,
       "symbol": "RegistrationManagerBridge.SEPADataBridge.init(iban:bic:billingData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 121,
-      "symbol": "RegistrationManagerBridge.RegistrationBridge",
+      "line": 120,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 121,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.alias",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
       "line": 122,
-      "symbol": "RegistrationManagerBridge.RegistrationBridge.alias",
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.paymentMethodType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
       "line": 123,
-      "symbol": "RegistrationManagerBridge.RegistrationBridge.paymentMethodType",
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.extraAliasInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 124,
-      "symbol": "RegistrationManagerBridge.RegistrationBridge.humanReadableIdentifier",
+      "line": 125,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 126,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.creditCardExtraInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 133,
+      "line": 127,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.sepaExtraInfo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 128,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.payPalExtraInfo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 136,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 137,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge.creditCardMask",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 138,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge.expiryMonth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 139,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge.expiryYear",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 140,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge.creditCardType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 150,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.SEPAExtraInfoBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 151,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.SEPAExtraInfoBridge.maskedIban",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 158,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.PayPalExtraInfoBridge",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 159,
+      "symbol": "RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.PayPalExtraInfoBridge.email",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
+      "line": 174,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 134,
+      "line": 175,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge.title",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 135,
+      "line": 176,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge.errorDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 137,
+      "line": 178,
       "symbol": "RegistrationManagerBridge.MobilabPaymentErrorBridge.init(mobilabPaymentError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 144,
+      "line": 185,
       "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 145,
+      "line": 186,
       "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 146,
+      "line": 187,
       "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.creditCard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 147,
+      "line": 188,
       "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.payPal",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 148,
+      "line": 189,
       "symbol": "RegistrationManagerBridge.PaymentMethodTypeBridge.sepa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 160,
+      "line": 201,
       "symbol": "RegistrationManagerBridge.registerCreditCard(creditCardData:idempotencyKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 166,
+      "line": 207,
       "symbol": "RegistrationManagerBridge.registerSEPAAccount(sepaData:idempotencyKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/MobilabPaymentSDKBridge.swift",
-      "line": 172,
+      "line": 213,
       "symbol": "RegistrationManagerBridge.registerPaymentMethodUsingUI(on:specificPaymentMethod:billingData:idempotencyKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -2271,34 +2390,27 @@
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
       "line": 116,
-      "symbol": "UIConstants.carteBleueImage",
-      "symbol_kind": "source.lang.swift.decl.var.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 120,
       "symbol": "UIConstants.jcbImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 124,
+      "line": 120,
       "symbol": "UIConstants.searchImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 128,
+      "line": 124,
       "symbol": "UIConstants.alertImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/UI/UIConstants.swift",
-      "line": 132,
+      "line": 128,
       "symbol": "UIConstants.crossImage",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"

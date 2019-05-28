@@ -75,8 +75,19 @@ class AddUIViewController: UIViewController {
                             self?.showAlert(title: "Success", body: "Successfully registered payment method")
                         }
 
+                        let extraInfo: String?
+
+                        switch value.extraAliasInfo {
+                        case let .creditCard(details):
+                            extraInfo = details.creditCardMask
+                        case let .sepa(details):
+                            extraInfo = details.maskedIban
+                        case let .payPal(details):
+                            extraInfo = details.email
+                        }
+
                         let alias = Alias(alias: value.alias ?? "No alias provided",
-                                          humanReadableId: value.humanReadableIdentifier,
+                                          extraInfo: extraInfo,
                                           expirationYear: nil,
                                           expirationMonth: nil,
                                           type: AliasType(paymentMethodType: value.paymentMethodType))

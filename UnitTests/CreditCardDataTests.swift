@@ -10,7 +10,7 @@
 import XCTest
 
 class CreditCardDataTests: XCTestCase {
-    let validExampleNumbers: [(String, CreditCardData.CreditCardType)] = [
+    let validExampleNumbers: [(String, CreditCardType)] = [
         ("4111 1111 1111 1111", .visa), ("30569309025904", .diners),
         ("5500 0000 0000 0004", .mastercard), ("6011111111111117", .discover),
         ("378282246310005", .americanExpress), ("371449635398431", .americanExpress),
@@ -25,7 +25,7 @@ class CreditCardDataTests: XCTestCase {
         ("3530 1113 3330 0000", .jcb), ("6221 2345 6789 0123 450", .chinaUnionPay),
     ]
 
-    let invalidExampleNumbers: [(String, CreditCardData.CreditCardType)] = [
+    let invalidExampleNumbers: [(String, CreditCardType)] = [
         ("not-a-number", .unknown), ("123456789101112", .unknown),
     ]
 
@@ -33,8 +33,8 @@ class CreditCardDataTests: XCTestCase {
         let first = try CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
         let second = try CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
 
-        XCTAssertEqual(first.cardMask, 1111, "Card mask should equal last four digits of card number")
-        XCTAssertEqual(second.cardMask, 4, "Card mask should equal last four digits of card number")
+        XCTAssertEqual(first.cardMask, "VISA-1111", "Card mask should equal last four digits of card number and card type")
+        XCTAssertEqual(second.cardMask, "MASTER_CARD-0004", "Card mask should equal last four digits of card number and card type")
     }
 
     func testCorrectlyParsesCardType() throws {
@@ -75,7 +75,7 @@ class CreditCardDataTests: XCTestCase {
     }
 
     func testCorrectlyFormatsNumbers() {
-        let formatted: [(String, CreditCardData.CreditCardType)] = [
+        let formatted: [(String, CreditCardType)] = [
             ("4111 1111 1111 1111", .visa), ("3056 9309 0259 04", .diners),
             ("5500 0000 0000 0004", .mastercard), ("6011 1111 1111 1117", .discover),
             ("3782 822463 10005", .americanExpress), ("3714 496353 98431", .americanExpress),
@@ -111,9 +111,8 @@ class CreditCardDataTests: XCTestCase {
 
     func testCorrectlyCreatesHumanReadableId() throws {
         let numbers = ["378282246310005", "5555555555554444", "379357047249690", "4111111111111111"]
-        let humanReadableIdentifiers = ["XXXXXXXXXXX 0005", "XXXXXXXXXXXX 4444", "XXXXXXXXXXX 9690", "XXXXXXXXXXXX 1111"]
 
-        for (number, humanReadable) in zip(numbers, humanReadableIdentifiers) {
+        for number in numbers {
             let creditCard = try CreditCardData(cardNumber: number,
                                                 cvv: "123",
                                                 expiryMonth: 10,
@@ -121,7 +120,11 @@ class CreditCardDataTests: XCTestCase {
                                                 country: "DE",
                                                 billingData: BillingData())
 
-            XCTAssertEqual(creditCard.humanReadableId, humanReadable, "The human readable identifier for \(creditCard.cardNumber) should be \(humanReadable) but is \(creditCard.humanReadableId ?? "nil")")
+            switch creditCard.extraAliasInfo {
+            case let .creditCard(details):
+                XCTAssertEqual(creditCard.cardMask, details.creditCardMask, "The human readable identifier for \(creditCard.cardNumber) should be \(creditCard.cardMask) but is \(details.creditCardMask)")
+            default: XCTFail("The credit card extra info should have the .creditCard case")
+            }
         }
     }
 }

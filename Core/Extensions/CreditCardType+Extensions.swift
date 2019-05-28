@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension CreditCardData.CreditCardType {
+public extension CreditCardType {
     var image: UIImage? {
         switch self {
         case .visa: return UIConstants.visaImage
@@ -18,7 +18,6 @@ public extension CreditCardData.CreditCardType {
         case .discover: return UIConstants.discoverImage
         case .jcb: return UIConstants.jcbImage
         case .maestroInternational: return UIConstants.maestroImage
-        case .carteBleue: return UIConstants.carteBleueImage
         case .chinaUnionPay: return UIConstants.unionPayImage
         case .unknown: return UIConstants.creditCardImage
         }

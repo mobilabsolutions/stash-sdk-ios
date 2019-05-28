@@ -33,30 +33,18 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     /// The number of digits that should be used to create the card mask
     static let numberOfDigitsForCardMask = 4
 
-    /// The card mask (i.e. last 4 digits) of the card number
-    public var cardMask: Int? {
-        return Int(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)..<cardNumber.endIndex])
+    /// The card mask (i.e. VISA-1111) of the card number
+    public var cardMask: String {
+        let lastDigits = String(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)..<cardNumber.endIndex])
+        return self.cardType.rawValue + "-" + lastDigits
     }
 
-    /// A human readable identifier for this credit card. Derived from the card number in the form XXXXXXXXXXXX 4111.
-    public var humanReadableId: String? {
-        let maskStartIndex = cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)
-        let maskString = self.cardNumber[maskStartIndex..<cardNumber.endIndex]
-        let other = self.cardNumber[cardNumber.startIndex..<maskStartIndex].replacingOccurrences(of: "[0-9]", with: "X", options: .regularExpression, range: nil)
-        return other + " " + maskString
-    }
-
-    public enum CreditCardType: String, CaseIterable {
-        case visa = "VISA"
-        case mastercard = "MASTERCARD"
-        case americanExpress = "AMEX"
-        case diners = "DINERS"
-        case discover = "DISCOVER"
-        case jcb = "JCB"
-        case maestroInternational = "MAESTROINT"
-        case carteBleue = "CARTEBLEUE"
-        case chinaUnionPay = "CHINAUNION"
-        case unknown = "UNKNOWN"
+    public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
+        let extra = PaymentMethodAlias.CreditCardExtraInfo(creditCardMask: cardMask,
+                                                           expiryMonth: expiryMonth,
+                                                           expiryYear: expiryYear,
+                                                           creditCardType: cardType)
+        return .creditCard(extra)
     }
 
     /// Initialize a new credit card. Validates credit card using Luhn's algorithm - if the validation fails, a MobilabPaymentError is thrown
@@ -86,11 +74,8 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     }
 
     public func toCreditCardExtra() -> CreditCardExtra? {
-        guard let cardMask = self.cardMask
-        else { return nil }
-
         return CreditCardExtra(ccExpiry: "\(String(format: "%02d", self.expiryMonth))/\(String(format: "%02d", self.expiryYear))",
-                               ccMask: cardMask,
+                               ccMask: self.cardMask,
                                ccType: self.cardType.rawValue,
                                ccHolderName: self.billingData.name?.fullName)
     }

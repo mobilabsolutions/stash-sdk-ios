@@ -20,6 +20,23 @@ public class SEPAUtils {
         return NSAttributedString(attributedString: newString)
     }
 
+    static func spaceFormattedIbanMask(number: String) -> String {
+        let cleaned = cleanedIban(number: number)
+        let middleStartIndex = cleaned.index(cleaned.startIndex, offsetBy: 2)
+        let middleEndIndex = cleaned.index(cleaned.endIndex, offsetBy: -4)
+        let firstDigits = String(cleaned[..<middleStartIndex])
+        let lastDigits = String(cleaned[middleEndIndex..<cleaned.endIndex])
+
+        return firstDigits + cleaned[middleStartIndex..<middleEndIndex].enumerated().reduce("") { acc, element in
+            var acc = acc + "X"
+            if (element.offset + firstDigits.count) % 4 == 3 {
+                acc += " "
+            }
+
+            return acc
+        } + lastDigits
+    }
+
     static func cleanedIban(number: String) -> String {
         return number.replacingOccurrences(of: "(\\s|\\-)", with: "", options: .regularExpression, range: nil).uppercased()
     }

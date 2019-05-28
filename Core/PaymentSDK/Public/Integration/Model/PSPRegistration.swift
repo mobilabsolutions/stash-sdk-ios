@@ -14,14 +14,14 @@ public struct PSPRegistration {
     public let pspAlias: String?
     /// The extra that should be forwarded to the backend PSP module
     public let aliasExtra: AliasExtra
-    /// A possible human readable identifier to use if the default payment method's identifier is not
+    /// A possible extra alias information to use if the default payment method's information is not
     /// accurate.
-    public let overwritingHumanReadableIdentifier: String?
+    public let overwritingExtraAliasInfo: PaymentMethodAlias.ExtraAliasInfo?
 
     public init(pspAlias: String?, aliasExtra: AliasExtra,
-                overwritingHumanReadableIdentifier: String? = nil) {
+                overwritingExtraAliasInfo: PaymentMethodAlias.ExtraAliasInfo? = nil) {
         self.pspAlias = pspAlias
         self.aliasExtra = aliasExtra
-        self.overwritingHumanReadableIdentifier = overwritingHumanReadableIdentifier
+        self.overwritingExtraAliasInfo = overwritingExtraAliasInfo
     }
 }

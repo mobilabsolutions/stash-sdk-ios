@@ -8,7 +8,7 @@
 
 import MobilabPaymentCore
 
-extension CreditCardData.CreditCardType {
+extension CreditCardType {
     var bsCardTypeIdentifier: String? {
         switch self {
         case .visa: return "V"
@@ -18,7 +18,6 @@ extension CreditCardData.CreditCardType {
         case .discover: return "D"
         case .jcb: return "J"
         case .maestroInternational: return "O"
-        case .carteBleue: return "B"
         case .chinaUnionPay: return "P"
         case .unknown: return nil
         }

@@ -96,7 +96,7 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">– PaymentMethodAliasBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
@@ -121,6 +121,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CreditCardType.html">CreditCardType</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
@@ -224,9 +227,6 @@
                 <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardExtra.html">CreditCardExtra</a>
               </li>
               <li class="nav-group-task">
@@ -263,13 +263,25 @@
                 <a class="nav-group-task-link" href="../Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias.html">PaymentMethodAlias</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/ExtraAliasInfo.html">– ExtraAliasInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/CreditCardExtraInfo.html">– CreditCardExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/SEPAExtraInfo.html">– SEPAExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/PayPalExtraInfo.html">– PayPalExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentProviderIntegration.html">PaymentProviderIntegration</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RegistrationRequest.html">RegistrationRequest</a>
@@ -315,7 +327,10 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A model that contains all extra information that should be
+propagated to the payment SDK backend when registering a credit card.
+This will and should not be used by clients directly but only by
+the core SDK and modules.</p>
 
           </div>
         </section>
@@ -337,7 +352,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The card expiry date in the form MM/YY</p>
 
                       </div>
                       <div class="declaration">
@@ -354,9 +369,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore15CreditCardExtraV6ccMaskSivp"></a>
+                    <a name="/s:18MobilabPaymentCore15CreditCardExtraV6ccMaskSSvp"></a>
                     <a name="//apple_ref/swift/Property/ccMask" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore15CreditCardExtraV6ccMaskSivp">ccMask</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore15CreditCardExtraV6ccMaskSSvp">ccMask</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -364,14 +379,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The card mask: last four digits of the card number</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -391,7 +406,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The type of credit card that is registered (e.g. VISA or MasterCard)</p>
 
                       </div>
                       <div class="declaration">
@@ -418,7 +433,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The name of the credit card holder.</p>
 
                       </div>
                       <div class="declaration">
@@ -435,9 +450,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore15CreditCardExtraV8ccExpiry0G4Mask0G4Type0G10HolderNameACSS_SiS2SSgtcfc"></a>
+                    <a name="/s:18MobilabPaymentCore15CreditCardExtraV8ccExpiry0G4Mask0G4Type0G10HolderNameACSS_S3SSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(ccExpiry:ccMask:ccType:ccHolderName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore15CreditCardExtraV8ccExpiry0G4Mask0G4Type0G10HolderNameACSS_SiS2SSgtcfc">init(ccExpiry:ccMask:ccType:ccHolderName:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore15CreditCardExtraV8ccExpiry0G4Mask0G4Type0G10HolderNameACSS_S3SSgtcfc">init(ccExpiry:ccMask:ccType:ccHolderName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -452,7 +467,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">ccExpiry</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">ccType</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccHolderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">ccExpiry</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccType</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccHolderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>

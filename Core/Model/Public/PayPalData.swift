@@ -15,8 +15,9 @@ public struct PayPalPlaceholderData: RegistrationData {
         self.billingData = billingData
     }
 
-    public var humanReadableId: String? {
-        return nil
+    public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
+        let extra = PaymentMethodAlias.PayPalExtraInfo(email: nil)
+        return .payPal(extra)
     }
 }
 
@@ -31,7 +32,8 @@ public struct PayPalData: RegistrationData {
         self.email = email
     }
 
-    public var humanReadableId: String? {
-        return self.email
+    public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
+        let extra = PaymentMethodAlias.PayPalExtraInfo(email: self.email)
+        return .payPal(extra)
     }
 }

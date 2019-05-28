@@ -96,7 +96,7 @@
                 <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+                <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">– PaymentMethodAliasBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
@@ -121,6 +121,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/CreditCardType.html">CreditCardType</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
@@ -224,9 +227,6 @@
                 <a class="nav-group-task-link" href="Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CreditCardExtra.html">CreditCardExtra</a>
               </li>
               <li class="nav-group-task">
@@ -263,13 +263,25 @@
                 <a class="nav-group-task-link" href="Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodAlias.html">PaymentMethodAlias</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodAlias/ExtraAliasInfo.html">– ExtraAliasInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodAlias/CreditCardExtraInfo.html">– CreditCardExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodAlias/SEPAExtraInfo.html">– SEPAExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PaymentMethodAlias/PayPalExtraInfo.html">– PayPalExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PaymentProviderIntegration.html">PaymentProviderIntegration</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Registration.html">Registration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/RegistrationRequest.html">RegistrationRequest</a>
@@ -321,38 +333,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV"></a>
-                    <a name="//apple_ref/swift/Struct/CreditCardData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV">CreditCardData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>CreditCardData contains all data necessary for registering a credit card with a payment service provider</p>
-
-                        <a href="Structs/CreditCardData.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CreditCardData</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RegistrationData.html">RegistrationData</a></span><span class="p">,</span> <span class="kt">CreditCardDataInitializible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:18MobilabPaymentCore7CountryV"></a>
                     <a name="//apple_ref/swift/Struct/Country" class="dashAnchor"></a>
                     <a class="token" href="#/s:18MobilabPaymentCore7CountryV">Country</a>
@@ -372,6 +352,38 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Country</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV"></a>
+                    <a name="//apple_ref/swift/Struct/CreditCardData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV">CreditCardData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>CreditCardData contains all data necessary for registering a credit card with a payment service provider</p>
+
+                        <a href="Structs/CreditCardData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CreditCardData</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RegistrationData.html">RegistrationData</a></span><span class="p">,</span> <span class="kt">CreditCardDataInitializible</span></code></pre>
 
                         </div>
                       </div>
@@ -744,7 +756,10 @@ All fields are optional and will be populated based on &lsquo;type&rsquo; proper
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A model that contains all extra information that should be
+propagated to the payment SDK backend when registering a credit card.
+This will and should not be used by clients directly but only by
+the core SDK and modules.</p>
 
                         <a href="Structs/CreditCardExtra.html" class="slightly-smaller">See more</a>
                       </div>
@@ -808,7 +823,10 @@ All fields are optional and will be populated based on &lsquo;type&rsquo; proper
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A model that contains all extra information that should be
+propagated to the payment SDK backend when registering a PayPal method.
+This will and should not be used by clients directly but only by
+the core SDK and modules.</p>
 
                         <a href="Structs/PayPalExtra.html" class="slightly-smaller">See more</a>
                       </div>
@@ -899,9 +917,9 @@ and having created an alias in the Mobilab backend for it.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore12RegistrationV"></a>
-                    <a name="//apple_ref/swift/Struct/Registration" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore12RegistrationV">Registration</a>
+                    <a name="/s:18MobilabPaymentCore0B11MethodAliasV"></a>
+                    <a name="//apple_ref/swift/Struct/PaymentMethodAlias" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B11MethodAliasV">PaymentMethodAlias</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -911,13 +929,13 @@ and having created an alias in the Mobilab backend for it.</p>
                       <div class="abstract">
                         <p>A successful payment method registration</p>
 
-                        <a href="Structs/Registration.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/PaymentMethodAlias.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Registration</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PaymentMethodAlias</span></code></pre>
 
                         </div>
                       </div>
@@ -941,7 +959,10 @@ and having created an alias in the Mobilab backend for it.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A model that contains all extra information that should be
+propagated to the payment SDK backend when registering a SEPA method.
+This will and should not be used by clients directly but only by
+the core SDK and modules.</p>
 
                         <a href="Structs/SEPAExtra.html" class="slightly-smaller">See more</a>
                       </div>

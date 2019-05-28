@@ -400,7 +400,7 @@ class ModuleIntegrationTests: XCTestCase {
     }
 
     private func createTestRegistration(withTitle title: String) -> PSPRegistration {
-        let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: 1234, ccType: "VISA", ccHolderName: "Max Mustermann"),
+        let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: "VISA-1234", ccType: "VISA", ccHolderName: "Max Mustermann"),
                                     billingData: BillingData())
         return PSPRegistration(pspAlias: title, aliasExtra: aliasExtra)
     }

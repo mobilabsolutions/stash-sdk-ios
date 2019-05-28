@@ -113,10 +113,6 @@ public final class UIConstants {
         return UIImage(named: "discover", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
-    public class var carteBleueImage: UIImage? {
-        return UIImage(named: "carte-bleue", in: Bundle(for: UIConstants.self), compatibleWith: nil)
-    }
-
     public class var jcbImage: UIImage? {
         return UIImage(named: "jcb", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }

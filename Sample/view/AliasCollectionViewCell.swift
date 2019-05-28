@@ -29,7 +29,7 @@ class AliasCollectionViewCell: UICollectionViewCell {
             typeLabelText = "Unknown"
         }
 
-        if let humanReadable = alias.humanReadableId {
+        if let humanReadable = alias.extraInfo {
             self.typeLabel.text = typeLabelText + " (\(humanReadable))"
         } else {
             self.typeLabel.text = typeLabelText
