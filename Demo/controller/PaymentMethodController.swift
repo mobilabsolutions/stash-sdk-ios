@@ -9,8 +9,15 @@
 import MobilabPaymentCore
 import UIKit
 
+protocol PaymentMethodControllerDelegate: class {
+    #warning("Use proper response code once merchant backend is integrated")
+    func didFinishPayment(with result: Error?)
+}
+
 class PaymentMethodController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: - Properties
+
+    weak var delegate: PaymentMethodControllerDelegate?
 
     private enum SectionType: Int {
         case paymentMethodList = 0
@@ -33,11 +40,22 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 
     private let configuration: PaymentMethodUIConfiguration
 
+    private var shouldMakePayment: Bool
+    private var amount: NSDecimalNumber
     private var registeredPaymentMethods: [PaymentMethod] = []
 
     // MARK: - Initializers
 
     override init(configuration: PaymentMethodUIConfiguration) {
+        self.configuration = configuration
+        self.shouldMakePayment = false
+        self.amount = 0
+        super.init(configuration: configuration)
+    }
+
+    init(withPaymentOption shouldMakePayment: Bool, amount: NSDecimalNumber, configuration: PaymentMethodUIConfiguration) {
+        self.shouldMakePayment = shouldMakePayment
+        self.amount = amount
         self.configuration = configuration
         super.init(configuration: configuration)
     }
@@ -49,16 +67,26 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setTitle(title: "Payment Methods")
+        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
+            self.registeredPaymentMethods = mainTabBarController.paymentMethods
+        }
 
-        setupViews()
-        setupCollectionView()
+        self.setupViews()
+        self.setupCollectionView()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.paymentMethods = self.registeredPaymentMethods
+        }
     }
 
     // MARK: - Collectionview methods
 
     func numberOfSections(in _: UICollectionView) -> Int {
-        return 2
+        return self.shouldMakePayment == true ? 1 : 2
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,7 +108,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
             let paymentMethod = self.registeredPaymentMethods[indexPath.row]
             let image = self.getImage(for: paymentMethod.type)
             let title = self.getName(for: paymentMethod.type)
-            cell.setup(image: image, title: title, subTitle: paymentMethod.humanReadableIdentifier, configuration: nil)
+            cell.setup(image: image, title: title, subTitle: paymentMethod.humanReadableIdentifier, shouldShowSelection: self.shouldMakePayment, configuration: nil)
             cell.delegate = self
             toReturn = cell
         } else {
@@ -108,18 +136,37 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         }
     }
 
+    // MARK: Handlers
+
+    override func handleScreenButtonSelection() {
+        AlertView.showAlert(on: self, title: "Payment Result", body: "Payment completed successfully.") {
+            self.delegate?.didFinishPayment(with: nil)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
     // MARK: - Helpers
+
     private func setupViews() {
-        view.addSubview(collectionView)
-        collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: availableBottomAnchor, right: view.rightAnchor,
-                              paddingTop: paymentMethodListSectionInsets.top, paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset)
+        let title = self.shouldMakePayment == true ? "Select Payment Method" : "Payment Methods"
+        setTitle(title: title)
+
+        setButtonVisibility(to: self.shouldMakePayment)
+        if self.shouldMakePayment {
+            setButtonTitle(title: "PAY \(self.amount.toCurrency())")
+            // keep 'pay' button disabled initially
+            setButtonInteraction(to: false)
+        }
+        view.addSubview(self.collectionView)
+        self.collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: availableBottomAnchor, right: view.rightAnchor,
+                                   paddingTop: self.paymentMethodListSectionInsets.top, paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset)
     }
 
     private func setupCollectionView() {
-        collectionView.register(PaymentMethodCell.self, forCellWithReuseIdentifier: self.paymentMethodCellId)
-        collectionView.register(CustomIconLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.collectionView.register(PaymentMethodCell.self, forCellWithReuseIdentifier: self.paymentMethodCellId)
+        self.collectionView.register(CustomIconLabelCell.self, forCellWithReuseIdentifier: self.addPaymentMethodCellId)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
 
     private func addNewPaymentMethod() {
@@ -188,13 +235,38 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 }
 
 extension PaymentMethodController: PaymentMethodCellDelegate {
-    func didSelectDeleteOption(from cell: UICollectionViewCell) {
+    func didSelectOption(selectionEnabled: Bool, for cell: PaymentMethodCell) {
         guard let indexPath = collectionView.indexPath(for: cell)
         else { return }
 
-        if indexPath.item < self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) {
-            self.registeredPaymentMethods.remove(at: indexPath.row)
-            self.collectionView.deleteItems(at: [indexPath])
+        if selectionEnabled {
+            self.updateSelection(forCell: cell)
+
+        } else {
+            if indexPath.item < self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) {
+                self.registeredPaymentMethods.remove(at: indexPath.row)
+                self.collectionView.deleteItems(at: [indexPath])
+            }
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func updateSelection(forCell currentCell: PaymentMethodCell) {
+        DispatchQueue.main.async {
+            self.collectionView.performBatchUpdates({
+                self.collectionView.visibleCells.forEach { cell in
+                    // reset selection of all collectionview cells
+                    if let cell = cell as? PaymentMethodCell {
+                        cell.resetSelection()
+                    }
+                }
+            }, completion: { _ in
+                // show selection for selected cell
+                currentCell.toggleSelection()
+                // enable 'Pay' button since the payment method is selected
+                self.setButtonInteraction(to: true)
+            })
         }
     }
 }

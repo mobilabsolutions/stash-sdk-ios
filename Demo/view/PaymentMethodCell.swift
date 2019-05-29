@@ -12,7 +12,7 @@ import UIKit
 // MARK- Protocol
 
 protocol PaymentMethodCellDelegate: class {
-    func didSelectDeleteOption(from cell: UICollectionViewCell)
+    func didSelectOption(selectionEnabled: Bool, for cell: PaymentMethodCell)
 }
 
 class PaymentMethodCell: BaseCell {
@@ -23,7 +23,7 @@ class PaymentMethodCell: BaseCell {
     private let cellInternalOffsetLeft: CGFloat = 24
     private let cellInternalOffsetRight: CGFloat = 16
     private let iconDimensions: (width: CGFloat, height: CGFloat) = (48, 33)
-    private let deleteButtonDimensions: (width: CGFloat, height: CGFloat) = (24, 24)
+    private let buttonDimensions: (width: CGFloat, height: CGFloat) = (24, 24)
     private let titleHeight: CGFloat = 22
     private let subTitleHeight: CGFloat = 16
     private let labelVerticalPadding: CGFloat = 24
@@ -31,6 +31,16 @@ class PaymentMethodCell: BaseCell {
     private var configuration: PaymentMethodUIConfiguration? {
         didSet {
             self.updateStyling()
+        }
+    }
+
+    private var shouldShowSelection = false {
+        didSet {
+            if self.shouldShowSelection {
+                self.button.setImage(UIConstants.unselectedImage, for: .normal)
+            } else {
+                self.button.setImage(UIConstants.deleteImage, for: .normal)
+            }
         }
     }
 
@@ -59,24 +69,36 @@ class PaymentMethodCell: BaseCell {
         return label
     }()
 
-    private lazy var deleteButton: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
-        button.setImage(UIConstants.deleteImage, for: .normal)
-        button.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleButtonAction), for: .touchUpInside)
 
         return button
     }()
 
     // MARK- Public methods
 
-    func setup(image: UIImage?, title: String?, subTitle: String?, configuration: PaymentMethodUIConfiguration?) {
+    func setup(image: UIImage?, title: String?, subTitle: String?, shouldShowSelection: Bool, configuration: PaymentMethodUIConfiguration?) {
         self.cellImageView.image = image
         self.titleLabel.text = title
         self.subTitleLabel.text = subTitle
+        self.shouldShowSelection = shouldShowSelection
 
         if let configuration = configuration {
             self.configuration = configuration
         }
+    }
+
+    func toggleSelection() {
+        if self.button.image(for: .normal) == UIConstants.selectedImage {
+            self.button.setImage(UIConstants.unselectedImage, for: .normal)
+        } else {
+            self.button.setImage(UIConstants.selectedImage, for: .normal)
+        }
+    }
+
+    func resetSelection() {
+        self.button.setImage(UIConstants.unselectedImage, for: .normal)
     }
 
     // MARK- Initialzers
@@ -93,8 +115,8 @@ class PaymentMethodCell: BaseCell {
 
     // MARK: - Handlers
 
-    @objc private func handleDelete() {
-        self.delegate?.didSelectDeleteOption(from: self)
+    @objc private func handleButtonAction() {
+        self.delegate?.didSelectOption(selectionEnabled: self.shouldShowSelection, for: self)
     }
 
     // MARK- Helpers
@@ -116,11 +138,11 @@ class PaymentMethodCell: BaseCell {
                                   paddingLeft: self.cellInternalOffsetLeft, paddingBottom: self.labelVerticalPadding, paddingRight: self.cellInternalOffsetRight,
                                   height: self.subTitleHeight)
 
-        addSubview(self.deleteButton)
-        self.deleteButton.anchor(right: rightAnchor,
-                                 centerY: self.centerYAnchor,
-                                 paddingRight: self.cellInternalOffsetRight,
-                                 width: self.deleteButtonDimensions.width, height: self.deleteButtonDimensions.height)
+        addSubview(self.button)
+        self.button.anchor(right: rightAnchor,
+                           centerY: self.centerYAnchor,
+                           paddingRight: self.cellInternalOffsetRight,
+                           width: self.buttonDimensions.width, height: self.buttonDimensions.height)
     }
 
     private func updateStyling() {

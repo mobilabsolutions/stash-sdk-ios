@@ -6,13 +6,22 @@
 //  Copyright © 2019 MobiLab. All rights reserved.
 //
 
-import Foundation
+import MobilabPaymentCore
+import UIKit
 
 extension NSDecimalNumber {
-    func toCurrency() -> String? {
+    func toCurrency() -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = "€"
-        return formatter.string(for: self)
+        return formatter.string(for: self) ?? ""
+    }
+}
+
+extension UICollectionView {
+    func reloadAsync() {
+        DispatchQueue.main.async {
+            self.reloadData()
+        }
     }
 }
