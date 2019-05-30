@@ -11,6 +11,7 @@
 @import MobilabPaymentBSPayone;
 @import OHHTTPStubs;
 
+#import "MobilabPaymentTests-Swift.h"
 #import <XCTest/XCTest.h>
 
 @interface ObjCIntegrationTests : XCTestCase
@@ -21,40 +22,41 @@
 
 static NSString *bsPayoneHost = @"secure.pay1.de";
 
+- (void)setUp {
+    [super setUp];
+    [SDKResetter resetMobilabSDK];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [SDKResetter resetMobilabSDK];
+}
+
 - (void) testCreateConfiguration {
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[]
+                                                    uiConfiguration:nil];
 
     XCTAssertFalse(configuration.loggingEnabled, @"Logging should not be enabled when creating a new configuration");
 
     configuration.loggingEnabled = YES;
     XCTAssertTrue(configuration.loggingEnabled, @"Logging should be enabled after explicitely setting it to true");
-
-    NSError *error = nil;
-    NSURL *endpointUrl = [configuration endpointUrlAndReturnError:&error];
-
-    XCTAssertNil(error, @"Accessing the configuration URL should not result in an error but got %@", error);
-    XCTAssertNotNil(endpointUrl, @"The URL should not be nil after correctly setting up the configuration");
-}
-
-- (void) testCreateInvalidConfiguration {
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"not a url"];
-    NSError *error = nil;
-    NSURL *endpointUrl = [configuration endpointUrlAndReturnError:&error];
-
-    XCTAssertNotNil(error, @"When setting up the configuration with an invalid URL, an error should be returned");
-    XCTAssertNil(endpointUrl, @"When setting up the configuration with an invalid URL, the URL should not have a value but is %@", endpointUrl);
 }
 
 - (void) testAddConfigurationAndProviderToSDK {
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
-
-    [MLMobilabPaymentSDK configureWithConfiguration:configuration];
-
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
-    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
+
+    NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
+    MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
+                                                                                                  paymentMethodTypes: paymentMethodTypes];
+    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[ integration ]
+                                                    uiConfiguration:nil];
+
+    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
 
     // This should compile and *not* cause a runtime error since the SDK is now configured.
     // We don't care about the return value in this context, so we ignore it.
@@ -70,16 +72,32 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
-
-    [MLMobilabPaymentSDK configureWithConfiguration:configuration];
+    MLPaymentMethodUIConfiguration *uiConfiguration = [[MLPaymentMethodUIConfiguration alloc] initWithBackgroundColor:nil
+                                                                                                            textColor:nil
+                                                                                                          buttonColor:[UIColor blueColor] mediumEmphasisColor:nil
+                                                                                                  cellBackgroundColor:nil
+                                                                                                      buttonTextColor:nil
+                                                                                                  buttonDisabledColor:nil
+                                                                                                    errorMessageColor:nil
+                                                                                                errorMessageTextColor:nil];
 
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
-    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"creditCard"]];
 
+    NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
+    MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
+                                                                                                  paymentMethodTypes: paymentMethodTypes];
+    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[ integration ]
+                                                    uiConfiguration:uiConfiguration];
+
+    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
+
+    NSError *error;
+    
+    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
     MLBillingData *billingData = [[MLBillingData alloc] initWithEmail:nil
-                                                                 name:nil
+                                                                 name:name
                                                              address1:nil
                                                              address2:nil
                                                                   zip:nil
@@ -87,17 +105,13 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:nil
                                                                 phone:nil
-                                                           languageId:nil];
+                                                           languageId:nil
+                                                              basedOn:nil];
 
-    NSError *error;
-    
-    MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
-    
     MLCreditCardData *creditCard = [[MLCreditCardData alloc] initWithCardNumber:@"4111 1111 1111 1111"
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:name.fullName
                                                                         country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];
@@ -107,7 +121,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard
+                                                                        idempotencyKey: [[NSUUID new] UUIDString]
+                                                                            completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"A registration should be returned when registering a valid credit card");
         XCTAssertNil(error, @"There should not be an error when registering a valid credit card but got %@", error);
         [expectation fulfill];
@@ -125,13 +141,17 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"];
-
-    [MLMobilabPaymentSDK configureWithConfiguration:configuration];
-
     MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
-    [MLMobilabPaymentSDK registerProviderWithProvider:bsPayone paymentMethods:@[@"sepa"]];
+
+    NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeSepa], nil];
+    MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
+                                                                                                  paymentMethodTypes: paymentMethodTypes];
+    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+                                                    initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[ integration ]
+                                                    uiConfiguration:nil];
+
+    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
 
     MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
 
@@ -144,7 +164,8 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:@"DE"
                                                                 phone:nil
-                                                           languageId:[[NSLocale currentLocale] languageCode]];
+                                                           languageId:[[NSLocale currentLocale] languageCode]
+                                                              basedOn: nil];
 
     NSError *error;
     MLSEPAData * sepaData = [[MLSEPAData alloc] initWithIban:@"DE75512108001245126199" bic:@"COLSDE33XXX" billingData:billingData error:&error];
@@ -153,7 +174,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData
+                                                                   idempotencyKey:[[NSUUID new] UUIDString]
+                                                                       completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"Registering a valid SEPA method should return a registration");
         XCTAssertNotNil(registration.alias, @"The alias should not be nil when registering with BS Payone");
         XCTAssertNil(error, @"Registering a valid SEPA method should not return any error but got %@", error);
@@ -177,7 +200,8 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                 state:nil
                                                               country:@"DE"
                                                                 phone:nil
-                                                           languageId:[[NSLocale currentLocale] languageCode]];
+                                                           languageId:[[NSLocale currentLocale] languageCode]
+                                                              basedOn: nil];
 
     NSError *error;
     
@@ -185,7 +209,6 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                             cvv:@"123"
                                                                     expiryMonth:10
                                                                      expiryYear:21
-                                                                     holderName:name.fullName
                                                                     country: @"DE"
                                                                     billingData:billingData
                                                                           error:&error];

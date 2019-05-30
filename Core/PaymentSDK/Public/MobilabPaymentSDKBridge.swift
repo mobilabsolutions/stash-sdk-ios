@@ -9,8 +9,8 @@
 import UIKit
 
 @objc(MLMobilabPaymentSDK) public class MobilabPaymentSDKBridge: NSObject {
-    @objc public static func configure(configuration: MobilabPaymentConfiguration) {
-        MobilabPaymentSDK.configure(configuration: configuration)
+    @objc public static func initialize(configuration: MobilabPaymentConfiguration) {
+        MobilabPaymentSDK.initialize(configuration: configuration)
     }
 
     @objc public static func configureUI(configuration: MLPaymentMethodUIConfiguration) {
@@ -19,23 +19,6 @@ import UIKit
 
     @objc public static func getRegistrationManager() -> RegistrationManagerBridge {
         return RegistrationManagerBridge(manager: MobilabPaymentSDK.getRegistrationManager())
-    }
-
-    @objc public static func registerProvider(provider: Any, paymentMethods: [Any]) {
-        guard let provider = provider as? PaymentServiceProvider
-        else { fatalError("Provided Payment Provider is not a payment provider.") }
-        guard paymentMethods.count != 0
-        else { fatalError("Provide at least one payment method when registering a provider") }
-
-        let paymentMethods = paymentMethods.map({ (method) -> PaymentMethodType in
-            guard let method = method as? String
-            else { fatalError("Provided Payment method type is not a string") }
-            guard let type = PaymentMethodType(rawValue: method)
-            else { fatalError("Provided Payment Provider is not a payment provider.") }
-            return type
-        })
-
-        InternalPaymentSDK.sharedInstance.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethods)
     }
 
     @objc(MLPaymentMethodUIConfiguration) public class MLPaymentMethodUIConfiguration: NSObject {
@@ -71,6 +54,38 @@ import UIKit
                                                               errorMessageColor: errorMessageColor,
                                                               errorMessageTextColor: errorMessageTextColor)
         }
+
+        init(configuration: PaymentMethodUIConfiguration) {
+            self.configuration = configuration
+        }
+    }
+
+    @objc(MLPaymentProviderIntegration) public class PaymentProviderIntegrationBridge: NSObject {
+        let integration: PaymentProviderIntegration
+
+        @objc public init?(paymentServiceProvider: Any, paymentMethodTypes: Set<Int>) {
+            guard let provider = paymentServiceProvider as? PaymentServiceProvider
+            else { fatalError("Provided Payment Provider is not a payment provider.") }
+
+            let paymentMethods = paymentMethodTypes.map({ (method) -> PaymentMethodType in
+                guard let bridgeType = RegistrationManagerBridge.PaymentMethodTypeBridge(rawValue: method),
+                    let type = bridgeType.paymentMethodType
+                else { fatalError("Provided value (\(method)) does not correspond to a payment method") }
+                return type
+            })
+
+            guard let integration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: Set(paymentMethods))
+            else { return nil }
+
+            self.integration = integration
+        }
+
+        @objc public init(paymentServiceProvider: Any) {
+            guard let provider = paymentServiceProvider as? PaymentServiceProvider
+            else { fatalError("Provided Payment Provider is not a payment provider.") }
+
+            self.integration = PaymentProviderIntegration(paymentServiceProvider: provider)
+        }
     }
 }
 
@@ -84,10 +99,13 @@ import UIKit
     @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
         let creditCardData: CreditCardData
 
-        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, holderName: String?, country: String?, billingData: BillingData) throws {
-            self.creditCardData = try CreditCardData(cardNumber: cardNumber, cvv: cvv,
-                                                     expiryMonth: expiryMonth, expiryYear: expiryYear,
-                                                     holderName: holderName, country: country, billingData: billingData)
+        @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws {
+            self.creditCardData = try CreditCardData(cardNumber: cardNumber,
+                                                     cvv: cvv,
+                                                     expiryMonth: expiryMonth,
+                                                     expiryYear: expiryYear,
+                                                     country: country,
+                                                     billingData: billingData)
         }
     }
 
@@ -99,21 +117,63 @@ import UIKit
         }
     }
 
-    @objc(MLRegistration) public class RegistrationBridge: NSObject {
+    @objc(MLPaymentMethodAlias) public class PaymentMethodAliasBridge: NSObject {
         @objc public let alias: String?
         @objc public let paymentMethodType: String
-        @objc public let humanReadableIdentifier: String?
+        @objc public let extraAliasInfo: ExtraAliasInfoBridge
 
-        init(alias: String?, paymentMethodType: PaymentMethodType, humanReadableIdentifier: String?) {
+        @objc(MLExtraAliasInfo) public class ExtraAliasInfoBridge: NSObject {
+            @objc public let creditCardExtraInfo: CreditCardExtraInfoBridge?
+            @objc public let sepaExtraInfo: SEPAExtraInfoBridge?
+            @objc public let payPalExtraInfo: PayPalExtraInfoBridge?
+
+            init(creditCardExtraInfo: CreditCardExtraInfoBridge?, sepaExtraInfo: SEPAExtraInfoBridge?, payPalExtraInfo: PayPalExtraInfoBridge?) {
+                self.creditCardExtraInfo = creditCardExtraInfo
+                self.sepaExtraInfo = sepaExtraInfo
+                self.payPalExtraInfo = payPalExtraInfo
+            }
+
+            @objc(MLCreditCardExtraInfo) public class CreditCardExtraInfoBridge: NSObject {
+                @objc public let creditCardMask: String
+                @objc public let expiryMonth: Int
+                @objc public let expiryYear: Int
+                @objc public let creditCardType: String
+
+                init(creditCardMask: String, expiryMonth: Int, expiryYear: Int, creditCardType: String) {
+                    self.creditCardMask = creditCardMask
+                    self.expiryMonth = expiryMonth
+                    self.expiryYear = expiryYear
+                    self.creditCardType = creditCardType
+                }
+            }
+
+            @objc(MLSEPAExtraInfo) public class SEPAExtraInfoBridge: NSObject {
+                @objc public let maskedIban: String
+
+                init(maskedIban: String) {
+                    self.maskedIban = maskedIban
+                }
+            }
+
+            @objc(MLPayPalExtraInfo) public class PayPalExtraInfoBridge: NSObject {
+                @objc public let email: String?
+
+                init(email: String?) {
+                    self.email = email
+                }
+            }
+        }
+
+        init(alias: String?, paymentMethodType: PaymentMethodType, extraAliasInfo: ExtraAliasInfoBridge) {
             self.alias = alias
             self.paymentMethodType = paymentMethodType.rawValue
-            self.humanReadableIdentifier = humanReadableIdentifier
+            self.extraAliasInfo = extraAliasInfo
         }
     }
 
     @objc(MLError) public class MobilabPaymentErrorBridge: NSObject {
-        let title: String
-        let errorDescription: String
+        @objc public let title: String
+        @objc public let errorDescription: String
 
         public init(mobilabPaymentError: MobilabPaymentError) {
             self.title = mobilabPaymentError.title
@@ -122,36 +182,103 @@ import UIKit
         }
     }
 
-    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData, completion: self.bridgedCompletion(completion: completion))
+    @objc(MLPaymentMethodType) public enum PaymentMethodTypeBridge: Int {
+        case none = 0
+        case creditCard
+        case payPal
+        case sepa
+
+        fileprivate var paymentMethodType: PaymentMethodType? {
+            switch self {
+            case .none: return nil
+            case .creditCard: return .creditCard
+            case .payPal: return .payPal
+            case .sepa: return .sepa
+            }
+        }
     }
 
-    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerSEPAAccount(sepaData: sepaData.sepaData, completion: self.bridgedCompletion(completion: completion))
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
+                                        idempotencyKey: idempotencyKey,
+                                        completion: self.bridgedCompletion(completion: completion))
+    }
+
+    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, idempotencyKey: String, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerSEPAAccount(sepaData: sepaData.sepaData,
+                                         idempotencyKey: idempotencyKey,
+                                         completion: self.bridgedCompletion(completion: completion))
     }
 
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
-                                                   completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPaymentMethodUsingUI(on: viewController, completion: self.bridgedCompletion(completion: completion))
+                                                   specificPaymentMethod: PaymentMethodTypeBridge,
+                                                   billingData _: BillingData?,
+                                                   idempotencyKey: String,
+                                                   completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
+        self.manager.registerPaymentMethodUsingUI(on: viewController,
+                                                  specificPaymentMethod: specificPaymentMethod.paymentMethodType,
+                                                  idempotencyKey: idempotencyKey,
+                                                  completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerPayPalAccount(presentingViewController viewController: UIViewController,
-                                            billingData: BillingData?,
-                                            completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) {
-        self.manager.registerPayPal(presentingViewController: viewController, billingData: billingData, completion: self.bridgedCompletion(completion: completion))
-    }
-
-    private func bridgedCompletion(completion: @escaping (RegistrationBridge?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {
+    private func bridgedCompletion(completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) -> RegistrationResultCompletion {
         let bridged: ((RegistrationResult) -> Void) = { result in
             switch result {
             case let .success(registration):
-                let bridgedRegistration = RegistrationBridge(alias: registration.alias, paymentMethodType: registration.paymentMethodType,
-                                                             humanReadableIdentifier: registration.humanReadableIdentifier)
+                let bridgedRegistration = PaymentMethodAliasBridge(alias: registration.alias,
+                                                                   paymentMethodType: registration.paymentMethodType,
+                                                                   extraAliasInfo: registration.extraAliasInfo.bridgedAliasInfo)
                 completion(bridgedRegistration, nil)
             case let .failure(error): completion(nil, MobilabPaymentErrorBridge(mobilabPaymentError: error))
             }
         }
 
         return bridged
+    }
+}
+
+private extension PaymentMethodAlias.ExtraAliasInfo {
+    var bridgedAliasInfo: RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge {
+        switch self {
+        case let .creditCard(details):
+            return RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge(creditCardExtraInfo: details.bridgedExtraInfo,
+                                                                                           sepaExtraInfo: nil,
+                                                                                           payPalExtraInfo: nil)
+        case let .sepa(details):
+            return RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge(creditCardExtraInfo: nil,
+                                                                                           sepaExtraInfo: details.bridgedExtraInfo,
+                                                                                           payPalExtraInfo: nil)
+        case let .payPal(details):
+            return RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge(creditCardExtraInfo: nil,
+                                                                                           sepaExtraInfo: nil,
+                                                                                           payPalExtraInfo: details.bridgedExtraInfo)
+        }
+    }
+}
+
+private extension PaymentMethodAlias.CreditCardExtraInfo {
+    typealias Bridge = RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.CreditCardExtraInfoBridge
+
+    var bridgedExtraInfo: Bridge {
+        return Bridge(creditCardMask: self.creditCardMask,
+                      expiryMonth: self.expiryMonth,
+                      expiryYear: self.expiryYear,
+                      creditCardType: self.creditCardType.rawValue)
+    }
+}
+
+private extension PaymentMethodAlias.SEPAExtraInfo {
+    typealias Bridge = RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.SEPAExtraInfoBridge
+
+    var bridgedExtraInfo: Bridge {
+        return Bridge(maskedIban: self.maskedIban)
+    }
+}
+
+private extension PaymentMethodAlias.PayPalExtraInfo {
+    typealias Bridge = RegistrationManagerBridge.PaymentMethodAliasBridge.ExtraAliasInfoBridge.PayPalExtraInfoBridge
+
+    var bridgedExtraInfo: Bridge {
+        return Bridge(email: self.email)
     }
 }

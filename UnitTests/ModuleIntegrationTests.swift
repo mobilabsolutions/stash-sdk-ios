@@ -76,10 +76,15 @@ class ModuleIntegrationTests: XCTestCase {
         }
     }
 
+    override func setUp() {
+        super.setUp()
+        SDKResetter.resetMobilabSDK()
+    }
+
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
-        InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
+        SDKResetter.resetMobilabSDK()
     }
 
     func testHandleRegistrationRequestCalled() throws {
@@ -89,18 +94,20 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
@@ -116,18 +123,20 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                            expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                            expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
@@ -153,17 +162,21 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                                   expiryMonth: 9, expiryYear: 21, country: "DE",
+                                                   billingData: billingData)
+
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
@@ -214,19 +227,21 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: paymentEndpoint)
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: paymentEndpoint,
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
@@ -265,23 +280,86 @@ class ModuleIntegrationTests: XCTestCase {
             OHHTTPStubsResponse(error: MobilabPaymentError.other(GenericErrorDetails(description: "Sample error")))
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: paymentEndpoint)
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: paymentEndpoint,
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
-                                            cvv: "123", expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [stubExpectation], timeout: 5)
+    }
+
+    func testAddsUserAgentToCoreRequests() throws {
+        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+
+        let expectation = XCTestExpectation(description: "Handle registration is called")
+        let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
+                                                registrationRequestCalledExpectation: expectation)
+
+        let stubExpectation = XCTestExpectation(description: "Includes correct user agent for create and update alias")
+        stubExpectation.expectedFulfillmentCount = 2
+
+        stub(condition: { request -> Bool in
+            guard let requestHost = request.url?.host,
+                let expectedHost = URL(string: paymentEndpoint)?.host,
+                requestHost == expectedHost
+            else { return false }
+            return true
+        }) { request -> OHHTTPStubsResponse in
+
+            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+                ? "core_update_alias_success.json"
+                : "core_create_alias_success.json"
+
+            if let userAgentString = request.allHTTPHeaderFields?["User-Agent"],
+                case let components = userAgentString.components(separatedBy: "-"),
+                components.count == 3,
+                components[0] == "iOS",
+                components[1] != "0" {
+                guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+                else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+
+                stubExpectation.fulfill()
+                return fixture(filePath: path, status: 200, headers: [:])
+            } else {
+                XCTFail("Should have user agent header")
+                stubExpectation.fulfill()
+                let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
+                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
+            }
+        }
+
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: paymentEndpoint,
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        configuration.useTestMode = true
+        configuration.loggingEnabled = true
+
+        MobilabPaymentSDK.initialize(configuration: configuration)
+
+        self.module = module
+
+        let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
+
+        let creditCard = try CreditCardData(cardNumber: "4111111111111111",
+                                            cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
+
+        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+
+        wait(for: [expectation, stubExpectation], timeout: 5)
     }
 
     func testPropagatesAliasCreationDetailError() {
@@ -295,17 +373,19 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,
                                                 aliasCreationDetailResult: .failure(error))
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
-        MobilabPaymentSDK.configure(configuration: configuration)
-        MobilabPaymentSDK.registerProvider(provider: module, forPaymentMethodTypes: .creditCard)
+        MobilabPaymentSDK.initialize(configuration: configuration)
 
         self.module = module
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+        let billingData = BillingData(name: name)
 
         guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                                   expiryMonth: 9, expiryYear: 21, holderName: name.fullName, country: "DE", billingData: BillingData())
+                                                   expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
         MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
@@ -320,7 +400,8 @@ class ModuleIntegrationTests: XCTestCase {
     }
 
     private func createTestRegistration(withTitle title: String) -> PSPRegistration {
-        let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: 1234, ccType: "VISA"), billingData: BillingData())
+        let aliasExtra = AliasExtra(ccConfig: CreditCardExtra(ccExpiry: "10/20", ccMask: "VISA-1234", ccType: "VISA", ccHolderName: "Max Mustermann"),
+                                    billingData: BillingData())
         return PSPRegistration(pspAlias: title, aliasExtra: aliasExtra)
     }
 }

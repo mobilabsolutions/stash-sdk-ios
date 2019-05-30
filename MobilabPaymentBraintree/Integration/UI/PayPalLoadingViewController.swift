@@ -35,7 +35,7 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
 
     func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         if case MobilabPaymentError.userCancelled = error {
-            self.navigationController?.popViewController(animated: true)
+            self.dismissLoadingViewController()
         } else {
             let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { _ in
@@ -63,6 +63,16 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
 
         self.view.addSubview(activityView)
         activityView.startAnimating()
+    }
+
+    private func dismissLoadingViewController() {
+        // If we are not the root view controller, we want to pop. Else, we want to dismiss ourselves
+        if let navigationController = self.navigationController,
+            navigationController.viewControllers.count > 1 {
+            navigationController.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     private func addPayPalLogoView() {

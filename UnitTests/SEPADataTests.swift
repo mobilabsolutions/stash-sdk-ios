@@ -59,13 +59,20 @@ class SEPADataTests: XCTestCase {
         }
     }
 
-    func testCorrectlyCreatesHumanReadableIdentifier() throws {
+    func testCorrectlyCreatesMaskedIban() throws {
         let numbers = ["DE75512108001245126199", "DE75512108001245126199", "BA393385804800211234", "AT483200000012345864",
                        "CY21002001950000357001234567", "SV43ACAT00000000000000123123"]
+        let formattedNumbers = ["DEXX XXXX XXXX XXXX XX6199", "DEXX XXXX XXXX XXXX XX6199", "BAXX XXXX XXXX XXXX 1234", "ATXX XXXX XXXX XXXX 5864",
+                                "CYXX XXXX XXXX XXXX XXXX XXXX 4567", "SVXX XXXX XXXX XXXX XXXX XXXX 3123"]
 
-        for number in numbers {
+        for (number, formatted) in zip(numbers, formattedNumbers) {
             let sepa = try SEPAData(iban: number, bic: nil, billingData: BillingData())
-            XCTAssertEqual(number, sepa.humanReadableId, "The human readable identifier should be equal to the IBAN but is instead \(sepa.humanReadableId ?? "nil")")
+
+            switch sepa.extraAliasInfo {
+            case let .sepa(details):
+                XCTAssertEqual(formatted, details.maskedIban, "The human readable identifier should be equal to the masked IBAN but is instead \(details.maskedIban)")
+            default: XCTFail("The SEPA extra alias info should be of the .sepa case")
+            }
         }
     }
 }

@@ -30,33 +30,29 @@ Add `github "mobilab/mobilabpayment_ios"` to your `Cartfile`, and [add the frame
 
 To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the public key as well as the backend endpoint that should be used by the SDK.
 
-To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Use the `registerProvider` method to register PSP with the SDK.
+To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Set the configuration's `integrations` to provide correct data.
 ```swift
 import MobilabPaymentCore
 import MobilabPaymentBSPayone
 
-let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
-MobilabPaymentSDK.configure(configuration: configuration)
-
 let bsPayonePSP = MobilabPaymentBSPayone()
-MobilabPaymentSDK.registerProvider(provider: bsPayonePSP, forPaymentMethodTypes: .creditCard, .sepa)
-
 let braintreePSP = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-MobilabPaymentSDK.registerProvider(provider: braintreePSP, forPaymentMethodTypes: .payPal)
+
+let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", 
+                                                endpoint: "https://payment.example.net/api/v1",
+                                                integrations: [
+                                                    PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP),
+                                                    PaymentProviderIntegration(paymentServiceProvider: braintreePSP)
+                                                ])
+MobilabPaymentSDK.configure(configuration: configuration)
 ```
 
 #### Using the SDK in test mode
 
 The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
-To configure the SDK to use test mode, simply prepend the `test.` subdomain to your endpoint URL (if the corresponding Load Balancer has been set up). Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+To instruct the SDK to use test mode, manually set the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
 
 For example:
-
-| Test Mode | Production Mode |
-| --------- | --------------- |
-| https://test.payment.example.net/api/v1 | https://payment.example.net/api/v1 |
-
-Or in code:
 
 ```swift
 let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
@@ -152,16 +148,16 @@ Now you are ready to register a PayPal account.
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-registrationManager.registerPayPal(presentingViewController: self) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(registration):
-                    self?.showAlert(title: "Success", body: "PayPal added successfully.")
-                case let .failure(error): self?.showAlert(title: error.title,
-                                                          body: error.errorDescription ?? "An error occurred when adding the credit card")
-                }
-            }
+registrationManager.registerPaymentMethodUsingUI(on viewController: self, specificPaymentMethod: .payPal) { [weak self] result in
+    switch result {
+    case let .success(registration):
+        self?.dismiss(animated: true) {
+            self?.showAlert(title: "Success", body: "Successfully registered payment method")
         }
+    case let .failure(error):
+        self?.showAlert(title: "Failure", body: error.description)
+    }
+}
 ```
 
 ### Using the module UI for adding a payment method

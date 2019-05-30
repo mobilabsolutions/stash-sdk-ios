@@ -18,15 +18,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
+    NSSet<NSNumber *> *paymentMethodTypes = [NSSet setWithObjects:[NSNumber numberWithLong:MLPaymentMethodTypeCreditCard],
+                                             [NSNumber numberWithLong:MLPaymentMethodTypeSepa], nil];
+    MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider:pspBsPayone
+                                                                                                  paymentMethodTypes:paymentMethodTypes];
+
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint:@"https://payment-dev.mblb.net/api/v1"];
+                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    endpoint:@"https://payment-dev.mblb.net/api/v1"
+                                                    integrations: @[integration]
+                                                    uiConfiguration:nil];
     [configuration setUseTestMode:YES];
     [configuration setLoggingEnabled:YES];
 
-    [MLMobilabPaymentSDK configureWithConfiguration:configuration];
-
-    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
-    [MLMobilabPaymentSDK registerProviderWithProvider:pspBsPayone paymentMethods:@[@"creditCard", @"sepa"]];
+    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -44,7 +50,11 @@
     [MLMobilabPaymentSDK configureUIWithConfiguration:configuration];
 
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self completion:^(MLRegistration * _Nullable registration, MLError * _Nullable error) {
+    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self
+                                                           specificPaymentMethod: MLPaymentMethodTypeNone
+                                                                     billingData: nil
+                                                                  idempotencyKey: [[NSUUID new] UUIDString]
+                                                                      completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (registration != nil) {
                 NSLog(@"Got alias: %@", registration.alias);

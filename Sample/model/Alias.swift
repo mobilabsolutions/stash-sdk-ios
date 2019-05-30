@@ -11,7 +11,7 @@ import MobilabPaymentCore
 
 struct Alias: Codable {
     let alias: String
-    let humanReadableId: String?
+    let extraInfo: String?
     let expirationYear: Int?
     let expirationMonth: Int?
     let type: AliasType

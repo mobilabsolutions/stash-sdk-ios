@@ -69,9 +69,6 @@
                 <a class="nav-group-task-link" href="../Classes/FormCollectionViewController.html">FormCollectionViewController</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LoadingViewController.html">LoadingViewController</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentConfiguration.html">MobilabPaymentConfiguration</a>
               </li>
               <li class="nav-group-task">
@@ -82,6 +79,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/MLPaymentMethodUIConfiguration.html">– MLPaymentMethodUIConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderIntegrationBridge.html">– PaymentProviderIntegrationBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
@@ -96,10 +96,13 @@
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">– SEPADataBridge</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/RegistrationBridge.html">– RegistrationBridge</a>
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">– PaymentMethodAliasBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">– MobilabPaymentErrorBridge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RegistrationManagerBridge/PaymentMethodTypeBridge.html">– PaymentMethodTypeBridge</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/SEPAUtils.html">SEPAUtils</a>
@@ -118,6 +121,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CreditCardType.html">CreditCardType</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
@@ -154,7 +160,16 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/CountryListCollectionViewController.html">CountryListCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Locale.html">Locale</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIView.html">UIView</a>
               </li>
             </ul>
           </li>
@@ -206,10 +221,10 @@
                 <a class="nav-group-task-link" href="../Structs/AliasExtra.html">AliasExtra</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
+                <a class="nav-group-task-link" href="../Structs/Country.html">Country</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/CreditCardData/CreditCardType.html">– CreditCardType</a>
+                <a class="nav-group-task-link" href="../Structs/CreditCardData.html">CreditCardData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CreditCardExtra.html">CreditCardExtra</a>
@@ -248,10 +263,25 @@
                 <a class="nav-group-task-link" href="../Structs/PayPalPlaceholderData.html">PayPalPlaceholderData</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias.html">PaymentMethodAlias</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/ExtraAliasInfo.html">– ExtraAliasInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/CreditCardExtraInfo.html">– CreditCardExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/SEPAExtraInfo.html">– SEPAExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PaymentMethodAlias/PayPalExtraInfo.html">– PayPalExtraInfo</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PaymentMethodUIConfiguration.html">PaymentMethodUIConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Registration.html">Registration</a>
+                <a class="nav-group-task-link" href="../Structs/PaymentProviderIntegration.html">PaymentProviderIntegration</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RegistrationRequest.html">RegistrationRequest</a>
@@ -427,7 +457,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The billing data to use when registering the credit card with the PSP</p>
+                        <p>The billing data to use when registering the credit card with the PSP.
+Some PSPs require the holder name to be specified here.</p>
 
                       </div>
                       <div class="declaration">
@@ -444,36 +475,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10holderNameSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/holderName" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10holderNameSSSgvp">holderName</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The name of the credit card holder. Not required by every PSP</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">holderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV8cardTypeAC0deH0Ovp"></a>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV8cardTypeAA0deH0Ovp"></a>
                     <a name="//apple_ref/swift/Property/cardType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV8cardTypeAC0deH0Ovp">cardType</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV8cardTypeAA0deH0Ovp">cardType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -488,7 +492,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">cardType</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardData/CreditCardType.html">CreditCardType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">cardType</span><span class="p">:</span> <span class="kt"><a href="../Enums/CreditCardType.html">CreditCardType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -498,9 +502,36 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV8cardMaskSiSgvp"></a>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV7countrySSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/country" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV7countrySSSgvp">country</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The country field takes an ISO country code. e.g. &lsquo;DE&rsquo; for Germany and is mandatory for some PSPs (e.g. BSPayone)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV8cardMaskSSvp"></a>
                     <a name="//apple_ref/swift/Property/cardMask" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV8cardMaskSiSgvp">cardMask</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV8cardMaskSSvp">cardMask</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -508,14 +539,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The card mask (i.e. last 4 digits) of the card number</p>
+                        <p>The card mask (i.e. VISA-1111) of the card number</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cardMask</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cardMask</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -525,36 +556,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV15humanReadableIdSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/humanReadableId" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV15humanReadableIdSSSgvp">humanReadableId</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A human readable identifier for this credit card. Derived from the card number in the form XXXXXXXXXXXX 4111.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">humanReadableId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV0dE4TypeO"></a>
-                    <a name="//apple_ref/swift/Enum/CreditCardType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV0dE4TypeO">CreditCardType</a>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV14extraAliasInfoAA0b6MethodH0V05ExtrahI0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/extraAliasInfo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV14extraAliasInfoAA0b6MethodH0V05ExtrahI0Ovp">extraAliasInfo</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -564,13 +568,12 @@
                       <div class="abstract">
                         <p>Undocumented</p>
 
-                        <a href="../Structs/CreditCardData/CreditCardType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CreditCardType</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">extraAliasInfo</span><span class="p">:</span> <span class="kt"><a href="../Structs/PaymentMethodAlias.html">PaymentMethodAlias</a></span><span class="o">.</span><span class="kt">ExtraAliasInfo</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -580,9 +583,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year10holderName07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(cardNumber:cvv:expiryMonth:expiryYear:holderName:billingData:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year10holderName07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc">init(cardNumber:cvv:expiryMonth:expiryYear:holderName:billingData:)</a>
+                    <a name="/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year7country07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(cardNumber:cvv:expiryMonth:expiryYear:country:billingData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore14CreditCardDataV10cardNumber3cvv11expiryMonth0J4Year7country07billingF0ACSS_SSS2iSSSgAA07BillingF0CtKcfc">init(cardNumber:cvv:expiryMonth:expiryYear:country:billingData:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -602,7 +605,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">expiryMonth</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">holderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">expiryMonth</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -661,12 +664,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>holderName</em>
+                                <em>country</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the credit card holder. Not required by every PSP</p>
+                                  <p>ISO code of the country of the credit card holder. Not required by every PSP.</p>
                                 </div>
                               </td>
                             </tr>

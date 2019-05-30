@@ -15,7 +15,7 @@ public class CreditCardUtils {
         return self.formattedNumber(number: cleaned, for: type)
     }
 
-    public static func cardTypeFromNumber(number: String) -> CreditCardData.CreditCardType {
+    public static func cardTypeFromNumber(number: String) -> CreditCardType {
         return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
     }
 
@@ -34,13 +34,13 @@ public class CreditCardUtils {
         else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
     }
 
-    static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardData.CreditCardType {
+    static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardType {
         let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }
         return highestPriorityMatch?.1 ?? .unknown
     }
 
-    fileprivate static func cardNumbersAndRanges(for cleanedNumber: String) -> [(IINRange, CreditCardData.CreditCardType)] {
+    fileprivate static func cardNumbersAndRanges(for cleanedNumber: String) -> [(IINRange, CreditCardType)] {
         // Get card type from number using IIN ranges as documented here:
         // https://en.wikipedia.org/wiki/Payment_card_number#Major_Industry_Identifier_.28MII.29
         let numberLength = cleanedNumber.count
@@ -49,7 +49,7 @@ public class CreditCardUtils {
         else { return [] }
 
         let iin = String(cleanedNumber[cleanedNumber.startIndex..<cleanedNumber.index(cleanedNumber.startIndex, offsetBy: 6)])
-        return CreditCardData.CreditCardType.allCases
+        return CreditCardType.allCases
             .flatMap { type in type.iinRangePatterns.map { (range: $0, type: type) } }
             .filter { range, _ in
                 guard let relevantPart = Int(String(iin[iin.startIndex..<iin.index(iin.startIndex, offsetBy: range.priority)]))
@@ -84,7 +84,7 @@ public class CreditCardUtils {
         return checkDigit == digits.last
     }
 
-    static func formattedNumber(number: String, for type: CreditCardData.CreditCardType) -> NSAttributedString {
+    static func formattedNumber(number: String, for type: CreditCardType) -> NSAttributedString {
         let cleaned = cleanedNumber(number: number)
         let formattingSpaces = type.formattingSpaces
 
@@ -108,7 +108,7 @@ private struct IINRange {
     let validLengths: [ClosedRange<Int>]
 }
 
-extension CreditCardData.CreditCardType {
+extension CreditCardType {
     fileprivate var iinRangePatterns: [IINRange] {
         switch self {
         case .visa:
@@ -139,9 +139,6 @@ extension CreditCardData.CreditCardType {
                     IINRange(range: 6307...6307, priority: 4, validLengths: [12...19]),
                     IINRange(range: 6759...6759, priority: 4, validLengths: [12...19]),
                     IINRange(range: 6761...6763, priority: 4, validLengths: [12...19])]
-        case .carteBleue:
-            #warning("Figure out which IIN range carte bleue has / how we can find out whether a card is carte bleue or not")
-            return []
         case .chinaUnionPay:
             return [IINRange(range: 62...62, priority: 2, validLengths: [16...19])]
         case .unknown:
@@ -150,7 +147,7 @@ extension CreditCardData.CreditCardType {
     }
 }
 
-extension CreditCardData.CreditCardType {
+extension CreditCardType {
     fileprivate var formattingSpaces: [Int] {
         switch self {
         case .americanExpress: return [4, 10]

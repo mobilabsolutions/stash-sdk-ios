@@ -15,14 +15,13 @@ import Foundation
 class PaymentMethodManager {
     static let shared = PaymentMethodManager()
 
-    private var pspIsSetUp = false
+    private var sdkIsSetUp = false
     private let testModeEnabled = true
 
     private init() {}
 
     func addNewPaymentMethod(viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
         let paymentManager = PaymentMethodManager.shared
-        paymentManager.setupPspForSDK(psp: .adyen)
         paymentManager.configureSDK()
 
         let configuration = PaymentMethodUIConfiguration()
@@ -31,25 +30,25 @@ class PaymentMethodManager {
         MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: viewController, completion: completion)
     }
 
-    private func setupPspForSDK(psp _: MobilabPaymentProvider) {
-        guard !self.pspIsSetUp
+    private func configureSDK() {
+        guard !self.sdkIsSetUp
         else { return }
 
-        let provider = MobilabPaymentAdyen()
+        let adyen = MobilabPaymentAdyen()
+        let adyenIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen)
 
-        MobilabPaymentSDK.registerProvider(provider: provider, forPaymentMethodTypes: .creditCard, .sepa)
+        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal])
+        else { fatalError("Braintree should support PayPal payment method but does not!") }
 
-        let pspBraintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-        MobilabPaymentSDK.registerProvider(provider: pspBraintree, forPaymentMethodTypes: .payPal)
-
-        self.pspIsSetUp = true
-    }
-
-    private func configureSDK() {
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn", endpoint: "https://payment-dev.mblb.net/api/v1")
+        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                        integrations: [adyenIntegration, braintreeIntegration])
         configuration.loggingEnabled = true
         configuration.useTestMode = self.testModeEnabled
 
-        MobilabPaymentSDK.configure(configuration: configuration)
+        MobilabPaymentSDK.initialize(configuration: configuration)
+
+        self.sdkIsSetUp = true
     }
 }

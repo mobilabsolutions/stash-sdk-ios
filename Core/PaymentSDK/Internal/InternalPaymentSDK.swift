@@ -1,6 +1,6 @@
 //
-//  MLInternalPaymentSDK.swift
-//  MLPaymentSDK
+//  InternalPaymentSDK.swift
+//  MobilabPaymentSDK
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
@@ -20,6 +20,8 @@ enum SDKError: Error {
 }
 
 class InternalPaymentSDK {
+    private var wasInitialized = false
+
     private var _configuration: MobilabPaymentConfiguration?
     var configuration: MobilabPaymentConfiguration {
         guard let config = self._configuration else {
@@ -39,9 +41,19 @@ class InternalPaymentSDK {
     let pspCoordinator = InternalPaymentServiceProviderCoordinator()
     private(set) var uiConfiguration = PaymentMethodUIConfiguration()
 
+    let version: String
+
     static let sharedInstance = InternalPaymentSDK()
 
-    func configure(configuration: MobilabPaymentConfiguration) {
+    init() {
+        let infoDictionary = Bundle(for: InternalPaymentSDK.self).infoDictionary
+        self.version = "\(infoDictionary?["CFBundleShortVersionString"] ?? "0")-\(infoDictionary?["CFBundleVersionString"] ?? "0")"
+    }
+
+    func initialize(configuration: MobilabPaymentConfiguration) {
+        guard !wasInitialized
+        else { fatalError("The MobilabPaymentSDK should only ever be initialized once!") }
+
         do {
             let url = try configuration.endpointUrl()
             self._networkingClient = NetworkClientCore(url: url)
@@ -51,17 +63,29 @@ class InternalPaymentSDK {
         } catch {
             fatalError()
         }
+
+        self.pspCoordinator.register(integrations: configuration.integrations)
+
+        self.wasInitialized = true
+
+        guard let uiConfiguration = configuration.uiConfiguration
+        else { return }
+        self.configureUI(configuration: uiConfiguration)
     }
 
     func configureUI(configuration: PaymentMethodUIConfiguration) {
         self.uiConfiguration = configuration
     }
 
-    func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {
-        self.pspCoordinator.registerProvider(provider: provider, forPaymentMethodTypes: paymentMethodTypes)
-    }
-
     func registrationManager() -> InternalRegistrationManager {
         return InternalRegistrationManager()
+    }
+
+    func getAvailablePaymentMethodTypes() -> Set<PaymentMethodType> {
+        return self.pspCoordinator.getSupportedPaymentMethodTypes()
+    }
+
+    func resetInitialization() {
+        self.wasInitialized = false
     }
 }

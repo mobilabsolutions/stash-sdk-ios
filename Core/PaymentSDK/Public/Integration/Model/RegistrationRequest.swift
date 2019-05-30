@@ -31,5 +31,5 @@ public struct RegistrationRequest {
 
 /// Data representing a payment method from the user's view
 public protocol RegistrationData {
-    var humanReadableId: String? { get }
+    var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo { get }
 }

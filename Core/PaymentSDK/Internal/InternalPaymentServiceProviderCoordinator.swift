@@ -1,5 +1,5 @@
 //
-//  PaymentMethodTypeProviderCoordinator.swift
+//  InternalPaymentServiceProviderCoordinator.swift
 //  MobilabPaymentCore
 //
 //  Created by Borna Beakovic on 21/03/2019.
@@ -12,40 +12,36 @@ class InternalPaymentServiceProviderCoordinator {
     private var store = [InternalPaymentMethodType: PaymentServiceProvider]()
     private var providers = [PaymentServiceProvider]()
 
-    func registerProvider(provider: PaymentServiceProvider, forPaymentMethodTypes paymentMethodTypes: [PaymentMethodType]) {
-        let providerSupportedPaymentMethodTypes = Set(provider.supportedPaymentMethodTypes.map({ $0.hashValue }))
-        let paymentMethodTypesToRegister = Set(paymentMethodTypes.map({ $0.hashValue }))
+    func register(integrations: [PaymentProviderIntegration]) {
+        for integration in integrations {
+            let provider = integration.paymentServiceProvider
+            let paymentMethodTypes = integration.paymentMethodTypes
 
-        guard paymentMethodTypesToRegister.subtracting(providerSupportedPaymentMethodTypes).count == 0 else {
-            fatalError(SDKConfigurationError.providerNotSupportingPaymentMethod(provider: provider.pspIdentifier.rawValue,
-                                                                                paymentMethod: "\(paymentMethodTypes)").description)
-        }
+            self.providers.append(provider)
 
-        self.providers.append(provider)
+            for element in paymentMethodTypes {
+                guard self.store[element.internalPaymentMethodType] == nil
+                else { fatalError("Only one payment service provider may be registered per payment method type!") }
 
-        for element in paymentMethodTypes {
-            self.store[element.internalPaymentMethodType] = provider
+                self.store[element.internalPaymentMethodType] = provider
+            }
         }
     }
 
     func getProvider(forPaymentMethodType paymentMethodType: InternalPaymentMethodType) -> PaymentServiceProvider {
-        guard let defaultProvider = self.providers.first else {
+        guard let registeredProvider = self.store[paymentMethodType] else {
             fatalError(SDKConfigurationError.paymentMethodIsMissingProvider(paymentMethodType.rawValue).description)
         }
 
-        if let registeredProvider = self.store[paymentMethodType] {
-            return registeredProvider
-        } else {
-            return defaultProvider
-        }
+        return registeredProvider
     }
 
     func getSupportedPaymentMethodTypes() -> Set<PaymentMethodType> {
-        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypes })
+        return Set(self.store.keys.compactMap { $0.publicPaymentMethodType })
     }
 
     func getSupportedPaymentMethodTypeUserInterfaces() -> Set<PaymentMethodType> {
-        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces })
+        return Set(self.providers.flatMap { $0.supportedPaymentMethodTypeUserInterfaces }).intersection(self.getSupportedPaymentMethodTypes())
     }
 
     func removeAllProviders() {

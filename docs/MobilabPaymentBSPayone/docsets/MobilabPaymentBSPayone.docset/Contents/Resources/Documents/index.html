@@ -105,39 +105,27 @@
 
 <p>To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the public key as well as the backend endpoint that should be used by the SDK.</p>
 
-<p>To connect the SDK to a given payment service provider (PSP), that PSP&rsquo;s module needs to be imported and initialized. Use the <code>registerProvider</code> method to register PSP with the SDK.</p>
+<p>To connect the SDK to a given payment service provider (PSP), that PSP&rsquo;s module needs to be imported and initialized. Set the configuration&rsquo;s <code>integrations</code> to provide correct data.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">MobilabPaymentCore</span>
 <span class="kd">import</span> <span class="kt">MobilabPaymentBSPayone</span>
 
-<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="s">"PD-BS2-ABCDEXXXXXXXXXXX"</span><span class="p">,</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"https://payment.example.net/api/v1"</span><span class="p">)</span>
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
-
 <span class="k">let</span> <span class="nv">bsPayonePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBSPayone</span><span class="p">()</span>
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">registerProvider</span><span class="p">(</span><span class="nv">provider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">,</span> <span class="nv">forPaymentMethodTypes</span><span class="p">:</span> <span class="o">.</span><span class="n">creditCard</span><span class="p">,</span> <span class="o">.</span><span class="n">sepa</span><span class="p">)</span>
-
 <span class="k">let</span> <span class="nv">braintreePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBraintree</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="s">"com.mobilabsolutions.payment.Demo.paypal"</span><span class="p">)</span>
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">registerProvider</span><span class="p">(</span><span class="nv">provider</span><span class="p">:</span> <span class="n">braintreePSP</span><span class="p">,</span> <span class="nv">forPaymentMethodTypes</span><span class="p">:</span> <span class="o">.</span><span class="n">payPal</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="s">"PD-BS2-ABCDEXXXXXXXXXXX"</span><span class="p">,</span> 
+                                                <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"https://payment.example.net/api/v1"</span><span class="p">,</span>
+                                                <span class="nv">integrations</span><span class="p">:</span> <span class="p">[</span>
+                                                    <span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">),</span>
+                                                    <span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">braintreePSP</span><span class="p">)</span>
+                                                <span class="p">])</span>
+<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
 <h4 id='using-the-sdk-in-test-mode' class='heading'>Using the SDK in test mode</h4>
 
 <p>The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
-To configure the SDK to use test mode, simply prepend the <code>test.</code> subdomain to your endpoint URL (if the corresponding Load Balancer has been set up). Another method to instruct the SDK to use test mode while keeping the same URL is manually setting the <code>useTestMode</code> property on the <code>MobilabPaymentConfiguration</code> used to configure the SDK.</p>
+To instruct the SDK to use test mode, manually set the <code>useTestMode</code> property on the <code>MobilabPaymentConfiguration</code> used to configure the SDK.</p>
 
 <p>For example:</p>
-
-<table><thead>
-<tr>
-<th>Test Mode</th>
-<th>Production Mode</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><a href="https://test.payment.example.net/api/v1">https://test.payment.example.net/api/v1</a></td>
-<td><a href="https://payment.example.net/api/v1">https://payment.example.net/api/v1</a></td>
-</tr>
-</tbody></table>
-
-<p>Or in code:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="s">"PD-BS2-ABCDEXXXXXXXXXXX"</span><span class="p">,</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"https://payment.example.net/api/v1"</span><span class="p">)</span>
 <span class="n">configuration</span><span class="o">.</span><span class="n">useTestMode</span> <span class="o">=</span> <span class="kc">true</span>
 
@@ -219,16 +207,16 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 
 <p>Now you are ready to register a PayPal account. </p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
-<span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPayPal</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
-            <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
-                <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-                <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
-                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"PayPal added successfully."</span><span class="p">)</span>
-                <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-                                                          <span class="nv">body</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">errorDescription</span> <span class="p">??</span> <span class="s">"An error occurred when adding the credit card"</span><span class="p">)</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
+<span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">specificPaymentMethod</span><span class="p">:</span> <span class="o">.</span><span class="n">payPal</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Success"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="s">"Successfully registered payment method"</span><span class="p">)</span>
         <span class="p">}</span>
+    <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Failure"</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <h3 id='using-the-module-ui-for-adding-a-payment-method' class='heading'>Using the module UI for adding a payment method</h3>
 
