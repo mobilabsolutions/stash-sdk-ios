@@ -147,7 +147,7 @@ class BSPayoneIntegrationTests: XCTestCase {
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error):
-                guard case MobilabPaymentError.userActionable = error
+                guard case MobilabPaymentError.validation = error
                 else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
             }
 

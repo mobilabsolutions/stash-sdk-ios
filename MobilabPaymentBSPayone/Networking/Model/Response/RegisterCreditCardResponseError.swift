@@ -33,17 +33,9 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
             "983",
         ]
 
-        let userActionRequiredErrors: Set = [
-            // CVC2 code incorrect length or incorrect syntax
-            "879",
+        let genericValidationErrors: Set = [
             // Country of the account not supported.
             "892",
-            // Expiry date invalid, incorrect or in the past
-            "33",
-            // Required CVC code not specified or not valid
-            "7",
-            // Invalid card
-            "14",
             // Manipulation suspected
             "34",
             // Card stolen
@@ -60,8 +52,6 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
             "107", "890",
             // Payment denied after [xyz] check
             "701", "702", "703", "704", "731", "732", "733", "734",
-            // Invalid card number
-            "877", "878",
             // Card type does not correspond with card number
             "880",
             // Bank details cannot be used for online banking.
@@ -71,13 +61,42 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
             // Parameter [xyz] faulty or missing
             "1000", "1079", "1078", "1077", "1110", "1111", "1115", "1301", "1302", "1340",
             "4010", "4011",
+            // Card type does not correspond with card number
+            "880",
+        ]
+
+        let cvvErrors = [
+            // CVC2 code incorrect length or incorrect syntax
+            "879",
+            // Required CVC code not specified or not valid
+            "7",
+        ]
+
+        let cardErrors = [
+            // Invalid card
+            "14",
+            // Invalid card number
+            "877", "878",
+        ]
+
+        let dateErrors = [
+            // Expiry date invalid, incorrect or in the past
+            "33",
         ]
 
         switch self.errorCode {
         case isContainedIn(temporaryErrors):
             return MobilabPaymentError.temporary(TemporaryErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
-        case isContainedIn(userActionRequiredErrors):
-            return MobilabPaymentError.userActionable(UserActionableErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
+        case isContainedIn(cvvErrors):
+            return MobilabPaymentError.validation(.invalidCVV)
+        case isContainedIn(cardErrors):
+            return MobilabPaymentError.validation(.invalidCreditCardNumber)
+        case isContainedIn(dateErrors):
+            return MobilabPaymentError.validation(.invalidExpirationDate)
+        case isContainedIn(genericValidationErrors):
+            let details = ValidationErrorDetails.other(description: self.customerMessage ?? self.errorMessage,
+                                                       thirdPartyErrorDetails: self.errorCode)
+            return MobilabPaymentError.validation(details)
         default:
             return MobilabPaymentError.other(GenericErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
         }

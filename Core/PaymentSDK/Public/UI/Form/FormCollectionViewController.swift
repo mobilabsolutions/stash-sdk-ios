@@ -108,19 +108,18 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
                                                   body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
                                                   uiConfiguration: self.configuration)
-        case let .userActionable(error):
-            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
-                                                  body: "An error occurred: \(error.description)",
-                                                  uiConfiguration: self.configuration)
         case let .validation(error):
             UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
                                                   body: error.description,
                                                   uiConfiguration: self.configuration)
         case let .other(error):
-            let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
+            let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0))" } ?? ""
             UIViewControllerTools.showAlertBanner(on: self, title: "Error",
-                                                  body: "An error \(insertedErrorCode)occurred.",
+                                                  body: "An error occurred: \(error.description) \(insertedErrorCode)",
                                                   uiConfiguration: self.configuration)
+        case .userCancelled:
+            // The user cancelled the action, we should dismiss ourselves
+            self.dismiss(animated: true, completion: nil)
         }
     }
 

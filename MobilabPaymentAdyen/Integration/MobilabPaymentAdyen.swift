@@ -140,7 +140,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         else { throw MobilabPaymentError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
 
         guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
-        else { throw MobilabPaymentError.validation(.invalidExpirationYear) }
+        else { throw MobilabPaymentError.validation(.invalidExpirationDate) }
 
         let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
 
