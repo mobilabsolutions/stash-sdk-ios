@@ -27,17 +27,17 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
 
     private var dateError: String? {
         didSet {
-            self.errorLabel.text = (self.dateError.flatMap { $0 + "\n" } ?? "") + (self.cvvError ?? "")
+            self.dateErrorLabel.text = self.dateError
             self.dateTextField.set(hasInvalidData: self.dateError != nil)
-            self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
+            self.dateErrorLabelZeroHeightConstraint?.isActive = self.dateError == nil
         }
     }
 
     private var cvvError: String? {
         didSet {
-            self.errorLabel.text = (self.dateError.flatMap { $0 + "\n" } ?? "") + (self.cvvError ?? "")
+            self.cvvErrorLabel.text = self.cvvError
             self.cvvTextField.set(hasInvalidData: self.cvvError != nil)
-            self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
+            self.cvvErrorLabelZeroHeightConstraint?.isActive = self.cvvError == nil
         }
     }
 
@@ -46,6 +46,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
     private let fieldToHeaderVerticalOffset: CGFloat = 8
     private let headerToSuperViewVerticalOffset: CGFloat = 16
     private let errorLabelVerticalOffset: CGFloat = 4
+    private let errorLabelHorizontalOffset: CGFloat = 4
     private let numberOfMonths = 12
     private let numberOfYearsToShow = 20
 
@@ -59,9 +60,11 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
 
     private let dateTitleLabel = SubtitleLabel()
     private let cvvTitleLabel = SubtitleLabel()
-    private let errorLabel = ErrorLabel()
+    private let dateErrorLabel = ErrorLabel()
+    private let cvvErrorLabel = ErrorLabel()
 
-    private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
+    private var dateErrorLabelZeroHeightConstraint: NSLayoutConstraint?
+    private var cvvErrorLabelZeroHeightConstraint: NSLayoutConstraint?
 
     func setup(date: (month: Int, year: Int)?,
                cvv: String?,
@@ -80,9 +83,14 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.textFieldGainFocusCallback = textFieldGainFocusCallback
         self.textFieldLoseFocusCallback = textFieldLoseFocusCallback
 
-        self.errorLabel.text = (dateError.flatMap { $0 + "\n" } ?? "") + (cvvError ?? "")
-        self.errorLabelZeroHeightConstraint?.isActive = self.dateError == nil && self.cvvError == nil
-        self.errorLabel.uiConfiguration = configuration
+        self.dateErrorLabel.text = dateError
+        self.cvvErrorLabel.text = cvvError
+
+        self.dateErrorLabelZeroHeightConstraint?.isActive = self.dateError == nil
+        self.cvvErrorLabelZeroHeightConstraint?.isActive = self.cvvError == nil
+
+        self.dateErrorLabel.uiConfiguration = configuration
+        self.cvvErrorLabel.uiConfiguration = configuration
 
         self.dateTitleLabel.textColor = configuration.textColor
         self.cvvTitleLabel.textColor = configuration.textColor
@@ -131,7 +139,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.setupCVVTextField()
         self.setupLabels()
 
-        self.contentView.addSubview(self.errorLabel)
+        self.contentView.addSubview(self.dateErrorLabel)
+        self.contentView.addSubview(self.cvvErrorLabel)
         self.contentView.addSubview(self.dateTextField)
         self.contentView.addSubview(self.cvvTextField)
         self.contentView.addSubview(self.dateTitleLabel)
@@ -152,13 +161,18 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
             self.cvvTitleLabel.leadingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor),
             self.cvvTitleLabel.trailingAnchor.constraint(equalTo: self.cvvTitleLabel.trailingAnchor),
             self.dateTextField.topAnchor.constraint(equalTo: self.dateTitleLabel.bottomAnchor, constant: fieldToHeaderVerticalOffset),
-            self.errorLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
-            self.errorLabel.trailingAnchor.constraint(equalTo: self.cvvTextField.trailingAnchor),
-            self.errorLabel.topAnchor.constraint(equalTo: self.dateTextField.bottomAnchor, constant: errorLabelVerticalOffset),
+            self.dateErrorLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
+            self.dateErrorLabel.trailingAnchor.constraint(equalTo: self.cvvErrorLabel.leadingAnchor, constant: -errorLabelHorizontalOffset),
+            self.dateErrorLabel.topAnchor.constraint(equalTo: self.dateTextField.bottomAnchor, constant: errorLabelVerticalOffset),
+            self.cvvErrorLabel.leadingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor),
+            self.cvvErrorLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -errorLabelHorizontalOffset),
+            self.cvvErrorLabel.topAnchor.constraint(equalTo: self.cvvTextField.bottomAnchor, constant: errorLabelVerticalOffset),
         ])
 
-        self.errorLabelZeroHeightConstraint = self.errorLabel.heightAnchor.constraint(equalToConstant: 0)
-        self.errorLabelZeroHeightConstraint?.isActive = true
+        self.dateErrorLabelZeroHeightConstraint = self.dateErrorLabel.heightAnchor.constraint(equalToConstant: 0)
+        self.cvvErrorLabelZeroHeightConstraint = self.cvvErrorLabel.heightAnchor.constraint(equalToConstant: 0)
+        self.dateErrorLabelZeroHeightConstraint?.isActive = true
+        self.cvvErrorLabelZeroHeightConstraint?.isActive = true
 
         self.backgroundColor = .white
     }
@@ -186,9 +200,13 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.cvvTitleLabel.text = "CVV/CVC"
         self.dateTitleLabel.text = "Expiration date"
 
+        self.dateErrorLabel.numberOfLines = 0
+        self.cvvErrorLabel.numberOfLines = 0
+
         self.cvvTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.dateTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.dateErrorLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.cvvErrorLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     fileprivate func setupDatePicker() {
