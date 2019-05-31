@@ -118,6 +118,8 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == SectionType.addPaymentMethod.index {
             self.addNewPaymentMethod()
+        } else if self.shouldMakePayment, let cell = collectionView.cellForItem(at: indexPath) as? PaymentMethodCell {
+            updateSelection(forCell: cell)
         }
     }
 
