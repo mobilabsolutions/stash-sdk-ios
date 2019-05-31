@@ -43,7 +43,7 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
         setTitle(title: "List of Items")
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
         self.setupCollectionView()
     }
 

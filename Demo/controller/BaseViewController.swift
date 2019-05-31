@@ -15,14 +15,18 @@ class BaseViewController: UIViewController {
     let defaultInset: CGFloat = 16
     let defaultSectionLineSpacing: CGFloat = 8
     let defaultSectionInsets: UIEdgeInsets
+    let defaultTopPadding: CGFloat = 40
 
-    private let defaultTopInset: CGFloat = 40
+    private let defaultTopInset: CGFloat = 0
     private let buttonHeight: CGFloat = 44
     private let amountViewHeight: CGFloat = 32
 
     private let configuration: PaymentMethodUIConfiguration
 
     var availableBottomAnchor: NSLayoutYAxisAnchor {
+        if self.button.isHidden {
+            return self.view.safeAreaLayoutGuide.bottomAnchor
+        }
         return self.button.topAnchor
     }
 

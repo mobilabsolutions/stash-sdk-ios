@@ -31,12 +31,8 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     private let addPaymentMethodCellId = "addPaymentMethod"
     private let paymentMethodCellId = "paymentMethod"
 
-    private lazy var paymentMethodListSectionInsets: UIEdgeInsets = self.defaultSectionInsets
-    private lazy var addPaymentMethodSectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: self.defaultInset, bottom: self.defaultInset, right: defaultInset)
-
     private let paymentMethodListCellHeight: CGFloat = 86
     private let addPaymentMethodCellHeight: CGFloat = 70
-    private let addPaymentMethodSectionLineSpacing: CGFloat = 18
 
     private let configuration: PaymentMethodUIConfiguration
 
@@ -119,17 +115,6 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         return toReturn
     }
 
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return section == SectionType.paymentMethodList.index ? self.defaultSectionLineSpacing : self.addPaymentMethodSectionLineSpacing
-    }
-
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == SectionType.paymentMethodList.index {
-            return self.paymentMethodListSectionInsets
-        }
-        return self.addPaymentMethodSectionInsets
-    }
-
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == SectionType.addPaymentMethod.index {
             self.addNewPaymentMethod()
@@ -158,8 +143,8 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
             setButtonInteraction(to: false)
         }
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: availableBottomAnchor, right: view.rightAnchor,
-                                   paddingTop: self.paymentMethodListSectionInsets.top, paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: availableBottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor,
+                                   paddingTop: defaultTopPadding)
     }
 
     private func setupCollectionView() {
