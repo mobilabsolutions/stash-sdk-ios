@@ -81,15 +81,18 @@ class AddUIViewController: UIViewController {
         MobilabPaymentSDK.configureUI(configuration: configuration)
         MobilabPaymentSDK.getRegistrationManager()
             .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType, idempotencyKey: idempotencyKey) { [weak self] result in
+                guard let self = self
+                else { return }
+
                 DispatchQueue.main.async {
                     switch result {
                     case let .success(value):
-                        if self?.presentedViewController != nil {
-                            self?.dismiss(animated: true) {
-                                self?.showAlert(title: "Success", body: "Successfully registered payment method")
+                        if self.presentedViewController != nil {
+                            self.dismiss(animated: true) {
+                                self.showAlert(title: "Success", body: "Successfully registered payment method")
                             }
                         } else {
-                            self?.showAlert(title: "Success", body: "Successfully registered payment method")
+                            self.showAlert(title: "Success", body: "Successfully registered payment method")
                         }
 
                         let extraInfo: String?
@@ -110,8 +113,8 @@ class AddUIViewController: UIViewController {
                                           type: AliasType(paymentMethodType: value.paymentMethodType))
                         AliasManager.shared.save(alias: alias)
                     case let .failure(error):
-                        if self?.presentedViewController == nil {
-                            self?.showAlert(title: "Error", body: error.description)
+                        if self.presentedViewController == nil {
+                            self.showAlert(title: "Error", body: error.description)
                         }
                     }
                 }

@@ -26,10 +26,11 @@ public final class UIViewControllerTools {
         let view: UIView = viewController.parent?.view ?? viewController.view
         view.addSubview(banner)
 
+        banner.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                      left: view.safeAreaLayoutGuide.leftAnchor,
+                      right: view.safeAreaLayoutGuide.rightAnchor)
+
         NSLayoutConstraint.activate([
-            banner.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            banner.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             banner.heightAnchor.constraint(greaterThanOrEqualToConstant: alertBannerHeight),
             banner.heightAnchor.constraint(lessThanOrEqualToConstant: alertBannerHeight * 1.5),
         ])
