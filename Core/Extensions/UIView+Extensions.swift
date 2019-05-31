@@ -9,7 +9,20 @@
 import UIKit
 
 public extension UIView {
-    func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, centerX: NSLayoutXAxisAnchor? = nil, centerY: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat = 0, paddingLeft: CGFloat = 0, paddingBottom: CGFloat = 0, paddingRight: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0) {
+    func anchor(top: NSLayoutYAxisAnchor? = nil,
+                left: NSLayoutXAxisAnchor? = nil,
+                bottom: NSLayoutYAxisAnchor? = nil,
+                right: NSLayoutXAxisAnchor? = nil,
+                centerX: NSLayoutXAxisAnchor? = nil,
+                centerY: NSLayoutYAxisAnchor? = nil,
+                paddingTop: CGFloat = 0,
+                paddingLeft: CGFloat = 0,
+                paddingBottom: CGFloat = 0,
+                paddingRight: CGFloat = 0,
+                width: CGFloat? = nil,
+                height: CGFloat? = nil,
+                heightAnchor: NSLayoutDimension? = nil,
+                widthAnchor: NSLayoutDimension? = nil) {
         self.translatesAutoresizingMaskIntoConstraints = false
 
         if let top = top {
@@ -36,12 +49,20 @@ public extension UIView {
             self.centerYAnchor.constraint(equalTo: centerY).isActive = true
         }
 
-        if width != 0 {
+        if let width = width {
             self.widthAnchor.constraint(equalToConstant: width).isActive = true
         }
 
-        if height != 0 {
+        if let height = height {
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+
+        if let heightAnchor = heightAnchor {
+            self.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        }
+
+        if let widthAnchor = widthAnchor {
+            self.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         }
     }
 }

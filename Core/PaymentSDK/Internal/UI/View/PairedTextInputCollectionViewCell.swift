@@ -58,16 +58,16 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
     private var firstErrorText: String? {
         didSet {
             self.firstTextField.set(hasInvalidData: self.firstErrorText != nil)
-            self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
-            self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
+            self.firstErrorLabel.text = self.firstErrorText
+            self.firstErrorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil
         }
     }
 
     private var secondErrorText: String? {
         didSet {
             self.secondTextField.set(hasInvalidData: self.secondErrorText != nil)
-            self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
-            self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
+            self.secondErrorLabel.text = self.secondErrorText
+            self.secondErrorLabelZeroHeightConstraint?.isActive = self.secondErrorText == nil
         }
     }
 
@@ -108,6 +108,7 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
     private let fieldToHeaderVerticalOffset: CGFloat = 8
     private let headerToSuperViewVerticalOffset: CGFloat = 16
     private let errorLabelVerticalOffset: CGFloat = 4
+    private let errorLabelHorizontalOffset: CGFloat = 4
 
     private weak var delegate: DataPointProvidingDelegate?
     private var textFieldGainFocusCallback: ((UITextField, NecessaryData) -> Void)?
@@ -121,9 +122,11 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
     private let secondTextField = CustomTextField()
     private let secondSubTitleLabel = SubtitleLabel()
 
-    private let errorLabel = ErrorLabel()
+    private let firstErrorLabel = ErrorLabel()
+    private let secondErrorLabel = ErrorLabel()
 
-    private var errorLabelZeroHeightConstraint: NSLayoutConstraint?
+    private var firstErrorLabelZeroHeightConstraint: NSLayoutConstraint?
+    private var secondErrorLabelZeroHeightConstraint: NSLayoutConstraint?
 
     public func setup(firstText: String?,
                       firstTitle: String?,
@@ -178,9 +181,14 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
         self.secondTextField.returnKeyType = .continue
         self.secondTextField.delegate = self
 
-        self.errorLabel.text = (self.firstErrorText.flatMap { $0 + "\n" } ?? "") + (self.secondErrorText ?? "")
-        self.errorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil && self.secondErrorText == nil
-        self.errorLabel.uiConfiguration = configuration
+        self.firstErrorLabel.text = self.firstErrorText
+        self.secondErrorLabel.text = self.secondErrorText
+
+        self.firstErrorLabelZeroHeightConstraint?.isActive = self.firstErrorText == nil
+        self.secondErrorLabelZeroHeightConstraint?.isActive = self.secondErrorText == nil
+
+        self.firstErrorLabel.uiConfiguration = configuration
+        self.secondErrorLabel.uiConfiguration = configuration
     }
 
     func selectCell() {
@@ -204,7 +212,8 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
         self.secondTextField.translatesAutoresizingMaskIntoConstraints = false
         self.secondSubTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        self.errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.firstErrorLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.secondErrorLabel.translatesAutoresizingMaskIntoConstraints = false
 
         self.contentView.addSubview(self.firstTextField)
         self.contentView.addSubview(self.firstSubTitleLabel)
@@ -212,30 +221,49 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
         self.contentView.addSubview(self.secondTextField)
         self.contentView.addSubview(self.secondSubTitleLabel)
 
-        self.contentView.addSubview(self.errorLabel)
+        self.contentView.addSubview(self.firstErrorLabel)
+        self.contentView.addSubview(self.secondErrorLabel)
 
-        NSLayoutConstraint.activate([
-            self.firstTextField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: defaultHorizontalToSuperviewOffset),
-            self.firstTextField.trailingAnchor.constraint(equalTo: self.secondTextField.leadingAnchor, constant: -defaultHorizontalToSuperviewOffset),
-            self.firstTextField.widthAnchor.constraint(equalTo: self.secondTextField.widthAnchor),
-            self.firstTextField.heightAnchor.constraint(equalToConstant: fieldHeight),
-            self.secondTextField.centerYAnchor.constraint(equalTo: self.firstTextField.centerYAnchor),
-            self.secondTextField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -defaultHorizontalToSuperviewOffset),
-            self.secondTextField.heightAnchor.constraint(equalTo: self.firstTextField.heightAnchor),
-            self.firstSubTitleLabel.leadingAnchor.constraint(equalTo: self.firstTextField.leadingAnchor),
-            self.firstSubTitleLabel.trailingAnchor.constraint(equalTo: self.firstTextField.trailingAnchor),
-            self.firstSubTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: headerToSuperViewVerticalOffset),
-            self.secondSubTitleLabel.topAnchor.constraint(equalTo: self.firstSubTitleLabel.topAnchor),
-            self.secondSubTitleLabel.leadingAnchor.constraint(equalTo: self.secondTextField.leadingAnchor),
-            self.secondSubTitleLabel.trailingAnchor.constraint(equalTo: self.secondSubTitleLabel.trailingAnchor),
-            self.firstTextField.topAnchor.constraint(equalTo: self.firstSubTitleLabel.bottomAnchor, constant: fieldToHeaderVerticalOffset),
-            self.errorLabel.leadingAnchor.constraint(equalTo: self.firstTextField.leadingAnchor),
-            self.errorLabel.trailingAnchor.constraint(equalTo: self.secondTextField.trailingAnchor),
-            self.errorLabel.topAnchor.constraint(equalTo: self.firstTextField.bottomAnchor, constant: errorLabelVerticalOffset),
-        ])
+        self.firstTextField.anchor(top: self.firstSubTitleLabel.bottomAnchor,
+                                   left: self.contentView.leftAnchor,
+                                   right: self.secondTextField.leftAnchor,
+                                   paddingTop: self.fieldToHeaderVerticalOffset,
+                                   paddingLeft: self.defaultHorizontalToSuperviewOffset,
+                                   paddingRight: self.defaultHorizontalToSuperviewOffset,
+                                   height: self.fieldHeight,
+                                   widthAnchor: self.secondTextField.widthAnchor)
 
-        self.errorLabelZeroHeightConstraint = self.errorLabel.heightAnchor.constraint(equalToConstant: 0)
-        self.errorLabelZeroHeightConstraint?.isActive = true
+        self.secondTextField.anchor(right: self.contentView.rightAnchor,
+                                    centerY: self.firstTextField.centerYAnchor,
+                                    paddingRight: self.defaultHorizontalToSuperviewOffset,
+                                    heightAnchor: self.firstTextField.heightAnchor)
+
+        self.firstSubTitleLabel.anchor(top: self.contentView.topAnchor,
+                                       left: self.firstTextField.leftAnchor,
+                                       right: self.firstTextField.rightAnchor,
+                                       paddingTop: self.headerToSuperViewVerticalOffset)
+
+        self.secondSubTitleLabel.anchor(top: self.firstSubTitleLabel.topAnchor,
+                                        left: self.secondTextField.leftAnchor,
+                                        right: self.secondTextField.rightAnchor)
+
+        self.firstErrorLabel.anchor(top: self.firstTextField.bottomAnchor,
+                                    left: self.firstTextField.leftAnchor,
+                                    right: self.secondErrorLabel.leftAnchor,
+                                    paddingTop: self.errorLabelVerticalOffset,
+                                    paddingRight: self.errorLabelHorizontalOffset)
+
+        self.secondErrorLabel.anchor(top: self.secondTextField.bottomAnchor,
+                                     left: self.secondTextField.leftAnchor,
+                                     right: self.contentView.rightAnchor,
+                                     paddingTop: self.errorLabelVerticalOffset,
+                                     paddingBottom: self.errorLabelHorizontalOffset)
+
+        self.firstErrorLabelZeroHeightConstraint = self.firstErrorLabel.heightAnchor.constraint(equalToConstant: 0)
+        self.secondErrorLabelZeroHeightConstraint = self.secondErrorLabel.heightAnchor.constraint(equalToConstant: 0)
+
+        self.firstErrorLabelZeroHeightConstraint?.isActive = true
+        self.secondErrorLabelZeroHeightConstraint?.isActive = true
 
         self.firstTextField.addTarget(self, action: #selector(self.didUpdateTextFieldText), for: .editingChanged)
         self.firstTextField.addTarget(self, action: #selector(self.didEndEditingTextFieldText), for: .editingDidEnd)

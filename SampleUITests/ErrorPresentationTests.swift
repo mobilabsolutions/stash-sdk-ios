@@ -58,4 +58,18 @@ class ErrorPresentationTests: BaseUITest {
 
         XCTAssertEqual(currentNumberOfIncorrectCells, 1, "After three seconds, the current idle cell should display an error if the input is incorrect")
     }
+
+    func testShowsMultipleErrorsWhenSkippingDoubleInputCell() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["1234"].tap()
+
+        let numberOfIncorrectCells = collectionViewsQuery.staticTexts
+            .containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).allElementsBoundByIndex.count
+
+        XCTAssertEqual(numberOfIncorrectCells, 2,
+                       "Expected two failure labels to exist when skipping a double input (first and last name) cell")
+    }
 }

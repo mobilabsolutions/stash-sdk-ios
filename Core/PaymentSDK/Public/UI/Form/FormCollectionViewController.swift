@@ -257,8 +257,12 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        let numberOfErrors = self.cellModels[indexPath.row].necessaryData.filter({ self.errors[$0] != nil }).count
-        additionalHeight += CGFloat(numberOfErrors) * self.errorCellHeightSurplus
+        let hasError = !self.cellModels[indexPath.row].necessaryData.filter({ self.errors[$0] != nil }).isEmpty
+        let numberOfDataPoints = self.cellModels[indexPath.row].necessaryData.count
+        // If there are multiple fields in the cell, the error will need more lines to be displayed.
+        let errorSurplus = numberOfDataPoints > 1 ? 2 * self.errorCellHeightSurplus : self.errorCellHeightSurplus
+
+        additionalHeight += hasError ? errorSurplus : 0
 
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
