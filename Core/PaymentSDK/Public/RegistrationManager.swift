@@ -10,21 +10,24 @@ import UIKit
 
 /// Type used for registering payment methods of different types
 public class RegistrationManager {
+    /// The identifier to use for idempotency when creating UI sessions
+    private let uiRegistrationIdempotencySessionIdentifier = "uiSession"
+
     /// Register a credit card
     ///
     /// - Parameters:
     ///   - creditCardData: The credit card data to use for registration
-    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerCreditCard(creditCardData: CreditCardData,
-                                   idempotencyKey: String = UUID().uuidString,
+                                   idempotencyKey: String? = nil,
                                    completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
-                                  idempotencyKey: idempotencyKey,
+                                  idempotencyKey: idempotencyKey ?? UUID().uuidString,
                                   completion: completion,
                                   methodType: .creditCard)
     }
@@ -33,17 +36,17 @@ public class RegistrationManager {
     ///
     /// - Parameters:
     ///   - sepaData: The SEPA data to use for registration
-    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerSEPAAccount(sepaData: SEPAData,
-                                    idempotencyKey: String = UUID().uuidString,
+                                    idempotencyKey: String? = nil,
                                     completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: sepaData, type: .sepa)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
-                                  idempotencyKey: idempotencyKey,
+                                  idempotencyKey: idempotencyKey ?? UUID().uuidString,
                                   completion: completion,
                                   methodType: .sepa)
     }
@@ -55,16 +58,23 @@ public class RegistrationManager {
     ///   - specificPaymentMethod: The specific payment method type for which registration should be performed.
     ///                            By default nil, and the user is presented with a picker to chose one of the available payment method types.
     ///   - billingData: The billing data that should be prefilled when registering the payment method
-    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                              specificPaymentMethod: PaymentMethodType? = nil,
                                              billingData: BillingData? = nil,
-                                             idempotencyKey: String = UUID().uuidString,
+                                             idempotencyKey: String? = nil,
                                              completion: @escaping RegistrationResultCompletion) {
-        let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
+        let uiRegistrationIdempotencyKey = idempotencyKey ?? UUID().uuidString
 
+        let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
+        guard internalManager.startIdempotencySessionAndShouldContinue(for: uiRegistrationIdempotencyKey,
+                                                                       withCompletion: completion,
+                                                                       sessionTypeIdentifier: self.uiRegistrationIdempotencySessionIdentifier)
+        else { return }
+
+        let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let rootViewController: UIViewController
 
         if let specificPaymentMethod = specificPaymentMethod {
@@ -73,7 +83,8 @@ public class RegistrationManager {
             rootViewController = self.paymentViewController(for: specificPaymentMethod,
                                                             billingData: billingData,
                                                             uiConfiguration: uiConfiguration,
-                                                            idempotencyKey: idempotencyKey,
+                                                            idempotencyKey: uiRegistrationIdempotencyKey,
+                                                            registrationManager: internalManager,
                                                             completion: completion)
         } else {
             // The user needs to chose a payment method to use, therefore we show the selection view controller
@@ -84,7 +95,8 @@ public class RegistrationManager {
                 let paymentMethodViewController = self.paymentViewController(for: selectedType,
                                                                              billingData: billingData,
                                                                              uiConfiguration: uiConfiguration,
-                                                                             idempotencyKey: idempotencyKey,
+                                                                             idempotencyKey: uiRegistrationIdempotencyKey,
+                                                                             registrationManager: internalManager,
                                                                              completion: completion)
                 selectionViewController.navigationController?.pushViewController(paymentMethodViewController, animated: true)
             }
@@ -106,18 +118,18 @@ public class RegistrationManager {
     /// - Parameters:
     ///   - presentingViewController: The view controller that the PayPal UI should be presented on top of
     ///   - billingData: The billing data that should be prefilled when registering the payment method
-    ///   - idempotencyKey: The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Mobilab payment alias that identifies the registerd payment method
     private func registerPayPal(presentingViewController: UIViewController,
                                 billingData: BillingData?,
-                                idempotencyKey: String = UUID().uuidString,
+                                idempotencyKey: String? = nil,
                                 completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: PayPalPlaceholderData(billingData: billingData), type: .payPal)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
-                                  idempotencyKey: idempotencyKey,
+                                  idempotencyKey: idempotencyKey ?? UUID().uuidString,
                                   completion: completion,
                                   presentingViewController: presentingViewController,
                                   methodType: .payPal)
@@ -134,18 +146,26 @@ public class RegistrationManager {
                                        billingData: BillingData?,
                                        uiConfiguration: PaymentMethodUIConfiguration,
                                        idempotencyKey: String,
+                                       registrationManager: InternalRegistrationManager,
                                        completion: @escaping RegistrationResultCompletion) -> UIViewController & PaymentMethodDataProvider {
         func wrappedCompletion(for dataProvider: PaymentMethodDataProvider?,
                                completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
             let wrapped: RegistrationResultCompletion = { result in
                 switch result {
                 case .success:
+                    registrationManager.endIdempotencySession(for: idempotencyKey, withResult: result)
                     completion(result)
                 case let .failure(error):
                     DispatchQueue.main.async {
                         dataProvider?.errorWhileCreatingPaymentMethod(error: error)
                     }
-                    completion(.failure(error))
+
+                    switch error {
+                    case .userCancelled:
+                        registrationManager.endIdempotencySession(for: idempotencyKey, withResult: result)
+                        completion(.failure(error))
+                    default: break
+                    }
                 }
             }
             return wrapped
@@ -159,16 +179,16 @@ public class RegistrationManager {
         paymentMethodViewController.didCreatePaymentMethodCompletion = { [unowned paymentMethodViewController] method in
             if let creditCardData = method as? CreditCardData {
                 self.registerCreditCard(creditCardData: creditCardData,
-                                        idempotencyKey: idempotencyKey,
+                                        idempotencyKey: nil,
                                         completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else if let sepaData = method as? SEPAData {
                 self.registerSEPAAccount(sepaData: sepaData,
-                                         idempotencyKey: idempotencyKey,
+                                         idempotencyKey: nil,
                                          completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else if method is PayPalPlaceholderData {
                 self.registerPayPal(presentingViewController: paymentMethodViewController,
                                     billingData: billingData,
-                                    idempotencyKey: idempotencyKey,
+                                    idempotencyKey: nil,
                                     completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else {
                 fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")

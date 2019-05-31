@@ -103,6 +103,7 @@ class AlertBanner: UIView {
             self.subtitleLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
             self.subtitleLabel.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor),
             self.subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 1),
+            self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
         ])
     }
 

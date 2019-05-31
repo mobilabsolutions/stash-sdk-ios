@@ -198,13 +198,13 @@ import UIKit
         }
     }
 
-    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String?, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
                                         idempotencyKey: idempotencyKey,
                                         completion: self.bridgedCompletion(completion: completion))
     }
 
-    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, idempotencyKey: String, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
+    @objc public func registerSEPAAccount(sepaData: SEPADataBridge, idempotencyKey: String?, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerSEPAAccount(sepaData: sepaData.sepaData,
                                          idempotencyKey: idempotencyKey,
                                          completion: self.bridgedCompletion(completion: completion))
@@ -213,7 +213,7 @@ import UIKit
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                                    specificPaymentMethod: PaymentMethodTypeBridge,
                                                    billingData _: BillingData?,
-                                                   idempotencyKey: String,
+                                                   idempotencyKey: String?,
                                                    completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerPaymentMethodUsingUI(on: viewController,
                                                   specificPaymentMethod: specificPaymentMethod.paymentMethodType,

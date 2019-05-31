@@ -23,6 +23,12 @@ class BaseUITest: XCTestCase {
         collectionViewsQuery.staticTexts[paymentMethodTypeTitle].tap()
     }
 
+    func showSpecificUI(for paymentMethodType: String, in app: XCUIApplication) {
+        app.tabBars.buttons["Bookmarks"].tap()
+        app.segmentedControls.buttons[paymentMethodType].tap()
+        app.buttons["Show Specific UI"].tap()
+    }
+
     func waitForElementToAppear(element: XCUIElement, timeout: TimeInterval = 5, file: String = #file, line: UInt = #line) {
         let existsPredicate = NSPredicate(format: "exists == true")
 
