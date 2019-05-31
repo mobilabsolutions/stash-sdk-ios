@@ -47,6 +47,11 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
         self.setupCollectionView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
+
     private func setupCollectionView() {
         self.collectionView.register(ItemCell.self, forCellWithReuseIdentifier: self.itemCellId)
         self.collectionView.delegate = self

@@ -33,24 +33,24 @@ class ItemCell: BaseCell {
             self.priceLabel.text = item.price.toCurrency()
         }
     }
-    
+
     private var itemQuantity: Int = 0 {
         didSet {
-            quantityLabel.text = "\(itemQuantity)"
-            quantityLabel.layoutIfNeeded()
+            self.quantityLabel.text = "\(self.itemQuantity)"
+            self.quantityLabel.layoutIfNeeded()
         }
     }
-    
+
     private var shouldShowQuantity = false {
         didSet {
-            if shouldShowQuantity {
-                minusButton.isHidden = false
-                quantityLabel.isHidden = false
-                plusButton.isHidden = false
+            if self.shouldShowQuantity {
+                self.minusButton.isHidden = false
+                self.quantityLabel.isHidden = false
+                self.plusButton.isHidden = false
             } else {
-                minusButton.isHidden = true
-                quantityLabel.isHidden = true
-                plusButton.isHidden = false
+                self.minusButton.isHidden = true
+                self.quantityLabel.isHidden = true
+                self.plusButton.isHidden = false
             }
         }
     }
@@ -74,7 +74,7 @@ class ItemCell: BaseCell {
     private let subTitleTopPadding: CGFloat = 36
     private let priceBottomPadding: CGFloat = 16
 
-    lazy var imageContainerView: UIView = {
+    private lazy var imageContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIConstants.iceBlue
         view.layer.cornerRadius = cornerRadius
@@ -116,21 +116,21 @@ class ItemCell: BaseCell {
 
         return label
     }()
-    
+
     private lazy var minusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIConstants.removeImage, for: .normal)
         button.addTarget(self, action: #selector(handleRemove), for: .touchUpInside)
-        
+
         return button
     }()
-    
+
     private let quantityLabel: UILabel = {
         let label = UILabel()
         label.font = UIConstants.defaultFont(of: 16, type: .medium)
         label.textColor = UIConstants.dark
         label.text = "1"
-        
+
         return label
     }()
 
@@ -143,9 +143,9 @@ class ItemCell: BaseCell {
     }()
 
     func updateItemQuantity(to count: Int) {
-        itemQuantity = count
+        self.itemQuantity = count
     }
-    
+
     // MARK- Initialzers
 
     override init(frame: CGRect) {
@@ -163,24 +163,23 @@ class ItemCell: BaseCell {
     @objc private func handleRemove() {
         self.delegate?.didSelectRemoveOption(for: self.item!)
     }
-    
+
     @objc private func handleAdd() {
         self.delegate?.didSelectAddOption(for: self.item!)
     }
-    
-    
+
     // MARK: Public methods
-    
+
     func setup(with item: Item, quantity: Int = 0, shouldShowQuantity: Bool = false, configuration: PaymentMethodUIConfiguration?) {
         self.item = item
         self.shouldShowQuantity = shouldShowQuantity
         self.itemQuantity = quantity
-        
+
         if let configuration = configuration {
             self.configuration = configuration
         }
     }
-    
+
     // MARK- Helpers
 
     private func setupViews() {
@@ -200,19 +199,19 @@ class ItemCell: BaseCell {
 
         addSubview(self.plusButton)
         self.plusButton.anchor(right: rightAnchor,
-                              centerY: self.centerYAnchor,
-                              paddingRight: shouldShowQuantity ? self.defaultCellInternalOffset : self.cellInternalOffsetRight,
-                              width: self.buttonDimensions.width, height: self.buttonDimensions.height)
+                               centerY: self.centerYAnchor,
+                               paddingRight: self.shouldShowQuantity ? self.defaultCellInternalOffset : self.cellInternalOffsetRight,
+                               width: self.buttonDimensions.width, height: self.buttonDimensions.height)
 
-            addSubview(quantityLabel)
-            quantityLabel.anchor(right: plusButton.leftAnchor, centerY: centerYAnchor, paddingRight: defaultCellInternalOffset)
-            
-            addSubview(minusButton)
-            self.minusButton.anchor(right: quantityLabel.leftAnchor,
-                                   centerY: self.centerYAnchor,
-                                   paddingRight: defaultCellInternalOffset,
-                                   width: self.buttonDimensions.width, height: self.buttonDimensions.height)
-        
+        addSubview(self.quantityLabel)
+        self.quantityLabel.anchor(right: self.plusButton.leftAnchor, centerY: centerYAnchor, paddingRight: self.defaultCellInternalOffset)
+
+        addSubview(self.minusButton)
+        self.minusButton.anchor(right: self.quantityLabel.leftAnchor,
+                                centerY: self.centerYAnchor,
+                                paddingRight: self.defaultCellInternalOffset,
+                                width: self.buttonDimensions.width, height: self.buttonDimensions.height)
+
         addSubview(self.titleLabel)
         self.titleLabel.anchor(top: topAnchor, left: self.imageContainerView.rightAnchor, right: self.plusButton.leftAnchor,
                                paddingTop: self.titleTopPadding, paddingLeft: self.defaultCellInternalOffset, paddingRight: self.defaultCellInternalOffset,

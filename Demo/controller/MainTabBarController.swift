@@ -11,7 +11,10 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     // MARK: - Properties
+
     var cartItems: [(quantity: Int, item: Item)] = [(Int, Item)]()
+
+    var paymentMethods: [PaymentMethod] = []
 
     private let configuration = PaymentMethodUIConfiguration()
 

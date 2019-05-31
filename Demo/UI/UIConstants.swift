@@ -45,9 +45,17 @@ extension UIConstants {
     class var sepaImage: UIImage? {
         return UIImage(named: "sepa", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
-    
+
     class var emptyCartImage: UIImage? {
         return UIImage(named: "illustrationEmptyCart", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    }
+
+    class var selectedImage: UIImage? {
+        return UIImage(named: "selected", in: Bundle.main, compatibleWith: nil)
+    }
+
+    class var unSelectedImage: UIImage? {
+        return UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
     }
 
     enum DefaultFontType: String {
