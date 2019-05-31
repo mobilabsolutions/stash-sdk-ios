@@ -148,7 +148,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
         self.amountValueLabel.anchor(top: self.amountInfoContainerView.topAnchor, bottom: self.amountInfoContainerView.bottomAnchor, right: self.amountInfoContainerView.rightAnchor)
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: self.amountInfoContainerView.topAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultSectionInsets.top, paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: availableBottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
 
         view.insertSubview(self.emptyCartInfoView, at: 0)
         self.emptyCartInfoView.frame = view.frame
