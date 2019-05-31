@@ -19,25 +19,13 @@ class InternalRegistrationManager {
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil,
                    methodType: PaymentMethodType) {
-        do {
-            if let result = try idempotencyManager
-                .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion, typeIdentifier: methodType.rawValue) {
-                if case let .fulfilled(returnableResult) = result {
-                    completion(returnableResult)
-                }
-
-                return
-            }
-        } catch let error as MobilabPaymentError {
-            completion(.failure(error))
-        } catch {
-            completion(.failure(.other(GenericErrorDetails.from(error: error))))
-        }
+        guard self.startIdempotencySessionAndShouldContinue(for: idempotencyKey, withCompletion: completion, sessionTypeIdentifier: methodType.rawValue)
+        else { return }
 
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
 
         let idempotencySettingCompletion: RegistrationResultCompletion = { result in
-            self.idempotencyManager.setAndEndIdempotencyHandling(result: result, for: idempotencyKey)
+            self.endIdempotencySession(for: idempotencyKey, withResult: result)
             completion(result)
         }
 
@@ -54,6 +42,31 @@ class InternalRegistrationManager {
                 idempotencySettingCompletion(.failure(error))
             }
         }
+    }
+
+    func startIdempotencySessionAndShouldContinue(for idempotencyKey: String, withCompletion completion: @escaping RegistrationResultCompletion, sessionTypeIdentifier: String) -> Bool {
+        do {
+            if let result = try idempotencyManager
+                .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion, typeIdentifier: sessionTypeIdentifier) {
+                if case let .fulfilled(returnableResult) = result {
+                    completion(returnableResult)
+                }
+
+                return false
+            }
+        } catch let error as MobilabPaymentError {
+            completion(.failure(error))
+            return false
+        } catch {
+            completion(.failure(.other(GenericErrorDetails.from(error: error))))
+            return false
+        }
+
+        return true
+    }
+
+    func endIdempotencySession(for idempotencyKey: String, withResult result: RegistrationResult) {
+        self.idempotencyManager.setAndEndIdempotencyHandling(result: result, for: idempotencyKey)
     }
 
     private func createAlias(provider: PaymentServiceProvider,

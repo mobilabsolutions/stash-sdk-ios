@@ -94,6 +94,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+
         switch error {
         case .configuration:
             UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
@@ -351,6 +353,7 @@ extension FormCollectionViewController: DataPointProvidingDelegate {
 extension FormCollectionViewController: DoneButtonViewDelegate {
     public func didTapDoneButton() {
         do {
+            self.doneButtonUpdating?.updateDoneButton(enabled: false)
             try self.formConsumer?.consumeValues(data: self.fieldData)
         } catch let error as FormConsumerError {
             self.errors = error.errors

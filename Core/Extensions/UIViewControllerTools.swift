@@ -11,7 +11,7 @@ import UIKit
 public final class UIViewControllerTools {
     private init() {}
 
-    private static let alertBannerHeight: CGFloat = 62
+    private static let alertBannerHeight: CGFloat = 64
 
     public class func showAlert(on viewController: UIViewController, title: String, body: String) {
         let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
@@ -30,7 +30,8 @@ public final class UIViewControllerTools {
             banner.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             banner.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            banner.heightAnchor.constraint(equalToConstant: alertBannerHeight),
+            banner.heightAnchor.constraint(greaterThanOrEqualToConstant: alertBannerHeight),
+            banner.heightAnchor.constraint(lessThanOrEqualToConstant: alertBannerHeight * 1.5),
         ])
     }
 }

@@ -249,6 +249,7 @@
 		E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F482273100D001F9925 /* IdempotencyTests.swift */; };
 		E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */; };
 		E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BF229D856A00601880 /* CreditCardType.swift */; };
+		E14194EF22A13815006E89EB /* IdempotencyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14194EE22A13815006E89EB /* IdempotencyUITests.swift */; };
 		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
 		E14662572278AA8C00512710 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662562278AA8C00512710 /* Cacher.swift */; };
 		E146625B2279E7FB00512710 /* UserDefaultsCacherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */; };
@@ -717,6 +718,7 @@
 		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
 		E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegration.swift; sourceTree = "<group>"; };
 		E13CD2BF229D856A00601880 /* CreditCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardType.swift; sourceTree = "<group>"; };
+		E14194EE22A13815006E89EB /* IdempotencyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdempotencyUITests.swift; sourceTree = "<group>"; };
 		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
 		E14662562278AA8C00512710 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		E146625A2279E7FB00512710 /* UserDefaultsCacherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCacherTests.swift; sourceTree = "<group>"; };
@@ -1681,6 +1683,7 @@
 				E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */,
 				E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */,
 				E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */,
+				E14194EE22A13815006E89EB /* IdempotencyUITests.swift */,
 			);
 			path = SampleUITests;
 			sourceTree = "<group>";
@@ -2555,6 +2558,7 @@
 				E1995B37225749A600BF24A2 /* BSPayoneUITests.swift in Sources */,
 				E15E3E2B229425FD00EE19EE /* ErrorPresentationTests.swift in Sources */,
 				E1995B3D22574AC500BF24A2 /* BasePaymentModulesTests.swift in Sources */,
+				E14194EF22A13815006E89EB /* IdempotencyUITests.swift in Sources */,
 				E1995B3F22574B5500BF24A2 /* AdyenUITests.swift in Sources */,
 				E1995B3B22574A6800BF24A2 /* BraintreeUITests.swift in Sources */,
 			);

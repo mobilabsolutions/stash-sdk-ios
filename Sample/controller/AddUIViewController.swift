@@ -21,6 +21,7 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var pspPickerView: UIPickerView!
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
+    @IBOutlet var idempotencyKeyTextField: UITextField!
 
     private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
@@ -35,6 +36,12 @@ class AddUIViewController: UIViewController {
         self.triggerRegisterUIButton.addTarget(self, action: #selector(self.triggerRegisterUI), for: .touchUpInside)
         self.triggerSpecificRegisterButton.addTarget(self, action: #selector(self.triggerSpecificRegisterUI), for: .touchUpInside)
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
+        self.view.addGestureRecognizer(tap)
+
+        self.idempotencyKeyTextField.returnKeyType = .done
+        self.idempotencyKeyTextField.delegate = self
+
         self.pspPickerView.delegate = self
         self.pspPickerView.dataSource = self
     }
@@ -45,6 +52,10 @@ class AddUIViewController: UIViewController {
 
     @objc private func triggerSpecificRegisterUI() {
         self.startRegistration(paymentMethodType: self.paymentMethodTypes[specificPaymentMethodControl.selectedSegmentIndex])
+    }
+
+    @objc private func hideKeyboard() {
+        self.view.endEditing(true)
     }
 
     private func startRegistration(paymentMethodType: PaymentMethodType?) {
@@ -65,13 +76,19 @@ class AddUIViewController: UIViewController {
             configuration = PaymentMethodUIConfiguration()
         }
 
+        let idempotencyKey = idempotencyKeyTextField.text?.isEmpty == true ? nil : idempotencyKeyTextField.text
+
         MobilabPaymentSDK.configureUI(configuration: configuration)
         MobilabPaymentSDK.getRegistrationManager()
-            .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType) { [weak self] result in
+            .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType, idempotencyKey: idempotencyKey) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case let .success(value):
-                        self?.dismiss(animated: true) {
+                        if self?.presentedViewController != nil {
+                            self?.dismiss(animated: true) {
+                                self?.showAlert(title: "Success", body: "Successfully registered payment method")
+                            }
+                        } else {
                             self?.showAlert(title: "Success", body: "Successfully registered payment method")
                         }
 
@@ -92,8 +109,10 @@ class AddUIViewController: UIViewController {
                                           expirationMonth: nil,
                                           type: AliasType(paymentMethodType: value.paymentMethodType))
                         AliasManager.shared.save(alias: alias)
-                    case .failure:
-                        break
+                    case let .failure(error):
+                        if self?.presentedViewController == nil {
+                            self?.showAlert(title: "Error", body: error.description)
+                        }
                     }
                 }
             }
@@ -143,5 +162,12 @@ extension AddUIViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
         return self.pspTypes[row].rawValue
+    }
+}
+
+extension AddUIViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

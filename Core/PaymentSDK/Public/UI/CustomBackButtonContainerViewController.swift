@@ -26,7 +26,6 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     private var viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider
     private let configuration: PaymentMethodUIConfiguration
 
-    private let backButtonContainer = UIView()
     private let doneButton = DoneButtonView()
 
     public init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {

@@ -9,13 +9,6 @@
 import XCTest
 
 class SpecificPaymentMethodRegistrationTests: BaseUITest {
-    override func setUp() {
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-    }
-
     func testCanRegisterCreditCardDirectly() {
         let app = XCUIApplication()
         showSpecificUI(for: "CC", in: app)
@@ -107,11 +100,5 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid SEPA method")
         app.alerts.firstMatch.buttons.firstMatch.tap()
-    }
-
-    private func showSpecificUI(for paymentMethodType: String, in app: XCUIApplication) {
-        app.tabBars.buttons["Bookmarks"].tap()
-        app.segmentedControls.buttons[paymentMethodType].tap()
-        app.buttons["Show Specific UI"].tap()
     }
 }
