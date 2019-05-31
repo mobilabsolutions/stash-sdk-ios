@@ -37,7 +37,7 @@ class PaymentMethodCell: BaseCell {
     private var shouldShowSelection = false {
         didSet {
             if self.shouldShowSelection {
-                self.button.setImage(UIConstants.unselectedImage, for: .normal)
+                self.button.setImage(UIConstants.unSelectedImage, for: .normal)
             } else {
                 self.button.setImage(UIConstants.deleteImage, for: .normal)
             }
@@ -89,16 +89,12 @@ class PaymentMethodCell: BaseCell {
         }
     }
 
-    func toggleSelection() {
-        if self.button.image(for: .normal) == UIConstants.selectedImage {
-            self.button.setImage(UIConstants.unselectedImage, for: .normal)
-        } else {
-            self.button.setImage(UIConstants.selectedImage, for: .normal)
-        }
+    func setSelection() {
+        self.button.setImage(UIConstants.selectedImage, for: .normal)
     }
 
     func resetSelection() {
-        self.button.setImage(UIConstants.unselectedImage, for: .normal)
+        self.button.setImage(UIConstants.unSelectedImage, for: .normal)
     }
 
     // MARK- Initialzers

@@ -54,7 +54,7 @@ extension UIConstants {
         return UIImage(named: "selected", in: Bundle.main, compatibleWith: nil)
     }
 
-    class var unselectedImage: UIImage? {
+    class var unSelectedImage: UIImage? {
         return UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
     }
 

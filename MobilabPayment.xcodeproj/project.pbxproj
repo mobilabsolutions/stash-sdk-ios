@@ -123,7 +123,6 @@
 		C410B842229C0A820029E90B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B841229C0A820029E90B /* BaseViewController.swift */; };
 		C410B844229C0A9A0029E90B /* CustomMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B843229C0A9A0029E90B /* CustomMessageView.swift */; };
 		C410B846229C1C4E0029E90B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B845229C1C4E0029E90B /* ToastView.swift */; };
-		C410B848229EC0750029E90B /* UIAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B847229EC0750029E90B /* UIAlertView.swift */; };		
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
@@ -640,7 +639,6 @@
 		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
 		C410B841229C0A820029E90B /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C410B843229C0A9A0029E90B /* CustomMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessageView.swift; sourceTree = "<group>"; };
-		C410B847229EC0750029E90B /* UIAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertView.swift; sourceTree = "<group>"; };		
 		C410B845229C1C4E0029E90B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedTextInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		C41CB8F122774ADB0009F744 /* NameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameProviding.swift; sourceTree = "<group>"; };
@@ -1504,7 +1502,6 @@
 				C42D568922842FA700312CC1 /* UIConstants.swift */,
 				C42D568A22842FA700312CC1 /* Assets.xcassets */,
 				C42D568B22842FA700312CC1 /* Fonts */,
-				C410B847229EC0750029E90B /* UIAlertView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2515,7 +2512,6 @@
 				C422EED3228F10FD009F7415 /* ItemsController.swift in Sources */,
 				C422EF102292FD93009F7415 /* ItemCell.swift in Sources */,
 				C422EEB5228F1024009F7415 /* PaymentMethodManager.swift in Sources */,
-				C410B848229EC0750029E90B /* UIAlertView.swift in Sources */,
 				C422EEDB228F11CA009F7415 /* CustomIconLabelCell.swift in Sources */,
 				C422EF0E2292FAB3009F7415 /* Item.swift in Sources */,
 				C422EEB8228F1035009F7415 /* PaymentMethodController.swift in Sources */,

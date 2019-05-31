@@ -86,7 +86,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     // MARK: - Collectionview methods
 
     func numberOfSections(in _: UICollectionView) -> Int {
-        return self.shouldMakePayment == true ? 1 : 2
+        return self.shouldMakePayment ? 1 : 2
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -139,7 +139,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     // MARK: Handlers
 
     override func handleScreenButtonSelection() {
-        AlertView.showAlert(on: self, title: "Payment Result", body: "Payment completed successfully.") {
+        showAlert(title: "Payment Result", message: "Payment completed successfully.") {
             self.delegate?.didFinishPayment(with: nil)
             self.navigationController?.popViewController(animated: true)
         }
@@ -263,7 +263,7 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
                 }
             }, completion: { _ in
                 // show selection for selected cell
-                currentCell.toggleSelection()
+                currentCell.setSelection()
                 // enable 'Pay' button since the payment method is selected
                 self.setButtonInteraction(to: true)
             })
