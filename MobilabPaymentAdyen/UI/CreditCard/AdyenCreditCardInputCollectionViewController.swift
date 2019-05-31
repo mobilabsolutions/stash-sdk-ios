@@ -32,12 +32,23 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
         let cvv: String
         let expirationMonth: Int
         let expirationYear: Int
+        let holderName: NameProviding
 
         static func create(cardNumberText: String?,
                            cvvText: String?,
                            expirationMonthText: String?,
-                           expirationYearText: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
+                           expirationYearText: String?,
+                           holderFirstName: String?,
+                           holderLastName: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
+
+            if holderFirstName == nil || holderFirstName?.isEmpty == true {
+                errors[.holderFirstName] = .noData(explanation: "Please provide a valid first name")
+            }
+
+            if holderLastName == nil || holderLastName?.isEmpty == true {
+                errors[.holderLastName] = .noData(explanation: "Please provide a valid last name")
+            }
 
             if let cardNumber = cardNumberText, cardNumber.isEmpty == false {
                 do {
@@ -80,16 +91,20 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                 errors[.expirationYear] = .noData(explanation: "Please provide an expiration date in the future")
             }
 
-            guard let cardNumber = cardNumberText, let cvv = cvvText,
+            guard let cardNumber = cardNumberText,
+                let cvv = cvvText,
                 let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
                 let expirationYear = expirationYearText.flatMap({ Int($0) }),
+                let firstName = holderFirstName,
+                let lastName = holderLastName,
                 errors.isEmpty
             else { return (nil, errors) }
 
             let parsedData = CreditCardParsedData(cardNumber: cardNumber,
                                                   cvv: cvv,
                                                   expirationMonth: expirationMonth,
-                                                  expirationYear: expirationYear)
+                                                  expirationYear: expirationYear,
+                                                  holderName: SimpleNameProvider(firstName: firstName, lastName: lastName))
             return (parsedData, [:])
         }
     }
@@ -102,6 +117,15 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
+                                                                 firstTitle: "First Name",
+                                                                 firstPlaceholder: "First Name",
+                                                                 secondNecessaryData: .holderLastName,
+                                                                 secondTitle: "Last Name",
+                                                                 secondPlaceholder: "Last Name",
+                                                                 setup: nil,
+                                                                 didUpdate: nil)
 
         let numberData = FormCellModel.FormCellType.TextData(necessaryData: .cardNumber,
                                                              title: "Credit Card Number",
@@ -128,6 +152,7 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
         })
 
         setCellModel(cellModels: [
+            FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
         ])
@@ -161,7 +186,9 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
         let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber],
                                                       cvvText: data[.cvv],
                                                       expirationMonthText: data[.expirationMonth],
-                                                      expirationYearText: data[.expirationYear])
+                                                      expirationYearText: data[.expirationYear],
+                                                      holderFirstName: data[.holderFirstName],
+                                                      holderLastName: data[.holderLastName])
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
@@ -170,12 +197,14 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
         guard let parsedData = createdData.0
         else { return nil }
 
+        let billingData = BillingData(name: parsedData.holderName, basedOn: self.billingData)
+
         do {
             let creditCard = try CreditCardData(cardNumber: parsedData.cardNumber,
                                                 cvv: parsedData.cvv,
                                                 expiryMonth: parsedData.expirationMonth,
                                                 expiryYear: parsedData.expirationYear, country: nil,
-                                                billingData: self.billingData ?? BillingData())
+                                                billingData: billingData)
 
             return creditCard
         } catch let error as MobilabPaymentError {

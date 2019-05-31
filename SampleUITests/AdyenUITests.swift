@@ -15,6 +15,12 @@ class AdyenUITests: BaseUITest {
 
         let collectionViewsQuery = app.collectionViews
 
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
         collectionViewsQuery.textFields["1234"].tap()
         collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
 
@@ -79,7 +85,7 @@ class AdyenUITests: BaseUITest {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
 
-        let expectedCells = [["Credit Card Number"], ["Expiration date", "CVV/CVC"]]
+        let expectedCells = [["First Name", "Last Name"], ["Credit Card Number"], ["Expiration date", "CVV/CVC"]]
         let cells = app.collectionViews.cells
 
         waitForElementToAppear(element: cells.staticTexts["Credit Card Number"])
