@@ -146,28 +146,40 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.contentView.addSubview(self.dateTitleLabel)
         self.contentView.addSubview(self.cvvTitleLabel)
 
-        NSLayoutConstraint.activate([
-            self.dateTextField.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: defaultHorizontalToSuperviewOffset),
-            self.dateTextField.trailingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor, constant: -defaultHorizontalToSuperviewOffset),
-            self.dateTextField.widthAnchor.constraint(equalTo: self.cvvTextField.widthAnchor),
-            self.dateTextField.heightAnchor.constraint(equalToConstant: fieldHeight),
-            self.cvvTextField.centerYAnchor.constraint(equalTo: self.dateTextField.centerYAnchor),
-            self.cvvTextField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -defaultHorizontalToSuperviewOffset),
-            self.cvvTextField.heightAnchor.constraint(equalTo: self.dateTextField.heightAnchor),
-            self.dateTitleLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
-            self.dateTitleLabel.trailingAnchor.constraint(equalTo: self.dateTextField.trailingAnchor),
-            self.dateTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: headerToSuperViewVerticalOffset),
-            self.cvvTitleLabel.topAnchor.constraint(equalTo: self.dateTitleLabel.topAnchor),
-            self.cvvTitleLabel.leadingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor),
-            self.cvvTitleLabel.trailingAnchor.constraint(equalTo: self.cvvTitleLabel.trailingAnchor),
-            self.dateTextField.topAnchor.constraint(equalTo: self.dateTitleLabel.bottomAnchor, constant: fieldToHeaderVerticalOffset),
-            self.dateErrorLabel.leadingAnchor.constraint(equalTo: self.dateTextField.leadingAnchor),
-            self.dateErrorLabel.trailingAnchor.constraint(equalTo: self.cvvErrorLabel.leadingAnchor, constant: -errorLabelHorizontalOffset),
-            self.dateErrorLabel.topAnchor.constraint(equalTo: self.dateTextField.bottomAnchor, constant: errorLabelVerticalOffset),
-            self.cvvErrorLabel.leadingAnchor.constraint(equalTo: self.cvvTextField.leadingAnchor),
-            self.cvvErrorLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -errorLabelHorizontalOffset),
-            self.cvvErrorLabel.topAnchor.constraint(equalTo: self.cvvTextField.bottomAnchor, constant: errorLabelVerticalOffset),
-        ])
+        self.dateTextField.anchor(top: self.dateTitleLabel.bottomAnchor,
+                                  left: self.contentView.leftAnchor,
+                                  right: self.cvvTextField.leftAnchor,
+                                  paddingTop: self.fieldToHeaderVerticalOffset,
+                                  paddingLeft: self.defaultHorizontalToSuperviewOffset,
+                                  paddingRight: self.defaultHorizontalToSuperviewOffset,
+                                  height: self.fieldHeight,
+                                  widthAnchor: self.cvvTextField.widthAnchor)
+
+        self.cvvTextField.anchor(right: self.contentView.rightAnchor,
+                                 centerY: self.dateTextField.centerYAnchor,
+                                 paddingRight: self.defaultHorizontalToSuperviewOffset,
+                                 heightAnchor: self.dateTextField.heightAnchor)
+
+        self.dateTitleLabel.anchor(top: self.contentView.topAnchor,
+                                   left: self.dateTextField.leftAnchor,
+                                   right: self.dateTextField.rightAnchor,
+                                   paddingTop: self.headerToSuperViewVerticalOffset)
+
+        self.cvvTitleLabel.anchor(top: self.dateTitleLabel.topAnchor,
+                                  left: self.cvvTextField.leftAnchor,
+                                  right: self.cvvTextField.rightAnchor)
+
+        self.dateErrorLabel.anchor(top: self.dateTextField.bottomAnchor,
+                                   left: self.dateTextField.leftAnchor,
+                                   right: self.cvvErrorLabel.leftAnchor,
+                                   paddingTop: self.errorLabelVerticalOffset,
+                                   paddingRight: self.errorLabelHorizontalOffset)
+
+        self.cvvErrorLabel.anchor(top: self.cvvTextField.bottomAnchor,
+                                  left: self.cvvTextField.leftAnchor,
+                                  right: self.contentView.rightAnchor,
+                                  paddingTop: self.errorLabelVerticalOffset,
+                                  paddingBottom: self.errorLabelHorizontalOffset)
 
         self.dateErrorLabelZeroHeightConstraint = self.dateErrorLabel.heightAnchor.constraint(equalToConstant: 0)
         self.cvvErrorLabelZeroHeightConstraint = self.cvvErrorLabel.heightAnchor.constraint(equalToConstant: 0)
