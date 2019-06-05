@@ -20,6 +20,12 @@ class IdempotencyUITests: BaseUITest {
 
         let collectionViewsQuery = app.collectionViews
 
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
         collectionViewsQuery.textFields["1234"].tap()
         collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
 
@@ -30,10 +36,10 @@ class IdempotencyUITests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
 
-        app.collectionViews.firstMatch.tap()
+        app.tap()
         app.buttons["SAVE"].tap()
 
-        waitForElementToAppear(element: app.alerts.firstMatch)
+        XCTAssert(app.alerts.firstMatch.waitForExistence(timeout: 15))
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")
