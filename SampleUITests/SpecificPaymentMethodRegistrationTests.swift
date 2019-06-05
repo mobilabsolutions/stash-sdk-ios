@@ -72,29 +72,16 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         let app = XCUIApplication()
         showSpecificUI(for: "PayPal", in: app)
 
-        var hasDismissedSystemAlert = false
-        let handler = addUIInterruptionMonitor(withDescription: "System Alert") {
-            (alert) -> Bool in
+        let springBoard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 
-            // Click the first button in dialog
-            let button = alert.buttons.element(boundBy: 1)
-            if button.exists {
-                button.tap()
-            }
+        let alert = springBoard.alerts.containing(NSPredicate(format: "label CONTAINS \"Wants to Use\"")).firstMatch
+        XCTAssert(alert.waitForExistence(timeout: 10))
+        alert.buttons["Continue"].tap()
 
-            hasDismissedSystemAlert = true
-            return true
-        }
-
-        expectation(for: NSPredicate { _, _ in
-            XCUIApplication().tap() // this is the magic tap that makes it work
-            return hasDismissedSystemAlert
-        }, evaluatedWith: NSNull(), handler: nil)
-
-        self.waitForExpectations(timeout: 10.0, handler: nil)
-        removeUIInterruptionMonitor(handler)
-
-        app.webViews.staticTexts["Proceed with Sandbox Purchase"].tap()
+        let webViewButton = app.webViews
+            .staticTexts["Proceed with Sandbox Purchase"].firstMatch
+        XCTAssert(webViewButton.waitForExistence(timeout: 10))
+        webViewButton.tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
