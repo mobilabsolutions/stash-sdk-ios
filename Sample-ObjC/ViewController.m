@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    MLMobilabBSPayone *pspBsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *pspBsPayone = [MLMobilabBSPayone createModule];
     NSSet<NSNumber *> *paymentMethodTypes = [NSSet setWithObjects:[NSNumber numberWithLong:MLPaymentMethodTypeCreditCard],
                                              [NSNumber numberWithLong:MLPaymentMethodTypeSepa], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider:pspBsPayone

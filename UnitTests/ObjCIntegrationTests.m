@@ -46,7 +46,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 }
 
 - (void) testAddConfigurationAndProviderToSDK {
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
@@ -81,7 +81,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                                                     errorMessageColor:nil
                                                                                                 errorMessageTextColor:nil];
 
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
@@ -141,7 +141,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
-    MLMobilabBSPayone *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeSepa], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone

@@ -63,10 +63,7 @@ import UIKit
     @objc(MLPaymentProviderIntegration) public class PaymentProviderIntegrationBridge: NSObject {
         let integration: PaymentProviderIntegration
 
-        @objc public init?(paymentServiceProvider: Any, paymentMethodTypes: Set<Int>) {
-            guard let provider = paymentServiceProvider as? PaymentServiceProvider
-            else { fatalError("Provided Payment Provider is not a payment provider.") }
-
+        @objc public init?(paymentServiceProvider bridge: PaymentProviderBridge, paymentMethodTypes: Set<Int>) {
             let paymentMethods = paymentMethodTypes.map({ (method) -> PaymentMethodType in
                 guard let bridgeType = RegistrationManagerBridge.PaymentMethodTypeBridge(rawValue: method),
                     let type = bridgeType.paymentMethodType
@@ -74,17 +71,23 @@ import UIKit
                 return type
             })
 
-            guard let integration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: Set(paymentMethods))
+            guard let integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider,
+                                                               paymentMethodTypes: Set(paymentMethods))
             else { return nil }
 
             self.integration = integration
         }
 
-        @objc public init(paymentServiceProvider: Any) {
-            guard let provider = paymentServiceProvider as? PaymentServiceProvider
-            else { fatalError("Provided Payment Provider is not a payment provider.") }
+        @objc public init(paymentServiceProvider bridge: PaymentProviderBridge) {
+            self.integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider)
+        }
+    }
 
-            self.integration = PaymentProviderIntegration(paymentServiceProvider: provider)
+    @objc(MLPaymentProvider) public final class PaymentProviderBridge: NSObject {
+        let paymentProvider: PaymentServiceProvider
+
+        public init(paymentProvider: PaymentServiceProvider) {
+            self.paymentProvider = paymentProvider
         }
     }
 }
