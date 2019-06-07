@@ -36,7 +36,7 @@ class IdempotencyUITests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
 
-        app.tap()
+        app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
         XCTAssert(app.alerts.firstMatch.waitForExistence(timeout: 15))
