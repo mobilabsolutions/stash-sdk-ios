@@ -125,10 +125,14 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         }
     }
 
-    private func isDone() -> Bool {
+    private func isDone(errors: [NecessaryData: ValidationError]) -> Bool {
         return self.cellModels.count == 0 ? false : self.cellModels
             .flatMap { $0.necessaryData }
-            .allSatisfy { self.fieldData[$0] != nil }
+            .allSatisfy { self.fieldData[$0] != nil && errors[$0] == nil }
+    }
+
+    private func isDone() -> Bool {
+        return self.isDone(errors: self.errors)
     }
 
     // MARK: UICollectionViewDataSource
@@ -328,6 +332,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         self.errors[dataPoint] = validationResult?.errors[dataPoint]
         self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
+        self.doneButtonUpdating?.updateDoneButton(enabled: isDone())
 
         if hadError != hasError {
             // We need to recompute cell heights because there is a new error
@@ -342,15 +347,15 @@ extension FormCollectionViewController: DataPointProvidingDelegate {
         self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
         self.updateFieldIdleTimer(for: dataPoint)
 
-        if self.errors[dataPoint] != nil {
-            let validationResult = self.formConsumer?.validate(data: self.fieldData)
+        let validationResult = self.formConsumer?.validate(data: self.fieldData)
 
+        if self.errors[dataPoint] != nil {
             self.errors[dataPoint] = validationResult?.errors[dataPoint]
-            self.fieldErrorDelegates[dataPoint]?.setError(description: errors[dataPoint]?.description, forDataPoint: dataPoint)
+            self.fieldErrorDelegates[dataPoint]?.setError(description: self.errors[dataPoint]?.description, forDataPoint: dataPoint)
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
 
-        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
+        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone(errors: validationResult?.errors ?? self.errors))
     }
 }
 
