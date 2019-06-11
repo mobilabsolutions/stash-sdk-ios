@@ -4,6 +4,7 @@ osx_image: xcode10.2
 cache:
   directories:
   - Carthage
+  - bundler
 
 env:
   #environment variables
@@ -15,6 +16,7 @@ env:
 before_install:
   - gem install xcpretty
   - gem install xcpretty-travis-formatter
+  - bundle install
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
 
@@ -24,10 +26,8 @@ before_script:
 script:
   - set -e
   - set -o pipefail
-  - echo "Starting Unit Tests"
-  - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
-  - echo "Starting UI Tests"
-  - xcodebuild test -project "$PROJECT_NAME" -scheme "Sample" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
+  - bundle exec fastlane test
+  - bundle exec fastlane beta
   - echo "Building Objective-C Sample"
   - xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
   - echo "Building Demo application"

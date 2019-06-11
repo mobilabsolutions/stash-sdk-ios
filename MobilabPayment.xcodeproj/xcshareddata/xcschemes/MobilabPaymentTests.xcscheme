@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
+               BuildableName = "MobilabPaymentTests.xctest"
+               BlueprintName = "MobilabPaymentTests"
+               ReferencedContainer = "container:MobilabPayment.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -26,15 +42,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1DC5CB9420D2BF5E002058C1"
-            BuildableName = "MobilabPaymentCore.framework"
-            BlueprintName = "MobilabPaymentCore"
-            ReferencedContainer = "container:MobilabPayment.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,6 +58,15 @@
       stopOnEveryMainThreadCheckerIssue = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
+            BuildableName = "MobilabPaymentTests.xctest"
+            BlueprintName = "MobilabPaymentTests"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -60,6 +76,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
+            BuildableName = "MobilabPaymentTests.xctest"
+            BlueprintName = "MobilabPaymentTests"
+            ReferencedContainer = "container:MobilabPayment.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
