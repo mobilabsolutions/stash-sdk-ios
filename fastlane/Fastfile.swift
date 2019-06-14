@@ -30,12 +30,12 @@ class Fastfile: LaneFile {
         let changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
         let buildSecret = environmentVariable(get: "CRASHLYTICS_BUILD_SECRET")
         let apiKey = environmentVariable(get: "CRASHLYTICS_API_KEY")
+        incrementBuildNumber()
         betaSample(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
         betaDemo(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
     }
 
     private func betaSample(buildSecret: String, apiKey: String, changeLog: String) {
-        incrementBuildNumber()
         buildApp(project: "MobilabPayment.xcodeproj", scheme: "Sample", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
@@ -43,7 +43,6 @@ class Fastfile: LaneFile {
     }
 
     private func betaDemo(buildSecret: String, apiKey: String, changeLog: String) {
-        incrementBuildNumber()
         buildApp(project: "MobilabPayment.xcodeproj", scheme: "Demo", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
