@@ -83,8 +83,8 @@ class Fastfile: LaneFile {
                           logOutput: true)
 
         for appIdentifier in self.adhocAppIdentifiers {
-            sigh(appIdentifier: appIdentifier,
-                 developerId: true,
+            sigh(developerId: true,
+                 appIdentifier: appIdentifier,
                  username: environmentVariable(get: "FASTLANE_USER"),
                  teamId: environmentVariable(get: "TEAM_ID"),
                  certId: environmentVariable(get: "CERTIFICATE_ID"))
