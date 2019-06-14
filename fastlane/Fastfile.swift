@@ -15,7 +15,7 @@ class Fastfile: LaneFile {
 
     private let keychainName = "ci-build-keychain"
     private var random = SystemRandomNumberGenerator()
-    private let adhocAppIdentifiers = ["com.mobilabsolutions.payment.Sample", "com.mobilabsolutions.payment.Demo"]
+    private let adhocAppIdentifiers = ["com.mobilabsolutions.payment.*"]
 
     func beforeAll() {
         if self.isCI {
