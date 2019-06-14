@@ -2,9 +2,9 @@ language: objective-c
 osx_image: xcode10.2
 
 cache:
+  bundler: true
   directories:
   - Carthage
-  - bundler
 
 env:
   #environment variables
@@ -19,9 +19,7 @@ before_install:
   - bundle install
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
-
-before_script:
-  - carthage update --cache-builds --platform iOS
+  - carthage bootstrap --verbose --no-use-binaries --platform iOS --cache-builds
 
 script:
   - set -e
