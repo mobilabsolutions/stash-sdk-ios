@@ -13,7 +13,7 @@ env:
   matrix:
     - DESTINATION="OS=12.2,name=iPhone X"
 
-before_install:
+install:
   - gem install xcpretty
   - gem install xcpretty-travis-formatter
   - bundle install
@@ -22,11 +22,4 @@ before_install:
   - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 script:
-  - set -e
-  - set -o pipefail
-  - bundle exec fastlane test
-  - bundle exec fastlane beta
-  - echo "Building Objective-C Sample"
-  - xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
-  - echo "Building Demo application"
-  - xcodebuild -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
+  - ./travis-build.sh
