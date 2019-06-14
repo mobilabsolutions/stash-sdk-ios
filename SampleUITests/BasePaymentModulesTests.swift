@@ -130,6 +130,74 @@ class BasePaymentModulesTests: BaseUITest {
                       "Expected failure label to exist when adding a SEPA method with invalid number")
     }
 
+    func testDoesNotEnableDoneButtonForInvalidCreditCardNumber() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        // Input invalid CC number
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("41")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
+        app.collectionViews.firstMatch.tap()
+        XCTAssertFalse(app.buttons["SAVE"].isEnabled)
+
+        // Update CC number to be valid
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("11 1111 1111 1111")
+
+        app.collectionViews.firstMatch.tap()
+        XCTAssertTrue(app.buttons["SAVE"].isEnabled)
+
+        // Input invalid CVV
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("123456")
+
+        app.collectionViews.firstMatch.tap()
+        XCTAssertFalse(app.buttons["SAVE"].isEnabled)
+    }
+
+    func testDoesNotEnableDoneButtonForInvalidSEPA() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "SEPA", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["XX123"].tap()
+        collectionViewsQuery.textFields["XX123"].typeText("DE14123456")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
+        app.collectionViews.firstMatch.tap()
+        XCTAssertFalse(app.buttons["SAVE"].isEnabled)
+
+        collectionViewsQuery.textFields["XX123"].tap()
+        collectionViewsQuery.textFields["XX123"].typeText("780023456789")
+
+        app.collectionViews.firstMatch.tap()
+        XCTAssertTrue(app.buttons["SAVE"].isEnabled)
+    }
+
     func testReturnKeyNavigationIsEnabled() {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", app: app)
