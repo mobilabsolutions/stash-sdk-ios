@@ -3364,26 +3364,78 @@ func sigh(adhoc: Bool = false,
           platform: String = "ios",
           readonly: Bool = false,
           templateName: String? = nil) {
-    let command = RubyCommand(commandID: "", methodName: "sigh", className: nil, args: [RubyCommand.Argument(name: "adhoc", value: adhoc),
-                                                                                        RubyCommand.Argument(name: "developer_id", value: developerId),
-                                                                                        RubyCommand.Argument(name: "development", value: development),
-                                                                                        RubyCommand.Argument(name: "skip_install", value: skipInstall),
-                                                                                        RubyCommand.Argument(name: "force", value: force),
-                                                                                        RubyCommand.Argument(name: "app_identifier", value: appIdentifier),
-                                                                                        RubyCommand.Argument(name: "username", value: username),
-                                                                                        RubyCommand.Argument(name: "team_id", value: teamId),
-                                                                                        RubyCommand.Argument(name: "team_name", value: teamName),
-                                                                                        RubyCommand.Argument(name: "provisioning_name", value: provisioningName),
-                                                                                        RubyCommand.Argument(name: "ignore_profiles_with_different_name", value: ignoreProfilesWithDifferentName),
-                                                                                        RubyCommand.Argument(name: "output_path", value: outputPath),
-                                                                                        RubyCommand.Argument(name: "cert_id", value: certId),
-                                                                                        RubyCommand.Argument(name: "cert_owner_name", value: certOwnerName),
-                                                                                        RubyCommand.Argument(name: "filename", value: filename),
-                                                                                        RubyCommand.Argument(name: "skip_fetch_profiles", value: skipFetchProfiles),
-                                                                                        RubyCommand.Argument(name: "skip_certificate_verification", value: skipCertificateVerification),
-                                                                                        RubyCommand.Argument(name: "platform", value: platform),
-                                                                                        RubyCommand.Argument(name: "readonly", value: readonly),
-                                                                                        RubyCommand.Argument(name: "template_name", value: templateName)])
+    var arguments: [RubyCommand.Argument] = [
+        RubyCommand.Argument(name: "app_identifier", value: appIdentifier),
+        RubyCommand.Argument(name: "username", value: username),
+        RubyCommand.Argument(name: "output_path", value: outputPath),
+        RubyCommand.Argument(name: "platform", value: platform),
+    ]
+
+    if adhoc {
+        arguments.append(RubyCommand.Argument(name: "adhoc", value: adhoc))
+    }
+
+    if developerId {
+        arguments.append(RubyCommand.Argument(name: "developer_id", value: developerId))
+    }
+
+    if development {
+        arguments.append(RubyCommand.Argument(name: "development", value: development))
+    }
+
+    if skipInstall {
+        arguments.append(RubyCommand.Argument(name: "skip_install", value: skipInstall))
+    }
+
+    if force {
+        arguments.append(RubyCommand.Argument(name: "force", value: force))
+    }
+
+    if let teamName = teamName {
+        arguments.append(RubyCommand.Argument(name: "team_name", value: teamName))
+    }
+
+    if let teamId = teamId {
+        arguments.append(RubyCommand.Argument(name: "team_id", value: teamId))
+    }
+
+    if let provisioningName = provisioningName {
+        arguments.append(RubyCommand.Argument(name: "provisioning_name", value: provisioningName))
+    }
+
+    if ignoreProfilesWithDifferentName {
+        arguments.append(RubyCommand.Argument(name: "ignore_profiles_with_different_name", value: ignoreProfilesWithDifferentName))
+    }
+
+    if let certId = certId {
+        arguments.append(RubyCommand.Argument(name: "cert_id", value: certId))
+    }
+
+    if let certOwnerName = certOwnerName {
+        arguments.append(RubyCommand.Argument(name: "cert_owner_name", value: certOwnerName))
+    }
+
+    if let filename = filename {
+        arguments.append(RubyCommand.Argument(name: "filename", value: filename))
+    }
+
+    if skipFetchProfiles {
+        arguments.append(RubyCommand.Argument(name: "skip_fetch_profiles", value: skipFetchProfiles))
+    }
+
+    if skipCertificateVerification {
+        arguments.append(RubyCommand.Argument(name: "skip_certificate_verification", value: skipCertificateVerification))
+    }
+
+    if readonly {
+        arguments.append(RubyCommand.Argument(name: "readonly", value: readonly))
+    }
+
+    if let templateName = templateName {
+        arguments.append(RubyCommand.Argument(name: "template_name", value: templateName))
+    }
+
+    let command = RubyCommand(commandID: "", methodName: "sigh", className: nil, args: arguments)
     _ = runner.executeCommand(command)
 }
 
