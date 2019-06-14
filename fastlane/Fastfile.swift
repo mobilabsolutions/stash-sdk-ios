@@ -86,6 +86,7 @@ class Fastfile: LaneFile {
             sigh(appIdentifier: appIdentifier,
                  username: environmentVariable(get: "FASTLANE_USER"),
                  teamId: environmentVariable(get: "TEAM_ID"),
+                 provisioningName: "Payment Sample and Demo Ad-Hoc",
                  certId: environmentVariable(get: "CERTIFICATE_ID"))
         }
     }
