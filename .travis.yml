@@ -19,7 +19,7 @@ before_install:
   - bundle install
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
-  - carthage bootstrap --verbose --no-use-binaries --platform iOS --cache-builds
+  - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 script:
   - set -e
