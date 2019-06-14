@@ -15,7 +15,7 @@ class Fastfile: LaneFile {
 
     private let keychainName = "ci-build-keychain"
     private var random = SystemRandomNumberGenerator()
-    private let adhocAppIdentifiers = ["com.mobilabsolutions.payment.*"]
+    private let adhocAppIdentifiers = [("com.mobilabsolutions.payment.*", "Payment Sample and Demo Ad-Hoc")]
 
     func beforeAll() {
         if self.isCI {
@@ -46,14 +46,19 @@ class Fastfile: LaneFile {
         let changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
         let buildSecret = environmentVariable(get: "CRASHLYTICS_BUILD_SECRET")
         let apiKey = environmentVariable(get: "CRASHLYTICS_API_KEY")
-        incrementBuildNumber()
 
-        prepareForDistribution()
+        if self.isCI {
+            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"))
+        } else {
+            incrementBuildNumber()
+        }
 
-        betaSample(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
-        betaDemo(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
+        self.prepareForDistribution()
 
-        tearDownFromDistribution()
+        self.betaSample(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
+        self.betaDemo(buildSecret: buildSecret, apiKey: apiKey, changeLog: changeLog)
+
+        self.tearDownFromDistribution()
     }
 
     private func betaSample(buildSecret: String, apiKey: String, changeLog: String) {
@@ -82,12 +87,12 @@ class Fastfile: LaneFile {
                           keychainPassword: password,
                           logOutput: true)
 
-        for appIdentifier in self.adhocAppIdentifiers {
+        for (appIdentifier, provisioningName) in self.adhocAppIdentifiers {
             sigh(adhoc: true,
                  appIdentifier: appIdentifier,
                  username: environmentVariable(get: "FASTLANE_USER"),
                  teamId: environmentVariable(get: "TEAM_ID"),
-                 provisioningName: "Payment Sample and Demo Ad-Hoc",
+                 provisioningName: provisioningName,
                  ignoreProfilesWithDifferentName: true,
                  certId: environmentVariable(get: "CERTIFICATE_ID"))
         }

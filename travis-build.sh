@@ -3,14 +3,12 @@
 set -e;
 set -o pipefail;
 
-# echo "Starting Test run";
-# fastlane test;
-
-# echo "Building Objective-C Sample";
-# xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
+echo "Starting Test run";
+fastlane test && echo "Building Objective-C Sample"\
+    && xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 
  
-# if [ $? -eq 0 ]; then
+if [ $? -eq 0 ] && [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
  
     mkdir fastlane/Certificates;
     touch fastlane/Certificates/distribution.p12;
@@ -21,13 +19,11 @@ set -o pipefail;
     base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
     echo "Testing succeeded. Next steps will be taken";
  
-    # OPERATION_RESULT=0;
+    OPERATION_RESULT=0;
 
-    # if [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
-        echo "Will distribute application to Beta";
-        fastlane beta;
-        let OPERATION_RESULT="$?";
-    fi
+    echo "Will distribute application to Beta";
+    fastlane beta;
+    let OPERATION_RESULT="$?";
  
     echo "Removing certificate folder";
     rm -rf fastlane/Certificates;
@@ -39,7 +35,7 @@ set -o pipefail;
         exit 1;
     fi
  
-# else
-#     echo "An error occurred while testing; Will not go further";
-#     exit 1;
-# fi
+else
+    echo "An error occurred while testing; Will not go further";
+    exit 1;
+fi
