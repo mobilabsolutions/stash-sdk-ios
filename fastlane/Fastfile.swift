@@ -88,6 +88,7 @@ class Fastfile: LaneFile {
                  username: environmentVariable(get: "FASTLANE_USER"),
                  teamId: environmentVariable(get: "TEAM_ID"),
                  provisioningName: "Payment Sample and Demo Ad-Hoc",
+                 ignoreProfilesWithDifferentName: true,
                  certId: environmentVariable(get: "CERTIFICATE_ID"))
         }
     }
