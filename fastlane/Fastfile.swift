@@ -43,13 +43,16 @@ class Fastfile: LaneFile {
 
     func betaLane() {
         desc("Distribute to Beta")
-        let changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
+        let changeLog: String
         let buildSecret = environmentVariable(get: "CRASHLYTICS_BUILD_SECRET")
         let apiKey = environmentVariable(get: "CRASHLYTICS_API_KEY")
 
         if self.isCI {
+            changeLog = changelogFromGitCommits(between: self.ciCommitRangeInCommaNotation(),
+                                                mergeCommitFiltering: "exclude_merges")
             incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"))
         } else {
+            changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
             incrementBuildNumber()
         }
 
@@ -103,5 +106,13 @@ class Fastfile: LaneFile {
         else { return }
 
         deleteKeychain(name: self.keychainName)
+    }
+
+    private func ciCommitRangeInCommaNotation() -> String {
+        // It is unclear whether Travis will continue formatting the commit range
+        // in triple dot notation or start using double dot: https://github.com/travis-ci/travis-ci/issues/4596
+        return environmentVariable(get: "TRAVIS_COMMIT_RANGE")
+            .replacingOccurrences(of: "...", with: ",")
+            .replacingOccurrences(of: "..", with: ",")
     }
 }
