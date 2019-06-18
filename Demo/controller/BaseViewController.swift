@@ -187,7 +187,7 @@ class BaseViewController: UIViewController {
                 break
 
             case let .failure(error):
-                self.showAlert(title: "Error", message: "Failed to get user.\n\(error)", completion: {})
+                self.showAlert(title: "Error", message: "Failed to get user.\n\(error)", completion: nil)
             }
         })
     }

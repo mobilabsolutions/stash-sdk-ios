@@ -44,6 +44,9 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         setTitle(title: "List of Items")
 
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIConstants.infoImage, style: .plain, target: self, action: #selector(self.handleInfo))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIConstants.coolGrey
+
         view.addSubview(self.collectionView)
         self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
         self.setupCollectionView()
@@ -84,6 +87,16 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         return cell
     }
+
+    // MARK: - Handler
+
+    @objc private func handleInfo() {
+        let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
+        let appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
+
+        showAlert(title: appName, message: "App verion: \(appVersion)\nBuild number: \(buildNumber)", completion: nil)
+    }
 }
 
 extension ItemsController: ItemCellDelegate {
@@ -92,7 +105,7 @@ extension ItemsController: ItemCellDelegate {
             self.cartManager.addToCart(item: item) { result in
                 switch result {
                 case let .failure(err):
-                    self.showAlert(title: "Cart Error", message: "Failed to add item to the cart.\n\(err.localizedDescription)", completion: {})
+                    self.showAlert(title: "Cart Error", message: "Failed to add item to the cart.\n\(err.localizedDescription)", completion: nil)
                     return
                 case .success:
                     DispatchQueue.main.async {

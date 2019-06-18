@@ -145,7 +145,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         PaymentService.shared.makePayment(forPaymentMethodId: paymentMethodId, amount: amountInCents, currency: currency, description: description) { err in
             self.hideActivityIndicator()
             if let err = err {
-                self.showAlert(title: "Payment Error", message: "Error occurred during payment.\n\(err)", completion: {})
+                self.showAlert(title: "Payment Error", message: "Error occurred during payment.\n\(err)", completion: nil)
                 self.delegate?.didFinishPayment(error: err)
             } else {
                 self.showAlert(title: "Payment Result", message: "Payment completed successfully.") {
@@ -353,13 +353,13 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
             PaymentService.shared.deletePaymentMethod(for: paymentMethodId) { err in
                 if let err = err {
                     self.hideActivityIndicator()
-                    self.showAlert(title: "Error", message: "Error while deleting payment method.\n\(err.localizedDescription)", completion: {})
+                    self.showAlert(title: "Error", message: "Error while deleting payment method.\n\(err.localizedDescription)", completion: nil)
                     return
                 } else {
                     self.deleteFromDatabase(entity: entity, completion: { err in
                         self.hideActivityIndicator()
                         if let err = err {
-                            self.showAlert(title: "Error", message: "Error while deleting payment method.\(err.localizedDescription)", completion: {})
+                            self.showAlert(title: "Error", message: "Error while deleting payment method.\(err.localizedDescription)", completion: nil)
                             return
                         }
                         DispatchQueue.main.async {

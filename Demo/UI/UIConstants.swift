@@ -34,10 +34,6 @@ extension UIConstants {
         return UIImage(named: "remove", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
 
-    class var maestroImage: UIImage? {
-        return UIImage(named: "maestro", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-    }
-
     class var payPalImage: UIImage? {
         return UIImage(named: "paypal", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
@@ -56,6 +52,10 @@ extension UIConstants {
 
     class var unSelectedImage: UIImage? {
         return UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
+    }
+
+    class var infoImage: UIImage? {
+        return UIImage(named: "info", in: Bundle.main, compatibleWith: nil)
     }
 
     enum DefaultFontType: String {

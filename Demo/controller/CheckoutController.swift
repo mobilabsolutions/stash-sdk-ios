@@ -174,7 +174,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
                 self.collectionView.reloadAsync()
                 self.calculateTotalAmount()
             case let .failure(err):
-                self.showAlert(title: "Cart Error", message: "Failed to load cart items.\n\(err.localizedDescription)", completion: {})
+                self.showAlert(title: "Cart Error", message: "Failed to load cart items.\n\(err.localizedDescription)", completion: nil)
                 return
             }
         }
@@ -198,7 +198,7 @@ extension CheckoutController: ItemCellDelegate {
                         self.totalAmount = self.totalAmount.adding(item.price)
                     }
                 case let .failure(err):
-                    self.showAlert(title: "Error", message: "Failed to add item in the cart.\n\(err.localizedDescription)", completion: {})
+                    self.showAlert(title: "Error", message: "Failed to add item in the cart.\n\(err.localizedDescription)", completion: nil)
                 }
             }
         }
@@ -213,7 +213,7 @@ extension CheckoutController: ItemCellDelegate {
 
             cartManager.decrementItemQuantity(item: item) { err in
                 if let err = err {
-                    self.showAlert(title: "Error", message: "Failed to remove item .\n\(err.localizedDescription)", completion: {})
+                    self.showAlert(title: "Error", message: "Failed to remove item .\n\(err.localizedDescription)", completion: nil)
                     return
                 }
 
@@ -238,7 +238,7 @@ extension CheckoutController: PaymentMethodControllerDelegate {
         if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
             self.cartManager.emptyCart { err in
                 if let err = err {
-                    self.showAlert(title: "Cart Error", message: "Failed to clear cart.\n\(err.localizedDescription)", completion: {})
+                    self.showAlert(title: "Cart Error", message: "Failed to clear cart.\n\(err.localizedDescription)", completion: nil)
                 } else {
                     // switch to item list tab once payment is done
                     mainTabBarController.selectedIndex = 0

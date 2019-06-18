@@ -10,6 +10,7 @@ import Foundation
 
 struct User {
     private let userIdKey = "userId"
+
     var userId: String {
         return UserDefaults.standard.string(forKey: self.userIdKey) ?? ""
     }
