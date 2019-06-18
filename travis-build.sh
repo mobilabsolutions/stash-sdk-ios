@@ -7,8 +7,9 @@ echo "Starting Test run";
 fastlane test && echo "Building Objective-C Sample"\
     && xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 
+TESTING_RESULT="$?";
  
-if [ $? -eq 0 ] && [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
+if [ "$TESTING_RESULT" -eq 0 ] && [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
  
     mkdir fastlane/Certificates;
     touch fastlane/Certificates/distribution.p12;
@@ -34,7 +35,10 @@ if [ $? -eq 0 ] && [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 
         echo "An error occurred while distributing!";
         exit 1;
     fi
- 
+
+elif [ "$TESTING_RESULT" -eq 0 ]; then
+    echo "Testing succeeded but not on master branch so will not distribute.";
+    exit 0;
 else
     echo "An error occurred while testing; Will not go further";
     exit 1;
