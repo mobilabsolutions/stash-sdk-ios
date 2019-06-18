@@ -28,10 +28,32 @@ extension UICollectionView {
 
 extension UIViewController {
     func showAlert(title: String, message: String, completion: @escaping () -> Void) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: { _ in
-            completion()
-        }))
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: { _ in
+                completion()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+extension PaymentMethodAlias.ExtraAliasInfo {
+    func formatToReadableDetails() -> String {
+        let readableDetails: String
+
+        switch self {
+        case let .creditCard(details):
+            readableDetails = self.formatCardDetails(extra: details)
+        case let .sepa(details):
+            readableDetails = details.maskedIban
+        case let .payPal(details):
+            readableDetails = details.email ?? ""
+        }
+        return readableDetails
+    }
+
+    private func formatCardDetails(extra: PaymentMethodAlias.CreditCardExtraInfo) -> String {
+        return extra.creditCardMask + " • \(extra.expiryMonth)/\(extra.expiryYear)"
     }
 }

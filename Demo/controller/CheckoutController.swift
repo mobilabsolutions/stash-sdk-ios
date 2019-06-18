@@ -18,11 +18,14 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     private let amountViewHeight: CGFloat = 32
 
     private let configuration: PaymentMethodUIConfiguration
-    private var cartItems = [(quantity: Int, item: Item)]()
+
+    private let cartManager = CartManager.shared
 
     private var totalAmount: NSDecimalNumber = 0 {
         didSet {
-            self.amountValueLabel.text = self.totalAmount.toCurrency()
+            DispatchQueue.main.async {
+                self.amountValueLabel.text = self.totalAmount.toCurrency()
+            }
         }
     }
 
@@ -55,10 +58,6 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     override init(configuration: PaymentMethodUIConfiguration) {
         self.configuration = configuration
         super.init(configuration: configuration)
-
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            self.cartItems = mainTabBarController.cartItems
-        }
     }
 
     required init?(coder _: NSCoder) {
@@ -72,6 +71,8 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
         self.setupViews()
         self.setupCollectionView()
+
+        self.loadCartItems()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,21 +83,8 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            self.cartItems = mainTabBarController.cartItems
-            self.totalAmount = self.cartItems.reduce(0.0) { ($1.item.price.multiplying(by: NSDecimalNumber(value: $1.quantity))).adding($0)
-            }
-        }
-
+        self.calculateTotalAmount()
         self.collectionView.reloadAsync()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            mainTabBarController.cartItems = self.cartItems
-        }
     }
 
     // MARK: Collectionview methods
@@ -112,15 +100,15 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        self.updateScreen(isCartEmpty: self.cartItems.count == 0)
-        return self.cartItems.count
+        self.updateScreen(isCartEmpty: self.cartManager.cartItems.count == 0)
+        return self.cartManager.cartItems.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ItemCell = collectionView.dequeueCell(reuseIdentifier: self.cellId, for: indexPath)
 
-        let item = self.cartItems[indexPath.item].item
-        let quantity = self.cartItems[indexPath.item].quantity
+        let item = self.cartManager.cartItems[indexPath.item]
+        let quantity = self.cartManager.cartItems[indexPath.item].quantity
         cell.setup(with: item, quantity: quantity, shouldShowQuantity: true, configuration: nil)
         cell.delegate = self
 
@@ -129,7 +117,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
     // MARK: Handlers
 
-    override func handleScreenButtonSelection() {
+    override func handleScreenButtonPress() {
         self.showPaymentMethodScreen()
     }
 
@@ -148,7 +136,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
         self.amountValueLabel.anchor(top: self.amountInfoContainerView.topAnchor, bottom: self.amountInfoContainerView.bottomAnchor, right: self.amountInfoContainerView.rightAnchor)
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: availableBottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: self.amountInfoContainerView.topAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
 
         view.insertSubview(self.emptyCartInfoView, at: 0)
         self.emptyCartInfoView.frame = view.frame
@@ -174,55 +162,91 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
         self.tabBarController?.tabBar.isHidden = true
         paymentMethodController.delegate = self
     }
+
+    private func calculateTotalAmount() {
+        self.totalAmount = self.cartManager.cartItems.reduce(0.0) { ($1.price.multiplying(by: NSDecimalNumber(value: $1.quantity))).adding($0) }
+    }
+
+    private func loadCartItems() {
+        self.cartManager.getAllCartItems { result in
+            switch result {
+            case .success:
+                self.collectionView.reloadAsync()
+                self.calculateTotalAmount()
+            case let .failure(err):
+                self.showAlert(title: "Cart Error", message: "Failed to load cart items.\n\(err.localizedDescription)", completion: {})
+                return
+            }
+        }
+    }
 }
 
 extension CheckoutController: ItemCellDelegate {
     func didSelectAddOption(for item: Item) {
-        // get index of matching item from cart item array
-        guard let itemIndex: Int = cartItems.firstIndex(where: { $0.item.id == item.id }) else {
-            print("Item should be present in the cart")
-            return
+        DispatchQueue.global(qos: .background).sync {
+            // get index of matching item from cart item array
+            guard let itemIndex: Int = cartManager.cartItems.firstIndex(where: { $0.id == item.id }) else {
+                return
+            }
+            cartManager.addToCart(item: self.cartManager.cartItems[itemIndex]) { result in
+                switch result {
+                case .success:
+                    DispatchQueue.main.sync {
+                        // reload cell
+                        let indexPath = IndexPath(item: itemIndex, section: 0)
+                        self.collectionView.reloadItems(at: [indexPath])
+                        self.totalAmount = self.totalAmount.adding(item.price)
+                    }
+                case let .failure(err):
+                    self.showAlert(title: "Error", message: "Failed to add item in the cart.\n\(err.localizedDescription)", completion: {})
+                }
+            }
         }
-        self.cartItems[itemIndex].quantity += 1
-        // reload cell
-        let indexPath = IndexPath(item: itemIndex, section: 0)
-        collectionView.reloadItems(at: [indexPath])
-
-        self.totalAmount = self.totalAmount.adding(item.price)
     }
 
     func didSelectRemoveOption(for item: Item) {
-        // get index of matching item from cart item array
-        guard let itemIndex: Int = cartItems.firstIndex(where: { $0.item.id == item.id }) else { return }
+        DispatchQueue.global(qos: .background).sync {
+            guard let itemIndex: Int = self.cartManager.cartItems.firstIndex(where: { $0.id == item.id }) else { return }
+            let indexPath = IndexPath(item: itemIndex, section: 0)
+            let itemQuantity = self.cartManager.cartItems[itemIndex].quantity
+            let price = self.cartManager.cartItems[itemIndex].price
 
-        let indexPath = IndexPath(item: itemIndex, section: 0)
-        let itemQuantity = self.cartItems[itemIndex].quantity
-        let price = self.cartItems[itemIndex].item.price
+            cartManager.decrementItemQuantity(item: item) { err in
+                if let err = err {
+                    self.showAlert(title: "Error", message: "Failed to remove item .\n\(err.localizedDescription)", completion: {})
+                    return
+                }
 
-        // if only one quantity of the item left - remove that item from collection view and cardItems
-        if itemQuantity == 1 {
-            self.cartItems.remove(at: itemIndex)
-            self.collectionView.deleteItems(at: [indexPath])
-        } else {
-            self.cartItems[itemIndex].quantity -= 1
-            self.collectionView.reloadItems(at: [indexPath])
+                DispatchQueue.main.sync {
+                    // if only one quantity of the item left - remove that item from collection view and cardItems
+                    if itemQuantity == 1 {
+                        self.collectionView.deleteItems(at: [indexPath])
+                    } else {
+                        self.collectionView.reloadItems(at: [indexPath])
+                    }
+                    self.totalAmount = self.totalAmount.subtracting(price)
+                }
+            }
         }
-        self.totalAmount = self.totalAmount.subtracting(price)
     }
 }
 
 extension CheckoutController: PaymentMethodControllerDelegate {
-    func didFinishPayment(with result: Error?) {
-        if let error = result {
-            print(error)
-        } else {
-            if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-                // switch to item list tab once payment is done
-                mainTabBarController.selectedIndex = 0
-                mainTabBarController.cartItems.removeAll()
+    func didFinishPayment(error: Error?) {
+        guard error == nil else { return }
+
+        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
+            self.cartManager.emptyCart { err in
+                if let err = err {
+                    self.showAlert(title: "Cart Error", message: "Failed to clear cart.\n\(err.localizedDescription)", completion: {})
+                } else {
+                    // switch to item list tab once payment is done
+                    mainTabBarController.selectedIndex = 0
+
+                    self.totalAmount = 0
+                    self.collectionView.reloadAsync()
+                }
             }
-            self.totalAmount = 0
-            self.collectionView.reloadAsync()
         }
     }
 }

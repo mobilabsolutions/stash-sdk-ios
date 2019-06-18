@@ -6,6 +6,7 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
+import CoreData
 import MobilabPaymentCore
 import UIKit
 
@@ -16,15 +17,16 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
     private let cellHeight: CGFloat = 104
 
-    private let items: [Item] = [Item(title: "mobiLab", description: "t-Shirt print", picture: "imageCard", price: 23.95),
-                                 Item(title: "notebook paper", description: "quadrille Pads", picture: "imageCardNotes", price: 3.5),
-                                 Item(title: "mobilab sticker", description: "12 sticker sheet", picture: "imageCardSticker", price: 23.95),
-                                 Item(title: "mobilab pen", description: "blue color", picture: "imageCardPen", price: 23.95),
-                                 Item(title: "mobilab", description: "female T-Shirt", picture: "imageCard", price: 23.95)]
+    private let items: [Item] = [Item(id: "4343D7AA-9BF2-4424-95A9-7A98CB90C6E4", title: "mobiLab", description: "t-Shirt print", picture: "imageCard", price: 15.0),
+                                 Item(id: "ABE45A17-184B-47B1-99D5-02F2BAAB7B04", title: "notebook paper", description: "quadrille Pads", picture: "imageCardNotes", price: 3.5),
+                                 Item(id: "82EB1262-E38D-4CB8-A8CA-1E17E6410B15", title: "mobilab sticker", description: "12 sticker sheet", picture: "imageCardSticker", price: 23.95),
+                                 Item(id: "A3F6679E-7C4D-4A1F-9C24-C238996E6CBF", title: "mobilab pen", description: "blue color", picture: "imageCardPen", price: 10.75),
+                                 Item(id: "45B4DA02-B214-4A39-8755-2473B7FF0C5E", title: "mobilab", description: "female T-Shirt", picture: "imageCard", price: 20)]
 
     private let configuration: PaymentMethodUIConfiguration
-
     private let toast = ToastView()
+
+    private let cartManager = CartManager.shared
 
     // MARK: - Initializers
 
@@ -82,26 +84,22 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         return cell
     }
-
-    // MARK: Helpers
-
-    private func addSelectedItem(item: Item) {
-        if let tabbarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            guard let itemIndex = tabbarController.cartItems.firstIndex(where: { $0.item.id == item.id }) else {
-                tabbarController.cartItems.insert((1, item), at: 0)
-                return
-            }
-            tabbarController.cartItems[itemIndex].quantity += 1
-        }
-    }
 }
 
 extension ItemsController: ItemCellDelegate {
     func didSelectAddOption(for item: Item) {
-        self.addSelectedItem(item: item)
-
-        DispatchQueue.main.async {
-            ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
+        DispatchQueue.global(qos: .background).sync {
+            self.cartManager.addToCart(item: item) { result in
+                switch result {
+                case let .failure(err):
+                    self.showAlert(title: "Cart Error", message: "Failed to add item to the cart.\n\(err.localizedDescription)", completion: {})
+                    return
+                case .success:
+                    DispatchQueue.main.async {
+                        ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
+                    }
+                }
+            }
         }
     }
 

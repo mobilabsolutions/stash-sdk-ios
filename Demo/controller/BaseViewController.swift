@@ -18,6 +18,8 @@ class BaseViewController: UIViewController {
     let defaultTopPadding: CGFloat = 40
 
     private let defaultTopInset: CGFloat = 0
+    private let defaultBottomInset: CGFloat = 8
+
     private let buttonHeight: CGFloat = 44
     private let amountViewHeight: CGFloat = 32
 
@@ -36,7 +38,7 @@ class BaseViewController: UIViewController {
         return cv
     }()
 
-    private lazy var totalAmountLabel: UILabel = {
+    private let totalAmountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.font = UIConstants.defaultFont(of: 18, type: .bold)
@@ -46,7 +48,7 @@ class BaseViewController: UIViewController {
         return label
     }()
 
-    private lazy var amountValueLabel: UILabel = {
+    private let amountValueLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
         label.font = UIConstants.defaultFont(of: 24, type: .black)
@@ -62,9 +64,26 @@ class BaseViewController: UIViewController {
         button.layer.cornerRadius = 20
         button.layer.masksToBounds = false
         button.titleLabel?.font = UIConstants.defaultFont(of: 14, type: .bold)
-        button.addTarget(self, action: #selector(handleScreenButtonSelection), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleScreenButtonPress), for: .touchUpInside)
 
         return button
+    }()
+
+    private lazy var activityIndicatorOverlay: UIView = {
+        let view = UIView()
+        view.backgroundColor = self.configuration.backgroundColor
+        view.alpha = 0.7
+
+        return view
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        activityIndicator.color = self.configuration.buttonColor
+
+        return activityIndicator
     }()
 
     private let amountInfoView = UIView()
@@ -94,11 +113,32 @@ class BaseViewController: UIViewController {
         self.button.backgroundColor = status == true ? UIConstants.aquamarine : UIConstants.coolGrey
     }
 
+    func showActivityIndicator() {
+        DispatchQueue.main.async {
+            self.collectionView.addSubview(self.activityIndicatorOverlay)
+            self.activityIndicatorOverlay.frame = self.view.frame
+            self.activityIndicatorOverlay.addSubview(self.activityIndicator)
+            let topAndBottomBarHeight = (self.navigationController?.navigationBar.intrinsicContentSize.height ?? 0) +
+                UIApplication.shared.statusBarFrame.height +
+                (self.tabBarController?.tabBar.frame.size.height ?? 0)
+            self.activityIndicator.frame = CGRect(x: 0, y: self.view.center.y - topAndBottomBarHeight, width: self.view.frame.width, height: 0)
+
+            self.activityIndicator.startAnimating()
+        }
+    }
+
+    func hideActivityIndicator() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicatorOverlay.removeFromSuperview()
+        }
+    }
+
     // MARK: - Initializers
 
-    public init(configuration: PaymentMethodUIConfiguration) {
+    init(configuration: PaymentMethodUIConfiguration) {
         self.configuration = configuration
-        self.defaultSectionInsets = UIEdgeInsets(top: self.defaultTopInset, left: self.defaultInset, bottom: self.defaultInset, right: self.defaultInset)
+        self.defaultSectionInsets = UIEdgeInsets(top: self.defaultTopInset, left: self.defaultInset, bottom: self.defaultBottomInset, right: self.defaultInset)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -111,11 +151,13 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         self.setupViews()
         self.setupCollectionView()
+
+        self.getUser()
     }
 
     // MARK: Handlers
 
-    @objc func handleScreenButtonSelection() {}
+    @objc func handleScreenButtonPress() {}
 
     // MARK: - Helpers
 
@@ -136,5 +178,17 @@ class BaseViewController: UIViewController {
             layout.sectionInset = self.defaultSectionInsets
             layout.minimumLineSpacing = self.defaultSectionLineSpacing
         }
+    }
+
+    func getUser() {
+        PaymentService.shared.getOrCreateUser(completion: { result in
+            switch result {
+            case .success:
+                break
+
+            case let .failure(error):
+                self.showAlert(title: "Error", message: "Failed to get user.\n\(error)", completion: {})
+            }
+        })
     }
 }

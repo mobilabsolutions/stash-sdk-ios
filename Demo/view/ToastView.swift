@@ -18,19 +18,21 @@ class ToastView: UILabel {
     // MARK: Public Methods
 
     func showMessage(withText message: String) {
-        text = " \(message)  "
+        DispatchQueue.main.async {
+            self.text = " \(message)  "
 
-        let rootVC = UIApplication.shared.keyWindow?.rootViewController
-        rootVC?.view.addSubview(self)
+            let rootVC = UIApplication.shared.keyWindow?.rootViewController
+            rootVC?.view.addSubview(self)
 
-        UIView.animate(withDuration: self.animationDuration, animations: {
-            self.alpha = 1
-        }) { _ in
             UIView.animate(withDuration: self.animationDuration, animations: {
-                self.alpha = 0
-            }, completion: { _ in
-                self.removeFromSuperview()
-            })
+                self.alpha = 1
+            }) { _ in
+                UIView.animate(withDuration: self.animationDuration, animations: {
+                    self.alpha = 0
+                }, completion: { _ in
+                    self.removeFromSuperview()
+                })
+            }
         }
     }
 

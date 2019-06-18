@@ -6,12 +6,12 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
+import CoreData
 import MobilabPaymentCore
 import UIKit
 
 protocol PaymentMethodControllerDelegate: class {
-    #warning("Use proper response code once merchant backend is integrated")
-    func didFinishPayment(with result: Error?)
+    func didFinishPayment(error: Error?)
 }
 
 class PaymentMethodController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -28,6 +28,8 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         }
     }
 
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     private let addPaymentMethodCellId = "addPaymentMethod"
     private let paymentMethodCellId = "paymentMethod"
 
@@ -38,7 +40,10 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 
     private var shouldMakePayment: Bool
     private var amount: NSDecimalNumber
-    private var registeredPaymentMethods: [PaymentMethod] = []
+    private var registeredPaymentMethods: [(method: PaymentMethod, entity: PaymentMethodEntity)] = []
+    private var selectedPaymentMethod: PaymentMethod?
+
+    private var user = User()
 
     // MARK: - Initializers
 
@@ -69,6 +74,8 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 
         self.setupViews()
         self.setupCollectionView()
+
+        self.fetchPaymentMethods()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,9 +109,9 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         if indexPath.section == SectionType.paymentMethodList.index {
             let cell: PaymentMethodCell = collectionView.dequeueCell(reuseIdentifier: self.paymentMethodCellId, for: indexPath) // PaymentSDK method
             let paymentMethod = self.registeredPaymentMethods[indexPath.row]
-            let image = self.getImage(for: paymentMethod.type)
-            let title = self.getName(for: paymentMethod.type)
-            cell.setup(image: image, title: title, subTitle: paymentMethod.humanReadableIdentifier, shouldShowSelection: self.shouldMakePayment, configuration: nil)
+            let image = self.getImage(for: paymentMethod.method)
+            let title = self.getName(for: paymentMethod.method.type)
+            cell.setup(image: image, title: title, subTitle: paymentMethod.method.humanReadableIdentifier, shouldShowSelection: self.shouldMakePayment, configuration: nil)
             cell.delegate = self
             toReturn = cell
         } else {
@@ -119,16 +126,33 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         if indexPath.section == SectionType.addPaymentMethod.index {
             self.addNewPaymentMethod()
         } else if self.shouldMakePayment, let cell = collectionView.cellForItem(at: indexPath) as? PaymentMethodCell {
+            self.selectedPaymentMethod = self.registeredPaymentMethods[indexPath.row].method
             updateSelection(forCell: cell)
         }
     }
 
     // MARK: Handlers
 
-    override func handleScreenButtonSelection() {
-        showAlert(title: "Payment Result", message: "Payment completed successfully.") {
-            self.delegate?.didFinishPayment(with: nil)
-            self.navigationController?.popViewController(animated: true)
+    override func handleScreenButtonPress() {
+        guard let paymentMethod = selectedPaymentMethod, let paymentMethodId = paymentMethod.paymentMethodId else { return }
+
+        let currency = Locale.current.currencyCode ?? "EUR"
+        let description = "Test Payment"
+        showActivityIndicator()
+
+        let amountInCents = self.amount.multiplying(by: 100) // ampunt in cents
+
+        PaymentService.shared.makePayment(forPaymentMethodId: paymentMethodId, amount: amountInCents, currency: currency, description: description) { err in
+            self.hideActivityIndicator()
+            if let err = err {
+                self.showAlert(title: "Payment Error", message: "Error occurred during payment.\n\(err)", completion: {})
+                self.delegate?.didFinishPayment(error: err)
+            } else {
+                self.showAlert(title: "Payment Result", message: "Payment completed successfully.") {
+                    self.delegate?.didFinishPayment(error: nil)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
         }
     }
 
@@ -156,8 +180,66 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         self.collectionView.dataSource = self
     }
 
+    private func fetchPaymentMethods() {
+        DispatchQueue.global(qos: .background).async {
+            guard !self.user.getUserId().isEmpty else {
+                DispatchQueue.main.async {
+                    UIViewControllerTools.showAlert(on: self, title: "", body: "No user available")
+                }
+                return
+            }
+
+            self.showActivityIndicator()
+
+            self.fetchFromDatabase(completion: { result in
+                switch result {
+                case let .failure(err):
+                    DispatchQueue.main.async {
+                        self.hideActivityIndicator()
+                        UIViewControllerTools.showAlert(on: self, title: "Error", body: err.localizedDescription)
+                    }
+                case let .success(paymentMethods):
+                    self.registeredPaymentMethods = paymentMethods
+                    self.collectionView.reloadAsync()
+
+                    PaymentService.shared.getPaymentMethods(for: self.user.userId) { result in
+                        self.hideActivityIndicator()
+                        switch result {
+                        case let .failure(err):
+                            DispatchQueue.main.async {
+                                UIViewControllerTools.showAlert(on: self, title: "Error", body: err.localizedDescription)
+                            }
+                        case .success:
+                            break
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private func fetchFromDatabase(completion: @escaping (Result<[(method: PaymentMethod, entity: PaymentMethodEntity)], Error>) -> Void) {
+        let managedContext = self.appDelegate.persistentContainer.viewContext
+
+        let fetchRequest: NSFetchRequest<PaymentMethodEntity> = PaymentMethodEntity.fetchRequest()
+        var paymetMethods: [(PaymentMethod, PaymentMethodEntity)] = []
+
+        do {
+            let entities = try managedContext.fetch(fetchRequest)
+            for dataEntity in entities {
+                guard let data = dataEntity.details else { continue }
+
+                let method = try JSONDecoder().decode(PaymentMethod.self, from: data)
+                paymetMethods.append((method, dataEntity))
+            }
+        } catch let err {
+            completion(.failure(err))
+        }
+        completion(.success(paymetMethods))
+    }
+
     private func addNewPaymentMethod() {
-        let paymentManager = PaymentMethodManager.shared
+        let paymentManager = PaymentService.shared
         paymentManager.addNewPaymentMethod(viewController: self) { [weak self] result in
             guard let self = self else { return }
             self.handleRegistrationResponse(result: result)
@@ -165,48 +247,72 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     }
 
     private func handleRegistrationResponse(result: RegistrationResult) {
-        switch result {
-        case let .success(value):
-            DispatchQueue.main.async {
-                let readableDetails: String
+        DispatchQueue.global(qos: .background).async {
+            switch result {
+            case let .success(value):
+                DispatchQueue.main.async {
+                    let paymentMethod = PaymentMethod(type: value.paymentMethodType, alias: value.alias ?? "", extraAliasInfo: value.extraAliasInfo, userId: self.user.userId, paymentMethodId: nil)
 
-                switch value.extraAliasInfo {
-                case let .creditCard(details):
-                    readableDetails = self.formatCardDetails(extra: details)
-                case let .sepa(details):
-                    readableDetails = details.maskedIban
-                case let .payPal(details):
-                    readableDetails = details.email ?? ""
+                    PaymentService.shared.createPaymentMethod(for: self.user, paymentMethod: paymentMethod, completion: { result in
+                        switch result {
+                        case let .failure(err):
+                            self.dismiss(animated: true) {
+                                UIViewControllerTools.showAlert(on: self, title: "Payment Method", body: err.localizedDescription)
+                            }
+                        case let .success(paymentMethodId):
+                            paymentMethod.paymentMethodId = paymentMethodId
+                            self.addNewItem(for: paymentMethod, completion: { err in
+                                if let err = err {
+                                    UIViewControllerTools.showAlert(on: self, title: "Error", body: err.localizedDescription)
+                                    return
+                                }
+                                self.dismiss(animated: true) {
+                                    UIViewControllerTools.showAlert(on: self, title: "Success", body: "Successfully registered payment method")
+                                    AliasManager.shared.save(alias: Alias(alias: value.alias ?? "No alias provided", expirationYear: nil, expirationMonth: nil, type: .unknown))
+                                }
+                            })
+                        }
+                    })
                 }
-
-                let paymentMethod = PaymentMethod(type: value.paymentMethodType, alias: value.alias, humanReadableIdentifier: readableDetails)
-                self.addNewItem(for: paymentMethod)
-
-                self.dismiss(animated: true) {
-                    UIViewControllerTools.showAlert(on: self, title: "Success", body: "Successfully registered payment method")
-                }
+            case .failure:
+                break
             }
-            AliasManager.shared.save(alias: Alias(alias: value.alias ?? "No alias provided", expirationYear: nil, expirationMonth: nil, type: .unknown))
-        case .failure:
-            break
         }
     }
 
-    private func formatCardDetails(extra: PaymentMethodAlias.CreditCardExtraInfo) -> String {
-        return extra.creditCardMask + " • \(extra.expiryMonth)/\(extra.expiryYear)"
+    private func addNewItem(for paymentMethod: PaymentMethod, completion: @escaping (Error?) -> Void) {
+        DispatchQueue.main.async {
+            let managedContext = self.appDelegate.persistentContainer.viewContext
+
+            do {
+                let jsonData = try JSONEncoder().encode(paymentMethod)
+
+                let entity = PaymentMethodEntity(context: managedContext)
+                entity.details = jsonData
+                try managedContext.save()
+
+                let indexPath = IndexPath(item: self.registeredPaymentMethods.count, section: 0)
+                self.registeredPaymentMethods.append((paymentMethod, entity))
+
+                self.collectionView.insertItems(at: [indexPath])
+
+                completion(nil)
+            } catch let err as NSError {
+                completion(err)
+            }
+        }
     }
 
-    private func addNewItem(for paymentMethod: PaymentMethod) {
-        self.registeredPaymentMethods.insert(paymentMethod, at: 0)
-        let indexPath = IndexPath(item: 0, section: 0)
-        self.collectionView.insertItems(at: [indexPath])
-    }
-
-    private func getImage(for type: PaymentMethodType) -> UIImage? {
+    private func getImage(for paymentMethod: PaymentMethod) -> UIImage? {
         let image: UIImage?
-        switch type {
+        switch paymentMethod.type {
         case .creditCard:
-            image = UIConstants.maestroImage
+            switch paymentMethod.extraAliasInfo {
+            case let .creditCard(details):
+                image = details.creditCardType.image
+            default:
+                image = UIConstants.creditCardImage
+            }
         case .payPal:
             image = UIConstants.payPalImage
         case .sepa:
@@ -234,11 +340,34 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
 
         if selectionEnabled {
             self.updateSelection(forCell: cell)
+            return
+        }
 
-        } else {
-            if indexPath.item < self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) {
-                self.registeredPaymentMethods.remove(at: indexPath.row)
-                self.collectionView.deleteItems(at: [indexPath])
+        // delete button pressed
+        if indexPath.item < self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) {
+            guard let paymentMethodId = registeredPaymentMethods[indexPath.row].method.paymentMethodId else { return }
+
+            let entity = self.registeredPaymentMethods[indexPath.row].entity
+
+            showActivityIndicator()
+            PaymentService.shared.deletePaymentMethod(for: paymentMethodId) { err in
+                if let err = err {
+                    self.hideActivityIndicator()
+                    self.showAlert(title: "Error", message: "Error while deleting payment method.\n\(err.localizedDescription)", completion: {})
+                    return
+                } else {
+                    self.deleteFromDatabase(entity: entity, completion: { err in
+                        self.hideActivityIndicator()
+                        if let err = err {
+                            self.showAlert(title: "Error", message: "Error while deleting payment method.\(err.localizedDescription)", completion: {})
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.registeredPaymentMethods.remove(at: indexPath.row)
+                            self.collectionView.deleteItems(at: [indexPath])
+                        }
+                    })
+                }
             }
         }
     }
@@ -261,5 +390,11 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
                 self.setButtonInteraction(to: true)
             })
         }
+    }
+
+    private func deleteFromDatabase(entity: PaymentMethodEntity, completion: @escaping (Error?) -> Void) {
+        let managedContext = self.appDelegate.persistentContainer.viewContext
+        managedContext.delete(entity)
+        self.appDelegate.saveContext(completion: completion)
     }
 }

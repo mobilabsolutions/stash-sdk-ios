@@ -6,17 +6,18 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
+import CoreData
 import MobilabPaymentCore
 import UIKit
 
 class MainTabBarController: UITabBarController {
     // MARK: - Properties
 
-    var cartItems: [(quantity: Int, item: Item)] = [(Int, Item)]()
-
-    var paymentMethods: [PaymentMethod] = []
+    var paymentMethods: [(method: PaymentMethod, entity: PaymentMethodEntity)] = []
 
     private let configuration = PaymentMethodUIConfiguration()
+
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     // MARK: - Initializers
 

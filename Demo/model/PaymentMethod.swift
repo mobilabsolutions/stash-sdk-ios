@@ -9,8 +9,20 @@
 import MobilabPaymentCore
 import UIKit
 
-struct PaymentMethod {
-    let type: PaymentMethodType
-    let alias: String?
-    let humanReadableIdentifier: String?
+class PaymentMethod: Codable {
+    var type: PaymentMethodType
+    var alias: String
+    var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo
+    var humanReadableIdentifier: String
+    var userId: String
+    var paymentMethodId: String?
+
+    init(type: PaymentMethodType, alias: String, extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo, userId: String, paymentMethodId: String?) {
+        self.type = type
+        self.alias = alias
+        self.extraAliasInfo = extraAliasInfo
+        self.humanReadableIdentifier = extraAliasInfo.formatToReadableDetails()
+        self.userId = userId
+        self.paymentMethodId = paymentMethodId
+    }
 }
