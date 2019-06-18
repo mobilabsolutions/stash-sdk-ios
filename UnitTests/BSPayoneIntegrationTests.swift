@@ -36,6 +36,7 @@ class BSPayoneIntegrationTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         SDKResetter.resetMobilabSDK()
+        OHHTTPStubs.removeAllStubs()
     }
 
     func testCreditCard() throws {

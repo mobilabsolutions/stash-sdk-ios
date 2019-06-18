@@ -2,6 +2,7 @@ language: objective-c
 osx_image: xcode10.2
 
 cache:
+  bundler: true
   directories:
   - Carthage
 
@@ -12,23 +13,13 @@ env:
   matrix:
     - DESTINATION="OS=12.2,name=iPhone X"
 
-before_install:
+install:
   - gem install xcpretty
   - gem install xcpretty-travis-formatter
+  - bundle install
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
-
-before_script:
-  - carthage update --cache-builds --platform iOS
+  - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 script:
-  - set -e
-  - set -o pipefail
-  - echo "Starting Unit Tests"
-  - travis_retry xcodebuild clean test -project "$PROJECT_NAME" -scheme "MobilabPaymentCore" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
-  - echo "Starting UI Tests"
-  - xcodebuild test -project "$PROJECT_NAME" -scheme "Sample" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
-  - echo "Building Objective-C Sample"
-  - xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
-  - echo "Building Demo application"
-  - xcodebuild -project "$PROJECT_NAME" -scheme "Demo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`
+  - ./travis-build.sh

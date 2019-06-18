@@ -29,6 +29,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void)tearDown {
     [super tearDown];
+    [OHHTTPStubs removeAllStubs];
     [SDKResetter resetMobilabSDK];
 }
 

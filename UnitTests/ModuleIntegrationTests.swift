@@ -78,6 +78,7 @@ class ModuleIntegrationTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        OHHTTPStubs.removeAllStubs()
         SDKResetter.resetMobilabSDK()
     }
 
