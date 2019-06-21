@@ -15,7 +15,7 @@ Hello and welcome to MobilabPayment iOS SDK
 
 - iOS 11.3+
 - Xcode 10.1+
-- Swift 5.0+
+- Swift 5.0+ / Objective-C
 
 ## Installation
 
@@ -212,7 +212,7 @@ There is some more information on this in the [SDK UI Usage Tutorial](https://gi
 
 ## Demo
 
-A demo app that demonstrate usage of all SDK features is part of this project. Run  `carthage update --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose `Demo` scheme to launch it.
+A demo app that demonstrate usage of all SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose `Demo` scheme to launch it.
 
 ## Feedback
 
