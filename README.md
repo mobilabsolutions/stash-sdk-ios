@@ -22,7 +22,7 @@ Hello and welcome to MobilabPayment iOS SDK
 We recommend using [Carthage](https://github.com/Carthage/Carthage) to integrate the MobilabPayment SDK with your project.
 
 #### Carthage
-Add `github "mobilabsolutions/payment-sdk-ios-open", ~> 1.0` to your `Cartfile`, and [add the frameworks to your project](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+Add `github "mobilabsolutions/payment-sdk-ios-open" ~> 1.0` to your `Cartfile`, and [add the frameworks to your project](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
 ## Usage
 
