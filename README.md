@@ -15,14 +15,14 @@ Hello and welcome to MobilabPayment iOS SDK
 
 - iOS 11.3+
 - Xcode 10.1+
-- Swift 4.2+
+- Swift 5.0+
 
 ## Installation
 
 We recommend using [Carthage](https://github.com/Carthage/Carthage) to integrate the MobilabPayment SDK with your project.
 
 #### Carthage
-Add `github "mobilab/mobilabpayment_ios"` to your `Cartfile`, and [add the frameworks to your project](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+Add `github "mobilabsolutions/payment-sdk-ios-open", ~> 1.0` to your `Cartfile`, and [add the frameworks to your project](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
 ## Usage
 
@@ -34,6 +34,7 @@ To connect the SDK to a given payment service provider (PSP), that PSP's module 
 ```swift
 import MobilabPaymentCore
 import MobilabPaymentBSPayone
+import MobilabPaymentBraintree
 
 let bsPayonePSP = MobilabPaymentBSPayone()
 let braintreePSP = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
@@ -44,8 +45,10 @@ let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXX
                                                     PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP),
                                                     PaymentProviderIntegration(paymentServiceProvider: braintreePSP)
                                                 ])
-MobilabPaymentSDK.configure(configuration: configuration)
+MobilabPaymentSDK.initialize(configuration: configuration)
 ```
+
+It is also possible to specify which PSP should be used to register which payment method type by using the `paymentMethodTypes` parameter of the `PaymentProviderIntegration` optional initializer. By default, when not specifying the specific payment method types, the PSP will be used for all types that the module supports. Note that a `fatalError` will be created when there are overlapping payment method types for different PSPs that are registered at the same time.
 
 #### Using the SDK in test mode
 
@@ -55,10 +58,12 @@ To instruct the SDK to use test mode, manually set the `useTestMode` property on
 For example:
 
 ```swift
-let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", endpoint: "https://payment.example.net/api/v1")
+let configuration = MobilabPaymentConfiguration(publicKey: "PD-BS2-ABCDEXXXXXXXXXXX", 
+                                                endpoint: "https://payment.example.net/api/v1",
+                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP)])
 configuration.useTestMode = true
 
-MobilabPaymentSDK.configure(configuration: configuration)
+MobilabPaymentSDK.initialize(configuration: configuration)
 ```
 
 ## Registering payment method
@@ -81,13 +86,14 @@ The `CreditCardData` is provided with `BillingData`. This `BillingData` contains
 As with all registration methods, you also need to set PSP you wanna use to register credit card.
 
 ```swift
-let billingData = BillingData(country: "DE")
+let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
+let billingData = BillingData(name: name, country: "DE")
 guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
-                                        expiryMonth: 9, expiryYear: 21, holderName: "Max Mustermann", billingData: billingData)
+                                        expiryMonth: 9, expiryYear: 21, billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.bsPayone, creditCardData: creditCard) { result in
+registrationManager.registerCreditCard(creditCardData: creditCard) { result in
     switch result {
     case let .success(registration): print("Received alias for credit card: \(registration.alias)")
     case let .failure(error): print("Error (\(error.code)) while registering credit card")
@@ -100,14 +106,15 @@ registrationManager.registerCreditCard(mobilabProvider: MobilabPaymentProvider.b
 To register a SEPA account, we can use the `registerSEPAAccount` method of the registration manager. Here, as is the case for the credit card data, the billing data is optional and the values that need to be provided are PSP-dependant.
 
 ```swift
+let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
 let billingData = BillingData(email: "max@mustermann.de",
-                                      name: "Max Mustermann",
+                                      name: name,
                                       address1: "Address1",
                                       address2: "Address2",
                                       zip: "817754",
                                       city: "Cologne",
                                       state: nil,
-                                      country: "Germany",
+                                      country: "DE",
                                       phone: "1231231123",
                                       languageId: "deu")
 
@@ -115,7 +122,7 @@ guard let sepaData = try? SEPAData(iban: "DE75512108001245126199", bic: "COLSDE3
 else { XCTFail("SEPA data should be valid"); return }
 
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.bsPayone, sepaData: sepaData) { result in
+registrationManager.registerSEPAAccount(sepaData: sepaData) { result in
     switch result {
     case let .success(registration): print("Received alias for SEPA account: \(registration.alias)")
     case let .failure(error): print("Error (\(error.description)) while registering SEPA account")
@@ -125,7 +132,7 @@ registrationManager.registerSEPAAccount(mobilabProvider: MobilabPaymentProvider.
 
 ### Registering a PayPal account
 
-Currently, only the Braintree PSP allows registering a PayPal account.
+Currently, only the Braintree PSP allows registering a PayPal account and it is only possible to register a PayPal payment method using the provided module UI.
 
 #### Setup for app switch
 
@@ -144,7 +151,7 @@ func application(_: UIApplication, open url: URL, options: [UIApplication.OpenUR
   return MobilabPaymentBraintree.handleOpen(url: url, options: options)
 }
 ```
-Now you are ready to register a PayPal account. 
+Now you are ready to register a PayPal account.
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
@@ -170,7 +177,7 @@ Typical usage of this functionality might look like this:
 ```swift
 
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
+registrationManager.registerPaymentMethodUsingUI(on: self) { [weak self] result in
     switch result {
     case let .success(registration):
         self?.dismiss(animated: true) {
@@ -186,7 +193,7 @@ It is also possible to style the presented UI in a way that is compatible with t
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, fontColor: .black, buttonColor: .black)
+let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, textColor: .black, buttonColor: .black)
 MobilabPaymentSDK.configureUI(configuration: uiConfiguration)
 
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
@@ -200,6 +207,8 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
     }
 }
 ```
+
+There is some more information on this in the [SDK UI Usage Tutorial](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/SDK-UI-Usage-Tutorial) in our wiki.
 
 ## Demo
 
