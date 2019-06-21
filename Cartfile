@@ -1,2 +1,2 @@
 github "braintree/braintree-ios-drop-in"
-github "adyen/adyen-ios"
+github "adyen/adyen-ios" ~> 2.8
