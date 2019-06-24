@@ -27,7 +27,14 @@ Add `github "mobilabsolutions/payment-sdk-ios-open" ~> 1.0` to your `Cartfile`, 
 
 ### Manual Installation
 
-The SDK can also be installed manually. To perform manual installation, drag the `MobilabPaymentCore` framework and the module frameworks you might want to use as well as their dependencies (see [here](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/Framework) for more information) into the `Embdedded Binaries` section in Xcode.
+The SDK can also be installed manually. To perform manual installation, drag the `MobilabPaymentCore` framework and the module frameworks you might want to use into the `Embdedded Binaries` section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using [Carthage](https://github.com/Carthage/Carthage) with the following `Cartfile` contents for installing the dependencies of the Braintree and Adyen modules:
+
+```
+github "braintree/braintree-ios-drop-in"
+github "adyen/adyen-ios" ~> 2.8
+```
+
+To include these dependencies into your project, you will also have to include the Carthage copy script as a run phase for the build with the necessary installed dependencies as input files or members of an input file list. See [the sample application input file list](Sample/other/input.xcfilelist) for an example. Furthermore, all necessary dependencies should be added to the linked libraries tab in the target settings.
 
 ## Usage
 
