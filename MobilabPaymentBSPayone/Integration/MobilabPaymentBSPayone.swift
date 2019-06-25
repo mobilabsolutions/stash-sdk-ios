@@ -96,7 +96,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
                                                          cardExpireDate: String(format: "%02d%02d", cardData.expiryYear, cardData.expiryMonth),
-                                                         cardCVC2: cardData.cvv, billingData: cardData.billingData)
+                                                         cardCVC2: cardData.cvv,
+                                                         billingData: cardData.billingData)
 
         return bsCreditCardRequest
     }
@@ -112,7 +113,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         if let data = registrationRequest.registrationData as? SEPAData {
             return data.billingData
         } else if let data = registrationRequest.registrationData as? CreditCardData {
-            return data.billingData
+            return BillingData(country: data.country, basedOn: data.billingData)
         }
 
         return nil
