@@ -64,6 +64,12 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
             case .holderFullName:
                 self.textField.textContentType = .name
                 self.textField.autocapitalizationType = .words
+            case .holderFirstName:
+                self.textField.textContentType = .givenName
+                self.textField.autocapitalizationType = .words
+            case .holderLastName:
+                self.textField.textContentType = .familyName
+                self.textField.autocapitalizationType = .words
             case .cardNumber:
                 self.textField.textContentType = .creditCardNumber
                 self.textField.autocapitalizationType = .allCharacters

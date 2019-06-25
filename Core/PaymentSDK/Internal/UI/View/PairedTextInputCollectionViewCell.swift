@@ -77,8 +77,11 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
             else { return }
 
             switch dataType {
-            case .holderFirstName, .holderLastName:
-                self.firstTextField.textContentType = .name
+            case .holderFirstName:
+                self.firstTextField.textContentType = .givenName
+                self.firstTextField.autocapitalizationType = .words
+            case .holderLastName:
+                self.firstTextField.textContentType = .familyName
                 self.firstTextField.autocapitalizationType = .words
             default:
                 self.firstTextField.textContentType = nil
@@ -93,8 +96,11 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
             else { return }
 
             switch dataType {
-            case .holderFirstName, .holderLastName:
-                self.secondTextField.textContentType = .name
+            case .holderFirstName:
+                self.secondTextField.textContentType = .givenName
+                self.secondTextField.autocapitalizationType = .words
+            case .holderLastName:
+                self.secondTextField.textContentType = .familyName
                 self.secondTextField.autocapitalizationType = .words
             default:
                 self.secondTextField.textContentType = nil
