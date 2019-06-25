@@ -8,8 +8,12 @@
 
 import Foundation
 
+/// Contains payment method details received from merchant backend API.
+
 struct MerchantPaymentMethod {
+    /// Payment method type (CC, SEPA, PayPal)
     var type: String
+    /// Unique ID received from merchant backend. Used for payment authorization.
     var paymentMethodId: String
 
     init?(with dictionary: [String: Any]) {

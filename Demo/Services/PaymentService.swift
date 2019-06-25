@@ -37,10 +37,16 @@ class PaymentService {
 
     // MARK: Public methods
 
+    /// Due to lack of login screen, at present, application is creating only one user ID. Every time application is reinstalled, a new user ID will be requested from merchant backend.
+    /// Once user is created and user ID string is received successfully using merchant-backend API, it is stored in UserDefaults.
+    /// This method checks if the user ID is aready available in UserDefaults.
+    /// If yes, returns the user ID from UserDefaults. If not, invokes merchant backend API to create new user
+    ///
+    /// - Returns: Result object with User object in case of successful user ID retrieval or Error.
+
     func getOrCreateUser(completion: @escaping (Result<User, Error>) -> Void) {
-        var user = User()
+        let user = User()
         if !user.userId.isEmpty {
-            user.save(userId: user.userId)
             completion(.success(user))
             return
         }
@@ -66,16 +72,25 @@ class PaymentService {
         }
     }
 
-    func addNewPaymentMethod(viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
+    /// Configures PaymentSDK and invokes paymentSDK method to register a new payment-method using SDK UI screen.
+    func initiateSDKPaymentMethodRegistrationWithUI(on viewController: UIViewController, completion: @escaping RegistrationResultCompletion) {
         let paymentManager = PaymentService.shared
         paymentManager.configureSDK()
 
         let configuration = PaymentMethodUIConfiguration()
 
         MobilabPaymentSDK.configureUI(configuration: configuration)
+        // display paymentSDK register screens on current viewController
         MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: viewController, completion: completion)
     }
 
+    /// Calls merchant-backend API to create a new payment method for specified user-id
+    /// - Parameters:
+    ///     - user: user object for userId
+    ///     - paymentMethod: A PaymentMethod object for providing alias, type of payment method and extra details associated with payment method.
+    ///                        e.g. email address for paypal, masked IBan for SPPA, etc
+    ///
+    /// - Returns: Result<String, Error>: with paymentMethodId string in case of successful response, Error in case of failure.
     func createPaymentMethod(for user: User, paymentMethod: PaymentMethod, completion: @escaping (Result<String, Error>) -> Void) {
         guard !user.userId.isEmpty else { return }
 
@@ -126,6 +141,10 @@ class PaymentService {
         }
     }
 
+    /// Calls merchant-backend API to get list of payment methods for the specified userId.
+    /// - Parameters:
+    ///     - userId: userId String
+    /// - Returns: Result<[MerchantPaymentMethod], Error>: with an array of MerchantPaymentMethod case of successful response, Error in case of failure.
     func getPaymentMethods(for userId: String, completion: @escaping (Result<[MerchantPaymentMethod], Error>) -> Void) {
         guard !userId.isEmpty, let url = URL(string: "\(paymentMethodBaseUrl)/\(userId)") else {
             completion(.failure(CustomError(description: "Invalid URL")))
@@ -155,6 +174,10 @@ class PaymentService {
         }
     }
 
+    /// Calls merchant-backend API to delete payment methods using specified paymentMethodId.
+    /// - Parameters:
+    ///     - paymentMethodId
+    /// - Returns: nil for successful deletion, Error in case of failure.
     func deletePaymentMethod(for paymentMethodId: String, completion: @escaping (Error?) -> Void) {
         guard let url = URL(string: "\(paymentMethodBaseUrl)/\(paymentMethodId)") else {
             completion(CustomError(description: "Invalid URL"))
@@ -170,6 +193,13 @@ class PaymentService {
         }
     }
 
+    /// Calls merchant-backend authorization API to make payment.
+    /// - Parameters:
+    ///     - paymentMethodId: This was received from merchant backend in getPaymentMethods() call
+    ///     - amount: in cents
+    ///     - currency: currency code for device Locale. e.g. EUR for euros
+    ///     - description
+    /// - Returns: nil for successful authorization (payment), Error in case of failure.
     func makePayment(forPaymentMethodId paymentMethodId: String, amount: NSDecimalNumber, currency: String, description: String, completion: @escaping (Error?) -> Void) {
         guard let url = URL(string: authorizationUrl) else {
             completion(CustomError(description: "Invalid URL"))
@@ -199,6 +229,7 @@ class PaymentService {
 
     // MARK: Helpers
 
+    /// Method to configure PaymentSDK. currently using Adyen PSP.
     private func configureSDK() {
         guard !self.sdkIsSetUp
         else { return }
@@ -260,18 +291,5 @@ class PaymentService {
                 completion(.failure(CustomError(description: "Unknown Error with status code \(httpResponse.statusCode)")))
             }
         }.resume()
-    }
-
-    private func getAlias(for paymentMethod: PaymentMethod) -> String? {
-        var alias: String?
-        switch paymentMethod.extraAliasInfo {
-        case let .creditCard(details):
-            alias = details.creditCardMask
-        case let .sepa(details):
-            alias = details.maskedIban
-        case let .payPal(details):
-            alias = details.email
-        }
-        return alias
     }
 }

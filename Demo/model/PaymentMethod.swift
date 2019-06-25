@@ -10,10 +10,13 @@ import MobilabPaymentCore
 import UIKit
 
 class PaymentMethod: Codable {
+    /// CreditCard, sepa and payPal
     var type: PaymentMethodType
     var alias: String
     var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo
+    /// Formatted string constructed using extra info of respective payment method
     var humanReadableIdentifier: String
+    /// User ID associated with payment method
     var userId: String
     var paymentMethodId: String?
 

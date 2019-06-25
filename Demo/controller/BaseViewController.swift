@@ -12,11 +12,13 @@ import UIKit
 class BaseViewController: UIViewController {
     // MARK: - Properties
 
+    // public
     let defaultInset: CGFloat = 16
     let defaultSectionLineSpacing: CGFloat = 8
     let defaultSectionInsets: UIEdgeInsets
     let defaultTopPadding: CGFloat = 40
 
+    // private
     private let defaultTopInset: CGFloat = 0
     private let defaultBottomInset: CGFloat = 8
 
@@ -25,6 +27,7 @@ class BaseViewController: UIViewController {
 
     private let configuration: PaymentMethodUIConfiguration
 
+    // public
     var availableBottomAnchor: NSLayoutYAxisAnchor {
         if self.button.isHidden {
             return self.view.safeAreaLayoutGuide.bottomAnchor
@@ -38,6 +41,7 @@ class BaseViewController: UIViewController {
         return cv
     }()
 
+    // private
     private let totalAmountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left

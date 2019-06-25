@@ -13,11 +13,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
     // MARK: - Properties
 
-    var paymentMethods: [(method: PaymentMethod, entity: PaymentMethodEntity)] = []
-
     private let configuration = PaymentMethodUIConfiguration()
-
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     // MARK: - Initializers
 

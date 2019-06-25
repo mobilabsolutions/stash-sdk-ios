@@ -9,7 +9,7 @@
 import MobilabPaymentCore
 import UIKit
 
-class CustomMessageView: UICollectionReusableView {
+class EmptyCartInfoView: UICollectionReusableView {
     // MARK: Properties
 
     private let iconDimensions: (width: CGFloat, height: CGFloat) = (120, 71)

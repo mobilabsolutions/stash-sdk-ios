@@ -51,7 +51,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
     private let amountInfoContainerView = UIView()
 
-    private let emptyCartInfoView = CustomMessageView()
+    private let emptyCartInfoView = EmptyCartInfoView()
 
     // MARK: - Initializers
 
@@ -101,6 +101,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         self.updateScreen(isCartEmpty: self.cartManager.cartItems.count == 0)
+
         return self.cartManager.cartItems.count
     }
 
@@ -117,7 +118,9 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
     // MARK: Handlers
 
-    override func handleScreenButtonPress() {
+    override func handleScreenButtonPress() { // from BaseViewController
+        super.handleScreenButtonPress()
+
         self.showPaymentMethodScreen()
     }
 
@@ -151,6 +154,7 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
     }
 
     private func updateScreen(isCartEmpty: Bool) {
+        //toggle collectionview visibility based on if the cart is empty or not.
         self.collectionView.isHidden = isCartEmpty
         self.amountInfoContainerView.isHidden = isCartEmpty
         setButtonVisibility(to: !isCartEmpty)
@@ -182,28 +186,29 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 }
 
 extension CheckoutController: ItemCellDelegate {
+    //  Delegate called when user clicks on '+' button of specific item to increase item quantity (by 1)
     func didSelectAddOption(for item: Item) {
         DispatchQueue.global(qos: .background).sync {
             // get index of matching item from cart item array
             guard let itemIndex: Int = cartManager.cartItems.firstIndex(where: { $0.id == item.id }) else {
                 return
             }
-            cartManager.addToCart(item: self.cartManager.cartItems[itemIndex]) { result in
-                switch result {
-                case .success:
-                    DispatchQueue.main.sync {
-                        // reload cell
-                        let indexPath = IndexPath(item: itemIndex, section: 0)
-                        self.collectionView.reloadItems(at: [indexPath])
-                        self.totalAmount = self.totalAmount.adding(item.price)
-                    }
-                case let .failure(err):
+            cartManager.addToCart(item: self.cartManager.cartItems[itemIndex]) { err in
+                if let err = err {
                     self.showAlert(title: "Error", message: "Failed to add item in the cart.\n\(err.localizedDescription)", completion: nil)
+                    return
+                }
+                DispatchQueue.main.sync {
+                    // reload cell
+                    let indexPath = IndexPath(item: itemIndex, section: 0)
+                    self.collectionView.reloadItems(at: [indexPath])
+                    self.totalAmount = self.totalAmount.adding(item.price)
                 }
             }
         }
     }
 
+    //  Delegate called when user clicks on '-' button of specific item to reduce its quantity (by 1)
     func didSelectRemoveOption(for item: Item) {
         DispatchQueue.global(qos: .background).sync {
             guard let itemIndex: Int = self.cartManager.cartItems.firstIndex(where: { $0.id == item.id }) else { return }
@@ -211,6 +216,7 @@ extension CheckoutController: ItemCellDelegate {
             let itemQuantity = self.cartManager.cartItems[itemIndex].quantity
             let price = self.cartManager.cartItems[itemIndex].price
 
+            // reduce item quantity by 1
             cartManager.decrementItemQuantity(item: item) { err in
                 if let err = err {
                     self.showAlert(title: "Error", message: "Failed to remove item .\n\(err.localizedDescription)", completion: nil)
@@ -218,7 +224,7 @@ extension CheckoutController: ItemCellDelegate {
                 }
 
                 DispatchQueue.main.sync {
-                    // if only one quantity of the item left - remove that item from collection view and cardItems
+                    // if only one quantity of the item was left before reducing - remove that item from collection view and cartItems
                     if itemQuantity == 1 {
                         self.collectionView.deleteItems(at: [indexPath])
                     } else {
@@ -232,19 +238,24 @@ extension CheckoutController: ItemCellDelegate {
 }
 
 extension CheckoutController: PaymentMethodControllerDelegate {
-    func didFinishPayment(error: Error?) {
-        guard error == nil else { return }
+    func didFinishPayment(err: Error?) {
+        if let err = err {
+            showAlert(title: "Payment Error", message: "Failed to make payment.\n\(err.localizedDescription)", completion: nil)
+            return
+        }
+        // clear cart on successful payment
+        self.cartManager.emptyCart { err in
+            if let err = err {
+                self.showAlert(title: "Cart Error", message: "Failed to clear cart.\n\(err.localizedDescription)", completion: nil)
+                self.collectionView.reloadAsync()
+            } else {
+                self.loadCartItems()
 
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            self.cartManager.emptyCart { err in
-                if let err = err {
-                    self.showAlert(title: "Cart Error", message: "Failed to clear cart.\n\(err.localizedDescription)", completion: nil)
-                } else {
-                    // switch to item list tab once payment is done
-                    mainTabBarController.selectedIndex = 0
-
-                    self.totalAmount = 0
-                    self.collectionView.reloadAsync()
+                DispatchQueue.main.async {
+                    if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
+                        // switch to item list tab once payment is done
+                        mainTabBarController.selectedIndex = 0
+                    }
                 }
             }
         }

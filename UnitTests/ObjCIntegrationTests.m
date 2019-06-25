@@ -43,6 +43,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     XCTAssertFalse(configuration.loggingEnabled, @"Logging should not be enabled when creating a new configuration");
 
     configuration.loggingEnabled = YES;
+    configuration.useTestMode = YES;
     XCTAssertTrue(configuration.loggingEnabled, @"Logging should be enabled after explicitely setting it to true");
 }
 

@@ -82,7 +82,7 @@ class CustomIconLabelCell: BaseCell {
     }
 
     private func updateStyling() {
-        backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
+        self.backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
         self.titleLabel.textColor = self.configuration?.textColor ?? self.titleLabel.textColor
     }
 }

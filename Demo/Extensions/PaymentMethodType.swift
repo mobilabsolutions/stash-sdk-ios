@@ -9,7 +9,7 @@ import Foundation
 import MobilabPaymentCore
 
 extension PaymentMethodType {
-    /// Get the internal payment method type associated to the given payment method type
+    /// Get the payment method type associated with each payment method
     var paymentMethodIdentifier: String {
         switch self {
         case .creditCard:

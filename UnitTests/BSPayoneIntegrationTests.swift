@@ -29,6 +29,7 @@ class BSPayoneIntegrationTests: XCTestCase {
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [integration])
         configuration.loggingEnabled = true
+        configuration.useTestMode = true
 
         MobilabPaymentSDK.initialize(configuration: configuration)
     }

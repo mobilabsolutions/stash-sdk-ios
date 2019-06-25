@@ -9,11 +9,14 @@
 import Foundation
 
 struct Item {
+    /// Unique string associated with the Item
     let id: String
     let title: String
     let description: String?
+    /// Name of the image associated with the Item
     let picture: String?
     let price: NSDecimalNumber
+    /// Total number of item of the same type
     var quantity: Int
 
     init(id: String, title: String, description: String?, picture: String?, price: NSDecimalNumber, quantity: Int = 0) {

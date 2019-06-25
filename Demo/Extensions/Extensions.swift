@@ -9,6 +9,7 @@
 import MobilabPaymentCore
 import UIKit
 
+/// convert decimalNumber into currency for device Locale
 extension NSDecimalNumber {
     func toCurrency() -> String {
         let formatter = NumberFormatter()
@@ -38,6 +39,12 @@ extension UIViewController {
         }
     }
 }
+
+/// Constructs a string using payment method extra details.
+/// - Returns:
+//      - For credit card: "CC-mask • mm/yy"
+///     - For SEPA: maksed IBAN string
+///     - For PayPal: email address string
 
 extension PaymentMethodAlias.ExtraAliasInfo {
     func formatToReadableDetails() -> String {

@@ -6,7 +6,6 @@
 //  Copyright © 2019 Rupali Ghate. All rights reserved.
 //
 
-import CoreData
 import MobilabPaymentCore
 import UIKit
 
@@ -102,15 +101,13 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 extension ItemsController: ItemCellDelegate {
     func didSelectAddOption(for item: Item) {
         DispatchQueue.global(qos: .background).sync {
-            self.cartManager.addToCart(item: item) { result in
-                switch result {
-                case let .failure(err):
+            self.cartManager.addToCart(item: item) { err in
+                if let err = err {
                     self.showAlert(title: "Cart Error", message: "Failed to add item to the cart.\n\(err.localizedDescription)", completion: nil)
                     return
-                case .success:
-                    DispatchQueue.main.async {
-                        ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
-                    }
+                }
+                DispatchQueue.main.async {
+                    ToastView().showMessage(withText: "\(item.title.capitalized) added to the cart")
                 }
             }
         }

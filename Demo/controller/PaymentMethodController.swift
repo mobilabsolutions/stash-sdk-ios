@@ -11,7 +11,7 @@ import MobilabPaymentCore
 import UIKit
 
 protocol PaymentMethodControllerDelegate: class {
-    func didFinishPayment(error: Error?)
+    func didFinishPayment(err: Error?)
 }
 
 class PaymentMethodController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -38,6 +38,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 
     private let configuration: PaymentMethodUIConfiguration
 
+    // to decide weather this screen was displayed to show list of payment methods(with add payment method option), or to make the payment by selecting payment method (shown from check-out screen)
     private var shouldMakePayment: Bool
     private var amount: NSDecimalNumber
     private var registeredPaymentMethods: [(method: PaymentMethod, entity: PaymentMethodEntity)] = []
@@ -68,22 +69,10 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            self.registeredPaymentMethods = mainTabBarController.paymentMethods
-        }
-
         self.setupViews()
         self.setupCollectionView()
 
-        self.fetchPaymentMethods()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let mainTabBarController: MainTabBarController = self.tabBarController as? MainTabBarController {
-            mainTabBarController.paymentMethods = self.registeredPaymentMethods
-        }
+        self.loadPaymentMethods()
     }
 
     // MARK: - Collectionview methods
@@ -133,23 +122,25 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
 
     // MARK: Handlers
 
-    override func handleScreenButtonPress() {
+    override func handleScreenButtonPress() { // from BaseViewController
+        super.handleScreenButtonPress()
+
         guard let paymentMethod = selectedPaymentMethod, let paymentMethodId = paymentMethod.paymentMethodId else { return }
 
         let currency = Locale.current.currencyCode ?? "EUR"
         let description = "Test Payment"
         showActivityIndicator()
 
-        let amountInCents = self.amount.multiplying(by: 100) // ampunt in cents
+        let amountInCents = self.amount.multiplying(by: 100) // amount in cents
 
         PaymentService.shared.makePayment(forPaymentMethodId: paymentMethodId, amount: amountInCents, currency: currency, description: description) { err in
             self.hideActivityIndicator()
             if let err = err {
                 self.showAlert(title: "Payment Error", message: "Error occurred during payment.\n\(err)", completion: nil)
-                self.delegate?.didFinishPayment(error: err)
+                self.delegate?.didFinishPayment(err: err)
             } else {
                 self.showAlert(title: "Payment Result", message: "Payment completed successfully.") {
-                    self.delegate?.didFinishPayment(error: nil)
+                    self.delegate?.didFinishPayment(err: nil)
                     self.navigationController?.popViewController(animated: true)
                 }
             }
@@ -159,15 +150,20 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
     // MARK: - Helpers
 
     private func setupViews() {
+        // title is decided based on whether screen is shown to make payment or to add/register new payment method.
         let title = self.shouldMakePayment == true ? "Select Payment Method" : "Payment Methods"
         setTitle(title: title)
 
+        // if screen was displayed for making payment then show the 'Pay' button
         setButtonVisibility(to: self.shouldMakePayment)
         if self.shouldMakePayment {
             setButtonTitle(title: "PAY \(self.amount.toCurrency())")
             // keep 'pay' button disabled initially
             setButtonInteraction(to: false)
+        } else {
+            setButtonInteraction(to: true)
         }
+
         view.addSubview(self.collectionView)
         self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: availableBottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor,
                                    paddingTop: defaultTopPadding)
@@ -180,18 +176,16 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         self.collectionView.dataSource = self
     }
 
-    private func fetchPaymentMethods() {
+    private func loadPaymentMethods() {
+        guard !self.user.getUserId().isEmpty else {
+            UIViewControllerTools.showAlert(on: self, title: "", body: "No user available")
+            return
+        }
+
+        self.showActivityIndicator()
+
         DispatchQueue.global(qos: .background).async {
-            guard !self.user.getUserId().isEmpty else {
-                DispatchQueue.main.async {
-                    UIViewControllerTools.showAlert(on: self, title: "", body: "No user available")
-                }
-                return
-            }
-
-            self.showActivityIndicator()
-
-            self.fetchFromDatabase(completion: { result in
+            self.fetchPaymentMethodsFromDatabase(completion: { result in
                 switch result {
                 case let .failure(err):
                     DispatchQueue.main.async {
@@ -218,14 +212,14 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         }
     }
 
-    private func fetchFromDatabase(completion: @escaping (Result<[(method: PaymentMethod, entity: PaymentMethodEntity)], Error>) -> Void) {
-        let managedContext = self.appDelegate.persistentContainer.viewContext
+    private func fetchPaymentMethodsFromDatabase(completion: @escaping (Result<[(method: PaymentMethod, entity: PaymentMethodEntity)], Error>) -> Void) {
+        let context = self.appDelegate.persistentContainer.viewContext
 
         let fetchRequest: NSFetchRequest<PaymentMethodEntity> = PaymentMethodEntity.fetchRequest()
         var paymetMethods: [(PaymentMethod, PaymentMethodEntity)] = []
 
         do {
-            let entities = try managedContext.fetch(fetchRequest)
+            let entities = try context.fetch(fetchRequest)
             for dataEntity in entities {
                 guard let data = dataEntity.details else { continue }
 
@@ -238,9 +232,15 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         completion(.success(paymetMethods))
     }
 
+    /// Adds a new payment method
+    /// The steps involved in adding/registering a new payment method are -
+    /// 1. Call PaymendSDK API (with UI) to select from supported payment method types and registering required payment method.
+    /// 2. On successful execution of previous step, calls merchant-backend API (PaymentService) to create a new payment method in backend providing result of step-1 as input.
+    /// 3. On successful execution of step-2, adds the payment method into database
+    /// 4. Update collectionview to display newly added payment method on screen.
     private func addNewPaymentMethod() {
         let paymentManager = PaymentService.shared
-        paymentManager.addNewPaymentMethod(viewController: self) { [weak self] result in
+        paymentManager.initiateSDKPaymentMethodRegistrationWithUI(on: self) { [weak self] result in
             guard let self = self else { return }
             self.handleRegistrationResponse(result: result)
         }
@@ -253,6 +253,7 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
                 DispatchQueue.main.async {
                     let paymentMethod = PaymentMethod(type: value.paymentMethodType, alias: value.alias ?? "", extraAliasInfo: value.extraAliasInfo, userId: self.user.userId, paymentMethodId: nil)
 
+                    // create payment method on merchant-backend
                     PaymentService.shared.createPaymentMethod(for: self.user, paymentMethod: paymentMethod, completion: { result in
                         switch result {
                         case let .failure(err):
@@ -261,14 +262,14 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
                             }
                         case let .success(paymentMethodId):
                             paymentMethod.paymentMethodId = paymentMethodId
-                            self.addNewItem(for: paymentMethod, completion: { err in
+                            // add the newly created payment method in database
+                            self.saveIntoDatabaseAndUpdateScreen(for: paymentMethod, completion: { err in
                                 if let err = err {
                                     UIViewControllerTools.showAlert(on: self, title: "Error", body: err.localizedDescription)
                                     return
                                 }
                                 self.dismiss(animated: true) {
                                     UIViewControllerTools.showAlert(on: self, title: "Success", body: "Successfully registered payment method")
-                                    AliasManager.shared.save(alias: Alias(alias: value.alias ?? "No alias provided", expirationYear: nil, expirationMonth: nil, type: .unknown))
                                 }
                             })
                         }
@@ -280,27 +281,32 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         }
     }
 
-    private func addNewItem(for paymentMethod: PaymentMethod, completion: @escaping (Error?) -> Void) {
-        DispatchQueue.main.async {
-            let managedContext = self.appDelegate.persistentContainer.viewContext
+    private func saveIntoDatabaseAndUpdateScreen(for paymentMethod: PaymentMethod, completion: @escaping (Error?) -> Void) {
+        do {
+            // save in database
+            let paymentEntity = try self.savePaymentMethodInDatabase(paymentMethod: paymentMethod)
 
-            do {
-                let jsonData = try JSONEncoder().encode(paymentMethod)
-
-                let entity = PaymentMethodEntity(context: managedContext)
-                entity.details = jsonData
-                try managedContext.save()
-
+            // add into the collectionView
+            DispatchQueue.main.async {
                 let indexPath = IndexPath(item: self.registeredPaymentMethods.count, section: 0)
-                self.registeredPaymentMethods.append((paymentMethod, entity))
-
+                self.registeredPaymentMethods.append((paymentMethod, paymentEntity))
                 self.collectionView.insertItems(at: [indexPath])
 
                 completion(nil)
-            } catch let err as NSError {
-                completion(err)
             }
+        } catch let err as NSError {
+            completion(err)
         }
+    }
+
+    private func savePaymentMethodInDatabase(paymentMethod: PaymentMethod) throws -> PaymentMethodEntity {
+        let jsonData = try JSONEncoder().encode(paymentMethod)
+        let context = self.appDelegate.persistentContainer.viewContext
+        let entity = PaymentMethodEntity(context: context)
+        entity.details = jsonData
+        try context.save()
+
+        return entity
     }
 
     private func getImage(for paymentMethod: PaymentMethod) -> UIImage? {
@@ -338,12 +344,13 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
         guard let indexPath = collectionView.indexPath(for: cell)
         else { return }
 
+        // selectionEnabled flag is set when PaymentMethodController is displayed to 'make payment'. Its false when PaymentMethodController is displayed as 'add/register new payment method' screen.
         if selectionEnabled {
             self.updateSelection(forCell: cell)
             return
         }
 
-        // delete button pressed
+        // delete button pressed. (Delete buttons are displayed with each payment method when PaymentMethodController is displayed as 'add/register new payment method' screen
         if indexPath.item < self.collectionView(self.collectionView, numberOfItemsInSection: indexPath.section) {
             guard let paymentMethodId = registeredPaymentMethods[indexPath.row].method.paymentMethodId else { return }
 
@@ -374,6 +381,7 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
 
     // MARK: - Helpers
 
+    // Updates visibility of green 'checkmark' image on all the cells. Only one cell can have green checkmark(image) visible to support single-selection, this function first resets selection images of all cells and then sets the green-checkmark image for the selected cell.
     private func updateSelection(forCell currentCell: PaymentMethodCell) {
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
@@ -384,7 +392,7 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
                     }
                 }
             }, completion: { _ in
-                // show selection for selected cell
+                // show checkmark on selected cell to indicate selection of respective payment method
                 currentCell.setSelection()
                 // enable 'Pay' button since the payment method is selected
                 self.setButtonInteraction(to: true)
@@ -392,9 +400,10 @@ extension PaymentMethodController: PaymentMethodCellDelegate {
         }
     }
 
+    /// Deletes payment method from database
     private func deleteFromDatabase(entity: PaymentMethodEntity, completion: @escaping (Error?) -> Void) {
-        let managedContext = self.appDelegate.persistentContainer.viewContext
-        managedContext.delete(entity)
+        let context = self.appDelegate.persistentContainer.viewContext
+        context.delete(entity)
         self.appDelegate.saveContext(completion: completion)
     }
 }
