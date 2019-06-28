@@ -36,7 +36,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     /// The card mask (i.e. VISA-1111) of the card number
     public var cardMask: String {
         let lastDigits = String(self.cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -CreditCardData.numberOfDigitsForCardMask)..<cardNumber.endIndex])
-        return self.cardType.rawValue + "-" + lastDigits
+        return lastDigits
     }
 
     public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
