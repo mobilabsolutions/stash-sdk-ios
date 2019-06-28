@@ -43,6 +43,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private var currentIdleFieldTimer: (timer: Timer, dataPoint: NecessaryData)?
 
     private weak var selectedCountryTextField: UITextField?
+    private var alertBanner: AlertBanner?
 
     public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
@@ -96,33 +97,42 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
 
+        if let existingBanner = self.alertBanner {
+            self.close(banner: existingBanner)
+        }
+
+        let banner: AlertBanner?
+
         switch error {
         case .configuration:
-            UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
-                                                  body: "A configuration error occurred. This should not happen.",
-                                                  uiConfiguration: self.configuration)
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
+                                                           body: "A configuration error occurred. This should not happen.",
+                                                           uiConfiguration: self.configuration)
         case .network:
-            UIViewControllerTools.showAlertBanner(on: self, title: "Network Error",
-                                                  body: "An error occurred. Please retry.",
-                                                  uiConfiguration: self.configuration)
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Network Error",
+                                                           body: "An error occurred. Please retry.",
+                                                           uiConfiguration: self.configuration)
         case let .temporary(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
-            UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
-                                                  body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
-                                                  uiConfiguration: self.configuration)
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
+                                                           body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
+                                                           uiConfiguration: self.configuration)
         case let .validation(error):
-            UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
-                                                  body: error.description,
-                                                  uiConfiguration: self.configuration)
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
+                                                           body: error.description,
+                                                           uiConfiguration: self.configuration)
         case let .other(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0))" } ?? ""
-            UIViewControllerTools.showAlertBanner(on: self, title: "Error",
-                                                  body: "An error occurred: \(error.description) \(insertedErrorCode)",
-                                                  uiConfiguration: self.configuration)
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Error",
+                                                           body: "An error occurred: \(error.description) \(insertedErrorCode)",
+                                                           uiConfiguration: self.configuration)
         case .userCancelled:
             // The user cancelled the action, we should dismiss ourselves
+            banner = nil
             self.dismiss(animated: true, completion: nil)
         }
+
+        self.alertBanner = banner
     }
 
     private func isDone(errors: [NecessaryData: ValidationError]) -> Bool {
@@ -361,9 +371,16 @@ extension FormCollectionViewController: DataPointProvidingDelegate {
 
 extension FormCollectionViewController: DoneButtonViewDelegate {
     public func didTapDoneButton() {
+        let existingBanner = self.alertBanner
+
         do {
             self.doneButtonUpdating?.updateDoneButton(enabled: false)
             try self.formConsumer?.consumeValues(data: self.fieldData)
+
+            if let banner = existingBanner {
+                self.close(banner: banner)
+            }
+
         } catch let error as FormConsumerError {
             self.errors = error.errors
             self.collectionView.reloadData()

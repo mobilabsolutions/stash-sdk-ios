@@ -72,4 +72,77 @@ class ErrorPresentationTests: BaseUITest {
         XCTAssertEqual(numberOfIncorrectCells, 2,
                        "Expected two failure labels to exist when skipping a double input (first and last name) cell")
     }
+
+    func testShowsAlertBannerWhenUsingBSPayoneNonTestMode() {
+        let app = XCUIApplication()
+        // Set test mode to false
+        app.switches.allElementsBoundByIndex.last?.tap()
+
+        showSpecificUI(for: "CC", in: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 4).tap()
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        let alert = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Error")).firstMatch
+
+        waitForElementToAppear(element: alert)
+        XCTAssert(alert.exists)
+    }
+
+    func testDoesNotStackAlertBanners() {
+        let app = XCUIApplication()
+        // Set test mode to false
+        app.switches.allElementsBoundByIndex.last?.tap()
+
+        showSpecificUI(for: "CC", in: app)
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
+
+        collectionViewsQuery.textFields["Country"].tap()
+        app.collectionViews.cells.element(boundBy: 4).tap()
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        let alert = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Error")).firstMatch
+
+        waitForElementToAppear(element: alert)
+        XCTAssert(alert.exists)
+
+        app.buttons["SAVE"].tap()
+        XCTAssertFalse(alert.exists)
+
+        waitForElementToAppear(element: alert)
+    }
 }

@@ -19,7 +19,7 @@ public final class UIViewControllerTools {
         viewController.present(alert, animated: true, completion: nil)
     }
 
-    class func showAlertBanner(on viewController: UIViewController & AlertBannerDelegate, title: String, body: String, uiConfiguration: PaymentMethodUIConfiguration) {
+    class func showAlertBanner(on viewController: UIViewController & AlertBannerDelegate, title: String, body: String, uiConfiguration: PaymentMethodUIConfiguration) -> AlertBanner {
         let banner = AlertBanner(title: title, subtitle: body, configuration: uiConfiguration, delegate: viewController)
         banner.translatesAutoresizingMaskIntoConstraints = false
 
@@ -34,5 +34,7 @@ public final class UIViewControllerTools {
             banner.heightAnchor.constraint(greaterThanOrEqualToConstant: alertBannerHeight),
             banner.heightAnchor.constraint(lessThanOrEqualToConstant: alertBannerHeight * 1.5),
         ])
+
+        return banner
     }
 }
