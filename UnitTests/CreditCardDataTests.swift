@@ -33,8 +33,8 @@ class CreditCardDataTests: XCTestCase {
         let first = try CreditCardData(cardNumber: "4111 1111 1111 1111", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
         let second = try CreditCardData(cardNumber: "5500 0000 0000 0004", cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: BillingData())
 
-        XCTAssertEqual(first.cardMask, "VISA-1111", "Card mask should equal last four digits of card number and card type")
-        XCTAssertEqual(second.cardMask, "MASTER_CARD-0004", "Card mask should equal last four digits of card number and card type")
+        XCTAssertEqual(first.cardMask, "1111", "Card mask should equal last four digits of card number")
+        XCTAssertEqual(second.cardMask, "0004", "Card mask should equal last four digits of card number")
     }
 
     func testCorrectlyParsesCardType() throws {

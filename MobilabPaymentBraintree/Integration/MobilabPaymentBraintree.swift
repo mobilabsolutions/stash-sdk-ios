@@ -25,7 +25,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
             payPalManager.didCreatePaymentMethodCompletion = { method in
                 if let payPalData = method as? PayPalData {
-                    let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData())
+                    let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData(email: payPalData.email))
                     let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
                     completion(.success(registration))
                 } else {
