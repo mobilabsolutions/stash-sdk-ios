@@ -22,7 +22,7 @@ class AdyenUITests: BaseUITest {
         collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["1234"].tap()
-        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+        collectionViewsQuery.textFields["1234"].typeText("4000 0200 0000 0000")
 
         collectionViewsQuery.textFields["MM/YY"].tap()
         app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
