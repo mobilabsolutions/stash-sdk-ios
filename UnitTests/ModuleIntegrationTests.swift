@@ -145,7 +145,7 @@ class ModuleIntegrationTests: XCTestCase {
                 XCTFail("Should not have returned success when module fails")
             case let .failure(propagatedError):
                 guard case .other = propagatedError
-                else { XCTFail("Propagated error should be the same as the module error"); return }
+                else { XCTFail("Propagated error should be the same as the module error but is \(propagatedError)"); return }
             }
 
             resultExpectation.fulfill()
