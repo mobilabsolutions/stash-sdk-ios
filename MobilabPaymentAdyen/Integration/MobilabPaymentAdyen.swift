@@ -25,11 +25,13 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }()
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                          idempotencyKey _: String?,
+                                          idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             if let creditCardData = try getCreditCardData(from: registrationRequest) {
+                self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+
                 let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
                 let controller = try getPaymentController(for: uniqueRegistrationIdentifier)
                 self.handleCreditCardRequest(creditCardData: creditCardData,
@@ -50,15 +52,10 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
-    public func provideAliasCreationDetail(for registrationData: RegistrationData,
-                                           idempotencyKey: String?,
+    public func provideAliasCreationDetail(for _: RegistrationData,
+                                           idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
-        guard registrationData is CreditCardData
-        else { completion(.success(nil)); return }
-
-        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
-
         #warning("Update this return URL")
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
