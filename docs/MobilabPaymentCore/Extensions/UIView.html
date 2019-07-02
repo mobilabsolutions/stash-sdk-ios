@@ -84,6 +84,9 @@
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderIntegrationBridge.html">– PaymentProviderIntegrationBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderBridge.html">– PaymentProviderBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
               </li>
               <li class="nav-group-task">
@@ -338,9 +341,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:So6UIViewC18MobilabPaymentCoreE6anchor3top4left6bottom5right7centerX0J1Y10paddingTop0K4Left0K6Bottom0K5Right5width6heightySo19NSLayoutYAxisAnchorCSg_So0r5XAxisT0CSgAs2vS0D8Graphics7CGFloatVA5YtF"></a>
-                    <a name="//apple_ref/swift/Method/anchor(top:left:bottom:right:centerX:centerY:paddingTop:paddingLeft:paddingBottom:paddingRight:width:height:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:So6UIViewC18MobilabPaymentCoreE6anchor3top4left6bottom5right7centerX0J1Y10paddingTop0K4Left0K6Bottom0K5Right5width6heightySo19NSLayoutYAxisAnchorCSg_So0r5XAxisT0CSgAs2vS0D8Graphics7CGFloatVA5YtF">anchor(top:left:bottom:right:centerX:centerY:paddingTop:paddingLeft:paddingBottom:paddingRight:width:height:)</a>
+                    <a name="/s:So6UIViewC18MobilabPaymentCoreE6anchor3top4left6bottom5right7centerX0J1Y10paddingTop0K4Left0K6Bottom0K5Right5width6height0Q6Anchor0pR0ySo013NSLayoutYAxisR0CSg_So0s5XAxisR0CSgAu2xU0D8Graphics7CGFloatVA_A_A_A_SgA0_So0S9DimensionCSgA3_tF"></a>
+                    <a name="//apple_ref/swift/Method/anchor(top:left:bottom:right:centerX:centerY:paddingTop:paddingLeft:paddingBottom:paddingRight:width:height:heightAnchor:widthAnchor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So6UIViewC18MobilabPaymentCoreE6anchor3top4left6bottom5right7centerX0J1Y10paddingTop0K4Left0K6Bottom0K5Right5width6height0Q6Anchor0pR0ySo013NSLayoutYAxisR0CSg_So0s5XAxisR0CSgAu2xU0D8Graphics7CGFloatVA_A_A_A_SgA0_So0S9DimensionCSgA3_tF">anchor(top:left:bottom:right:centerX:centerY:paddingTop:paddingLeft:paddingBottom:paddingRight:width:height:heightAnchor:widthAnchor:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -355,7 +358,20 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">anchor</span><span class="p">(</span><span class="nv">top</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">centerX</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">centerY</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">paddingTop</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">paddingLeft</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">paddingBottom</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">paddingRight</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">anchor</span><span class="p">(</span><span class="nv">top</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">left</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">bottom</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">right</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">centerX</span><span class="p">:</span> <span class="kt">NSLayoutXAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">centerY</span><span class="p">:</span> <span class="kt">NSLayoutYAxisAnchor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">paddingTop</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nv">paddingLeft</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nv">paddingBottom</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nv">paddingRight</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nv">width</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">heightAnchor</span><span class="p">:</span> <span class="kt">NSLayoutDimension</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">widthAnchor</span><span class="p">:</span> <span class="kt">NSLayoutDimension</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

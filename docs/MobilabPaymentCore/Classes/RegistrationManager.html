@@ -84,6 +84,9 @@
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderIntegrationBridge.html">– PaymentProviderIntegrationBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderBridge.html">– PaymentProviderBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
               </li>
               <li class="nav-group-task">
@@ -339,9 +342,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF"></a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSSgys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/registerCreditCard(creditCardData:idempotencyKey:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF">registerCreditCard(creditCardData:idempotencyKey:completion:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC18registerCreditCard06creditH4Data14idempotencyKey10completionyAA0ghJ0V_SSSgys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF">registerCreditCard(creditCardData:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -357,7 +360,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardData.html">CreditCardData</a></span><span class="p">,</span>
-                               <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                               <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                                <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
@@ -386,7 +389,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.</p>
+                                  <p>The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.</p>
                                 </div>
                               </td>
                             </tr>
@@ -412,9 +415,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF"></a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSSgys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/registerSEPAAccount(sepaData:idempotencyKey:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF">registerSEPAAccount(sepaData:idempotencyKey:completion:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC19registerSEPAAccount8sepaData14idempotencyKey10completionyAA8SEPADataV_SSSgys6ResultOyAA0B11MethodAliasVAA0aB5ErrorOGctF">registerSEPAAccount(sepaData:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -430,7 +433,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="kt"><a href="../Structs/SEPAData.html">SEPAData</a></span><span class="p">,</span>
-                                <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                                <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                                 <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
@@ -459,7 +462,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.</p>
+                                  <p>The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.</p>
                                 </div>
                               </td>
                             </tr>
@@ -485,9 +488,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on08specificbG011billingData14idempotencyKey10completionySo16UIViewControllerC_AA0bG4TypeOSgAA07BillingM0CSgSSys6ResultOyAA0bG5AliasVAA0aB5ErrorOGctF"></a>
+                    <a name="/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on08specificbG011billingData14idempotencyKey10completionySo16UIViewControllerC_AA0bG4TypeOSgAA07BillingM0CSgSSSgys6ResultOyAA0bG5AliasVAA0aB5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/registerPaymentMethodUsingUI(on:specificPaymentMethod:billingData:idempotencyKey:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on08specificbG011billingData14idempotencyKey10completionySo16UIViewControllerC_AA0bG4TypeOSgAA07BillingM0CSgSSys6ResultOyAA0bG5AliasVAA0aB5ErrorOGctF">registerPaymentMethodUsingUI(on:specificPaymentMethod:billingData:idempotencyKey:completion:)</a>
+                    <a class="token" href="#/s:18MobilabPaymentCore19RegistrationManagerC08registerB13MethodUsingUI2on08specificbG011billingData14idempotencyKey10completionySo16UIViewControllerC_AA0bG4TypeOSgAA07BillingM0CSgSSSgys6ResultOyAA0bG5AliasVAA0aB5ErrorOGctF">registerPaymentMethodUsingUI(on:specificPaymentMethod:billingData:idempotencyKey:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -505,7 +508,7 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
                                          <span class="nv">specificPaymentMethod</span><span class="p">:</span> <span class="kt"><a href="../Enums/PaymentMethodType.html">PaymentMethodType</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                                          <span class="nv">billingData</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                         <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+                                         <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                                          <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:18MobilabPaymentCore28RegistrationResultCompletiona">RegistrationResultCompletion</a></span><span class="p">)</span></code></pre>
 
                         </div>
@@ -559,7 +562,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The idempotency key that should be used for this request. The same idempotency key always results in the same returned result.</p>
+                                  <p>The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.</p>
                                 </div>
                               </td>
                             </tr>
