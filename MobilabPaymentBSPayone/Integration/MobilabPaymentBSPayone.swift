@@ -15,7 +15,8 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     let networkingClient: NetworkClientBSPayone?
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                          idempotencyKey _: String,
+                                          idempotencyKey: String?,
+                                          uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
@@ -28,6 +29,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                              pspData: pspData,
                                              creditCardExtra: creditCardExtra,
                                              billingData: billingData,
+                                             idempotencyKey: idempotencyKey,
                                              completion: completion)
             } else if let _ = try getSepaData(from: registrationRequest),
                 let sepaData = registrationRequest.registrationData as? SEPAData {
@@ -75,7 +77,10 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                          pspData: BSPayoneData,
                                          creditCardExtra: CreditCardExtra,
                                          billingData: BillingData,
+                                         idempotencyKey: String?,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+
         self.networkingClient?.registerCreditCard(creditCardData: creditCardRequest, pspData: pspData, completion: { result in
             switch result {
             case let .success(value):
@@ -121,5 +126,12 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
+    }
+
+    private func conditionallyPrintIdempotencyWarning(idempotencyKey: String?) {
+        guard let key = idempotencyKey
+        else { return }
+
+        print("WARNING: BS Payone does not support idempotency for credit card registrations. Providing key \(key) will not have any effect.")
     }
 }

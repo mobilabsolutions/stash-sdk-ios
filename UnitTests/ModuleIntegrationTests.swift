@@ -39,7 +39,8 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                       idempotencyKey _: String,
+                                       idempotencyKey _: String?,
+                                       uniqueRegistrationIdentifier _: String,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
             XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType,
                           "Expected registration data to be of type \(RegistrationDataType.self) but was \(type(of: registrationRequest.registrationData))")
@@ -47,7 +48,7 @@ class ModuleIntegrationTests: XCTestCase {
             completion(self.completionResultToReturn)
         }
 
-        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
             completion(self.aliasCreationDetailResult)
         }
     }
@@ -187,7 +188,7 @@ class ModuleIntegrationTests: XCTestCase {
             resultExpectation.fulfill()
         }
 
-        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4)
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 8)
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {

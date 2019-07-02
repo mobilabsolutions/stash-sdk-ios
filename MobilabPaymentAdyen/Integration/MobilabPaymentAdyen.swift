@@ -15,7 +15,7 @@ import UIKit
 public class MobilabPaymentAdyen: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
 
-    private var controllerForIdempotencyKey: [String: AdyenPaymentControllerWrapper] = [:]
+    private var controllerForRegistrationIdentifier: [String: AdyenPaymentControllerWrapper] = [:]
 
     private let dateExtractingDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -25,23 +25,20 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }()
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                          idempotencyKey: String,
+                                          idempotencyKey _: String?,
+                                          uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
-            let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
-            let controller = try getPaymentController(for: idempotencyKey)
-
             if let creditCardData = try getCreditCardData(from: registrationRequest) {
+                let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
+                let controller = try getPaymentController(for: uniqueRegistrationIdentifier)
                 self.handleCreditCardRequest(creditCardData: creditCardData,
                                              pspData: pspData,
                                              controller: controller,
-                                             idempotencyKey: idempotencyKey,
+                                             uniqueRegistrationIdentifier: uniqueRegistrationIdentifier,
                                              completion: completion)
             } else if let sepaData = try getSEPAData(from: registrationRequest) {
                 self.handleSEPARequest(sepaData: sepaData,
-                                       pspData: pspData,
-                                       controller: controller,
-                                       idempotencyKey: idempotencyKey,
                                        completion: completion)
             } else {
                 completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
@@ -53,9 +50,15 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
-    public func provideAliasCreationDetail(for _: RegistrationData,
-                                           idempotencyKey: String,
+    public func provideAliasCreationDetail(for registrationData: RegistrationData,
+                                           idempotencyKey: String?,
+                                           uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        guard registrationData is CreditCardData
+        else { completion(.success(nil)); return }
+
+        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+
         #warning("Update this return URL")
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
@@ -63,7 +66,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
 
         controller.start()
-        self.controllerForIdempotencyKey[idempotencyKey] = controller
+        self.controllerForRegistrationIdentifier[uniqueRegistrationIdentifier] = controller
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -96,7 +99,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     private func handleCreditCardRequest(creditCardData: CreditCardAdyenData,
                                          pspData: AdyenData,
                                          controller: AdyenPaymentControllerWrapper,
-                                         idempotencyKey: String,
+                                         uniqueRegistrationIdentifier: String,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         let billingData = creditCardData.billingData ?? BillingData()
         let creditCardPreparator = CreditCardPreparator(billingData: billingData, creditCardData: creditCardData)
@@ -113,13 +116,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                 let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
                 completion(.failure(mlError))
             }
-            self.controllerForIdempotencyKey[idempotencyKey] = nil
+
+            self.controllerForRegistrationIdentifier[uniqueRegistrationIdentifier] = nil
         }
     }
 
-    private func handleSEPARequest(sepaData: SEPAAdyenData, pspData _: AdyenData,
-                                   controller _: AdyenPaymentControllerWrapper,
-                                   idempotencyKey _: String,
+    private func handleSEPARequest(sepaData: SEPAAdyenData,
                                    completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         let billingData = sepaData.billingData ?? BillingData()
         let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.sepaExtra, billingData: billingData))
@@ -127,7 +129,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     }
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
-        guard let controller = self.controllerForIdempotencyKey[idempotencyKey]
+        guard let controller = self.controllerForRegistrationIdentifier[idempotencyKey]
         else { throw MobilabPaymentError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")) }
 
         return controller
@@ -165,5 +167,12 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     private func isSepaRequest(registrationRequest: RegistrationRequest) -> Bool {
         return registrationRequest.registrationData is SEPAData
+    }
+
+    private func conditionallyPrintIdempotencyWarning(idempotencyKey: String?) {
+        guard let key = idempotencyKey
+        else { return }
+
+        print("WARNING: Adyen does not support idempotency for credit card registrations. Providing key \(key) will not have any effect.")
     }
 }

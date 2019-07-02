@@ -36,22 +36,23 @@ class IdempotencyTests: XCTestCase {
             return [.creditCard, .sepa]
         }
 
-        private var handleRegistrationRequestCallback: (RegistrationRequest, String) -> PaymentServiceProvider.RegistrationResult
-        private var handleAliasCreationDetailCallback: (RegistrationData, String) -> Result<AliasCreationDetail?, MobilabPaymentError>
+        private var handleRegistrationRequestCallback: (RegistrationRequest, String?) -> PaymentServiceProvider.RegistrationResult
+        private var handleAliasCreationDetailCallback: (RegistrationData, String?) -> Result<AliasCreationDetail?, MobilabPaymentError>
 
-        init(handleRegistrationRequestCallback: @escaping (RegistrationRequest, String) -> PaymentServiceProvider.RegistrationResult,
-             handleAliasCreationDetailCallback: @escaping (RegistrationData, String) -> Result<AliasCreationDetail?, MobilabPaymentError>) {
+        init(handleRegistrationRequestCallback: @escaping (RegistrationRequest, String?) -> PaymentServiceProvider.RegistrationResult,
+             handleAliasCreationDetailCallback: @escaping (RegistrationData, String?) -> Result<AliasCreationDetail?, MobilabPaymentError>) {
             self.handleAliasCreationDetailCallback = handleAliasCreationDetailCallback
             self.handleRegistrationRequestCallback = handleRegistrationRequestCallback
         }
 
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                       idempotencyKey: String,
+                                       idempotencyKey: String?,
+                                       uniqueRegistrationIdentifier _: String,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
             completion(self.handleRegistrationRequestCallback(registrationRequest, idempotencyKey))
         }
 
-        func provideAliasCreationDetail(for data: RegistrationData, idempotencyKey: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        func provideAliasCreationDetail(for data: RegistrationData, idempotencyKey: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
             completion(self.handleAliasCreationDetailCallback(data, idempotencyKey))
         }
     }
@@ -63,11 +64,11 @@ class IdempotencyTests: XCTestCase {
         let providesIdempotencyKeyToRegistration = XCTestExpectation(description: "The SDK should propagate the same idempotency key to the registration request")
 
         let module = TestModule(handleRegistrationRequestCallback: { _, idempotencyKey in
-            XCTAssertEqual(idempotencyKey, providedIdempotencyKey, "The provided idempotency key \(providedIdempotencyKey) should match the propagated idempotency key \(idempotencyKey) for registration request")
+            XCTAssertEqual(idempotencyKey, providedIdempotencyKey, "The provided idempotency key \(providedIdempotencyKey) should match the propagated idempotency key \(idempotencyKey ?? "nil") for registration request")
             providesIdempotencyKeyToRegistration.fulfill()
             return .failure(.other(GenericErrorDetails(description: "Generic Error to stop the payment method creation process here")))
         }, handleAliasCreationDetailCallback: { _, idempotencyKey in
-            XCTAssertEqual(idempotencyKey, providedIdempotencyKey, "The provided idempotency key \(providedIdempotencyKey) should match the propagated idempotency key \(idempotencyKey) for alias creation detail request")
+            XCTAssertEqual(idempotencyKey, providedIdempotencyKey, "The provided idempotency key \(providedIdempotencyKey) should match the propagated idempotency key \(idempotencyKey ?? "nil") for alias creation detail request")
             providesIdempotencyKeyToAliasCreationDetail.fulfill()
             return .success(nil)
         })
