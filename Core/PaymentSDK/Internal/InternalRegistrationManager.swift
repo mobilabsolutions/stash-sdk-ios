@@ -10,24 +10,12 @@ import UIKit
 
 class InternalRegistrationManager {
     private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-    private typealias CachingIdempotencyManager = IdempotencyManager<PaymentMethodAlias,
-                                                                     MobilabPaymentError,
-                                                                     IdempotencyResultUserDefaultsCacher<PaymentMethodAlias, MobilabPaymentError>>
-    private let idempotencyManager = CachingIdempotencyManager(cacher: IdempotencyResultUserDefaultsCacher(suiteIdentifier: "idempotency-manager-cache"))
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil,
-                   methodType: PaymentMethodType) {
-        guard self.startIdempotencySessionAndShouldContinue(for: idempotencyKey, withCompletion: completion, sessionTypeIdentifier: methodType.rawValue)
-        else { return }
-
+                   methodType _: PaymentMethodType) {
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
-
-        let idempotencySettingCompletion: RegistrationResultCompletion = { result in
-            self.endIdempotencySession(for: idempotencyKey, withResult: result)
-            completion(result)
-        }
 
         provider.provideAliasCreationDetail(for: paymentMethod.methodData, idempotencyKey: idempotencyKey) { creationDetailResult in
             switch creationDetailResult {
@@ -36,37 +24,12 @@ class InternalRegistrationManager {
                                  paymentMethod: paymentMethod,
                                  aliasCreationDetail: detail,
                                  idempotencyKey: idempotencyKey,
-                                 completion: idempotencySettingCompletion,
+                                 completion: completion,
                                  presentingViewController: presentingViewController)
             case let .failure(error):
-                idempotencySettingCompletion(.failure(error))
+                completion(.failure(error))
             }
         }
-    }
-
-    func startIdempotencySessionAndShouldContinue(for idempotencyKey: String, withCompletion completion: @escaping RegistrationResultCompletion, sessionTypeIdentifier: String) -> Bool {
-        do {
-            if let result = try idempotencyManager
-                .getIdempotencyResultOrStartSession(for: idempotencyKey, potentiallyEnqueueing: completion, typeIdentifier: sessionTypeIdentifier) {
-                if case let .fulfilled(returnableResult) = result {
-                    completion(returnableResult)
-                }
-
-                return false
-            }
-        } catch let error as MobilabPaymentError {
-            completion(.failure(error))
-            return false
-        } catch {
-            completion(.failure(.other(GenericErrorDetails.from(error: error))))
-            return false
-        }
-
-        return true
-    }
-
-    func endIdempotencySession(for idempotencyKey: String, withResult result: RegistrationResult) {
-        self.idempotencyManager.setAndEndIdempotencyHandling(result: result, for: idempotencyKey)
     }
 
     private func createAlias(provider: PaymentServiceProvider,

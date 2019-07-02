@@ -142,9 +142,3 @@ private enum MobilabPaymentErrorKeys: CodingKey {
     case type
     case details
 }
-
-extension MobilabPaymentError: IdempotencyApplicationFailureProviding {
-    static func createErrorForPendingRequestSinceLastStart() -> MobilabPaymentError {
-        return MobilabPaymentError.other(GenericErrorDetails(description: "Pending request failed"))
-    }
-}

@@ -69,11 +69,6 @@ public class RegistrationManager {
         let uiRegistrationIdempotencyKey = idempotencyKey ?? UUID().uuidString
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
-        guard internalManager.startIdempotencySessionAndShouldContinue(for: uiRegistrationIdempotencyKey,
-                                                                       withCompletion: completion,
-                                                                       sessionTypeIdentifier: self.uiRegistrationIdempotencySessionIdentifier)
-        else { return }
-
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let rootViewController: UIViewController
 
@@ -145,15 +140,14 @@ public class RegistrationManager {
     private func paymentViewController(for type: PaymentMethodType,
                                        billingData: BillingData?,
                                        uiConfiguration: PaymentMethodUIConfiguration,
-                                       idempotencyKey: String,
-                                       registrationManager: InternalRegistrationManager,
+                                       idempotencyKey _: String,
+                                       registrationManager _: InternalRegistrationManager,
                                        completion: @escaping RegistrationResultCompletion) -> UIViewController & PaymentMethodDataProvider {
         func wrappedCompletion(for dataProvider: PaymentMethodDataProvider?,
                                completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
             let wrapped: RegistrationResultCompletion = { result in
                 switch result {
                 case .success:
-                    registrationManager.endIdempotencySession(for: idempotencyKey, withResult: result)
                     completion(result)
                 case let .failure(error):
                     DispatchQueue.main.async {
@@ -162,7 +156,6 @@ public class RegistrationManager {
 
                     switch error {
                     case .userCancelled:
-                        registrationManager.endIdempotencySession(for: idempotencyKey, withResult: result)
                         completion(.failure(error))
                     default: break
                     }

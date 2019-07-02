@@ -187,7 +187,7 @@ class ModuleIntegrationTests: XCTestCase {
             resultExpectation.fulfill()
         }
 
-        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4, enforceOrder: true)
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4)
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {
@@ -266,14 +266,14 @@ class ModuleIntegrationTests: XCTestCase {
             else { return false }
 
             guard let httpBody = request.ohhttpStubs_httpBody,
-                let request = try? JSONDecoder().decode(TestCreateAliasDetail.self, from: httpBody)
+                let testCreateAliasDetail = try? JSONDecoder().decode(TestCreateAliasDetail.self, from: httpBody)
             else {
-                XCTFail("Request should have an http body")
+                XCTFail("Request should have a create alias detail http body. Instead got \(request.ohhttpStubs_httpBody?.toJSONString() ?? "nil")")
                 stubExpectation.fulfill()
                 return false
             }
 
-            XCTAssertEqual(request.identifier, creationDetailIdentifier)
+            XCTAssertEqual(testCreateAliasDetail.identifier, creationDetailIdentifier)
             stubExpectation.fulfill()
 
             return true
