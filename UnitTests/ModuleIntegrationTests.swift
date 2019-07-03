@@ -39,7 +39,8 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                       idempotencyKey _: String,
+                                       idempotencyKey _: String?,
+                                       uniqueRegistrationIdentifier _: String,
                                        completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
             XCTAssertTrue(registrationRequest.registrationData is RegistrationDataType,
                           "Expected registration data to be of type \(RegistrationDataType.self) but was \(type(of: registrationRequest.registrationData))")
@@ -47,7 +48,7 @@ class ModuleIntegrationTests: XCTestCase {
             completion(self.completionResultToReturn)
         }
 
-        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
             completion(self.aliasCreationDetailResult)
         }
     }
@@ -187,7 +188,7 @@ class ModuleIntegrationTests: XCTestCase {
             resultExpectation.fulfill()
         }
 
-        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 4, enforceOrder: true)
+        wait(for: [doesNotCallRegistration, resultExpectation], timeout: 8)
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {
@@ -266,14 +267,14 @@ class ModuleIntegrationTests: XCTestCase {
             else { return false }
 
             guard let httpBody = request.ohhttpStubs_httpBody,
-                let request = try? JSONDecoder().decode(TestCreateAliasDetail.self, from: httpBody)
+                let testCreateAliasDetail = try? JSONDecoder().decode(TestCreateAliasDetail.self, from: httpBody)
             else {
-                XCTFail("Request should have an http body")
+                XCTFail("Request should have a create alias detail http body. Instead got \(request.ohhttpStubs_httpBody?.toJSONString() ?? "nil")")
                 stubExpectation.fulfill()
                 return false
             }
 
-            XCTAssertEqual(request.identifier, creationDetailIdentifier)
+            XCTAssertEqual(testCreateAliasDetail.identifier, creationDetailIdentifier)
             stubExpectation.fulfill()
 
             return true

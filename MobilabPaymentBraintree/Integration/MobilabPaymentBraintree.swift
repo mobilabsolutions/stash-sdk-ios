@@ -14,13 +14,16 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
     public let pspIdentifier: MobilabPaymentProvider
 
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                          idempotencyKey _: String,
+                                          idempotencyKey: String?,
+                                          uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BraintreeData.self)
             guard let presentingViewController = registrationRequest.viewController else {
                 fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
             }
+
+            self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
 
             let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
             payPalManager.didCreatePaymentMethodCompletion = { method in
@@ -70,5 +73,12 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             return BTAppSwitch.handleOpen(url, options: options)
         }
         return false
+    }
+
+    private func conditionallyPrintIdempotencyWarning(idempotencyKey: String?) {
+        guard let key = idempotencyKey
+        else { return }
+
+        print("WARNING: Braintree does not support idempotency for registrations. Providing key \(key) will not have any effect.")
     }
 }

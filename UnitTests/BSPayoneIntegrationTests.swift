@@ -18,6 +18,7 @@ class BSPayoneIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        OHHTTPStubs.removeAllStubs()
         SDKResetter.resetMobilabSDK()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
