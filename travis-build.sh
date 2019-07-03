@@ -20,18 +20,16 @@ if [ "$TESTING_RESULT" -eq 0 ] && [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TR
     base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
     echo "Testing succeeded. Next steps will be taken";
  
-    OPERATION_RESULT=0;
-
     echo "Will distribute application to Beta";
     fastlane beta;
-    let OPERATION_RESULT="$?";
+    OPERATION_RESULT="$?";
  
     echo "Removing certificate folder";
     rm -rf fastlane/Certificates;
  
     echo "Operation result: $OPERATION_RESULT";
  
-    if [ "$OPERATION_RESULT" -ne "0" ]; then
+    if [ "$OPERATION_RESULT" -neq 0 ]; then
         echo "An error occurred while distributing!";
         exit 1;
     fi
