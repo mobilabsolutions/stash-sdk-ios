@@ -112,9 +112,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey10completionyAA0gH0V_SSys6ResultOyAA15PSPRegistrationVAA0aB5ErrorOGctF"></a>
-                    <a name="//apple_ref/swift/Method/handleRegistrationRequest(registrationRequest:idempotencyKey:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey10completionyAA0gH0V_SSys6ResultOyAA15PSPRegistrationVAA0aB5ErrorOGctF">handleRegistrationRequest(registrationRequest:idempotencyKey:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey06uniqueG10Identifier10completionyAA0gH0V_SSSgSSys6ResultOyAA15PSPRegistrationVAA0aB5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/handleRegistrationRequest(registrationRequest:idempotencyKey:uniqueRegistrationIdentifier:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP25handleRegistrationRequest012registrationH014idempotencyKey06uniqueG10Identifier10completionyAA0gH0V_SSSgSSys6ResultOyAA15PSPRegistrationVAA0aB5ErrorOGctF">handleRegistrationRequest(registrationRequest:idempotencyKey:uniqueRegistrationIdentifier:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,7 +129,8 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">handleRegistrationRequest</span><span class="p">(</span><span class="nv">registrationRequest</span><span class="p">:</span> <span class="kt">RegistrationRequest</span><span class="p">,</span>
-                                      <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                      <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                                      <span class="nv">uniqueRegistrationIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                                       <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">PaymentServiceProvider</span><span class="o">.</span><span class="kt">RegistrationResultCompletion</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -140,9 +141,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP26provideAliasCreationDetail3for14idempotencyKey10completionyAA16RegistrationData_p_SSys6ResultOyAA0ghI0CSgAA0aB5ErrorOGctF"></a>
-                    <a name="//apple_ref/swift/Method/provideAliasCreationDetail(for:idempotencyKey:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP26provideAliasCreationDetail3for14idempotencyKey10completionyAA16RegistrationData_p_SSys6ResultOyAA0ghI0CSgAA0aB5ErrorOGctF">provideAliasCreationDetail(for:idempotencyKey:completion:)</a>
+                    <a name="/s:18MobilabPaymentCore0B15ServiceProviderP26provideAliasCreationDetail3for14idempotencyKey28uniqueRegistrationIdentifier10completionyAA0N4Data_p_SSSgSSys6ResultOyAA0ghI0CSgAA0aB5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/provideAliasCreationDetail(for:idempotencyKey:uniqueRegistrationIdentifier:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:18MobilabPaymentCore0B15ServiceProviderP26provideAliasCreationDetail3for14idempotencyKey28uniqueRegistrationIdentifier10completionyAA0N4Data_p_SSSgSSys6ResultOyAA0ghI0CSgAA0aB5ErrorOGctF">provideAliasCreationDetail(for:idempotencyKey:uniqueRegistrationIdentifier:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,7 +158,8 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">provideAliasCreationDetail</span><span class="p">(</span><span class="k">for</span> <span class="nv">_</span><span class="p">:</span> <span class="kt">RegistrationData</span><span class="p">,</span>
-                                       <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                       <span class="n">idempotencyKey</span> <span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                                       <span class="nv">uniqueRegistrationIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                                        <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">AliasCreationDetail</span><span class="p">?,</span> <span class="kt">MobilabPaymentError</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>

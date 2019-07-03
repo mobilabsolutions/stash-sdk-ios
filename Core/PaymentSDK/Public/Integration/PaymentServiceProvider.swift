@@ -27,19 +27,24 @@ public protocol PaymentServiceProvider {
     ///
     /// - Parameters:
     ///   - registrationRequest: the registration request data
-    ///   - idempotencyKey: the request's idempotency key that should be used to ensure idempotency of actions
+    ///   - idempotencyKey: the request's user provided idempotency key that should be used to ensure idempotency of actions
+    ///   - uniqueRegistrationIdentifier: An identifier that is unique across registrations and can be used to associate state to a given registration request
     ///   - completion: A completion returning the generated PSP alias (if present) or an error
     func handleRegistrationRequest(registrationRequest: RegistrationRequest,
-                                   idempotencyKey: String,
+                                   idempotencyKey: String?,
+                                   uniqueRegistrationIdentifier: String,
                                    completion: @escaping RegistrationResultCompletion)
 
     /// Handle a request for registering a payment method with the PSP
     ///
     /// - Parameters:
     ///   - paymentMethodData: the payment method data that will be registered
+    ///   - idempotencyKey: the request's user provided idempotency key that should be used to ensure idempotency of actions
+    ///   - uniqueRegistrationIdentifier: An identifier that is unique across registrations and can be used to associate state to a given registration request
     ///   - completion: A completion returning the generated AliasCreationDetail (if necessary) or an error if something went wrong
     func provideAliasCreationDetail(for paymentMethodData: RegistrationData,
-                                    idempotencyKey: String,
+                                    idempotencyKey: String?,
+                                    uniqueRegistrationIdentifier: String,
                                     completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void)
 
     /// All payment method types which module supports
@@ -62,7 +67,8 @@ public protocol PaymentServiceProvider {
 
 public extension PaymentServiceProvider {
     func provideAliasCreationDetail(for _: RegistrationData,
-                                    idempotencyKey _: String,
+                                    idempotencyKey _: String?,
+                                    uniqueRegistrationIdentifier _: String,
                                     completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
         completion(.success(nil))
     }

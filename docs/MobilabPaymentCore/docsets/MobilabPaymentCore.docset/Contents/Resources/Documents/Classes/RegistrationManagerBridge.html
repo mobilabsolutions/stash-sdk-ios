@@ -84,6 +84,9 @@
                 <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderIntegrationBridge.html">– PaymentProviderIntegrationBridge</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MobilabPaymentSDKBridge/PaymentProviderBridge.html">– PaymentProviderBridge</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RegistrationManager.html">RegistrationManager</a>
               </li>
               <li class="nav-group-task">
@@ -503,7 +506,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/CreditCardDataBridge.html">CreditCardDataBridge</a></span><span class="p">,</span> <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a></span><span class="p">?,</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">MobilabPaymentErrorBridge</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/CreditCardDataBridge.html">CreditCardDataBridge</a></span><span class="p">,</span> <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a></span><span class="p">?,</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">MobilabPaymentErrorBridge</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -531,7 +534,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">SEPADataBridge</a></span><span class="p">,</span> <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a></span><span class="p">?,</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">MobilabPaymentErrorBridge</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/SEPADataBridge.html">SEPADataBridge</a></span><span class="p">,</span> <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a></span><span class="p">?,</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">MobilabPaymentErrorBridge</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -562,7 +565,7 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
                                          <span class="nv">specificPaymentMethod</span><span class="p">:</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodTypeBridge.html">PaymentMethodTypeBridge</a></span><span class="p">,</span>
                                          <span class="n">billingData</span> <span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../Classes/BillingData.html">BillingData</a></span><span class="p">?,</span>
-                                         <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                         <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
                                          <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/RegistrationManagerBridge/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a></span><span class="p">?,</span> <span class="kt"><a href="../Classes/RegistrationManagerBridge/MobilabPaymentErrorBridge.html">MobilabPaymentErrorBridge</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
