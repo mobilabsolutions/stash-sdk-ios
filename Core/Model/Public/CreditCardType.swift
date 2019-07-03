@@ -10,7 +10,7 @@ import Foundation
 
 public enum CreditCardType: String, CaseIterable {
     case visa = "VISA"
-    case mastercard = "MASTER_CARD"
+    case mastercard = "MASTERCARD"
     case americanExpress = "AMEX"
     case diners = "DINERS"
     case discover = "DISCOVER"
