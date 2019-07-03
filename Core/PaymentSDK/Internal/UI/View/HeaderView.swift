@@ -19,7 +19,7 @@ class HeaderView: UICollectionReusableView {
 
     var configuration: PaymentMethodUIConfiguration? {
         didSet {
-            self.label.textColor = HeaderView.defaultTextColor
+            self.label.textColor = self.configuration?.mediumEmphasisColor ?? HeaderView.defaultTextColor
             self.backgroundColor = self.configuration?.backgroundColor
         }
     }

@@ -42,7 +42,7 @@ class SearchView: UIView {
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIConstants.searchImage
+        iv.image = UIConstants.searchImage?.withRenderingMode(.alwaysTemplate)
         iv.contentMode = .scaleAspectFit
 
         return iv
@@ -155,6 +155,8 @@ class SearchView: UIView {
 
         self.textField.returnKeyType = .search
         self.textField.delegate = self
+
+        self.imageView.tintColor = configuration.mediumEmphasisColor
     }
 
     public func clear() {
