@@ -3,7 +3,7 @@
 //  SampleUITests
 //
 //  Created by Robert on 24.05.19.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import XCTest
@@ -80,7 +80,7 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
 
         let webViewButton = app.webViews
             .staticTexts["Proceed with Sandbox Purchase"].firstMatch
-        XCTAssert(webViewButton.waitForExistence(timeout: 10))
+        XCTAssert(webViewButton.waitForExistence(timeout: 15))
         webViewButton.tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
