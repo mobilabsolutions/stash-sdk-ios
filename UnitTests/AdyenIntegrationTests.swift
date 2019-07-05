@@ -22,7 +22,7 @@ class AdyenIntegrationTests: XCTestCase {
         let provider = MobilabPaymentAdyen()
         self.provider = provider
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingEnabled = true

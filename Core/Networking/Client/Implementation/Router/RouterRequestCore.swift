@@ -93,13 +93,13 @@ struct RouterRequestCore: RouterRequestProtocol {
         switch self.service {
         case .createAlias,
              .updateAlias:
-            return InternalPaymentSDK.sharedInstance.configuration.publicKey
+            return InternalPaymentSDK.sharedInstance.configuration.publishableKey
         }
     }
 
     func getHeaders() -> [Header] {
         var headers = [
-            Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publicKey),
+            Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publishableKey),
             Header(field: "Idempotent-Key", value: service.idempotencyKey),
             Header(field: "User-Agent", value: "iOS-\(InternalPaymentSDK.sharedInstance.version)"),
         ]

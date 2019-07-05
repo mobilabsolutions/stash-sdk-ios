@@ -13,8 +13,8 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
     case configurationMissing
     /// SDK configuration is missing
     case clientMissing
-    /// The SDK's public key is not set
-    case publicKeyNotSet
+    /// The SDK's publishable key is not set
+    case publishableKeyNotSet
     /// The SDK's endpoint is not set
     case endpointNotSet
     /// The provided SDK endpoint is not a valid URL
@@ -36,7 +36,7 @@ public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
             return "SDK configuration is missing"
         case .clientMissing:
             return "SDK network client is missing"
-        case .publicKeyNotSet:
+        case .publishableKeyNotSet:
             return "SDK Public key is not set!"
         case .endpointNotSet:
             return "SDK Endpoint is not set"
@@ -73,7 +73,7 @@ extension SDKConfigurationError: Codable {
             try container.encode("ENDPOINT_NOT_SET", forKey: .type)
         case .endpointNotValid:
             try container.encode("ENDPOINT_NOT_VALID", forKey: .type)
-        case .publicKeyNotSet:
+        case .publishableKeyNotSet:
             try container.encode("PUBLIC_KEY_NOT_SET", forKey: .type)
         case let .paymentMethodIsMissingProvider(provider):
             try container.encode("PAYMENT_METHOD_IS_MISSING_PROVIDER", forKey: .type)
@@ -105,7 +105,7 @@ extension SDKConfigurationError: Codable {
         case "ENDPOINT_NOT_VALID":
             self = .endpointNotValid
         case "PUBLIC_KEY_NOT_SET":
-            self = .publicKeyNotSet
+            self = .publishableKeyNotSet
         case "PAYMENT_METHOD_IS_MISSING_PROVIDER":
             let provider = try container.decode(String.self, forKey: .details)
             self = .paymentMethodIsMissingProvider(provider)

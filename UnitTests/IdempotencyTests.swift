@@ -74,7 +74,7 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [integration])
         MobilabPaymentSDK.initialize(configuration: configuration)
@@ -104,7 +104,7 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [integration])
         MobilabPaymentSDK.initialize(configuration: configuration)

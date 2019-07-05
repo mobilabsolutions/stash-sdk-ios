@@ -241,7 +241,7 @@ class PaymentService {
         guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal])
         else { fatalError("Braintree should support PayPal payment method but does not!") }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [adyenIntegration, braintreeIntegration])
         configuration.loggingEnabled = true
