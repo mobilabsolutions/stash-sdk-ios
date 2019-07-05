@@ -68,14 +68,15 @@ class Fastfile: LaneFile {
         buildApp(project: "MobilabPayment.xcodeproj", scheme: "Sample", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
-                    apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"))
+                    apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"), notifications: false)
     }
 
     private func betaDemo(buildSecret: String, apiKey: String, changeLog: String) {
         buildApp(project: "MobilabPayment.xcodeproj", scheme: "Demo", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
-        crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
-                    apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"))
+        crashlytics(crashlyticsPath: "./Demo/other/Crashlytics.framework/submit",
+                    apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"),
+                    notifications: false)
     }
 
     private func prepareForDistribution() {
