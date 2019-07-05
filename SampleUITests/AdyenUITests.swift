@@ -3,7 +3,7 @@
 //  DemoUITests
 //
 //  Created by Robert on 05.04.19.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import XCTest

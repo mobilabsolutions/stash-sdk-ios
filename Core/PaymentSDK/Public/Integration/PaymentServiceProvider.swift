@@ -3,7 +3,7 @@
 //  MLPaymentSDK
 //
 //  Created by Borna Beakovic on 27/02/2019.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import UIKit

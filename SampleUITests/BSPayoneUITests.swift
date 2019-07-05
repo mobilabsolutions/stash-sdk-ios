@@ -3,7 +3,7 @@
 //  DemoUITests
 //
 //  Created by Robert on 05.04.19.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import XCTest
@@ -149,6 +149,9 @@ class BSPayoneUITests: BaseUITest {
         XCTAssertTrue(view.collectionViews.cells.count == 1) // should be only one entry with the searched country name
 
         view.collectionViews.staticTexts["Zimbabwe"].tap() // goes back to previous screen
+
+        expectation(for: exists, evaluatedWith: collectionViewsQuery.textFields["Country"], handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         collectionViewsQuery.textFields["Country"].tap() // previous screen
 

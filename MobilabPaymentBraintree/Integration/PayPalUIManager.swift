@@ -3,7 +3,7 @@
 //  MobilabPaymentBraintree
 //
 //  Created by Borna Beakovic on 25/04/2019.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import BraintreeCore

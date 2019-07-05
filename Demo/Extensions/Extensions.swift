@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Rupali Ghate on 20.05.19.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 import MobilabPaymentCore

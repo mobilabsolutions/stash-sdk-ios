@@ -3,7 +3,7 @@
 //  Demo-ObjC
 //
 //  Created by Robert on 14.03.19.
-//  Copyright © 2019 MobiLab. All rights reserved.
+//  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 #import "AppDelegate.h"
