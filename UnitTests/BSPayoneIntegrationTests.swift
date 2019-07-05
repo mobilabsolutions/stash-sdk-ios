@@ -67,29 +67,6 @@ class BSPayoneIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 20)
     }
 
-    func testErrorCompletionWhenCreditCardIsOfUnknownType() throws {
-        let expectation = self.expectation(description: "Registering invalid credit card fails")
-
-        let billingData = BillingData(name: SimpleNameProvider(firstName: "Holder", lastName: "Name"))
-        let creditCardData = try CreditCardData(cardNumber: "5060 6666 6666 6666 666", cvv: "312", expiryMonth: 08, expiryYear: 21,
-                                                country: "DE", billingData: billingData)
-
-        XCTAssertEqual(creditCardData.cardType, .unknown, "Type of credit card is \(creditCardData.cardType) should be unknown.")
-
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
-        registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
-            switch result {
-            case .success:
-                XCTFail("Adding an invalid credit card should not succeed")
-                expectation.fulfill()
-            case .failure:
-                expectation.fulfill()
-            }
-        })
-
-        waitForExpectations(timeout: 5)
-    }
-
     func testAddSEPA() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_sepa_success.json", type(of: self))

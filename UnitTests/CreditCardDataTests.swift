@@ -23,6 +23,10 @@ class CreditCardDataTests: XCTestCase {
         ("340168114776366", .americanExpress), ("379357047249690", .americanExpress),
         ("5101745120583627", .mastercard), ("6759649826438453", .maestroInternational),
         ("3530 1113 3330 0000", .jcb), ("6221 2345 6789 0123 450", .chinaUnionPay),
+        ("3600 6666 3333 44", .diners), ("3607 0500 0010 20", .diners),
+        ("6011 6011 6011 6611", .discover), ("6445 6445 6445 6445", .discover),
+        ("3569 9900 1009 5841", .jcb), ("6771 7980 2100 0008", .maestroInternational),
+        ("6250947000000014", .chinaUnionPay), ("6250946000000016", .chinaUnionPay),
     ]
 
     let invalidExampleNumbers: [(String, CreditCardType)] = [
