@@ -25,7 +25,7 @@
                                                                                                   paymentMethodTypes:paymentMethodTypes];
 
     MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
-                                                  initWithPublicKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                  initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
                                                     endpoint:@"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[integration]
                                                     uiConfiguration:nil];

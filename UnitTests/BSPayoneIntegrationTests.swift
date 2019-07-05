@@ -26,7 +26,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         self.provider = provider
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: provider)
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [integration])
         configuration.loggingEnabled = true

@@ -40,7 +40,7 @@ To include these dependencies into your project, you will also have to include t
 
 ### Configuring the SDK
 
-To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the public key as well as the backend endpoint that should be used by the SDK.
+To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the publishable key as well as the backend endpoint that should be used by the SDK.
 
 To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Set the configuration's `integrations` to provide correct data.
 ```swift
@@ -51,7 +51,7 @@ import MobilabPaymentBraintree
 let bsPayonePSP = MobilabPaymentBSPayone()
 let braintreePSP = MobilabPaymentBraintree(urlScheme: "[YOUR URL SCHEME]]")
 
-let configuration = MobilabPaymentConfiguration(publicKey: "[YOUR MOBILAB BACKEND PUBLIC KEY]", 
+let configuration = MobilabPaymentConfiguration(publishableKey: "[YOUR MOBILAB BACKEND PUBLISHABLE KEY]", 
                                                 endpoint: "[YOUR MOBILAB BACKEND ENDPOINT]",
                                                 integrations: [
                                                     PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP),
@@ -70,7 +70,7 @@ To instruct the SDK to use test mode, manually set the `useTestMode` property on
 For example:
 
 ```swift
-let configuration = MobilabPaymentConfiguration(publicKey: "[YOUR MOBILAB BACKEND PUBLIC KEY]", 
+let configuration = MobilabPaymentConfiguration(publishableKey: "[YOUR MOBILAB BACKEND PUBLISHABLE KEY]", 
                                                 endpoint: "[YOUR MOBILAB BACKEND ENDPOINT]",
                                                 integrations: [PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP)])
 configuration.useTestMode = true

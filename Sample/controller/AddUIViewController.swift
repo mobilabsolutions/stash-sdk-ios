@@ -141,7 +141,7 @@ class AddUIViewController: UIViewController {
         guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa, .creditCard])
         else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingEnabled = true

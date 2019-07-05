@@ -26,7 +26,7 @@ class SDKConfiguraionTests: XCTestCase {
         notExpectFatalError {
             guard let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.sepa, .creditCard])
             else { fatalError("This should not happen") }
-            let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+            let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                             endpoint: "https://payment-dev.mblb.net/api/v1",
                                                             integrations: [integration])
             MobilabPaymentSDK.initialize(configuration: configuration)
@@ -49,7 +49,7 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
         MobilabPaymentSDK.initialize(configuration: configuration)
@@ -76,7 +76,7 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
         MobilabPaymentSDK.initialize(configuration: configuration)
@@ -92,7 +92,7 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [creditCardIntegration, payPalIntegration])
         MobilabPaymentSDK.initialize(configuration: configuration)

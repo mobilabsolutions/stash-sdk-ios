@@ -96,7 +96,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.loggingEnabled = true
@@ -125,7 +125,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -164,7 +164,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration)
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "incorrect-test-key",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "incorrect-test-key",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -229,7 +229,7 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: paymentEndpoint,
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -282,7 +282,7 @@ class ModuleIntegrationTests: XCTestCase {
             OHHTTPStubsResponse(error: MobilabPaymentError.other(GenericErrorDetails(description: "Sample error")))
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: paymentEndpoint,
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -343,7 +343,7 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: paymentEndpoint,
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -375,7 +375,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,
                                                 aliasCreationDetailResult: .failure(error))
 
-        let configuration = MobilabPaymentConfiguration(publicKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
