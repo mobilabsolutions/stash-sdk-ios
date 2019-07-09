@@ -278,8 +278,8 @@
 				E1C1533D22D4744300507A18 /* Sources */,
 				E1C1533E22D4744300507A18 /* Frameworks */,
 				E1C1533F22D4744300507A18 /* Resources */,
-				E182536322D478320020FD77 /* Carthage Copy */,
 				E1C153E822D4760600507A18 /* Embed Frameworks */,
+				E182536322D478320020FD77 /* Carthage Copy */,
 			);
 			buildRules = (
 			);
