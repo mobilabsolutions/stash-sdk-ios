@@ -28,8 +28,7 @@ public class RegistrationManager {
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
                                   idempotencyKey: idempotencyKey,
-                                  completion: completion,
-                                  methodType: .creditCard)
+                                  completion: completion)
     }
 
     /// Register a SEPA account
@@ -47,8 +46,7 @@ public class RegistrationManager {
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
                                   idempotencyKey: idempotencyKey,
-                                  completion: completion,
-                                  methodType: .sepa)
+                                  completion: completion)
     }
 
     /// Allow the user to select a payment method type and input its data from module-generated UI
@@ -64,9 +62,8 @@ public class RegistrationManager {
     public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                              specificPaymentMethod: PaymentMethodType? = nil,
                                              billingData: BillingData? = nil,
-                                             idempotencyKey: String? = nil,
                                              completion: @escaping RegistrationResultCompletion) {
-        let uiRegistrationIdempotencyKey = idempotencyKey
+        let uiRegistrationIdempotencyKey = UUID().uuidString
 
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let rootViewController: UIViewController
@@ -123,8 +120,7 @@ public class RegistrationManager {
         internalManager.addMethod(paymentMethod: paymentMethod,
                                   idempotencyKey: idempotencyKey ?? UUID().uuidString,
                                   completion: completion,
-                                  presentingViewController: presentingViewController,
-                                  methodType: .payPal)
+                                  presentingViewController: presentingViewController)
     }
 
     private func selectionViewController(for paymentMethods: Set<PaymentMethodType>,
@@ -137,8 +133,10 @@ public class RegistrationManager {
     private func paymentViewController(for type: PaymentMethodType,
                                        billingData: BillingData?,
                                        uiConfiguration: PaymentMethodUIConfiguration,
-                                       idempotencyKey: String?,
+                                       idempotencyKey: String,
                                        completion: @escaping RegistrationResultCompletion) -> UIViewController & PaymentMethodDataProvider {
+        var idempotencyKeyForNextRequest: String = idempotencyKey
+
         func wrappedCompletion(for dataProvider: PaymentMethodDataProvider?,
                                completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
             let wrapped: RegistrationResultCompletion = { result in
@@ -147,6 +145,11 @@ public class RegistrationManager {
                     completion(result)
                 case let .failure(error):
                     DispatchQueue.main.async {
+                        switch error {
+                        case .network: break
+                        default: idempotencyKeyForNextRequest = UUID().uuidString
+                        }
+
                         dataProvider?.errorWhileCreatingPaymentMethod(error: error)
                     }
 
@@ -168,16 +171,16 @@ public class RegistrationManager {
         paymentMethodViewController.didCreatePaymentMethodCompletion = { [unowned paymentMethodViewController] method in
             if let creditCardData = method as? CreditCardData {
                 self.registerCreditCard(creditCardData: creditCardData,
-                                        idempotencyKey: idempotencyKey,
+                                        idempotencyKey: idempotencyKeyForNextRequest,
                                         completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else if let sepaData = method as? SEPAData {
                 self.registerSEPAAccount(sepaData: sepaData,
-                                         idempotencyKey: idempotencyKey,
+                                         idempotencyKey: idempotencyKeyForNextRequest,
                                          completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else if method is PayPalPlaceholderData {
                 self.registerPayPal(presentingViewController: paymentMethodViewController,
                                     billingData: billingData,
-                                    idempotencyKey: idempotencyKey,
+                                    idempotencyKey: idempotencyKeyForNextRequest,
                                     completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else {
                 fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")

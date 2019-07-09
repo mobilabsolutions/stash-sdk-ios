@@ -100,7 +100,6 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getHeaders() -> [Header] {
         var headers = [
             Header(field: "Publishable-Key", value: InternalPaymentSDK.sharedInstance.configuration.publishableKey),
-            Header(field: "Idempotent-Key", value: service.idempotencyKey),
             Header(field: "User-Agent", value: "iOS-\(InternalPaymentSDK.sharedInstance.version)"),
         ]
 
@@ -111,6 +110,7 @@ struct RouterRequestCore: RouterRequestProtocol {
         switch self.service {
         case let .createAlias(request):
             headers.append(Header(field: "PSP-Type", value: request.pspType))
+            headers.append(Header(field: "Idempotent-Key", value: self.service.idempotencyKey))
             return headers
         case .updateAlias:
             return headers
