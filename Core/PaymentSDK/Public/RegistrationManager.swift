@@ -63,8 +63,6 @@ public class RegistrationManager {
                                              specificPaymentMethod: PaymentMethodType? = nil,
                                              billingData: BillingData? = nil,
                                              completion: @escaping RegistrationResultCompletion) {
-        let uiRegistrationIdempotencyKey = UUID().uuidString
-
         let uiConfiguration = InternalPaymentSDK.sharedInstance.uiConfiguration
         let rootViewController: UIViewController
 
@@ -74,7 +72,6 @@ public class RegistrationManager {
             rootViewController = self.paymentViewController(for: specificPaymentMethod,
                                                             billingData: billingData,
                                                             uiConfiguration: uiConfiguration,
-                                                            idempotencyKey: uiRegistrationIdempotencyKey,
                                                             completion: completion)
         } else {
             // The user needs to chose a payment method to use, therefore we show the selection view controller
@@ -85,7 +82,6 @@ public class RegistrationManager {
                 let paymentMethodViewController = self.paymentViewController(for: selectedType,
                                                                              billingData: billingData,
                                                                              uiConfiguration: uiConfiguration,
-                                                                             idempotencyKey: uiRegistrationIdempotencyKey,
                                                                              completion: completion)
                 selectionViewController.navigationController?.pushViewController(paymentMethodViewController, animated: true)
             }
@@ -133,9 +129,8 @@ public class RegistrationManager {
     private func paymentViewController(for type: PaymentMethodType,
                                        billingData: BillingData?,
                                        uiConfiguration: PaymentMethodUIConfiguration,
-                                       idempotencyKey: String,
                                        completion: @escaping RegistrationResultCompletion) -> UIViewController & PaymentMethodDataProvider {
-        var idempotencyKeyForNextRequest: String = idempotencyKey
+        var idempotencyKeyForNextRequest: String = UUID().uuidString
 
         func wrappedCompletion(for dataProvider: PaymentMethodDataProvider?,
                                completion: @escaping RegistrationResultCompletion) -> RegistrationResultCompletion {
@@ -147,16 +142,11 @@ public class RegistrationManager {
                     DispatchQueue.main.async {
                         switch error {
                         case .network: break
+                        case .userCancelled: completion(.failure(error))
                         default: idempotencyKeyForNextRequest = UUID().uuidString
                         }
 
                         dataProvider?.errorWhileCreatingPaymentMethod(error: error)
-                    }
-
-                    switch error {
-                    case .userCancelled:
-                        completion(.failure(error))
-                    default: break
                     }
                 }
             }
