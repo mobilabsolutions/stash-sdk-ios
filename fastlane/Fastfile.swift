@@ -33,12 +33,12 @@ class Fastfile: LaneFile {
 
     func uiTestLane() {
         desc("Run UI tests")
-        runTests(project: "MobilabPayment.xcodeproj", scheme: "SampleUITests", device: "iPhone X", prelaunchSimulator: true)
+        runTests(workspace: "MobilabPayment.xcworkspace", scheme: "SampleUITests", device: "iPhone X", prelaunchSimulator: true)
     }
 
     func unitTestLane() {
         desc("Run Unit tests")
-        runTests(project: "MobilabPayment.xcodeproj", scheme: "MobilabPaymentTests", prelaunchSimulator: true)
+        runTests(workspace: "MobilabPayment.xcworkspace", scheme: "MobilabPaymentTests", prelaunchSimulator: true)
     }
 
     func betaLane() {
