@@ -9,7 +9,7 @@ cache:
 env:
   #environment variables
   global:
-    - PROJECT_NAME="MobilabPayment.xcodeproj"
+    - WORKSPACE_NAME="MobilabPayment.xcworkspace"
   matrix:
     - DESTINATION="OS=12.2,name=iPhone X"
 

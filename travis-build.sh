@@ -5,7 +5,7 @@ set -o pipefail;
 
 echo "Starting Test run";
 fastlane test && echo "Building Objective-C Sample"\
-    && xcodebuild -project "$PROJECT_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
+    && xcodebuild -workspace "$WORKSPACE_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 
 TESTING_RESULT="$?";
  
