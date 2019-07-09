@@ -1,0 +1,14 @@
+$(SRCROOT)/../Carthage/Build/iOS/BraintreeDropIn.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreeCard.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreePaymentFlow.framework
+$(SRCROOT)/../Carthage/Build/iOS/PayPalDataCollector.framework
+$(SRCROOT)/../Carthage/Build/iOS/AdyenSEPA.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreePayPal.framework
+$(SRCROOT)/../Carthage/Build/iOS/PayPalOneTouch.framework
+$(SRCROOT)/../Carthage/Build/iOS/AdyenCard.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreeUIKit.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreeDataCollector.framework
+$(SRCROOT)/../Carthage/Build/iOS/AdyenInternal.framework
+$(SRCROOT)/../Carthage/Build/iOS/Adyen.framework
+$(SRCROOT)/../Carthage/Build/iOS/PayPalUtils.framework
+$(SRCROOT)/../Carthage/Build/iOS/BraintreeCore.framework
