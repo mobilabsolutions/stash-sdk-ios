@@ -1,21 +1,24 @@
 
-# MobilabPayment iOS SDK 
+# Stash iOS SDK 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Travis CI build status](https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open.svg?token=YveRxJtU3TcdBx4pp777&branch=master)](https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open)
 
 Many applications need to process payments for digital or physical goods. Implementing payment functionality can be very cumbersome though: there are many payment service providers that support or don't support various types of payment methods and payment method registration and usage flows. The payment SDK simplifies the integration of payments into our applications and abstracts away a lot of the internal complexity that different payment service providers' solutions have. With the payment SDK it does not matter which payment service provider one chooses to register payment methods with - the API is standardized and works across the board. 
 
-## Supported Payment Service Providers - PSP
+## Supported PSPs
 
+At the moment, the Stash iOS SDK supports the following PSPs:
 - BSPayone [Credit Cards / SEPA]
 - Braintree [PayPal]
 - Adyen [Credit Cards / SEPA]
 
 ## Requirements
 
+To build this project, you will need to have at least the following:
 - iOS 11.3+
 - Xcode 10.1+
 - Swift 5.0+ / Objective-C
+_ Carthage
 
 ## Installation
 
@@ -40,9 +43,9 @@ To include these dependencies into your project, you will also have to include t
 
 ### Configuring the SDK
 
-To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the publishable key as well as the backend endpoint that should be used by the SDK.
+To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the merchant publishable key as well as the backend endpoint that should be used by the SDK.
 
-To connect the SDK to a given payment service provider (PSP), that PSP's module needs to be imported and initialized. Set the configuration's `integrations` to provide correct data.
+To connect the SDK to a given PSP, that PSP's module needs to be imported and initialized. You need to set the configuration's `integrations` to provide correct data.
 ```swift
 import MobilabPaymentCore
 import MobilabPaymentBSPayone
@@ -60,12 +63,12 @@ let configuration = MobilabPaymentConfiguration(publishableKey: "[YOUR MOBILAB B
 MobilabPaymentSDK.initialize(configuration: configuration)
 ```
 
-It is also possible to specify which PSP should be used to register which payment method type by using the `paymentMethodTypes` parameter of the `PaymentProviderIntegration` optional initializer. By default, when not specifying the specific payment method types, the PSP will be used for all types that the module supports. Note that a `fatalError` will be created when there are overlapping payment method types for different PSPs that are registered at the same time.
+It is also possible to specify which PSP should be used to register which payment method type by using the `paymentMethodTypes` parameter of the `PaymentProviderIntegration` optional initializer. By default, when the specific payment method types are not specified, the PSP will be used for all types that the module supports. Note that a `fatalError` will be created when there are overlapping payment method types for different PSPs that are registered at the same time.
 
-#### Using the SDK in test mode
+#### Using the SDK in Test Mode
 
-The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
-To instruct the SDK to use test mode, manually set the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+The Stash SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
+To instruct the SDK to use the test mode, set manually the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
 
 For example:
 
@@ -78,7 +81,7 @@ configuration.useTestMode = true
 MobilabPaymentSDK.initialize(configuration: configuration)
 ```
 
-## Registering payment method
+## Registering a Payment Method
 
 To register a payment method you need an instance of the `RegistrationManager` class.
 
@@ -86,17 +89,16 @@ To register a payment method you need an instance of the `RegistrationManager` c
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
 ```
 
-As the SDK allows usage of multiple PSPs, when registering payment method you need to set a PSP you wanna utilize for that payment method.
-Depending on the payment method that is used, some registration methods also require additional data to be supplied.
+As the Stash SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
+Depending on the payment method that is being used, some registration methods could require additional data.
 
-### Using the module UI for adding a payment method
+### Using the Module UI for Adding a Payment Method
 
-Since the PSP modules know best which data needs to be provided in which situation, it is also possible to offload the UI work for adding a payment method to them.
-By calling `registerPaymentMethodUsingUI` on the registration manager, the user is shown a selection of possible payment methods types and then fields for creating payment methods of the selected type.
+Since the PSP modules know which data needs to be provided in each situation, it is also possible to offload the UI work to add a payment method to them. By calling the `registerPaymentMethodUsingUI` on the registration manager, the user is shown a selection of possible payment method types and then the fields used for creating the payment method type that was selected.
 
-_Attention_: To allow registration of PayPal payment methods, some setup work as documented in the [Registering a PayPal account](#registering-a-paypal-account) section of this page is necessary.
+_Note_: To allow the registration of a PayPal account, some setup work, as documented in the [Registering a PayPal account](#registering-a-paypal-account) section of this page, is necessary.
 
-Typical usage of this functionality might look like this:
+The typical usage of this functionality might look like this:
 
 ```swift
 
@@ -113,7 +115,7 @@ registrationManager.registerPaymentMethodUsingUI(on: self) { [weak self] result 
 }
 ```
 
-It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. Simply pass along an updated `PaymentMethodUIConfiguration`:
+It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. You only need to pass along an updated `PaymentMethodUIConfiguration`:
 
 ```swift
 let registrationManager = MobilabPaymentSDK.getRegistrationManager()
@@ -132,15 +134,13 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [wea
 }
 ```
 
-There is some more information on this in the [SDK UI Usage Tutorial](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/SDK-UI-Usage-Tutorial) in our wiki.
+You can find more information about this in the [SDK UI Usage Tutorial](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/SDK-UI-Usage-Tutorial) in our Wiki.
 
-### Registering a credit card
+### Credit Card Registration
 
-To register a credit card, the `registerCreditCard` method of the registration manager is used.
-Provide it with an instance of `CreditCardData`, which upon initialization also validates the credit card data.
+To register a credit card, the `registerCreditCard` method of the registration manager is used. You should provide it with an instance of the `CreditCardData`, which upon initialization also validates the credit card data.
 
-The `CreditCardData` is provided with `BillingData`. This `BillingData` contains information about the user that is necessary for registering a credit card. Its fields are all optional and their necessity PSP-dependant.
-As with all registration methods, you also need to set PSP you wanna use to register credit card.
+The `CreditCardData` is provided with the `BillingData`. This `BillingData` contains information about the user that is necessary to register a credit card. Its fields are all optional and their necessity is PSP-dependant. As with all the registration methods, you also need to set the PSP you want to use to register the credit card.
 
 ```swift
 let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
@@ -158,9 +158,9 @@ registrationManager.registerCreditCard(creditCardData: creditCard) { result in
 }
 ```
 
-### Registering a SEPA account
+### SEPA Registration
 
-To register a SEPA account, we can use the `registerSEPAAccount` method of the registration manager. Here, as is the case for the credit card data, the billing data is optional and the values that need to be provided are PSP-dependant.
+To register a SEPA account, we can use the `registerSEPAAccount` method of the registration manager. Here, as is the case of the credit card data, the billing data is optional and the values that need to be provided are PSP-dependant.
 
 ```swift
 let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
@@ -187,19 +187,19 @@ registrationManager.registerSEPAAccount(sepaData: sepaData) { result in
 }
 ```
 
-### Registering a PayPal account
+### PayPal Account Registration
 
-Currently, only the Braintree PSP allows registering a PayPal account and it is only possible to register a PayPal payment method using the provided module UI.
+Currently, only the Braintree PSP allows registering a PayPal account and it is  possible to register a PayPal account only by using the provided module UI.
 
-#### Setup for app switch
+#### Setup for App Switch
 
-PayPal account registration flow involves switching to another app or  `SFSafariViewController`  for authentication, so you must register a URL type and configure your app to return from app switches.
+The PayPal account registration flow involves switching to another app or  `SFSafariViewController`  for authentication, so you must register a URL type and configure your app to return from the app switches.
 
-#### Register a URL type
+#### Register a URL Type
 
-1.  In Xcode, click on your project in the Project Navigator and navigate to  **App Target**  >  **Info**>  **URL Types**
-2.  Click  **[+]**  to add a new URL type
-3.  Under  **URL Schemes**, enter your app switch return URL scheme. This scheme  **_must start with your app's Bundle ID and be dedicated to MobilabPayment app switch returns_**. For example, if the app bundle ID is  `com.your-company.Your-App`, then your URL scheme could be  `com.your-company.Your-App.mobilab`.
+1.  In the Xcode, click on your project in the Project Navigator and navigate to  **App Target**  >  **Info**>  **URL Types**.
+2.  Click on **[+]**  to add a new URL type.
+3.  Under the **URL Schemes**, enter your app switch return URL scheme. This scheme  **_must start with your app's Bundle ID and be dedicated to MobilabPayment app switch returns_**. For example, if the app bundle ID is  `com.your-company.Your-App`, then your URL scheme could be  `com.your-company.Your-App.mobilab`.
 
 #### Update your application delegate
 
@@ -229,7 +229,7 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self, specif
 
 ## Idempotency
 
-All calls provided by Payment SDK are idempotent **only if the underlying PSP is also idempotent** (Braintree is not, BS Payone and Adyen are not for credit card registration). To use idempotency simply provide a unique string to any of the registration methods used.
+All calls provided by the Stash SDK are idempotent **only if the underlying PSP is also idempotent** (Braintree is not, BS Payone and Adyen are not for credit card registration). To use the idempotency, simply provide a unique string to any of the registration methods used.
 
 ```swift
 let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
@@ -249,20 +249,20 @@ registrationManager.registerCreditCard(creditCardData: creditCard, idempotencyKe
 
 ## Demo
 
-A demo app that demonstrate usage of all SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose `Demo` scheme to launch it.
+A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose the `Demo` scheme to launch it.
 
 ## Feedback
 
-The MobilabPayment iOS SDK is in active development, we welcome your feedback!
-Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report and issues or give a feedback
+The Stash iOS SDK is in active development, we welcome your feedback!
+Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report an issue or give a feedback.
 
 ### License
 
-The MobilabPayment iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
+The Stash iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
 
 ## Documentation
 
-To get familiar with the overall Payment SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki)
-To learn more about the iOS Payment SDK architecture and flows please visit our wiki [iOS SDK Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
+To get familiar with the overall Stash SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki).
+To learn more about the Stash iOS SDK architecture and flows please visit our [Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
 
-Reference documentation for each module is available in the `docs/` folder of this repository. To regenerate the reference documentation, run `./build_documentation.sh`.
+The reference documentation for each module is available in the `docs/` folder of this repository. To regenerate the reference documentation, run `./build_documentation.sh`.
