@@ -229,7 +229,7 @@ registrationManager.registerPaymentMethodUsingUI(on viewController: self, specif
 
 ## Idempotency
 
-All calls provided by the Stash SDK are idempotent **only if the underlying PSP is also idempotent** (Braintree is not, BS Payone and Adyen are not for credit card registration). To use the idempotency, simply provide a unique string to any of the registration methods used.
+All calls provided by Payment SDK are idempotent **only if the underlying PSP is also idempotent** (Braintree is not, BS Payone and Adyen are not for credit card registration). To use idempotency simply provide a unique string to any of the manual non-UI registration methods used.
 
 ```swift
 let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")

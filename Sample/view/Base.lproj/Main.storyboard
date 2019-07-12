@@ -152,19 +152,12 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Idempotency Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c6f-F8-euM">
-                                <rect key="frame" x="30" y="184" width="260" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HJS-RJ-fCd" firstAttribute="leading" secondItem="ZKN-fH-dMu" secondAttribute="leading" id="0ej-ro-vPE"/>
                             <constraint firstItem="YN9-06-GXV" firstAttribute="leading" secondItem="7y1-DK-44m" secondAttribute="leading" id="6lm-vs-j8L"/>
                             <constraint firstItem="MDS-Fs-yIi" firstAttribute="leading" secondItem="YN9-06-GXV" secondAttribute="trailing" constant="8" id="8ux-pB-JY0"/>
-                            <constraint firstItem="c6f-F8-euM" firstAttribute="trailing" secondItem="HJS-RJ-fCd" secondAttribute="trailing" id="AKa-Im-lUD"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerX" secondItem="0Qt-8J-RJD" secondAttribute="centerX" id="BnX-0u-vcS"/>
                             <constraint firstItem="HJS-RJ-fCd" firstAttribute="top" secondItem="Byz-00-6yq" secondAttribute="bottom" constant="8" id="Bvg-0B-Vfe"/>
                             <constraint firstItem="YN9-06-GXV" firstAttribute="top" secondItem="7y1-DK-44m" secondAttribute="bottom" constant="8" id="Eqs-pV-efw"/>
@@ -172,13 +165,11 @@
                             <constraint firstItem="MDS-Fs-yIi" firstAttribute="trailing" secondItem="LGv-sU-i7a" secondAttribute="trailing" id="Gwc-4a-6TV"/>
                             <constraint firstItem="Byz-00-6yq" firstAttribute="centerX" secondItem="0Qt-8J-RJD" secondAttribute="centerX" id="Icc-R9-7S6"/>
                             <constraint firstItem="0Qt-8J-RJD" firstAttribute="trailing" secondItem="DLJ-3n-gRh" secondAttribute="trailing" id="Jkp-2d-ymj"/>
-                            <constraint firstItem="DLJ-3n-gRh" firstAttribute="top" secondItem="c6f-F8-euM" secondAttribute="bottom" constant="8" id="Lrh-fO-z7X"/>
                             <constraint firstItem="YN9-06-GXV" firstAttribute="bottom" secondItem="MDS-Fs-yIi" secondAttribute="bottom" id="OOq-0o-NyE"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="centerY" secondItem="0Qt-8J-RJD" secondAttribute="centerY" constant="-200" id="XHi-PY-qii"/>
-                            <constraint firstItem="c6f-F8-euM" firstAttribute="leading" secondItem="HJS-RJ-fCd" secondAttribute="leading" id="Y7P-0n-IfP"/>
                             <constraint firstItem="7y1-DK-44m" firstAttribute="bottom" secondItem="LGv-sU-i7a" secondAttribute="bottom" id="YP9-fD-Aum"/>
                             <constraint firstItem="YN9-06-GXV" firstAttribute="top" secondItem="MDS-Fs-yIi" secondAttribute="top" id="Ysk-GR-nwP"/>
-                            <constraint firstItem="c6f-F8-euM" firstAttribute="top" secondItem="YN9-06-GXV" secondAttribute="bottom" constant="8" id="ZJp-9C-4Vj"/>
+                            <constraint firstItem="DLJ-3n-gRh" firstAttribute="top" secondItem="YN9-06-GXV" secondAttribute="bottom" constant="46" id="a86-Mn-10r"/>
                             <constraint firstItem="7y1-DK-44m" firstAttribute="leading" secondItem="ZKN-fH-dMu" secondAttribute="leading" id="asC-AT-T3x"/>
                             <constraint firstItem="ZKN-fH-dMu" firstAttribute="leading" secondItem="0Qt-8J-RJD" secondAttribute="leading" constant="30" id="bre-nV-GkV"/>
                             <constraint firstItem="LGv-sU-i7a" firstAttribute="leading" secondItem="7y1-DK-44m" secondAttribute="trailing" constant="8" id="cAu-mN-Haz"/>
@@ -193,7 +184,6 @@
                     <tabBarItem key="tabBarItem" systemItem="bookmarks" id="fXP-HM-oBy"/>
                     <connections>
                         <outlet property="customConfigurationSwitch" destination="LGv-sU-i7a" id="6B1-RN-8B0"/>
-                        <outlet property="idempotencyKeyTextField" destination="c6f-F8-euM" id="3cb-WS-6Pg"/>
                         <outlet property="pspPickerView" destination="DLJ-3n-gRh" id="w6E-Zm-ueJ"/>
                         <outlet property="specificPaymentMethodControl" destination="Byz-00-6yq" id="2Y8-tg-FPP"/>
                         <outlet property="triggerRegisterUIButton" destination="ZKN-fH-dMu" id="6jH-fs-jPn"/>

@@ -13,8 +13,7 @@ class InternalRegistrationManager {
 
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String?,
                    completion: @escaping RegistrationResultCompletion,
-                   presentingViewController: UIViewController? = nil,
-                   methodType _: PaymentMethodType) {
+                   presentingViewController: UIViewController? = nil) {
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         let uniqueRegistrationIdentifier = UUID().uuidString
 
