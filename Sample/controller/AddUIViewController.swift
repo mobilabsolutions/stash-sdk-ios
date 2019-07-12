@@ -21,7 +21,6 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var pspPickerView: UIPickerView!
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
-    @IBOutlet var idempotencyKeyTextField: UITextField!
 
     private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
@@ -38,9 +37,6 @@ class AddUIViewController: UIViewController {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         self.view.addGestureRecognizer(tap)
-
-        self.idempotencyKeyTextField.returnKeyType = .done
-        self.idempotencyKeyTextField.delegate = self
 
         self.pspPickerView.delegate = self
         self.pspPickerView.dataSource = self
@@ -76,11 +72,9 @@ class AddUIViewController: UIViewController {
             configuration = PaymentMethodUIConfiguration()
         }
 
-        let idempotencyKey = idempotencyKeyTextField.text?.isEmpty == true ? nil : idempotencyKeyTextField.text
-
         MobilabPaymentSDK.configureUI(configuration: configuration)
         MobilabPaymentSDK.getRegistrationManager()
-            .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType, idempotencyKey: idempotencyKey) { [weak self] result in
+            .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType) { [weak self] result in
                 guard let self = self
                 else { return }
 

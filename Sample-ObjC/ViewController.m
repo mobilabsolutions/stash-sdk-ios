@@ -53,7 +53,6 @@
     [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self
                                                            specificPaymentMethod: MLPaymentMethodTypeNone
                                                                      billingData: nil
-                                                                  idempotencyKey: [[NSUUID new] UUIDString]
                                                                       completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (registration != nil) {

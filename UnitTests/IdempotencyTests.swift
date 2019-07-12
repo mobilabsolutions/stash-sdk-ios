@@ -126,8 +126,15 @@ class IdempotencyTests: XCTestCase {
 
             let response: OHHTTPStubsResponse
 
-            if let idempotencyKeyHeader = request.allHTTPHeaderFields?["Idempotent-Key"] {
+            if isCreateRequest, let idempotencyKeyHeader = request.allHTTPHeaderFields?["Idempotent-Key"] {
                 XCTAssertEqual(idempotencyKeyHeader, providedIdempotencyKey, "The idempotency key in the header should equal the provided one. Instead provided: \(providedIdempotencyKey), in header: \(idempotencyKeyHeader)")
+                guard let path = OHPathForFile(requestSuccessFile, type(of: self))
+                else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
+
+                response = fixture(filePath: path, status: 200, headers: [:])
+            } else if !isCreateRequest {
+                XCTAssertNil(request.allHTTPHeaderFields?["Idempotent-Key"], "No idempotent key should be sent with update requests")
+
                 guard let path = OHPathForFile(requestSuccessFile, type(of: self))
                 else { Swift.fatalError("Expected file \(requestSuccessFile) to exist.") }
 
