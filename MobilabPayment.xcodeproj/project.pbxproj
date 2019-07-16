@@ -2497,7 +2497,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Demo/other",
+					"$(PROJECT_DIR)/Sample/other",
 				);
 				INFOPLIST_FILE = Sample/other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2527,8 +2527,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Demo",
-					"$(PROJECT_DIR)/Demo/other",
+					"$(PROJECT_DIR)/Sample",
+					"$(PROJECT_DIR)/Sample/other",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Sample/other/Info.plist;
