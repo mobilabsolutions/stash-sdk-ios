@@ -23,8 +23,9 @@ class BaseUITest: XCTestCase {
         collectionViewsQuery.staticTexts[paymentMethodTypeTitle].tap()
     }
 
-    func showSpecificUI(for paymentMethodType: String, in app: XCUIApplication) {
+    func showSpecificUI(for paymentMethodType: String, with psp: String = "BS_PAYONE", in app: XCUIApplication) {
         app.tabBars.buttons["Bookmarks"].tap()
+        app.pickerWheels.firstMatch.adjust(toPickerWheelValue: psp)
         app.segmentedControls.buttons[paymentMethodType].tap()
         app.buttons["Show Specific UI"].tap()
     }
