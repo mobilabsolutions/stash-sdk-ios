@@ -34,14 +34,6 @@ extension UIConstants {
         return UIImage(named: "remove", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
 
-    class var payPalImage: UIImage? {
-        return UIImage(named: "paypal", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-    }
-
-    class var sepaImage: UIImage? {
-        return UIImage(named: "sepa", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-    }
-
     class var emptyCartImage: UIImage? {
         return UIImage(named: "illustrationEmptyCart", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
