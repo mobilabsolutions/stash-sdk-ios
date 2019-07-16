@@ -11,7 +11,7 @@ import XCTest
 class SpecificPaymentMethodRegistrationTests: BaseUITest {
     func testCanRegisterCreditCardDirectly() {
         let app = XCUIApplication()
-        showSpecificUI(for: "CC", in: app)
+        showSpecificUI(for: "CC", in: app, psp: "ADYEN")
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["First Name"].tap()
@@ -21,15 +21,14 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
 
         collectionViewsQuery.textFields["MM/YY"].tap()
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
 
         collectionViewsQuery.textFields["Last Name"].tap()
         collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["CVV/CVC"].tap()
-        collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
-
-        collectionViewsQuery.textFields["Country"].tap()
-        app.collectionViews.cells.element(boundBy: 4).tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
