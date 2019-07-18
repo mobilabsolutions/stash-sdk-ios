@@ -10,7 +10,7 @@ import Foundation
 import MobilabPaymentCore
 
 @objc(MLMobilabAdyen) public class MobilabAdyenBridge: NSObject {
-    @objc public static func createModule() -> MobilabPaymentSDKBridge.PaymentProviderBridge {
-        return MobilabPaymentSDKBridge.PaymentProviderBridge(paymentProvider: MobilabPaymentAdyen())
+    @objc public static func createModule() -> PaymentProviderBridge {
+        return PaymentProviderBridge(paymentProvider: MobilabPaymentAdyen())
     }
 }
