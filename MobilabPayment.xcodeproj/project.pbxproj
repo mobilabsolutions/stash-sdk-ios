@@ -1104,6 +1104,8 @@
 			children = (
 				E1995B192253A0E000BF24A2 /* Form */,
 				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
+				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
+				BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */,
 				E162FF8B2243959800413764 /* UIConstants.swift */,
 			);
 			path = UI;
@@ -1422,8 +1424,6 @@
 				E1068E9222522A2800ACC93C /* View */,
 				E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */,
 				E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */,
-				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
-				BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */,
 				C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */,
 			);
 			path = UI;
