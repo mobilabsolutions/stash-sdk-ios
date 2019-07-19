@@ -44,8 +44,8 @@ import Foundation
     ///   - uiConfiguration: The UI configuration that should be used for SDK-generated UI
     @objc public init(publishableKey: String,
                       endpoint: String,
-                      integrations: [MobilabPaymentSDKBridge.PaymentProviderIntegrationBridge],
-                      uiConfiguration: MobilabPaymentSDKBridge.MLPaymentMethodUIConfiguration?) {
+                      integrations: [PaymentProviderIntegrationBridge],
+                      uiConfiguration: PaymentMethodUIConfigurationBridge?) {
         self.publishableKey = publishableKey
         self.endpoint = endpoint
         self.uiConfiguration = uiConfiguration?.configuration

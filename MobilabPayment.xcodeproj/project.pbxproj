@@ -22,6 +22,15 @@
 		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
 		4419A6262253AF3B00FF4C80 /* MobilabPaymentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */; };
+		BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */; };
+		BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */; };
+		BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */; };
+		BA078EE222E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */; };
+		BA078EE422E085EF00E199B4 /* CreditCardDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */; };
+		BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */; };
+		BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */; };
+		BA078EEA22E087A100E199B4 /* MobilabPaymentErrorBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE922E087A100E199B4 /* MobilabPaymentErrorBridge.swift */; };
+		BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */; };
 		BA09A957224D60E8006C3A1D /* MobilabPaymentAdyen.h in Headers */ = {isa = PBXBuildFile; fileRef = BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA09A95A224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; };
 		BA09A95B224D60E8006C3A1D /* MobilabPaymentAdyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -161,7 +170,7 @@
 		E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */; };
 		E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BF229D856A00601880 /* CreditCardType.swift */; };
 		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
-		E146625F227C383B00512710 /* RegistrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625E227C383B00512710 /* RegistrationResult.swift */; };
+		E146625F227C383B00512710 /* PaymentMethodAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625E227C383B00512710 /* PaymentMethodAlias.swift */; };
 		E1466261227C397200512710 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466260227C397200512710 /* PersonalData.swift */; };
 		E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466262227C399F00512710 /* CreditCardExtra.swift */; };
 		E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466264227C39BF00512710 /* SEPAExtra.swift */; };
@@ -401,6 +410,15 @@
 		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
 		4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentError.swift; sourceTree = "<group>"; };
+		BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManagerBridge.swift; sourceTree = "<group>"; };
+		BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderBridge.swift; sourceTree = "<group>"; };
+		BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegrationBridge.swift; sourceTree = "<group>"; };
+		BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfigurationBridge.swift; sourceTree = "<group>"; };
+		BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataBridge.swift; sourceTree = "<group>"; };
+		BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataBridge.swift; sourceTree = "<group>"; };
+		BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodAliasBridge.swift; sourceTree = "<group>"; };
+		BA078EE922E087A100E199B4 /* MobilabPaymentErrorBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentErrorBridge.swift; sourceTree = "<group>"; };
+		BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypeBridge.swift; sourceTree = "<group>"; };
 		BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobilabPaymentAdyen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA09A955224D60E8006C3A1D /* MobilabPaymentAdyen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilabPaymentAdyen.h; sourceTree = "<group>"; };
 		BA09A956224D60E8006C3A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -511,7 +529,7 @@
 		E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegration.swift; sourceTree = "<group>"; };
 		E13CD2BF229D856A00601880 /* CreditCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardType.swift; sourceTree = "<group>"; };
 		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
-		E146625E227C383B00512710 /* RegistrationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationResult.swift; sourceTree = "<group>"; };
+		E146625E227C383B00512710 /* PaymentMethodAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodAlias.swift; sourceTree = "<group>"; };
 		E1466260227C397200512710 /* PersonalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalData.swift; sourceTree = "<group>"; };
 		E1466262227C399F00512710 /* CreditCardExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardExtra.swift; sourceTree = "<group>"; };
 		E1466264227C39BF00512710 /* SEPAExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAExtra.swift; sourceTree = "<group>"; };
@@ -838,8 +856,9 @@
 				BAA9826E224A4CE000D551DE /* UI */,
 				BACD619F2226C8E300E3ACC3 /* Integration */,
 				1DC5CBC920D410F9002058C1 /* MobilabPaymentSDK.swift */,
-				1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */,
 				E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */,
+				1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */,
+				BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -980,7 +999,9 @@
 				E1995B2122561E1400BF24A2 /* Error */,
 				1DFA536220D91C490065CCC3 /* BillingData.swift */,
 				1DFA536720D91EF20065CCC3 /* SEPAData.swift */,
+				BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */,
 				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
+				BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */,
 				E13CD2BF229D856A00601880 /* CreditCardType.swift */,
 				BA945A07223A83E600C39300 /* PayPalData.swift */,
 				C41CB8F122774ADB0009F744 /* NameProviding.swift */,
@@ -1083,6 +1104,8 @@
 			children = (
 				E1995B192253A0E000BF24A2 /* Form */,
 				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
+				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
+				BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */,
 				E162FF8B2243959800413764 /* UIConstants.swift */,
 			);
 			path = UI;
@@ -1132,6 +1155,7 @@
 			children = (
 				BACD61A32226C95D00E3ACC3 /* Model */,
 				BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */,
+				BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */,
 				E17648F2223A6D2F00889920 /* PaymentMethodDataProvider.swift */,
 			);
 			path = Integration;
@@ -1141,14 +1165,17 @@
 			isa = PBXGroup;
 			children = (
 				BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */,
+				E146625E227C383B00512710 /* PaymentMethodAlias.swift */,
+				BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */,
 				E17648E4223A5B4A00889920 /* PaymentMethodType.swift */,
+				BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */,
 				E189618E22647C810044D3CE /* AliasCreationDetail.swift */,
-				E146625E227C383B00512710 /* RegistrationResult.swift */,
 				E1466262227C399F00512710 /* CreditCardExtra.swift */,
 				E1466264227C39BF00512710 /* SEPAExtra.swift */,
 				E1466266227C39D900512710 /* PayPalExtra.swift */,
 				E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */,
 				E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */,
+				BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1397,7 +1424,6 @@
 				E1068E9222522A2800ACC93C /* View */,
 				E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */,
 				E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */,
-				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
 				C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */,
 			);
 			path = UI;
@@ -1427,6 +1453,7 @@
 			children = (
 				E1995B2C225628D400BF24A2 /* UserActionableErrorDetails.swift */,
 				4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */,
+				BA078EE922E087A100E199B4 /* MobilabPaymentErrorBridge.swift */,
 				E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */,
 				E1995B2822561F3700BF24A2 /* TitleProviding.swift */,
 				E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */,
@@ -1895,6 +1922,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */,
+				BA078EE222E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift in Sources */,
 				E1068EA722522CB000ACC93C /* CustomBackButtonContainerViewController.swift in Sources */,
 				E1068E9A22522B2000ACC93C /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */,
 				E1466261227C397200512710 /* PersonalData.swift in Sources */,
@@ -1906,6 +1934,7 @@
 				C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */,
 				E1068E9822522AE100ACC93C /* DataPointProvidingDelegate.swift in Sources */,
 				E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */,
+				BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
 				E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */,
 				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
@@ -1933,6 +1962,7 @@
 				E1995B3322562AFB00BF24A2 /* GenericErrorDetails.swift in Sources */,
 				4419A6262253AF3B00FF4C80 /* MobilabPaymentError.swift in Sources */,
 				E1466267227C39D900512710 /* PayPalExtra.swift in Sources */,
+				BA078EE422E085EF00E199B4 /* CreditCardDataBridge.swift in Sources */,
 				E17648E5223A5B4A00889920 /* PaymentMethodType.swift in Sources */,
 				1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */,
 				E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */,
@@ -1940,6 +1970,7 @@
 				E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */,
 				E1068E9C22522B2000ACC93C /* TextInputCollectionViewCell.swift in Sources */,
 				E1068E9922522AE100ACC93C /* UIConstants.swift in Sources */,
+				BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */,
 				BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */,
@@ -1952,16 +1983,20 @@
 				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
 				E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */,
 				E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */,
+				BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */,
 				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
 				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
+				BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */,
 				E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */,
 				E1995B2722561EA500BF24A2 /* ValidationErrorDetails.swift in Sources */,
 				E1995B2B22561FAD00BF24A2 /* SDKConfigurationError.swift in Sources */,
 				E1AF91962267446900BA0B82 /* MobilabPaymentErrorConvertible.swift in Sources */,
 				E1068EB022525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift in Sources */,
 				C42D56BE228AC53B00312CC1 /* Locale+Extension.swift in Sources */,
+				BA078EEA22E087A100E199B4 /* MobilabPaymentErrorBridge.swift in Sources */,
 				BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */,
 				E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */,
+				BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
 				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
 				E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */,
@@ -1974,7 +2009,7 @@
 				C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */,
 				E17648E2223A583C00889920 /* InternalPaymentMethodType.swift in Sources */,
 				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
-				E146625F227C383B00512710 /* RegistrationResult.swift in Sources */,
+				E146625F227C383B00512710 /* PaymentMethodAlias.swift in Sources */,
 				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
 				E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */,
 				C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */,
@@ -1983,6 +2018,7 @@
 				E1068E9D22522B2000ACC93C /* DoneButtonView.swift in Sources */,
 				E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */,
 				E1068E9B22522B2000ACC93C /* PaymentMethodTypeCollectionViewCell.swift in Sources */,
+				BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */,
 				1DC5CBC220D40F9D002058C1 /* MobilabPaymentConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
