@@ -27,6 +27,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
     case bicMissing
     /// The expiration year is invalid
     case invalidExpirationDate
+    /// The country is missing and required
+    case countryMissing
     /// Other PSP-specific validation failed
     case other(description: String, thirdPartyErrorDetails: String?)
 
@@ -50,6 +52,8 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "The BIC is required but missing"
         case .invalidExpirationDate:
             return "The expiration date is invalid"
+        case .countryMissing:
+            return "The country data is missing from the billing data but required"
         case .other(let description, _):
             return description
         }
@@ -75,86 +79,10 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
             return "BIC required"
         case .invalidExpirationDate:
             return "Credit card validation error"
+        case .countryMissing:
+            return "Country missing"
         case .other:
             return "Validation error"
         }
     }
-
-    private var identifier: String {
-        switch self {
-        case .invalidIBAN:
-            return "invalidIBAN"
-        case .invalidCreditCardNumber:
-            return "invalidCreditCardNumber"
-        case .invalidCVV:
-            return "invalidCVV"
-        case .creditCardMissingHolderName:
-            return "creditCardMissingHolderName"
-        case .billingMissingName:
-            return "billingMissingName"
-        case .cardExtraNotExtractable:
-            return "cardExtraNotExtractable"
-        case .cardTypeNotSupported:
-            return "cardTypeNotSupported"
-        case .bicMissing:
-            return "bicMissing"
-        case .invalidExpirationDate:
-            return "invalidExpirationDate"
-        case .other:
-            return "other"
-        }
-    }
-
-    private var details: CodableTwoTuple<String, String?>? {
-        switch self {
-        case let .other(description, thirdPartyErrorDetails):
-            return CodableTwoTuple(first: description, second: thirdPartyErrorDetails)
-        default:
-            return nil
-        }
-    }
-}
-
-extension ValidationErrorDetails: Codable {
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: ValidationErrorKeys.self)
-        try container.encode(self.identifier, forKey: .identifier)
-        try container.encode(self.details, forKey: .details)
-    }
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: ValidationErrorKeys.self)
-        let identifier = try container.decode(String.self, forKey: .identifier)
-
-        switch identifier {
-        case "invalidIBAN":
-            self = .invalidIBAN
-        case "invalidCreditCardNumber":
-            self = .invalidCreditCardNumber
-        case "invalidCVV":
-            self = .invalidCVV
-        case "creditCardMissingHolderName":
-            self = .creditCardMissingHolderName
-        case "billingMissingName":
-            self = .billingMissingName
-        case "cardExtraNotExtractable":
-            self = .cardExtraNotExtractable
-        case "cardTypeNotSupported":
-            self = .cardTypeNotSupported
-        case "bicMissing":
-            self = .bicMissing
-        case "invalidExpirationDate":
-            self = .invalidExpirationDate
-        case "other":
-            let details = try container.decode(CodableTwoTuple<String, String?>.self, forKey: .details)
-            self = .other(description: details.first, thirdPartyErrorDetails: details.second)
-        default:
-            throw DecodingError.dataCorruptedError(forKey: .identifier, in: container, debugDescription: "The identifier could not be decoded for type ValidationErrorDetails")
-        }
-    }
-}
-
-private enum ValidationErrorKeys: CodingKey {
-    case identifier
-    case details
 }
