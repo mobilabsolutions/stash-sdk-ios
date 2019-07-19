@@ -16,7 +16,7 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
     private let uiConfiguration: PaymentMethodUIConfiguration
     private let payPalImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIConstants.payPalImage
+        view.image = UIConstants.payPalBigImage
         view.contentMode = .scaleAspectFit
         return view
     }()
