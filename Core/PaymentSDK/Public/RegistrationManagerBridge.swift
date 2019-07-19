@@ -29,10 +29,10 @@ import UIKit
     
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                                    specificPaymentMethod: PaymentMethodTypeBridge,
-                                                   billingData _: BillingData?,
+                                                   billingData: BillingData?,
                                                    completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerPaymentMethodUsingUI(on: viewController,
-                                                  specificPaymentMethod: specificPaymentMethod.paymentMethodType,
+                                                  specificPaymentMethod: specificPaymentMethod.paymentMethodType, billingData: billingData,
                                                   completion: self.bridgedCompletion(completion: completion))
     }
     
