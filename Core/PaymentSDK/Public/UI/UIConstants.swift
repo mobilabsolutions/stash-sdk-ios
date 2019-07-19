@@ -80,6 +80,10 @@ public final class UIConstants {
     public class var payPalImage: UIImage? {
         return UIImage(named: "paypal", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
+    
+    public class var payPalBigImage: UIImage? {
+        return UIImage(named: "paypalBig", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
 
     public class var payPalSmall: UIImage? {
         return UIImage(named: "paypalSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
