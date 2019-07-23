@@ -12,11 +12,8 @@ env:
     - WORKSPACE_NAME="MobilabPayment.xcworkspace"
     - DESTINATION="OS=12.2,name=iPhone X"
   matrix:
-    include:
-      - name: "Stash Unit Tests"
-        env: TEST_SUITE=unit
-      - name: "Stash UI Tests"
-        env: TEST_SUITE=ui
+    - TEST_SUITE=unit
+    - TEST_SUITE=ui
     
 install:
   - gem install xcpretty
