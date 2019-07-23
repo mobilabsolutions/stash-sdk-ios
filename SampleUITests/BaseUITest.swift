@@ -27,6 +27,7 @@ class BaseUITest: XCTestCase {
         app.tabBars.buttons["Bookmarks"].tap()
         app.pickerWheels.firstMatch.adjust(toPickerWheelValue: psp)
         app.segmentedControls.buttons[paymentMethodType].tap()
+        app.pickerWheels.firstMatch.adjust(toPickerWheelValue: psp)
         app.buttons["Show Specific UI"].tap()
     }
 

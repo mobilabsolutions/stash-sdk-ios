@@ -66,19 +66,27 @@ public final class UIConstants {
     }
 
     public class var creditCardImage: UIImage? {
-        return UIImage(named: "credit-card", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "creditCard", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var sepaImage: UIImage? {
         return UIImage(named: "sepa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
+    public class var sepaSmallImage: UIImage? {
+        return UIImage(named: "sepaSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
     public class var payPalImage: UIImage? {
         return UIImage(named: "paypal", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
-    public class var payPalNoTextImage: UIImage? {
-        return UIImage(named: "paypalNoText", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    public class var payPalBigImage: UIImage? {
+        return UIImage(named: "paypalBig", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
+    public class var payPalSmall: UIImage? {
+        return UIImage(named: "paypalSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var rightArrowImage: UIImage? {
@@ -86,11 +94,11 @@ public final class UIConstants {
     }
 
     public class var americanExpressImage: UIImage? {
-        return UIImage(named: "american-express", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "americanExpress", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var dinersImage: UIImage? {
-        return UIImage(named: "diners", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "dinersClub", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var mastercardImage: UIImage? {
@@ -106,7 +114,7 @@ public final class UIConstants {
     }
 
     public class var unionPayImage: UIImage? {
-        return UIImage(named: "union-pay", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "unionPay", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
     public class var discoverImage: UIImage? {

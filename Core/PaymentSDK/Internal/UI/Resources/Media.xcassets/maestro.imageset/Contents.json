@@ -1,14 +1,14 @@
 {
   "images" : [
     {
+      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "maestro.png",
-      "scale" : "1x"
+      "filename" : "maestro.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "maestro@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "maestro@2x.png"
     },
     {
       "idiom" : "universal",

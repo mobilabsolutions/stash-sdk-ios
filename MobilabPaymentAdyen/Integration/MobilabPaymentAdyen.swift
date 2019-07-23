@@ -56,7 +56,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
-        #warning("Update this return URL")
+        // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
             completion(.success(creationDetail))

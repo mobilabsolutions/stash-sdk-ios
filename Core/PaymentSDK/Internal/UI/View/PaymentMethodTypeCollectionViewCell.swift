@@ -113,10 +113,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
                 self.methodImageView.image = UIConstants.creditCardImage
             case .sepa:
                 self.nameLabel.text = "SEPA"
-                self.methodImageView.image = UIConstants.sepaImage
+                self.methodImageView.image = UIConstants.sepaSmallImage
             case .payPal:
                 self.nameLabel.text = "PayPal"
-                self.methodImageView.image = UIConstants.payPalNoTextImage
+                self.methodImageView.image = UIConstants.payPalSmall
             }
         }
     }
