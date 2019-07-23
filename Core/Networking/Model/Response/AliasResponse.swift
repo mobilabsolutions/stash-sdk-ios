@@ -10,6 +10,5 @@ import Foundation
 
 struct AliasResponse: Codable {
     let aliasId: String
-    let extra: AliasExtra?
     let psp: PSPExtra
 }

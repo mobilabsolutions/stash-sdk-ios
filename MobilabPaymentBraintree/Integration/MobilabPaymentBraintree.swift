@@ -17,34 +17,29 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        do {
-            let pspData = try registrationRequest.pspData.toPSPData(type: BraintreeData.self)
-            guard let presentingViewController = registrationRequest.viewController else {
-                fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
-            }
-
-            self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
-
-            let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
-            payPalManager.didCreatePaymentMethodCompletion = { method in
-                if let payPalData = method as? PayPalData {
-                    let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData(email: payPalData.email))
-                    let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
-                    completion(.success(registration))
-                } else {
-                    fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
-                }
-            }
-            payPalManager.errorWhileUsingPayPal = { error in
-                completion(.failure(error))
-            }
-            payPalManager.showPayPalUI()
-
-        } catch let error as MobilabPaymentError {
-            completion(.failure(error))
-        } catch {
-            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
+        
+        guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
+            return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
+        guard let presentingViewController = registrationRequest.viewController else {
+            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+        }
+        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+        
+        let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
+        payPalManager.didCreatePaymentMethodCompletion = { method in
+            if let payPalData = method as? PayPalData {
+                let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData(email: payPalData.email))
+                let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
+                completion(.success(registration))
+            } else {
+                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+            }
+        }
+        payPalManager.errorWhileUsingPayPal = { error in
+            completion(.failure(error))
+        }
+        payPalManager.showPayPalUI()
     }
 
     public var supportedPaymentMethodTypes: [PaymentMethodType] {

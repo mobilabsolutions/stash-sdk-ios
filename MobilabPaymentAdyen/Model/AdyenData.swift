@@ -12,4 +12,11 @@ import MobilabPaymentCore
 struct AdyenData: Codable {
     /// The created payment session ID
     let paymentSession: String
+    
+    public init?(pspData: PSPExtra) {
+        guard let paymentSession = pspData.paymentSession else {
+            return nil
+        }
+        self.paymentSession = paymentSession
+    }
 }

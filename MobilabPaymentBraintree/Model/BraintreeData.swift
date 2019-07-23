@@ -7,8 +7,16 @@
 //
 
 import Foundation
+import MobilabPaymentCore
 
-public struct BraintreeData: Codable {
+public struct BraintreeData {
     /// Client token used for initializing Braintree SDK
     public let clientToken: String
+    
+    public init?(pspData: PSPExtra) {
+        guard let clientToken = pspData.clientToken else {
+            return nil
+        }
+        self.clientToken = clientToken
+    }
 }
