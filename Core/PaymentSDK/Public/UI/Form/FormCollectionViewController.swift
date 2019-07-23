@@ -106,7 +106,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         switch error {
         case .configuration:
             banner = UIViewControllerTools.showAlertBanner(on: self, title: "Configuration Error",
-                                                           body: "A configuration error occurred. This should not happen.",
+                                                           body: "A configuration error occurred. This should not happen. \(error.title)",
                                                            uiConfiguration: self.configuration)
         case .network:
             banner = UIViewControllerTools.showAlertBanner(on: self, title: "Network Error",
@@ -115,16 +115,16 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         case let .temporary(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0)) " } ?? ""
             banner = UIViewControllerTools.showAlertBanner(on: self, title: "Temporary Error",
-                                                           body: "A temporary error \(insertedErrorCode)occurred. Please retry.",
+                                                           body: "A temporary error \(insertedErrorCode)occurred. \(error.title). Please retry.",
                                                            uiConfiguration: self.configuration)
         case let .validation(error):
             banner = UIViewControllerTools.showAlertBanner(on: self, title: "Validation Error",
-                                                           body: error.description,
+                                                           body: "\(error.title). \(error.description)",
                                                            uiConfiguration: self.configuration)
         case let .other(error):
             let insertedErrorCode = error.thirdPartyErrorCode.flatMap { "(\($0))" } ?? ""
-            banner = UIViewControllerTools.showAlertBanner(on: self, title: "Error",
-                                                           body: "An error occurred: \(error.description) \(insertedErrorCode)",
+            banner = UIViewControllerTools.showAlertBanner(on: self, title: error.title,
+                                                           body: "\(error.description) \(insertedErrorCode)",
                                                            uiConfiguration: self.configuration)
         case .userCancelled:
             // The user cancelled the action, we should dismiss ourselves

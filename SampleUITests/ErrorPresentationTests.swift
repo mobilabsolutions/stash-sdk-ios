@@ -145,4 +145,37 @@ class ErrorPresentationTests: BaseUITest {
 
         waitForElementToAppear(element: alert)
     }
+
+    func testIncorrectAdyenCVVErrorIsShown() {
+        let app = XCUIApplication()
+
+        showSpecificUI(for: "CC", in: app, psp: "ADYEN")
+
+        let collectionViewsQuery = app.collectionViews
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("4111 1111 1111 1111")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        let alertText = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Error")).firstMatch
+        let alertTitle = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "CVC Declined")).firstMatch
+
+        waitForElementToAppear(element: alertTitle)
+        XCTAssert(alertText.exists)
+        XCTAssert(alertTitle.exists)
+    }
 }
