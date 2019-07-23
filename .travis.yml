@@ -29,6 +29,7 @@ script:
 jobs:
   include:
     - stage: deploy
+      if: branch = master
       deploy: 
         provider: script
         skip_cleanup: true
