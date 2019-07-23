@@ -149,7 +149,7 @@ class ErrorPresentationTests: BaseUITest {
     func testIncorrectAdyenCVVErrorIsShown() {
         let app = XCUIApplication()
 
-        showSpecificUI(for: "CC", in: app, psp: "ADYEN")
+        showSpecificUI(for: "CC", with: "ADYEN", in: app)
 
         let collectionViewsQuery = app.collectionViews
         collectionViewsQuery.textFields["First Name"].tap()

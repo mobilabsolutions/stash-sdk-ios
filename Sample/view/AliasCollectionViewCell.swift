@@ -15,6 +15,8 @@ class AliasCollectionViewCell: UICollectionViewCell {
 
     func setup(for alias: Alias) {
         self.aliasLabel.text = alias.alias
+        self.aliasLabel.accessibilityLabel = "Alias Label"
+        self.aliasLabel.accessibilityValue = alias.alias
 
         let typeLabelText: String
 

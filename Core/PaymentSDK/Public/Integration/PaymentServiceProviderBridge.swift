@@ -10,7 +10,7 @@ import Foundation
 
 @objc(MLPaymentProvider) public final class PaymentProviderBridge: NSObject {
     let paymentProvider: PaymentServiceProvider
-    
+
     public init(paymentProvider: PaymentServiceProvider) {
         self.paymentProvider = paymentProvider
     }

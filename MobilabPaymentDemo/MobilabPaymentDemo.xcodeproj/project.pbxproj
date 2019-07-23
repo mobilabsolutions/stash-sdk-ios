@@ -139,7 +139,6 @@
 				E1C1536C22D4752600507A18 /* controller */,
 				E1C1537C22D4752600507A18 /* Extensions */,
 				E1C1539222D4752700507A18 /* Info.plist */,
-				E1C1539B22D4752700507A18 /* MobilabPaymentDemo */,
 				E1C1539322D4752700507A18 /* model */,
 				E1C1537322D4752600507A18 /* other */,
 				E1C1537922D4752600507A18 /* Services */,
@@ -248,13 +247,6 @@
 				E1C1539A22D4752700507A18 /* MerchantPaymentMethod.swift */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		E1C1539B22D4752700507A18 /* MobilabPaymentDemo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MobilabPaymentDemo;
 			sourceTree = "<group>";
 		};
 		E1C153CF22D475CF00507A18 /* Frameworks */ = {

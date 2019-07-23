@@ -52,7 +52,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
-    public func provideAliasCreationDetail(for _: RegistrationData,
+    public func provideAliasCreationDetail(for registrationData: RegistrationData,
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
