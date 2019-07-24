@@ -71,7 +71,7 @@ internal final class ApplePayPlugin: NSObject, PaymentDetailsPlugin {
     private var paymentAuthorizationViewController: PKPaymentAuthorizationViewController?
 
     private var paymentAuthorizationCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
-    private var paymentDetailCompletion: Completion<[PaymentDetail]>?
+    private var paymentDetailCompletion: (Completion<[PaymentDetail]>)?
 
     private func newPaymentAuthorizationViewController() -> PKPaymentAuthorizationViewController? {
         let paymentRequest = PKPaymentRequest(paymentMethod: paymentMethod, paymentSession: paymentSession)
@@ -103,7 +103,7 @@ extension ApplePayPlugin: PKPaymentAuthorizationViewControllerDelegate {
 
         let token = String(data: payment.token.paymentData, encoding: .utf8)
         detail.value = token
-        paymentDetailCompletion?([detail])
+        self.paymentDetailCompletion?([detail])
     }
 }
 
@@ -134,7 +134,7 @@ private extension PKPaymentRequest {
         }
 
         // Make sure all items have a description, otherwise we won't have anything to display.
-        let itemDescriptions = lineItems.compactMap({ $0.description })
+        let itemDescriptions = lineItems.compactMap { $0.description }
         guard itemDescriptions.count == lineItems.count else {
             return []
         }
@@ -142,11 +142,11 @@ private extension PKPaymentRequest {
         var items: [PKPaymentSummaryItem] = []
         let surchargeTotal = paymentMethod.surcharge?.total ?? 0
 
-        let totalIncludingTaxAndSurcharge = lineItems.compactMap({ $0.amountIncludingTax }).reduce(0, +) + surchargeTotal
+        let totalIncludingTaxAndSurcharge = lineItems.compactMap { $0.amountIncludingTax }.reduce(0, +) + surchargeTotal
 
-        let totalWithTaxExplicitlyAddedAndSurcharge = lineItems.compactMap({
+        let totalWithTaxExplicitlyAddedAndSurcharge = lineItems.compactMap {
             ($0.amountExcludingTax ?? 0) + ($0.taxAmount ?? 0)
-        }).reduce(0, +) + surchargeTotal
+        }.reduce(0, +) + surchargeTotal
 
         let paymentAmount = paymentSession.payment.amount(for: paymentMethod)
         let paymentValue = paymentAmount.value
@@ -170,7 +170,7 @@ private extension PKPaymentRequest {
             }
 
             let taxLabel = ADYLocalizedString("taxLabel")
-            let taxAmount = lineItems.compactMap({ $0.taxAmount }).reduce(0, +)
+            let taxAmount = lineItems.compactMap { $0.taxAmount }.reduce(0, +)
             let formattedTaxAmount = AmountFormatter.decimalAmount(taxAmount, currencyCode: paymentAmount.currencyCode)
             let taxLineItem = PKPaymentSummaryItem(label: taxLabel, amount: formattedTaxAmount)
 

@@ -18,7 +18,7 @@ class PaymentMethodsCollectionViewController: UICollectionViewController {
         flowLayout.itemSize = CGSize(width: self.collectionView.frame.size.width, height: 60)
         flowLayout.minimumLineSpacing = 2
 
-        collectionView.collectionViewLayout = flowLayout
+        self.collectionView.collectionViewLayout = flowLayout
 
         title = "List"
     }

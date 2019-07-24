@@ -273,7 +273,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
-        let hasError = !self.cellModels[indexPath.row].necessaryData.filter({ self.errors[$0] != nil }).isEmpty
+        let hasError = !self.cellModels[indexPath.row].necessaryData.filter { self.errors[$0] != nil }.isEmpty
         let numberOfDataPoints = self.cellModels[indexPath.row].necessaryData.count
         // If there are multiple fields in the cell, the error will need more lines to be displayed.
         let errorSurplus = numberOfDataPoints > 1 ? 2 * self.errorCellHeightSurplus : self.errorCellHeightSurplus
@@ -320,7 +320,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     private func updateFieldIdleTimer(for dataPoint: NecessaryData) {
-        let newTimer = Timer.scheduledTimer(withTimeInterval: numberOfSecondsUntilIdleFieldValidation, repeats: false) { [weak self] _ in
+        let newTimer = Timer.scheduledTimer(withTimeInterval: self.numberOfSecondsUntilIdleFieldValidation, repeats: false) { [weak self] _ in
             self?.updateErrorForSingleDataPoint(dataPoint: dataPoint)
         }
 
@@ -342,7 +342,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         self.errors[dataPoint] = validationResult?.errors[dataPoint]
         self.fieldErrorDelegates[dataPoint]?.setError(description: validationResult?.errors[dataPoint]?.description, forDataPoint: dataPoint)
-        self.doneButtonUpdating?.updateDoneButton(enabled: isDone())
+        self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
 
         if hadError != hasError {
             // We need to recompute cell heights because there is a new error

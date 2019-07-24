@@ -11,7 +11,7 @@ public protocol CardScanDelegate: AnyObject {
     /// - Parameter paymentMethod: The payment method that is currently selected.
     /// - Returns: A boolean value indicating whether a card scanning option should be presented to the user.
     func isCardScanEnabled(for paymentMethod: PaymentMethod) -> Bool
-    
+
     /// Invoked when the user has selected the card scanning option.
     ///
     /// - Parameters:

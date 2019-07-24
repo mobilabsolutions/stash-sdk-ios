@@ -5,7 +5,6 @@
 //
 
 class CardNameValidator: Validator {
-    
     func isMaxLength(_ string: String) -> Bool {
         return string.count >= 26
     }

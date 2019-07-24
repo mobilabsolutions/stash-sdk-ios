@@ -10,7 +10,7 @@ import Foundation
 
 public class SEPAUtils {
     public static func formattedIban(number: String) -> NSAttributedString {
-        let cleaned = cleanedIban(number: number)
+        let cleaned = self.cleanedIban(number: number)
         let newString = NSMutableAttributedString(string: cleaned)
 
         for space in stride(from: 4, to: cleaned.count, by: 4) {
@@ -21,7 +21,7 @@ public class SEPAUtils {
     }
 
     static func spaceFormattedIbanMask(number: String) -> String {
-        let cleaned = cleanedIban(number: number)
+        let cleaned = self.cleanedIban(number: number)
         let middleStartIndex = cleaned.index(cleaned.startIndex, offsetBy: 2)
         let middleEndIndex = cleaned.index(cleaned.endIndex, offsetBy: -4)
         let firstDigits = String(cleaned[..<middleStartIndex])

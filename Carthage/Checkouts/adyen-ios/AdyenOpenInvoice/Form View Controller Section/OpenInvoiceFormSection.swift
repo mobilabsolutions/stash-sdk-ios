@@ -7,18 +7,17 @@
 import Foundation
 
 class OpenInvoiceFormSection: FormSection {
-    
     // MARK: - Internal
-    
+
     override func addFormElement(_ element: UIView) {
-        guard elements.contains(element) == false else {
+        guard self.elements.contains(element) == false else {
             return
         }
-        
-        elements.append(element)
+
+        self.elements.append(element)
         super.addFormElement(element)
     }
-    
+
     func isValid() -> Bool {
         var valid = true
         elements.forEach { subview in
@@ -30,9 +29,9 @@ class OpenInvoiceFormSection: FormSection {
         }
         return valid || isHidden
     }
-    
+
     // MARK: - Private
-    
+
     // Keep track of added elements for validation purposes
     private var elements: [UIView] = []
 }

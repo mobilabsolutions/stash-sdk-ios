@@ -10,8 +10,7 @@ import Foundation
 public enum Result<T> {
     /// Indicates a successful result.
     case success(T)
-    
+
     /// Indicates a failure.
     case failure(Error)
-    
 }

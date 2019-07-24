@@ -59,7 +59,7 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
     private func showActivityIndicatory() {
         let activityView = UIActivityIndicatorView(style: .whiteLarge)
         activityView.center = self.view.center
-        activityView.color = uiConfiguration.mediumEmphasisColor
+        activityView.color = self.uiConfiguration.mediumEmphasisColor
 
         self.view.addSubview(activityView)
         activityView.startAnimating()

@@ -35,7 +35,7 @@ struct ArgumentProcessor {
             arg.name.lowercased() == "logmode"
         }
 
-        port = UInt32(fastlaneArgsMinusLanes.first(where: { $0.name == "swiftServerPort" })?.value ?? "") ?? 2000
+        self.port = UInt32(fastlaneArgsMinusLanes.first(where: { $0.name == "swiftServerPort" })?.value ?? "") ?? 2000
 
         // Configure logMode since we might need to use it before we finish parsing
         if let logModeArg = potentialLogMode.first {

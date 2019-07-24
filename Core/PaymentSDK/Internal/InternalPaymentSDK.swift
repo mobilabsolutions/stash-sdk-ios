@@ -51,7 +51,7 @@ class InternalPaymentSDK {
     }
 
     func initialize(configuration: MobilabPaymentConfiguration) {
-        guard !wasInitialized
+        guard !self.wasInitialized
         else { fatalError("The MobilabPaymentSDK should only ever be initialized once!") }
 
         do {

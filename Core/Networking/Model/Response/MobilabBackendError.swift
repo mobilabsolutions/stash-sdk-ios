@@ -30,7 +30,7 @@ extension MobilabBackendError: MobilabPaymentErrorConvertible {
 
         switch errorCodeCategory {
         case "3":
-            let configurationError = SDKConfigurationError.invalidBackendConfiguration(title: title ?? "Error", description: description, code: code)
+            let configurationError = SDKConfigurationError.invalidBackendConfiguration(title: self.title ?? "Error", description: self.description, code: self.code)
             return MobilabPaymentError.configuration(configurationError)
         default:
             let error = GenericErrorDetails(title: title ?? "Error", description: description, thirdPartyErrorCode: code)

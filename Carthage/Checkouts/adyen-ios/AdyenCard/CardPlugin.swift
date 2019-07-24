@@ -8,44 +8,43 @@ import AdyenInternal
 import Foundation
 
 internal class CardPlugin: PaymentDetailsPlugin {
-    
     internal let paymentSession: PaymentSession
     internal let paymentMethod: PaymentMethod
-    
+
     internal weak static var cardScanDelegate: CardScanDelegate?
-    
+
     internal required init(paymentSession: PaymentSession, paymentMethod: PaymentMethod) {
         self.paymentSession = paymentSession
         self.paymentMethod = paymentMethod
     }
-    
+
     internal var canSkipPaymentMethodSelection: Bool {
         return true
     }
-    
+
     internal var preferredPresentationMode: PaymentDetailsPluginPresentationMode {
         return .push
     }
-    
+
     internal func viewController(for details: [PaymentDetail], appearance: Appearance, completion: @escaping Completion<[PaymentDetail]>) -> UIViewController {
-        let amount = paymentSession.payment.amount(for: paymentMethod)
-        
+        let amount = self.paymentSession.payment.amount(for: self.paymentMethod)
+
         let formViewController = CardFormViewController(appearance: appearance)
-        formViewController.title = paymentMethod.name
-        formViewController.paymentMethod = paymentMethod
-        formViewController.paymentSession = paymentSession
+        formViewController.title = self.paymentMethod.name
+        formViewController.paymentMethod = self.paymentMethod
+        formViewController.paymentSession = self.paymentSession
         formViewController.payActionTitle = appearance.checkoutButtonAttributes.title(for: amount)
-        
+
         if let surcharge = paymentMethod.surcharge, let amountString = AmountFormatter.formatted(amount: surcharge.total, currencyCode: amount.currencyCode) {
             formViewController.payActionSubtitle = ADYLocalizedString("surcharge.formatted", amountString)
         }
-        
+
         if let delegate = CardPlugin.cardScanDelegate, delegate.isCardScanEnabled(for: paymentMethod) {
             formViewController.cardScanButtonHandler = { completion in
                 delegate.scanCard(for: self.paymentMethod, completion: completion)
             }
         }
-        
+
         formViewController.cardDetailsHandler = { cardInputData in
             var details = details
             details.encryptedCardNumber?.value = cardInputData.encryptedCard.number
@@ -55,36 +54,34 @@ internal class CardPlugin: PaymentDetailsPlugin {
             details.installments?.value = cardInputData.installments
             details.storeDetails?.value = cardInputData.storeDetails.stringValue()
             details.cardholderName?.value = cardInputData.holderName
-            
+
             completion(details)
         }
-        
+
         return formViewController
     }
-    
+
     private var authenticator: Card3DS2Authenticator?
-    
 }
 
 // MARK: - AdditionalPaymentDetailsPlugin
 
 extension CardPlugin: AdditionalPaymentDetailsPlugin {
-    
-    internal func present(_ additionalDetails: AdditionalPaymentDetails, using navigationController: UINavigationController, appearance: Appearance, completion: @escaping Completion<Result<[PaymentDetail]>>) {
+    internal func present(_ additionalDetails: AdditionalPaymentDetails, using _: UINavigationController, appearance _: Appearance, completion: @escaping Completion<Result<[PaymentDetail]>>) {
         if let identificationDetails = additionalDetails as? IdentificationPaymentDetails {
-            performIdentification(with: identificationDetails, completion: completion)
+            self.performIdentification(with: identificationDetails, completion: completion)
         } else if let challengeDetails = additionalDetails as? ChallengePaymentDetails {
-            performChallenge(with: challengeDetails, completion: completion)
+            self.performChallenge(with: challengeDetails, completion: completion)
         }
     }
-    
+
     private func performIdentification(with identificationDetails: IdentificationPaymentDetails, completion: @escaping Completion<Result<[PaymentDetail]>>) {
         guard let fingerprintToken = identificationDetails.threeDS2FingerprintToken else {
             completion(.failure(ThreeDS2Error.missingFingerprintToken))
-            
+
             return
         }
-        
+
         let authenticator = Card3DS2Authenticator()
         authenticator.createFingerprint(usingToken: fingerprintToken) { result in
             switch result {
@@ -96,18 +93,18 @@ extension CardPlugin: AdditionalPaymentDetailsPlugin {
                 completion(.failure(error))
             }
         }
-        
+
         self.authenticator = authenticator
     }
-    
+
     private func performChallenge(with challengeDetails: ChallengePaymentDetails, completion: @escaping Completion<Result<[PaymentDetail]>>) {
         guard let challengeToken = challengeDetails.threeDS2ChallengeToken else {
             completion(.failure(ThreeDS2Error.missingChallengeToken))
-            
+
             return
         }
-        
-        authenticator?.presentChallenge(usingToken: challengeToken) { result in
+
+        self.authenticator?.presentChallenge(usingToken: challengeToken) { result in
             switch result {
             case let .success(challengeResult):
                 var details = challengeDetails.details
@@ -118,10 +115,9 @@ extension CardPlugin: AdditionalPaymentDetailsPlugin {
             }
         }
     }
-    
+
     private enum ThreeDS2Error: Error {
         case missingFingerprintToken
         case missingChallengeToken
     }
-    
 }

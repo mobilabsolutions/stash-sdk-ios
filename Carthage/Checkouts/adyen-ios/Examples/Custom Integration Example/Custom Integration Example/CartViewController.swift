@@ -12,24 +12,22 @@ protocol CheckoutStartDelegate: class {
 }
 
 class CartViewController: CheckoutStatusViewController {
-    
     // MARK: - CheckoutStatusViewController
-    
+
     override func buttonClicked() {
-        checkoutStartDelegate?.startCheckout()
+        self.checkoutStartDelegate?.startCheckout()
     }
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         checkoutStepImageView.image = UIImage(named: "checkout")
         nextStepButton.setTitle("CHECKOUT", for: .normal)
     }
-    
+
     // MARK: - Public
-    
+
     weak var checkoutStartDelegate: CheckoutStartDelegate?
-    
 }

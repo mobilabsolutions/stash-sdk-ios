@@ -116,7 +116,7 @@ class AddUIViewController: UIViewController {
     }
 
     private func configureSDK(testModeEnabled: Bool, psp: MobilabPaymentProvider) {
-        guard !sdkWasInitialized
+        guard !self.sdkWasInitialized
         else { return }
 
         let provider: PaymentServiceProvider
@@ -143,8 +143,8 @@ class AddUIViewController: UIViewController {
 
         MobilabPaymentSDK.initialize(configuration: configuration)
 
-        useTestModeSwitch.isEnabled = false
-        sdkWasInitialized = true
+        self.useTestModeSwitch.isEnabled = false
+        self.sdkWasInitialized = true
     }
 }
 

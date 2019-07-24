@@ -20,7 +20,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         do {
             let pspData = try registrationRequest.pspData.toPSPData(type: BSPayoneData.self)
-            let billingData = getBillingData(from: registrationRequest) ?? BillingData()
+            let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
 
             if let creditCardRequest = try getCreditCardData(from: registrationRequest),
                 let creditCardData = registrationRequest.registrationData as? CreditCardData,

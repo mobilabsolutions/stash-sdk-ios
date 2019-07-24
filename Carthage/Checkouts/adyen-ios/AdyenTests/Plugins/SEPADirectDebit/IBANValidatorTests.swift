@@ -9,11 +9,11 @@ import XCTest
 
 class IBANValidatorTests: XCTestCase {
     func testValidation() {
-        for iban in validIBANs {
+        for iban in self.validIBANs {
             XCTAssertTrue(IBANValidator().isValid(iban), "\(iban) is not valid.")
         }
     }
-    
+
     func testCanonicalization() {
         XCTAssertEqual(IBANValidator().canonicalize("nl36test 0236169114"), "NL36TEST0236169114")
         XCTAssertEqual(IBANValidator().canonicalize("NL 82 test 0836169255"), "NL82TEST0836169255")
@@ -23,19 +23,19 @@ class IBANValidatorTests: XCTestCase {
         XCTAssertEqual(IBANValidator().canonicalize("ES9121000418450200051332"), "ES9121000418450200051332")
         XCTAssertEqual(IBANValidator().canonicalize("D K 8 6 1 2 3 4 1 2 3 4 5 6 7 8 9 0"), "DK8612341234567890")
     }
-    
+
     func testExtractingCountryCode() {
         XCTAssertEqual(IBANValidator().countryCode(in: "NL13TEST0123456789"), "NL")
         XCTAssertEqual(IBANValidator().countryCode(in: "DE87123456781234567890"), "DE")
         XCTAssertEqual(IBANValidator().countryCode(in: "GB"), "GB")
         XCTAssertEqual(IBANValidator().countryCode(in: "MK87"), "MK")
-        
+
         XCTAssertEqual(IBANValidator().countryCode(in: "6789NL13TEST012345"), nil)
         XCTAssertEqual(IBANValidator().countryCode(in: "678913012345"), nil)
         XCTAssertEqual(IBANValidator().countryCode(in: "6NL78913012345"), nil)
         XCTAssertEqual(IBANValidator().countryCode(in: "D"), nil)
     }
-    
+
     func testRearranging() {
         XCTAssertEqual(IBANValidator().rearrange("NL13TEST0123456789"), "TEST0123456789NL13")
         XCTAssertEqual(IBANValidator().rearrange("DE87123456781234567890"), "123456781234567890DE87")
@@ -43,19 +43,19 @@ class IBANValidatorTests: XCTestCase {
         XCTAssertEqual(IBANValidator().rearrange("NL05TEST0236169114"), "TEST0236169114NL05")
         XCTAssertEqual(IBANValidator().rearrange("IT60X0542811101000000123456"), "X0542811101000000123456IT60")
     }
-    
+
     func testNumerification() {
         XCTAssertEqual(IBANValidator().numerify("WEST12345698765432GB82"), "3214282912345698765432161182")
         XCTAssertEqual(IBANValidator().numerify("TEST0236169114NL05"), "291428290236169114232105")
         XCTAssertEqual(IBANValidator().numerify("123456781234567890DE87"), "123456781234567890131487")
     }
-    
+
     func testMod97() {
         XCTAssertEqual(IBANValidator().mod97("3214282912345698765432161182"), 1)
     }
-    
+
     // MARK: Constants
-    
+
     private let validIBANs = [
         "AD1200012030200359100100",
         "AE070331234567890123456",
@@ -122,7 +122,6 @@ class IBANValidatorTests: XCTestCase {
         "TN5914207207100707129648",
         "TR330006100519786457841326",
         "VG96VPVG0000012345678901",
-        "XK051212012345678906"
+        "XK051212012345678906",
     ]
-    
 }

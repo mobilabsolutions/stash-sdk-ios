@@ -8,28 +8,27 @@ import AdyenInternal
 import UIKit
 
 class SocialSecurityNumberSection: OpenInvoiceFormSection {
-    
     // MARK: - Internal
-    
+
     lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
-    
+
     init(ssnCallback: @escaping (String) -> Void) {
         self.ssnCallback = ssnCallback
         super.init()
-        
+
         title = ADYLocalizedString("openInvoice.ssnSection.title")
-        
-        addFormElement(socialSecurityNumberField)
+
+        addFormElement(self.socialSecurityNumberField)
     }
-    
-    required init(coder: NSCoder) {
+
+    required init(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Private
-    
+
     private var ssnCallback: (String) -> Void
-    
+
     private lazy var socialSecurityNumberField: FormTextField = {
         let ssnField = FormTextField()
         ssnField.validator = KlarnaSSNValidator()
@@ -42,15 +41,13 @@ class SocialSecurityNumberSection: OpenInvoiceFormSection {
         ssnField.clearButtonMode = .never
         return ssnField
     }()
-    
 }
 
 extension SocialSecurityNumberSection: FormTextFieldDelegate {
-    
     func valueChanged(_ formTextField: FormTextField) {
-        if formTextField == socialSecurityNumberField, let validated = formTextField.validatedValue {
+        if formTextField == self.socialSecurityNumberField, let validated = formTextField.validatedValue {
             let sanitized = validated.replacingOccurrences(of: " ", with: "")
-            ssnCallback(sanitized[0...5] + "-" + sanitized[6..<sanitized.count])
+            self.ssnCallback(sanitized[0...5] + "-" + sanitized[6..<sanitized.count])
         }
     }
 }

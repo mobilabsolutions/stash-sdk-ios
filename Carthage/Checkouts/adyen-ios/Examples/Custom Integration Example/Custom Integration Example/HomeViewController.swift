@@ -7,58 +7,57 @@
 import UIKit
 
 class HomeViewController: UIViewController, CheckoutStartDelegate, UIViewControllerTransitioningDelegate {
-    
     // MARK: - Object Lifecycle
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didFinishPaymentRequest), name: PaymentRequestManager.didFinishRequestNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishPaymentRequest), name: PaymentRequestManager.didFinishRequestNotification, object: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        backgroundImageView.frame = view.bounds
-        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(backgroundImageView)
-        
+
+        self.backgroundImageView.frame = view.bounds
+        self.backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(self.backgroundImageView)
+
         var checkoutFlowFrame = view.bounds
         checkoutFlowFrame.origin.y = 130
         checkoutFlowFrame.size.height -= checkoutFlowFrame.minY
-        checkoutStatusNavigationController.view.frame = checkoutFlowFrame
-        
-        self.addChildViewController(checkoutStatusNavigationController)
-        view.addSubview(checkoutStatusNavigationController.view)
+        self.checkoutStatusNavigationController.view.frame = checkoutFlowFrame
+
+        self.addChildViewController(self.checkoutStatusNavigationController)
+        view.addSubview(self.checkoutStatusNavigationController.view)
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     // MARK: - UIViewControllerTransitioningDelegate
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source _: UIViewController) -> UIPresentationController? {
         return PartialSizePresentationController(presentedViewController: presented, presenting: presenting)
     }
-    
+
     // MARK: - CheckoutStartDelegate
-    
+
     func startCheckout() {
         if PaymentRequestManager.shared.startNewRequest() {
-            presentCheckoutFlow()
+            self.presentCheckoutFlow()
         }
     }
-    
+
     lazy var checkoutStatusNavigationController: UINavigationController = {
         let viewController = CartViewController()
         viewController.checkoutStartDelegate = self
@@ -67,21 +66,21 @@ class HomeViewController: UIViewController, CheckoutStartDelegate, UIViewControl
         navigationController.setNavigationBarHidden(true, animated: false)
         return navigationController
     }()
-    
+
     // MARK: - Private
-    
+
     private let backgroundImageView = UIImageView(image: UIImage(named: "background"))
-    
+
     private func presentCheckoutFlow() {
         let paymentMethodSelection = PaymentMethodSelectionViewController(nibName: nil, bundle: nil)
         let navigationController = CheckoutFlowNavigationController(rootViewController: paymentMethodSelection)
-        
+
         navigationController.modalPresentationStyle = .custom
         navigationController.transitioningDelegate = self
-        
+
         present(navigationController, animated: true, completion: nil)
     }
-    
+
     @objc private func didFinishPaymentRequest(_ notification: NSNotification) {
         if let requestStatus = notification.userInfo?[PaymentRequestManager.finishedRequestStatusKey] as? PaymentRequestManager.RequestStatus {
             switch requestStatus {
@@ -96,7 +95,6 @@ class HomeViewController: UIViewController, CheckoutStartDelegate, UIViewControl
             }
         }
     }
-    
 }
 
 class PartialSizePresentationController: UIPresentationController {
@@ -105,66 +103,65 @@ class PartialSizePresentationController: UIPresentationController {
             let presentingViewController = presentingViewController as? HomeViewController else {
             return
         }
-        
-        dimmedView.frame = containerView.bounds
-        dimmedView.alpha = 0.0
-        containerView.addSubview(dimmedView)
+
+        self.dimmedView.frame = containerView.bounds
+        self.dimmedView.alpha = 0.0
+        containerView.addSubview(self.dimmedView)
         if let coordinator = presentingViewController.transitionCoordinator {
-            coordinator.animate(alongsideTransition: { (context) -> Void in
+            coordinator.animate(alongsideTransition: { (_) -> Void in
                 self.dimmedView.alpha = 0.6
                 presentingViewController.checkoutStatusNavigationController.view.alpha = 0.0
             }, completion: nil)
         }
     }
-    
+
     override func dismissalTransitionWillBegin() {
         guard let presentingViewController = presentingViewController as? HomeViewController,
             let coordinator = presentingViewController.transitionCoordinator else {
             return
         }
-        
-        isDismissing = true
-        
-        coordinator.animate(alongsideTransition: { (context) -> Void in
+
+        self.isDismissing = true
+
+        coordinator.animate(alongsideTransition: { (_) -> Void in
             self.dimmedView.alpha = 0
             presentingViewController.checkoutStatusNavigationController.view.alpha = 1.0
         }, completion: nil)
     }
-    
-    override func dismissalTransitionDidEnd(_ completed: Bool) {
-        dimmedView.removeFromSuperview()
-        isDismissing = false
+
+    override func dismissalTransitionDidEnd(_: Bool) {
+        self.dimmedView.removeFromSuperview()
+        self.isDismissing = false
     }
-    
+
     override var frameOfPresentedViewInContainerView: CGRect {
         var presentedFrame = CGRect.zero
         presentedFrame.size = presentedViewController.preferredContentSize
         if let containerView = containerView {
             presentedFrame.origin.y = containerView.bounds.height - presentedFrame.height
         }
-        
+
         return presentedFrame
     }
-    
-    override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
+
+    override func preferredContentSizeDidChange(forChildContentContainer _: UIContentContainer) {
         guard let presentedView = presentedView, !isDismissing else {
             return
         }
-        
-        let presentedFrame = frameOfPresentedViewInContainerView
+
+        let presentedFrame = self.frameOfPresentedViewInContainerView
         UIView.animate(withDuration: 0.2) {
             presentedView.frame = presentedFrame
         }
     }
-    
+
     // MARK: - Private
-    
+
     private var isDismissing = false
-    
+
     private var dimmedView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = UIColor.black
         return view
     }()
-    
 }

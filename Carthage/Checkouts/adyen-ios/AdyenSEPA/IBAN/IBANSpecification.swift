@@ -10,16 +10,16 @@ import Foundation
 internal struct IBANSpecification {
     /// The code of the country to which the specifications apply.
     internal let countryCode: String
-    
+
     /// The length of a valid IBAN.
     internal let length: Int
-    
+
     /// The structure of the underlying BBAN.
     internal let structure: String
-    
+
     /// An example of a valid IBAN.
     internal let example: String
-    
+
     /// Returns the IBAN specification for the country with the given code, or `nil` if none could be found.
     ///
     /// - Parameter countryCode: The code of the country to retrieve the IBAN specification for.
@@ -27,10 +27,10 @@ internal struct IBANSpecification {
         guard let specification = IBANSpecification.specifications[countryCode] else {
             return nil
         }
-        
+
         self = specification
     }
-    
+
     /// Initializes the IBAN specification structure.
     ///
     /// - Parameters:
@@ -44,7 +44,7 @@ internal struct IBANSpecification {
         self.structure = structure
         self.example = example
     }
-    
+
     private static let specifications = [
         "AD": IBANSpecification(countryCode: "AD", length: 24, structure: "F04F04A12", example: "AD1200012030200359100100"),
         "AE": IBANSpecification(countryCode: "AE", length: 23, structure: "F03F16", example: "AE070331234567890123456"),
@@ -129,7 +129,6 @@ internal struct IBANSpecification {
         "TR": IBANSpecification(countryCode: "TR", length: 26, structure: "F05F01A16", example: "TR330006100519786457841326"),
         "UA": IBANSpecification(countryCode: "UA", length: 29, structure: "F25", example: "UA511234567890123456789012345"),
         "VG": IBANSpecification(countryCode: "VG", length: 24, structure: "U04F16", example: "VG96VPVG0000012345678901"),
-        "XK": IBANSpecification(countryCode: "XK", length: 20, structure: "F04F10F02", example: "XK051212012345678906")
+        "XK": IBANSpecification(countryCode: "XK", length: 20, structure: "F04F10F02", example: "XK051212012345678906"),
     ]
-    
 }

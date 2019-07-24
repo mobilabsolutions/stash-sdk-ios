@@ -10,35 +10,34 @@ import UIKit
 
 /// :nodoc:
 public class FormDateField: FormPickerField {
-    
     public init() {
-        super.init(customInputView: datePicker)
-        refreshDate()
+        super.init(customInputView: self.datePicker)
+        self.refreshDate()
     }
-    
-    public required init(coder: NSCoder) {
+
+    public required init(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Public
-    
+
     public var date: Date {
-        return datePicker.date
+        return self.datePicker.date
     }
-    
+
     // MARK: - Private
-    
+
     private var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(refreshDate), for: UIControl.Event.valueChanged)
-        
+
         return datePicker
     }()
-    
+
     @objc private func refreshDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        selectedValue = dateFormatter.string(from: date)
+        selectedValue = dateFormatter.string(from: self.date)
     }
 }

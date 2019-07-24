@@ -65,7 +65,7 @@ extension RouterRequestProtocol {
     func buildRequest(url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = getHTTPMethod().rawValue
-        urlRequest.timeoutInterval = getTimeOut()
+        urlRequest.timeoutInterval = self.getTimeOut()
         if self.withBody() {
             urlRequest.httpBody = self.getHttpBody()
         }

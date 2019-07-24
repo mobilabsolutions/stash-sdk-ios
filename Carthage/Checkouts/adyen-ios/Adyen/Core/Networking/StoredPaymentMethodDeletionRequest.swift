@@ -10,22 +10,21 @@ import Foundation
 internal struct StoredPaymentMethodDeletionRequest: Request {
     /// The type of response expected from the request.
     typealias ResponseType = StoredPaymentMethodDeletionResponse
-    
+
     /// The payment session.
     internal var paymentSession: PaymentSession
-    
+
     /// The payment method to delete.
     internal var paymentMethod: PaymentMethod
-    
+
     /// The URL to which the request should be made.
     internal var url: URL {
-        return paymentSession.deleteStoredPaymentMethodURL
+        return self.paymentSession.deleteStoredPaymentMethodURL
     }
-    
+
     // MARK: - Encoding
-    
+
     internal func encode(to encoder: Encoder) throws {
         try encodePaymentData(to: encoder)
     }
-    
 }

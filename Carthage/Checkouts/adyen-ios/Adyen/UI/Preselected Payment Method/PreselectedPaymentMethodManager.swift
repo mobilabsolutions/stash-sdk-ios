@@ -10,7 +10,6 @@ internal struct PreselectedPaymentMethodManager {
     internal static func preselectedPaymentMethod(for paymentSession: PaymentSession) -> PaymentMethod? {
         return paymentSession.paymentMethods.preferred.first
     }
-    
-    internal static func saveSelectedPaymentMethod(_ paymentMethod: PaymentMethod) {}
-    
+
+    internal static func saveSelectedPaymentMethod(_: PaymentMethod) {}
 }

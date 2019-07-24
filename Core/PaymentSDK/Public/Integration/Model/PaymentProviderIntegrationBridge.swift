@@ -12,12 +12,12 @@ import Foundation
     let integration: PaymentProviderIntegration
 
     @objc public init?(paymentServiceProvider bridge: PaymentProviderBridge, paymentMethodTypes: Set<Int>) {
-        let paymentMethods = paymentMethodTypes.map({ (method) -> PaymentMethodType in
+        let paymentMethods = paymentMethodTypes.map { (method) -> PaymentMethodType in
             guard let bridgeType = PaymentMethodTypeBridge(rawValue: method),
                 let type = bridgeType.paymentMethodType
             else { fatalError("Provided value (\(method)) does not correspond to a payment method") }
             return type
-        })
+        }
 
         guard let integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider,
                                                            paymentMethodTypes: Set(paymentMethods))

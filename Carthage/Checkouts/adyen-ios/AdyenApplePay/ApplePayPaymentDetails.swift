@@ -12,7 +12,7 @@ public extension Array where Element == PaymentDetail {
         get {
             return self[applePayTokenKey]
         }
-        
+
         set {
             self[applePayTokenKey] = newValue
         }
