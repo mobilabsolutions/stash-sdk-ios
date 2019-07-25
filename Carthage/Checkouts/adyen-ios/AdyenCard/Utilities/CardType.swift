@@ -10,124 +10,123 @@ import Foundation
 internal enum CardType: String {
     /// Accel
     case accel
-    
+
     /// Alpha Bank Bonus MasterCard
     case alphaBankBonusMasterCard = "mcalphabankbonus"
-    
+
     /// Alpha Bank Bonus VISA
     case alphaBankBonusVISA = "visaalphabankbonus"
-    
+
     /// Argencard
     case argencard
-    
+
     /// American Express
     case americanExpress = "amex"
-    
+
     /// BCMC
     case bcmc
-    
+
     /// de Bijenkorf Card
     case bijenkorfCard = "bijcard"
-    
+
     /// Cabal
     case cabal
-    
+
     /// Carte Bancaire
     case carteBancaire = "cartebancaire"
-    
+
     /// Cencosud
     case cencosud
-    
+
     /// Chèque Déjeuner
     case chequeDejeneur
-    
+
     /// China UnionPay
     case chinaUnionPay = "cup"
-    
+
     /// Codensa
     case codensa
-    
+
     /// Credit Union 24
     case creditUnion24 = "cu24"
-    
+
     /// Dankort
     case dankort
-    
+
     /// Dankort VISA
     case dankortVISA = "visadankort"
-    
+
     /// Diners Club
     case diners
-    
+
     /// Discover
     case discover
-    
+
     /// Elo
     case elo
-    
+
     /// Hiper
     case hiper
-    
+
     /// Hipercard
     case hipercard
-    
+
     /// JCB
     case jcb
-    
+
     /// KarenMillen
     case karenMillen = "karenmillen"
-    
+
     /// Korea Cyber Payment
     case kcp = "kcp_creditcard"
-    
+
     /// Maestro
     case maestro
-    
+
     /// Maestro UK
     case maestroUK = "maestrouk"
-    
+
     /// MasterCard
     case masterCard = "mc"
-    
+
     /// Mir
     case mir
-    
+
     /// Net+
     case netplus
-    
+
     /// NYCE
     case nyce
-    
+
     /// Oasis
     case oasis
-    
+
     /// Pulse
     case pulse
-    
+
     /// Solo
     case solo
-    
+
     /// Shopping
     case shopping
-    
+
     /// STAR
     case star
-    
+
     /// Universal Air Travel Plan
     case uatp
-    
+
     /// UnionPay
     case unionPay = "unionpay"
-    
+
     /// VISA
     case visa
-    
+
     /// The Warehouse
     case warehouse
-    
+
     /// Array containing all card types in this enum.
     public static let all = [masterCard, americanExpress, visa, diners, discover, jcb, elo, hipercard, unionPay, bijenkorfCard, maestroUK, solo, bcmc, dankort, uatp, chinaUnionPay, codensa, alphaBankBonusVISA, dankortVISA, alphaBankBonusMasterCard, hiper, oasis, karenMillen, warehouse, mir, maestro, carteBancaire, kcp, cabal, accel, pulse, star, nyce, creditUnion24, argencard, netplus, shopping, cencosud, chequeDejeneur]
-    
 }
 
 internal extension CardType {
@@ -200,15 +199,14 @@ internal extension CardType {
         guard let pattern = regex else {
             return false
         }
-        
+
         do {
             let regularExpression = try NSRegularExpression(pattern: pattern, options: [])
             let range = NSRange(location: 0, length: cardNumber.count)
-            
+
             return regularExpression.firstMatch(in: cardNumber, options: [], range: range) != nil
         } catch {
             return false
         }
     }
-    
 }

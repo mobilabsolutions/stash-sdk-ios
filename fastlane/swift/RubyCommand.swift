@@ -40,7 +40,7 @@ struct RubyCommand: RubyCommandable {
         }
 
         var hasValue: Bool {
-            return nil != self.value
+            return self.value != nil
         }
 
         var json: String {

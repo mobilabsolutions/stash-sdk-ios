@@ -72,7 +72,7 @@ public final class UIConstants {
     public class var sepaImage: UIImage? {
         return UIImage(named: "sepa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
-    
+
     public class var sepaSmallImage: UIImage? {
         return UIImage(named: "sepaSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
@@ -80,7 +80,7 @@ public final class UIConstants {
     public class var payPalImage: UIImage? {
         return UIImage(named: "paypal", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
-    
+
     public class var payPalBigImage: UIImage? {
         return UIImage(named: "paypalBig", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }

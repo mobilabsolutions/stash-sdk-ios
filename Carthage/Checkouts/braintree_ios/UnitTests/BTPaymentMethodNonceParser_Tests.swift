@@ -1,54 +1,53 @@
-import XCTest
 import BraintreeCore
+import XCTest
 
 class BTPaymentMethodNonceParser_Tests: XCTestCase {
-    
-    var parser : BTPaymentMethodNonceParser = BTPaymentMethodNonceParser()
+    var parser: BTPaymentMethodNonceParser = BTPaymentMethodNonceParser()
 
     func testRegisterType_addsTypeToTypes() {
-        parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in return nil}
+        self.parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in nil }
 
-        XCTAssertTrue(parser.allTypes.contains("MyType"))
+        XCTAssertTrue(self.parser.allTypes.contains("MyType"))
     }
-    
+
     func testAllTypes_whenTypeIsNotRegistered_doesntContainType() {
-        XCTAssertEqual(parser.allTypes.count, 0)
+        XCTAssertEqual(self.parser.allTypes.count, 0)
     }
-    
+
     func testIsTypeAvailable_whenTypeIsRegistered_isTrue() {
-        parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in return nil}
-        XCTAssertTrue(parser.isTypeAvailable("MyType"))
+        self.parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in nil }
+        XCTAssertTrue(self.parser.isTypeAvailable("MyType"))
     }
-    
+
     func testIsTypeAvailable_whenTypeIsNotRegistered_isFalse() {
-        XCTAssertFalse(parser.isTypeAvailable("MyType"))
+        XCTAssertFalse(self.parser.isTypeAvailable("MyType"))
     }
 
     func testParseJSON_whenTypeIsRegistered_callsParsingBlock() {
         let expectation = self.expectation(description: "Parsing block called")
-        parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in
+        self.parser.registerType("MyType") { _ -> BTPaymentMethodNonce? in
             expectation.fulfill()
             return nil
         }
-        parser.parseJSON(BTJSON(), withParsingBlockForType: "MyType")
+        self.parser.parseJSON(BTJSON(), withParsingBlockForType: "MyType")
 
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testParseJSON_whenTypeIsNotRegisteredAndJSONContainsNonce_returnsBasicTokenizationObject() {
         let json = BTJSON(value: ["nonce": "valid-nonce",
                                   "description": "My Description"])
-        
-        let paymentMethodNonce = parser.parseJSON(json, withParsingBlockForType: "MyType")
-        
+
+        let paymentMethodNonce = self.parser.parseJSON(json, withParsingBlockForType: "MyType")
+
         XCTAssertEqual(paymentMethodNonce?.nonce, "valid-nonce")
         XCTAssertEqual(paymentMethodNonce?.localizedDescription, "My Description")
     }
-    
+
     func testParseJSON_whenTypeIsNotRegisteredAndJSONDoesNotContainNonce_returnsNil() {
-        let paymentMethodNonce = parser.parseJSON(BTJSON(value: ["description": "blah"]), withParsingBlockForType: "MyType")
-        
-       XCTAssertNil(paymentMethodNonce)
+        let paymentMethodNonce = self.parser.parseJSON(BTJSON(value: ["description": "blah"]), withParsingBlockForType: "MyType")
+
+        XCTAssertNil(paymentMethodNonce)
     }
 
     // MARK: - Payment-specific tests
@@ -68,10 +67,10 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "securityQuestions": ["cvv"],
             "threeDSecureInfo": NSNull(),
             "type": "CreditCard",
-            "default": true
-            ])
+            "default": true,
+        ])
 
-        let cardNonce = sharedParser.parseJSON(creditCardJSON, withParsingBlockForType:"CreditCard")!
+        let cardNonce = sharedParser.parseJSON(creditCardJSON, withParsingBlockForType: "CreditCard")!
 
         XCTAssertEqual(cardNonce.nonce, "0099b1d0-7a1c-44c3-b1e4-297082290bb9")
         XCTAssertEqual(cardNonce.type, "AMEX")
@@ -90,7 +89,7 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "nonce": "a-nonce",
             "securityQuestions": [],
             "type": "PayPalAccount",
-            "default": true
+            "default": true,
         ])
 
         let payPalAccountNonce = sharedParser.parseJSON(payPalAccountJSON, withParsingBlockForType: "PayPalAccount") as! BTPayPalAccountNonce
@@ -198,7 +197,7 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "securityQuestions": [],
             "type": "PayPalAccount",
             "default": true,
-          ])
+        ])
 
         let payPalAccountNonce = sharedParser.parseJSON(payPalAccountJSON, withParsingBlockForType: "PayPalAccount") as! BTPayPalAccountNonce
 
@@ -250,7 +249,7 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "nonce": "a-nonce",
             "securityQuestions": [],
             "type": "VenmoAccount",
-            "default": true
+            "default": true,
         ])
 
         let venmoAccountNonce = sharedParser.parseJSON(venmoAccountJSON, withParsingBlockForType: "VenmoAccount") as! BTVenmoAccountNonce
@@ -267,13 +266,13 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "consumed": false,
             "description": "Apple Pay Card ending in 11",
             "details": [
-                "cardType": "American Express"
+                "cardType": "American Express",
             ],
             "isLocked": false,
             "nonce": "a-nonce",
             "securityQuestions": [],
             "type": "ApplePayCard",
-            ])
+        ])
 
         let applePayCardNonce = sharedParser.parseJSON(applePayCard, withParsingBlockForType: "ApplePayCard") as? BTApplePayCardNonce
 
@@ -291,8 +290,8 @@ class BTPaymentMethodNonceParser_Tests: XCTestCase {
             "isLocked": false,
             "nonce": "a-nonce",
             "type": "asdfasdfasdf",
-            "default": true
-            ])
+            "default": true,
+        ])
 
         let unknownNonce = sharedParser.parseJSON(JSON, withParsingBlockForType: "asdfasdfasdf")!
 

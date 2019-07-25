@@ -13,7 +13,7 @@ import Foundation
     case creditCard
     case payPal
     case sepa
-    
+
     public var paymentMethodType: PaymentMethodType? {
         switch self {
         case .none: return nil

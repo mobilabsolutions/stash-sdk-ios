@@ -10,8 +10,8 @@ import Foundation
 
 public class CreditCardUtils {
     public static func formattedNumber(number: String) -> NSAttributedString {
-        let cleaned = cleanedNumber(number: number)
-        let type = cardTypeFromNumber(cleanedNumber: cleaned)
+        let cleaned = self.cleanedNumber(number: number)
+        let type = self.cardTypeFromNumber(cleanedNumber: cleaned)
         return self.formattedNumber(number: cleaned, for: type)
     }
 
@@ -35,7 +35,7 @@ public class CreditCardUtils {
     }
 
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardType {
-        let highestPriorityMatch = cardNumbersAndRanges(for: cleanedNumber)
+        let highestPriorityMatch = self.cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }
         return highestPriorityMatch?.1 ?? .unknown
     }
@@ -85,7 +85,7 @@ public class CreditCardUtils {
     }
 
     static func formattedNumber(number: String, for type: CreditCardType) -> NSAttributedString {
-        let cleaned = cleanedNumber(number: number)
+        let cleaned = self.cleanedNumber(number: number)
         let formattingSpaces = type.formattingSpaces
 
         let newString = NSMutableAttributedString(string: cleaned)

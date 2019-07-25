@@ -59,7 +59,7 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     }
 
     func redirect(to _: URL, for _: PaymentController) {
-        #warning("Do something here")
+        // Intentionally left empty until 3DS is implemented
     }
 
     func didFinish(with result: Adyen.Result<PaymentResult>, for _: PaymentController) {
@@ -72,7 +72,7 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     }
 
     func provideAdditionalDetails(_: AdditionalPaymentDetails, for _: PaymentMethod, detailsHandler: @escaping Completion<[PaymentDetail]>) {
-        #warning("Potentially implement this")
+        // Intentionally left empty until 3DS (when this might be necessary)
         detailsHandler([])
     }
 }

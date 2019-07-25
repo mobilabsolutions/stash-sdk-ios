@@ -16,18 +16,18 @@ public protocol Validator {
 
 /// :nodoc:
 public extension Validator {
-    func isValid(_ string: String) -> Bool {
+    func isValid(_: String) -> Bool {
         return true
     }
-    
-    func isMaxLength(_ string: String) -> Bool {
+
+    func isMaxLength(_: String) -> Bool {
         return false
     }
-    
+
     func format(_ string: String) -> String {
         return string
     }
-    
+
     func sanitize(_ string: String) -> String {
         return string
     }
@@ -41,11 +41,11 @@ public extension NumericValidator {
     func sanitize(_ string: String) -> String {
         let allowedCharacters = CharacterSet.decimalDigits
         let filteredUnicodeScalars = string.unicodeScalars.filter(allowedCharacters.contains(_:))
-        
+
         let sanitizedString = filteredUnicodeScalars.reduce("") { (string, unicodeScalar) -> String in
-            return string + String(unicodeScalar)
+            string + String(unicodeScalar)
         }
-        
+
         return sanitizedString
     }
 }

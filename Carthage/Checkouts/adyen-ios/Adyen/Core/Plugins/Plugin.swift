@@ -10,21 +10,17 @@ import UIKit
 /// Instances conforming to the Plugin protocol provide native logic for payment methods.
 /// :nodoc:
 public protocol Plugin: AnyObject {
-    
     var paymentSession: PaymentSession { get }
     var paymentMethod: PaymentMethod { get }
-    
+
     init(paymentSession: PaymentSession, paymentMethod: PaymentMethod)
-    
+
     var isDeviceSupported: Bool { get }
-    
 }
 
 /// :nodoc:
 public extension Plugin {
-    
     var isDeviceSupported: Bool {
         return true
     }
-    
 }

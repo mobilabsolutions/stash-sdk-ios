@@ -13,40 +13,38 @@ public protocol StoredPaymentDetails: Decodable {}
 public struct StoredCardPaymentDetails: StoredPaymentDetails {
     /// A shortened version of the card's number.
     public let number: String
-    
+
     /// The card's holder name.
     public let holderName: String
-    
+
     /// The card's expiry month.
     public let expiryMonth: Int
-    
+
     /// The card's expiry year.
     public let expiryYear: Int
-    
+
     // MARK: - Decoding
-    
+
     /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.number = try container.decode(String.self, forKey: .number)
         self.holderName = try container.decode(String.self, forKey: .holderName)
         self.expiryMonth = try container.decodeIntString(forKey: .expiryMonth)
         self.expiryYear = try container.decodeIntString(forKey: .expiryYear)
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case number
         case holderName
         case expiryMonth
         case expiryYear
     }
-    
 }
 
 /// Contains payment details from a previously used PayPal account.
 public struct StoredPayPalPaymentDetails: StoredPaymentDetails {
     /// The email address of the PayPal account.
     public let emailAddress: String
-    
 }

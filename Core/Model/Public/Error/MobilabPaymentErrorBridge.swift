@@ -11,7 +11,7 @@ import Foundation
 @objc(MLError) public class MobilabPaymentErrorBridge: NSObject {
     @objc public let title: String
     @objc public let errorDescription: String
-    
+
     public init(mobilabPaymentError: MobilabPaymentError) {
         self.title = mobilabPaymentError.title
         self.errorDescription = mobilabPaymentError.description

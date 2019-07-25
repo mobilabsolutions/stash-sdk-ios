@@ -114,6 +114,9 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         guard let data = registrationRequest.registrationData as? SEPAData
         else { return nil }
 
+        guard data.billingData.country != nil
+        else { throw MobilabPaymentError.validation(ValidationErrorDetails.countryMissing) }
+
         return SEPABSPayoneData(iban: data.iban)
     }
 

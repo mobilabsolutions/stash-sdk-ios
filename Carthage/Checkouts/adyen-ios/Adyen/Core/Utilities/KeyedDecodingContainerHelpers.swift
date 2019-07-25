@@ -7,9 +7,8 @@
 import Foundation
 
 internal extension KeyedDecodingContainer {
-    
     // MARK: - Dictionary
-    
+
     /// Decodes a value of the given type for the given key.
     ///
     /// - parameter type: The type of value to decode.
@@ -18,12 +17,12 @@ internal extension KeyedDecodingContainer {
     /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
     /// - throws: `DecodingError.keyNotFound` if `self` does not have an entry for the given key.
     /// - throws: `DecodingError.valueNotFound` if `self` has a null entry for the given key.
-    func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> [String: Any] {
+    func decode(_ type: [String: Any].Type, forKey key: K) throws -> [String: Any] {
         let container = try nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
-        
+
         return try container.decode(type)
     }
-    
+
     /// Decodes a value of the given type for the given key, if present.
     ///
     /// This method returns `nil` if the container does not have a value associated with `key`, or if the value is null. The difference between these states can be distinguished with a `contains(_:)` call.
@@ -32,16 +31,16 @@ internal extension KeyedDecodingContainer {
     /// - parameter key: The key that the decoded value is associated with.
     /// - returns: A decoded value of the requested type, or `nil` if the `Decoder` does not have an entry associated with the given key, or if the value is a null value.
     /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
-    func decodeIfPresent(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> [String: Any]? {
+    func decodeIfPresent(_ type: [String: Any].Type, forKey key: K) throws -> [String: Any]? {
         guard contains(key) else {
             return nil
         }
-        
-        return try decode(type, forKey: key)
+
+        return try self.decode(type, forKey: key)
     }
-    
+
     // MARK: - Array
-    
+
     /// Decodes a value of the given type for the given key.
     ///
     /// - parameter type: The type of value to decode.
@@ -50,12 +49,12 @@ internal extension KeyedDecodingContainer {
     /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
     /// - throws: `DecodingError.keyNotFound` if `self` does not have an entry for the given key.
     /// - throws: `DecodingError.valueNotFound` if `self` has a null entry for the given key.
-    func decode(_ type: Array<Any>.Type, forKey key: K) throws -> [Any] {
+    func decode(_ type: [Any].Type, forKey key: K) throws -> [Any] {
         var container = try nestedUnkeyedContainer(forKey: key)
-        
+
         return try container.decode(type)
     }
-    
+
     /// Decodes a value of the given type for the given key, if present.
     ///
     /// This method returns `nil` if the container does not have a value associated with `key`, or if the value is null. The difference between these states can be distinguished with a `contains(_:)` call.
@@ -64,16 +63,16 @@ internal extension KeyedDecodingContainer {
     /// - parameter key: The key that the decoded value is associated with.
     /// - returns: A decoded value of the requested type, or `nil` if the `Decoder` does not have an entry associated with the given key, or if the value is a null value.
     /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
-    func decodeIfPresent(_ type: Array<Any>.Type, forKey key: K) throws -> [Any]? {
+    func decodeIfPresent(_ type: [Any].Type, forKey key: K) throws -> [Any]? {
         guard contains(key) else {
             return nil
         }
-        
-        return try decode(type, forKey: key)
+
+        return try self.decode(type, forKey: key)
     }
-    
+
     // MARK: - Boolean
-    
+
     /// Decodes a value of the given type for the given key.
     ///
     /// - parameter key: The key that the decoded value is associated with.
@@ -83,10 +82,10 @@ internal extension KeyedDecodingContainer {
     /// - throws: `DecodingError.valueNotFound` if `self` has a null entry for the given key.
     func decodeBooleanString(forKey key: K) throws -> Bool {
         let stringValue = try decode(String.self, forKey: key)
-        
+
         return stringValue == "true"
     }
-    
+
     /// Decodes a value of the given type for the given key, if present.
     ///
     /// This method returns `nil` if the container does not have a value associated with `key`, or if the value is null. The difference between these states can be distinguished with a `contains(_:)` call.
@@ -98,12 +97,12 @@ internal extension KeyedDecodingContainer {
         guard contains(key) else {
             return nil
         }
-        
-        return try decodeBooleanString(forKey: key)
+
+        return try self.decodeBooleanString(forKey: key)
     }
-    
+
     // MARK: - Int
-    
+
     /// Decodes a value of the given type for the given key.
     ///
     /// - parameter key: The key that the decoded value is associated with.
@@ -116,10 +115,10 @@ internal extension KeyedDecodingContainer {
         guard let intValue = Int(stringValue) else {
             throw DecodingError.dataCorruptedError(forKey: key, in: self, debugDescription: "String was not convertable to an integer.")
         }
-        
+
         return intValue
     }
-    
+
     /// Decodes a value of the given type for the given key, if present.
     ///
     /// This method returns `nil` if the container does not have a value associated with `key`, or if the value is null. The difference between these states can be distinguished with a `contains(_:)` call.
@@ -131,15 +130,15 @@ internal extension KeyedDecodingContainer {
         guard contains(key) else {
             return nil
         }
-        
-        return try decodeIntStringIfPresent(forKey: key)
+
+        return try self.decodeIntStringIfPresent(forKey: key)
     }
-    
+
     // MARK: - Private
-    
-    fileprivate func decode(_ type: Dictionary<String, Any>.Type) throws -> [String: Any] {
+
+    fileprivate func decode(_: [String: Any].Type) throws -> [String: Any] {
         var dictionary = [String: Any]()
-        
+
         for key in allKeys {
             if let boolValue = try? decode(Bool.self, forKey: key) {
                 dictionary[key.stringValue] = boolValue
@@ -149,16 +148,15 @@ internal extension KeyedDecodingContainer {
                 dictionary[key.stringValue] = intValue
             } else if let doubleValue = try? decode(Double.self, forKey: key) {
                 dictionary[key.stringValue] = doubleValue
-            } else if let nestedDictionary = try? decode(Dictionary<String, Any>.self, forKey: key) {
+            } else if let nestedDictionary = try? decode([String: Any].self, forKey: key) {
                 dictionary[key.stringValue] = nestedDictionary
-            } else if let nestedArray = try? decode(Array<Any>.self, forKey: key) {
+            } else if let nestedArray = try? decode([Any].self, forKey: key) {
                 dictionary[key.stringValue] = nestedArray
             }
         }
-        
+
         return dictionary
     }
-    
 }
 
 internal extension KeyedEncodingContainer {
@@ -170,10 +168,10 @@ internal extension KeyedEncodingContainer {
     ///   the current context for this format.
     mutating func encode(_ value: [String: Any], forKey key: KeyedEncodingContainer.Key) throws {
         var container = nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
-        
+
         try value.forEach { (key: String, value: Any) in
             let codingKey = JSONCodingKeys(value: key)
-            
+
             switch value {
             case let boolValue as Bool:
                 try container.encode(boolValue, forKey: codingKey)
@@ -187,18 +185,17 @@ internal extension KeyedEncodingContainer {
                 try container.encode(nestedDictionary, forKey: codingKey)
             default:
                 let context = EncodingError.Context(codingPath: codingPath, debugDescription: "Failed to encode dictionary value.")
-                
+
                 throw EncodingError.invalidValue(value, context)
             }
         }
     }
-    
 }
 
-fileprivate extension UnkeyedDecodingContainer {
-    mutating func decode(_ type: Array<Any>.Type) throws -> [Any] {
+private extension UnkeyedDecodingContainer {
+    mutating func decode(_: [Any].Type) throws -> [Any] {
         var array: [Any] = []
-        
+
         while isAtEnd == false {
             if let value = try? decode(Bool.self) {
                 array.append(value)
@@ -206,39 +203,38 @@ fileprivate extension UnkeyedDecodingContainer {
                 array.append(value)
             } else if let value = try? decode(String.self) {
                 array.append(value)
-            } else if let nestedDictionary = try? decode(Dictionary<String, Any>.self) {
+            } else if let nestedDictionary = try? decode([String: Any].self) {
                 array.append(nestedDictionary)
-            } else if let nestedArray = try? decode(Array<Any>.self) {
+            } else if let nestedArray = try? decode([Any].self) {
                 array.append(nestedArray)
             }
         }
-        
+
         return array
     }
-    
-    mutating func decode(_ type: Dictionary<String, Any>.Type) throws -> [String: Any] {
+
+    mutating func decode(_ type: [String: Any].Type) throws -> [String: Any] {
         let nestedContainer = try self.nestedContainer(keyedBy: JSONCodingKeys.self)
-        
+
         return try nestedContainer.decode(type)
     }
 }
 
 private struct JSONCodingKeys: CodingKey {
     internal var stringValue: String
-    
+
     internal var intValue: Int?
-    
+
     internal init(value: String) {
         self.stringValue = value
     }
-    
+
     internal init?(stringValue: String) {
         self.stringValue = stringValue
     }
-    
+
     internal init?(intValue: Int) {
         self.init(stringValue: "\(intValue)")
         self.intValue = intValue
     }
-    
 }

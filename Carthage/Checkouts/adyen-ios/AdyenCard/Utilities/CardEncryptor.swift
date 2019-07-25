@@ -13,16 +13,16 @@ public final class CardEncryptor {
     public struct Card {
         /// The card number.
         public var number: String?
-        
+
         /// The card's security code.
         public var securityCode: String?
-        
+
         /// The month the card expires.
         public var expiryMonth: String?
-        
+
         /// The year the card expires.
         public var expiryYear: String?
-        
+
         /// :nodoc:
         public init(number: String? = nil, securityCode: String? = nil, expiryMonth: String? = nil, expiryYear: String? = nil) {
             self.number = number
@@ -30,25 +30,23 @@ public final class CardEncryptor {
             self.expiryMonth = expiryMonth
             self.expiryYear = expiryYear
         }
-        
     }
-    
+
     /// Contains encrypted card information.
     public struct EncryptedCard {
         /// The encrypted card number.
         public let number: String?
-        
+
         /// The card's encrypted security code.
         public let securityCode: String?
-        
+
         /// The encrypted month the card expires.
         public let expiryMonth: String?
-        
+
         /// The encrypted year the card expires.
         public let expiryYear: String?
-        
     }
-    
+
     /// Encrypts Card information with AES-CBC using generated AES256 session key and IV (12)
     /// Encrypts the session key with RSA using public key (using Keychain)
     ///
@@ -62,10 +60,10 @@ public final class CardEncryptor {
         let expiryYear = card.encryptedExpiryYear(publicKey: publicKey, date: generationDate)
         let expiryMonth = card.encryptedExpiryMoth(publicKey: publicKey, date: generationDate)
         let securityCode = card.encryptedSecurityCode(publicKey: publicKey, date: generationDate)
-        
+
         return EncryptedCard(number: number, securityCode: securityCode, expiryMonth: expiryMonth, expiryYear: expiryYear)
     }
-    
+
     /// Encrypts Card information with AES-CBC using generated AES256 session key and IV (12)
     /// Encrypts the session key with RSA using public key (using Keychain)
     ///
@@ -79,10 +77,10 @@ public final class CardEncryptor {
         guard let cardToken = card.encryptedToToken(publicKey: publicKey, holderName: holderName, date: generationDate) else {
             throw Error.unknown
         }
-        
+
         return cardToken
     }
-    
+
     /// Fetches the Public encryption key from Adyen backend.
     ///
     /// - Parameters:
@@ -99,7 +97,7 @@ public final class CardEncryptor {
             case let .success(data):
                 do {
                     let response = try Coder.decode(data) as PublicKeyResponse
-                    
+
                     DispatchQueue.main.async {
                         completion(.success(response.publicKey))
                     }
@@ -115,7 +113,7 @@ public final class CardEncryptor {
             }
         }.resume()
     }
-    
+
     /// Encrypts Card information after requesting public key from token.
     /// This methods encapsulates calls to `requestPublicKey(forToken token: environment: completion:)` and `encryptedCard(for card: publicKey: generationDate:)`
     ///
@@ -126,19 +124,19 @@ public final class CardEncryptor {
     ///   - environment: environment for public key fetch.
     ///   - completion: closure for handling encrypted card or failure.
     public static func encryptedCard(for card: Card, publicKeyToken: String, generationDate: Date, environment: Environment, completion: @escaping Completion<Result<EncryptedCard>>) {
-        requestPublicKey(forToken: publicKeyToken, environment: environment) { result in
+        self.requestPublicKey(forToken: publicKeyToken, environment: environment) { result in
             switch result {
             case let .success(key):
                 let encryptedCard = CardEncryptor.encryptedCard(for: card, publicKey: key, generationDate: generationDate)
                 completion(.success(encryptedCard))
-                
+
             case let .failure(error):
                 completion(.failure(error))
             }
             return
         }
     }
-    
+
     /// Encrypts Card information after requesting public key from token.
     /// This methods encapsulates calls to `requestPublicKey(forToken token: environment: completion:)` and `encrypt(_ card: publicKey: generationDate:)`
     ///
@@ -150,7 +148,7 @@ public final class CardEncryptor {
     ///   - environment: environment for public key fetch.
     ///   - completion: closure for handling encrypted card token or failure.
     public static func encryptedToken(for card: Card, holderName: String?, publicKeyToken: String, generationDate: Date, environment: Environment, completion: @escaping Completion<Result<String>>) {
-        requestPublicKey(forToken: publicKeyToken, environment: environment) { result in
+        self.requestPublicKey(forToken: publicKeyToken, environment: environment) { result in
             switch result {
             case let .success(key):
                 do {
@@ -159,33 +157,32 @@ public final class CardEncryptor {
                 } catch {
                     completion(.failure(Error.unknown))
                 }
-                
+
             case let .failure(error):
                 completion(.failure(error))
             }
             return
         }
     }
-    
+
     // MARK: - Error
-    
+
     /// Describes the error that can occur during card encryption and public key fetching.
     internal enum Error: Swift.Error {
         /// Indicates an unknown error occurred.
         case unknown
-        
     }
-    
+
     // MARK: - Private
-    
+
     private static func publicKeyFetchUrl(forToken token: String, environment: Environment) -> URL? {
         let string = "https://\(environment.rawValue).adyen.com/hpp/cse/\(token)/json.shtml"
-        
+
         guard let url = URL(string: string) else {
             assertionFailure("Failed to construct public key URL.")
             return nil
         }
-        
+
         return url
     }
 }
@@ -195,18 +192,16 @@ public extension CardEncryptor {
     enum Environment: String, Decodable {
         /// Indicates a live environment.
         case live
-        
+
         /// Indicates a test environment.
         case test
-        
     }
 }
 
 private struct PublicKeyResponse: Decodable {
     public let publicKey: String
-    
+
     private enum CodingKeys: CodingKey {
         case publicKey
     }
-    
 }

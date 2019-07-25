@@ -9,7 +9,6 @@ import Foundation
 /// A plugin that presents additional details for the shopper to fill.
 /// :nodoc:
 public protocol AdditionalPaymentDetailsPlugin: Plugin {
-    
     /// Presents additional payment details for the shopper to fill.
     ///
     /// - Parameters:
@@ -18,5 +17,4 @@ public protocol AdditionalPaymentDetailsPlugin: Plugin {
     ///   - appearance: The appearance which should be used to style the presented UI.
     ///   - completion: The completion to invoke when the additional details are filled.
     func present(_ details: AdditionalPaymentDetails, using navigationController: UINavigationController, appearance: Appearance, completion: @escaping Completion<Result<[PaymentDetail]>>)
-    
 }

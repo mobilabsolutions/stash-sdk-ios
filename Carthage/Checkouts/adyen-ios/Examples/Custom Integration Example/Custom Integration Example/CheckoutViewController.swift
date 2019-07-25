@@ -7,28 +7,25 @@
 import UIKit
 
 class CheckoutViewController: UIViewController {
-    
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = UIColor.white
-        
-        var frame = navigationBar.frame
+
+        var frame = self.navigationBar.frame
         frame.size.width = view.bounds.width
-        navigationBar.frame = frame
-        view.addSubview(navigationBar)
-        
+        self.navigationBar.frame = frame
+        view.addSubview(self.navigationBar)
     }
-    
+
     // MARK: - Public
-    
+
     let navigationBar = CheckoutFlowNavigationBar.bar(withTitle: "")
-    
+
     @objc func close() {
         PaymentRequestManager.shared.cancelRequest()
         dismiss(animated: true, completion: nil)
     }
-    
 }

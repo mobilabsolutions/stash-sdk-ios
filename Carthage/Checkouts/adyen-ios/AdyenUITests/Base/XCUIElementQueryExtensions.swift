@@ -7,12 +7,11 @@
 import XCTest
 
 internal extension XCUIElementQuery {
-    internal var first: XCUIElement {
+    var first: XCUIElement {
         return element(boundBy: 0)
     }
-    
-    internal var last: XCUIElement {
+
+    var last: XCUIElement {
         return element(boundBy: count - 1)
     }
-    
 }

@@ -8,7 +8,7 @@ import Foundation
 
 public extension URLSession {
     func dataTask(with url: URL, completion: @escaping ((URLSessionResult) -> Void)) -> URLSessionDataTask {
-        return dataTask(with: url, completionHandler: { data, _, error in
+        return self.dataTask(with: url, completionHandler: { data, _, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {
@@ -18,9 +18,9 @@ public extension URLSession {
             }
         })
     }
-    
+
     func dataTask(with urlRequest: URLRequest, completion: @escaping ((URLSessionResult) -> Void)) -> URLSessionDataTask {
-        return dataTask(with: urlRequest, completionHandler: { data, _, error in
+        return self.dataTask(with: urlRequest, completionHandler: { data, _, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {
@@ -30,7 +30,6 @@ public extension URLSession {
             }
         })
     }
-    
 }
 
 public enum URLSessionResult {

@@ -8,12 +8,12 @@ import Foundation
 
 enum CardFormFieldConfiguration {
     case none, optional, required
-    
+
     static func from(paymentDetail: PaymentDetail?) -> CardFormFieldConfiguration {
         guard let detail = paymentDetail else {
             return .none
         }
-        
+
         return detail.isOptional ? .optional : .required
     }
 }

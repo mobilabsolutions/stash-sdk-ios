@@ -12,37 +12,36 @@ class IdealTests: TestCase {
         setCountry("NL", currency: "EUR")
         startCheckout()
     }
-    
+
     func testSuccessfulPayment() {
-        testPayment(withIssuer: "Test Issuer")
-        
+        self.testPayment(withIssuer: "Test Issuer")
+
         dismissSuccessAlert()
     }
-    
+
     func testCancelledPayment() {
-        testPayment(withIssuer: "Test Issuer Cancelled")
-        
+        self.testPayment(withIssuer: "Test Issuer Cancelled")
+
         dismissFailureAlert()
     }
-    
+
     func testRefusedPayment() {
-        testPayment(withIssuer: "Test Issuer Refused")
-        
+        self.testPayment(withIssuer: "Test Issuer Refused")
+
         dismissFailureAlert()
     }
-    
+
     private func testPayment(withIssuer issuer: String) {
         selectPaymentMethod("iDEAL")
-        
+
         // Select the issuer.
         let issuerCell = app.cells[issuer]
         waitForElementToAppear(issuerCell)
         issuerCell.tap()
-        
+
         // Wait for the continue button to appear in the web view, then select it.
         let continueButton = app.webViews.buttons["Continue"]
         waitForElementToAppear(continueButton)
         continueButton.tap()
     }
-    
 }

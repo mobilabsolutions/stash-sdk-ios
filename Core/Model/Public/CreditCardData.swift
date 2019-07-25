@@ -40,10 +40,10 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     }
 
     public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
-        let extra = PaymentMethodAlias.CreditCardExtraInfo(creditCardMask: cardMask,
-                                                           expiryMonth: expiryMonth,
-                                                           expiryYear: expiryYear,
-                                                           creditCardType: cardType)
+        let extra = PaymentMethodAlias.CreditCardExtraInfo(creditCardMask: self.cardMask,
+                                                           expiryMonth: self.expiryMonth,
+                                                           expiryYear: self.expiryYear,
+                                                           creditCardType: self.cardType)
         return .creditCard(extra)
     }
 

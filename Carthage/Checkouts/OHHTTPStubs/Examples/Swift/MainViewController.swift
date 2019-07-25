@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 AliSoftware. All rights reserved.
 //
 
-import UIKit
 import OHHTTPStubs
+import UIKit
 
 class MainViewController: UIViewController {
-
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Outlets
-    
+
     @IBOutlet var delaySwitch: UISwitch!
     @IBOutlet var textView: UITextView!
     @IBOutlet var installTextStubSwitch: UISwitch!
@@ -21,19 +21,21 @@ class MainViewController: UIViewController {
     @IBOutlet var installImageStubSwitch: UISwitch!
 
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Init & Dealloc
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        installTextStub(self.installTextStubSwitch)
-        installImageStub(self.installImageStubSwitch)
-        OHHTTPStubs.onStubActivation { (request: URLRequest, stub: OHHTTPStubsDescriptor, response: OHHTTPStubsResponse) in
+        self.installTextStub(self.installTextStubSwitch)
+        self.installImageStub(self.installImageStubSwitch)
+        OHHTTPStubs.onStubActivation { (request: URLRequest, stub: OHHTTPStubsDescriptor, _: OHHTTPStubsResponse) in
             print("[OHHTTPStubs] Request to \(request.url!) has been stubbed with \(String(describing: stub.name))")
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Global stubs activation
 
     @IBAction func toggleStubs(_ sender: UISwitch) {
@@ -41,25 +43,23 @@ class MainViewController: UIViewController {
         self.delaySwitch.isEnabled = sender.isOn
         self.installTextStubSwitch.isEnabled = sender.isOn
         self.installImageStubSwitch.isEnabled = sender.isOn
-        
+
         let state = sender.isOn ? "and enabled" : "but disabled"
         print("Installed (\(state)) stubs: \(OHHTTPStubs.allStubs())")
     }
-    
 
-    
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Text Download and Stub
-    
-    
+
     @IBAction func downloadText(_ sender: UIButton) {
         sender.isEnabled = false
         self.textView.text = nil
-        
+
         let urlString = "http://www.opensource.apple.com/source/Git/Git-26/src/git-htmldocs/git-commit.txt?txt"
         let req = URLRequest(url: URL(string: urlString)!)
 
-        NSURLConnection.sendAsynchronousRequest(req, queue: OperationQueue.main) { (_, data, _) in
+        NSURLConnection.sendAsynchronousRequest(req, queue: OperationQueue.main) { _, data, _ in
             sender.isEnabled = true
             if let receivedData = data, let receivedText = NSString(data: receivedData, encoding: String.Encoding.ascii.rawValue) {
                 self.textView.text = receivedText as String
@@ -74,20 +74,20 @@ class MainViewController: UIViewController {
             let stubPath = OHPathForFile("stub.txt", type(of: self))
             textStub = stub(condition: isExtension("txt")) { [weak self] _ in
                 let useDelay = DispatchQueue.main.sync { self?.delaySwitch.isOn ?? false }
-                return fixture(filePath: stubPath!, headers: ["Content-Type":"text/plain"])
-                    .requestTime(useDelay ? 2.0 : 0.0, responseTime:OHHTTPStubsDownloadSpeedWifi)
+                return fixture(filePath: stubPath!, headers: ["Content-Type": "text/plain"])
+                    .requestTime(useDelay ? 2.0 : 0.0, responseTime: OHHTTPStubsDownloadSpeedWifi)
             }
             textStub?.name = "Text stub"
         } else {
             // Uninstall
-            OHHTTPStubs.removeStub(textStub!)
+            OHHTTPStubs.removeStub(self.textStub!)
         }
     }
-    
-    
+
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Image Download and Stub
-    
+
     @IBAction func downloadImage(_ sender: UIButton) {
         sender.isEnabled = false
         self.imageView.image = nil
@@ -95,14 +95,14 @@ class MainViewController: UIViewController {
         let urlString = "http://images.apple.com/support/assets/images/products/iphone/hero_iphone4-5_wide.png"
         let req = URLRequest(url: URL(string: urlString)!)
 
-        NSURLConnection.sendAsynchronousRequest(req, queue: OperationQueue.main) { (_, data, _) in
+        NSURLConnection.sendAsynchronousRequest(req, queue: OperationQueue.main) { _, data, _ in
             sender.isEnabled = true
             if let receivedData = data {
                 self.imageView.image = UIImage(data: receivedData)
             }
         }
     }
-    
+
     weak var imageStub: OHHTTPStubsDescriptor?
     @IBAction func installImageStub(_ sender: UISwitch) {
         if sender.isOn {
@@ -110,22 +110,22 @@ class MainViewController: UIViewController {
             let stubPath = OHPathForFile("stub.jpg", type(of: self))
             imageStub = stub(condition: isExtension("png") || isExtension("jpg") || isExtension("gif")) { [weak self] _ in
                 let useDelay = DispatchQueue.main.sync { self?.delaySwitch.isOn ?? false }
-                return fixture(filePath: stubPath!, headers: ["Content-Type":"image/jpeg"])
+                return fixture(filePath: stubPath!, headers: ["Content-Type": "image/jpeg"])
                     .requestTime(useDelay ? 2.0 : 0.0, responseTime: OHHTTPStubsDownloadSpeedWifi)
             }
-            imageStub?.name = "Image stub"
+            self.imageStub?.name = "Image stub"
         } else {
             // Uninstall
-            OHHTTPStubs.removeStub(imageStub!)
+            OHHTTPStubs.removeStub(self.imageStub!)
         }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////
+
     // MARK: - Cleaning
-    
+
     @IBAction func clearResults() {
         self.textView.text = ""
         self.imageView.image = nil
     }
-    
 }

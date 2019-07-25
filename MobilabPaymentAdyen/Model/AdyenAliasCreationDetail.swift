@@ -29,9 +29,9 @@ class AdyenAliasCreationDetail: AliasCreationDetail {
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(token, forKey: .token)
-        try container.encode(returnUrl, forKey: .returnUrl)
-        try container.encode(channel, forKey: .channel)
+        try container.encode(self.token, forKey: .token)
+        try container.encode(self.returnUrl, forKey: .returnUrl)
+        try container.encode(self.channel, forKey: .channel)
     }
 
     private enum CodingKeys: CodingKey {

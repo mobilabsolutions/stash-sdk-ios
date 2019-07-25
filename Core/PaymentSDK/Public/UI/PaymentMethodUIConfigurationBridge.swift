@@ -10,7 +10,7 @@ import UIKit
 
 @objc(MLPaymentMethodUIConfiguration) public class PaymentMethodUIConfigurationBridge: NSObject {
     let configuration: PaymentMethodUIConfiguration
-    
+
     /// Initialize the payment method UI configuration
     ///
     /// - Parameters:
@@ -41,7 +41,7 @@ import UIKit
                                                           errorMessageColor: errorMessageColor,
                                                           errorMessageTextColor: errorMessageTextColor)
     }
-    
+
     init(configuration: PaymentMethodUIConfiguration) {
         self.configuration = configuration
     }

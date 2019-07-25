@@ -64,7 +64,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
         else { fatalError("Wrong cell type for PaymentMethodSelectionCollectionViewController. Should be PaymentMethodTypeCollectionViewCell") }
 
         cell.paymentMethodType = self.selectablePaymentMethods[indexPath.item]
-        cell.configuration = configuration
+        cell.configuration = self.configuration
 
         return cell
     }
@@ -88,7 +88,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
             as? PaymentMethodSelectionHeaderCollectionReusableView
         else { fatalError("Could not dequeue view of type PaymentMethodSelectionHeaderCollectionReusableView for \(self.headerReuseIdentifier)") }
 
-        header.configuration = configuration
+        header.configuration = self.configuration
 
         return header
     }

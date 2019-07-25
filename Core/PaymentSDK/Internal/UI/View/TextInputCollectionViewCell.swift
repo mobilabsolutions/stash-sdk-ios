@@ -19,7 +19,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
 
     private var text: String? {
         didSet {
-            self.textField.text = text
+            self.textField.text = self.text
             self.didUpdateTextFieldText()
         }
     }
@@ -39,7 +39,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
     private var errorText: String? {
         didSet {
             self.textField.set(hasInvalidData: self.errorText != nil)
-            self.errorLabel.text = errorText
+            self.errorLabel.text = self.errorText
             self.errorLabelZeroHeightConstraint?.isActive = self.errorText == nil
         }
     }

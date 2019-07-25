@@ -18,7 +18,7 @@ class PaymentMethodsCollectionViewController: UICollectionViewController {
         flowLayout.itemSize = CGSize(width: self.collectionView.frame.size.width, height: 60)
         flowLayout.minimumLineSpacing = 2
 
-        collectionView.collectionViewLayout = flowLayout
+        self.collectionView.collectionViewLayout = flowLayout
 
         title = "List"
     }
@@ -39,7 +39,7 @@ class PaymentMethodsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AliasCollectionViewCell
         else { fatalError("Wrong collection view cell type for payment methods view controller") }
-        cell.setup(for: AliasManager.shared.aliases[indexPath.row])
+        cell.setup(for: AliasManager.shared.aliases[AliasManager.shared.aliases.count - 1 - indexPath.row])
         return cell
     }
 }

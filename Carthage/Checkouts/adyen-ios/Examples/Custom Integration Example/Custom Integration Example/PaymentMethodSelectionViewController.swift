@@ -8,75 +8,74 @@ import Adyen
 import UIKit
 
 class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewDelegate, UITableViewDataSource {
-    
     // MARK: - Object Lifecycle
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didUpdatePaymentMethods), name: PaymentRequestManager.didUpdatePaymentMethodsNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didUpdatePaymentMethods), name: PaymentRequestManager.didUpdatePaymentMethodsNotification, object: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationBar.title = "checkout"
         navigationBar.buttonType = .dismiss(target: self, action: #selector(close))
-        
+
         var tableViewFrame = view.bounds
         tableViewFrame.origin.y = navigationBar.frame.maxY
-        tableView.frame = tableViewFrame
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.isHidden = true
+        self.tableView.frame = tableViewFrame
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.isHidden = true
         // We may need to conditionally enable scroll based on whether or not all
         // the payment methods fit on screen, but so far this is sufficient.
-        tableView.isScrollEnabled = false
-        view.addSubview(tableView)
-        
+        self.tableView.isScrollEnabled = false
+        view.addSubview(self.tableView)
+
         var loadingFrame = tableViewFrame
         loadingFrame.size.height = 310.0
-        loadingIndicatorContainer.frame = loadingFrame
-        view.addSubview(loadingIndicatorContainer)
-        
-        tableView.separatorColor = Theme.headerFooterBackgroundColor
-        
+        self.loadingIndicatorContainer.frame = loadingFrame
+        view.addSubview(self.loadingIndicatorContainer)
+
+        self.tableView.separatorColor = Theme.headerFooterBackgroundColor
+
         preferredContentSize = CGSize(width: view.bounds.width, height: 0.0)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updatePreferredContentSize()
-        
-        if !tableView.isHidden {
+        self.updatePreferredContentSize()
+
+        if !self.tableView.isHidden {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                tableView.deselectRow(at: selectedIndexPath, animated: true)
+                self.tableView.deselectRow(at: selectedIndexPath, animated: true)
             }
         }
     }
-    
+
     // MARK: - UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return rowHeight
+
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return self.rowHeight
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = request else {
             return
         }
-        
-        let selected = paymentMethods[indexPath.row]
+
+        let selected = self.paymentMethods[indexPath.row]
         if let extraDetails = PaymentDetailsViewControllerFactory.viewController(forPaymentMethod: selected, paymentController: controller) {
             navigationController?.pushViewController(extraDetails, animated: false)
         } else {
@@ -91,12 +90,12 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
             }
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
         return Theme.headerFooterHeight
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+    func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
         let headerLabel = UILabel(frame: .zero)
         headerLabel.text = "Select your preferred payment method"
         headerLabel.font = Theme.standardFontSmall
@@ -105,21 +104,21 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
         headerLabel.backgroundColor = Theme.headerFooterBackgroundColor
         return headerLabel
     }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
+    func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
         return 1.0
     }
-    
+
     // MARK: - UITableViewDataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return paymentMethods.count
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return self.paymentMethods.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "MethodCell"
         let cell: UITableViewCell
-        
+
         if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) {
             cell = dequeuedCell
         } else {
@@ -127,11 +126,11 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
             cell.textLabel?.textColor = Theme.secondaryColor
             cell.backgroundColor = UIColor.white
         }
-        
-        let paymentMethod = paymentMethods[indexPath.row]
+
+        let paymentMethod = self.paymentMethods[indexPath.row]
         cell.textLabel?.text = paymentMethod.name
         cell.imageView?.image = nil
-        
+
         if let logoURL = paymentMethod.logoURL {
             PaymentMethodImageCache.shared.retrieveCellIcon(from: logoURL, completionHandler: { image in
                 cell.imageView?.image = image
@@ -141,9 +140,9 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
         }
         return cell
     }
-    
+
     // MARK: - Private
-    
+
     private var loadingIndicatorContainer: UIView = {
         let containerFrame = CGRect(x: 0, y: 0, width: 0, height: 129.0)
         let container = UIView(frame: containerFrame)
@@ -159,26 +158,26 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
         container.addSubview(loadingIndicator)
         return container
     }()
-    
+
     private var tableView = UITableView(frame: .zero)
     private var request: PaymentController?
     private var paymentMethods: [PaymentMethod] = []
     private let rowHeight: CGFloat = 70.0
-    
+
     private func updatePreferredContentSize() {
         var newPreferredContentSize = preferredContentSize
-        if tableView.isHidden {
+        if self.tableView.isHidden {
             newPreferredContentSize.height = 214.0
         } else {
-            newPreferredContentSize.height = (CGFloat(paymentMethods.count) + 1) * rowHeight + tableView.frame.minY
+            newPreferredContentSize.height = (CGFloat(self.paymentMethods.count) + 1) * self.rowHeight + self.tableView.frame.minY
         }
         preferredContentSize = newPreferredContentSize
         navigationController?.preferredContentSize = newPreferredContentSize
     }
-    
+
     @objc private func didUpdatePaymentMethods() {
         // Delay is put in so that the loading indicator does not flash.
-        DispatchQueue.main.asyncAfter(deadline: (DispatchTime.now() + DispatchTimeInterval.seconds(1))) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
             self.paymentMethods = PaymentRequestManager.shared.paymentMethods?.other ?? []
             self.request = PaymentRequestManager.shared.paymentController
             self.loadingIndicatorContainer.isHidden = true
@@ -187,5 +186,4 @@ class PaymentMethodSelectionViewController: CheckoutViewController, UITableViewD
             self.updatePreferredContentSize()
         }
     }
-    
 }

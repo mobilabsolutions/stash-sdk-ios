@@ -12,7 +12,7 @@ class CardExpiryValidator: NumericValidator {
     func isValid(_ string: String) -> Bool {
         let sanitizedString = sanitize(string)
 
-        guard sanitizedString.count == maxLength else {
+        guard sanitizedString.count == self.maxLength else {
             return false
         }
 

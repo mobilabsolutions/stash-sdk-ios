@@ -243,6 +243,10 @@
 		E1AF91972267446900BA0B82 /* BSCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */; };
 		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1C9A85E22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */; };
+		E1CCF8F422DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */; };
+		E1CCF8FB22DDEF8D00B16494 /* TestMerchantBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */; };
+		E1CCF8FC22DDEF8E00B16494 /* TestMerchantBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */; };
+		E1CCF8FE22E198D200B16494 /* PaymentMethodIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */; };
 		E1D558F022648DE900BC856A /* AdyenAliasCreationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */; };
 		E1D558F12264A9EE00BC856A /* MobilabPaymentAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* MobilabPaymentAdyen.framework */; };
 		E1D558F32264AA5200BC856A /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
@@ -607,6 +611,9 @@
 		E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointProvidingDelegate.swift; sourceTree = "<group>"; };
 		E1C9A85A2240F7020099DB2E /* NecessaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryData.swift; sourceTree = "<group>"; };
 		E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSSEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAndUsePaymentMethodTests.swift; sourceTree = "<group>"; };
+		E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMerchantBackend.swift; sourceTree = "<group>"; };
+		E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodIntegrationTests.swift; sourceTree = "<group>"; };
 		E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenAliasCreationDetail.swift; sourceTree = "<group>"; };
 		E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardType+Extensions.swift"; sourceTree = "<group>"; };
@@ -809,6 +816,8 @@
 				C42D56C1228C32A400312CC1 /* CountryDataTests.swift */,
 				E11F2F482273100D001F9925 /* IdempotencyTests.swift */,
 				E1970DB7229844B200D075A7 /* SDKResetter.swift */,
+				E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */,
+				E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1358,6 +1367,7 @@
 				E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */,
 				E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */,
 				E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */,
+				E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */,
 			);
 			path = SampleUITests;
 			sourceTree = "<group>";
@@ -2027,8 +2037,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1CCF8FE22E198D200B16494 /* PaymentMethodIntegrationTests.swift in Sources */,
 				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
 				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
+				E1CCF8FB22DDEF8D00B16494 /* TestMerchantBackend.swift in Sources */,
 				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
 				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,
 				E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */,
@@ -2124,6 +2136,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1CCF8FC22DDEF8E00B16494 /* TestMerchantBackend.swift in Sources */,
+				E1CCF8F422DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift in Sources */,
 				E1995B39225749D900BF24A2 /* BaseUITest.swift in Sources */,
 				E1970DB42297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift in Sources */,
 				E1995B37225749A600BF24A2 /* BSPayoneUITests.swift in Sources */,
@@ -2533,7 +2547,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Demo/other",
+					"$(PROJECT_DIR)/Sample/other",
 				);
 				INFOPLIST_FILE = Sample/other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2563,8 +2577,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Demo",
-					"$(PROJECT_DIR)/Demo/other",
+					"$(PROJECT_DIR)/Sample",
+					"$(PROJECT_DIR)/Sample/other",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Sample/other/Info.plist;

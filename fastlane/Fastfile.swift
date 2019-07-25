@@ -103,7 +103,7 @@ class Fastfile: LaneFile {
     }
 
     private func tearDownFromDistribution() {
-        guard isCI
+        guard self.isCI
         else { return }
 
         deleteKeychain(name: self.keychainName)

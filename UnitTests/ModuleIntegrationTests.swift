@@ -92,7 +92,7 @@ class ModuleIntegrationTests: XCTestCase {
     func testHandleRegistrationRequestCalled() throws {
         let expectation = XCTestExpectation(description: "Handle registration is called")
 
-        let registration = createTestRegistration(withTitle: "Test alias")
+        let registration = self.createTestRegistration(withTitle: "Test alias")
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
@@ -160,7 +160,7 @@ class ModuleIntegrationTests: XCTestCase {
         let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")
         doesNotCallRegistration.isInverted = true
 
-        let registration = createTestRegistration(withTitle: "This should not be returned")
+        let registration = self.createTestRegistration(withTitle: "This should not be returned")
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration)
 

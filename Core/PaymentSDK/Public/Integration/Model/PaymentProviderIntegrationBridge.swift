@@ -10,22 +10,22 @@ import Foundation
 
 @objc(MLPaymentProviderIntegration) public class PaymentProviderIntegrationBridge: NSObject {
     let integration: PaymentProviderIntegration
-    
+
     @objc public init?(paymentServiceProvider bridge: PaymentProviderBridge, paymentMethodTypes: Set<Int>) {
-        let paymentMethods = paymentMethodTypes.map({ (method) -> PaymentMethodType in
+        let paymentMethods = paymentMethodTypes.map { (method) -> PaymentMethodType in
             guard let bridgeType = PaymentMethodTypeBridge(rawValue: method),
                 let type = bridgeType.paymentMethodType
-                else { fatalError("Provided value (\(method)) does not correspond to a payment method") }
+            else { fatalError("Provided value (\(method)) does not correspond to a payment method") }
             return type
-        })
-        
+        }
+
         guard let integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider,
                                                            paymentMethodTypes: Set(paymentMethods))
-            else { return nil }
-        
+        else { return nil }
+
         self.integration = integration
     }
-    
+
     @objc public init(paymentServiceProvider bridge: PaymentProviderBridge) {
         self.integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider)
     }

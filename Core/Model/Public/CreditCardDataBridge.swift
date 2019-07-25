@@ -10,7 +10,7 @@ import Foundation
 
 @objc(MLCreditCardData) public class CreditCardDataBridge: NSObject, CreditCardDataInitializible {
     let creditCardData: CreditCardData
-    
+
     @objc public required init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws {
         self.creditCardData = try CreditCardData(cardNumber: cardNumber,
                                                  cvv: cvv,

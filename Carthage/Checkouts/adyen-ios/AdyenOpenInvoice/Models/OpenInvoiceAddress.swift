@@ -12,11 +12,11 @@ struct OpenInvoiceAddress: Decodable {
     var city: String?
     var postalCode: String?
     var country: String?
-    
+
     func formatted() -> String {
-        return "\(street ?? "") \(houseNumber ?? "")\n\(postalCode ?? "") \(city ?? ""), \(country ?? "")"
+        return "\(self.street ?? "") \(self.houseNumber ?? "")\n\(self.postalCode ?? "") \(self.city ?? ""), \(self.country ?? "")"
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case houseNumber = "houseNumberOrName"
         case street, city, postalCode, country

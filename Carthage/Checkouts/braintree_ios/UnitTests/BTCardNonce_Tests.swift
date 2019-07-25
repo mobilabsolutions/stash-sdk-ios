@@ -1,7 +1,6 @@
 import XCTest
 
 class BTCardNonce_Tests: XCTestCase {
-
     override func setUp() {
         super.setUp()
     }
@@ -22,14 +21,14 @@ class BTCardNonce_Tests: XCTestCase {
                 "payroll": "No",
                 "issuingBank": "US",
                 "countryOfIssuance": "Something",
-                "productId": "123"
+                "productId": "123",
             ],
             "nonce": "fake-nonce",
             "threeDSecureInfo": [
                 "liabilityShifted": true,
-                "liabilityShiftPossible": true
-            ]
-            ]))
+                "liabilityShiftPossible": true,
+            ],
+        ]))
 
         XCTAssertNotNil(cardNonce.threeDSecureInfo)
         XCTAssertTrue(cardNonce.threeDSecureInfo.liabilityShiftPossible)
@@ -67,10 +66,10 @@ class BTCardNonce_Tests: XCTestCase {
                 "payroll": "No",
                 "issuingBank": "US",
                 "countryOfIssuance": "Something",
-                "productId": "123"
+                "productId": "123",
             ],
             "nonce": "fake-nonce",
-            ]))
+        ]))
 
         XCTAssertNotNil(cardNonce.threeDSecureInfo)
         XCTAssertFalse(cardNonce.threeDSecureInfo.liabilityShiftPossible)
@@ -100,7 +99,7 @@ class BTCardNonce_Tests: XCTestCase {
                 "lastTwo": "11",
             ],
             "nonce": "fake-nonce",
-            ]))
+        ]))
 
         XCTAssertEqual(cardNonce.localizedDescription, "Visa ending in 11")
         XCTAssertEqual(cardNonce.cardNetwork, BTCardNetwork.visa)
@@ -169,7 +168,7 @@ class BTCardNonce_Tests: XCTestCase {
                     "lastTwo": "11",
                 ],
                 "nonce": "fake-nonce",
-            ] as [String : Any]
+            ] as [String: Any]
             let cardNonce = BTCardNonce(json: BTJSON(value: jsonValue))
 
             XCTAssertEqual(cardNonce.cardNetwork, cardNetworks[i])
@@ -193,10 +192,10 @@ class BTCardNonce_Tests: XCTestCase {
                     "payroll": "No",
                     "issuingBank": "US",
                     "countryOfIssuance": "USA",
-                    "productId": "123"
+                    "productId": "123",
                 ],
-            ]
-            ]))
+            ],
+        ]))
 
         XCTAssertEqual(cardNonce.localizedDescription, "ending in 11")
         XCTAssertEqual(cardNonce.cardNetwork, BTCardNetwork.visa)
@@ -220,9 +219,9 @@ class BTCardNonce_Tests: XCTestCase {
             "creditCard": [
                 "token": "fake-nonce",
                 "brand": "vIsA",
-                "last4": "1111"
-            ]
-            ]))
+                "last4": "1111",
+            ],
+        ]))
 
         XCTAssertEqual(cardNonce.localizedDescription, "ending in 11")
         XCTAssertEqual(cardNonce.cardNetwork, BTCardNetwork.visa)
@@ -248,7 +247,7 @@ class BTCardNonce_Tests: XCTestCase {
             BTCardNetwork.hipercard,
             BTCardNetwork.ukMaestro,
             BTCardNetwork.visa,
-            ]
+        ]
         let cardTypeJSONValues = [
             "some unrecognized type",
             "american express",
@@ -265,7 +264,7 @@ class BTCardNonce_Tests: XCTestCase {
             "hipercard",
             "uk maestro",
             "visa",
-            ]
+        ]
         let cardTypes = [
             "Unknown",
             "AMEX",
@@ -282,15 +281,15 @@ class BTCardNonce_Tests: XCTestCase {
             "Hipercard",
             "UKMaestro",
             "Visa",
-            ]
+        ]
         for i in 0..<cardNetworks.count {
             let jsonValue = [
                 "token": "fake-nonce",
                 "creditCard": [
                     "brand": cardTypeJSONValues[i],
-                    "last4": "1111"
-                ]
-            ] as [String : Any]
+                    "last4": "1111",
+                ],
+            ] as [String: Any]
             let cardNonce = BTCardNonce(graphQLJSON: BTJSON(value: jsonValue))
 
             XCTAssertEqual(cardNonce.cardNetwork, cardNetworks[i])
@@ -304,9 +303,9 @@ class BTCardNonce_Tests: XCTestCase {
             "creditCard": [
                 "brand": nil,
                 "last4": nil,
-                "binData": nil
-            ]
-            ]))
+                "binData": nil,
+            ],
+        ]))
 
         XCTAssertEqual(cardNonce.localizedDescription, "")
         XCTAssertEqual(cardNonce.cardNetwork, BTCardNetwork.unknown)
