@@ -171,7 +171,7 @@ class BaseViewController: UIViewController {
 
         view.addSubview(self.button)
         let tabBarHeight: CGFloat = tabBarController?.tabBar.isHidden == false ? tabBarController?.tabBar.frame.height ?? 0 : 0
-        self.button.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: self.defaultInset, paddingBottom: tabBarHeight + 24, paddingRight: self.defaultInset, height: self.buttonHeight)
+        self.button.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: self.defaultInset, paddingBottom: tabBarHeight + 24, paddingRight: self.defaultInset, height: self.buttonHeight)
     }
 
     private func setupCollectionView() {

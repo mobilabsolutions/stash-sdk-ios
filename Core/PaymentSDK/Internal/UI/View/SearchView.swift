@@ -80,20 +80,20 @@ class SearchView: UIView {
 
     private func sharedInit() {
         addSubview(self.imageView)
-        self.imageView.anchor(left: leftAnchor,
+        self.imageView.anchor(leading: leadingAnchor,
                               centerY: centerYAnchor,
                               paddingLeft: self.defaultHorizontalToSuperviewOffset + self.defaultHorizontalToSuperviewOffset,
                               width: self.imageDimension.width, height: self.imageDimension.height)
 
         addSubview(self.textField)
-        self.textField.anchor(left: self.imageView.rightAnchor,
+        self.textField.anchor(leading: self.imageView.trailingAnchor,
                               centerY: centerYAnchor,
                               paddingLeft: self.defaultInterItemOffset,
                               height: self.fieldHeight)
 
         addSubview(self.cancelButton)
-        self.cancelButton.anchor(left: self.textField.rightAnchor,
-                                 right: rightAnchor,
+        self.cancelButton.anchor(leading: self.textField.trailingAnchor,
+                                 trailing: trailingAnchor,
                                  centerY: centerYAnchor,
                                  paddingLeft: self.defaultInterItemOffset,
                                  paddingRight: self.defaultHorizontalToSuperviewOffset,

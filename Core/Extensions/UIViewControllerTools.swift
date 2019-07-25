@@ -27,8 +27,8 @@ public final class UIViewControllerTools {
         view.addSubview(banner)
 
         banner.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                      left: view.safeAreaLayoutGuide.leftAnchor,
-                      right: view.safeAreaLayoutGuide.rightAnchor)
+                      leading: view.safeAreaLayoutGuide.leadingAnchor,
+                      trailing: view.safeAreaLayoutGuide.trailingAnchor)
 
         NSLayoutConstraint.activate([
             banner.heightAnchor.constraint(greaterThanOrEqualToConstant: alertBannerHeight),

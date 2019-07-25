@@ -71,12 +71,12 @@ class CustomIconLabelCell: BaseCell {
 
     private func setupViews() {
         addSubview(self.iconImageView)
-        self.iconImageView.anchor(left: leftAnchor, centerY: centerYAnchor,
+        self.iconImageView.anchor(leading: leadingAnchor, centerY: centerYAnchor,
                                   paddingLeft: self.cellInternalOffset,
                                   width: self.iconDimensions.width, height: self.iconDimensions.height)
 
         addSubview(self.titleLabel)
-        self.titleLabel.anchor(left: self.iconImageView.rightAnchor, centerY: centerYAnchor,
+        self.titleLabel.anchor(leading: self.iconImageView.trailingAnchor, centerY: centerYAnchor,
                                paddingLeft: self.cellInternalOffset,
                                height: self.titleHeight)
     }

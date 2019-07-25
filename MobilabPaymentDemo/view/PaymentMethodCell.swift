@@ -119,23 +119,23 @@ class PaymentMethodCell: BaseCell {
 
     private func setupViews() {
         addSubview(self.cellImageView)
-        self.cellImageView.anchor(left: leftAnchor,
+        self.cellImageView.anchor(leading: leadingAnchor,
                                   centerY: self.centerYAnchor,
                                   paddingLeft: self.cellInternalOffsetLeft,
                                   width: self.iconDimensions.width, height: self.iconDimensions.height)
 
         addSubview(self.titleLabel)
-        self.titleLabel.anchor(top: topAnchor, left: self.cellImageView.rightAnchor, right: rightAnchor,
+        self.titleLabel.anchor(top: topAnchor, leading: self.cellImageView.trailingAnchor, trailing: trailingAnchor,
                                paddingTop: self.labelVerticalPadding, paddingLeft: self.cellInternalOffsetLeft, paddingRight: self.cellInternalOffsetRight,
                                height: self.titleHeight)
 
         addSubview(self.subTitleLabel)
-        self.subTitleLabel.anchor(left: self.cellImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor,
+        self.subTitleLabel.anchor(leading: self.cellImageView.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
                                   paddingLeft: self.cellInternalOffsetLeft, paddingBottom: self.labelVerticalPadding, paddingRight: self.cellInternalOffsetRight,
                                   height: self.subTitleHeight)
 
         addSubview(self.button)
-        self.button.anchor(right: rightAnchor,
+        self.button.anchor(trailing: trailingAnchor,
                            centerY: self.centerYAnchor,
                            paddingRight: self.cellInternalOffsetRight,
                            width: self.buttonDimensions.width, height: self.buttonDimensions.height)

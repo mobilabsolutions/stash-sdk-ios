@@ -231,37 +231,37 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
         self.contentView.addSubview(self.secondErrorLabel)
 
         self.firstTextField.anchor(top: self.firstSubTitleLabel.bottomAnchor,
-                                   left: self.contentView.leftAnchor,
-                                   right: self.secondTextField.leftAnchor,
+                                   leading: self.contentView.leadingAnchor,
+                                   trailing: self.secondTextField.leadingAnchor,
                                    paddingTop: self.fieldToHeaderVerticalOffset,
                                    paddingLeft: self.defaultHorizontalToSuperviewOffset,
                                    paddingRight: self.defaultHorizontalToSuperviewOffset,
                                    height: self.fieldHeight,
                                    widthAnchor: self.secondTextField.widthAnchor)
 
-        self.secondTextField.anchor(right: self.contentView.rightAnchor,
+        self.secondTextField.anchor(trailing: self.contentView.trailingAnchor,
                                     centerY: self.firstTextField.centerYAnchor,
                                     paddingRight: self.defaultHorizontalToSuperviewOffset,
                                     heightAnchor: self.firstTextField.heightAnchor)
 
         self.firstSubTitleLabel.anchor(top: self.contentView.topAnchor,
-                                       left: self.firstTextField.leftAnchor,
-                                       right: self.firstTextField.rightAnchor,
+                                       leading: self.firstTextField.leadingAnchor,
+                                       trailing: self.firstTextField.trailingAnchor,
                                        paddingTop: self.headerToSuperViewVerticalOffset)
 
         self.secondSubTitleLabel.anchor(top: self.firstSubTitleLabel.topAnchor,
-                                        left: self.secondTextField.leftAnchor,
-                                        right: self.secondTextField.rightAnchor)
+                                        leading: self.secondTextField.leadingAnchor,
+                                        trailing: self.secondTextField.trailingAnchor)
 
         self.firstErrorLabel.anchor(top: self.firstTextField.bottomAnchor,
-                                    left: self.firstTextField.leftAnchor,
-                                    right: self.secondErrorLabel.leftAnchor,
+                                    leading: self.firstTextField.leadingAnchor,
+                                    trailing: self.secondErrorLabel.leadingAnchor,
                                     paddingTop: self.errorLabelVerticalOffset,
                                     paddingRight: self.errorLabelHorizontalOffset)
 
         self.secondErrorLabel.anchor(top: self.secondTextField.bottomAnchor,
-                                     left: self.secondTextField.leftAnchor,
-                                     right: self.contentView.rightAnchor,
+                                     leading: self.secondTextField.leadingAnchor,
+                                     trailing: self.contentView.trailingAnchor,
                                      paddingTop: self.errorLabelVerticalOffset,
                                      paddingBottom: self.errorLabelHorizontalOffset)
 

@@ -61,8 +61,8 @@ class CountryListCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalOffset),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalOffset),
-            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: horizontalOffset),
-            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -horizontalOffset),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: horizontalOffset),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -horizontalOffset),
         ])
     }
 

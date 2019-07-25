@@ -184,46 +184,46 @@ class ItemCell: BaseCell {
 
     private func setupViews() {
         addSubview(self.imageContainerView)
-        self.imageContainerView.anchor(left: leftAnchor,
+        self.imageContainerView.anchor(leading: leadingAnchor,
                                        centerY: self.centerYAnchor,
                                        paddingLeft: self.defaultCellInternalOffset,
                                        width: self.itemImageDimensions.width, height: self.itemImageDimensions.height)
 
         self.imageContainerView.addSubview(self.itemImageView)
         self.itemImageView.anchor(top: self.imageContainerView.topAnchor,
-                                  left: self.imageContainerView.leftAnchor,
+                                  leading: self.imageContainerView.leadingAnchor,
                                   bottom: self.imageContainerView.bottomAnchor,
-                                  right: self.imageContainerView.rightAnchor,
+                                  trailing: self.imageContainerView.trailingAnchor,
                                   centerX: self.imageContainerView.centerXAnchor,
                                   centerY: self.imageContainerView.centerYAnchor)
 
         addSubview(self.plusButton)
-        self.plusButton.anchor(right: rightAnchor,
+        self.plusButton.anchor(trailing: trailingAnchor,
                                centerY: self.centerYAnchor,
                                paddingRight: self.shouldShowQuantity ? self.defaultCellInternalOffset : self.cellInternalOffsetRight,
                                width: self.buttonDimensions.width, height: self.buttonDimensions.height)
 
         addSubview(self.quantityLabel)
-        self.quantityLabel.anchor(right: self.plusButton.leftAnchor, centerY: centerYAnchor, paddingRight: self.defaultCellInternalOffset)
+        self.quantityLabel.anchor(trailing: self.plusButton.leadingAnchor, centerY: centerYAnchor, paddingRight: self.defaultCellInternalOffset)
 
         addSubview(self.minusButton)
-        self.minusButton.anchor(right: self.quantityLabel.leftAnchor,
+        self.minusButton.anchor(trailing: self.quantityLabel.leadingAnchor,
                                 centerY: self.centerYAnchor,
                                 paddingRight: self.defaultCellInternalOffset,
                                 width: self.buttonDimensions.width, height: self.buttonDimensions.height)
 
         addSubview(self.titleLabel)
-        self.titleLabel.anchor(top: topAnchor, left: self.imageContainerView.rightAnchor, right: self.plusButton.leftAnchor,
+        self.titleLabel.anchor(top: topAnchor, leading: self.imageContainerView.trailingAnchor, trailing: self.plusButton.leadingAnchor,
                                paddingTop: self.titleTopPadding, paddingLeft: self.defaultCellInternalOffset, paddingRight: self.defaultCellInternalOffset,
                                height: self.titleHeight)
 
         addSubview(self.descriptionLabel)
-        self.descriptionLabel.anchor(top: topAnchor, left: self.imageContainerView.rightAnchor, right: self.plusButton.leftAnchor,
+        self.descriptionLabel.anchor(top: topAnchor, leading: self.imageContainerView.trailingAnchor, trailing: self.plusButton.leadingAnchor,
                                      paddingTop: self.subTitleTopPadding, paddingLeft: self.defaultCellInternalOffset, paddingRight: self.defaultCellInternalOffset,
                                      height: self.subTitleHeight)
 
         addSubview(self.priceLabel)
-        self.priceLabel.anchor(left: self.imageContainerView.rightAnchor, bottom: bottomAnchor, right: self.plusButton.leftAnchor,
+        self.priceLabel.anchor(leading: self.imageContainerView.trailingAnchor, bottom: bottomAnchor, trailing: self.plusButton.leadingAnchor,
                                paddingLeft: self.defaultCellInternalOffset, paddingBottom: self.priceBottomPadding, paddingRight: self.defaultCellInternalOffset,
                                height: self.priceHeight)
     }

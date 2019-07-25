@@ -108,18 +108,22 @@ class CountryListCollectionViewController: UIViewController {
         view.addSubview(self.headerView)
         self.headerView.configuration = self.configuration
 
-        self.headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                               right: view.safeAreaLayoutGuide.rightAnchor,
+        self.headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                               leading: view.safeAreaLayoutGuide.leadingAnchor,
+                               trailing: view.safeAreaLayoutGuide.trailingAnchor,
                                height: self.titleHeaderHeight)
 
         view.addSubview(self.searchView)
-        self.searchView.anchor(top: self.headerView.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                               right: view.safeAreaLayoutGuide.rightAnchor,
+        self.searchView.anchor(top: self.headerView.bottomAnchor,
+                               leading: view.safeAreaLayoutGuide.leadingAnchor,
+                               trailing: view.safeAreaLayoutGuide.trailingAnchor,
                                height: self.searchBarHeight)
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: self.searchView.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                                   bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
+        self.collectionView.anchor(top: self.searchView.bottomAnchor,
+                                   leading: view.safeAreaLayoutGuide.leadingAnchor,
+                                   bottom: view.bottomAnchor,
+                                   trailing: view.safeAreaLayoutGuide.trailingAnchor)
 
         self.searchView.setup(text: nil,
                               borderColor: .clear,
