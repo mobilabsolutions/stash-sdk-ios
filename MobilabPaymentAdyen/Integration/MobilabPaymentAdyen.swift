@@ -28,11 +28,15 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        
+        guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
+            return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+        }
+        
         do {
             if let creditCardData = try getCreditCardData(from: registrationRequest) {
                 self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
 
-                let pspData = try registrationRequest.pspData.toPSPData(type: AdyenData.self)
                 let controller = try getPaymentController(for: uniqueRegistrationIdentifier)
                 self.handleCreditCardRequest(creditCardData: creditCardData,
                                              pspData: pspData,

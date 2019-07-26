@@ -40,13 +40,4 @@ public struct PSPExtra: Codable {
 
     // Adyen Data
     public let paymentSession: String?
-
-    public func toPSPData<T: Decodable>(type: T.Type) throws -> T {
-        do {
-            let encodedData = try JSONEncoder().encode(self)
-            return try JSONDecoder().decode(type, from: encodedData)
-        } catch {
-            throw MobilabPaymentError.configuration(.pspInvalidConfiguration)
-        }
-    }
 }
