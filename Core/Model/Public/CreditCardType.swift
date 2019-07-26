@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A type of credit card (or `.unknown` if the SDK was not able to determine a type)
 public enum CreditCardType: String, CaseIterable {
     case visa = "VISA"
     case mastercard = "MASTERCARD"

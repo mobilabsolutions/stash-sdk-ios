@@ -8,7 +8,10 @@
 
 import Foundation
 
+/// A country that the user might be in
 public struct Country {
+    /// The country's name
     public let name: String
+    /// The country's code
     public let alpha2Code: String
 }

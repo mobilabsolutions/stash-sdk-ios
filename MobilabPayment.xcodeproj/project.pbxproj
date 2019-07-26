@@ -228,7 +228,6 @@
 		E1995B2722561EA500BF24A2 /* ValidationErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */; };
 		E1995B2922561F3700BF24A2 /* TitleProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2822561F3700BF24A2 /* TitleProviding.swift */; };
 		E1995B2B22561FAD00BF24A2 /* SDKConfigurationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */; };
-		E1995B2D225628D400BF24A2 /* UserActionableErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2C225628D400BF24A2 /* UserActionableErrorDetails.swift */; };
 		E1995B3122562A5200BF24A2 /* TemporaryErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3022562A5200BF24A2 /* TemporaryErrorDetails.swift */; };
 		E1995B3322562AFB00BF24A2 /* GenericErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3222562AFB00BF24A2 /* GenericErrorDetails.swift */; };
 		E1995B3522562C4E00BF24A2 /* NetworkErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3422562C4E00BF24A2 /* NetworkErrorDetails.swift */; };
@@ -590,7 +589,6 @@
 		E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorDetails.swift; sourceTree = "<group>"; };
 		E1995B2822561F3700BF24A2 /* TitleProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleProviding.swift; sourceTree = "<group>"; };
 		E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationError.swift; sourceTree = "<group>"; };
-		E1995B2C225628D400BF24A2 /* UserActionableErrorDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActionableErrorDetails.swift; sourceTree = "<group>"; };
 		E1995B2E22562A2300BF24A2 /* BraintreeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeError.swift; sourceTree = "<group>"; };
 		E1995B3022562A5200BF24A2 /* TemporaryErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryErrorDetails.swift; sourceTree = "<group>"; };
 		E1995B3222562AFB00BF24A2 /* GenericErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericErrorDetails.swift; sourceTree = "<group>"; };
@@ -1461,7 +1459,6 @@
 		E1995B2122561E1400BF24A2 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				E1995B2C225628D400BF24A2 /* UserActionableErrorDetails.swift */,
 				4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */,
 				BA078EE922E087A100E199B4 /* MobilabPaymentErrorBridge.swift */,
 				E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */,
@@ -1955,7 +1952,6 @@
 				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
 				1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */,
 				E15E3E282293ECA900EE19EE /* FormFieldErrorDelegate.swift in Sources */,
-				E1995B2D225628D400BF24A2 /* UserActionableErrorDetails.swift in Sources */,
 				BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */,
 				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
 				E1995B3522562C4E00BF24A2 /* NetworkErrorDetails.swift in Sources */,

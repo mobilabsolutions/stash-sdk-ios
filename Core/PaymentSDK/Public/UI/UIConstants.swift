@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// UI Constants used by the SDK. Contains colors and image assets.
 public final class UIConstants {
     public class var lightBlueGrey: UIColor {
         return UIColor(red: 209.0 / 255.0, green: 213.0 / 255.0, blue: 215.0 / 255.0, alpha: 1.0)

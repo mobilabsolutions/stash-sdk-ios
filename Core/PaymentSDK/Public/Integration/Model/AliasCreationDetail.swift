@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A superclass for all custom PSP creation details that should be sent during the createAlias call.
 open class AliasCreationDetail: Codable {
+    /// Create an empty AliasCreationDetail
     public init() {}
 }

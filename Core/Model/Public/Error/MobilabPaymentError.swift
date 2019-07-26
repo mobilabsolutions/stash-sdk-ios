@@ -8,14 +8,23 @@
 
 import Foundation
 
+/// An error that occurred during payment method creation
 public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding {
+    /// Local data validation failed (e.g. incorrect CVV)
     case validation(ValidationErrorDetails)
+    /// An SDK configuration error happened (either locally or with the backend)
     case configuration(SDKConfigurationError)
+    /// A network failure happened
     case network(NetworkErrorDetails)
+    /// The error cause was not determinable or does not fit into one
+    /// of the provided categories
     case other(GenericErrorDetails)
+    /// A temporary PSP error happened
     case temporary(TemporaryErrorDetails)
+    /// The user cancelled the operation
     case userCancelled
 
+    /// A human-readable title that describes the error
     public var title: String {
         switch self {
         case let .validation(details): return details.title
@@ -27,6 +36,7 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
         }
     }
 
+    /// A human readable description that gives more information about the error. May also contain an error code.
     public var description: String {
         switch self {
         case let .validation(details): return details.description
@@ -39,10 +49,11 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
     }
 }
 
-public struct MobilabPaymentApiError<S: MobilabPaymentErrorConvertible>: Error, MobilabPaymentErrorConvertible {
-    public let error: S
+/// An error that occurred in the backend
+struct MobilabPaymentApiError<S: MobilabPaymentErrorConvertible>: Error, MobilabPaymentErrorConvertible {
+    let error: S
 
-    public func toMobilabPaymentError() -> MobilabPaymentError {
+    func toMobilabPaymentError() -> MobilabPaymentError {
         return self.error.toMobilabPaymentError()
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An error whose cause is insufficient or invalid SDK or backend configuration
 public enum SDKConfigurationError: CustomStringConvertible, TitleProviding {
     /// SDK configuration is missing
     case configurationMissing

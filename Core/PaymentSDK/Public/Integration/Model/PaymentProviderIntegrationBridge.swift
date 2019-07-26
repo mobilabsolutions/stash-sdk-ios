@@ -8,9 +8,16 @@
 
 import Foundation
 
+/// A bridge that allows using PaymentProviderIntegrations from Objective-C.
 @objc(MLPaymentProviderIntegration) public class PaymentProviderIntegrationBridge: NSObject {
     let integration: PaymentProviderIntegration
 
+    /// Create a new payment provider from a payment service provider as well as the payment method types that
+    /// it should support.
+    ///
+    /// - Parameters:
+    ///   - bridge: The payment provider bridge that should be used (and validated for use with the provided payment methods)
+    ///   - paymentMethodTypes: The payment method types that this PSP should be used for (should be `PaymentMethodTypeBridge`s)
     @objc public init?(paymentServiceProvider bridge: PaymentProviderBridge, paymentMethodTypes: Set<Int>) {
         let paymentMethods = paymentMethodTypes.map { (method) -> PaymentMethodType in
             guard let bridgeType = PaymentMethodTypeBridge(rawValue: method),
@@ -26,6 +33,10 @@ import Foundation
         self.integration = integration
     }
 
+    /// Create a new payment provider from a payment service provider
+    ///
+    /// - Parameters:
+    ///   - bridge: The payment provider bridge that should be used
     @objc public init(paymentServiceProvider bridge: PaymentProviderBridge) {
         self.integration = PaymentProviderIntegration(paymentServiceProvider: bridge.paymentProvider)
     }

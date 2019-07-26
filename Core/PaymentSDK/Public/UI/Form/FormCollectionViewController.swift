@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A base view controller for Form-like inputs
 open class FormCollectionViewController: UICollectionViewController, PaymentMethodDataProvider,
     UICollectionViewDelegateFlowLayout, DoneButtonUpdater {
     private let textReuseIdentifier = "textCell"
@@ -22,18 +23,23 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private let errorCellHeightSurplus: CGFloat = 18
     private let numberOfSecondsUntilIdleFieldValidation: TimeInterval = 3
 
+    /// The callback that should be called once the done button is pressed with valid input data present
     public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
+    /// The delegate that updates the done button.
     public var doneButtonUpdating: DoneButtonUpdating?
 
     private var cellModels: [FormCellModel] = []
 
+    /// Billing data that should be filled in where appropriate
     public let billingData: BillingData?
 
+    /// The user's country
     public var country: Country?
 
     private let configuration: PaymentMethodUIConfiguration
     private let formTitle: String
 
+    /// A form consumer that both validates and makes use of provided data
     public weak var formConsumer: FormConsumer?
 
     private var fieldData: [NecessaryData: String] = [:]
@@ -45,6 +51,12 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private weak var selectedCountryTextField: UITextField?
     private var alertBanner: AlertBanner?
 
+    /// Create a new form view controller
+    ///
+    /// - Parameters:
+    ///   - billingData: The billing data that should be considered and possibly pre-filled in the UI
+    ///   - configuration: The UI configuration to use for customization of the UI
+    ///   - formTitle: The title of the form which will be presented above the form fields
     public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
         self.configuration = configuration
@@ -53,6 +65,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
+    /// Not implemented and should not be used.
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) is not implemented")
     }
@@ -77,10 +90,18 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.currentIdleFieldTimer?.timer.invalidate()
     }
 
+    /// Set the form's cell models
+    ///
+    /// - Parameter cellModels: The cell models that should be used to create the form fields
     public func setCellModel(cellModels: [FormCellModel]) {
         self.cellModels = cellModels
     }
 
+    /// Push the country selection view controller on the navigation stack
+    ///
+    /// - Parameters:
+    ///   - textField: The text field from which to show the country view controller
+    ///   - viewController: The view controller on whose navigation stack to push the country selection view controller
     public func showCountryListing(textField: UITextField, on viewController: UIViewController) {
         var countryName = textField.text ?? ""
         // get device locale if textfield is empty
@@ -94,6 +115,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         viewController.navigationController?.pushViewController(countryVC, animated: true)
     }
 
+    /// Present an error alert when an error occurs during payment method creation
+    ///
+    /// - Parameter error: The error that occurred
     public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
 
@@ -370,6 +394,7 @@ extension FormCollectionViewController: DataPointProvidingDelegate {
 }
 
 extension FormCollectionViewController: DoneButtonViewDelegate {
+    /// Called when the done button was tapped
     public func didTapDoneButton() {
         let existingBanner = self.alertBanner
 

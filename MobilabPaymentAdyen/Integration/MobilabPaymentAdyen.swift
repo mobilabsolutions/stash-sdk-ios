@@ -1,6 +1,6 @@
 //
-//  MobilabPaymentBSPayone.swift
-//  BSPayone
+//  MobilabPaymentAdyen.swift
+//  Adyen
 //
 //  Created by Borna Beakovic on 27/02/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -12,9 +12,15 @@ import AdyenSEPA
 import MobilabPaymentCore
 import UIKit
 
+/// The Adyen PSP module. See [here](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/Adyen)
+/// for more information on things to keep in mind when using that PSP.
 public class MobilabPaymentAdyen: PaymentServiceProvider {
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public let pspIdentifier: MobilabPaymentProvider
 
+    /// Collects all of the controllers for different registration requests.
+    /// These controllers need to be used across different steps of the registration process (before the "createAlias" and before the "updateAlias" calls)
+    /// and therefore need to be held on to.
     private var controllerForRegistrationIdentifier: [String: AdyenPaymentControllerWrapper] = [:]
 
     private let dateExtractingDateFormatter: DateFormatter = {
@@ -24,6 +30,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         return dateFormatter
     }()
 
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
@@ -55,6 +62,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public func provideAliasCreationDetail(for registrationData: RegistrationData,
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
@@ -69,14 +77,17 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         self.controllerForRegistrationIdentifier[uniqueRegistrationIdentifier] = controller
     }
 
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module. Adyen supports SEPA and Credit Card payment methods.
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
         return [.sepa, .creditCard]
     }
 
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module. Adyen supports SEPA and Credit Card payment methods for registration using UI.
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.sepa, .creditCard]
     }
 
+    /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
@@ -92,6 +103,8 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         }
     }
 
+    /// Create an instance that provides all of the SDK-required functionality for communication with the Adyen payment service provider.
+    /// This instance can be used to initialize the SDK.
     public init() {
         self.pspIdentifier = .adyen
     }

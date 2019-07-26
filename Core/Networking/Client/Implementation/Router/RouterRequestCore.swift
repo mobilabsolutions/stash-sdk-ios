@@ -54,14 +54,6 @@ struct RouterRequestCore: RouterRequestProtocol {
         }
     }
 
-    func getResponseType() -> MLResponseType {
-        switch self.service {
-        case .createAlias,
-             .updateAlias:
-            return .json
-        }
-    }
-
     func getHttpBody() -> Data? {
         switch self.service {
         case let .createAlias(request):

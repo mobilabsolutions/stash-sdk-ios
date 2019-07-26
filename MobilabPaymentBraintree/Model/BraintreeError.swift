@@ -9,7 +9,10 @@
 import Foundation
 import MobilabPaymentCore
 
-public enum BraintreeError {
+/// Custom Braintree generated errors
+///
+/// - userCancelledPayPal: The user cancelled the PayPal UI
+enum BraintreeError {
     /// User cancelled PayPal UI
     case userCancelledPayPal
 
