@@ -541,7 +541,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/other",
 				);
-				INFOPLIST_FILE = MobilabPaymentDemo/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -569,7 +569,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/other",
 				);
-				INFOPLIST_FILE = MobilabPaymentDemo/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
