@@ -47,7 +47,7 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
         self.navigationItem.rightBarButtonItem?.tintColor = UIConstants.coolGrey
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: defaultTopPadding)
         self.setupCollectionView()
     }
 

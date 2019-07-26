@@ -147,37 +147,37 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
         self.contentView.addSubview(self.cvvTitleLabel)
 
         self.dateTextField.anchor(top: self.dateTitleLabel.bottomAnchor,
-                                  left: self.contentView.leftAnchor,
-                                  right: self.cvvTextField.leftAnchor,
+                                  leading: self.contentView.leadingAnchor,
+                                  trailing: self.cvvTextField.leadingAnchor,
                                   paddingTop: self.fieldToHeaderVerticalOffset,
                                   paddingLeft: self.defaultHorizontalToSuperviewOffset,
                                   paddingRight: self.defaultHorizontalToSuperviewOffset,
                                   height: self.fieldHeight,
                                   widthAnchor: self.cvvTextField.widthAnchor)
 
-        self.cvvTextField.anchor(right: self.contentView.rightAnchor,
+        self.cvvTextField.anchor(trailing: self.contentView.trailingAnchor,
                                  centerY: self.dateTextField.centerYAnchor,
                                  paddingRight: self.defaultHorizontalToSuperviewOffset,
                                  heightAnchor: self.dateTextField.heightAnchor)
 
         self.dateTitleLabel.anchor(top: self.contentView.topAnchor,
-                                   left: self.dateTextField.leftAnchor,
-                                   right: self.dateTextField.rightAnchor,
+                                   leading: self.dateTextField.leadingAnchor,
+                                   trailing: self.dateTextField.trailingAnchor,
                                    paddingTop: self.headerToSuperViewVerticalOffset)
 
         self.cvvTitleLabel.anchor(top: self.dateTitleLabel.topAnchor,
-                                  left: self.cvvTextField.leftAnchor,
-                                  right: self.cvvTextField.rightAnchor)
+                                  leading: self.cvvTextField.leadingAnchor,
+                                  trailing: self.cvvTextField.trailingAnchor)
 
         self.dateErrorLabel.anchor(top: self.dateTextField.bottomAnchor,
-                                   left: self.dateTextField.leftAnchor,
-                                   right: self.cvvErrorLabel.leftAnchor,
+                                   leading: self.dateTextField.leadingAnchor,
+                                   trailing: self.cvvErrorLabel.leadingAnchor,
                                    paddingTop: self.errorLabelVerticalOffset,
                                    paddingRight: self.errorLabelHorizontalOffset)
 
         self.cvvErrorLabel.anchor(top: self.cvvTextField.bottomAnchor,
-                                  left: self.cvvTextField.leftAnchor,
-                                  right: self.contentView.rightAnchor,
+                                  leading: self.cvvTextField.leadingAnchor,
+                                  trailing: self.contentView.trailingAnchor,
                                   paddingTop: self.errorLabelVerticalOffset,
                                   paddingBottom: self.errorLabelHorizontalOffset)
 

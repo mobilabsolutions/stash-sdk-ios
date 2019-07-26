@@ -165,7 +165,10 @@ class PaymentMethodController: BaseViewController, UICollectionViewDataSource, U
         }
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: availableBottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor,
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                   leading: view.safeAreaLayoutGuide.leadingAnchor,
+                                   bottom: availableBottomAnchor,
+                                   trailing: view.safeAreaLayoutGuide.trailingAnchor,
                                    paddingTop: defaultTopPadding)
     }
 

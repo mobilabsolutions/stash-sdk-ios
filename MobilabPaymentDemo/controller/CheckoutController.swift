@@ -128,18 +128,22 @@ class CheckoutController: BaseViewController, UICollectionViewDataSource, UIColl
 
     private func setupViews() {
         view.addSubview(self.amountInfoContainerView)
-        self.amountInfoContainerView.anchor(left: view.leftAnchor, bottom: availableBottomAnchor, right: view.rightAnchor,
-                                            paddingLeft: defaultInset, paddingBottom: defaultInset, paddingRight: defaultInset,
+        self.amountInfoContainerView.anchor(leading: view.leadingAnchor,
+                                            bottom: availableBottomAnchor,
+                                            trailing: view.trailingAnchor,
+                                            paddingLeft: defaultInset,
+                                            paddingBottom: defaultInset,
+                                            paddingRight: defaultInset,
                                             height: self.amountViewHeight)
 
         self.amountInfoContainerView.addSubview(self.totalAmountLabel)
-        self.totalAmountLabel.anchor(top: self.amountInfoContainerView.topAnchor, left: self.amountInfoContainerView.leftAnchor, bottom: self.amountInfoContainerView.bottomAnchor)
+        self.totalAmountLabel.anchor(top: self.amountInfoContainerView.topAnchor, leading: self.amountInfoContainerView.leadingAnchor, bottom: self.amountInfoContainerView.bottomAnchor)
 
         self.amountInfoContainerView.addSubview(self.amountValueLabel)
-        self.amountValueLabel.anchor(top: self.amountInfoContainerView.topAnchor, bottom: self.amountInfoContainerView.bottomAnchor, right: self.amountInfoContainerView.rightAnchor)
+        self.amountValueLabel.anchor(top: self.amountInfoContainerView.topAnchor, bottom: self.amountInfoContainerView.bottomAnchor, trailing: self.amountInfoContainerView.trailingAnchor)
 
         view.addSubview(self.collectionView)
-        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: self.amountInfoContainerView.topAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: defaultTopPadding)
+        self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: self.amountInfoContainerView.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: defaultTopPadding)
 
         view.insertSubview(self.emptyCartInfoView, at: 0)
         self.emptyCartInfoView.frame = view.frame
