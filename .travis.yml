@@ -10,9 +10,11 @@ env:
   #environment variables
   global:
     - WORKSPACE_NAME="MobilabPayment.xcworkspace"
-  matrix:
     - DESTINATION="OS=12.2,name=iPhone X"
-
+  matrix:
+    - TEST_SUITE=unit
+    - TEST_SUITE=ui
+    
 install:
   - gem install xcpretty
   - gem install xcpretty-travis-formatter
@@ -22,4 +24,16 @@ install:
   - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 script:
-  - ./travis-build.sh
+  - bash travis-build.sh
+
+jobs:
+  include:
+    - stage: deploy
+      if: branch = master
+      deploy: 
+        provider: script
+        skip_cleanup: true
+        script: bash travis-deploy.sh
+        on:
+          branch: 
+            master
