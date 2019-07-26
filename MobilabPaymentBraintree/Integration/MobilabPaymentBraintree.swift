@@ -17,7 +17,6 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        
         guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
@@ -25,7 +24,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
         }
         self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
-        
+
         let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
         payPalManager.didCreatePaymentMethodCompletion = { method in
             if let payPalData = method as? PayPalData {
