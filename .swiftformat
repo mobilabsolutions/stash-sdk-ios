@@ -6,4 +6,4 @@
 
 # file options
 --symlinks ignore
---exclude Carthage, fastlane
+--exclude **/Carthage,**/fastlane
