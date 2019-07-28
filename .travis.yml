@@ -27,6 +27,8 @@ script:
 
 jobs:
   include:
+    - stage: swiftformat
+      script: bash travis-swift-format.sh
     - stage: deploy
       if: branch = master
       deploy: 
