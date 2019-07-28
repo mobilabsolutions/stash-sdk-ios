@@ -1,6 +1,9 @@
-# file options
---symlinks ignore
+--swiftversion 5
 
 # format options
 --self insert
 --ranges no-space
+
+# file options
+--symlinks ignore
+--exclude Carthage, fastlane
