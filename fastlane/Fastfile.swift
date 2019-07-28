@@ -50,10 +50,12 @@ class Fastfile: LaneFile {
         if self.isCI {
             changeLog = changelogFromGitCommits(between: self.ciCommitRangeInCommaNotation(),
                                                 mergeCommitFiltering: "exclude_merges")
-            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"))
+            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "MobilabPayment.xcodeproj")
+            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "MobilabPaymentDemo/MobilabPaymentDemo.xcodeproj")
         } else {
             changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
-            incrementBuildNumber()
+            incrementBuildNumber(xcodeproj: "MobilabPayment.xcodeproj")
+            incrementBuildNumber(xcodeproj: "MobilabPaymentDemo/MobilabPaymentDemo.xcodeproj")
         }
 
         self.prepareForDistribution()

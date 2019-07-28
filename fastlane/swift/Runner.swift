@@ -73,7 +73,7 @@ extension Runner {
         let timeoutResult = self.dispatchGroup.wait(timeout: connectTimeout)
 
         let failureMessage = "couldn't start socket thread in: \(SocketClient.connectTimeoutSeconds) seconds"
-        let success = self.testDispatchTimeoutResult(timeoutResult, failureMessage: failureMessage, timeToWait: secondsToWait)
+        let success = testDispatchTimeoutResult(timeoutResult, failureMessage: failureMessage, timeToWait: secondsToWait)
         guard success else {
             log(message: "socket thread timeout")
             fatalError()
