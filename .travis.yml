@@ -25,11 +25,8 @@ install:
 script:
 - bash travis-build.sh
 
-
 jobs:
   include:
-    - stage: swift format
-    script: bash travis-swift-format.sh
     - stage: deploy
       if: branch = master
       deploy: 
