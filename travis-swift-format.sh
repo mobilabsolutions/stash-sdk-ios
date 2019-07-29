@@ -26,6 +26,12 @@ setup_git() {
 
 runSwiftFormat() {
   git checkout "$TRAVIS_BRANCH"
+
+  echo $PWD
+
+  dir=${PWD%/*}
+  echo "echo $dir"
+
   # Run SwiftFormat
   swiftformat .
   # Stage the modified files
