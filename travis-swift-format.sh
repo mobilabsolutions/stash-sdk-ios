@@ -27,10 +27,7 @@ setup_git() {
 runSwiftFormat() {
   git checkout "$TRAVIS_BRANCH"
 
-  echo $PWD
-
-  dir=${PWD%/*}
-  echo "echo $dir"
+  echo $(ls)
 
   # Run SwiftFormat
   swiftformat .
@@ -61,7 +58,7 @@ push_commit() {
 
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-  echo "This is a pull request. Format the code using SwiftFormat"
+  echo "This is a pull request. Starting SwiftFormat."
 
   install_swiftformat
 
@@ -77,4 +74,6 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "No changes in Swiftformat. Nothing to do"
   fi
   exit 0
+else
+  echo "This is not a pull request. SwiftFormat is run on pull request only"
 fi
