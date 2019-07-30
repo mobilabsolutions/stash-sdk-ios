@@ -9,7 +9,6 @@
 import Foundation
 import MobilabPaymentCore
 
-
 public struct BSPayoneData: Codable {
     /// The API version of the BSPayone to use
     public let apiVersion: String
@@ -29,7 +28,7 @@ public struct BSPayoneData: Codable {
     public let responseType: String
     /// The mode of the payment service provider. Example: "test"
     public let mode: String
-    
+
     public init?(pspData: PSPExtra) {
         guard
             let apiVersion = pspData.apiVersion,

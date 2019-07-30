@@ -9,12 +9,12 @@ struct CardInputData {
     let holderName: String
     let storeDetails: Bool
     let installments: String?
-
+    
     init(encryptedCard: CardEncryptor.EncryptedCard, holderName: String?, storeDetails: Bool, installments: String?) {
         self.storeDetails = storeDetails
         self.installments = installments
         self.encryptedCard = encryptedCard
-
+        
         if let holderName = holderName, holderName.isEmpty == false {
             self.holderName = holderName
         } else {

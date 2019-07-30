@@ -9,11 +9,11 @@ import Foundation
 // Fill in your demo server API key here.
 struct Configuration {
     static var apiKey = ""
-
+    
     static var isFilledIn: Bool {
         return apiKey.isEmpty == false
     }
-
+    
     // Checks if SecretKey was defined in compile time via SECRET_KEY user defined build setting.
     static func readApiKeyFromUserDefinedBuildSettings() {
         if let apiKey = Bundle(for: AppDelegate.self).object(forInfoDictionaryKey: "SecretKey") as? String,

@@ -12,18 +12,18 @@ public extension Array where Element == PaymentDetail {
         get {
             return self[sepaNameKey]
         }
-
+        
         set {
             self[sepaNameKey] = newValue
         }
     }
-
+    
     /// The payment detail for SEPA Direct Debit IBAN.
     var sepaIBAN: PaymentDetail? {
         get {
             return self[sepaIBANKey]
         }
-
+        
         set {
             self[sepaIBANKey] = newValue
         }

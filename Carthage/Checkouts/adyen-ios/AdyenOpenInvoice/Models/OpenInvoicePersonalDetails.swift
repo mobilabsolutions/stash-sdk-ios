@@ -14,8 +14,8 @@ struct OpenInvoicePersonalDetails {
     var telephoneNumber: String?
     var socialSecurityNumber: String?
     var shopperEmail: String?
-
+    
     func fullName() -> String {
-        return "\(self.firstName ?? "") \(self.lastName ?? "")"
+        return "\(firstName ?? "") \(lastName ?? "")"
     }
 }

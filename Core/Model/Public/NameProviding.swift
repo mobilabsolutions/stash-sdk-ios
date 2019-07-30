@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public protocol NameProviding: class {
+@objc public protocol NameProviding: AnyObject {
     var firstName: String { get }
     var lastName: String { get }
     var fullName: String { get }

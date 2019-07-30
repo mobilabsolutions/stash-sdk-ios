@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol FormFieldErrorDelegate: class {
+protocol FormFieldErrorDelegate: AnyObject {
     func setError(description: String?, forDataPoint dataPoint: NecessaryData)
 }

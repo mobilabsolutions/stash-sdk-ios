@@ -1,6 +1,7 @@
 import XCTest
 
 class BTURLUtils_Tests: XCTestCase {
+
     // MARK: - dictionaryForQueryString:
 
     func testDictionaryForQueryString_whenQueryStringIsNil_returnsEmptyDictionary() {
@@ -14,8 +15,7 @@ class BTURLUtils_Tests: XCTestCase {
     func testDictionaryForQueryString_whenQueryStringIsHasItems_returnsDictionaryContainingItems() {
         XCTAssertEqual(BTURLUtils.dictionary(forQueryString: "foo=bar&baz=quux") as NSDictionary, [
             "foo": "bar",
-            "baz": "quux",
-        ])
+            "baz": "quux"])
     }
 
     func testDictionaryForQueryString_hasNSNullValueWhenKeyOnly() {
@@ -26,26 +26,26 @@ class BTURLUtils_Tests: XCTestCase {
 
     func testDictionaryForQueryString_whenKeyIsEmpty_hasEmptyStringForKey() {
         XCTAssertEqual(BTURLUtils.dictionary(forQueryString: "&=asdf&") as NSDictionary, [
-            "": "asdf",
-        ])
+            "": "asdf"
+            ])
     }
 
     func testDictionaryForQueryString_withDuplicateKeys_usesRightMostValue() {
         XCTAssertEqual(BTURLUtils.dictionary(forQueryString: "key=value1&key=value2") as NSDictionary, [
-            "key": "value2",
-        ])
+            "key": "value2"
+            ])
     }
 
     func testDictionaryForQueryString_replacesPlusWithSpace() {
         XCTAssertEqual(BTURLUtils.dictionary(forQueryString: "foo+bar=baz+yaz") as NSDictionary, [
-            "foo bar": "baz yaz",
-        ])
+            "foo bar": "baz yaz"
+            ])
     }
 
     func testDictionaryForQueryString_decodesPercentEncodedCharacters() {
         XCTAssertEqual(BTURLUtils.dictionary(forQueryString: "%20%2C=%26") as NSDictionary, [
-            " ,": "&",
-        ])
+            " ,": "&"
+            ])
     }
 
     func testDictionaryForQueryString_skipsKeysWithUndecodableCharacters() {
@@ -89,4 +89,5 @@ class BTURLUtils_Tests: XCTestCase {
 
         XCTAssertEqual(appendedURL, URL(string: "/relative/path?key=value"))
     }
+
 }

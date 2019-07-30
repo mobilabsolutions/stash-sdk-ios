@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Protocol
 
-protocol SearchViewDelegate: class {
+protocol SearchViewDelegate: AnyObject {
     func didCancelSearch()
 }
 

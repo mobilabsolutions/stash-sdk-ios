@@ -10,31 +10,31 @@ internal extension CardEncryptor.Card {
     func encryptedNumber(publicKey: String, date: Date) -> String? {
         let card = ADYCard()
         card.number = number
-
-        return self.encrypted(card: card, publicKey: publicKey, date: date)
+        
+        return encrypted(card: card, publicKey: publicKey, date: date)
     }
-
+    
     func encryptedSecurityCode(publicKey: String, date: Date) -> String? {
         let card = ADYCard()
         card.cvc = securityCode
-
-        return self.encrypted(card: card, publicKey: publicKey, date: date)
+        
+        return encrypted(card: card, publicKey: publicKey, date: date)
     }
-
+    
     func encryptedExpiryMoth(publicKey: String, date: Date) -> String? {
         let card = ADYCard()
         card.expiryMonth = expiryMonth
-
-        return self.encrypted(card: card, publicKey: publicKey, date: date)
+        
+        return encrypted(card: card, publicKey: publicKey, date: date)
     }
-
+    
     func encryptedExpiryYear(publicKey: String, date: Date) -> String? {
         let card = ADYCard()
         card.expiryYear = expiryYear
-
-        return self.encrypted(card: card, publicKey: publicKey, date: date)
+        
+        return encrypted(card: card, publicKey: publicKey, date: date)
     }
-
+    
     func encryptedToToken(publicKey: String, holderName: String?, date: Date) -> String? {
         let card = ADYCard()
         card.number = number
@@ -42,17 +42,17 @@ internal extension CardEncryptor.Card {
         card.holderName = holderName
         card.expiryYear = expiryYear
         card.expiryMonth = expiryMonth
-
-        return self.encrypted(card: card, publicKey: publicKey, date: date)
+        
+        return encrypted(card: card, publicKey: publicKey, date: date)
     }
-
+    
     fileprivate func encrypted(card: ADYCard, publicKey: String, date: Date) -> String? {
         card.generationtime = date
-
+        
         if let encoded = card.encode() {
             return ADYEncrypter.encrypt(encoded, publicKeyInHex: publicKey)
         }
-
+        
         return nil
     }
 }

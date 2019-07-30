@@ -18,12 +18,11 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        
         guard let pspData = BSPayoneData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
-        let billingData = getBillingData(from: registrationRequest) ?? BillingData()
-        
+        let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
+
         do {
             if let creditCardRequest = try getCreditCardData(from: registrationRequest),
                 let creditCardData = registrationRequest.registrationData as? CreditCardData,
