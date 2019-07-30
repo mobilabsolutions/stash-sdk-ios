@@ -26,11 +26,8 @@ setup_git() {
 
 runSwiftFormat() {
   git checkout "$TRAVIS_BRANCH"
-
-  echo $(ls)
-
   # Run SwiftFormat
-  swiftformat .
+  swiftformat . --exclude Carthage
   # Stage the modified files
   git add .
   # Create a new commit with a custom build message
