@@ -56,7 +56,7 @@ struct ControlCommand: RubyCommandable {
         if let message = message {
             jsonDictionary[ShutdownCommandType.userMessageKey] = message
         }
-        if case let .cancel(reason) = shutdownCommandType {
+        if case let .cancel(reason) = self.shutdownCommandType {
             jsonDictionary[ShutdownCommandType.CancelReason.reasonKey] = reason.reasonText
         }
 

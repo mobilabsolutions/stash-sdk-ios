@@ -96,7 +96,7 @@ class SocketClient: NSObject {
         let timeoutResult = self.dispatchGroup.wait(timeout: connectTimeout)
         let failureMessage = "Couldn't connect to ruby process within: \(SocketClient.connectTimeoutSeconds) seconds"
 
-        let success = testDispatchTimeoutResult(timeoutResult, failureMessage: failureMessage, timeToWait: secondsToWait)
+        let success = self.testDispatchTimeoutResult(timeoutResult, failureMessage: failureMessage, timeToWait: secondsToWait)
 
         guard success else {
             self.socketDelegate?.commandExecuted(serverResponse: .connectionFailure)
@@ -154,7 +154,7 @@ class SocketClient: NSObject {
         let commandTimeout = DispatchTime.now() + timeToWait
         let timeoutResult = self.dispatchGroup.wait(timeout: commandTimeout)
 
-        _ = testDispatchTimeoutResult(timeoutResult, failureMessage: "Ruby process didn't return after: \(SocketClient.connectTimeoutSeconds) seconds", timeToWait: timeToWait)
+        _ = self.testDispatchTimeoutResult(timeoutResult, failureMessage: "Ruby process didn't return after: \(SocketClient.connectTimeoutSeconds) seconds", timeToWait: timeToWait)
     }
 
     private func send(string: String) {
@@ -247,7 +247,7 @@ extension SocketClient: StreamDelegate {
         var buffer = [UInt8](repeating: 0, count: maxReadLength)
         var output = ""
         while self.inputStream!.hasBytesAvailable {
-            let bytesRead: Int = inputStream!.read(&buffer, maxLength: buffer.count)
+            let bytesRead: Int = self.inputStream!.read(&buffer, maxLength: buffer.count)
             if bytesRead >= 0 {
                 output += NSString(bytes: UnsafePointer(buffer), length: bytesRead, encoding: String.Encoding.utf8.rawValue)! as String
             } else {
