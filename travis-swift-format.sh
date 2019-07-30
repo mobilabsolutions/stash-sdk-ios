@@ -27,7 +27,7 @@ setup_git() {
 runSwiftFormat() {
   git checkout "$TRAVIS_BRANCH"
   # Run SwiftFormat
-  swiftformat . --exclude Carthage
+  swiftformat .
   # Stage the modified files
   git add .
   # Create a new commit with a custom build message
@@ -54,7 +54,7 @@ push_commit() {
 }
 
 
-if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "This is a pull request. Starting SwiftFormat."
 
   install_swiftformat
