@@ -28,9 +28,10 @@ script:
 jobs:
   include:
     - stage: swiftformat
+      if: env(TRAVIS_PULL_REQUEST) != false
       script: bash travis-swift-format.sh
     - stage: deploy
-      if: branch = master
+      if: branch = master AND env(TRAVIS_PULL_REQUEST) = false
       deploy: 
         provider: script
         skip_cleanup: true

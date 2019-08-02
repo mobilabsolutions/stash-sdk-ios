@@ -20,32 +20,33 @@ let timeout = argumentProcessor.commandTimeout
 class MainProcess {
     var doneRunningLane = false
     var thread: Thread!
-
+    
     @objc func connectToFastlaneAndRunLane() {
         runner.startSocketThread(port: argumentProcessor.port)
-
+        
         let completedRun = Fastfile.runLane(named: argumentProcessor.currentLane, parameters: argumentProcessor.laneParameters())
         if completedRun {
             runner.disconnectFromFastlaneProcess()
         }
-
-        self.doneRunningLane = true
+        
+        doneRunningLane = true
     }
-
+    
     func startFastlaneThread() {
-        self.thread = Thread(target: self, selector: #selector(self.connectToFastlaneAndRunLane), object: nil)
-        self.thread.name = "worker thread"
-        self.thread.start()
+        thread = Thread(target: self, selector: #selector(connectToFastlaneAndRunLane), object: nil)
+        thread.name = "worker thread"
+        thread.start()
     }
 }
 
 let process: MainProcess = MainProcess()
 process.startFastlaneThread()
 
-while !process.doneRunningLane, RunLoop.current.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 2)) {
+while (!process.doneRunningLane && (RunLoop.current.run(mode: RunLoopMode.defaultRunLoopMode, before: Date(timeIntervalSinceNow: 2)))) {
     // no op
 }
 
 // Please don't remove the lines below
 // They are used to detect outdated files
 // FastlaneRunnerAPIVersion [0.9.2]
+

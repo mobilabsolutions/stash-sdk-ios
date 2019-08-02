@@ -25,7 +25,7 @@ setup_git() {
 }
 
 runSwiftFormat() {
-  git checkout "$TRAVIS_BRANCH"
+  git checkout "$TRAVIS_PULL_REQUEST_BRANCH"
   # Run SwiftFormat
   swiftformat .
   # Stage the modified files
