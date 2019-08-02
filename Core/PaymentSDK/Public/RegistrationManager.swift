@@ -19,7 +19,7 @@ public class RegistrationManager {
     ///   - creditCardData: The credit card data to use for registration
     ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
-    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    ///                 Provides the Mobilab payment alias that identifies the registered payment method
     public func registerCreditCard(creditCardData: CreditCardData,
                                    idempotencyKey: String? = nil,
                                    completion: @escaping RegistrationResultCompletion) {
@@ -37,7 +37,7 @@ public class RegistrationManager {
     ///   - sepaData: The SEPA data to use for registration
     ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
-    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    ///                 Provides the Mobilab payment alias that identifies the registered payment method
     public func registerSEPAAccount(sepaData: SEPAData,
                                     idempotencyKey: String? = nil,
                                     completion: @escaping RegistrationResultCompletion) {
@@ -56,9 +56,8 @@ public class RegistrationManager {
     ///   - specificPaymentMethod: The specific payment method type for which registration should be performed.
     ///                            By default nil, and the user is presented with a picker to chose one of the available payment method types.
     ///   - billingData: The billing data that should be prefilled when registering the payment method
-    ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
-    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    ///                 Provides the Mobilab payment alias that identifies the registered payment method
     public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                              specificPaymentMethod: PaymentMethodType? = nil,
                                              billingData: BillingData? = nil,
@@ -105,7 +104,7 @@ public class RegistrationManager {
     ///   - billingData: The billing data that should be prefilled when registering the payment method
     ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
     ///   - completion: A completion called when the registration is complete.
-    ///                 Provides the Mobilab payment alias that identifies the registerd payment method
+    ///                 Provides the Mobilab payment alias that identifies the registered payment method
     private func registerPayPal(presentingViewController: UIViewController,
                                 billingData: BillingData?,
                                 idempotencyKey: String?,

@@ -67,12 +67,14 @@
         <section class="section">
           <div class="section-content">
             
-            <h1 id='mobilabpayment-ios-sdk' class='heading'>MobilabPayment iOS SDK</h1>
+            <h1 id='stash-ios-sdk' class='heading'>Stash iOS SDK</h1>
 
 <p><a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a> <a href="https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open"><img src="https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open.svg?token=YveRxJtU3TcdBx4pp777&branch=master" alt="Travis CI build status"></a></p>
 
 <p>Many applications need to process payments for digital or physical goods. Implementing payment functionality can be very cumbersome though: there are many payment service providers that support or don&rsquo;t support various types of payment methods and payment method registration and usage flows. The payment SDK simplifies the integration of payments into our applications and abstracts away a lot of the internal complexity that different payment service providers&rsquo; solutions have. With the payment SDK it does not matter which payment service provider one chooses to register payment methods with - the API is standardized and works across the board. </p>
-<h2 id='supported-payment-service-providers-psp' class='heading'>Supported Payment Service Providers - PSP</h2>
+<h2 id='supported-psps' class='heading'>Supported PSPs</h2>
+
+<p>At the moment, the Stash iOS SDK supports the following PSPs:</p>
 
 <ul>
 <li>BSPayone [Credit Cards / SEPA]</li>
@@ -81,31 +83,34 @@
 </ul>
 <h2 id='requirements' class='heading'>Requirements</h2>
 
+<p>To build this project, you will need to have at least the following:</p>
+
 <ul>
 <li>iOS 11.3+</li>
 <li>Xcode 10.1+</li>
-<li>Swift 5.0+ / Objective-C</li>
+<li>Swift 5.0+ / Objective-C
+_ Carthage</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
 <p>We recommend using <a href="https://github.com/Carthage/Carthage">Carthage</a> to integrate the MobilabPayment SDK with your project.</p>
 <h3 id='carthage' class='heading'>Carthage</h3>
 
-<p>Add <code>github &quot;mobilabsolutions/payment-sdk-ios-open&quot; ~&gt; 1.0</code> to your <code>Cartfile</code>, and <a href="https://github.com/Carthage/Carthage#adding-frameworks-to-an-application">add the frameworks to your project</a>. Do not forget to also add the Carthage <code>copy-frameworks</code> build phase to the target.</p>
+<p>Add <code>github &quot;mobilabsolutions/payment-sdk-ios-open&quot; ~&gt; 1.0</code> to your <code>Cartfile</code>, and follow <a href="https://github.com/Carthage/Carthage#getting-started">Carthage building instructions</a> to complete installation. The input file list for the Carthage <code>copy-frameworks</code> build phase should contain dependencies found in our <a href="Sample/other/input.xcfilelist"> sample application input file list</a> so feel free to use it as an example.</p>
 <h3 id='manual-installation' class='heading'>Manual Installation</h3>
 
 <p>The SDK can also be installed manually. To perform manual installation, drag the <code>MobilabPaymentCore</code> framework and the module frameworks you might want to use into the <code>Embdedded Binaries</code> section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using <a href="https://github.com/Carthage/Carthage">Carthage</a> with the following <code>Cartfile</code> contents for installing the dependencies of the Braintree and Adyen modules:</p>
-<pre class="highlight plaintext"><code>github "braintree/braintree-ios-drop-in"
+<pre class="highlight plaintext"><code>github "braintree/braintree-ios-drop-in" ~&gt; 7.2.0
 github "adyen/adyen-ios" ~&gt; 2.8
 </code></pre>
 
-<p>To include these dependencies into your project, you will also have to include the Carthage copy script as a run phase for the build with the necessary installed dependencies as input files or members of an input file list. See <a href="Sample/other/input.xcfilelist">the sample application input file list</a> for an example. Furthermore, all necessary dependencies should be added to the linked libraries tab in the target settings.</p>
+<p>Instructions for installing dependencies with Carthage can be found <a href="#carthage">above</a></p>
 <h2 id='usage' class='heading'>Usage</h2>
 <h3 id='configuring-the-sdk' class='heading'>Configuring the SDK</h3>
 
-<p>To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the public key as well as the backend endpoint that should be used by the SDK.</p>
+<p>To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the merchant publishable key as well as the backend endpoint that should be used by the SDK.</p>
 
-<p>To connect the SDK to a given payment service provider (PSP), that PSP&rsquo;s module needs to be imported and initialized. Set the configuration&rsquo;s <code>integrations</code> to provide correct data.</p>
+<p>To connect the SDK to a given PSP, that PSP&rsquo;s module needs to be imported and initialized. You need to set the configuration&rsquo;s <code>integrations</code> to provide correct data.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">MobilabPaymentCore</span>
 <span class="kd">import</span> <span class="kt">MobilabPaymentBSPayone</span>
 <span class="kd">import</span> <span class="kt">MobilabPaymentBraintree</span>
@@ -113,7 +118,7 @@ github "adyen/adyen-ios" ~&gt; 2.8
 <span class="k">let</span> <span class="nv">bsPayonePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBSPayone</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">braintreePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBraintree</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="s">"[YOUR URL SCHEME]]"</span><span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLIC KEY]"</span><span class="p">,</span> 
+<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
                                                 <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND ENDPOINT]"</span><span class="p">,</span>
                                                 <span class="nv">integrations</span><span class="p">:</span> <span class="p">[</span>
                                                     <span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">),</span>
@@ -122,36 +127,35 @@ github "adyen/adyen-ios" ~&gt; 2.8
 <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
 
-<p>It is also possible to specify which PSP should be used to register which payment method type by using the <code>paymentMethodTypes</code> parameter of the <code>PaymentProviderIntegration</code> optional initializer. By default, when not specifying the specific payment method types, the PSP will be used for all types that the module supports. Note that a <code>fatalError</code> will be created when there are overlapping payment method types for different PSPs that are registered at the same time.</p>
-<h4 id='using-the-sdk-in-test-mode' class='heading'>Using the SDK in test mode</h4>
+<p>It is also possible to specify which PSP should be used to register which payment method type by using the <code>paymentMethodTypes</code> parameter of the <code>PaymentProviderIntegration</code> optional initializer. By default, when the specific payment method types are not specified, the PSP will be used for all types that the module supports. Note that a <code>fatalError</code> will be created when there are overlapping payment method types for different PSPs that are registered at the same time.</p>
+<h4 id='using-the-sdk-in-test-mode' class='heading'>Using the SDK in Test Mode</h4>
 
-<p>The payment SDK can also be used in so-called test mode. Transactions created there are not forwarded to the production PSP but rather to whatever sandboxing mode the PSP provides.
-To instruct the SDK to use test mode, manually set the <code>useTestMode</code> property on the <code>MobilabPaymentConfiguration</code> used to configure the SDK.</p>
+<p>The Stash SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
+To instruct the SDK to use the test mode, set manually the <code>useTestMode</code> property on the <code>MobilabPaymentConfiguration</code> used to configure the SDK.</p>
 
 <p>For example:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLIC KEY]"</span><span class="p">,</span> 
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
                                                 <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND ENDPOINT]"</span><span class="p">,</span>
                                                 <span class="nv">integrations</span><span class="p">:</span> <span class="p">[</span><span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">)])</span>
 <span class="n">configuration</span><span class="o">.</span><span class="n">useTestMode</span> <span class="o">=</span> <span class="kc">true</span>
 
 <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
-<h2 id='registering-payment-method' class='heading'>Registering payment method</h2>
+<h2 id='registering-a-payment-method' class='heading'>Registering a Payment Method</h2>
 
 <p>To register a payment method you need an instance of the <code>RegistrationManager</code> class.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 </code></pre>
 
-<p>As the SDK allows usage of multiple PSPs, when registering payment method you need to set a PSP you wanna utilize for that payment method.
-Depending on the payment method that is used, some registration methods also require additional data to be supplied.</p>
-<h3 id='using-the-module-ui-for-adding-a-payment-method' class='heading'>Using the module UI for adding a payment method</h3>
+<p>As the Stash SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
+Depending on the payment method that is being used, some registration methods could require additional data.</p>
+<h3 id='using-the-module-ui-for-adding-a-payment-method' class='heading'>Using the Module UI for Adding a Payment Method</h3>
 
-<p>Since the PSP modules know best which data needs to be provided in which situation, it is also possible to offload the UI work for adding a payment method to them.
-By calling <code>registerPaymentMethodUsingUI</code> on the registration manager, the user is shown a selection of possible payment methods types and then fields for creating payment methods of the selected type.</p>
+<p>Since the PSP modules know which data needs to be provided in each situation, it is also possible to offload the UI work to add a payment method to them. By calling the <code>registerPaymentMethodUsingUI</code> on the registration manager, the user is shown a selection of possible payment method types and then the fields used for creating the payment method type that was selected.</p>
 
-<p><em>Attention</em>: To allow registration of PayPal payment methods, some setup work as documented in the <a href="#registering-a-paypal-account">Registering a PayPal account</a> section of this page is necessary.</p>
+<p><em>Note</em>: To allow the registration of a PayPal account, some setup work, as documented in the <a href="#registering-a-paypal-account">Registering a PayPal account</a> section of this page, is necessary.</p>
 
-<p>Typical usage of this functionality might look like this:</p>
+<p>The typical usage of this functionality might look like this:</p>
 <pre class="highlight swift"><code>
 <span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="nv">on</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
@@ -166,7 +170,7 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 <span class="p">}</span>
 </code></pre>
 
-<p>It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. Simply pass along an updated <code>PaymentMethodUIConfiguration</code>:</p>
+<p>It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. You only need to pass along an updated <code>PaymentMethodUIConfiguration</code>:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">uiConfiguration</span> <span class="o">=</span> <span class="kt">PaymentMethodUIConfiguration</span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="o">.</span><span class="n">white</span><span class="p">,</span> <span class="nv">textColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">buttonColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">)</span>
 <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">configureUI</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">uiConfiguration</span><span class="p">)</span>
@@ -183,14 +187,12 @@ By calling <code>registerPaymentMethodUsingUI</code> on the registration manager
 <span class="p">}</span>
 </code></pre>
 
-<p>There is some more information on this in the <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/SDK-UI-Usage-Tutorial">SDK UI Usage Tutorial</a> in our wiki.</p>
-<h3 id='registering-a-credit-card' class='heading'>Registering a credit card</h3>
+<p>You can find more information about this in the <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/SDK-UI-Usage-Tutorial">SDK UI Usage Tutorial</a> in our Wiki.</p>
+<h3 id='credit-card-registration' class='heading'>Credit Card Registration</h3>
 
-<p>To register a credit card, the <code>registerCreditCard</code> method of the registration manager is used.
-Provide it with an instance of <code>CreditCardData</code>, which upon initialization also validates the credit card data.</p>
+<p>To register a credit card, the <code>registerCreditCard</code> method of the registration manager is used. You should provide it with an instance of the <code>CreditCardData</code>, which upon initialization also validates the credit card data.</p>
 
-<p>The <code>CreditCardData</code> is provided with <code>BillingData</code>. This <code>BillingData</code> contains information about the user that is necessary for registering a credit card. Its fields are all optional and their necessity PSP-dependant.
-As with all registration methods, you also need to set PSP you wanna use to register credit card.</p>
+<p>The <code>CreditCardData</code> is provided with the <code>BillingData</code>. This <code>BillingData</code> contains information about the user that is necessary to register a credit card. Its fields are all optional and their necessity is PSP-dependant. As with all the registration methods, you also need to set the PSP you want to use to register the credit card.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="kt">SimpleNameProvider</span><span class="p">(</span><span class="nv">firstName</span><span class="p">:</span> <span class="s">"Max"</span><span class="p">,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="s">"Mustermann"</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">billingData</span> <span class="o">=</span> <span class="kt">BillingData</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="s">"DE"</span><span class="p">)</span>
 <span class="k">guard</span> <span class="k">let</span> <span class="nv">creditCard</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">CreditCardData</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="s">"4111111111111111"</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="s">"123"</span><span class="p">,</span>
@@ -205,9 +207,9 @@ As with all registration methods, you also need to set PSP you wanna use to regi
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<h3 id='registering-a-sepa-account' class='heading'>Registering a SEPA account</h3>
+<h3 id='sepa-registration' class='heading'>SEPA Registration</h3>
 
-<p>To register a SEPA account, we can use the <code>registerSEPAAccount</code> method of the registration manager. Here, as is the case for the credit card data, the billing data is optional and the values that need to be provided are PSP-dependant.</p>
+<p>To register a SEPA account, we can use the <code>registerSEPAAccount</code> method of the registration manager. Here, as is the case of the credit card data, the billing data is optional and the values that need to be provided are PSP-dependant.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="kt">SimpleNameProvider</span><span class="p">(</span><span class="nv">firstName</span><span class="p">:</span> <span class="s">"Max"</span><span class="p">,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="s">"Mustermann"</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">billingData</span> <span class="o">=</span> <span class="kt">BillingData</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="s">"max@mustermann.de"</span><span class="p">,</span>
                                       <span class="nv">name</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
@@ -231,18 +233,18 @@ As with all registration methods, you also need to set PSP you wanna use to regi
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<h3 id='registering-a-paypal-account' class='heading'>Registering a PayPal account</h3>
+<h3 id='paypal-account-registration' class='heading'>PayPal Account Registration</h3>
 
-<p>Currently, only the Braintree PSP allows registering a PayPal account and it is only possible to register a PayPal payment method using the provided module UI.</p>
-<h4 id='setup-for-app-switch' class='heading'>Setup for app switch</h4>
+<p>Currently, only the Braintree PSP allows registering a PayPal account and it is  possible to register a PayPal account only by using the provided module UI.</p>
+<h4 id='setup-for-app-switch' class='heading'>Setup for App Switch</h4>
 
-<p>PayPal account registration flow involves switching to another app or  <code>SFSafariViewController</code>  for authentication, so you must register a URL type and configure your app to return from app switches.</p>
-<h4 id='register-a-url-type' class='heading'>Register a URL type</h4>
+<p>The PayPal account registration flow involves switching to another app or  <code>SFSafariViewController</code>  for authentication, so you must register a URL type and configure your app to return from the app switches.</p>
+<h4 id='register-a-url-type' class='heading'>Register a URL Type</h4>
 
 <ol>
-<li>In Xcode, click on your project in the Project Navigator and navigate to  <strong>App Target</strong>  &gt;  <strong>Info</strong>&gt;  <strong>URL Types</strong></li>
-<li>Click  <strong>[+]</strong>  to add a new URL type</li>
-<li>Under  <strong>URL Schemes</strong>, enter your app switch return URL scheme. This scheme  <strong><em>must start with your app&rsquo;s Bundle ID and be dedicated to MobilabPayment app switch returns</em></strong>. For example, if the app bundle ID is  <code>com.your-company.Your-App</code>, then your URL scheme could be  <code>com.your-company.Your-App.mobilab</code>.</li>
+<li>In the Xcode, click on your project in the Project Navigator and navigate to  <strong>App Target</strong>  &gt;  <strong>Info</strong>&gt;  <strong>URL Types</strong>.</li>
+<li>Click on <strong>[+]</strong>  to add a new URL type.</li>
+<li>Under the <strong>URL Schemes</strong>, enter your app switch return URL scheme. This scheme  <strong><em>must start with your app&rsquo;s Bundle ID and be dedicated to MobilabPayment app switch returns</em></strong>. For example, if the app bundle ID is  <code>com.your-company.Your-App</code>, then your URL scheme could be  <code>com.your-company.Your-App.mobilab</code>.</li>
 </ol>
 <h4 id='update-your-application-delegate' class='heading'>Update your application delegate</h4>
 
@@ -267,7 +269,7 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 </code></pre>
 <h2 id='idempotency' class='heading'>Idempotency</h2>
 
-<p>All calls provided by Payment SDK are idempotent <strong>only if the underlying PSP is also idempotent</strong> (Braintree is not, BS Payone and Adyen are not for credit card registration). To use idempotency simply provide a unique string to any of the registration methods used.</p>
+<p>All calls provided by Payment SDK are idempotent <strong>only if the underlying PSP is also idempotent</strong> (Braintree is not, BS Payone and Adyen are not for credit card registration). To use idempotency simply provide a unique string to any of the manual non-UI registration methods used.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="kt">SimpleNameProvider</span><span class="p">(</span><span class="nv">firstName</span><span class="p">:</span> <span class="s">"Max"</span><span class="p">,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="s">"Mustermann"</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">billingData</span> <span class="o">=</span> <span class="kt">BillingData</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="s">"DE"</span><span class="p">)</span>
 <span class="k">guard</span> <span class="k">let</span> <span class="nv">creditCard</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">CreditCardData</span><span class="p">(</span><span class="nv">cardNumber</span><span class="p">:</span> <span class="s">"4111111111111111"</span><span class="p">,</span> <span class="nv">cvv</span><span class="p">:</span> <span class="s">"123"</span><span class="p">,</span>
@@ -284,20 +286,20 @@ As with all registration methods, you also need to set PSP you wanna use to regi
 </code></pre>
 <h2 id='demo' class='heading'>Demo</h2>
 
-<p>A demo app that demonstrate usage of all SDK features is part of this project. Run  <code>carthage bootstrap --platform iOS</code>, open <code>MobilabPayment.xcworkspace</code> in Xcode and then choose <code>Demo</code> scheme to launch it.</p>
+<p>A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  <code>carthage bootstrap --platform iOS</code>, open <code>MobilabPayment.xcworkspace</code> in Xcode and then choose the <code>Demo</code> scheme to launch it.</p>
 <h2 id='feedback' class='heading'>Feedback</h2>
 
-<p>The MobilabPayment iOS SDK is in active development, we welcome your feedback!
-Please use <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/issues">GitHub Issues</a> to report and issues or give a feedback</p>
+<p>The Stash iOS SDK is in active development, we welcome your feedback!
+Please use <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/issues">GitHub Issues</a> to report an issue or give a feedback.</p>
 <h3 id='license' class='heading'>License</h3>
 
-<p>The MobilabPayment iOS SDK is open source and available under the TODO license. See the <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE">LICENSE</a> file for more info.</p>
+<p>The Stash iOS SDK is open source and available under the TODO license. See the <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE">LICENSE</a> file for more info.</p>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
-<p>To get familiar with the overall Payment SDK project please visit <a href="https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki">Common payment wiki</a>
-To learn more about the iOS Payment SDK architecture and flows please visit our wiki <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki">iOS SDK Wiki</a></p>
+<p>To get familiar with the overall Stash SDK project please visit <a href="https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki">Common payment wiki</a>.
+To learn more about the Stash iOS SDK architecture and flows please visit our <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki">Wiki</a></p>
 
-<p>Reference documentation for each module is available in the <code>docs/</code> folder of this repository. To regenerate the reference documentation, run <code>./build_documentation.sh</code>.</p>
+<p>The reference documentation for each module is available in the <code>docs/</code> folder of this repository. To regenerate the reference documentation, run <code>./build_documentation.sh</code>.</p>
 
           </div>
         </section>

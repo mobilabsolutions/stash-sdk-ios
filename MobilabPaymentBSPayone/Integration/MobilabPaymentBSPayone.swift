@@ -9,11 +9,15 @@
 import MobilabPaymentCore
 import UIKit
 
+/// The BS Payone PSP module. See [here](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki/BS-Payone)
+/// for more information on things to keep in mind when using that PSP.
 public class MobilabPaymentBSPayone: PaymentServiceProvider {
+    /// See documentation for `PaymentServiceProvider` in the Core module
     public let pspIdentifier: MobilabPaymentProvider
 
-    let networkingClient: NetworkClientBSPayone?
+    private let networkingClient: NetworkClientBSPayone?
 
+    /// See documentation for `PaymentServiceProvider` in the Core module
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
@@ -47,14 +51,17 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
+    /// See documentation for `PaymentServiceProvider` in the Core module. BS Payone supports registering SEPA and Credit Card payment methods.
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
         return [.sepa, .creditCard]
     }
 
+    /// See documentation for `PaymentServiceProvider` in the Core module. BS Payone supports registering SEPA and Credit Card payment methods using the UI.
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return [.creditCard, .sepa]
     }
 
+    /// See documentation for `PaymentServiceProvider` in the Core module.
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
@@ -70,6 +77,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         }
     }
 
+    /// Create an instance of the BS Payone module. This instance can be used to initialize the SDK.
     public init() {
         self.networkingClient = NetworkClientBSPayone()
         self.pspIdentifier = .bsPayone

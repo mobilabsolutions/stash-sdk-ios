@@ -8,22 +8,39 @@
 
 import Foundation
 
+/// Utilities for extracting and transforming credit card numbers
 public class CreditCardUtils {
+    /// Create an NSAttributedString formatted credit card number (which adds spacing where appropriate)
+    ///
+    /// - Parameter number: The credit card number (with or without spaces and dashes)
+    /// - Returns: The formatted credit card number
     public static func formattedNumber(number: String) -> NSAttributedString {
         let cleaned = self.cleanedNumber(number: number)
         let type = self.cardTypeFromNumber(cleanedNumber: cleaned)
         return self.formattedNumber(number: cleaned, for: type)
     }
 
+    /// Retrieve a credit card number's type (e.g. VISA or MasterCard)
+    ///
+    /// - Parameter number: The credit card number (with or without spaces and dashes)
+    /// - Returns: The credit card type (.unknown if the card does not match any of the built-in types)
     public static func cardTypeFromNumber(number: String) -> CreditCardType {
         return self.cardTypeFromNumber(cleanedNumber: self.cleanedNumber(number: number))
     }
 
+    /// Validate a CVV
+    ///
+    /// - Parameter cvv: The CVV to validate (only digits)
+    /// - Throws: A `.validation` error if the CVV is not valid
     public static func validateCVV(cvv: String) throws {
         guard let _ = Int(cvv), cvv.count == 3 || cvv.count == 4
         else { throw MobilabPaymentError.validation(.invalidCVV) }
     }
 
+    /// Validate a credit card number (using Luhn's algorithm)
+    ///
+    /// - Parameter cardNumber: The credit card number to validate (with or without dashes or spaces)
+    /// - Throws: A `.validation` error if the card number is not valid
     public static func validateCreditCardNumber(cardNumber: String) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
@@ -34,6 +51,10 @@ public class CreditCardUtils {
         else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
     }
 
+    /// Extract the card type from a cleaned credit card
+    ///
+    /// - Parameter cleanedNumber: The cleaned credit card number (no dashes or spaces)
+    /// - Returns: The most likely card type match or `.unknown` if there is none
     static func cardTypeFromNumber(cleanedNumber: String) -> CreditCardType {
         let highestPriorityMatch = self.cardNumbersAndRanges(for: cleanedNumber)
             .max { $0.0.priority < $1.0.priority }
@@ -41,8 +62,7 @@ public class CreditCardUtils {
     }
 
     fileprivate static func cardNumbersAndRanges(for cleanedNumber: String) -> [(IINRange, CreditCardType)] {
-        // Get card type from number using IIN ranges as documented here:
-        // https://en.wikipedia.org/wiki/Payment_card_number#Major_Industry_Identifier_.28MII.29
+        // Get card type from number using IIN ranges
         let numberLength = cleanedNumber.count
 
         guard numberLength > 6
@@ -58,10 +78,18 @@ public class CreditCardUtils {
             }
     }
 
+    /// Clean a credit card number by removing all spaces and dashes from it
+    ///
+    /// - Parameter number: The card number possibly including dashes and/or spaces
+    /// - Returns: The cleaned number without dashes and spaces
     static func cleanedNumber(number: String) -> String {
         return number.replacingOccurrences(of: "(\\s|\\-)", with: "", options: .regularExpression, range: nil)
     }
 
+    /// Check whether or not a cleaned card number is Luhn valid
+    ///
+    /// - Parameter cleanedNumber: The cleaned (only digits) card number
+    /// - Returns: Whether or not the number is Luhn valid
     static func isLuhnValid(cleanedNumber: String) -> Bool {
         guard cleanedNumber.unicodeScalars.reduce(true, { $0 && CharacterSet.decimalDigits.contains($1) })
         else { return false }

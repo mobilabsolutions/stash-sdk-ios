@@ -9,7 +9,7 @@
 import Foundation
 
 extension Locale {
-    public func getAllCountriesWithCodes() -> ([Country]) {
+    func getAllCountriesWithCodes() -> ([Country]) {
         let countryCodes = Locale.isoRegionCodes
         let countryNames = countryCodes.map { Locale.current.localizedString(forRegionCode: $0) ?? $0 }
 
@@ -23,7 +23,7 @@ extension Locale {
         return countries
     }
 
-    public func getDeviceRegion() -> Country? {
+    func getDeviceRegion() -> Country? {
         guard let countryCode = Locale.current.regionCode else { return nil }
         guard let countryName = Locale.current.localizedString(forRegionCode: countryCode) else { return nil }
 

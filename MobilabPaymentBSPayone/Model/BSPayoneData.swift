@@ -9,7 +9,8 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct BSPayoneData: Codable {
+/// The necessary BSPayone PSP data as collected from the createAlias call.
+struct BSPayoneData: Codable {
     /// The API version of the BSPayone to use
     public let apiVersion: String
     /// The encoding used with the BSPayone

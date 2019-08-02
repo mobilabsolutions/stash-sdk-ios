@@ -1460,7 +1460,7 @@ func downloadDsyms(username: String,
 }
 
 func downloadFromPlayStore(packageName: String,
-                           metadataPath: String = "./metadata",
+                           metadataPath: String? = nil,
                            key: String? = nil,
                            issuer: String? = nil,
                            jsonKey: String? = nil,
@@ -3730,7 +3730,7 @@ func ssh(username: String,
 func supply(packageName: String,
             track: String = "production",
             rollout: String? = nil,
-            metadataPath: String = "./metadata",
+            metadataPath: String? = nil,
             key: String? = nil,
             issuer: String? = nil,
             jsonKey: String? = nil,
@@ -3800,7 +3800,8 @@ func swiftlint(mode: String = "lint",
                reporter: String? = nil,
                quiet: Bool = false,
                executable: String? = nil,
-               format: Bool = false) {
+               format: Bool = false,
+               compilerLogPath: String? = nil) {
     let command = RubyCommand(commandID: "", methodName: "swiftlint", className: nil, args: [RubyCommand.Argument(name: "mode", value: mode),
                                                                                              RubyCommand.Argument(name: "path", value: path),
                                                                                              RubyCommand.Argument(name: "output_file", value: outputFile),
@@ -3811,7 +3812,8 @@ func swiftlint(mode: String = "lint",
                                                                                              RubyCommand.Argument(name: "reporter", value: reporter),
                                                                                              RubyCommand.Argument(name: "quiet", value: quiet),
                                                                                              RubyCommand.Argument(name: "executable", value: executable),
-                                                                                             RubyCommand.Argument(name: "format", value: format)])
+                                                                                             RubyCommand.Argument(name: "format", value: format),
+                                                                                             RubyCommand.Argument(name: "compiler_log_path", value: compilerLogPath)])
     _ = runner.executeCommand(command)
 }
 
@@ -4289,7 +4291,7 @@ func uploadToAppStore(username: String,
 func uploadToPlayStore(packageName: String,
                        track: String = "production",
                        rollout: String? = nil,
-                       metadataPath: String = "./metadata",
+                       metadataPath: String? = nil,
                        key: String? = nil,
                        issuer: String? = nil,
                        jsonKey: String? = nil,
@@ -4556,7 +4558,7 @@ func xcov(workspace: String? = nil,
           coverallsServiceJobId: String? = nil,
           coverallsRepoToken: String? = nil,
           xcconfig: String? = nil,
-          ideFoundationPath: String = "/Applications/Xcode-10.2.1.app/Contents/Developer/../Frameworks/IDEFoundation.framework/Versions/A/IDEFoundation",
+          ideFoundationPath: String = "/Applications/Xcode10.1.app/Contents/Developer/../Frameworks/IDEFoundation.framework/Versions/A/IDEFoundation",
           legacySupport: Bool = false) {
     let command = RubyCommand(commandID: "", methodName: "xcov", className: nil, args: [RubyCommand.Argument(name: "workspace", value: workspace),
                                                                                         RubyCommand.Argument(name: "project", value: project),
@@ -4670,4 +4672,4 @@ let screengrabfile: Screengrabfile = Screengrabfile()
 let snapshotfile: Snapshotfile = Snapshotfile()
 // Please don't remove the lines below
 // They are used to detect outdated files
-// FastlaneRunnerAPIVersion [0.9.51]
+// FastlaneRunnerAPIVersion [0.9.53]

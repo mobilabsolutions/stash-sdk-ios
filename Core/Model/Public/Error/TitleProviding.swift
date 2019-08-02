@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A protocol that requires an associated human-readable title
 public protocol TitleProviding {
+    /// A human readable title that describes the given instance
     var title: String { get }
 }

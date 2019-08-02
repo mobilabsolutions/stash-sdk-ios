@@ -56,13 +56,6 @@ struct RouterRequestBSPayone: RouterRequestProtocol {
         }
     }
 
-    func getResponseType() -> MLResponseType {
-        switch self.service {
-        case .registerCreditCard:
-            return .json
-        }
-    }
-
     func getContentTypeHeader() -> String {
         switch self.service {
         case .registerCreditCard:

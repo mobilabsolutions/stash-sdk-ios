@@ -35,7 +35,7 @@ import Foundation
         self.integrations = integrations
     }
 
-    /// Initialize the SDK configuration (should only be used from Objective-C, use other initializer from Swift instead)
+    /// Initialize the SDK configuration (should only be used from Objective-C, use the other initializer from Swift instead)
     ///
     /// - Parameters:
     ///   - publishableKey: The SDK's publishableKey for the Mobilab payment backend

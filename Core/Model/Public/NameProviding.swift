@@ -8,8 +8,12 @@
 
 import Foundation
 
+/// A protocol to describe real world names. This allows custom name representations.
 @objc public protocol NameProviding: AnyObject {
+    /// The first name (given name)
     var firstName: String { get }
+    /// The last name (surname)
     var lastName: String { get }
+    /// The full name
     var fullName: String { get }
 }

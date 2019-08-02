@@ -9,7 +9,8 @@
 import Foundation
 
 /// Information about the used PSP retrieved from Mobilab payment backend.
-/// All fields are optional and will be populated based on 'type' property (PSP)
+/// All fields are optional and will be populated based on 'type' property (PSP).
+/// This struct only concerns module development.
 public struct PSPExtra: Codable {
     /// The type of payment service provider used.
     public let type: MobilabPaymentProvider
@@ -39,5 +40,6 @@ public struct PSPExtra: Codable {
     public let clientToken: String?
 
     // Adyen Data
+    /// Adyen payment session data
     public let paymentSession: String?
 }
