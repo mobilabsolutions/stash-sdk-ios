@@ -10,7 +10,7 @@ import UIKit
 
 class CustomTextField: UITextField {
     private static let defaultBorderColor = UIConstants.lightBlueGrey
-    private static let errorBorderColor = UIConstants.coral
+    private static let defaultErrorBorderColor = UIConstants.coral
     private static let defaultPlaceholderColor = UIConstants.coolGrey
     private static let defaultBackgroundColor = UIColor.white
 
@@ -23,6 +23,9 @@ class CustomTextField: UITextField {
             self.layer.borderColor = self.borderColor.cgColor
         }
     }
+
+    private var errorBorderColor = CustomTextField.defaultErrorBorderColor
+    private var providedBorderColor = CustomTextField.defaultBorderColor
 
     private var placeholderColor: UIColor? = CustomTextField.defaultPlaceholderColor {
         didSet {
@@ -41,14 +44,16 @@ class CustomTextField: UITextField {
     }
 
     func set(hasInvalidData: Bool) {
-        self.borderColor = hasInvalidData ? CustomTextField.errorBorderColor : CustomTextField.defaultBorderColor
+        self.borderColor = hasInvalidData ? self.errorBorderColor : self.providedBorderColor
     }
 
-    func setup(borderColor: UIColor?, placeholderColor: UIColor?, textColor: UIColor?, backgroundColor: UIColor?, errorBorderColor _: UIColor?) {
-        self.borderColor = borderColor ?? CustomTextField.defaultBorderColor
+    func setup(borderColor: UIColor?, placeholderColor: UIColor?, textColor: UIColor?, backgroundColor: UIColor?, errorBorderColor: UIColor?) {
+        self.providedBorderColor = borderColor ?? CustomTextField.defaultBorderColor
+        self.borderColor = self.providedBorderColor
         self.placeholderColor = placeholderColor ?? CustomTextField.defaultPlaceholderColor
         self.textColor = textColor
         self.backgroundColor = backgroundColor ?? CustomTextField.defaultBackgroundColor
+        self.errorBorderColor = errorBorderColor ?? CustomTextField.defaultErrorBorderColor
     }
 
     override init(frame: CGRect) {

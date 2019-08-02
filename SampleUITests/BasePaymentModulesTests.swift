@@ -45,7 +45,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -74,7 +74,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("12345")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -120,10 +120,9 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE123456789")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).element.exists,
@@ -150,7 +149,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -185,7 +184,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE14123456")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -215,7 +214,7 @@ class BasePaymentModulesTests: BaseUITest {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.keys["B"].tap()
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 3).tap()
 
         // Tap on the "continue" keyboard button

@@ -53,20 +53,10 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
                                                                textField.attributedText = SEPAUtils.formattedIban(number: textField.text ?? "")
         })
 
-        let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
-                                                              title: "Country",
-                                                              placeholder: "Country",
-                                                              setup: nil,
-                                                              didFocus: { [weak self] textField in
-                                                                  guard let self = self else { return }
-                                                                  self.showCountryListing(textField: textField, on: self)
-                                                              },
-                                                              didUpdate: nil)
-
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(ibanData)),
-            FormCellModel(type: .text(countryData)),
+            FormCellModel(type: .country),
         ])
     }
 
@@ -76,10 +66,10 @@ class BSSEPAInputCollectionViewController: FormCollectionViewController {
 }
 
 extension BSSEPAInputCollectionViewController: FormConsumer {
-    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError? {
         var errors: [NecessaryData: ValidationError] = [:]
 
-        if let iban = data[.iban], iban.isEmpty == false {
+        if let iban = data[.iban]?.value as? String {
             do {
                 try SEPAUtils.validateIBAN(iban: iban)
             } catch {
@@ -89,30 +79,30 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if data[.holderFirstName] == nil || data[.holderFirstName]?.isEmpty == true {
+        if data[.holderFirstName] == nil {
             errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid first name")
         }
 
-        if data[.holderLastName] == nil || data[.holderLastName]?.isEmpty == true {
+        if data[.holderLastName] == nil {
             errors[.holderLastName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
 
-        if data[.country] == nil || data[.country]?.isEmpty == true {
+        if data[.country] == nil {
             errors[.country] = SEPAValidationError.noData(explanation: "Please provide a valid country")
         }
 
         return errors.isEmpty ? nil : FormConsumerError(errors: errors)
     }
 
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws {
         if let validationError = validate(data: data) {
             throw validationError
         }
 
-        guard let iban = data[.iban],
-            let firstName = data[.holderFirstName],
-            let lastName = data[.holderLastName],
-            let countryCode = self.country?.alpha2Code
+        guard let iban = data[.iban]?.value as? String,
+            let firstName = data[.holderFirstName]?.value as? String,
+            let lastName = data[.holderLastName]?.value as? String,
+            let countryCode = (data[.country]?.value as? Country)?.alpha2Code
         else { throw FormConsumerError(errors: [:]) }
 
         let name = SimpleNameProvider(firstName: firstName, lastName: lastName)

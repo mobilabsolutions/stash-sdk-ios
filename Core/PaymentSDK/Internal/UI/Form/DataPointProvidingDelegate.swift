@@ -9,5 +9,5 @@
 import Foundation
 
 protocol DataPointProvidingDelegate: class {
-    func didUpdate(value: String?, for dataPoint: NecessaryData)
+    func didUpdate(value: PresentableValueHolding?, for dataPoint: NecessaryData)
 }

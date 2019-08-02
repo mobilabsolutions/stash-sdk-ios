@@ -248,8 +248,8 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
 
     @objc fileprivate func dateTextFieldEditingChanged() {
         if let parts = dateTextField.text?.split(separator: "/"), parts.count == 2, parts.allSatisfy({ Int($0) != nil }) {
-            self.delegate?.didUpdate(value: String(parts[0]), for: .expirationMonth)
-            self.delegate?.didUpdate(value: String(parts[1]), for: .expirationYear)
+            self.delegate?.didUpdate(value: IntValueHolding(int: Int(parts[0])), for: .expirationMonth)
+            self.delegate?.didUpdate(value: IntValueHolding(int: Int(parts[1])), for: .expirationYear)
         } else {
             self.delegate?.didUpdate(value: nil, for: .expirationMonth)
             self.delegate?.didUpdate(value: nil, for: .expirationYear)
@@ -257,7 +257,7 @@ class DateCVVInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, For
     }
 
     @objc private func cvvTextFieldEditingChanged() {
-        self.delegate?.didUpdate(value: self.cvvTextField.text, for: .cvv)
+        self.delegate?.didUpdate(value: NonEmptyStringValueHolding(string: self.cvvTextField.text), for: .cvv)
     }
 
     private func currentYear() -> Int {

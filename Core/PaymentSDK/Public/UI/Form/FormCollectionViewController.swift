@@ -13,7 +13,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     UICollectionViewDelegateFlowLayout, DoneButtonUpdater {
     private let textReuseIdentifier = "textCell"
     private let pairedTextReuseIdentifier = "pairedTextCell"
-    private let dateCVVCell = "dateCVVCell"
+    private let dateCVVCellReuseIdentifier = "dateCVVCell"
+    private let countryCellReuseIdentifier = "countryCell"
     private let headerReuseIdentifier = "header"
 
     private let cellInset: CGFloat = 18
@@ -33,16 +34,13 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     /// Billing data that should be filled in where appropriate
     public let billingData: BillingData?
 
-    /// The user's country
-    public var country: Country?
-
     private let configuration: PaymentMethodUIConfiguration
     private let formTitle: String
 
     /// A form consumer that both validates and makes use of provided data
     public weak var formConsumer: FormConsumer?
 
-    private var fieldData: [NecessaryData: String] = [:]
+    private var fieldData: [NecessaryData: PresentableValueHolding] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
     private var fieldErrorDelegates: [NecessaryData: FormFieldErrorDelegate] = [:]
 
@@ -76,7 +74,9 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         // Register cell classes
         self.collectionView.register(TextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.textReuseIdentifier)
         self.collectionView.register(PairedTextInputCollectionViewCell.self, forCellWithReuseIdentifier: self.pairedTextReuseIdentifier)
-        self.collectionView.register(DateCVVInputCollectionViewCell.self, forCellWithReuseIdentifier: self.dateCVVCell)
+        self.collectionView.register(DateCVVInputCollectionViewCell.self, forCellWithReuseIdentifier: self.dateCVVCellReuseIdentifier)
+        self.collectionView.register(CountryInputCollectionViewCell.self, forCellWithReuseIdentifier: self.countryCellReuseIdentifier)
+
         self.collectionView.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
@@ -95,24 +95,6 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     /// - Parameter cellModels: The cell models that should be used to create the form fields
     public func setCellModel(cellModels: [FormCellModel]) {
         self.cellModels = cellModels
-    }
-
-    /// Push the country selection view controller on the navigation stack
-    ///
-    /// - Parameters:
-    ///   - textField: The text field from which to show the country view controller
-    ///   - viewController: The view controller on whose navigation stack to push the country selection view controller
-    public func showCountryListing(textField: UITextField, on viewController: UIViewController) {
-        var countryName = textField.text ?? ""
-        // get device locale if textfield is empty
-        if countryName.isEmpty {
-            let deviceCountry = Locale.current.getDeviceRegion()
-            countryName = deviceCountry?.name ?? ""
-        }
-        let countryVC = CountryListCollectionViewController(countryName: countryName, configuration: configuration)
-        countryVC.delegate = self
-        self.selectedCountryTextField = textField
-        viewController.navigationController?.pushViewController(countryVC, animated: true)
     }
 
     /// Present an error alert when an error occurs during payment method creation
@@ -187,7 +169,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         switch type {
         case let .text(data):
             let cell: TextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.textReuseIdentifier, for: indexPath)
-            cell.setup(text: self.fieldData[data.necessaryData],
+            cell.setup(text: self.fieldData[data.necessaryData]?.title,
                        title: data.title,
                        placeholder: data.placeholder,
                        dataType: data.necessaryData,
@@ -209,11 +191,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
         case let .pairedText(data):
             let cell: PairedTextInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.pairedTextReuseIdentifier, for: indexPath)
-            cell.setup(firstText: self.fieldData[data.firstNecessaryData],
+            cell.setup(firstText: self.fieldData[data.firstNecessaryData]?.title,
                        firstTitle: data.firstTitle,
                        firstPlaceholder: data.firstPlaceholder,
                        firstDataType: data.firstNecessaryData,
-                       secondText: self.fieldData[data.secondNecessaryData],
+                       secondText: self.fieldData[data.secondNecessaryData]?.title,
                        secondTitle: data.secondTitle,
                        secondPlaceholder: data.secondPlaceholder,
                        secondDataType: data.secondNecessaryData,
@@ -236,18 +218,18 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             toReturn = cell
 
         case .dateCVV:
-            let cell: DateCVVInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.dateCVVCell, for: indexPath)
+            let cell: DateCVVInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.dateCVVCellReuseIdentifier, for: indexPath)
 
             let date: (month: Int, year: Int)?
-            if let year = fieldData[.expirationYear], let yearValue = Int(year),
-                let month = fieldData[.expirationMonth], let monthValue = Int(month) {
-                date = (month: monthValue, year: yearValue)
+            if let year = fieldData[.expirationYear]?.value as? Int,
+                let month = fieldData[.expirationMonth]?.value as? Int {
+                date = (month: month, year: year)
             } else {
                 date = nil
             }
 
             cell.setup(date: date,
-                       cvv: self.fieldData[.cvv],
+                       cvv: self.fieldData[.cvv]?.title,
                        dateError: self.errors[.expirationMonth]?.description ?? self.errors[.expirationYear]?.description,
                        cvvError: self.errors[.cvv]?.description,
                        textFieldGainFocusCallback: { [weak self] _, dataPoint in
@@ -262,6 +244,17 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
             self.fieldErrorDelegates[.cvv] = cell
             self.fieldErrorDelegates[.expirationYear] = cell
             self.fieldErrorDelegates[.expirationMonth] = cell
+
+            toReturn = cell
+
+        case .country:
+            let cell: CountryInputCollectionViewCell = collectionView.dequeueCell(reuseIdentifier: self.countryCellReuseIdentifier, for: indexPath)
+            cell.setup(country: self.fieldData[.country]?.value as? Country,
+                       error: self.errors[.country]?.description,
+                       configuration: self.configuration,
+                       delegate: self)
+
+            self.fieldErrorDelegates[.country] = cell
 
             toReturn = cell
         }
@@ -377,8 +370,8 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 }
 
 extension FormCollectionViewController: DataPointProvidingDelegate {
-    func didUpdate(value: String?, for dataPoint: NecessaryData) {
-        self.fieldData[dataPoint] = value?.isEmpty == false ? value : nil
+    func didUpdate(value: PresentableValueHolding?, for dataPoint: NecessaryData) {
+        self.fieldData[dataPoint] = value
         self.updateFieldIdleTimer(for: dataPoint)
 
         let validationResult = self.formConsumer?.validate(data: self.fieldData)
@@ -434,9 +427,30 @@ extension FormCollectionViewController: NextCellSwitcher {
     }
 }
 
+extension FormCollectionViewController: CountryInputPresentingDelegate {
+    func presentCountryInput(countryDelegate: CountryListCollectionViewControllerDelegate) {
+        let country = self.fieldData[.country]?.value as? Country ?? Locale.current.getDeviceRegion()
+
+        let countryViewController = CountryListCollectionViewController(country: country,
+                                                                        configuration: configuration)
+        countryViewController.delegate = countryDelegate
+        self.navigationController?.pushViewController(countryViewController, animated: true)
+
+        guard let index = self.cellModels.firstIndex(where: {
+            if case FormCellModel.FormCellType.country = $0.type {
+                return true
+            }
+            return false
+        })
+        else { return }
+
+        self.checkPreviousCellsValidity(from: IndexPath(item: index, section: 0), dataPoint: .country)
+    }
+}
+
 extension FormCollectionViewController: CountryListCollectionViewControllerDelegate {
     func didSelectCountry(country: Country) {
-        self.country = country
+        self.didUpdate(value: CountryValueHolding(country: country), for: .country)
         self.selectedCountryTextField?.text = country.name
     }
 }

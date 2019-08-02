@@ -219,6 +219,13 @@
 		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
 		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
+		E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136A22F4305A004508D3 /* PresentableValueHolding.swift */; };
+		E189136D22F437BE004508D3 /* CountryValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136C22F437BE004508D3 /* CountryValueHolding.swift */; };
+		E189137122F438F9004508D3 /* NonEmptyStringValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */; };
+		E189137322F43988004508D3 /* IntValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137222F43988004508D3 /* IntValueHolding.swift */; };
+		E189137522F44DB9004508D3 /* CountryInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */; };
+		E189137722F45155004508D3 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137622F45155004508D3 /* CustomButton.swift */; };
+		E189137922F45C38004508D3 /* CountryInputPresentingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */; };
 		E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189618E22647C810044D3CE /* AliasCreationDetail.swift */; };
 		E1970DB42297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */; };
 		E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB7229844B200D075A7 /* SDKResetter.swift */; };
@@ -580,6 +587,13 @@
 		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
+		E189136A22F4305A004508D3 /* PresentableValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableValueHolding.swift; sourceTree = "<group>"; };
+		E189136C22F437BE004508D3 /* CountryValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryValueHolding.swift; sourceTree = "<group>"; };
+		E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyStringValueHolding.swift; sourceTree = "<group>"; };
+		E189137222F43988004508D3 /* IntValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntValueHolding.swift; sourceTree = "<group>"; };
+		E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E189137622F45155004508D3 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInputPresentingDelegate.swift; sourceTree = "<group>"; };
 		E189618E22647C810044D3CE /* AliasCreationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCreationDetail.swift; sourceTree = "<group>"; };
 		E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificPaymentMethodRegistrationTests.swift; sourceTree = "<group>"; };
 		E1970DB7229844B200D075A7 /* SDKResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKResetter.swift; sourceTree = "<group>"; };
@@ -1250,6 +1264,7 @@
 				C49F49DE22806BFA00D3A986 /* SearchView.swift */,
 				E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */,
 				E162FF892243945A00413764 /* CustomTextField.swift */,
+				E189137622F45155004508D3 /* CustomButton.swift */,
 				E162FF8D22439CD900413764 /* SubtitleLabel.swift */,
 				E162FFB92243CCE400413764 /* TitleHeaderView.swift */,
 				C49F49DC227C9AA400D3A986 /* HeaderView.swift */,
@@ -1257,6 +1272,7 @@
 				E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */,
 				C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */,
 				E1AE1C34228F070B0054D098 /* AlertBanner.swift */,
+				E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1267,6 +1283,10 @@
 				E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */,
 				E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */,
 				E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */,
+				E189136C22F437BE004508D3 /* CountryValueHolding.swift */,
+				E189137222F43988004508D3 /* IntValueHolding.swift */,
+				E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */,
+				E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -1444,6 +1464,7 @@
 				E1068EB122533D3700ACC93C /* FormConsumer.swift */,
 				E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */,
 				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
+				E189136A22F4305A004508D3 /* PresentableValueHolding.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -1930,7 +1951,9 @@
 			files = (
 				E11C3C95223BEF3100F94F56 /* MobilabBackendError.swift in Sources */,
 				BA078EE222E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift in Sources */,
+				E189136D22F437BE004508D3 /* CountryValueHolding.swift in Sources */,
 				E1068EA722522CB000ACC93C /* CustomBackButtonContainerViewController.swift in Sources */,
+				E189137122F438F9004508D3 /* NonEmptyStringValueHolding.swift in Sources */,
 				E1068E9A22522B2000ACC93C /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */,
 				E1466261227C397200512710 /* PersonalData.swift in Sources */,
 				E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */,
@@ -1974,9 +1997,11 @@
 				E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */,
 				E1068EAE2252549C00ACC93C /* FormCellModel.swift in Sources */,
 				E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */,
+				E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */,
 				E1068E9C22522B2000ACC93C /* TextInputCollectionViewCell.swift in Sources */,
 				E1068E9922522AE100ACC93C /* UIConstants.swift in Sources */,
 				BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */,
+				E189137722F45155004508D3 /* CustomButton.swift in Sources */,
 				BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */,
 				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
 				E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */,
@@ -1988,7 +2013,9 @@
 				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
 				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
 				E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */,
+				E189137522F44DB9004508D3 /* CountryInputCollectionViewCell.swift in Sources */,
 				E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */,
+				E189137922F45C38004508D3 /* CountryInputPresentingDelegate.swift in Sources */,
 				BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */,
 				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
 				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
@@ -2004,6 +2031,7 @@
 				E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */,
 				BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
+				E189137322F43988004508D3 /* IntValueHolding.swift in Sources */,
 				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
 				E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */,
 				E1068EA022522B2000ACC93C /* TitleHeaderView.swift in Sources */,

@@ -220,7 +220,7 @@ class TextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, FormFi
         else { return }
 
         self.textFieldUpdateCallback?(self.textField, type)
-        self.delegate?.didUpdate(value: self.textField.text?.trimmingCharacters(in: .whitespaces), for: type)
+        self.delegate?.didUpdate(value: NonEmptyStringValueHolding(string: self.textField.text?.trimmingCharacters(in: .whitespaces)), for: type)
     }
 
     @objc private func didEndEditingTextFieldText() {
