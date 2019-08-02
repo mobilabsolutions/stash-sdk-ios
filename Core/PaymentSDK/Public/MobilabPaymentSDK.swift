@@ -8,8 +8,9 @@
 
 import Foundation
 
+/// The starting point for all payment SDK operations.
 public class MobilabPaymentSDK {
-    /// Configure the SDK
+    /// Configure the SDK. May only be done once during the application's life cycle.
     ///
     /// - Parameter configuration: The configuration to use for subsequent operations
     public static func initialize(configuration: MobilabPaymentConfiguration) {

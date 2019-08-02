@@ -39,6 +39,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         return lastDigits
     }
 
+    /// Extract all necessary extra alias info data from this payment method
     public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
         let extra = PaymentMethodAlias.CreditCardExtraInfo(creditCardMask: self.cardMask,
                                                            expiryMonth: self.expiryMonth,
@@ -57,7 +58,6 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///   - country: ISO code of the country of the credit card holder. Not required by every PSP.
     ///   - billingData: The billing data to use when registering with the PSP
     /// - Throws: An MobilabPaymentError if validation is not successful
-
     public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
@@ -73,6 +73,9 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         self.country = country
     }
 
+    /// Create a credit card extra from this payment method for use with the backend
+    ///
+    /// - Returns: The credit card extra instance
     public func toCreditCardExtra() -> CreditCardExtra? {
         return CreditCardExtra(ccExpiry: "\(String(format: "%02d", self.expiryMonth))/\(String(format: "%02d", self.expiryYear))",
                                ccMask: self.cardMask,

@@ -21,6 +21,13 @@ public struct SEPAData: RegistrationData, SEPADataInitializible {
     /// The billing data to use when registering the SEPA account with a payment service provider
     public let billingData: BillingData
 
+    /// Create new SEPA data using necessary data
+    ///
+    /// - Parameters:
+    ///   - iban: The IBAN
+    ///   - bic: The BIC
+    ///   - billingData: The billing data that should be taken into account
+    /// - Throws: A validation error if the payment method is not valid
     public init(iban: String, bic: String?, billingData: BillingData) throws {
         let cleanedIban = SEPAUtils.cleanedIban(number: iban)
         try SEPAUtils.validateIBAN(iban: cleanedIban)
@@ -30,10 +37,14 @@ public struct SEPAData: RegistrationData, SEPADataInitializible {
         self.billingData = billingData
     }
 
+    /// Create a SEPA extra from this payment method
+    ///
+    /// - Returns: The SEPA extra
     public func toSEPAExtra() -> SEPAExtra {
         return SEPAExtra(iban: self.iban, bic: self.bic)
     }
 
+    /// Extract the usable extra alias info for this payment method
     public var extraAliasInfo: PaymentMethodAlias.ExtraAliasInfo {
         let formatted = SEPAUtils.spaceFormattedIbanMask(number: self.iban)
         let extra = PaymentMethodAlias.SEPAExtraInfo(maskedIban: formatted)

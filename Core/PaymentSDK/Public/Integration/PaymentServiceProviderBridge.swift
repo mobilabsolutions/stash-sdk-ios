@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// A bridge that allows using payment providers from Objective-C. This should only be used by the modules to create their Objective-C bridges.
 @objc(MLPaymentProvider) public final class PaymentProviderBridge: NSObject {
     let paymentProvider: PaymentServiceProvider
 
+    /// Create a new payment provider
+    ///
+    /// - Parameter paymentProvider: The (Swift) payment provider which this bridge should be based on.
     public init(paymentProvider: PaymentServiceProvider) {
         self.paymentProvider = paymentProvider
     }

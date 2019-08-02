@@ -12,6 +12,7 @@ import BraintreePayPal
 import MobilabPaymentCore
 import UIKit
 
+/// The manager for presenting, extracting relevant payment method information and dismissing PayPal UI.
 class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate, BTViewControllerPresentingDelegate {
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     var errorWhileUsingPayPal: ((MobilabPaymentError) -> Void)?
@@ -25,6 +26,7 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
         super.init()
     }
 
+    /// Present the PayPal view controller. Calls the `didCreatePaymentMethodCompletion` with the extracted payment method data once that is available.
     func showPayPalUI() {
         guard let braintreeClient = BTAPIClient(authorization: clientToken) else {
             fatalError("Braintree client can't be authorized with applied client token")

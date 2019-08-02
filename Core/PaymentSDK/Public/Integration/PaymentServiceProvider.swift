@@ -8,9 +8,13 @@
 
 import UIKit
 
+/// Supported payment providers
 public enum MobilabPaymentProvider: String, Codable {
+    /// BS Payone PSP
     case bsPayone = "BS_PAYONE"
+    /// Braintree PSP
     case braintree = "BRAINTREE"
+    /// Adyen PSP
     case adyen = "ADYEN"
 }
 
@@ -18,6 +22,7 @@ public enum MobilabPaymentProvider: String, Codable {
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
     typealias RegistrationResult = Result<PSPRegistration, MobilabPaymentError>
+    /// A completion callback that provides the created `RegistrationResult`
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
     /// The PSP identifier as required by the Mobilab payment backend

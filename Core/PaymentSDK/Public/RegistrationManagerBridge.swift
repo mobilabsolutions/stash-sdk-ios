@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A bridge that allows using the RegistrationManager from Objective-C
 @objc(MLRegistrationManager) public class RegistrationManagerBridge: NSObject {
     private let manager: RegistrationManager
 
@@ -15,18 +16,21 @@ import UIKit
         self.manager = manager
     }
 
+    /// Register a credit card payment method. For detailed information on the parameters, see the equivalent method documentation in `RegistrationManager`.
     @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String?, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
                                         idempotencyKey: idempotencyKey,
                                         completion: self.bridgedCompletion(completion: completion))
     }
 
+    /// Register a SEPA payment method. For detailed information on the parameters, see the equivalent method documentation in `RegistrationManager`.
     @objc public func registerSEPAAccount(sepaData: SEPADataBridge, idempotencyKey: String?, completion: @escaping (PaymentMethodAliasBridge?, MobilabPaymentErrorBridge?) -> Void) {
         self.manager.registerSEPAAccount(sepaData: sepaData.sepaData,
                                          idempotencyKey: idempotencyKey,
                                          completion: self.bridgedCompletion(completion: completion))
     }
 
+    /// Register a payment method using the SDK-provided UI. For detailed information on the parameters, see the equivalent method documentation in `RegistrationManager`.
     @objc public func registerPaymentMethodUsingUI(on viewController: UIViewController,
                                                    specificPaymentMethod: PaymentMethodTypeBridge,
                                                    billingData: BillingData?,

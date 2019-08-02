@@ -8,7 +8,12 @@
 
 import Foundation
 
+/// Utilities for handling IBANs
 public class SEPAUtils {
+    /// Format an IBAN using NSAttributedString formatting options
+    ///
+    /// - Parameter number: The IBAN that should be formatted (may contain dashes and spaces)
+    /// - Returns: The formatted IBAN
     public static func formattedIban(number: String) -> NSAttributedString {
         let cleaned = self.cleanedIban(number: number)
         let newString = NSMutableAttributedString(string: cleaned)
@@ -41,6 +46,10 @@ public class SEPAUtils {
         return number.replacingOccurrences(of: "(\\s|\\-)", with: "", options: .regularExpression, range: nil).uppercased()
     }
 
+    /// Validate an IBAN's checksum validity
+    ///
+    /// - Parameter iban: The IBAN to validate (may contain dashes and spaces)
+    /// - Throws: A `MobilabPaymentError.validation` error if the IBAN is not valid.
     public static func validateIBAN(iban: String) throws {
         let cleanedIban = SEPAUtils.cleanedIban(number: iban)
         guard SEPAUtils.isValid(cleanedNumber: cleanedIban)

@@ -61,22 +61,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/BraintreeError.html">BraintreeError</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/BraintreeData.html">BraintreeData</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -91,7 +75,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A bridge that allows usage and creation of instanes of the Braintree module from Objective-C</p>
 
           </div>
         </section>
@@ -113,7 +97,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Create a Braintree module instance from Objective-C. This instance can be used to initialize the SDK.</p>
 
                       </div>
                       <div class="declaration">
@@ -121,9 +105,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">createModule</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">MobilabPaymentSDKBridge</span><span class="o">.</span><span class="kt">PaymentProviderBridge</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">createModule</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PaymentProviderBridge</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlScheme</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The registered URL scheme.
+See <a href="https://github.com/mobilabsolutions/payment-sdk-ios-open#paypal-account-registration">here</a> for more considerations.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created Braintree module</p>
                       </div>
                     </section>
                   </div>
@@ -141,7 +149,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Handle a potential Braintree URL redirection that comes in via the UIApplicationDelegate&rsquo;s <code>application(_:open:options:)</code></p>
 
                       </div>
                       <div class="declaration">
@@ -152,6 +160,41 @@
 <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">handleOpen</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">OpenURLOptionsKey</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The url as provided by the UIApplicationDelegate method</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The options as provided by the UIApplicationDelegate method</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A boolean indicating whether or not the Braintree module handled the request.</p>
                       </div>
                     </section>
                   </div>

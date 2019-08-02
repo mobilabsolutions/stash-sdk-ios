@@ -8,16 +8,12 @@
 
 import Foundation
 
+/// HTTP methods supported by router requests
 public enum HTTPMethod: String {
     case GET
     case POST
     case DELETE
     case PUT
-}
-
-public enum MLResponseType {
-    case xml
-    case json
 }
 
 public protocol RouterRequestProtocol {
@@ -27,7 +23,6 @@ public protocol RouterRequestProtocol {
     func getContentTypeHeader() -> String
     func getHttpBody() -> Data?
     func getRelativePath() -> String?
-    func getResponseType() -> MLResponseType
     func asURLRequest() -> URLRequest
     func getTimeOut() -> Double
     func getHeaders() -> [Header]

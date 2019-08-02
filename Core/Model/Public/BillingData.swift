@@ -33,6 +33,9 @@ import Foundation
     @objc public let languageId: String?
 
     /// Initialize the billing data with select properties
+    ///
+    /// - Parameters:
+    ///   - billingData: The billing data from which to get default values for those fields that are not provided or nil.
     @objc public init(email: String? = nil,
                       name: NameProviding? = nil,
                       address1: String? = nil,

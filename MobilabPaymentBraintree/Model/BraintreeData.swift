@@ -9,7 +9,8 @@
 import Foundation
 import MobilabPaymentCore
 
-public struct BraintreeData {
+/// The Braintree PSP data that is returned by the createAlias call
+struct BraintreeData {
     /// Client token used for initializing Braintree SDK
     public let clientToken: String
 

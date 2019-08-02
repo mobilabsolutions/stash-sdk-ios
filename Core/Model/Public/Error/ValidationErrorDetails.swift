@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Details concerning a local validation error
 public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
     /// SEPA IBAN is invalid
     case invalidIBAN

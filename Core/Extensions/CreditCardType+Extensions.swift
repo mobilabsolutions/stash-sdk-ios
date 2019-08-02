@@ -9,6 +9,7 @@
 import UIKit
 
 public extension CreditCardType {
+    /// A logo image associated with the given credit card type
     var image: UIImage? {
         switch self {
         case .visa: return UIConstants.visaImage

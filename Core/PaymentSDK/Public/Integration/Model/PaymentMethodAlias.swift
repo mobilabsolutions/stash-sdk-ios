@@ -17,74 +17,40 @@ public struct PaymentMethodAlias {
     public let alias: String?
     /// The type of payment method that was registered
     public let paymentMethodType: PaymentMethodType
-    /// A human readable identifier for the payment method (e.g. IBAN or masked credit card number)
+    /// More information about the created alias and associated payment method
     public let extraAliasInfo: ExtraAliasInfo
 
+    /// Information regarding a created alias and associated payment method
     public enum ExtraAliasInfo {
+        /// The associated payment method was a credit card
         case creditCard(CreditCardExtraInfo)
+        /// The associated payment method was a SEPA method
         case sepa(SEPAExtraInfo)
+        /// The associated payment method was a PayPal method
         case payPal(PayPalExtraInfo)
     }
 
+    /// More information about a registered credit card alias
     public struct CreditCardExtraInfo {
+        /// The mask of the credit card number (last four digits)
         public let creditCardMask: String
+        /// The expiry month (1-12) of the credit card
         public let expiryMonth: Int
+        /// The expiry year of the credit card (0-99)
         public let expiryYear: Int
+        /// The type of credit card that was registered
         public let creditCardType: CreditCardType
     }
 
+    /// More information about a registered SEPA alias
     public struct SEPAExtraInfo {
+        /// The masked registered IBAN (e.g. "DEXX XXXX XXXX XXXX XX6789")
         public let maskedIban: String
     }
 
+    /// More information about a registered PayPal alias
     public struct PayPalExtraInfo {
+        /// The user's payment email address (if provided)
         public let email: String?
     }
-}
-
-extension PaymentMethodAlias: Codable {}
-
-extension PaymentMethodAlias.ExtraAliasInfo: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: ExtraAliasInfoKeys.self)
-        switch try container.decode(String.self, forKey: .identifier) {
-        case "creditCard":
-            let details = try container.decode(PaymentMethodAlias.CreditCardExtraInfo.self, forKey: .details)
-            self = .creditCard(details)
-        case "sepa":
-            let details = try container.decode(PaymentMethodAlias.SEPAExtraInfo.self, forKey: .details)
-            self = .sepa(details)
-        case "payPal":
-            let details = try container.decode(PaymentMethodAlias.PayPalExtraInfo.self, forKey: .details)
-            self = .payPal(details)
-        default:
-            throw DecodingError.dataCorruptedError(forKey: .identifier, in: container, debugDescription: "The identifier could not be decoded for ExtraAliasInfo")
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: ExtraAliasInfoKeys.self)
-        switch self {
-        case let .creditCard(details):
-            try container.encode("creditCard", forKey: .identifier)
-            try container.encode(details, forKey: .details)
-        case let .sepa(details):
-            try container.encode("sepa", forKey: .identifier)
-            try container.encode(details, forKey: .details)
-        case let .payPal(details):
-            try container.encode("payPal", forKey: .identifier)
-            try container.encode(details, forKey: .details)
-        }
-    }
-}
-
-extension PaymentMethodAlias.CreditCardExtraInfo: Codable {}
-
-extension PaymentMethodAlias.SEPAExtraInfo: Codable {}
-
-extension PaymentMethodAlias.PayPalExtraInfo: Codable {}
-
-private enum ExtraAliasInfoKeys: CodingKey {
-    case identifier
-    case details
 }

@@ -2,21 +2,21 @@
   "warnings": [
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabBraintreeBridge.swift",
-      "line": 11,
+      "line": 12,
       "symbol": "MobilabBraintreeBridge",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabBraintreeBridge.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "MobilabBraintreeBridge.createModule(urlScheme:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabBraintreeBridge.swift",
-      "line": 16,
+      "line": 17,
       "symbol": "MobilabBraintreeBridge.handleOpen(url:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -30,14 +30,14 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabPaymentBraintree.swift",
-      "line": 62,
+      "line": 65,
       "symbol": "MobilabPaymentBraintree.init(urlScheme:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/MobilabPaymentBraintree/Integration/MobilabPaymentBraintree.swift",
-      "line": 68,
+      "line": 71,
       "symbol": "MobilabPaymentBraintree.handleOpen(url:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

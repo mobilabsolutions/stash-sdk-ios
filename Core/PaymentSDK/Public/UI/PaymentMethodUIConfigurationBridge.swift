@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A bridge that allows using the PaymentMethodUIConfiguration from Objective-C
 @objc(MLPaymentMethodUIConfiguration) public class PaymentMethodUIConfigurationBridge: NSObject {
     let configuration: PaymentMethodUIConfiguration
 
@@ -22,6 +23,8 @@ import UIKit
     ///   - cellBackgroundColor: The background color to use for cells in the UI or `nil` for the default value
     ///   - buttonTextColor: The button text color to use in the UI or `nil` for the default value
     ///   - buttonDisabledColor: The button color to use when a button is disabled in the UI or `nil` for the default value
+    ///   - errorMessageColor: The color that error messages should have (will also be the background color of the error alert) or `nil` for the default value
+    ///   - errorMessageTextColor: The color of the error message text in the alert banner or `nil` for the default value
     @objc public required init(backgroundColor: UIColor?,
                                textColor: UIColor?,
                                buttonColor: UIColor?,
