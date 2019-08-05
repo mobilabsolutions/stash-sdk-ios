@@ -40,38 +40,40 @@ struct RubyCommand: RubyCommandable {
         }
 
         var hasValue: Bool {
-            return self.value != nil
+            return nil != self.value
         }
 
         var json: String {
-            if let someValue = value {
-                let typeJson: String
-                if let type = type {
-                    typeJson = ", \"value_type\" : \"\(type.typeString)\""
-                } else {
-                    typeJson = ""
-                }
+            get {
+                if let someValue = value {
+                    let typeJson: String
+                    if let type = type {
+                        typeJson = ", \"value_type\" : \"\(type.typeString)\""
+                    }else {
+                        typeJson = ""
+                    }
 
-                if self.type == .stringClosure {
-                    return "{\"name\" : \"\(self.name)\", \"value\" : \"ignored_for_closure\"\(typeJson)}"
-                } else if let array = someValue as? [String] {
-                    return "{\"name\" : \"\(self.name)\", \"value\" : \"\(array.joined(separator: ","))\"\(typeJson)}"
-                } else if let hash = someValue as? [String: Any] {
-                    let jsonData = try! JSONSerialization.data(withJSONObject: hash, options: [])
-                    let jsonString = String(data: jsonData, encoding: .utf8)!
-                    return "{\"name\" : \"\(self.name)\", \"value\" : \(jsonString)\(typeJson)}"
+                    if type == .stringClosure  {
+                        return "{\"name\" : \"\(name)\", \"value\" : \"ignored_for_closure\"\(typeJson)}"
+                    } else if let array = someValue as? [String] {
+                        return "{\"name\" : \"\(name)\", \"value\" : \"\(array.joined(separator: ","))\"\(typeJson)}"
+                    } else if let hash = someValue as? [String : Any] {
+                        let jsonData = try! JSONSerialization.data(withJSONObject: hash, options: [])
+                        let jsonString = String(data: jsonData, encoding: .utf8)!
+                        return "{\"name\" : \"\(name)\", \"value\" : \(jsonString)\(typeJson)}"
+                    } else {
+                        let dictionary = [
+                            "name": name,
+                            "value": someValue
+                        ]
+                        let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+                        let jsonString = String(data: jsonData, encoding: .utf8)!
+                        return jsonString
+                    }
                 } else {
-                    let dictionary = [
-                        "name": name,
-                        "value": someValue,
-                    ]
-                    let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-                    let jsonString = String(data: jsonData, encoding: .utf8)!
-                    return jsonString
+                    // Just exclude this arg if it doesn't have a value
+                    return ""
                 }
-            } else {
-                // Just exclude this arg if it doesn't have a value
-                return ""
             }
         }
     }

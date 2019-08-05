@@ -11,11 +11,12 @@ internal extension UIDevice {
     var modelIdentifier: String {
         var systemInfo = utsname()
         uname(&systemInfo)
-
+        
         let deviceModelData = Data(bytes: &systemInfo.machine, count: Int(_SYS_NAMELEN))
         let deviceModel = String(bytes: deviceModelData, encoding: .ascii).map { $0.trimmingCharacters(in: .controlCharacters) }
-
+        
         // As a fallback, use the UIDevice model property (which doesn't include the model version).
         return deviceModel ?? UIDevice.current.model
     }
+    
 }

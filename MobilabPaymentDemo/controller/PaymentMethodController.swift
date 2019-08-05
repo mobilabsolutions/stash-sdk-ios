@@ -10,7 +10,7 @@ import CoreData
 import MobilabPaymentCore
 import UIKit
 
-protocol PaymentMethodControllerDelegate: class {
+protocol PaymentMethodControllerDelegate: AnyObject {
     func didFinishPayment(err: Error?)
 }
 

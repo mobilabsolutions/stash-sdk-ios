@@ -9,16 +9,16 @@ import Foundation
 /// A response for a Issuers lookup.
 internal struct GiroPayIssuersResponse: Response {
     internal var issuers: [GiroPayIssuer]?
-
+    
     // MARK: - Decoding
-
+    
     internal init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.issuers = try container.decode([GiroPayIssuer].self, forKey: .giroPayIssuers)
+        issuers = try container.decode([GiroPayIssuer].self, forKey: .giroPayIssuers)
     }
-
+    
     // MARK: - Private
-
+    
     private enum CodingKeys: String, CodingKey {
         case giroPayIssuers
     }

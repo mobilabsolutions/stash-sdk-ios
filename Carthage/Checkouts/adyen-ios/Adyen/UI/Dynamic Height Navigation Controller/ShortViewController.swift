@@ -9,7 +9,7 @@ import UIKit
 class ShortViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         preferredContentSize = CGSize(width: view.bounds.width, height: 190.0)
     }
 }

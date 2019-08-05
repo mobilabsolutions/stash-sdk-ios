@@ -10,7 +10,7 @@ import Foundation
 
 public typealias ValidationError = Error & CustomStringConvertible
 
-public protocol FormConsumer: class {
+public protocol FormConsumer: AnyObject {
     func consumeValues(data: [NecessaryData: String]) throws
     func validate(data: [NecessaryData: String]) -> FormConsumerError?
 }

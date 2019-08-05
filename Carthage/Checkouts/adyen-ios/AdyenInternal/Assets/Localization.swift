@@ -16,17 +16,18 @@ import UIKit
 ///   - arguments: The arguments to substitute in the templated localized string.
 /// - Returns: The localized string for the given key, or the key itself if the localized string could not be found.
 public func ADYLocalizedString(_ key: String, _ arguments: CVarArg...) -> String {
+    
     // Check main application bundle first.
     var localizedString = NSLocalizedString(key, tableName: nil, bundle: Bundle.main, comment: "")
-
+    
     // If no string is available on main bundle, try internal one.
     if localizedString == key {
         localizedString = NSLocalizedString(key, tableName: nil, bundle: .resources, comment: "")
     }
-
+    
     guard arguments.isEmpty == false else {
         return localizedString
     }
-
+    
     return String(format: localizedString, arguments: arguments)
 }

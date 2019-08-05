@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol DataPointProvidingDelegate: class {
+protocol DataPointProvidingDelegate: AnyObject {
     func didUpdate(value: String?, for dataPoint: NecessaryData)
 }

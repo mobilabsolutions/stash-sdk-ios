@@ -16,7 +16,7 @@ import Foundation
 
 public protocol LaneFileProtocol: class {
     var fastlaneVersion: String { get }
-    static func runLane(named: String, parameters: [String: String]) -> Bool
+    static func runLane(named: String, parameters: [String : String]) -> Bool
 
     func recordLaneDescriptions()
     func beforeAll()
@@ -26,10 +26,10 @@ public protocol LaneFileProtocol: class {
 
 public extension LaneFileProtocol {
     var fastlaneVersion: String { return "" } // default "" because that means any is fine
-    func beforeAll() {} // no op by default
-    func afterAll(currentLane _: String) {} // no op by default
-    func onError(currentLane _: String, errorInfo _: String) {} // no op by default
-    func recordLaneDescriptions() {} // no op by default
+    func beforeAll() { } // no op by default
+    func afterAll(currentLane: String) { } // no op by default
+    func onError(currentLane: String, errorInfo: String) {} // no op by default
+    func recordLaneDescriptions() { } // no op by default
 }
 
 @objcMembers
@@ -64,8 +64,8 @@ public class LaneFile: NSObject, LaneFileProtocol {
         return lanes
     }
 
-    public static var lanes: [String: String] {
-        var laneToMethodName: [String: String] = [:]
+    public static var lanes: [String : String] {
+        var laneToMethodName: [String : String] = [:]
         self.laneFunctionNames.forEach { name in
             let lowercasedName = name.lowercased()
             if lowercasedName.hasSuffix("lane") {
@@ -92,7 +92,7 @@ public class LaneFile: NSObject, LaneFileProtocol {
         }
     }
 
-    public static func runLane(named: String, parameters: [String: String]) -> Bool {
+    public static func runLane(named: String, parameters: [String : String]) -> Bool {
         log(message: "Running lane: \(named)")
         self.loadFastfile()
 

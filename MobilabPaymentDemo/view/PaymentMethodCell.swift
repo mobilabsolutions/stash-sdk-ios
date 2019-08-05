@@ -11,7 +11,7 @@ import UIKit
 
 // MARK- Protocol
 
-protocol PaymentMethodCellDelegate: class {
+protocol PaymentMethodCellDelegate: AnyObject {
     func didSelectOption(selectionEnabled: Bool, for cell: PaymentMethodCell)
 }
 

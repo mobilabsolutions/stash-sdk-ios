@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol NextCellEnabled: class {
+protocol NextCellEnabled: AnyObject {
     var nextCellSwitcher: NextCellSwitcher? { get set }
     var isLastCell: Bool { get set }
 
     func selectCell()
 }
 
-protocol NextCellSwitcher: class {
+protocol NextCellSwitcher: AnyObject {
     func switchToNextCell(from cell: UICollectionViewCell)
 }
