@@ -16,7 +16,7 @@ import UIKit
 /// for more information on things to keep in mind when using that PSP.
 public class StashAdyen: PaymentServiceProvider {
     /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
-    public let pspIdentifier: MobilabPaymentProvider
+    public let pspIdentifier: StashPaymentProvider
 
     /// Collects all of the controllers for different registration requests.
     /// These controllers need to be used across different steps of the registration process (before the "createAlias" and before the "updateAlias" calls)
@@ -36,7 +36,7 @@ public class StashAdyen: PaymentServiceProvider {
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
-            return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+            return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
 
         do {
@@ -53,12 +53,12 @@ public class StashAdyen: PaymentServiceProvider {
                 self.handleSEPARequest(sepaData: sepaData,
                                        completion: completion)
             } else {
-                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+                completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
             }
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
+            completion(.failure(StashError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -66,7 +66,7 @@ public class StashAdyen: PaymentServiceProvider {
     public func provideAliasCreationDetail(for registrationData: RegistrationData,
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
-                                           completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+                                           completion: @escaping (Swift.Result<AliasCreationDetail?, StashError>) -> Void) {
         // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
@@ -126,7 +126,7 @@ public class StashAdyen: PaymentServiceProvider {
                                                                                          payload: token))
                 completion(.success(registration))
             case let .failure(error):
-                let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
+                let mlError = error as? StashError ?? StashError.other(GenericErrorDetails.from(error: error))
                 completion(.failure(mlError))
             }
 
@@ -143,7 +143,7 @@ public class StashAdyen: PaymentServiceProvider {
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
         guard let controller = self.controllerForRegistrationIdentifier[idempotencyKey]
-        else { throw MobilabPaymentError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")) }
+        else { throw StashError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")) }
 
         return controller
     }
@@ -152,10 +152,10 @@ public class StashAdyen: PaymentServiceProvider {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
         guard let extra = cardData.toCreditCardExtra()
-        else { throw MobilabPaymentError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
+        else { throw StashError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
 
         guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
-        else { throw MobilabPaymentError.validation(.invalidExpirationDate) }
+        else { throw StashError.validation(.invalidExpirationDate) }
 
         let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
 
@@ -173,7 +173,7 @@ public class StashAdyen: PaymentServiceProvider {
         else { return nil }
 
         guard let ownerName = data.billingData.name?.fullName
-        else { throw MobilabPaymentError.validation(.billingMissingName) }
+        else { throw StashError.validation(.billingMissingName) }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData, sepaExtra: data.toSEPAExtra())
     }

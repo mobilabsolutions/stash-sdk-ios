@@ -15,7 +15,7 @@ import UIKit
 /// The manager for presenting, extracting relevant payment method information and dismissing PayPal UI.
 class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate, BTViewControllerPresentingDelegate {
     var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
-    var errorWhileUsingPayPal: ((MobilabPaymentError) -> Void)?
+    var errorWhileUsingPayPal: ((StashError) -> Void)?
 
     private let viewController: UIViewController
     private let clientToken: String
@@ -46,10 +46,10 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
                     self.didCreatePaymentMethodCompletion?(payPalData)
                 }
             } else if let error = error {
-                self.errorWhileUsingPayPal?(MobilabPaymentError.other(GenericErrorDetails.from(error: error)))
+                self.errorWhileUsingPayPal?(StashError.other(GenericErrorDetails.from(error: error)))
             } else {
                 // Buyer canceled payment approval
-                let error = BraintreeError.userCancelledPayPal.asMobilabPaymentError()
+                let error = BraintreeError.userCancelledPayPal.asStashError()
                 self.errorWhileUsingPayPal?(error)
             }
         }

@@ -1,5 +1,5 @@
 //
-//  MobilabBraintreeBridge.swift
+//  StashBraintreeBridge.swift
 //  StashBraintree
 //
 //  Created by Borna Beakovic on 20/03/2019.
@@ -10,7 +10,7 @@ import StashCore
 import UIKit
 
 /// A bridge that allows usage and creation of instanes of the Braintree module from Objective-C
-@objc(MLMobilabBraintree) public class MobilabBraintreeBridge: NSObject {
+@objc(MLStashBraintree) public class StashBraintreeBridge: NSObject {
     /// Create a Braintree module instance from Objective-C. This instance can be used to initialize the SDK.
     ///
     /// - Parameter urlScheme: The registered URL scheme.

@@ -14,7 +14,7 @@ import UIKit
 /// for more information on things to keep in mind when using that PSP.
 public class StashBraintree: PaymentServiceProvider {
     /// See documentation for `PaymentServiceProvider` in the Core module
-    public let pspIdentifier: MobilabPaymentProvider
+    public let pspIdentifier: StashPaymentProvider
 
     /// See documentation for `PaymentServiceProvider` in the Core module
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
@@ -22,10 +22,10 @@ public class StashBraintree: PaymentServiceProvider {
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
-            return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+            return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
         guard let presentingViewController = registrationRequest.viewController else {
-            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+            fatalError("Stash SDK: Braintree module is missing presenting view controller")
         }
         self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
 
@@ -36,7 +36,7 @@ public class StashBraintree: PaymentServiceProvider {
                 let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
                 completion(.success(registration))
             } else {
-                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+                fatalError("Stash SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
             }
         }
         payPalManager.errorWhileUsingPayPal = { error in

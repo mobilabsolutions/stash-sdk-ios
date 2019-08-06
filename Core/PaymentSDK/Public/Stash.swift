@@ -1,6 +1,6 @@
 //
-//  MLPaymentSDK.swift
-//  MLPaymentSDK
+//  Stash.swift
+//  StashCore
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
@@ -9,11 +9,11 @@
 import Foundation
 
 /// The starting point for all payment SDK operations.
-public class MobilabPaymentSDK {
+public class Stash {
     /// Configure the SDK. May only be done once during the application's life cycle.
     ///
     /// - Parameter configuration: The configuration to use for subsequent operations
-    public static func initialize(configuration: MobilabPaymentConfiguration) {
+    public static func initialize(configuration: StashConfiguration) {
         InternalPaymentSDK.sharedInstance.initialize(configuration: configuration)
     }
 

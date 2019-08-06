@@ -9,7 +9,7 @@
 import UIKit
 
 /// Supported payment providers
-public enum MobilabPaymentProvider: String, Codable {
+public enum StashPaymentProvider: String, Codable {
     /// BS Payone PSP
     case bsPayone = "BS_PAYONE"
     /// Braintree PSP
@@ -21,12 +21,12 @@ public enum MobilabPaymentProvider: String, Codable {
 /// A protocol representing the behaviour a payment service provider (PSP) module should provide
 public protocol PaymentServiceProvider {
     /// A result obtained from registering a payment method with the PSP
-    typealias RegistrationResult = Result<PSPRegistration, MobilabPaymentError>
+    typealias RegistrationResult = Result<PSPRegistration, StashError>
     /// A completion callback that provides the created `RegistrationResult`
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
-    /// The PSP identifier as required by the Mobilab payment backend
-    var pspIdentifier: MobilabPaymentProvider { get }
+    /// The PSP identifier as required by the Stash payment backend
+    var pspIdentifier: StashPaymentProvider { get }
 
     /// Handle a request for registering a payment method with the PSP
     ///
@@ -50,7 +50,7 @@ public protocol PaymentServiceProvider {
     func provideAliasCreationDetail(for paymentMethodData: RegistrationData,
                                     idempotencyKey: String?,
                                     uniqueRegistrationIdentifier: String,
-                                    completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void)
+                                    completion: @escaping (Result<AliasCreationDetail?, StashError>) -> Void)
 
     /// All payment method types which module supports
     var supportedPaymentMethodTypes: [PaymentMethodType] { get }
@@ -74,7 +74,7 @@ public extension PaymentServiceProvider {
     func provideAliasCreationDetail(for _: RegistrationData,
                                     idempotencyKey _: String?,
                                     uniqueRegistrationIdentifier _: String,
-                                    completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+                                    completion: @escaping (Result<AliasCreationDetail?, StashError>) -> Void) {
         completion(.success(nil))
     }
 

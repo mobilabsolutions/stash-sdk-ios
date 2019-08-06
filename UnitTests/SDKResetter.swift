@@ -1,6 +1,6 @@
 //
 //  SDKResetter.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 24.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -10,7 +10,7 @@
 import XCTest
 
 @objc class SDKResetter: NSObject {
-    @objc class func resetMobilabSDK() {
+    @objc class func resetStash() {
         InternalPaymentSDK.sharedInstance.pspCoordinator.removeAllProviders()
         InternalPaymentSDK.sharedInstance.resetInitialization()
     }

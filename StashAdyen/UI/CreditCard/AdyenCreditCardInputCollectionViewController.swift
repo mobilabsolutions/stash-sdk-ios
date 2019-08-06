@@ -207,7 +207,7 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
                                                 billingData: billingData)
 
             return creditCard
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
                     .creditCardValidationFailed(message: error.description)])
         }

@@ -1,6 +1,6 @@
 //
 //  ModuleIntegrationTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 12.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -14,7 +14,7 @@ class ModuleIntegrationTests: XCTestCase {
     private var module: PaymentServiceProvider?
 
     private class TestModule<RegistrationDataType: RegistrationData>: PaymentServiceProvider {
-        var pspIdentifier: MobilabPaymentProvider {
+        var pspIdentifier: StashPaymentProvider {
             return .bsPayone
         }
 
@@ -28,11 +28,11 @@ class ModuleIntegrationTests: XCTestCase {
 
         let completionResultToReturn: PaymentServiceProvider.RegistrationResult
         let registrationRequestCalledExpectation: XCTestExpectation?
-        let aliasCreationDetailResult: Result<AliasCreationDetail?, MobilabPaymentError>
+        let aliasCreationDetailResult: Result<AliasCreationDetail?, StashError>
 
         init(completionResultToReturn: PaymentServiceProvider.RegistrationResult,
              registrationRequestCalledExpectation: XCTestExpectation?,
-             aliasCreationDetailResult: Result<AliasCreationDetail?, MobilabPaymentError> = .success(nil)) {
+             aliasCreationDetailResult: Result<AliasCreationDetail?, StashError> = .success(nil)) {
             self.completionResultToReturn = completionResultToReturn
             self.registrationRequestCalledExpectation = registrationRequestCalledExpectation
             self.aliasCreationDetailResult = aliasCreationDetailResult
@@ -48,7 +48,7 @@ class ModuleIntegrationTests: XCTestCase {
             completion(self.completionResultToReturn)
         }
 
-        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        func provideAliasCreationDetail(for _: RegistrationData, idempotencyKey _: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, StashError>) -> Void) {
             completion(self.aliasCreationDetailResult)
         }
     }
@@ -80,13 +80,13 @@ class ModuleIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         OHHTTPStubs.removeAllStubs()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     func testHandleRegistrationRequestCalled() throws {
@@ -96,12 +96,12 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -111,7 +111,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation], timeout: 5)
     }
@@ -121,16 +121,16 @@ class ModuleIntegrationTests: XCTestCase {
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
         let errorDetails = GenericErrorDetails(description: "Sample error")
-        let error = MobilabPaymentError.other(errorDetails)
+        let error = StashError.other(errorDetails)
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -140,7 +140,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123",
                                             expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             switch result {
             case .success:
                 XCTFail("Should not have returned success when module fails")
@@ -164,11 +164,11 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration)
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "incorrect-test-key",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "incorrect-test-key",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -181,7 +181,7 @@ class ModuleIntegrationTests: XCTestCase {
 
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             if case .success = result {
                 XCTFail("Should not have returned success when creating an alias fails")
             }
@@ -225,17 +225,17 @@ class ModuleIntegrationTests: XCTestCase {
                 XCTFail("Should have test header and test header should have value of true")
                 stubExpectation.fulfill()
                 let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
-                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
+                return OHHTTPStubsResponse(error: StashError.other(errorDetails))
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: paymentEndpoint,
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: paymentEndpoint,
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -245,7 +245,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation, stubExpectation], timeout: 5)
     }
@@ -279,16 +279,16 @@ class ModuleIntegrationTests: XCTestCase {
 
             return true
         }) { _ -> OHHTTPStubsResponse in
-            OHHTTPStubsResponse(error: MobilabPaymentError.other(GenericErrorDetails(description: "Sample error")))
+            OHHTTPStubsResponse(error: StashError.other(GenericErrorDetails(description: "Sample error")))
         }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: paymentEndpoint,
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: paymentEndpoint,
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -298,7 +298,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [stubExpectation], timeout: 5)
     }
@@ -339,17 +339,17 @@ class ModuleIntegrationTests: XCTestCase {
                 XCTFail("Should have user agent header")
                 stubExpectation.fulfill()
                 let errorDetails = GenericErrorDetails(description: "Request should have test header set to true for this test")
-                return OHHTTPStubsResponse(error: MobilabPaymentError.other(errorDetails))
+                return OHHTTPStubsResponse(error: StashError.other(errorDetails))
             }
         }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: paymentEndpoint,
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: paymentEndpoint,
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         configuration.loggingEnabled = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -359,7 +359,7 @@ class ModuleIntegrationTests: XCTestCase {
         let creditCard = try CreditCardData(cardNumber: "4111111111111111",
                                             cvv: "123", expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { _ in () }
 
         wait(for: [expectation, stubExpectation], timeout: 5)
     }
@@ -369,17 +369,17 @@ class ModuleIntegrationTests: XCTestCase {
         let doesNotCallRegistration = XCTestExpectation(description: "Should not call registration flow when creating an alias fails")
         doesNotCallRegistration.isInverted = true
 
-        let error = MobilabPaymentError.other(GenericErrorDetails(description: "An error occurred"))
+        let error = StashError.other(GenericErrorDetails(description: "An error occurred"))
 
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "This should not be returned")),
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,
                                                 aliasCreationDetailResult: .failure(error))
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.module = module
 
@@ -390,7 +390,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                    expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard) { result in
             if case .success = result {
                 XCTFail("Should not have returned success when creating an alias fails")
             }

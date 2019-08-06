@@ -48,7 +48,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
         return .creditCard(extra)
     }
 
-    /// Initialize a new credit card. Validates credit card using Luhn's algorithm - if the validation fails, a MobilabPaymentError is thrown
+    /// Initialize a new credit card. Validates credit card using Luhn's algorithm - if the validation fails, a StashError is thrown
     ///
     /// - Parameters:
     ///   - cardNumber: The credit card number. Spaces and dashes are allowed and will be filtered out.
@@ -57,7 +57,7 @@ public struct CreditCardData: RegistrationData, CreditCardDataInitializible {
     ///   - expiryYear: The year in which the credit card expires: 0-99
     ///   - country: ISO code of the country of the credit card holder. Not required by every PSP.
     ///   - billingData: The billing data to use when registering with the PSP
-    /// - Throws: An MobilabPaymentError if validation is not successful
+    /// - Throws: An StashError if validation is not successful
     public init(cardNumber: String, cvv: String, expiryMonth: Int, expiryYear: Int, country: String?, billingData: BillingData) throws {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 

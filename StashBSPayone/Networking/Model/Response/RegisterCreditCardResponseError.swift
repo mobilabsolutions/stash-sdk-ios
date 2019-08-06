@@ -9,13 +9,13 @@
 import Foundation
 import StashCore
 
-struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable {
+struct RegisterCreditCardResponseError: StashErrorConvertible, Codable {
     let status: StatusType
     let errorCode: String
     let errorMessage: String
     let customerMessage: String?
 
-    func toMobilabPaymentError() -> MobilabPaymentError {
+    func toStashError() -> StashError {
         let temporaryErrors: Set = [
             // Card issuer not available
             "1", "91",
@@ -86,19 +86,19 @@ struct RegisterCreditCardResponseError: MobilabPaymentErrorConvertible, Codable 
 
         switch self.errorCode {
         case isContainedIn(temporaryErrors):
-            return MobilabPaymentError.temporary(TemporaryErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
+            return StashError.temporary(TemporaryErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
         case isContainedIn(cvvErrors):
-            return MobilabPaymentError.validation(.invalidCVV)
+            return StashError.validation(.invalidCVV)
         case isContainedIn(cardErrors):
-            return MobilabPaymentError.validation(.invalidCreditCardNumber)
+            return StashError.validation(.invalidCreditCardNumber)
         case isContainedIn(dateErrors):
-            return MobilabPaymentError.validation(.invalidExpirationDate)
+            return StashError.validation(.invalidExpirationDate)
         case isContainedIn(genericValidationErrors):
             let details = ValidationErrorDetails.other(description: self.customerMessage ?? self.errorMessage,
                                                        thirdPartyErrorDetails: self.errorCode)
-            return MobilabPaymentError.validation(details)
+            return StashError.validation(details)
         default:
-            return MobilabPaymentError.other(GenericErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
+            return StashError.other(GenericErrorDetails(description: self.customerMessage ?? self.errorMessage, thirdPartyErrorCode: self.errorCode))
         }
     }
 

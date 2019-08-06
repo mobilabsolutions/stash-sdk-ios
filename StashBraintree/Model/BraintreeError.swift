@@ -16,7 +16,7 @@ enum BraintreeError {
     /// User cancelled PayPal UI
     case userCancelledPayPal
 
-    func asMobilabPaymentError() -> MobilabPaymentError {
+    func asStashError() -> StashError {
         switch self {
         case .userCancelledPayPal: return .userCancelled
         }

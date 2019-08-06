@@ -13,7 +13,7 @@ import UIKit
 /// for more information on things to keep in mind when using that PSP.
 public class StashBSPayone: PaymentServiceProvider {
     /// See documentation for `PaymentServiceProvider` in the Core module
-    public let pspIdentifier: MobilabPaymentProvider
+    public let pspIdentifier: StashPaymentProvider
 
     private let networkingClient: NetworkClientBSPayone?
 
@@ -23,7 +23,7 @@ public class StashBSPayone: PaymentServiceProvider {
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         guard let pspData = BSPayoneData(pspData: registrationRequest.pspData) else {
-            return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+            return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
         let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
 
@@ -42,12 +42,12 @@ public class StashBSPayone: PaymentServiceProvider {
                 let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(sepaConfig: sepaData.toSEPAExtra(), billingData: billingData))
                 completion(.success(registration))
             } else {
-                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+                completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
             }
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             completion(.failure(error))
         } catch {
-            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
+            completion(.failure(StashError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -106,7 +106,7 @@ public class StashBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw MobilabPaymentError.validation(.cardTypeNotSupported) }
+        else { throw StashError.validation(.cardTypeNotSupported) }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
@@ -122,7 +122,7 @@ public class StashBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard data.billingData.country != nil
-        else { throw MobilabPaymentError.validation(ValidationErrorDetails.countryMissing) }
+        else { throw StashError.validation(ValidationErrorDetails.countryMissing) }
 
         return SEPABSPayoneData(iban: data.iban)
     }

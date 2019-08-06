@@ -1,6 +1,6 @@
 //
-//  MobilabPaymentError.swift
-//  MobilabPayment
+//  StashError.swift
+//  StashCore
 //
 //  Created by Borna Beakovic on 02/04/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// An error that occurred during payment method creation
-public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding {
+public enum StashError: Error, CustomStringConvertible, TitleProviding {
     /// Local data validation failed (e.g. incorrect CVV)
     case validation(ValidationErrorDetails)
     /// An SDK configuration error happened (either locally or with the backend)
@@ -50,10 +50,10 @@ public enum MobilabPaymentError: Error, CustomStringConvertible, TitleProviding 
 }
 
 /// An error that occurred in the backend
-struct MobilabPaymentApiError<S: MobilabPaymentErrorConvertible>: Error, MobilabPaymentErrorConvertible {
+struct StashAPIError<S: StashErrorConvertible>: Error, StashErrorConvertible {
     let error: S
 
-    func toMobilabPaymentError() -> MobilabPaymentError {
-        return self.error.toMobilabPaymentError()
+    func toStashError() -> StashError {
+        return self.error.toStashError()
     }
 }

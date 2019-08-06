@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias RegistrationResult = Result<PaymentMethodAlias, MobilabPaymentError>
+public typealias RegistrationResult = Result<PaymentMethodAlias, StashError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 /// A successful payment method registration

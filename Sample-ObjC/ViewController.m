@@ -18,13 +18,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    MLPaymentProvider *pspBsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *pspBsPayone = [MLStashBSPayone createModule];
     NSSet<NSNumber *> *paymentMethodTypes = [NSSet setWithObjects:[NSNumber numberWithLong:MLPaymentMethodTypeCreditCard],
                                              [NSNumber numberWithLong:MLPaymentMethodTypeSepa], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider:pspBsPayone
                                                                                                   paymentMethodTypes:paymentMethodTypes];
 
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+    MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                   initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
                                                     endpoint:@"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[integration]
@@ -32,13 +32,13 @@
     [configuration setUseTestMode:YES];
     [configuration setLoggingEnabled:YES];
 
-    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
+    [MLStash initializeWithConfiguration:configuration];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    MLPaymentMethodUIConfiguration *configuration = [[MLPaymentMethodUIConfiguration alloc] initWithBackgroundColor:[UIColor blackColor]
+    MLStashPaymentMethodUIConfiguration *configuration = [[MLStashPaymentMethodUIConfiguration alloc] initWithBackgroundColor:[UIColor blackColor]
                                                                                                           textColor:[UIColor whiteColor]
                                                                                                         buttonColor:nil
                                                                                                 mediumEmphasisColor:[UIColor lightTextColor]
@@ -47,10 +47,10 @@
                                                                                                                       colorWithAlphaComponent: 0.4]
                                                                                                   errorMessageColor:nil errorMessageTextColor:nil];
 
-    [MLMobilabPaymentSDK configureUIWithConfiguration:configuration];
+    [MLStash configureUIWithConfiguration:configuration];
 
     __weak typeof(self) weakSelf = self;
-    [[MLMobilabPaymentSDK getRegistrationManager] registerPaymentMethodUsingUIOn:self
+    [[MLStash getRegistrationManager] registerPaymentMethodUsingUIOn:self
                                                            specificPaymentMethod: MLPaymentMethodTypeNone
                                                                      billingData: nil
                                                                       completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {

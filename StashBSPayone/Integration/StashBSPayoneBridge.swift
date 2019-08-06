@@ -1,5 +1,5 @@
 //
-//  MobilabBSPayoneBridge.swift
+//  StashBSPayoneBridge.swift
 //  StashBSPayone
 //
 //  Created by Robert on 14.03.19.
@@ -10,7 +10,7 @@ import Foundation
 import StashCore
 
 /// A bridge that allows usage of the BS Payone module from Objective-C.
-@objc(MLMobilabBSPayone) public class MobilabBSPayoneBridge: NSObject {
+@objc(MLStashBSPayone) public class StashBSPayoneBridge: NSObject {
     /// Create an instance of the BS Payone module. Can be used to initialize the SDK.
     ///
     /// - Returns: The created instance.

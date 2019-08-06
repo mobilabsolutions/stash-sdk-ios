@@ -1,6 +1,6 @@
 //
 //  SEPADataTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 13.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

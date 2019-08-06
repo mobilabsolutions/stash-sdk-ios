@@ -1,7 +1,7 @@
 //
 import OHHTTPStubs
 //  AdyenIntegrationTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Borna Beakovic on 30/03/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -16,19 +16,19 @@ class AdyenIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let provider = StashAdyen()
         self.provider = provider
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         OHHTTPStubs.removeAllStubs()
     }
@@ -36,7 +36,7 @@ class AdyenIntegrationTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         OHHTTPStubs.removeAllStubs()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     func testCreditCard() throws {
@@ -46,7 +46,7 @@ class AdyenIntegrationTests: XCTestCase {
         let creditCardData = try CreditCardData(cardNumber: "3600 6666 3333 44", cvv: "737", expiryMonth: 10, expiryYear: 20,
                                                 country: "DE", billingData: billingData)
 
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
@@ -77,7 +77,7 @@ class AdyenIntegrationTests: XCTestCase {
 
         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
-        let registerManager = MobilabPaymentSDK.getRegistrationManager()
+        let registerManager = Stash.getRegistrationManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
@@ -120,11 +120,11 @@ class AdyenIntegrationTests: XCTestCase {
                                                 expiryMonth: 9, expiryYear: 0, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error):
-                guard case MobilabPaymentError.other = error
+                guard case StashError.other = error
                 else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
             }
 

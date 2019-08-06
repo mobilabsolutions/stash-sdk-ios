@@ -118,7 +118,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     /// Present an error alert when an error occurs during payment method creation
     ///
     /// - Parameter error: The error that occurred
-    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+    public func errorWhileCreatingPaymentMethod(error: StashError) {
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
 
         if let existingBanner = self.alertBanner {
@@ -409,7 +409,7 @@ extension FormCollectionViewController: DoneButtonViewDelegate {
         } catch let error as FormConsumerError {
             self.errors = error.errors
             self.collectionView.reloadData()
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             self.errorWhileCreatingPaymentMethod(error: error)
         } catch {
             print("Error while validating: \(error). This should not happen.")

@@ -1,6 +1,6 @@
 //
 //  PayPalLoadingViewController.swift
-//  MobilabPayment
+//  StashBraintree
 //
 //  Created by Borna Beakovic on 26/03/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -33,8 +33,8 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
-        if case MobilabPaymentError.userCancelled = error {
+    func errorWhileCreatingPaymentMethod(error: StashError) {
+        if case StashError.userCancelled = error {
             self.dismissLoadingViewController()
         } else {
             let alert = UIAlertController(title: error.title, message: error.description, preferredStyle: .alert)

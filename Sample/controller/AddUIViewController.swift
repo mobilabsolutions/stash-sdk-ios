@@ -22,7 +22,7 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
 
-    private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
+    private let pspTypes = [StashPaymentProvider.bsPayone, StashPaymentProvider.adyen]
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
     private var sdkWasInitialized = false
@@ -72,8 +72,8 @@ class AddUIViewController: UIViewController {
             configuration = PaymentMethodUIConfiguration()
         }
 
-        MobilabPaymentSDK.configureUI(configuration: configuration)
-        MobilabPaymentSDK.getRegistrationManager()
+        Stash.configureUI(configuration: configuration)
+        Stash.getRegistrationManager()
             .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType) { [weak self] result in
                 guard let self = self
                 else { return }
@@ -115,7 +115,7 @@ class AddUIViewController: UIViewController {
             }
     }
 
-    private func configureSDK(testModeEnabled: Bool, psp: MobilabPaymentProvider) {
+    private func configureSDK(testModeEnabled: Bool, psp: StashPaymentProvider) {
         guard !self.sdkWasInitialized
         else { return }
 
@@ -135,13 +135,13 @@ class AddUIViewController: UIViewController {
         guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa, .creditCard])
         else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [braintreeIntegration, providerIntegration])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingEnabled = true
         configuration.useTestMode = testModeEnabled
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.useTestModeSwitch.isEnabled = false
         self.sdkWasInitialized = true

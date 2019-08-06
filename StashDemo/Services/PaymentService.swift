@@ -80,9 +80,9 @@ class PaymentService {
 
         let configuration = PaymentMethodUIConfiguration()
 
-        MobilabPaymentSDK.configureUI(configuration: configuration)
+        Stash.configureUI(configuration: configuration)
         // display paymentSDK register screens on current viewController
-        MobilabPaymentSDK.getRegistrationManager().registerPaymentMethodUsingUI(on: viewController, completion: completion)
+        Stash.getRegistrationManager().registerPaymentMethodUsingUI(on: viewController, completion: completion)
     }
 
     /// Calls merchant-backend API to create a new payment method for specified user-id
@@ -242,13 +242,13 @@ class PaymentService {
         guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal])
         else { fatalError("Braintree should support PayPal payment method but does not!") }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [adyenIntegration, braintreeIntegration])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [adyenIntegration, braintreeIntegration])
         configuration.loggingEnabled = true
         configuration.useTestMode = self.testModeEnabled
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.sdkIsSetUp = true
     }

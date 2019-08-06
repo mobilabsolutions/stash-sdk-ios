@@ -239,7 +239,7 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
             else { throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError.noKnownCreditCardProvider]) }
 
             return creditCard
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             throw FormConsumerError(errors: [.cardNumber: CreditCardValidationError
                     .creditCardValidationFailed(message: error.description)])
         }

@@ -49,11 +49,11 @@ public class SEPAUtils {
     /// Validate an IBAN's checksum validity
     ///
     /// - Parameter iban: The IBAN to validate (may contain dashes and spaces)
-    /// - Throws: A `MobilabPaymentError.validation` error if the IBAN is not valid.
+    /// - Throws: A `StashError.validation` error if the IBAN is not valid.
     public static func validateIBAN(iban: String) throws {
         let cleanedIban = SEPAUtils.cleanedIban(number: iban)
         guard SEPAUtils.isValid(cleanedNumber: cleanedIban)
-        else { throw MobilabPaymentError.validation(.invalidIBAN) }
+        else { throw StashError.validation(.invalidIBAN) }
     }
 
     static func isValid(cleanedNumber: String) -> Bool {

@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol MobilabPaymentErrorConvertible {
-    func toMobilabPaymentError() -> MobilabPaymentError
+public protocol StashErrorConvertible {
+    func toStashError() -> StashError
 }

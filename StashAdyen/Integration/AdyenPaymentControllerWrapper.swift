@@ -49,8 +49,8 @@ class AdyenPaymentControllerWrapper: PaymentControllerDelegate {
     func selectPaymentMethod(from paymentMethods: SectionedPaymentMethods, for paymentController: PaymentController, selectionHandler: @escaping Completion<PaymentMethod>) {
         guard let method = self.paymentMethodPreparator?.preparedPaymentMethod(from: paymentMethods, for: paymentController)
         else {
-            let error = MobilabPaymentError.configuration(.providerNotSupportingPaymentMethod(provider: self.providerIdentifier,
-                                                                                              paymentMethod: self.paymentMethodPreparator?.paymentMethodType ?? "Unknown"))
+            let error = StashError.configuration(.providerNotSupportingPaymentMethod(provider: self.providerIdentifier,
+                                                                                     paymentMethod: self.paymentMethodPreparator?.paymentMethodType ?? "Unknown"))
             self.resultCallback?(.failure(error))
             return
         }

@@ -8,12 +8,12 @@
 
 import Foundation
 
-/// Information about the used PSP retrieved from Mobilab payment backend.
+/// Information about the used PSP retrieved from Stash payment backend.
 /// All fields are optional and will be populated based on 'type' property (PSP).
 /// This struct only concerns module development.
 public struct PSPExtra: Codable {
     /// The type of payment service provider used.
-    public let type: MobilabPaymentProvider
+    public let type: StashPaymentProvider
     /// The mode of the payment service provider. Example: "test"
     public let mode: String?
     /// The id of the merchant associated with the key

@@ -1,5 +1,5 @@
 //
-//  MobilabBackendError.swift
+//  StashBackendError.swift
 //  StashCore
 //
 //  Created by Robert on 15.03.19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MobilabBackendError: Codable {
+struct StashBackendError: Codable {
     let description: String
     let code: String
     let title: String?
@@ -20,21 +20,21 @@ struct MobilabBackendError: Codable {
     }
 }
 
-extension MobilabBackendError: MobilabPaymentErrorConvertible {
-    func toMobilabPaymentError() -> MobilabPaymentError {
+extension StashBackendError: StashErrorConvertible {
+    func toStashError() -> StashError {
         guard let errorCodeCategory = code.first.flatMap(String.init)
         else {
             let details = GenericErrorDetails(title: title ?? "Error", description: description)
-            return MobilabPaymentError.other(details)
+            return StashError.other(details)
         }
 
         switch errorCodeCategory {
         case "3":
             let configurationError = SDKConfigurationError.invalidBackendConfiguration(title: self.title ?? "Error", description: self.description, code: self.code)
-            return MobilabPaymentError.configuration(configurationError)
+            return StashError.configuration(configurationError)
         default:
             let error = GenericErrorDetails(title: title ?? "Error", description: description, thirdPartyErrorCode: code)
-            return MobilabPaymentError.other(error)
+            return StashError.other(error)
         }
     }
 }

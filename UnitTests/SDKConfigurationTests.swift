@@ -16,7 +16,7 @@ import XCTest
 class SDKConfiguraionTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     func testPSPRegistersForSupportedPaymentMethodTypes() {
@@ -26,10 +26,10 @@ class SDKConfiguraionTests: XCTestCase {
         notExpectFatalError {
             guard let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.sepa, .creditCard])
             else { fatalError("This should not happen") }
-            let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                            endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                            integrations: [integration])
-            MobilabPaymentSDK.initialize(configuration: configuration)
+            let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                                   endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                   integrations: [integration])
+            Stash.initialize(configuration: configuration)
         }
     }
 
@@ -49,10 +49,10 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
+        Stash.initialize(configuration: configuration)
 
         let providerUsedForCreditCard = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .creditCard)
         let providerUsedForSepa = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)
@@ -76,12 +76,12 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
+        Stash.initialize(configuration: configuration)
 
-        XCTAssertEqual(MobilabPaymentSDK.getRegistrationManager().availablePaymentMethodTypes, [.creditCard, .sepa, .payPal])
+        XCTAssertEqual(Stash.getRegistrationManager().availablePaymentMethodTypes, [.creditCard, .sepa, .payPal])
     }
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
@@ -92,10 +92,10 @@ class SDKConfiguraionTests: XCTestCase {
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [creditCardIntegration, payPalIntegration])
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [creditCardIntegration, payPalIntegration])
+        Stash.initialize(configuration: configuration)
 
         expectFatalError {
             _ = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: .sepa)

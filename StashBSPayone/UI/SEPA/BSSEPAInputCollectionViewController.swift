@@ -130,7 +130,7 @@ extension BSSEPAInputCollectionViewController: FormConsumer {
         do {
             let sepa = try SEPAData(iban: iban, bic: nil, billingData: newBillingData)
             self.didCreatePaymentMethodCompletion?(sepa)
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             let errors = [NecessaryData.iban: SEPAValidationError.sepaValidationFailed(explanation: error.description)]
             throw FormConsumerError(errors: errors)
         } catch {

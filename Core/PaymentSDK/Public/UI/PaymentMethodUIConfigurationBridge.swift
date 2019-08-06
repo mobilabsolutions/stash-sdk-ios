@@ -9,7 +9,7 @@
 import UIKit
 
 /// A bridge that allows using the PaymentMethodUIConfiguration from Objective-C
-@objc(MLPaymentMethodUIConfiguration) public class PaymentMethodUIConfigurationBridge: NSObject {
+@objc(MLStashPaymentMethodUIConfiguration) public class PaymentMethodUIConfigurationBridge: NSObject {
     let configuration: PaymentMethodUIConfiguration
 
     /// Initialize the payment method UI configuration
