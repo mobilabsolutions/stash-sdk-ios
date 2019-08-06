@@ -35,6 +35,7 @@ jobs:
       if: type = pull_request
       script: bash travis-swift-format.sh
     - stage: deploy
+      script: echo "Starting with beta deployment"
       if: branch = master AND type != pull_request
       deploy: 
         provider: script
