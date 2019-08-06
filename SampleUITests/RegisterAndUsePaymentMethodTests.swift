@@ -170,6 +170,9 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         if let countryIndex = countryIndex {
             collectionViewsQuery.buttons["Country"].tap()
             app.collectionViews.cells.element(boundBy: countryIndex).tap()
+        } else {
+            // Tap continue button on IBAN field
+            app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         }
 
         app.buttons["SAVE"].tap()
