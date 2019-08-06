@@ -11,7 +11,7 @@ import UIKit
 
 // MARK- Protocol
 
-protocol ItemCellDelegate: class {
+protocol ItemCellDelegate: AnyObject {
     func didSelectAddOption(for item: Item)
     func didSelectRemoveOption(for item: Item)
 }

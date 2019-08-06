@@ -1,6 +1,7 @@
 import XCTest
 
 class BTAmericanExpressRewardsBalance_Tests: XCTestCase {
+    
     func testInitWithJson_parsesSuccessJsonCorrectly() {
         let jsonString = "{ \"conversionRate\": \"0.0070\", \"currencyAmount\": \"316795.03\", \"currencyIsoCode\": \"USD\", \"requestId\": \"715f4712-8690-49ed-8cc5-d7fb1c2d\", \"rewardsUnit\": \"Points\", \"rewardsAmount\": \"45256433\"}".data(using: String.Encoding.utf8)!
         let json = BTJSON(data: jsonString)
@@ -13,8 +14,9 @@ class BTAmericanExpressRewardsBalance_Tests: XCTestCase {
         XCTAssertEqual(rewardsBalance.rewardsUnit, "Points")
         XCTAssertNil(rewardsBalance.errorCode)
         XCTAssertNil(rewardsBalance.errorMessage)
-    }
 
+    }
+    
     func testInitWithJson_parsesErrorJsonCorrectly() {
         let jsonString = "{ \"error\": { \"code\": \"abv6178\", \"message\": \"Rewards balance error message\"}}".data(using: String.Encoding.utf8)!
         let json = BTJSON(data: jsonString)

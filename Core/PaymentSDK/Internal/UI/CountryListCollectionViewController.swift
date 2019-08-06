@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Protocol
 
-protocol CountryListCollectionViewControllerDelegate: class {
+protocol CountryListCollectionViewControllerDelegate: AnyObject {
     func didSelectCountry(country: Country)
 }
 

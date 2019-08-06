@@ -112,6 +112,6 @@ class AlertBanner: UIView {
     }
 }
 
-protocol AlertBannerDelegate: class {
+protocol AlertBannerDelegate: AnyObject {
     func close(banner: AlertBanner)
 }

@@ -13,11 +13,12 @@ class PaymentDetailTests: XCTestCase {
             PaymentDetail(key: "sepa.ownerName", value: "A. Klaassen"),
             PaymentDetail(key: "sepa.ibanNumber", value: "NL13TEST0123456789"),
             PaymentDetail(key: "keyWithoutValue"),
-            PaymentDetail(key: "anotherKeyWithoutValue"),
+            PaymentDetail(key: "anotherKeyWithoutValue")
         ]
         let serializedPaymentDetails = paymentDetails.serialized
         XCTAssertEqual(serializedPaymentDetails.count, 2)
         XCTAssertEqual(serializedPaymentDetails["sepa.ownerName"] as! String, "A. Klaassen") // swiftlint:disable:this force_cast
         XCTAssertEqual(serializedPaymentDetails["sepa.ibanNumber"] as! String, "NL13TEST0123456789") // swiftlint:disable:this force_cast
     }
+    
 }

@@ -11,7 +11,8 @@ struct PaymentDetailsViewControllerFactory {
         if method.type == "card" {
             return CardDetailsViewController(withPaymentMethod: method, paymentController: paymentController)
         }
-
+        
         return nil
     }
+    
 }

@@ -5,31 +5,33 @@ cache:
   bundler: true
   directories:
   - Carthage
-
+  
 env:
-  #environment variables
   global:
     - WORKSPACE_NAME="MobilabPayment.xcworkspace"
     - DESTINATION="OS=12.2,name=iPhone X"
   matrix:
     - TEST_SUITE=unit
     - TEST_SUITE=ui
-    
+
 install:
-  - gem install xcpretty
-  - gem install xcpretty-travis-formatter
-  - bundle install
-  - brew install carthage || true
-  - brew outdated carthage || brew upgrade carthage
-  - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+- gem install xcpretty
+- gem install xcpretty-travis-formatter
+- bundle install
+- brew install carthage || true
+- brew outdated carthage || brew upgrade carthage
+- carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 script:
-  - bash travis-build.sh
+- bash travis-build.sh
 
 jobs:
   include:
+    - stage: swiftformat
+      if: type = pull_request
+      script: bash travis-swift-format.sh
     - stage: deploy
-      if: branch = master
+      if: branch = master AND type != pull_request
       deploy: 
         provider: script
         skip_cleanup: true

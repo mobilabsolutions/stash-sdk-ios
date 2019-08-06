@@ -9,17 +9,18 @@ import UIKit
 
 /// :nodoc:
 open class FormViewController: UIViewController {
+    
     public init(appearance: Appearance) {
         self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
     }
-
-    public required init?(coder _: NSCoder) {
+    
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - UIViewController
-
+    
     open override var title: String? {
         set {
             formView.title = newValue
@@ -28,85 +29,86 @@ open class FormViewController: UIViewController {
             return nil
         }
     }
-
+    
     open override func loadView() {
-        view = self.formView
+        view = formView
     }
-
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.formView.payButton.addTarget(self, action: #selector(self.pay), for: .touchUpInside)
-
+        
+        formView.payButton.addTarget(self, action: #selector(pay), for: .touchUpInside)
+        
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(self.keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-
+    
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.assignInitialFirstResponder()
+        
+        assignInitialFirstResponder()
     }
-
+    
     // MARK: - Public
-
+    
     public private(set) lazy var formView = FormView()
-
+    
     public let appearance: Appearance
-
+    
     public var payActionTitle: String? {
         didSet {
-            self.formView.payButton.setTitle(self.payActionTitle, for: .normal)
+            formView.payButton.setTitle(payActionTitle, for: .normal)
         }
     }
-
+    
     public var payActionSubtitle: String? {
         didSet {
-            let attributes = self.appearance.formAttributes.footerTitleAttributes
-            self.formView.payButtonSubtitle.attributedText = NSAttributedString(string: self.payActionSubtitle ?? "", attributes: attributes)
+            let attributes = appearance.formAttributes.footerTitleAttributes
+            formView.payButtonSubtitle.attributedText = NSAttributedString(string: payActionSubtitle ?? "", attributes: attributes)
         }
     }
-
+    
     public var isValid: Bool = false {
         didSet {
-            self.formView.payButton.isEnabled = self.isValid
+            formView.payButton.isEnabled = isValid
         }
     }
-
+    
     @objc open func pay() {
         // Payment logic implemented by the subclasses
-
+        
         view.endEditing(true)
-        self.formView.payButton.showsActivityIndicator = true
+        formView.payButton.showsActivityIndicator = true
     }
-
+    
     // MARK: - Private
-
+    
     /// This method assigns the first available arranged subview as a first responder. It will only run once.
     private func assignInitialFirstResponder() {
         // Only become first responder for larger screens.
         guard UIScreen.main.bounds.height > 600 else {
             return
         }
-
-        guard self.didAssignInitialFirstResponder == false else {
+        
+        guard didAssignInitialFirstResponder == false else {
             return
         }
-
+        
         if let firstResponder = formView.firstResponder {
             firstResponder.becomeFirstResponder()
-            self.didAssignInitialFirstResponder = true
+            didAssignInitialFirstResponder = true
         }
     }
-
+    
     private var didAssignInitialFirstResponder = false
-
+    
     @objc private func keyboardWillChangeFrame(_ notification: NSNotification) {
         guard let bounds = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-
-        self.formView.contentInset.bottom = bounds.height
-        self.formView.scrollIndicatorInsets.bottom = bounds.height
+        
+        formView.contentInset.bottom = bounds.height
+        formView.scrollIndicatorInsets.bottom = bounds.height
     }
+    
 }

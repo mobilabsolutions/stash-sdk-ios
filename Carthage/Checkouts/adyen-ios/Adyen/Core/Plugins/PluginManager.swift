@@ -10,16 +10,16 @@ import Foundation
 internal final class PluginManager {
     /// The payment session for which the plugins are managed.
     internal let paymentSession: PaymentSession
-
+    
     /// Initializes the plugin manager.
     ///
     /// - Parameter paymentSession: The payment session for which the plugins are managed.
     internal init(paymentSession: PaymentSession) {
         self.paymentSession = paymentSession
     }
-
+    
     // MARK: - Retrieving Plugins
-
+    
     /// Returns a plugin for the given payment method.
     ///
     /// - Parameter paymentMethod: The payment method to create a plugin for.
@@ -28,25 +28,25 @@ internal final class PluginManager {
         if let plugin = plugins[paymentMethod.paymentMethodData] {
             return plugin
         }
-
+        
         guard let pluginClass = PluginManager.className(for: paymentMethod).compactMap({ NSClassFromString($0) as? Plugin.Type }).first else {
             return nil
         }
-
-        let plugin = pluginClass.init(paymentSession: self.paymentSession, paymentMethod: paymentMethod)
-
-        self.plugins[paymentMethod.paymentMethodData] = plugin
-
+        
+        let plugin = pluginClass.init(paymentSession: paymentSession, paymentMethod: paymentMethod)
+        
+        plugins[paymentMethod.paymentMethodData] = plugin
+        
         return plugin
     }
-
+    
     private var plugins: [String: Plugin] = [:]
-
+    
     private static func className(for paymentMethod: PaymentMethod) -> [String] {
         let type = paymentMethod.group?.type ?? paymentMethod.type
-
+        
         var classNames: [String] = []
-
+        
         if paymentMethod.storedDetails != nil {
             switch type {
             case "card":
@@ -74,12 +74,12 @@ internal final class PluginManager {
                 }
             }
         }
-
+        
         return classNames
     }
-
+    
     // MARK: - Filtering Payment Methods
-
+    
     /// Returns the available payment methods for a collection of payment methods.
     ///
     /// - Parameter paymentMethods: The payment methods to filter for available payment methods.
@@ -89,14 +89,15 @@ internal final class PluginManager {
             guard let plugin = self.plugin(for: paymentMethod) else {
                 return true
             }
-
+            
             return plugin.isDeviceSupported
         }
-
+        
         var paymentMethods = paymentMethods
         paymentMethods.preferred = paymentMethods.preferred.filter(isPaymentMethodAvailable(_:))
         paymentMethods.other = paymentMethods.other.filter(isPaymentMethodAvailable(_:))
-
+        
         return paymentMethods
     }
+    
 }
