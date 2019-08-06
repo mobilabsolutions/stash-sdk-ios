@@ -1,6 +1,6 @@
 //
 //  SDKConfigurationTests.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Borna Beakovic on 22/03/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -9,9 +9,9 @@
 import Foundation
 import XCTest
 
-@testable import MobilabPaymentBraintree
-@testable import MobilabPaymentBSPayone
-@testable import MobilabPaymentCore
+@testable import StashBraintree
+@testable import StashBSPayone
+@testable import StashCore
 
 class SDKConfiguraionTests: XCTestCase {
     override func tearDown() {
@@ -20,7 +20,7 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPRegistersForSupportedPaymentMethodTypes() {
-        let creditCardProvider = MobilabPaymentBSPayone()
+        let creditCardProvider = StashBSPayone()
 
         // Fatal error is NOT expected because provider supports selected payment method types
         notExpectFatalError {
@@ -34,15 +34,15 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPFailsToRegisterForSupportedPaymentMethodTypes() {
-        let creditCardProvider = MobilabPaymentBSPayone()
+        let creditCardProvider = StashBSPayone()
         let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.payPal])
         XCTAssertNil(integration, "It should not be possible to create an integration for a payment method type the PSP does not support")
     }
 
     func testPSPUsedForRegisteringProvidedPaymentMethods() {
-        let creditCardProvider = MobilabPaymentBSPayone()
-        let sepaProvider = MobilabPaymentBSPayone()
-        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let creditCardProvider = StashBSPayone()
+        let sepaProvider = StashBSPayone()
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
@@ -67,9 +67,9 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testCorrectPaymentMethodTypesAreReturned() {
-        let creditCardProvider = MobilabPaymentBSPayone()
-        let sepaProvider = MobilabPaymentBSPayone()
-        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let creditCardProvider = StashBSPayone()
+        let sepaProvider = StashBSPayone()
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
@@ -85,8 +85,8 @@ class SDKConfiguraionTests: XCTestCase {
     }
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
-        let creditCardProvider = MobilabPaymentBSPayone()
-        let payPalProvider = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let creditCardProvider = StashBSPayone()
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])

@@ -6,10 +6,10 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import MobilabPaymentAdyen
-import MobilabPaymentBraintree
-import MobilabPaymentBSPayone
-import MobilabPaymentCore
+import StashAdyen
+import StashBraintree
+import StashBSPayone
+import StashCore
 import UIKit
 
 let testModeDefaultEnabled = true
@@ -123,13 +123,13 @@ class AddUIViewController: UIViewController {
 
         switch psp {
         case .adyen:
-            provider = MobilabPaymentAdyen()
+            provider = StashAdyen()
         case .bsPayone: fallthrough
         default:
-            provider = MobilabPaymentBSPayone()
+            provider = StashBSPayone()
         }
 
-        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
+        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
 
         let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree)
         guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa, .creditCard])

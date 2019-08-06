@@ -6,9 +6,9 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-@testable import MobilabPaymentBSPayone
-@testable import MobilabPaymentCore
 import OHHTTPStubs
+@testable import StashBSPayone
+@testable import StashCore
 import XCTest
 
 class BSPayoneIntegrationTests: XCTestCase {
@@ -22,7 +22,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         SDKResetter.resetMobilabSDK()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let provider = MobilabPaymentBSPayone()
+        let provider = StashBSPayone()
         self.provider = provider
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: provider)

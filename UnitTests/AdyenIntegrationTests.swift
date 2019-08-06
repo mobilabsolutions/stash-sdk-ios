@@ -1,13 +1,13 @@
 //
+import OHHTTPStubs
 //  AdyenIntegrationTests.swift
 //  MobilabPaymentTests
 //
 //  Created by Borna Beakovic on 30/03/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
-@testable import MobilabPaymentAdyen
-@testable import MobilabPaymentCore
-import OHHTTPStubs
+@testable import StashAdyen
+@testable import StashCore
 import XCTest
 
 class AdyenIntegrationTests: XCTestCase {
@@ -19,7 +19,7 @@ class AdyenIntegrationTests: XCTestCase {
         SDKResetter.resetMobilabSDK()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let provider = MobilabPaymentAdyen()
+        let provider = StashAdyen()
         self.provider = provider
 
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",

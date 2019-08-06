@@ -20,7 +20,7 @@ rm -rf fastlane/Certificates;
 
 echo "Operation result: $OPERATION_RESULT";
 
-if [ "$OPERATION_RESULT" -neq 0 ]; then
+if [ $OPERATION_RESULT -neq 0 ]; then
     echo "An error occurred while distributing!";
     exit 1;
 fi

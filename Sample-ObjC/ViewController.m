@@ -6,8 +6,8 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@import MobilabPaymentCore;
-@import MobilabPaymentBSPayone;
+@import StashCore;
+@import StashBSPayone;
 #import "ViewController.h"
 
 @interface ViewController ()

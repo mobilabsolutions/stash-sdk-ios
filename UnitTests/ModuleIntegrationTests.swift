@@ -6,8 +6,8 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentCore
 import OHHTTPStubs
+@testable import StashCore
 import XCTest
 
 class ModuleIntegrationTests: XCTestCase {

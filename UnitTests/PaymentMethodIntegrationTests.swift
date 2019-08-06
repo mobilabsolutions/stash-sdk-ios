@@ -6,9 +6,9 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import MobilabPaymentAdyen
-import MobilabPaymentBSPayone
-import MobilabPaymentCore
+import StashAdyen
+import StashBSPayone
+import StashCore
 import XCTest
 
 class PaymentMethodIntegrationTests: XCTestCase {
@@ -215,11 +215,11 @@ class PaymentMethodIntegrationTests: XCTestCase {
     }
 
     private func initializeSDKForAdyen() {
-        self.initializeSDK(for: MobilabPaymentAdyen())
+        self.initializeSDK(for: StashAdyen())
     }
 
     private func initializeSDKForBSPayone() {
-        self.initializeSDK(for: MobilabPaymentBSPayone())
+        self.initializeSDK(for: StashBSPayone())
     }
 
     private func initializeSDK(for provider: PaymentServiceProvider) {

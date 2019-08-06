@@ -1,6 +1,6 @@
 //
 //  SearchView.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Rupali Ghate on 06.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

@@ -6,7 +6,7 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentCore
+@testable import StashCore
 import XCTest
 
 @objc class SDKResetter: NSObject {

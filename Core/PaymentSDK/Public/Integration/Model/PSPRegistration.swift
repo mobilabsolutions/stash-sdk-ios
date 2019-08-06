@@ -1,6 +1,6 @@
 //
 //  PSPRegistration.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Robert on 17.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

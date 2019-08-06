@@ -1,6 +1,6 @@
 //
 //  FormCellModel.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Robert on 01.04.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

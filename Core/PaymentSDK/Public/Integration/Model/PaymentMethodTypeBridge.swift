@@ -1,6 +1,6 @@
 //
 //  PaymentMethodTypeBridge.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Borna Beakovic on 18/07/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

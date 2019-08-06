@@ -7,11 +7,11 @@
 //
 
 @import Foundation;
-@import MobilabPaymentCore;
-@import MobilabPaymentBSPayone;
+@import StashCore;
+@import StashBSPayone;
 @import OHHTTPStubs;
 
-#import "MobilabPaymentTests-Swift.h"
+#import "StashTests-Swift.h"
 #import <XCTest/XCTest.h>
 
 @interface ObjCIntegrationTests : XCTestCase

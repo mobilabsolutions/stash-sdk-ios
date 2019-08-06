@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-@import MobilabPaymentCore;
-@import MobilabPaymentBraintree;
+@import StashCore;
+@import StashBraintree;
 
 @interface AppDelegate ()
 

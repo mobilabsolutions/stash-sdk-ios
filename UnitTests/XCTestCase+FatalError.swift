@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import MobilabPaymentCore
+@testable import StashCore
 import XCTest
 
 extension XCTestCase {
