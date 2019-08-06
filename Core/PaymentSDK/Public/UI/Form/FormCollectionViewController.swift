@@ -429,6 +429,9 @@ extension FormCollectionViewController: NextCellSwitcher {
 
 extension FormCollectionViewController: CountryInputPresentingDelegate {
     func presentCountryInput(countryDelegate: CountryListCollectionViewControllerDelegate) {
+        // If we are currently editing a text field, the keyboard should be hidden
+        self.view.endEditing(true)
+
         let country = self.fieldData[.country]?.value as? Country ?? Locale.current.getDeviceRegion()
 
         let countryViewController = CountryListCollectionViewController(country: country,
