@@ -7,6 +7,8 @@
 //
 
 import BraintreeCore
+import BraintreeCard
+import BraintreeDataCollector
 import MobilabPaymentCore
 import UIKit
 
@@ -24,43 +26,53 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
-        guard let presentingViewController = registrationRequest.viewController else {
-            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
-        }
-        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
-
-        let payPalManager = PayPalUIManager(viewController: presentingViewController, clientToken: pspData.clientToken)
-        payPalManager.didCreatePaymentMethodCompletion = { method in
-            if let payPalData = method as? PayPalData {
-                let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData(email: payPalData.email))
-                let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
-                completion(.success(registration))
+        
+        do {
+            if let creditCardData = try getCreditCardData(from: registrationRequest) {
+                let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
+                self.handleCreditCardRequest(creditCardRequest: creditCardData,
+                                             pspData: pspData,
+                                             billingData: billingData ,
+                                             idempotencyKey: idempotencyKey,
+                                             completion: completion)
+            } else if let _ = getPayPalData(from: registrationRequest) {
+                self.handlePayPalRequest(viewController: registrationRequest.viewController,
+                                         payPalData: pspData,
+                                         idempotencyKey: idempotencyKey,
+                                         completion: completion)
             } else {
-                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
-        }
-        payPalManager.errorWhileUsingPayPal = { error in
+        } catch let error as MobilabPaymentError {
             completion(.failure(error))
+        } catch {
+            completion(.failure(MobilabPaymentError.other(GenericErrorDetails.from(error: error))))
         }
-        payPalManager.showPayPalUI()
     }
 
     /// See documentation for `PaymentServiceProvider` in the Core module. Braintree only supports PayPal payment methods.
     public var supportedPaymentMethodTypes: [PaymentMethodType] {
-        return [.payPal]
+        return [.payPal, .creditCard]
     }
 
     /// See documentation for `PaymentServiceProvider` in the Core module. Braintree only supports PayPal payment methods for registration using the UI.
     public var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
-        return [.payPal]
+        return [.payPal, .creditCard]
     }
 
     /// See documentation for `PaymentServiceProvider` in the Core module.
-    public func viewController(for _: PaymentMethodType, billingData: BillingData?,
+    public func viewController(for methodType: PaymentMethodType, billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
-        let viewController = PayPalLoadingViewController(uiConfiguration: configuration)
-        viewController.billingData = billingData
-        return viewController
+        switch methodType {
+        case .creditCard:
+            return nil // TODO: Implement UI
+        case .sepa:
+            return nil
+        case .payPal:
+            let viewController = PayPalLoadingViewController(uiConfiguration: configuration)
+            viewController.billingData = billingData
+            return viewController
+        }
     }
 
     /// Create a new instance of the Braintree module. This instance can be used to initialize the SDK.
@@ -84,6 +96,103 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             return BTAppSwitch.handleOpen(url, options: options)
         }
         return false
+    }
+
+    private func handleCreditCardRequest(creditCardRequest : CreditCardBraintreeData,
+                                         pspData : BraintreeData,
+                                         billingData: BillingData,
+                                         idempotencyKey: String?,
+                                         completion : @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+        guard let braintreeClient = BTAPIClient(authorization: pspData.clientToken) else {
+            fatalError("Braintree client can't be authorized with applied client token")
+        }
+        let dataCollector = BTDataCollector(apiClient: braintreeClient)
+        let cardClient = BTCardClient(apiClient: braintreeClient)
+        let card = BTCard(number: creditCardRequest.cardPan,
+            expirationMonth: creditCardRequest.expirationMonth,
+            expirationYear: creditCardRequest.expirationYear,
+            cvv: creditCardRequest.cardCVC2)
+        cardClient.tokenizeCard(card) { (tokenizedCard, error) in
+            if let tokenizedCard = tokenizedCard {
+                dataCollector.collectCardFraudData { deviceData in
+                    let aliasExtra = AliasExtra(
+                        ccConfig: CreditCardExtra(
+                            ccExpiry: String(format: "%02d/%02d",
+                                             creditCardRequest.expirationMonth,
+                                             creditCardRequest.expirationYear),
+                            ccMask: String(creditCardRequest.cardPan.suffix(4)),
+                            ccType: tokenizedCard.type,
+                            ccHolderName: billingData.name?.fullName,
+                            ccNonce: tokenizedCard.bin,
+                            ccDeviceData: deviceData
+                        ),
+                        billingData: billingData
+                    )
+                    
+                    let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: nil)
+                    completion(.success(registration))
+                }
+            } else if let error = error {
+                let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
+                completion(.failure(mlError))
+            } else {
+                // Buyer canceled payment approval
+                let error = BraintreeError.userCancelledPayPal.asMobilabPaymentError()
+                completion(.failure(error))            }
+        }
+    }
+
+    private func handlePayPalRequest(viewController: UIViewController?,
+                                     payPalData: BraintreeData,
+                                     idempotencyKey: String?,
+                                     completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
+        guard let presentingViewController = viewController else {
+            fatalError("MobiLab Payment SDK: Braintree module is missing presenting view controller")
+        }
+        let payPalManager = PayPalUIManager(viewController: presentingViewController,
+                                            clientToken: payPalData.clientToken)
+        payPalManager.didCreatePaymentMethodCompletion = { method in
+            if let payPalData = method as? PayPalData {
+                let aliasExtra = AliasExtra(
+                    payPalConfig: PayPalExtra(nonce: payPalData.nonce,
+                        deviceData: payPalData.deviceData),
+                    billingData: BillingData(email: payPalData.email))
+                let registration = PSPRegistration(pspAlias: nil,
+                                                   aliasExtra: aliasExtra,
+                                                   overwritingExtraAliasInfo: payPalData.extraAliasInfo)
+                completion(.success(registration))
+            } else {
+                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+            }
+        }
+        payPalManager.errorWhileUsingPayPal = { error in
+            completion(.failure(error))
+        }
+        payPalManager.showPayPalUI()
+    }
+
+    private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardBraintreeData? {
+        guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
+        guard let clientToken = registrationRequest.pspData.clientToken else { return nil }
+        return CreditCardBraintreeData(clientToken: clientToken,
+                                       cardPan: cardData.cardNumber,
+                                       expirationMonth: String(cardData.expiryMonth),
+                                       expirationYear: String(cardData.expiryYear),
+                                       cardCVC2: cardData.cvv)
+    }
+
+    private func getPayPalData(from registrationRequest: RegistrationRequest) -> BraintreeData? {
+        guard let _ = registrationRequest.registrationData as? PayPalData else { return nil }
+        return BraintreeData(pspData: registrationRequest.pspData)
+    }
+    
+    private func getBillingData(from registrationRequest: RegistrationRequest) -> BillingData? {
+        if let data = registrationRequest.registrationData as? CreditCardData {
+            return BillingData(country: data.country, basedOn: data.billingData)
+        }
+        return nil
     }
 
     private func conditionallyPrintIdempotencyWarning(idempotencyKey: String?) {

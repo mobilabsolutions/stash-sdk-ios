@@ -21,11 +21,22 @@ public struct CreditCardExtra: Codable {
     public let ccType: String
     /// The name of the credit card holder.
     public let ccHolderName: String?
-
-    public init(ccExpiry: String, ccMask: String, ccType: String, ccHolderName: String?) {
+    /// The identifying data for the current device. Used for anti-fraud protection by PayPal
+    public let ccDeviceData: String?
+    /// The PayPal nonce which addresses the payment method with PayPal
+    public let ccNonce: String?
+    
+    public init(ccExpiry: String,
+                ccMask: String,
+                ccType: String,
+                ccHolderName: String?,
+                ccNonce: String?=nil,
+                ccDeviceData: String?=nil) {
         self.ccExpiry = ccExpiry
         self.ccMask = ccMask
         self.ccType = ccType
         self.ccHolderName = ccHolderName
+        self.ccNonce = ccNonce
+        self.ccDeviceData = ccDeviceData
     }
 }

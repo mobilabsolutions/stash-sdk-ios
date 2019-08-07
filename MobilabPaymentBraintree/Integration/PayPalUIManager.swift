@@ -50,7 +50,7 @@ class PayPalUIManager: NSObject, PaymentMethodDataProvider, BTAppSwitchDelegate,
             } else {
                 // Buyer canceled payment approval
                 let error = BraintreeError.userCancelledPayPal.asMobilabPaymentError()
-                self.errorWhileUsingPayPal?(error)
+                 self.errorWhileUsingPayPal?(error)
             }
         }
     }

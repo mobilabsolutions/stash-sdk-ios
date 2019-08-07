@@ -21,6 +21,7 @@
 		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
 		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
+		2EF51FA222F9B9BE00416ABE /* CreditCardBraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */; };
 		4419A6262253AF3B00FF4C80 /* MobilabPaymentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */; };
 		BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */; };
 		BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */; };
@@ -412,6 +413,7 @@
 		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
 		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
+		2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardBraintreeData.swift; sourceTree = "<group>"; };
 		4419A6252253AF3B00FF4C80 /* MobilabPaymentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentError.swift; sourceTree = "<group>"; };
 		BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManagerBridge.swift; sourceTree = "<group>"; };
 		BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderBridge.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 			children = (
 				E1995B2E22562A2300BF24A2 /* BraintreeError.swift */,
 				BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */,
+				2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2089,6 +2092,7 @@
 			files = (
 				E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */,
 				BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */,
+				2EF51FA222F9B9BE00416ABE /* CreditCardBraintreeData.swift in Sources */,
 				BABC7D63224229F900028C29 /* MobilabBraintreeBridge.swift in Sources */,
 				E1AEECFE2278224B005DE2BC /* BraintreeError.swift in Sources */,
 				BA84B3662271C6790016E255 /* PayPalUIManager.swift in Sources */,
