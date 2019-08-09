@@ -22,7 +22,7 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
 
-    private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen]
+    private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen, MobilabPaymentProvider.braintree]
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
     private var sdkWasInitialized = false
@@ -132,9 +132,9 @@ class AddUIViewController: UIViewController {
         let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
 
         guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal, .creditCard])
-            else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
+        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
         guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa])
-            else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
+        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",

@@ -6,8 +6,8 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import BraintreeCore
 import BraintreeCard
+import BraintreeCore
 import BraintreeDataCollector
 import MobilabPaymentCore
 import UIKit
@@ -26,13 +26,17 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
-        
+
+        let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
+
         do {
-            if let creditCardData = try getCreditCardData(from: registrationRequest) {
-                let billingData = self.getBillingData(from: registrationRequest) ?? BillingData()
-                self.handleCreditCardRequest(creditCardRequest: creditCardData,
+            if let creditCardRequest = try getCreditCardData(from: registrationRequest),
+                let creditCardData = registrationRequest.registrationData as? CreditCardData,
+                let creditCardExtra = creditCardData.toCreditCardExtra() {
+                self.handleCreditCardRequest(creditCardRequest: creditCardRequest,
                                              pspData: pspData,
-                                             billingData: billingData ,
+                                             creditCardExtra: creditCardExtra,
+                                             billingData: billingData,
                                              idempotencyKey: idempotencyKey,
                                              completion: completion)
             } else if let _ = getPayPalData(from: registrationRequest) {
@@ -65,7 +69,8 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         switch methodType {
         case .creditCard:
-            return nil // TODO: Implement UI
+            return CustomBackButtonContainerViewController(viewController: BraintreeCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                           configuration: configuration)
         case .sepa:
             return nil
         case .payPal:
@@ -98,11 +103,12 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         return false
     }
 
-    private func handleCreditCardRequest(creditCardRequest : CreditCardBraintreeData,
-                                         pspData : BraintreeData,
+    private func handleCreditCardRequest(creditCardRequest: CreditCardBraintreeData,
+                                         pspData: BraintreeData,
+                                         creditCardExtra: CreditCardExtra,
                                          billingData: BillingData,
                                          idempotencyKey: String?,
-                                         completion : @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+                                         completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
         guard let braintreeClient = BTAPIClient(authorization: pspData.clientToken) else {
             fatalError("Braintree client can't be authorized with applied client token")
@@ -110,26 +116,19 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         let dataCollector = BTDataCollector(apiClient: braintreeClient)
         let cardClient = BTCardClient(apiClient: braintreeClient)
         let card = BTCard(number: creditCardRequest.cardPan,
-            expirationMonth: creditCardRequest.expirationMonth,
-            expirationYear: creditCardRequest.expirationYear,
-            cvv: creditCardRequest.cardCVC2)
-        cardClient.tokenizeCard(card) { (tokenizedCard, error) in
+                          expirationMonth: creditCardRequest.expirationMonth,
+                          expirationYear: creditCardRequest.expirationYear,
+                          cvv: creditCardRequest.cardCVC2)
+        cardClient.tokenizeCard(card) { tokenizedCard, error in
             if let tokenizedCard = tokenizedCard {
                 dataCollector.collectCardFraudData { deviceData in
-                    let aliasExtra = AliasExtra(
-                        ccConfig: CreditCardExtra(
-                            ccExpiry: String(format: "%02d/%02d",
-                                             creditCardRequest.expirationMonth,
-                                             creditCardRequest.expirationYear),
-                            ccMask: String(creditCardRequest.cardPan.suffix(4)),
-                            ccType: tokenizedCard.type,
-                            ccHolderName: billingData.name?.fullName,
-                            ccNonce: tokenizedCard.bin,
-                            ccDeviceData: deviceData
-                        ),
-                        billingData: billingData
-                    )
-                    
+                    let updatedCreditCardExtra = CreditCardExtra(ccExpiry: creditCardExtra.ccExpiry,
+                                                                 ccMask: creditCardExtra.ccMask,
+                                                                 ccType: creditCardExtra.ccType,
+                                                                 ccHolderName: creditCardExtra.ccHolderName,
+                                                                 nonce: tokenizedCard.nonce,
+                                                                 deviceData: deviceData)
+                    let aliasExtra = AliasExtra(ccConfig: updatedCreditCardExtra, billingData: billingData)
                     let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: nil)
                     completion(.success(registration))
                 }
@@ -139,7 +138,8 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             } else {
                 // Buyer canceled payment approval
                 let error = BraintreeError.userCancelledPayPal.asMobilabPaymentError()
-                completion(.failure(error))            }
+                completion(.failure(error))
+            }
         }
     }
 
@@ -157,8 +157,9 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             if let payPalData = method as? PayPalData {
                 let aliasExtra = AliasExtra(
                     payPalConfig: PayPalExtra(nonce: payPalData.nonce,
-                        deviceData: payPalData.deviceData),
-                    billingData: BillingData(email: payPalData.email))
+                                              deviceData: payPalData.deviceData),
+                    billingData: BillingData(email: payPalData.email)
+                )
                 let registration = PSPRegistration(pspAlias: nil,
                                                    aliasExtra: aliasExtra,
                                                    overwritingExtraAliasInfo: payPalData.extraAliasInfo)
@@ -187,7 +188,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
         guard let _ = registrationRequest.registrationData as? PayPalData else { return nil }
         return BraintreeData(pspData: registrationRequest.pspData)
     }
-    
+
     private func getBillingData(from registrationRequest: RegistrationRequest) -> BillingData? {
         if let data = registrationRequest.registrationData as? CreditCardData {
             return BillingData(country: data.country, basedOn: data.billingData)
