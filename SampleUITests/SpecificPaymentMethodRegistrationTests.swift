@@ -33,7 +33,7 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        waitForElementToAppear(element: app.alerts.firstMatch)
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 8)
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")
@@ -55,10 +55,9 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         collectionViewsQuery.textFields["Last Name"].tap()
         collectionViewsQuery.textFields["Last Name"].typeText("Schneider")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 5).tap()
 
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)

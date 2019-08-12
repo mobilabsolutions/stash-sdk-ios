@@ -87,8 +87,8 @@ class CountryListCollectionViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(countryName: String, configuration: PaymentMethodUIConfiguration) {
-        self.currentCountryName = countryName
+    init(country: Country?, configuration: PaymentMethodUIConfiguration) {
+        self.currentCountryName = country?.name
         self.configuration = configuration
 
         super.init(nibName: nil, bundle: nil)
@@ -211,9 +211,10 @@ class CountryListCollectionViewController: UIViewController {
 
     private func getCountry(from countryName: String) -> Country? {
         guard let firstAlphabet = countryName.first else {
-            print("Error: Could not retrieve first alphabet from country - \(countryName)")
+            print("Error: Could not retrieve first letter from country - \(countryName)")
             return nil
         }
+
         if let countriesStartingWithAlphabet = self.groupedCountries[String(firstAlphabet)] {
             let country = countriesStartingWithAlphabet.filter {
                 $0.name.caseInsensitiveCompare(countryName) == .orderedSame

@@ -60,10 +60,10 @@ class AdyenSEPAInputCollectionViewController: FormCollectionViewController {
 }
 
 extension AdyenSEPAInputCollectionViewController: FormConsumer {
-    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError? {
         var errors: [NecessaryData: ValidationError] = [:]
 
-        if let iban = data[.iban], iban.isEmpty == false {
+        if let iban = data[.iban]?.value as? String, iban.isEmpty == false {
             do {
                 try SEPAUtils.validateIBAN(iban: iban)
             } catch {
@@ -73,25 +73,25 @@ extension AdyenSEPAInputCollectionViewController: FormConsumer {
             errors[.iban] = SEPAValidationError.noData(explanation: "Please provide a valid IBAN")
         }
 
-        if data[.holderFirstName] == nil || data[.holderFirstName]?.isEmpty == true {
+        if data[.holderFirstName] == nil {
             errors[.holderFirstName] = SEPAValidationError.noData(explanation: "Please provide a valid first name")
         }
 
-        if data[.holderLastName] == nil || data[.holderLastName]?.isEmpty == true {
+        if data[.holderLastName] == nil {
             errors[.holderLastName] = SEPAValidationError.noData(explanation: "Please provide a valid last name")
         }
 
         return errors.isEmpty ? nil : FormConsumerError(errors: errors)
     }
 
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws {
         if let validationError = validate(data: data) {
             throw validationError
         }
 
-        guard let iban = data[.iban],
-            let firstName = data[.holderFirstName],
-            let lastName = data[.holderLastName]
+        guard let iban = data[.iban]?.value as? String,
+            let firstName = data[.holderFirstName]?.value as? String,
+            let lastName = data[.holderLastName]?.value as? String
         else { return }
 
         let newBillingData = BillingData(email: billingData?.email,

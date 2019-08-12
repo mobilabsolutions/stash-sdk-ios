@@ -11,8 +11,8 @@ import Foundation
 public typealias ValidationError = Error & CustomStringConvertible
 
 public protocol FormConsumer: AnyObject {
-    func consumeValues(data: [NecessaryData: String]) throws
-    func validate(data: [NecessaryData: String]) -> FormConsumerError?
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError?
 }
 
 public struct FormConsumerError: Error {

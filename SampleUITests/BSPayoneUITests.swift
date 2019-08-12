@@ -23,10 +23,9 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE75512108001245126199")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
@@ -54,7 +53,7 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -96,7 +95,7 @@ class BSPayoneUITests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -110,7 +109,7 @@ class BSPayoneUITests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
 
         let view = app.otherElements["CountrySelectionView"]
         let searchView = view.otherElements["SearchView"]
@@ -122,7 +121,7 @@ class BSPayoneUITests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
 
         XCTAssertTrue(collectionViewsQuery.cells.count > 0)
     }
@@ -132,7 +131,7 @@ class BSPayoneUITests: BaseUITest {
         navigateToViewController(for: "Credit Card", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
 
         let view = app.otherElements["CountrySelectionView"]
 
@@ -150,11 +149,11 @@ class BSPayoneUITests: BaseUITest {
 
         view.collectionViews.staticTexts["Zimbabwe"].tap() // goes back to previous screen
 
-        expectation(for: exists, evaluatedWith: collectionViewsQuery.textFields["Country"], handler: nil)
+        expectation(for: exists, evaluatedWith: collectionViewsQuery.buttons["Zimbabwe"], handler: nil)
         waitForExpectations(timeout: 2, handler: nil)
 
-        collectionViewsQuery.textFields["Country"].tap() // previous screen
+        collectionViewsQuery.buttons["Zimbabwe"].tap() // previous screen
 
-        XCTAssertNotNil(view.collectionViews.cells.staticTexts["Zimbabwe"]) // current location contains last selected country name
+        XCTAssertNotNil(view.collectionViews.cells.buttons["Zimbabwe"]) // current location contains last selected country name
     }
 }
