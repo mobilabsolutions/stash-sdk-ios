@@ -12,7 +12,7 @@ if [ "$TEST_SUITE" = 'unit' ]; then
     xcodebuild -workspace "$WORKSPACE_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 
     echo "Building Demo";
-    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "StashDemo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
+    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "MobilabPaymentDemo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
     
 elif [ "$TEST_SUITE" = 'ui' ]; then
     echo "Running UI tests.";

@@ -45,7 +45,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                          idempotencyKey: idempotencyKey,
                                          completion: completion)
             } else {
-                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
+                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
             }
         } catch let error as MobilabPaymentError {
             completion(.failure(error))
@@ -155,17 +155,11 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                             clientToken: payPalData.clientToken)
         payPalManager.didCreatePaymentMethodCompletion = { method in
             if let payPalData = method as? PayPalData {
-                let aliasExtra = AliasExtra(
-                    payPalConfig: PayPalExtra(nonce: payPalData.nonce,
-                                              deviceData: payPalData.deviceData),
-                    billingData: BillingData(email: payPalData.email)
-                )
-                let registration = PSPRegistration(pspAlias: nil,
-                                                   aliasExtra: aliasExtra,
-                                                   overwritingExtraAliasInfo: payPalData.extraAliasInfo)
+                let aliasExtra = AliasExtra(payPalConfig: PayPalExtra(nonce: payPalData.nonce, deviceData: payPalData.deviceData), billingData: BillingData(email: payPalData.email))
+                let registration = PSPRegistration(pspAlias: nil, aliasExtra: aliasExtra, overwritingExtraAliasInfo: payPalData.extraAliasInfo)
                 completion(.success(registration))
             } else {
-                fatalError("MobiLab Payment SDK: Type of registration data provided can not be handled by SDK. Registration data type must be one of SEPAData, CreditCardData or PayPalData")
+                completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
             }
         }
         payPalManager.errorWhileUsingPayPal = { error in
@@ -185,7 +179,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
     }
 
     private func getPayPalData(from registrationRequest: RegistrationRequest) -> BraintreeData? {
-        guard let _ = registrationRequest.registrationData as? PayPalData else { return nil }
+        guard let _ = registrationRequest.registrationData as? PayPalPlaceholderData else { return nil }
         return BraintreeData(pspData: registrationRequest.pspData)
     }
 

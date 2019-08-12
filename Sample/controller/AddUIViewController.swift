@@ -132,7 +132,7 @@ class AddUIViewController: UIViewController {
         let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
 
         guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal, .creditCard])
-        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
+        else { fatalError("Should be able to create Braintree provider integration for PayPal and credit card") }
         guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa])
         else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
