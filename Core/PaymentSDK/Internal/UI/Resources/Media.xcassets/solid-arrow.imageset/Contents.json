@@ -1,13 +1,13 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "arrow.png",
-      "idiom" : "universal"
+      "filename" : "arrow.png"
     },
     {
-      "filename" : "arrow@2x.png",
       "scale" : "2x",
+      "filename" : "arrow@2x.png",
       "idiom" : "universal"
     },
     {

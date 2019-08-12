@@ -137,7 +137,7 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].typeText(cvv)
 
         if let countryIndex = countryIndex {
-            collectionViewsQuery.textFields["Country"].tap()
+            collectionViewsQuery.buttons["Country"].tap()
             app.collectionViews.cells.element(boundBy: countryIndex).tap()
         }
 
@@ -168,11 +168,13 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].typeText("DE92123456789876543210")
 
         if let countryIndex = countryIndex {
-            collectionViewsQuery.textFields["Country"].tap()
+            collectionViewsQuery.buttons["Country"].tap()
             app.collectionViews.cells.element(boundBy: countryIndex).tap()
+        } else {
+            // Tap continue button on IBAN field
+            app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         }
 
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch)
