@@ -82,7 +82,7 @@ class BraintreeUITests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
         
-        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 10)
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 20)
         
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")
