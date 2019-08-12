@@ -73,8 +73,8 @@ class BraintreeUITests: BaseUITest {
         collectionViewsQuery.textFields["1234"].typeText("378282246310005")
         
         collectionViewsQuery.textFields["MM/YY"].tap()
-        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "08")
-        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2022")
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
         
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("1234")

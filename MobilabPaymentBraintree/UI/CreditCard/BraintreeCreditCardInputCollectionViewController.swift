@@ -163,13 +163,13 @@ class BraintreeCreditCardInputCollectionViewController: FormCollectionViewContro
 }
 
 extension BraintreeCreditCardInputCollectionViewController: FormConsumer {
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws {
         guard let creditCard = try createCreditCardData(from: data)
         else { return }
         self.didCreatePaymentMethodCompletion?(creditCard)
     }
 
-    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError? {
         do {
             _ = try self.createCreditCardData(from: data)
         } catch let error as FormConsumerError {
@@ -180,13 +180,13 @@ extension BraintreeCreditCardInputCollectionViewController: FormConsumer {
         return nil
     }
 
-    private func createCreditCardData(from data: [NecessaryData: String]) throws -> CreditCardData? {
-        let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber],
-                                                      cvvText: data[.cvv],
-                                                      expirationMonthText: data[.expirationMonth],
-                                                      expirationYearText: data[.expirationYear],
-                                                      holderFirstName: data[.holderFirstName],
-                                                      holderLastName: data[.holderLastName])
+    private func createCreditCardData(from data: [NecessaryData: PresentableValueHolding]) throws -> CreditCardData? {
+        let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber]?.value as? String,
+                                                      cvvText: data[.cvv]?.value as? String,
+                                                      expirationMonthText: data[.expirationMonth]?.value as? String,
+                                                      expirationYearText: data[.expirationYear]?.value as? String,
+                                                      holderFirstName: data[.holderFirstName]?.value as? String,
+                                                      holderLastName: data[.holderLastName]?.value as? String)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
