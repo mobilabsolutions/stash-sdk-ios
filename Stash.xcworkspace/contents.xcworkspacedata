@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Stash.xcodeproj">
+      location = "group:Stash.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:StashDemo/StashDemo.xcodeproj">
