@@ -68,13 +68,11 @@ class BraintreeCreditCardInputCollectionViewController: FormCollectionViewContro
     private enum CreditCardValidationError: ValidationError {
         case noData(explanation: String)
         case creditCardValidationFailed(message: String)
-        case noKnownCreditCardProvider
 
         var description: String {
             switch self {
             case let .noData(explanation): return explanation
             case let .creditCardValidationFailed(message): return message
-            case .noKnownCreditCardProvider: return "Unsupported credit card provider"
             }
         }
     }

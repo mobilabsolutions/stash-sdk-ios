@@ -135,10 +135,6 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
             } else if let error = error {
                 let mlError = error as? MobilabPaymentError ?? MobilabPaymentError.other(GenericErrorDetails.from(error: error))
                 completion(.failure(mlError))
-            } else {
-                // Buyer canceled payment approval
-                let error = BraintreeError.userCancelledPayPal.asMobilabPaymentError()
-                completion(.failure(error))
             }
         }
     }
