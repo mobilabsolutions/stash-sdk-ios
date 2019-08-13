@@ -88,8 +88,8 @@ class BraintreeCreditCardInputCollectionViewController: FormCollectionViewContro
 
         static func create(cardNumberText: String?,
                            cvvText: String?,
-                           expirationMonthText: String?,
-                           expirationYearText: String?,
+                           expirationMonthText: Int?,
+                           expirationYearText: Int?,
                            holderFirstName: String?,
                            holderLastName: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
@@ -183,8 +183,8 @@ extension BraintreeCreditCardInputCollectionViewController: FormConsumer {
     private func createCreditCardData(from data: [NecessaryData: PresentableValueHolding]) throws -> CreditCardData? {
         let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber]?.value as? String,
                                                       cvvText: data[.cvv]?.value as? String,
-                                                      expirationMonthText: data[.expirationMonth]?.value as? String,
-                                                      expirationYearText: data[.expirationYear]?.value as? String,
+                                                      expirationMonthText: data[.expirationMonth]?.value as? Int,
+                                                      expirationYearText: data[.expirationYear]?.value as? Int,
                                                       holderFirstName: data[.holderFirstName]?.value as? String,
                                                       holderLastName: data[.holderLastName]?.value as? String)
 

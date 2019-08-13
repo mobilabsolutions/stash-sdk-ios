@@ -119,22 +119,31 @@ class AddUIViewController: UIViewController {
         guard !self.sdkWasInitialized
         else { return }
 
-        let provider: PaymentServiceProvider
+        let adyen = MobilabPaymentAdyen()
+        let bsPayOne = MobilabPaymentBSPayone()
+        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
+
+        let providerIntegration: PaymentProviderIntegration
+        let braintreeIntegration: PaymentProviderIntegration
 
         switch psp {
         case .adyen:
-            provider = MobilabPaymentAdyen()
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen,
+                                                             paymentMethodTypes: [.sepa, .creditCard])!
+            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                               paymentMethodTypes: [.payPal]))!
+        case .braintree:
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
+                                                             paymentMethodTypes: [.sepa])!
+            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                               paymentMethodTypes: [.creditCard, .payPal]))!
         case .bsPayone: fallthrough
         default:
-            provider = MobilabPaymentBSPayone()
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
+                                                             paymentMethodTypes: [.creditCard, .sepa])!
+            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                               paymentMethodTypes: [.payPal]))!
         }
-
-        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
-
-        guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal, .creditCard])
-        else { fatalError("Should be able to create Braintree provider integration for PayPal and credit card") }
-        guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa])
-        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
