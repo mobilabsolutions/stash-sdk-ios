@@ -16,6 +16,7 @@ public struct FormCellModel {
         case let .text(data): return [data.necessaryData]
         case let .pairedText(data): return [data.firstNecessaryData, data.secondNecessaryData]
         case .dateCVV: return [.expirationMonth, .expirationYear, .cvv]
+        case .country: return [.country]
         }
     }
 
@@ -27,6 +28,7 @@ public struct FormCellModel {
         case text(TextData)
         case pairedText(PairedTextData)
         case dateCVV
+        case country
 
         public struct TextData {
             public let necessaryData: NecessaryData

@@ -94,6 +94,10 @@ public final class UIConstants {
         return UIImage(named: "right-arrow", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }
 
+    public class var solidArrowImage: UIImage? {
+        return UIImage(named: "solid-arrow", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+    }
+
     public class var americanExpressImage: UIImage? {
         return UIImage(named: "americanExpress", in: Bundle(for: UIConstants.self), compatibleWith: nil)
     }

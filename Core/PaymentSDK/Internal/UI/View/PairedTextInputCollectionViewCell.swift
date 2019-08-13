@@ -285,7 +285,7 @@ class PairedTextInputCollectionViewCell: UICollectionViewCell, NextCellEnabled, 
         else { return }
 
         self.textFieldUpdateCallback?(textField, type)
-        self.delegate?.didUpdate(value: textField.text?.trimmingCharacters(in: .whitespaces), for: type)
+        self.delegate?.didUpdate(value: NonEmptyStringValueHolding(string: textField.text?.trimmingCharacters(in: .whitespaces)), for: type)
     }
 
     @objc private func didEndEditingTextFieldText(_ textField: UITextField) {

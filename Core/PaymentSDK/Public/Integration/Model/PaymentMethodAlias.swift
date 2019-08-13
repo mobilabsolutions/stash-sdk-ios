@@ -43,9 +43,9 @@ public struct PaymentMethodAlias {
 
         public init(creditCardMask: String, expiryMonth: Int, expiryYear: Int, creditCardType: CreditCardType) {
             self.creditCardMask = creditCardMask
-            self.creditCardType = creditCardType
-            self.expiryYear = expiryYear
             self.expiryMonth = expiryMonth
+            self.expiryYear = expiryYear
+            self.creditCardType = creditCardType
         }
     }
 

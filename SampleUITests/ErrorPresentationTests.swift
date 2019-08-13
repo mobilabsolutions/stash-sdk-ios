@@ -14,7 +14,7 @@ class ErrorPresentationTests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         let numberOfIncorrectCells = collectionViewsQuery.staticTexts
@@ -29,7 +29,7 @@ class ErrorPresentationTests: BaseUITest {
         navigateToViewController(for: "SEPA", app: app)
 
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         let previousNumberOfIncorrectCells = collectionViewsQuery.staticTexts
@@ -95,7 +95,7 @@ class ErrorPresentationTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 4).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -129,7 +129,7 @@ class ErrorPresentationTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("444")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 4).tap()
 
         app.collectionViews.firstMatch.tap()

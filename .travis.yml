@@ -10,9 +10,6 @@ env:
   global:
     - WORKSPACE_NAME="Stash.xcworkspace"
     - DESTINATION="OS=12.2,name=iPhone X"
-  matrix:
-    - TEST_SUITE=unit
-    - TEST_SUITE=ui
 
 install:
 - gem install xcpretty
@@ -22,15 +19,23 @@ install:
 - brew outdated carthage || brew upgrade carthage
 - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
-script:
-- bash travis-build.sh
-
 jobs:
   include:
+    - stage: test
+      name: "Unit Tests"
+      script: bash travis-build.sh
+      env:
+        - TEST_SUITE=unit
+    - # stage name not required, will continue to use `test`
+      script: bash travis-build.sh
+      name: "UI Tests"
+      env: 
+        - TEST_SUITE=ui
     - stage: swiftformat
       if: type = pull_request
       script: bash travis-swift-format.sh
     - stage: deploy
+      script: echo "Starting with beta deployment"
       if: branch = master AND type != pull_request
       deploy: 
         provider: script

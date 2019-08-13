@@ -36,8 +36,8 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
         static func create(cardNumberText: String?,
                            cvvText: String?,
-                           expirationMonthText: String?,
-                           expirationYearText: String?,
+                           expirationMonth: Int?,
+                           expirationYear: Int?,
                            holderFirstName: String?,
                            holderLastName: String?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
@@ -70,11 +70,11 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
                 errors[.cvv] = .noData(explanation: "Please provide a valid CVV")
             }
 
-            if expirationYearText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
+            if expirationYear.flatMap({ $0 >= 0 }) != true {
                 errors[.expirationYear] = .noData(explanation: "Please provide a valid expiration date")
             }
 
-            if expirationMonthText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
+            if expirationMonth.flatMap({ $0 >= 0 }) != true {
                 errors[.expirationMonth] = .noData(explanation: "Please provide a valid expiration date")
             }
 
@@ -82,8 +82,8 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
             dateFormatter.dateFormat = "MM/yy"
             dateFormatter.calendar = Calendar(identifier: .gregorian)
 
-            if let month = expirationMonthText,
-                let year = expirationYearText,
+            if let month = expirationMonth,
+                let year = expirationYear,
                 let date = dateFormatter.date(from: "\(month)/\(year)"),
                 let expiration = Calendar.current.date(byAdding: .month, value: 1, to: date),
                 // Verify that the credit card is not yet expired. Expiration is generally at the end of the specified month.
@@ -93,8 +93,8 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 
             guard let cardNumber = cardNumberText,
                 let cvv = cvvText,
-                let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
-                let expirationYear = expirationYearText.flatMap({ Int($0) }),
+                let expirationMonth = expirationMonth.flatMap({ Int($0) }),
+                let expirationYear = expirationYear.flatMap({ Int($0) }),
                 let firstName = holderFirstName,
                 let lastName = holderLastName,
                 errors.isEmpty
@@ -164,7 +164,7 @@ class AdyenCreditCardInputCollectionViewController: FormCollectionViewController
 }
 
 extension AdyenCreditCardInputCollectionViewController: FormConsumer {
-    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError? {
         do {
             _ = try self.createCreditCardData(from: data)
         } catch let error as FormConsumerError {
@@ -176,19 +176,19 @@ extension AdyenCreditCardInputCollectionViewController: FormConsumer {
         return nil
     }
 
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws {
         guard let creditCard = try createCreditCardData(from: data)
         else { return }
         self.didCreatePaymentMethodCompletion?(creditCard)
     }
 
-    private func createCreditCardData(from data: [NecessaryData: String]) throws -> CreditCardData? {
-        let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber],
-                                                      cvvText: data[.cvv],
-                                                      expirationMonthText: data[.expirationMonth],
-                                                      expirationYearText: data[.expirationYear],
-                                                      holderFirstName: data[.holderFirstName],
-                                                      holderLastName: data[.holderLastName])
+    private func createCreditCardData(from data: [NecessaryData: PresentableValueHolding]) throws -> CreditCardData? {
+        let createdData = CreditCardParsedData.create(cardNumberText: data[.cardNumber]?.value as? String,
+                                                      cvvText: data[.cvv]?.value as? String,
+                                                      expirationMonth: data[.expirationMonth]?.value as? Int,
+                                                      expirationYear: data[.expirationYear]?.value as? Int,
+                                                      holderFirstName: data[.holderFirstName]?.value as? String,
+                                                      holderLastName: data[.holderLastName]?.value as? String)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)

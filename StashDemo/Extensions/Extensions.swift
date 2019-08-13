@@ -45,7 +45,6 @@ extension UIViewController {
 //      - For credit card: "CC-mask • mm/yy"
 ///     - For SEPA: maksed IBAN string
 ///     - For PayPal: email address string
-
 extension PaymentMethodAlias.ExtraAliasInfo {
     func formatToReadableDetails() -> String {
         let readableDetails: String

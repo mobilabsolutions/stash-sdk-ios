@@ -45,7 +45,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -74,7 +74,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("12345")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -120,10 +120,9 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE123456789")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.buttons["SAVE"].tap()
 
         XCTAssertTrue(collectionViewsQuery.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Please provide")).element.exists,
@@ -150,7 +149,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("123")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -185,7 +184,7 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("DE14123456")
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
         app.collectionViews.firstMatch.tap()
@@ -215,11 +214,8 @@ class BasePaymentModulesTests: BaseUITest {
         app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
         app.keys["B"].tap()
 
-        collectionViewsQuery.textFields["Country"].tap()
+        collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 3).tap()
-
-        // Tap on the "continue" keyboard button
-        app.keyboards.buttons.allElementsBoundByIndex.last?.tap()
 
         guard let firstNameFieldText = collectionViewsQuery.textFields["First Name"].value as? String
         else { XCTFail("Could not retrieve string value from first name text field"); return }
@@ -230,11 +226,8 @@ class BasePaymentModulesTests: BaseUITest {
         guard let ibanText = collectionViewsQuery.textFields["XX123"].value as? String
         else { XCTFail("Could not retrieve string value from IBAN text field"); return }
 
-        guard let countryText = collectionViewsQuery.textFields["Country"].value as? String
-        else { XCTFail("Could not retrieve string value from Country text field"); return }
-
-        // This text should now be in the Country text field
-        XCTAssertEqual(countryText, "Algeria")
+        // This text should now be in the Country button
+        XCTAssertTrue(collectionViewsQuery.buttons["Algeria"].exists)
         // This text should now be in the IBAN text field
         XCTAssertEqual(ibanText, "B")
         // This text should now be in the last name text field
@@ -242,7 +235,7 @@ class BasePaymentModulesTests: BaseUITest {
         // There should not have been any effect on the first name field
         XCTAssertEqual(firstNameFieldText, "M")
 
-        XCTAssertEqual(app.keyboards.count, 0, "After tapping the continue button on the last text field, the keyboard should disappear")
+        XCTAssertEqual(app.keyboards.count, 0, "After opening the country selection screen, the keyboard should disappear")
     }
 
     func deleteTextFieldText(textField: XCUIElement, app _: XCUIApplication) {

@@ -9,7 +9,7 @@ if [ "$TEST_SUITE" = 'unit' ]; then
     fastlane unitTest;
 
     echo "Building Objective-C Sample";
-    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
+    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "StashSample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 
     echo "Building Demo";
     xcodebuild -workspace "$WORKSPACE_NAME" -scheme "StashDemo" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
@@ -21,5 +21,5 @@ else
     fastlane test;
 
     echo "Building Objective-C Sample";
-    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "Sample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
+    xcodebuild -workspace "$WORKSPACE_NAME" -scheme "StashSample-ObjC" -destination "$DESTINATION" | xcpretty -f `xcpretty-travis-formatter`;
 fi

@@ -41,8 +41,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                            holderLastNameText: String?,
                            cardNumberText: String?,
                            cvvText: String?,
-                           expirationMonthText: String?,
-                           expirationYearText: String?,
+                           expirationMonth: Int?,
+                           expirationYear: Int?,
                            country: Country?) -> (CreditCardParsedData?, [NecessaryData: CreditCardValidationError]) {
             var errors: [NecessaryData: CreditCardValidationError] = [:]
 
@@ -74,28 +74,28 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                 errors[.cvv] = .noData(explanation: "Please provide a valid CVV")
             }
 
-            if expirationYearText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
+            if expirationYear.flatMap({ $0 >= 0 }) != true {
                 errors[.expirationYear] = .noData(explanation: "Please provide a valid expiration date")
             }
 
-            if expirationMonthText.flatMap({ Int($0) }).flatMap({ $0 >= 0 }) != true {
+            if expirationMonth.flatMap({ $0 >= 0 }) != true {
                 errors[.expirationMonth] = .noData(explanation: "Please provide a valid expiration date")
             }
 
             if let country = country {
                 if country.alpha2Code.isEmpty {
-                    errors[.country] = .noData(explanation: "Country code cannot be blank")
+                    errors[.country] = .noData(explanation: "Please provide a valid country")
                 }
             } else {
-                errors[.country] = .noData(explanation: "Please provide country")
+                errors[.country] = .noData(explanation: "Please provide a valid country")
             }
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/yy"
             dateFormatter.calendar = Calendar(identifier: .gregorian)
 
-            if let month = expirationMonthText,
-                let year = expirationYearText,
+            if let month = expirationMonth,
+                let year = expirationYear,
                 let date = dateFormatter.date(from: "\(month)/\(year)"),
                 let expiration = Calendar.current.date(byAdding: .month, value: 1, to: date),
                 // Verify that the credit card is not yet expired. Expiration is generally at the end of the specified month.
@@ -106,8 +106,8 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
             guard let holderFirstName = holderFirstNameText,
                 let holderLastName = holderLastNameText,
                 let cardNumber = cardNumberText, let cvv = cvvText,
-                let expirationMonth = expirationMonthText.flatMap({ Int($0) }),
-                let expirationYear = expirationYearText.flatMap({ Int($0) }),
+                let expirationMonth = expirationMonth,
+                let expirationYear = expirationYear,
                 let country = country,
                 errors.isEmpty
             else { return (nil, errors) }
@@ -168,20 +168,11 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
                                                                  textField.attributedText = CreditCardUtils.formattedNumber(number: textField.text ?? "")
         })
 
-        let countryData = FormCellModel.FormCellType.TextData(necessaryData: .country,
-                                                              title: "Country",
-                                                              placeholder: "Country",
-                                                              setup: nil,
-                                                              didFocus: { [weak self] textField in
-                                                                  guard let self = self else { return }
-                                                                  self.showCountryListing(textField: textField, on: self)
-                                                              },
-                                                              didUpdate: nil)
         setCellModel(cellModels: [
             FormCellModel(type: .pairedText(nameData)),
             FormCellModel(type: .text(numberData)),
             FormCellModel(type: .dateCVV),
-            FormCellModel(type: .text(countryData)),
+            FormCellModel(type: .country),
         ])
     }
 
@@ -191,7 +182,7 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
 }
 
 extension BSCreditCardInputCollectionViewController: FormConsumer {
-    func validate(data: [NecessaryData: String]) -> FormConsumerError? {
+    func validate(data: [NecessaryData: PresentableValueHolding]) -> FormConsumerError? {
         do {
             _ = try self.createCreditCardData(data: data)
         } catch let error as FormConsumerError {
@@ -203,20 +194,20 @@ extension BSCreditCardInputCollectionViewController: FormConsumer {
         return nil
     }
 
-    func consumeValues(data: [NecessaryData: String]) throws {
+    func consumeValues(data: [NecessaryData: PresentableValueHolding]) throws {
         guard let card = try createCreditCardData(data: data)
         else { return }
         self.didCreatePaymentMethodCompletion?(card)
     }
 
-    private func createCreditCardData(data: [NecessaryData: String]) throws -> CreditCardData? {
-        let createdData = CreditCardParsedData.create(holderFirstNameText: data[.holderFirstName],
-                                                      holderLastNameText: data[.holderLastName],
-                                                      cardNumberText: data[.cardNumber],
-                                                      cvvText: data[.cvv],
-                                                      expirationMonthText: data[.expirationMonth],
-                                                      expirationYearText: data[.expirationYear],
-                                                      country: self.country)
+    private func createCreditCardData(data: [NecessaryData: PresentableValueHolding]) throws -> CreditCardData? {
+        let createdData = CreditCardParsedData.create(holderFirstNameText: data[.holderFirstName]?.value as? String,
+                                                      holderLastNameText: data[.holderLastName]?.value as? String,
+                                                      cardNumberText: data[.cardNumber]?.value as? String,
+                                                      cvvText: data[.cvv]?.value as? String,
+                                                      expirationMonth: data[.expirationMonth]?.value as? Int,
+                                                      expirationYear: data[.expirationYear]?.value as? Int,
+                                                      country: data[.country]?.value as? Country)
 
         if !createdData.1.isEmpty {
             throw FormConsumerError(errors: createdData.1)
