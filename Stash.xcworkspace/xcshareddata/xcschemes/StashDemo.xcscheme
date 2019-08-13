@@ -17,7 +17,7 @@
                BlueprintIdentifier = "E1C1534022D4744300507A18"
                BuildableName = "StashDemo.app"
                BlueprintName = "StashDemo"
-               ReferencedContainer = "container:StashDemo.xcodeproj">
+               ReferencedContainer = "container:StashDemo/StashDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "E1C1534022D4744300507A18"
             BuildableName = "StashDemo.app"
             BlueprintName = "StashDemo"
-            ReferencedContainer = "container:StashDemo.xcodeproj">
+            ReferencedContainer = "container:StashDemo/StashDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "E1C1534022D4744300507A18"
             BuildableName = "StashDemo.app"
             BlueprintName = "StashDemo"
-            ReferencedContainer = "container:StashDemo.xcodeproj">
+            ReferencedContainer = "container:StashDemo/StashDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "E1C1534022D4744300507A18"
             BuildableName = "StashDemo.app"
             BlueprintName = "StashDemo"
-            ReferencedContainer = "container:StashDemo.xcodeproj">
+            ReferencedContainer = "container:StashDemo/StashDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

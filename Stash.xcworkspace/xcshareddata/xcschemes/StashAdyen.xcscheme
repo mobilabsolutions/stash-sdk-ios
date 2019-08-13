@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BA945A2A223A890100C39300"
-               BuildableName = "StashBraintree.framework"
-               BlueprintName = "StashBraintree"
+               BlueprintIdentifier = "BA09A952224D60E8006C3A1D"
+               BuildableName = "StashAdyen.framework"
+               BlueprintName = "StashAdyen"
                ReferencedContainer = "container:Stash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA945A2A223A890100C39300"
-            BuildableName = "StashSDKBraintree.framework"
-            BlueprintName = "StashSDKBraintree"
+            BlueprintIdentifier = "BA09A952224D60E8006C3A1D"
+            BuildableName = "StashSDKAdyen.framework"
+            BlueprintName = "StashSDKAdyen"
             ReferencedContainer = "container:StashSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,6 +51,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BA09A952224D60E8006C3A1D"
+            BuildableName = "StashAdyen.framework"
+            BlueprintName = "StashAdyen"
+            ReferencedContainer = "container:Stash.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
