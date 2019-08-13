@@ -8,16 +8,30 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
-               BuildableName = "SampleUITests.xctest"
-               BlueprintName = "SampleUITests"
-               ReferencedContainer = "container:StashSDK.xcodeproj">
+               BuildableName = "StashSampleUITests.xctest"
+               BlueprintName = "StashSampleUITests"
+               ReferencedContainer = "container:Stash.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BA8D070C2226AE56004F699A"
+               BuildableName = "StashSample.app"
+               BlueprintName = "StashSample"
+               ReferencedContainer = "container:Stash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,12 +47,21 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
-               BuildableName = "SampleUITests.xctest"
-               BlueprintName = "SampleUITests"
-               ReferencedContainer = "container:StashSDK.xcodeproj">
+               BuildableName = "StashSampleUITests.xctest"
+               BlueprintName = "StashSampleUITests"
+               ReferencedContainer = "container:Stash.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BA8D070C2226AE56004F699A"
+            BuildableName = "StashSample.app"
+            BlueprintName = "StashSample"
+            ReferencedContainer = "container:Stash.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -55,10 +78,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
-            BuildableName = "SampleUITests.xctest"
-            BlueprintName = "SampleUITests"
-            ReferencedContainer = "container:StashSDK.xcodeproj">
+            BlueprintIdentifier = "BA8D070C2226AE56004F699A"
+            BuildableName = "StashSample.app"
+            BlueprintName = "StashSample"
+            ReferencedContainer = "container:Stash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -73,10 +96,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
-            BuildableName = "SampleUITests.xctest"
-            BlueprintName = "SampleUITests"
-            ReferencedContainer = "container:StashSDK.xcodeproj">
+            BlueprintIdentifier = "BA8D070C2226AE56004F699A"
+            BuildableName = "StashSample.app"
+            BlueprintName = "StashSample"
+            ReferencedContainer = "container:Stash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

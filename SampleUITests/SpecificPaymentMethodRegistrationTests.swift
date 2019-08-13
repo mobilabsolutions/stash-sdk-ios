@@ -72,7 +72,7 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
 
         let springBoard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 
-        let alert = springBoard.alerts.containing(NSPredicate(format: "label CONTAINS \"Wants to Use\"")).firstMatch
+        let alert = springBoard.alerts.firstMatch
         XCTAssert(alert.waitForExistence(timeout: 10))
         alert.buttons["Continue"].tap()
 
