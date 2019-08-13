@@ -50,11 +50,11 @@ push_commit() {
   # list origins
   git remote -v
 
-  git branch
+  echo "$TRAVIS_PULL_REQUEST_BRANCH"
   echo "$TRAVIS_BRANCH"
 
   # push to remote
-  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push origin "$TRAVIS_PULL_REQUEST_BRANCH"
+  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push origin "$TRAVIS_BRANCH"
 }
 
 
