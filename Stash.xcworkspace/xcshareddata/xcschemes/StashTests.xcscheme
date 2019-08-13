@@ -40,6 +40,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
+            BuildableName = "StashTests.xctest"
+            BlueprintName = "StashTests"
+            ReferencedContainer = "container:Stash.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -74,15 +83,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1DC5CB9D20D2BF5E002058C1"
-            BuildableName = "StashTests.xctest"
-            BlueprintName = "StashTests"
-            ReferencedContainer = "container:Stash.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

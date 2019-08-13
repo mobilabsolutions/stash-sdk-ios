@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA8D070C2226AE56004F699A"
-            BuildableName = "StashSample.app"
-            BlueprintName = "StashSample"
+            BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
+            BuildableName = "StashSampleUITests.xctest"
+            BlueprintName = "StashSampleUITests"
             ReferencedContainer = "container:Stash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -61,6 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
+            BuildableName = "StashSampleUITests.xctest"
+            BlueprintName = "StashSampleUITests"
+            ReferencedContainer = "container:Stash.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E11C3C86223BA5E100F94F56"
+            BuildableName = "StashSampleUITests.xctest"
+            BlueprintName = "StashSampleUITests"
+            ReferencedContainer = "container:Stash.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
