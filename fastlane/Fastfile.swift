@@ -33,12 +33,12 @@ class Fastfile: LaneFile {
 
     func uiTestLane() {
         desc("Run UI tests")
-        runTests(project: "Stash.xcodeproj", scheme: "StashSampleUITests", device: "iPhone X", prelaunchSimulator: true)
+        runTests(workspace: "Stash.xcworkspace", scheme: "StashSampleUITests", device: "iPhone X", prelaunchSimulator: true)
     }
 
     func unitTestLane() {
         desc("Run Unit tests")
-        runTests(project: "Stash.xcodeproj", scheme: "StashTests", prelaunchSimulator: true)
+        runTests(workspace: "Stash.xcworkspace", scheme: "StashTests", prelaunchSimulator: true)
     }
 
     func betaLane() {
@@ -67,14 +67,14 @@ class Fastfile: LaneFile {
     }
 
     private func betaSample(buildSecret: String, apiKey: String, changeLog: String) {
-        buildApp(project: "Stash.xcodeproj", scheme: "StashSample", clean: false,
+        buildApp(workspace: "Stash.xcworkspace", scheme: "StashSample", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
                     apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"), notifications: false)
     }
 
     private func betaDemo(buildSecret: String, apiKey: String, changeLog: String) {
-        buildApp(project: "StashDemo/StashDemo.xcodeproj", scheme: "StashDemo", clean: false,
+        buildApp(workspace: "Stash.xcworkspace", scheme: "StashDemo", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./StashDemo/other/Crashlytics.framework/submit",
                     apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"),
