@@ -12,7 +12,7 @@ setup_git() {
   openssl aes-256-cbc \
      -K $encrypted_1a1cd4d34da0_key \
      -iv $encrypted_1a1cd4d34da0_iv \
-     -in "github_deploy_key.enc" \
+     -in ".travis/github_deploy_key.enc" \
      -out github_deploy_key -d
 
   # Enable SSH authentication
