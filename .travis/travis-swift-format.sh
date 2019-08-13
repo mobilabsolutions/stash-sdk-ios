@@ -50,7 +50,7 @@ push_commit() {
   # list origins
   git remote -v
   # push to remote
-  git push --quiet origin "$TRAVIS_BRANCH"
+  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push --quiet origin "$TRAVIS_BRANCH"
 }
 
 
@@ -65,7 +65,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 
   # Attempt to commit to git only if "git commit" succeeded
   if [ $? -eq 0 ]; then
-    echo "A new commit with SwiftFormat changes exists. Uploading to GitHub"
+    echo "A new commit with SwiftFormat is created. Uploading to GitHub..."
     push_commit
   else
     echo "No changes in Swiftformat. Nothing to do"
