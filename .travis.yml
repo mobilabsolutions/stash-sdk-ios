@@ -23,24 +23,24 @@ jobs:
   include:
     - stage: test
       name: "Unit Tests"
-      script: bash travis-build.sh
+      script: bash .travis/travis-build.sh
       env:
         - TEST_SUITE=unit
     - # stage name not required, will continue to use `test`
-      script: bash travis-build.sh
+      script: bash .travis/travis-build.sh
       name: "UI Tests"
       env: 
         - TEST_SUITE=ui
     - stage: swiftformat
       if: type = pull_request
-      script: bash travis-swift-format.sh
+      script: bash .travis/travis-swift-format.sh
     - stage: deploy
       script: echo "Starting with beta deployment"
       if: branch = master AND type != pull_request
       deploy: 
         provider: script
         skip_cleanup: true
-        script: bash travis-deploy.sh
+        script: bash .travis/travis-deploy.sh
         on:
           branch: 
             master
