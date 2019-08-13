@@ -166,6 +166,7 @@
 		E11C3C93223BA78500F94F56 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
 		E11C3C95223BEF3100F94F56 /* StashBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* StashBackendError.swift */; };
 		E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F482273100D001F9925 /* IdempotencyTests.swift */; };
+		E130D1B92302933A0067C295 /* StashBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E130D1B82302933A0067C295 /* StashBridge.swift */; };
 		E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */; };
 		E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BF229D856A00601880 /* CreditCardType.swift */; };
 		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
@@ -217,8 +218,6 @@
 		E17648F5223A817100889920 /* AddUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F4223A817100889920 /* AddUIViewController.swift */; };
 		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
 		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
-		E1764917223AAD6700889920 /* StashBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* StashBridge.swift */; };
-		E1764917223AAD6700889920 /* MobilabPaymentSDKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */; };
 		E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136A22F4305A004508D3 /* PresentableValueHolding.swift */; };
 		E189136D22F437BE004508D3 /* CountryValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136C22F437BE004508D3 /* CountryValueHolding.swift */; };
 		E189137122F438F9004508D3 /* NonEmptyStringValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */; };
@@ -536,6 +535,7 @@
 		E11F2F482273100D001F9925 /* IdempotencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdempotencyTests.swift; sourceTree = "<group>"; };
 		E1209BC12248DFE10060CD63 /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
+		E130D1B82302933A0067C295 /* StashBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StashBridge.swift; sourceTree = "<group>"; };
 		E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegration.swift; sourceTree = "<group>"; };
 		E13CD2BF229D856A00601880 /* CreditCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardType.swift; sourceTree = "<group>"; };
 		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
@@ -586,8 +586,6 @@
 		E17648F4223A817100889920 /* AddUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUIViewController.swift; sourceTree = "<group>"; };
 		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		E1764916223AAD6700889920 /* StashBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBridge.swift; sourceTree = "<group>"; };
-		E1764916223AAD6700889920 /* MobilabPaymentSDKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilabPaymentSDKBridge.swift; sourceTree = "<group>"; };
 		E189136A22F4305A004508D3 /* PresentableValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableValueHolding.swift; sourceTree = "<group>"; };
 		E189136C22F437BE004508D3 /* CountryValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryValueHolding.swift; sourceTree = "<group>"; };
 		E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyStringValueHolding.swift; sourceTree = "<group>"; };
@@ -879,7 +877,7 @@
 				BAA9826E224A4CE000D551DE /* UI */,
 				BACD619F2226C8E300E3ACC3 /* Integration */,
 				1DC5CBC920D410F9002058C1 /* Stash.swift */,
-				E1764916223AAD6700889920 /* StashBridge.swift */,
+				E130D1B82302933A0067C295 /* StashBridge.swift */,
 				1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */,
 				BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */,
 			);
@@ -1968,7 +1966,6 @@
 				E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */,
 				BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
-				E1764917223AAD6700889920 /* StashBridge.swift in Sources */,
 				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
 				E1068E9F22522B2000ACC93C /* SubtitleLabel.swift in Sources */,
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
@@ -2032,6 +2029,7 @@
 				BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */,
 				E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */,
 				BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */,
+				E130D1B92302933A0067C295 /* StashBridge.swift in Sources */,
 				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
 				E189137322F43988004508D3 /* IntValueHolding.swift in Sources */,
 				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
