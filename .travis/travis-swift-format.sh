@@ -32,7 +32,7 @@ git branch -a
 git fetch --all
 git branch -a
 
-  git checkout "$TRAVIS_PULL_REQUEST_BRANCH"
+  git checkout "$TRAVIS_BRANCH"
   # Run SwiftFormat
   swiftformat .
   # Stage the modified files
@@ -61,7 +61,7 @@ push_commit() {
   echo "$TRAVIS_BRANCH"
 
   # push to remote
-  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push
+  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push origin "$TRAVIS_BRANCH"
 }
 
 
