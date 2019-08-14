@@ -26,6 +26,9 @@ setup_git() {
 
 
 runSwiftFormat() {
+
+git branch -a
+
   git checkout "$TRAVIS_PULL_REQUEST_BRANCH"
   # Run SwiftFormat
   swiftformat .
