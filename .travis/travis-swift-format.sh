@@ -27,6 +27,9 @@ setup_git() {
 
 runSwiftFormat() {
 
+git log
+git branch -a
+git fetch --all
 git branch -a
 
   git checkout "$TRAVIS_PULL_REQUEST_BRANCH"
