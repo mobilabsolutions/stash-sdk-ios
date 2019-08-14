@@ -24,6 +24,7 @@ setup_git() {
   git config --global user.name "$GH_USER_NAME"
 }
 
+
 runSwiftFormat() {
   git checkout "$TRAVIS_PULL_REQUEST_BRANCH"
   # Run SwiftFormat
@@ -54,7 +55,7 @@ push_commit() {
   echo "$TRAVIS_BRANCH"
 
   # push to remote
-  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push origin "$TRAVIS_BRANCH"
+  GIT_SSH_COMMAND="ssh -v" GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push origin "$TRAVIS_PULL_REQUEST_BRANCH"
 }
 
 
