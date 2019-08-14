@@ -37,6 +37,12 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
     }
 
+    func testCanRegisterAndUseBraintreeCreditCard() {
+        let app = XCUIApplication()
+        registerCreditCard(psp: "BRAINTREE", in: app)
+        verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
+    }
+
     func testCanRegisterAndUseAdyenSEPA() {
         let app = XCUIApplication()
         registerSEPA(psp: "ADYEN", in: app)
@@ -109,6 +115,12 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
             cardNumber = "3600 6666 3333 44"
             cvv = "737"
             month = "10"
+            year = "2020"
+            countryIndex = nil
+        case "BRAINTREE":
+            cardNumber = "4111 1111 1111 1111"
+            cvv = "123"
+            month = "01"
             year = "2020"
             countryIndex = nil
         default:
