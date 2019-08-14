@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CountryInputPresentingDelegate: class {
+protocol CountryInputPresentingDelegate: AnyObject {
     func presentCountryInput(countryDelegate: CountryListCollectionViewControllerDelegate)
 }

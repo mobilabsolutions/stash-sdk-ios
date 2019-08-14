@@ -59,13 +59,13 @@ class BraintreeIntegrationTests: XCTestCase {
 
         waitForExpectations(timeout: 20)
     }
-    
+
     func testHasCorrectPaymentMethodUITypes() {
         let expected: Set = [PaymentMethodType.creditCard, PaymentMethodType.payPal]
-        
+
         guard let supported = provider?.supportedPaymentMethodTypeUserInterfaces
-            else { XCTFail("Could not get supported payment method types for UI from Braintree provider"); return }
-        
+        else { XCTFail("Could not get supported payment method types for UI from Braintree provider"); return }
+
         XCTAssertEqual(expected, Set(supported), "Braintree should allow UI payment methods: \(expected) but allows: \(supported)")
     }
 }
