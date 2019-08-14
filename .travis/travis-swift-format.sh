@@ -65,7 +65,7 @@ push_commit() {
 }
 
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo "This is a pull request. Starting SwiftFormat."
 
   install_swiftformat
