@@ -21,16 +21,16 @@ install:
 
 jobs:
   include:
-  #  - stage: test
-  #    name: "Unit Tests"
-  #    script: bash .travis/travis-build.sh
-  #    env:
-  #      - TEST_SUITE=unit
-  #  - # stage name not required, will continue to use `test`
-  #    script: bash .travis/travis-build.sh
-   #   name: "UI Tests"
-  #    env: 
-  #      - TEST_SUITE=ui
+    - stage: test
+      name: "Unit Tests"
+      script: bash .travis/travis-build.sh
+      env:
+        - TEST_SUITE=unit
+    - # stage name not required, will continue to use `test`
+      script: bash .travis/travis-build.sh
+      name: "UI Tests"
+      env: 
+        - TEST_SUITE=ui
     - stage: swiftformat
       if: branch != master AND type != pull_request
       script: bash .travis/travis-swift-format.sh
