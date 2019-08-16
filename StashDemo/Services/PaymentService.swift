@@ -236,10 +236,11 @@ class PaymentService {
         else { return }
 
         let adyen = StashAdyen()
-        let adyenIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen)
+        guard let adyenIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen, paymentMethodTypes: [.sepa])
+        else { fatalError("Adyen should support SEPA payment method but does not!") }
 
         let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
-        guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal])
+        guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal, .creditCard])
         else { fatalError("Braintree should support PayPal payment method but does not!") }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",

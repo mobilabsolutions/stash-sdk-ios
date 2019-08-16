@@ -22,7 +22,8 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
 
-    private let pspTypes = [StashPaymentProvider.bsPayone, StashPaymentProvider.adyen]
+    private let pspTypes = [StashPaymentProvider.bsPayone, StashPaymentProvider.adyen, StashPaymentProvider.braintree]
+
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
     private var sdkWasInitialized = false
@@ -119,21 +120,31 @@ class AddUIViewController: UIViewController {
         guard !self.sdkWasInitialized
         else { return }
 
-        let provider: PaymentServiceProvider
+        let adyen = StashAdyen()
+        let bsPayOne = StashBSPayone()
+        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
+
+        let providerIntegration: PaymentProviderIntegration
+        let braintreeIntegration: PaymentProviderIntegration
 
         switch psp {
         case .adyen:
-            provider = StashAdyen()
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen,
+                                                             paymentMethodTypes: [.sepa, .creditCard])!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.payPal])!
+        case .braintree:
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
+                                                             paymentMethodTypes: [.sepa])!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.creditCard, .payPal])!
         case .bsPayone: fallthrough
         default:
-            provider = StashBSPayone()
+            providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
+                                                             paymentMethodTypes: [.creditCard, .sepa])!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.payPal])!
         }
-
-        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
-
-        let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree)
-        guard let providerIntegration = PaymentProviderIntegration(paymentServiceProvider: provider, paymentMethodTypes: [.sepa, .creditCard])
-        else { fatalError("Should be able to create Adyen or BS provider integration for sepa and credit card") }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",

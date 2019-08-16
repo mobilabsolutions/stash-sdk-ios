@@ -37,6 +37,12 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
     }
 
+    func testCanRegisterAndUseBraintreeCreditCard() {
+        let app = XCUIApplication()
+        registerCreditCard(psp: "BRAINTREE", in: app)
+        verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
+    }
+
     func testCanRegisterAndUseAdyenSEPA() {
         let app = XCUIApplication()
         registerSEPA(psp: "ADYEN", in: app)
@@ -111,6 +117,12 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
             month = "10"
             year = "2020"
             countryIndex = nil
+        case "BRAINTREE":
+            cardNumber = "4111 1111 1111 1111"
+            cvv = "123"
+            month = "01"
+            year = "2020"
+            countryIndex = nil
         default:
             cardNumber = "4111 1111 1111 1111"
             cvv = "737"
@@ -144,7 +156,7 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        waitForElementToAppear(element: app.alerts.firstMatch)
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 8)
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")

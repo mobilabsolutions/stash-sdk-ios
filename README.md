@@ -9,7 +9,7 @@ Many applications need to process payments for digital or physical goods. Implem
 
 At the moment, the Stash iOS SDK supports the following PSPs:
 - BSPayone [Credit Cards / SEPA]
-- Braintree [PayPal]
+- Braintree [Credit Cards / PayPal]
 - Adyen [Credit Cards / SEPA]
 
 ## Requirements
