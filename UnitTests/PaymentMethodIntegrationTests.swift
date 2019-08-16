@@ -1,30 +1,30 @@
 //
 //  PaymentMethodIntegrationTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 19.07.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import MobilabPaymentAdyen
-import MobilabPaymentBSPayone
-import MobilabPaymentCore
+import StashAdyen
+import StashBSPayone
+import StashCore
 import XCTest
 
 class PaymentMethodIntegrationTests: XCTestCase {
     private let backend = TestMerchantBackend()
 
     override func setUp() {
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     override func tearDown() {
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
     }
 
     func testCanCreateBSPayoneCreditCard() throws {
         self.initializeSDKForBSPayone()
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
 
         let creditCard = try CreditCardData(cardNumber: "5453010000080200",
                                             cvv: "123",
@@ -56,7 +56,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
 
     func testCanCreateBSPayoneSEPAMethod() throws {
         self.initializeSDKForBSPayone()
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
 
         let sepa = try SEPAData(iban: "DE85123456782599100003",
                                 bic: "TESTTEST",
@@ -85,7 +85,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
 
     func testCanCreateAdyenCreditCard() throws {
         self.initializeSDKForAdyen()
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
 
         let creditCard = try CreditCardData(cardNumber: "6011 6011 6011 6611",
                                             cvv: "737",
@@ -117,7 +117,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
 
     func testCanCreateAdyenSEPAMethod() throws {
         self.initializeSDKForAdyen()
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
 
         let sepa = try SEPAData(iban: "DE14123456780023456789",
                                 bic: nil,
@@ -215,20 +215,20 @@ class PaymentMethodIntegrationTests: XCTestCase {
     }
 
     private func initializeSDKForAdyen() {
-        self.initializeSDK(for: MobilabPaymentAdyen())
+        self.initializeSDK(for: StashAdyen())
     }
 
     private func initializeSDKForBSPayone() {
-        self.initializeSDK(for: MobilabPaymentBSPayone())
+        self.initializeSDK(for: StashBSPayone())
     }
 
     private func initializeSDK(for provider: PaymentServiceProvider) {
         let integration = PaymentProviderIntegration(paymentServiceProvider: provider)
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [integration])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [integration])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
     }
 }

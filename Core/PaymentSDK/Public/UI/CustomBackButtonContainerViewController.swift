@@ -1,6 +1,6 @@
 //
 //  CustomBackButtonContainerViewController.swift
-//  MobilabPaymentBSPayone
+//  StashBSPayone
 //
 //  Created by Robert on 21.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -90,7 +90,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     /// Hand along errors that happen during the payment creation process to the contained view controller
     ///
     /// - Parameter error: The error that occurred
-    public func errorWhileCreatingPaymentMethod(error: MobilabPaymentError) {
+    public func errorWhileCreatingPaymentMethod(error: StashError) {
         self.viewController.errorWhileCreatingPaymentMethod(error: error)
     }
 }

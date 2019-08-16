@@ -156,7 +156,7 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        waitForElementToAppear(element: app.alerts.firstMatch)
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 8)
 
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")
@@ -201,7 +201,7 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         let springBoard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 
         let alert = springBoard.alerts.firstMatch
-        XCTAssert(alert.waitForExistence(timeout: 10))
+        XCTAssert(alert.waitForExistence(timeout: 15))
         alert.buttons["Continue"].tap()
 
         let webViewButton = app.webViews

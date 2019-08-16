@@ -1,6 +1,6 @@
 //
 //  URL+Extras.swift
-//  MobilabPayment
+//  StashCore
 //
 //  Created by Borna Beakovic on 07/03/2019.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

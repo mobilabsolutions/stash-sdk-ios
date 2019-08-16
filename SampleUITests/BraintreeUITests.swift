@@ -49,8 +49,8 @@ class BraintreeUITests: BaseUITest {
 
         let springBoard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 
-        let alert = springBoard.alerts.containing(NSPredicate(format: "label CONTAINS \"Wants to Use\"")).firstMatch
-        XCTAssert(alert.waitForExistence(timeout: 10))
+        let alert = springBoard.alerts.firstMatch
+        XCTAssert(alert.waitForExistence(timeout: 15))
         alert.buttons["Cancel"].tap()
 
         self.waitForElementToAppear(element: payPalCell, timeout: 10)

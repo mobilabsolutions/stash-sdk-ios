@@ -9,12 +9,12 @@
 import UIKit
 
 /// A struct including all information generated from starting payment method registration
-/// and having created an alias in the Mobilab backend for it.
+/// and having created an alias in the Stash backend for it.
 /// - Used solely during module development
 public struct RegistrationRequest {
-    /// The created Mobilab alias for the payment method
+    /// The created Stash alias for the payment method
     public let aliasId: String
-    /// Data about the PSP as fetched from Mobilab backend's configuration
+    /// Data about the PSP as fetched from Stash backend's configuration
     public let pspData: PSPExtra
     /// User provided registration data: e.g. SEPAData/CreditCardData/PayPalData
     public let registrationData: RegistrationData?

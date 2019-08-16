@@ -1,0 +1,2969 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
+		1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CC0B20E281180011F901 /* String+Extras.swift */; };
+		1DC5CB9F20D2BF5E002058C1 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		1DC5CBA420D2BF5E002058C1 /* BSPayoneIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBA320D2BF5E002058C1 /* BSPayoneIntegrationTests.swift */; };
+		1DC5CBA620D2BF5E002058C1 /* Stash.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5CB9820D2BF5E002058C1 /* Stash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */; };
+		1DC5CBC220D40F9D002058C1 /* StashConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC120D40F9D002058C1 /* StashConfiguration.swift */; };
+		1DC5CBCA20D410F9002058C1 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBC920D410F9002058C1 /* Stash.swift */; };
+		1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */; };
+		1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */; };
+		1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */; };
+		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
+		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
+		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
+		2E2B3BE422FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B3BE322FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift */; };
+		2E842E3322FDA90A005AC5B5 /* BraintreeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E842E3222FDA90A005AC5B5 /* BraintreeIntegrationTests.swift */; };
+		2EF51FA222F9B9BE00416ABE /* CreditCardBraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */; };
+		4419A6262253AF3B00FF4C80 /* StashError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419A6252253AF3B00FF4C80 /* StashError.swift */; };
+		BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */; };
+		BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */; };
+		BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */; };
+		BA078EE222E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */; };
+		BA078EE422E085EF00E199B4 /* CreditCardDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */; };
+		BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */; };
+		BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */; };
+		BA078EEA22E087A100E199B4 /* StashErrorBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EE922E087A100E199B4 /* StashErrorBridge.swift */; };
+		BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */; };
+		BA09A957224D60E8006C3A1D /* StashAdyen.h in Headers */ = {isa = PBXBuildFile; fileRef = BA09A955224D60E8006C3A1D /* StashAdyen.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA09A95A224D60E8006C3A1D /* StashAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* StashAdyen.framework */; };
+		BA09A95B224D60E8006C3A1D /* StashAdyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* StashAdyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA0B9BB2224FA91A0029FC8D /* AdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */; };
+		BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */; };
+		BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */; };
+		BA0B9BBA224FB6D10029FC8D /* AdyenIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */; };
+		BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */ = {isa = PBXBuildFile; fileRef = BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */; };
+		BA21F4F8224D65A3004CEAA2 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */; };
+		BA21F4FF224D6659004CEAA2 /* StashAdyen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B12226CF6600E3ACC3 /* StashAdyen.swift */; };
+		BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */; };
+		BA2A3AC4223BBAD200689A3A /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
+		BA2A3AC5223BBAD200689A3A /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
+		BA2A3AC7223BBAD200689A3A /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
+		BA2A3AC8223BBAD200689A3A /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
+		BA2A3AC9223BBAD200689A3A /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
+		BA2A3ACA223BBAD200689A3A /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; };
+		BA2A3AEF223BCE5700689A3A /* BraintreePayPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
+		BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */; };
+		BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */; };
+		BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */; };
+		BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B422296B6F00B7A635 /* AliasResponse.swift */; };
+		BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */; };
+		BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */; };
+		BA5F8253223AE85400D92D3E /* StashBraintree.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A39223AE7C200C39300 /* StashBraintree.swift */; };
+		BA6D677222442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */; };
+		BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */; };
+		BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */; };
+		BA6D678622445F3C00463E0F /* StashBraintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* StashBraintree.framework */; };
+		BA6D6788224460FB00463E0F /* BraintreePayPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
+		BA6D6789224460FB00463E0F /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; };
+		BA6D678A224460FB00463E0F /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
+		BA6D678B224460FB00463E0F /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
+		BA6D678C224460FB00463E0F /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
+		BA6D678D224460FB00463E0F /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
+		BA6D678E224460FB00463E0F /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		BA6D678F224460FB00463E0F /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
+		BA6D6790224460FB00463E0F /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
+		BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67922244683900463E0F /* FatalErrorAssertion.swift */; };
+		BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */; };
+		BA84B3662271C6790016E255 /* PayPalUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84B3652271C6790016E255 /* PayPalUIManager.swift */; };
+		BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D070F2226AE56004F699A /* AppDelegate.swift */; };
+		BA8D07152226AE56004F699A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07132226AE56004F699A /* Main.storyboard */; };
+		BA8D07172226AE57004F699A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07162226AE57004F699A /* Assets.xcassets */; };
+		BA8D071A2226AE57004F699A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8D07182226AE57004F699A /* LaunchScreen.storyboard */; };
+		BA945A08223A83E600C39300 /* PayPalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA945A07223A83E600C39300 /* PayPalData.swift */; };
+		BA945A2F223A890100C39300 /* StashBraintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BA945A2D223A890100C39300 /* StashBraintree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA945A32223A890100C39300 /* StashBraintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* StashBraintree.framework */; };
+		BA945A33223A890100C39300 /* StashBraintree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* StashBraintree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA945A37223A894800C39300 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		BA95FC5C224D7F480026BCD9 /* StashBSPayone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A961224D6182006C3A1D /* StashBSPayone.swift */; };
+		BA95FC5D224D7F4B0026BCD9 /* StashBSPayoneBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09A962224D6182006C3A1D /* StashBSPayoneBridge.swift */; };
+		BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */; };
+		BABC7D63224229F900028C29 /* StashBraintreeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABC7D62224229F900028C29 /* StashBraintreeBridge.swift */; };
+		BACD61952226B03600E3ACC3 /* MobilabPaymentBSPayone.h in Headers */ = {isa = PBXBuildFile; fileRef = BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BACD61982226B03600E3ACC3 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
+		BACD61992226B03600E3ACC3 /* StashBSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */; };
+		BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */; };
+		BACD61A82226CA6D00E3ACC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A72226CA6D00E3ACC3 /* Foundation.framework */; };
+		BACD61AA2226CA8F00E3ACC3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */; };
+		BACD61AC2226CA9500E3ACC3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61AB2226CA9500E3ACC3 /* UIKit.framework */; };
+		BACD61B32226CFE800E3ACC3 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */; };
+		BAD64631222E840D00771DC0 /* AliasExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64630222E840D00771DC0 /* AliasExtra.swift */; };
+		BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64632222EB74B00771DC0 /* UpdateAliasRequest.swift */; };
+		BAD64635222EBB9B00771DC0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64634222EBB9B00771DC0 /* Header.swift */; };
+		BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */; };
+		BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6463D222EC29500771DC0 /* PSPExtra.swift */; };
+		BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6464D2230799F00771DC0 /* Codable+Extras.swift */; };
+		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
+		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
+		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
+		BAE8FFC0222D4127005D2E47 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
+		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
+		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
+		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
+		C42D56BE228AC53B00312CC1 /* Locale+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */; };
+		C42D56C0228AE38300312CC1 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56BF228AE38300312CC1 /* Country.swift */; };
+		C42D56C2228C32A400312CC1 /* CountryDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D56C1228C32A400312CC1 /* CountryDataTests.swift */; };
+		C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */; };
+		C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */; };
+		C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DC227C9AA400D3A986 /* HeaderView.swift */; };
+		C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49DE22806BFA00D3A986 /* SearchView.swift */; };
+		C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F49E022819C6900D3A986 /* UIView+Extensions.swift */; };
+		E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */; };
+		E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */; };
+		E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
+		E1068E9822522AE100ACC93C /* DataPointProvidingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */; };
+		E1068E9922522AE100ACC93C /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF8B2243959800413764 /* UIConstants.swift */; };
+		E1068E9A22522B2000ACC93C /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FFC32243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift */; };
+		E1068E9B22522B2000ACC93C /* PaymentMethodTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */; };
+		E1068E9C22522B2000ACC93C /* TextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */; };
+		E1068E9D22522B2000ACC93C /* DoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */; };
+		E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF892243945A00413764 /* CustomTextField.swift */; };
+		E1068E9F22522B2000ACC93C /* SubtitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF8D22439CD900413764 /* SubtitleLabel.swift */; };
+		E1068EA022522B2000ACC93C /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FFB92243CCE400413764 /* TitleHeaderView.swift */; };
+		E1068EA122522B2000ACC93C /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1209BC12248DFE10060CD63 /* ErrorLabel.swift */; };
+		E1068EA222522BF200ACC93C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E162FFA72243A76700413764 /* Media.xcassets */; };
+		E1068EA322522BF600ACC93C /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E162FFCA2244CFBB00413764 /* Lato-Medium.ttf */; };
+		E1068EA422522BF600ACC93C /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E162FFB12243C0D300413764 /* Lato-Black.ttf */; };
+		E1068EA522522BF600ACC93C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E162FFB32243C0D300413764 /* Lato-Bold.ttf */; };
+		E1068EA622522BF600ACC93C /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E162FFB22243C0D300413764 /* Lato-Regular.ttf */; };
+		E1068EA722522CB000ACC93C /* CustomBackButtonContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */; };
+		E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */; };
+		E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */; };
+		E1068EAE2252549C00ACC93C /* FormCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EAD2252549C00ACC93C /* FormCellModel.swift */; };
+		E1068EB022525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */; };
+		E1068EB222533D3700ACC93C /* FormConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EB122533D3700ACC93C /* FormConsumer.swift */; };
+		E1068EB722535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EB622535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift */; };
+		E1068EB922535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EB822535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift */; };
+		E1131F722236628D0025A711 /* PaymentMethodsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F712236628D0025A711 /* PaymentMethodsCollectionViewController.swift */; };
+		E1131F742236638A0025A711 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		E1131F752236638A0025A711 /* StashCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E113BA6A228B2FCA00C9BA79 /* BraintreeDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; };
+		E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */; };
+		E117E019224B9F1800E4C591 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */; };
+		E117E01C224BA0FD00E4C591 /* bs_credit_card_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01B224BA0FD00E4C591 /* bs_credit_card_success.json */; };
+		E117E01E224BA18D00E4C591 /* bs_credit_card_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01D224BA18D00E4C591 /* bs_credit_card_failure.json */; };
+		E117E020224BA41400E4C591 /* bs_sepa_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E117E01F224BA41400E4C591 /* bs_sepa_success.json */; };
+		E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C02223AB64F00F94F56 /* AppDelegate.m */; };
+		E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C05223AB64F00F94F56 /* ViewController.m */; };
+		E11C3C09223AB64F00F94F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E11C3C07223AB64F00F94F56 /* Main.storyboard */; };
+		E11C3C0B223AB65000F94F56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11C3C0A223AB65000F94F56 /* Assets.xcassets */; };
+		E11C3C0E223AB65000F94F56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E11C3C0C223AB65000F94F56 /* LaunchScreen.storyboard */; };
+		E11C3C11223AB65000F94F56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C10223AB65000F94F56 /* main.m */; };
+		E11C3C20223AB69D00F94F56 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		E11C3C21223AB69D00F94F56 /* StashCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E11C3C24223AB69D00F94F56 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
+		E11C3C25223AB69D00F94F56 /* StashBSPayone.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */; };
+		E11C3C93223BA78500F94F56 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */; };
+		E11C3C95223BEF3100F94F56 /* StashBackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C94223BEF3100F94F56 /* StashBackendError.swift */; };
+		E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2F482273100D001F9925 /* IdempotencyTests.swift */; };
+		E130D1B92302933A0067C295 /* StashBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E130D1B82302933A0067C295 /* StashBridge.swift */; };
+		E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */; };
+		E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13CD2BF229D856A00601880 /* CreditCardType.swift */; };
+		E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14662542278A78B00512710 /* CodableTwoTuple.swift */; };
+		E146625F227C383B00512710 /* PaymentMethodAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146625E227C383B00512710 /* PaymentMethodAlias.swift */; };
+		E1466261227C397200512710 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466260227C397200512710 /* PersonalData.swift */; };
+		E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466262227C399F00512710 /* CreditCardExtra.swift */; };
+		E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466264227C39BF00512710 /* SEPAExtra.swift */; };
+		E1466267227C39D900512710 /* PayPalExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1466266227C39D900512710 /* PayPalExtra.swift */; };
+		E146626B227C488600512710 /* CreditCardBSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146626A227C488600512710 /* CreditCardBSPayoneData.swift */; };
+		E146626D227C48ED00512710 /* SEPABSPayoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146626C227C48ED00512710 /* SEPABSPayoneData.swift */; };
+		E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */; };
+		E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */; };
+		E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */; };
+		E15E06F4228B3A1A007F5FA4 /* BraintreeDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; };
+		E15E0704228DAE3B007F5FA4 /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
+		E15E0709228DAE64007F5FA4 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */; };
+		E15E070C228EAA44007F5FA4 /* BraintreeDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; };
+		E15E070D228EAA44007F5FA4 /* BraintreeDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E070E228EAA44007F5FA4 /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E15E070F228EAA44007F5FA4 /* Adyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0710228EAA44007F5FA4 /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E15E0711228EAA44007F5FA4 /* AdyenCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0712228EAA44007F5FA4 /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E15E0713228EAA44007F5FA4 /* AdyenInternal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0714228EAA44007F5FA4 /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */; };
+		E15E3E282293ECA900EE19EE /* FormFieldErrorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */; };
+		E15E3E2B229425FD00EE19EE /* ErrorPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */; };
+		E1663E0222367C2000372658 /* AliasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0122367C2000372658 /* AliasManager.swift */; };
+		E1663E0522368D4200372658 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0422368D4200372658 /* Alias.swift */; };
+		E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */; };
+		E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0A2237C5CE00372658 /* ModuleIntegrationTests.swift */; };
+		E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D02237F2AB00889920 /* CreditCardDataTests.swift */; };
+		E17648D42237FD7300889920 /* CreditCardTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D22237FCC100889920 /* CreditCardTypeExtensions.swift */; };
+		E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D5223923FB00889920 /* CreditCardUtils.swift */; };
+		E17648DA2239466400889920 /* SEPAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648D92239466400889920 /* SEPAUtils.swift */; };
+		E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648DB2239472500889920 /* StringExtensionTests.swift */; };
+		E17648DF2239522000889920 /* SEPADataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648DE2239522000889920 /* SEPADataTests.swift */; };
+		E17648E2223A583C00889920 /* InternalPaymentMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648E1223A583C00889920 /* InternalPaymentMethodType.swift */; };
+		E17648E5223A5B4A00889920 /* PaymentMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648E4223A5B4A00889920 /* PaymentMethodType.swift */; };
+		E17648EB223A66CF00889920 /* RegistrationFlowNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */; };
+		E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */; };
+		E17648F3223A6D2F00889920 /* PaymentMethodDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F2223A6D2F00889920 /* PaymentMethodDataProvider.swift */; };
+		E17648F5223A817100889920 /* AddUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F4223A817100889920 /* AddUIViewController.swift */; };
+		E17648F7223A833200889920 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F6223A833200889920 /* MainTabBarController.swift */; };
+		E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17648F8223A840400889920 /* UIViewController+Extensions.swift */; };
+		E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136A22F4305A004508D3 /* PresentableValueHolding.swift */; };
+		E189136D22F437BE004508D3 /* CountryValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136C22F437BE004508D3 /* CountryValueHolding.swift */; };
+		E189137122F438F9004508D3 /* NonEmptyStringValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */; };
+		E189137322F43988004508D3 /* IntValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137222F43988004508D3 /* IntValueHolding.swift */; };
+		E189137522F44DB9004508D3 /* CountryInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */; };
+		E189137722F45155004508D3 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137622F45155004508D3 /* CustomButton.swift */; };
+		E189137922F45C38004508D3 /* CountryInputPresentingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */; };
+		E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189618E22647C810044D3CE /* AliasCreationDetail.swift */; };
+		E18E121A22F996D3005C15BE /* StashAdyenBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E121922F996D3005C15BE /* StashAdyenBridge.swift */; };
+		E1970DB42297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */; };
+		E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1970DB7229844B200D075A7 /* SDKResetter.swift */; };
+		E1995B1B2253A13800BF24A2 /* NextCellEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */; };
+		E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */ = {isa = PBXBuildFile; fileRef = E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */; };
+		E1995B1F22560BD200BF24A2 /* PatternUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */; };
+		E1995B2722561EA500BF24A2 /* ValidationErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */; };
+		E1995B2922561F3700BF24A2 /* TitleProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2822561F3700BF24A2 /* TitleProviding.swift */; };
+		E1995B2B22561FAD00BF24A2 /* SDKConfigurationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */; };
+		E1995B3122562A5200BF24A2 /* TemporaryErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3022562A5200BF24A2 /* TemporaryErrorDetails.swift */; };
+		E1995B3322562AFB00BF24A2 /* GenericErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3222562AFB00BF24A2 /* GenericErrorDetails.swift */; };
+		E1995B3522562C4E00BF24A2 /* NetworkErrorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3422562C4E00BF24A2 /* NetworkErrorDetails.swift */; };
+		E1995B37225749A600BF24A2 /* BSPayoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B36225749A600BF24A2 /* BSPayoneUITests.swift */; };
+		E1995B39225749D900BF24A2 /* BaseUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B38225749D900BF24A2 /* BaseUITest.swift */; };
+		E1995B3B22574A6800BF24A2 /* BraintreeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */; };
+		E1995B3D22574AC500BF24A2 /* BasePaymentModulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */; };
+		E1995B3F22574B5500BF24A2 /* AdyenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */; };
+		E1ABA71223069A630014F59E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; };
+		E1ABA71323069A630014F59E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; };
+		E1AE1C35228F070B0054D098 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AE1C34228F070B0054D098 /* AlertBanner.swift */; };
+		E1AEECFE2278224B005DE2BC /* BraintreeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2E22562A2300BF24A2 /* BraintreeError.swift */; };
+		E1AF91962267446900BA0B82 /* StashErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* StashErrorConvertible.swift */; };
+		E1AF91972267446900BA0B82 /* BSCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */; };
+		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
+		E1C9A85E22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */; };
+		E1CCF8F422DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */; };
+		E1CCF8FB22DDEF8D00B16494 /* TestMerchantBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */; };
+		E1CCF8FC22DDEF8E00B16494 /* TestMerchantBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */; };
+		E1CCF8FE22E198D200B16494 /* PaymentMethodIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */; };
+		E1D558F022648DE900BC856A /* AdyenAliasCreationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */; };
+		E1D558F12264A9EE00BC856A /* StashAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09A953224D60E8006C3A1D /* StashAdyen.framework */; };
+		E1D558F32264AA5200BC856A /* AdyenCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */; };
+		E1D558F42264AA5200BC856A /* Adyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF6225CCD2100BB20CA /* Adyen.framework */; };
+		E1D558F52264AA5200BC856A /* AdyenInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */; };
+		E1D558F62264AB8C00BC856A /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E1D558F72264C12100BC856A /* AdyenSEPA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */; };
+		E1D90155224A84480067BB8A /* StashBraintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* StashBraintree.framework */; };
+		E1D90156224A84480067BB8A /* StashBraintree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA945A2B223A890100C39300 /* StashBraintree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90159224A84660067BB8A /* BraintreePayPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; };
+		E1D9015A224A84660067BB8A /* BraintreePayPal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D9015B224A84660067BB8A /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; };
+		E1D9015C224A84660067BB8A /* BraintreeCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D9015D224A84660067BB8A /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; };
+		E1D9015E224A84660067BB8A /* BraintreeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90161224A84660067BB8A /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; };
+		E1D90162224A84660067BB8A /* BraintreePaymentFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90163224A84660067BB8A /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; };
+		E1D90164224A84660067BB8A /* BraintreeUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90165224A84660067BB8A /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; };
+		E1D90166224A84660067BB8A /* PayPalDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90169224A84660067BB8A /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; };
+		E1D9016A224A84660067BB8A /* PayPalUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90181224A88BA0067BB8A /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; };
+		E1D90182224A88BA0067BB8A /* BraintreeDropIn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1D90183224A88BA0067BB8A /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; };
+		E1D90184224A88BA0067BB8A /* PayPalOneTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1FDE0E6224D007B00BB960D /* core_create_alias_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E1FDE0E5224D007B00BB960D /* core_create_alias_success.json */; };
+		E1FDE0E8224D04BC00BB960D /* core_update_alias_success.json in Resources */ = {isa = PBXBuildFile; fileRef = E1FDE0E7224D04BC00BB960D /* core_update_alias_success.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1DC5CBA020D2BF5E002058C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
+			remoteInfo = MLPaymentSDK;
+		};
+		BA09A958224D60E8006C3A1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA09A952224D60E8006C3A1D;
+			remoteInfo = MobilabPaymentAdyen;
+		};
+		BA945A30223A890100C39300 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA945A2A223A890100C39300;
+			remoteInfo = Braintree;
+		};
+		BACD61962226B03600E3ACC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BACD61902226B03600E3ACC3;
+			remoteInfo = BSPayone;
+		};
+		E1131F762236638A0025A711 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
+			remoteInfo = MobilabPaymentCore;
+		};
+		E11C3C22223AB69D00F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DC5CB9420D2BF5E002058C1;
+			remoteInfo = MobilabPaymentCore;
+		};
+		E11C3C26223AB69D00F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BACD61902226B03600E3ACC3;
+			remoteInfo = MobilabPaymentBSPayone;
+		};
+		E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA8D070C2226AE56004F699A;
+			remoteInfo = Demo;
+		};
+		E11C3C8C223BA5E100F94F56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA8D070C2226AE56004F699A;
+			remoteInfo = Demo;
+		};
+		E1D90157224A84480067BB8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA945A2A223A890100C39300;
+			remoteInfo = MobilabPaymentBraintree;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BACD619D2226B03600E3ACC3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BACD61992226B03600E3ACC3 /* StashBSPayone.framework in Embed Frameworks */,
+				BA945A33223A890100C39300 /* StashBraintree.framework in Embed Frameworks */,
+				E1131F752236638A0025A711 /* StashCore.framework in Embed Frameworks */,
+				BA09A95B224D60E8006C3A1D /* StashAdyen.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3C28223AB69D00F94F56 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E15E0711228EAA44007F5FA4 /* AdyenCard.framework in Embed Frameworks */,
+				E15E0715228EAA44007F5FA4 /* AdyenSEPA.framework in Embed Frameworks */,
+				E15E0713228EAA44007F5FA4 /* AdyenInternal.framework in Embed Frameworks */,
+				E1D9015A224A84660067BB8A /* BraintreePayPal.framework in Embed Frameworks */,
+				E1D90166224A84660067BB8A /* PayPalDataCollector.framework in Embed Frameworks */,
+				E1D9015C224A84660067BB8A /* BraintreeCard.framework in Embed Frameworks */,
+				E1D9015E224A84660067BB8A /* BraintreeCore.framework in Embed Frameworks */,
+				E15E070F228EAA44007F5FA4 /* Adyen.framework in Embed Frameworks */,
+				E1D90156224A84480067BB8A /* StashBraintree.framework in Embed Frameworks */,
+				E1D90182224A88BA0067BB8A /* BraintreeDropIn.framework in Embed Frameworks */,
+				E1D9016A224A84660067BB8A /* PayPalUtils.framework in Embed Frameworks */,
+				E1D90164224A84660067BB8A /* BraintreeUIKit.framework in Embed Frameworks */,
+				E1D90184224A88BA0067BB8A /* PayPalOneTouch.framework in Embed Frameworks */,
+				E1D90162224A84660067BB8A /* BraintreePaymentFlow.framework in Embed Frameworks */,
+				E15E070D228EAA44007F5FA4 /* BraintreeDataCollector.framework in Embed Frameworks */,
+				E11C3C25223AB69D00F94F56 /* StashBSPayone.framework in Embed Frameworks */,
+				E11C3C21223AB69D00F94F56 /* StashCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1D34CBF220E129080011F901 /* Data+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extras.swift"; sourceTree = "<group>"; };
+		1D34CC0B20E281180011F901 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
+		1DC5CB9520D2BF5E002058C1 /* StashCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StashCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC5CB9820D2BF5E002058C1 /* Stash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stash.h; sourceTree = "<group>"; };
+		1DC5CB9920D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DC5CB9E20D2BF5E002058C1 /* StashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC5CBA320D2BF5E002058C1 /* BSPayoneIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSPayoneIntegrationTests.swift; sourceTree = "<group>"; };
+		1DC5CBA520D2BF5E002058C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		1DC5CBC120D40F9D002058C1 /* StashConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashConfiguration.swift; sourceTree = "<group>"; };
+		1DC5CBC920D410F9002058C1 /* Stash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
+		1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManager.swift; sourceTree = "<group>"; };
+		1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPaymentSDK.swift; sourceTree = "<group>"; };
+		1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequest.swift; sourceTree = "<group>"; };
+		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
+		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
+		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
+		2E2B3BE322FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeCreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
+		2E842E3222FDA90A005AC5B5 /* BraintreeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeIntegrationTests.swift; sourceTree = "<group>"; };
+		2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardBraintreeData.swift; sourceTree = "<group>"; };
+		4419A6252253AF3B00FF4C80 /* StashError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashError.swift; sourceTree = "<group>"; };
+		BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManagerBridge.swift; sourceTree = "<group>"; };
+		BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderBridge.swift; sourceTree = "<group>"; };
+		BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegrationBridge.swift; sourceTree = "<group>"; };
+		BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfigurationBridge.swift; sourceTree = "<group>"; };
+		BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataBridge.swift; sourceTree = "<group>"; };
+		BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataBridge.swift; sourceTree = "<group>"; };
+		BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodAliasBridge.swift; sourceTree = "<group>"; };
+		BA078EE922E087A100E199B4 /* StashErrorBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashErrorBridge.swift; sourceTree = "<group>"; };
+		BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypeBridge.swift; sourceTree = "<group>"; };
+		BA09A953224D60E8006C3A1D /* StashAdyen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StashAdyen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA09A955224D60E8006C3A1D /* StashAdyen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StashAdyen.h; sourceTree = "<group>"; };
+		BA09A956224D60E8006C3A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA09A961224D6182006C3A1D /* StashBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBSPayone.swift; sourceTree = "<group>"; };
+		BA09A962224D6182006C3A1D /* StashBSPayoneBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBSPayoneBridge.swift; sourceTree = "<group>"; };
+		BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAdyenData.swift; sourceTree = "<group>"; };
+		BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenData.swift; sourceTree = "<group>"; };
+		BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSPayoneData.swift; sourceTree = "<group>"; };
+		BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeData.swift; sourceTree = "<group>"; };
+		BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenIntegrationTests.swift; sourceTree = "<group>"; };
+		BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_create_alias_adyen_success.json; sourceTree = "<group>"; };
+		BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
+		BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCore.framework; path = Carthage/Build/iOS/BraintreeCore.framework; sourceTree = "<group>"; };
+		BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeDropIn.framework; path = Carthage/Build/iOS/BraintreeDropIn.framework; sourceTree = "<group>"; };
+		BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalOneTouch.framework; path = Carthage/Build/iOS/PayPalOneTouch.framework; sourceTree = "<group>"; };
+		BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeUIKit.framework; path = Carthage/Build/iOS/BraintreeUIKit.framework; sourceTree = "<group>"; };
+		BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreePaymentFlow.framework; path = Carthage/Build/iOS/BraintreePaymentFlow.framework; sourceTree = "<group>"; };
+		BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalUtils.framework; path = Carthage/Build/iOS/PayPalUtils.framework; sourceTree = "<group>"; };
+		BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeCard.framework; path = Carthage/Build/iOS/BraintreeCard.framework; sourceTree = "<group>"; };
+		BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalDataCollector.framework; path = Carthage/Build/iOS/PayPalDataCollector.framework; sourceTree = "<group>"; };
+		BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreePayPal.framework; path = Carthage/Build/iOS/BraintreePayPal.framework; sourceTree = "<group>"; };
+		BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientBSPayone.swift; sourceTree = "<group>"; };
+		BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestCore.swift; sourceTree = "<group>"; };
+		BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRequestBSPayone.swift; sourceTree = "<group>"; };
+		BA3A33B422296B6F00B7A635 /* AliasResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResponse.swift; sourceTree = "<group>"; };
+		BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponse.swift; sourceTree = "<group>"; };
+		BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalRegistrationManager.swift; sourceTree = "<group>"; };
+		BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPaymentServiceProviderCoordinator.swift; sourceTree = "<group>"; };
+		BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasRequest.swift; sourceTree = "<group>"; };
+		BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationTests.swift; sourceTree = "<group>"; };
+		BA6D67922244683900463E0F /* FatalErrorAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorAssertion.swift; sourceTree = "<group>"; };
+		BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
+		BA84B3652271C6790016E255 /* PayPalUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalUIManager.swift; sourceTree = "<group>"; };
+		BA8D070D2226AE56004F699A /* StashSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StashSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8D070F2226AE56004F699A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA8D07142226AE56004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA8D07162226AE57004F699A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA8D07192226AE57004F699A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BA8D071B2226AE57004F699A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA945A07223A83E600C39300 /* PayPalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalData.swift; sourceTree = "<group>"; };
+		BA945A2B223A890100C39300 /* StashBraintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StashBraintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA945A2D223A890100C39300 /* StashBraintree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StashBraintree.h; sourceTree = "<group>"; };
+		BA945A2E223A890100C39300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA945A39223AE7C200C39300 /* StashBraintree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBraintree.swift; sourceTree = "<group>"; };
+		BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAAdyenData.swift; sourceTree = "<group>"; };
+		BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalLoadingViewController.swift; sourceTree = "<group>"; };
+		BABC7D62224229F900028C29 /* StashBraintreeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBraintreeBridge.swift; sourceTree = "<group>"; };
+		BACD61912226B03600E3ACC3 /* StashBSPayone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StashBSPayone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilabPaymentBSPayone.h; sourceTree = "<group>"; };
+		BACD61942226B03600E3ACC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProvider.swift; sourceTree = "<group>"; };
+		BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequest.swift; sourceTree = "<group>"; };
+		BACD61A72226CA6D00E3ACC3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BACD61AB2226CA9500E3ACC3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BACD61B12226CF6600E3ACC3 /* StashAdyen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashAdyen.swift; sourceTree = "<group>"; };
+		BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientCore.swift; sourceTree = "<group>"; };
+		BAD64630222E840D00771DC0 /* AliasExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasExtra.swift; sourceTree = "<group>"; };
+		BAD64632222EB74B00771DC0 /* UpdateAliasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAliasRequest.swift; sourceTree = "<group>"; };
+		BAD64634222EBB9B00771DC0 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extras.swift"; sourceTree = "<group>"; };
+		BAD6463D222EC29500771DC0 /* PSPExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPExtra.swift; sourceTree = "<group>"; };
+		BAD6464D2230799F00771DC0 /* Codable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extras.swift"; sourceTree = "<group>"; };
+		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
+		C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedTextInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		C41CB8F122774ADB0009F744 /* NameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameProviding.swift; sourceTree = "<group>"; };
+		C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNameProvider.swift; sourceTree = "<group>"; };
+		C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extension.swift"; sourceTree = "<group>"; };
+		C42D56BF228AE38300312CC1 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		C42D56C1228C32A400312CC1 /* CountryDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDataTests.swift; sourceTree = "<group>"; };
+		C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewController.swift; sourceTree = "<group>"; };
+		C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCollectionViewCell.swift; sourceTree = "<group>"; };
+		C49F49DC227C9AA400D3A986 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C49F49DE22806BFA00D3A986 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C49F49E022819C6900D3A986 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewController.swift; sourceTree = "<group>"; };
+		E1068EAD2252549C00ACC93C /* FormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellModel.swift; sourceTree = "<group>"; };
+		E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCVVInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1068EB122533D3700ACC93C /* FormConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormConsumer.swift; sourceTree = "<group>"; };
+		E1068EB622535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdyenSEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1068EB822535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdyenCreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1131F712236628D0025A711 /* PaymentMethodsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsCollectionViewController.swift; sourceTree = "<group>"; };
+		E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BraintreeDataCollector.framework; path = Carthage/Build/iOS/BraintreeDataCollector.framework; sourceTree = "<group>"; };
+		E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		E117E01B224BA0FD00E4C591 /* bs_credit_card_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_success.json; sourceTree = "<group>"; };
+		E117E01D224BA18D00E4C591 /* bs_credit_card_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_failure.json; sourceTree = "<group>"; };
+		E117E01F224BA41400E4C591 /* bs_sepa_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_sepa_success.json; sourceTree = "<group>"; };
+		E11C3BFF223AB64F00F94F56 /* StashSample-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StashSample-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11C3C01223AB64F00F94F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E11C3C02223AB64F00F94F56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E11C3C04223AB64F00F94F56 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E11C3C05223AB64F00F94F56 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E11C3C08223AB64F00F94F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E11C3C0A223AB65000F94F56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E11C3C0D223AB65000F94F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E11C3C0F223AB65000F94F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E11C3C10223AB65000F94F56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCIntegrationTests.m; sourceTree = "<group>"; };
+		E11C3C7C223B8F7F00F94F56 /* StashTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StashTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		E11C3C87223BA5E100F94F56 /* StashSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StashSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11C3C8B223BA5E100F94F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E11C3C94223BEF3100F94F56 /* StashBackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashBackendError.swift; sourceTree = "<group>"; };
+		E11C3C96223BF00700F94F56 /* StashErrorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashErrorConvertible.swift; sourceTree = "<group>"; };
+		E11F2F482273100D001F9925 /* IdempotencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdempotencyTests.swift; sourceTree = "<group>"; };
+		E1209BC12248DFE10060CD63 /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
+		E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodUIConfiguration.swift; sourceTree = "<group>"; };
+		E130D1B82302933A0067C295 /* StashBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StashBridge.swift; sourceTree = "<group>"; };
+		E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegration.swift; sourceTree = "<group>"; };
+		E13CD2BF229D856A00601880 /* CreditCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardType.swift; sourceTree = "<group>"; };
+		E14662542278A78B00512710 /* CodableTwoTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTwoTuple.swift; sourceTree = "<group>"; };
+		E146625E227C383B00512710 /* PaymentMethodAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodAlias.swift; sourceTree = "<group>"; };
+		E1466260227C397200512710 /* PersonalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalData.swift; sourceTree = "<group>"; };
+		E1466262227C399F00512710 /* CreditCardExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardExtra.swift; sourceTree = "<group>"; };
+		E1466264227C39BF00512710 /* SEPAExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAExtra.swift; sourceTree = "<group>"; };
+		E1466266227C39D900512710 /* PayPalExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalExtra.swift; sourceTree = "<group>"; };
+		E146626A227C488600512710 /* CreditCardBSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardBSPayoneData.swift; sourceTree = "<group>"; };
+		E146626C227C48ED00512710 /* SEPABSPayoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPABSPayoneData.swift; sourceTree = "<group>"; };
+		E14D5CF6225CCD2100BB20CA /* Adyen.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Adyen.framework; path = Carthage/Build/iOS/Adyen.framework; sourceTree = "<group>"; };
+		E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenCard.framework; path = Carthage/Build/iOS/AdyenCard.framework; sourceTree = "<group>"; };
+		E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenInternal.framework; path = Carthage/Build/iOS/AdyenInternal.framework; sourceTree = "<group>"; };
+		E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdyenSEPA.framework; path = Carthage/Build/iOS/AdyenSEPA.framework; sourceTree = "<group>"; };
+		E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenPaymentControllerWrapper.swift; sourceTree = "<group>"; };
+		E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodPreparator.swift; sourceTree = "<group>"; };
+		E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPreparator.swift; sourceTree = "<group>"; };
+		E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPRegistration.swift; sourceTree = "<group>"; };
+		E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldErrorDelegate.swift; sourceTree = "<group>"; };
+		E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationTests.swift; sourceTree = "<group>"; };
+		E162FF892243945A00413764 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		E162FF8B2243959800413764 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		E162FF8D22439CD900413764 /* SubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleLabel.swift; sourceTree = "<group>"; };
+		E162FFA72243A76700413764 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		E162FFB12243C0D300413764 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		E162FFB22243C0D300413764 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		E162FFB32243C0D300413764 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		E162FFB92243CCE400413764 /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
+		E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtonContainerViewController.swift; sourceTree = "<group>"; };
+		E162FFC32243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSelectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		E162FFCA2244CFBB00413764 /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
+		E1663E0122367C2000372658 /* AliasManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasManager.swift; sourceTree = "<group>"; };
+		E1663E0422368D4200372658 /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
+		E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1663E0A2237C5CE00372658 /* ModuleIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIntegrationTests.swift; sourceTree = "<group>"; };
+		E17648D02237F2AB00889920 /* CreditCardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDataTests.swift; sourceTree = "<group>"; };
+		E17648D22237FCC100889920 /* CreditCardTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTypeExtensions.swift; sourceTree = "<group>"; };
+		E17648D5223923FB00889920 /* CreditCardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardUtils.swift; sourceTree = "<group>"; };
+		E17648D92239466400889920 /* SEPAUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAUtils.swift; sourceTree = "<group>"; };
+		E17648DB2239472500889920 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		E17648DE2239522000889920 /* SEPADataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPADataTests.swift; sourceTree = "<group>"; };
+		E17648E1223A583C00889920 /* InternalPaymentMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPaymentMethodType.swift; sourceTree = "<group>"; };
+		E17648E4223A5B4A00889920 /* PaymentMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodType.swift; sourceTree = "<group>"; };
+		E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFlowNavigationController.swift; sourceTree = "<group>"; };
+		E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSelectionCollectionViewController.swift; sourceTree = "<group>"; };
+		E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		E17648F2223A6D2F00889920 /* PaymentMethodDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodDataProvider.swift; sourceTree = "<group>"; };
+		E17648F4223A817100889920 /* AddUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUIViewController.swift; sourceTree = "<group>"; };
+		E17648F6223A833200889920 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		E17648F8223A840400889920 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		E189136A22F4305A004508D3 /* PresentableValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableValueHolding.swift; sourceTree = "<group>"; };
+		E189136C22F437BE004508D3 /* CountryValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryValueHolding.swift; sourceTree = "<group>"; };
+		E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyStringValueHolding.swift; sourceTree = "<group>"; };
+		E189137222F43988004508D3 /* IntValueHolding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntValueHolding.swift; sourceTree = "<group>"; };
+		E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E189137622F45155004508D3 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInputPresentingDelegate.swift; sourceTree = "<group>"; };
+		E189618E22647C810044D3CE /* AliasCreationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCreationDetail.swift; sourceTree = "<group>"; };
+		E18E121922F996D3005C15BE /* StashAdyenBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StashAdyenBridge.swift; sourceTree = "<group>"; };
+		E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificPaymentMethodRegistrationTests.swift; sourceTree = "<group>"; };
+		E1970DB7229844B200D075A7 /* SDKResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKResetter.swift; sourceTree = "<group>"; };
+		E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextCellEnabled.swift; sourceTree = "<group>"; };
+		E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bs_credit_card_temp_failure.json; sourceTree = "<group>"; };
+		E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternUtilities.swift; sourceTree = "<group>"; };
+		E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationErrorDetails.swift; sourceTree = "<group>"; };
+		E1995B2822561F3700BF24A2 /* TitleProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleProviding.swift; sourceTree = "<group>"; };
+		E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfigurationError.swift; sourceTree = "<group>"; };
+		E1995B2E22562A2300BF24A2 /* BraintreeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeError.swift; sourceTree = "<group>"; };
+		E1995B3022562A5200BF24A2 /* TemporaryErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryErrorDetails.swift; sourceTree = "<group>"; };
+		E1995B3222562AFB00BF24A2 /* GenericErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericErrorDetails.swift; sourceTree = "<group>"; };
+		E1995B3422562C4E00BF24A2 /* NetworkErrorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorDetails.swift; sourceTree = "<group>"; };
+		E1995B36225749A600BF24A2 /* BSPayoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSPayoneUITests.swift; sourceTree = "<group>"; };
+		E1995B38225749D900BF24A2 /* BaseUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITest.swift; sourceTree = "<group>"; };
+		E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeUITests.swift; sourceTree = "<group>"; };
+		E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePaymentModulesTests.swift; sourceTree = "<group>"; };
+		E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenUITests.swift; sourceTree = "<group>"; };
+		E1A1D11522422EC700BB6577 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerTools.swift; sourceTree = "<group>"; };
+		E1AE1C34228F070B0054D098 /* AlertBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBanner.swift; sourceTree = "<group>"; };
+		E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
+		E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSCreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonView.swift; sourceTree = "<group>"; };
+		E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointProvidingDelegate.swift; sourceTree = "<group>"; };
+		E1C9A85A2240F7020099DB2E /* NecessaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryData.swift; sourceTree = "<group>"; };
+		E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSSEPAInputCollectionViewController.swift; sourceTree = "<group>"; };
+		E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAndUsePaymentMethodTests.swift; sourceTree = "<group>"; };
+		E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMerchantBackend.swift; sourceTree = "<group>"; };
+		E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodIntegrationTests.swift; sourceTree = "<group>"; };
+		E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdyenAliasCreationDetail.swift; sourceTree = "<group>"; };
+		E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardType+Extensions.swift"; sourceTree = "<group>"; };
+		E1FDE0E5224D007B00BB960D /* core_create_alias_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_create_alias_success.json; sourceTree = "<group>"; };
+		E1FDE0E7224D04BC00BB960D /* core_update_alias_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = core_update_alias_success.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DC5CB9120D2BF5E002058C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BACD61AC2226CA9500E3ACC3 /* UIKit.framework in Frameworks */,
+				BACD61AA2226CA8F00E3ACC3 /* SystemConfiguration.framework in Frameworks */,
+				BACD61A82226CA6D00E3ACC3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DC5CB9B20D2BF5E002058C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E15E06F4228B3A1A007F5FA4 /* BraintreeDataCollector.framework in Frameworks */,
+				E1D558F62264AB8C00BC856A /* AdyenSEPA.framework in Frameworks */,
+				E1D558F32264AA5200BC856A /* AdyenCard.framework in Frameworks */,
+				E1D558F42264AA5200BC856A /* Adyen.framework in Frameworks */,
+				E1D558F52264AA5200BC856A /* AdyenInternal.framework in Frameworks */,
+				E1D558F12264A9EE00BC856A /* StashAdyen.framework in Frameworks */,
+				E117E019224B9F1800E4C591 /* OHHTTPStubs.framework in Frameworks */,
+				BA6D6788224460FB00463E0F /* BraintreePayPal.framework in Frameworks */,
+				BA6D678E224460FB00463E0F /* PayPalDataCollector.framework in Frameworks */,
+				BA6D6789224460FB00463E0F /* BraintreeCard.framework in Frameworks */,
+				BA6D678A224460FB00463E0F /* BraintreeCore.framework in Frameworks */,
+				BA6D678622445F3C00463E0F /* StashBraintree.framework in Frameworks */,
+				BA6D6790224460FB00463E0F /* PayPalUtils.framework in Frameworks */,
+				BA6D678D224460FB00463E0F /* BraintreeUIKit.framework in Frameworks */,
+				BA6D678C224460FB00463E0F /* BraintreePaymentFlow.framework in Frameworks */,
+				BAE8FFC0222D4127005D2E47 /* StashBSPayone.framework in Frameworks */,
+				1DC5CB9F20D2BF5E002058C1 /* StashCore.framework in Frameworks */,
+				BA6D678B224460FB00463E0F /* BraintreeDropIn.framework in Frameworks */,
+				BA6D678F224460FB00463E0F /* PayPalOneTouch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA09A950224D60E8006C3A1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D558F72264C12100BC856A /* AdyenSEPA.framework in Frameworks */,
+				E14D5CFA225CCD2100BB20CA /* Adyen.framework in Frameworks */,
+				E14D5CFB225CCD2100BB20CA /* AdyenCard.framework in Frameworks */,
+				E14D5CFC225CCD2100BB20CA /* AdyenInternal.framework in Frameworks */,
+				BA21F4F8224D65A3004CEAA2 /* StashCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA8D070A2226AE56004F699A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1ABA71223069A630014F59E /* Fabric.framework in Frameworks */,
+				E1ABA71323069A630014F59E /* Crashlytics.framework in Frameworks */,
+				BACD61982226B03600E3ACC3 /* StashBSPayone.framework in Frameworks */,
+				BA945A32223A890100C39300 /* StashBraintree.framework in Frameworks */,
+				E1131F742236638A0025A711 /* StashCore.framework in Frameworks */,
+				BA09A95A224D60E8006C3A1D /* StashAdyen.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA945A28223A890100C39300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E15E0709228DAE64007F5FA4 /* PayPalDataCollector.framework in Frameworks */,
+				E15E0704228DAE3B007F5FA4 /* PayPalOneTouch.framework in Frameworks */,
+				E113BA6A228B2FCA00C9BA79 /* BraintreeDataCollector.framework in Frameworks */,
+				BA2A3AEF223BCE5700689A3A /* BraintreePayPal.framework in Frameworks */,
+				BA945A37223A894800C39300 /* StashCore.framework in Frameworks */,
+				BA2A3AC4223BBAD200689A3A /* BraintreeCore.framework in Frameworks */,
+				BA2A3AC5223BBAD200689A3A /* BraintreeDropIn.framework in Frameworks */,
+				BA2A3AC7223BBAD200689A3A /* BraintreeUIKit.framework in Frameworks */,
+				BA2A3AC8223BBAD200689A3A /* BraintreePaymentFlow.framework in Frameworks */,
+				BA2A3AC9223BBAD200689A3A /* PayPalUtils.framework in Frameworks */,
+				BA2A3ACA223BBAD200689A3A /* BraintreeCard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618E2226B03600E3ACC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BACD61B32226CFE800E3ACC3 /* StashCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3BFC223AB64F00F94F56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E15E0710228EAA44007F5FA4 /* AdyenCard.framework in Frameworks */,
+				E15E0714228EAA44007F5FA4 /* AdyenSEPA.framework in Frameworks */,
+				E15E0712228EAA44007F5FA4 /* AdyenInternal.framework in Frameworks */,
+				E1D90159224A84660067BB8A /* BraintreePayPal.framework in Frameworks */,
+				E1D90165224A84660067BB8A /* PayPalDataCollector.framework in Frameworks */,
+				E1D9015B224A84660067BB8A /* BraintreeCard.framework in Frameworks */,
+				E1D9015D224A84660067BB8A /* BraintreeCore.framework in Frameworks */,
+				E15E070E228EAA44007F5FA4 /* Adyen.framework in Frameworks */,
+				E1D90155224A84480067BB8A /* StashBraintree.framework in Frameworks */,
+				E1D90169224A84660067BB8A /* PayPalUtils.framework in Frameworks */,
+				E1D90163224A84660067BB8A /* BraintreeUIKit.framework in Frameworks */,
+				E1D90161224A84660067BB8A /* BraintreePaymentFlow.framework in Frameworks */,
+				E1D90183224A88BA0067BB8A /* PayPalOneTouch.framework in Frameworks */,
+				E11C3C20223AB69D00F94F56 /* StashCore.framework in Frameworks */,
+				E15E070C228EAA44007F5FA4 /* BraintreeDataCollector.framework in Frameworks */,
+				E11C3C24223AB69D00F94F56 /* StashBSPayone.framework in Frameworks */,
+				E1D90181224A88BA0067BB8A /* BraintreeDropIn.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3C84223BA5E100F94F56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C93223BA78500F94F56 /* StashCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D34CBF120E128F70011F901 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				1D34CBF220E129080011F901 /* Data+Extras.swift */,
+				1D34CC0B20E281180011F901 /* String+Extras.swift */,
+				BAD64636222EBD7600771DC0 /* URLRequest+Extras.swift */,
+				BAD6464D2230799F00771DC0 /* Codable+Extras.swift */,
+				BAD64650223094AC00771DC0 /* URL+Extras.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		1DC5CB8B20D2BF5E002058C1 = {
+			isa = PBXGroup;
+			children = (
+				1DC5CB9720D2BF5E002058C1 /* Core */,
+				BACD61922226B03600E3ACC3 /* StashBSPayone */,
+				BA945A2C223A890100C39300 /* StashBraintree */,
+				BA09A954224D60E8006C3A1D /* StashAdyen */,
+				1DC5CBA220D2BF5E002058C1 /* UnitTests */,
+				BA8D070E2226AE56004F699A /* Sample */,
+				E11C3C00223AB64F00F94F56 /* Sample-ObjC */,
+				E11C3C88223BA5E100F94F56 /* SampleUITests */,
+				BACD619E2226B15500E3ACC3 /* Frameworks */,
+				1DC5CB9620D2BF5E002058C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1DC5CB9620D2BF5E002058C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DC5CB9520D2BF5E002058C1 /* StashCore.framework */,
+				1DC5CB9E20D2BF5E002058C1 /* StashTests.xctest */,
+				BA8D070D2226AE56004F699A /* StashSample.app */,
+				BACD61912226B03600E3ACC3 /* StashBSPayone.framework */,
+				BA945A2B223A890100C39300 /* StashBraintree.framework */,
+				E11C3BFF223AB64F00F94F56 /* StashSample-ObjC.app */,
+				E11C3C87223BA5E100F94F56 /* StashSampleUITests.xctest */,
+				BA09A953224D60E8006C3A1D /* StashAdyen.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1DC5CB9720D2BF5E002058C1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1DFA538E20DAB5E30065CCC3 /* Extensions */,
+				1DC5CBB620D40D46002058C1 /* Model */,
+				1DC5CBC520D410D2002058C1 /* PaymentSDK */,
+				1DC5CBB520D40D3A002058C1 /* Networking */,
+				1DC5CB9820D2BF5E002058C1 /* Stash.h */,
+				1DC5CB9920D2BF5E002058C1 /* Info.plist */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1DC5CBA220D2BF5E002058C1 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E117E01A224BA0C300E4C591 /* resources */,
+				1DC5CBA520D2BF5E002058C1 /* Info.plist */,
+				BA6D677922445D4800463E0F /* SDKConfigurationTests.swift */,
+				1DC5CBA320D2BF5E002058C1 /* BSPayoneIntegrationTests.swift */,
+				BA0B9BB9224FB6D10029FC8D /* AdyenIntegrationTests.swift */,
+				E1663E0A2237C5CE00372658 /* ModuleIntegrationTests.swift */,
+				E17648D02237F2AB00889920 /* CreditCardDataTests.swift */,
+				E17648DB2239472500889920 /* StringExtensionTests.swift */,
+				E17648DE2239522000889920 /* SEPADataTests.swift */,
+				E11C3C7A223B8F2C00F94F56 /* ObjCIntegrationTests.m */,
+				E11C3C7C223B8F7F00F94F56 /* StashTests-Bridging-Header.h */,
+				BA6D67942244692800463E0F /* XCTestCase+FatalError.swift */,
+				C42D56C1228C32A400312CC1 /* CountryDataTests.swift */,
+				E11F2F482273100D001F9925 /* IdempotencyTests.swift */,
+				E1970DB7229844B200D075A7 /* SDKResetter.swift */,
+				E1CCF8F922DDEB1800B16494 /* TestMerchantBackend.swift */,
+				E1CCF8FD22E198D200B16494 /* PaymentMethodIntegrationTests.swift */,
+				2E842E3222FDA90A005AC5B5 /* BraintreeIntegrationTests.swift */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		1DC5CBB520D40D3A002058C1 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1DFA538520DA9C800065CCC3 /* Model */,
+				1DC5CBBE20D40F36002058C1 /* Client */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		1DC5CBB620D40D46002058C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E17648E3223A592F00889920 /* Internal */,
+				BA3A33A122293CBA00B7A635 /* Public */,
+				1DC5CBC120D40F9D002058C1 /* StashConfiguration.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DC5CBBE20D40F36002058C1 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				BAD6463F222EC3E300771DC0 /* Base */,
+				BAD64638222EBECA00771DC0 /* Implementation */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		1DC5CBC520D410D2002058C1 /* PaymentSDK */ = {
+			isa = PBXGroup;
+			children = (
+				1DC5CBCF20D415A0002058C1 /* Internal */,
+				1DC5CBC620D410DA002058C1 /* Public */,
+			);
+			path = PaymentSDK;
+			sourceTree = "<group>";
+		};
+		1DC5CBC620D410DA002058C1 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				BAA9826E224A4CE000D551DE /* UI */,
+				BACD619F2226C8E300E3ACC3 /* Integration */,
+				1DC5CBC920D410F9002058C1 /* Stash.swift */,
+				E130D1B82302933A0067C295 /* StashBridge.swift */,
+				1DC5CBCD20D41118002058C1 /* RegistrationManager.swift */,
+				BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		1DC5CBCF20D415A0002058C1 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				E17648E9223A663500889920 /* UI */,
+				1DC5CBD020D415C4002058C1 /* InternalPaymentSDK.swift */,
+				BA3A33B9222973F000B7A635 /* InternalRegistrationManager.swift */,
+				BA6D677122442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift */,
+				E1466260227C397200512710 /* PersonalData.swift */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		1DFA538520DA9C800065CCC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A84A223FAAA50099DB2E /* Extra */,
+				1DFA538B20DAB0410065CCC3 /* Response */,
+				1DFA538620DA9C870065CCC3 /* Request */,
+				BAD64634222EBB9B00771DC0 /* Header.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DFA538620DA9C870065CCC3 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61B62226E2E000E3ACC3 /* Alias */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		1DFA538B20DAB0410065CCC3 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33B422296B6F00B7A635 /* AliasResponse.swift */,
+				E11C3C94223BEF3100F94F56 /* StashBackendError.swift */,
+				E11C3C96223BF00700F94F56 /* StashErrorConvertible.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		1DFA538E20DAB5E30065CCC3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */,
+				1D34CBF120E128F70011F901 /* Foundation */,
+				E17648D5223923FB00889920 /* CreditCardUtils.swift */,
+				E17648D92239466400889920 /* SEPAUtils.swift */,
+				E1D9014F224A3CE10067BB8A /* CreditCardType+Extensions.swift */,
+				BA6D67922244683900463E0F /* FatalErrorAssertion.swift */,
+				E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */,
+				C49F49E022819C6900D3A986 /* UIView+Extensions.swift */,
+				C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2E2B3BE222FC13E100B272D7 /* CreditCard */ = {
+			isa = PBXGroup;
+			children = (
+				2E2B3BE322FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift */,
+			);
+			path = CreditCard;
+			sourceTree = "<group>";
+		};
+		2E2B3BE522FC506A00B272D7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2E2B3BE222FC13E100B272D7 /* CreditCard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		BA09A954224D60E8006C3A1D /* StashAdyen */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB0224FA8FC0029FC8D /* Model */,
+				BA09A95F224D614C006C3A1D /* Integration */,
+				E1068EB322535BB500ACC93C /* UI */,
+				BA09A956224D60E8006C3A1D /* Info.plist */,
+			);
+			path = StashAdyen;
+			sourceTree = "<group>";
+		};
+		BA09A95F224D614C006C3A1D /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				E18E121922F996D3005C15BE /* StashAdyenBridge.swift */,
+				BACD61B12226CF6600E3ACC3 /* StashAdyen.swift */,
+				BA09A955224D60E8006C3A1D /* StashAdyen.h */,
+				E14D5D06225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift */,
+				E14D5D08225CD52D00BB20CA /* PaymentMethodPreparator.swift */,
+				E14D5D0A225CD5CD00BB20CA /* CreditCardPreparator.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		BA0B9BB0224FA8FC0029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB1224FA91A0029FC8D /* AdyenData.swift */,
+				E1D558EF22648DE900BC856A /* AdyenAliasCreationDetail.swift */,
+				BA09A96C224D6363006C3A1D /* CreditCardAdyenData.swift */,
+				BA95FC5E224D838B0026BCD9 /* SEPAAdyenData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA0B9BB3224FADD70029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB4224FADE50029FC8D /* BSPayoneData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA0B9BB6224FAE5F0029FC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B2E22562A2300BF24A2 /* BraintreeError.swift */,
+				BA0B9BB7224FAE6A0029FC8D /* BraintreeData.swift */,
+				2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA0B9BBB224FB85E0029FC8D /* BSPayone */ = {
+			isa = PBXGroup;
+			children = (
+				E117E01B224BA0FD00E4C591 /* bs_credit_card_success.json */,
+				E117E01D224BA18D00E4C591 /* bs_credit_card_failure.json */,
+				E117E01F224BA41400E4C591 /* bs_sepa_success.json */,
+				E1995B1C2255FE6000BF24A2 /* bs_credit_card_temp_failure.json */,
+			);
+			path = BSPayone;
+			sourceTree = "<group>";
+		};
+		BA0B9BBC224FB8D50029FC8D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E1FDE0E5224D007B00BB960D /* core_create_alias_success.json */,
+				BA0B9BC2225203700029FC8D /* core_create_alias_adyen_success.json */,
+				E1FDE0E7224D04BC00BB960D /* core_update_alias_success.json */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BA3A33A122293CBA00B7A635 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B2122561E1400BF24A2 /* Error */,
+				1DFA536220D91C490065CCC3 /* BillingData.swift */,
+				1DFA536720D91EF20065CCC3 /* SEPAData.swift */,
+				BA078EE522E0860B00E199B4 /* SEPADataBridge.swift */,
+				1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */,
+				BA078EE322E085EF00E199B4 /* CreditCardDataBridge.swift */,
+				E13CD2BF229D856A00601880 /* CreditCardType.swift */,
+				BA945A07223A83E600C39300 /* PayPalData.swift */,
+				C41CB8F122774ADB0009F744 /* NameProviding.swift */,
+				C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */,
+				C42D56BF228AE38300312CC1 /* Country.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		BA3A33A82229573500B7A635 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33B622296CEE00B7A635 /* Response */,
+				BA3A33A92229574700B7A635 /* Request */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA3A33A92229574700B7A635 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				E17648D22237FCC100889920 /* CreditCardTypeExtensions.swift */,
+				E146626A227C488600512710 /* CreditCardBSPayoneData.swift */,
+				E146626C227C48ED00512710 /* SEPABSPayoneData.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BA3A33AC22295F9C00B7A635 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33A82229573500B7A635 /* Model */,
+				BA3A33AE22295FC300B7A635 /* Client */,
+				BA3A33AD22295FA600B7A635 /* Router */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		BA3A33AD22295FA600B7A635 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33A62229559A00B7A635 /* RouterRequestBSPayone.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BA3A33AE22295FC300B7A635 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33A222293F7D00B7A635 /* NetworkClientBSPayone.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		BA3A33B622296CEE00B7A635 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33B722296D0D00B7A635 /* RegisterCreditCardResponse.swift */,
+				E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		BA8D070E2226AE56004F699A /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				E1663E0322368D3800372658 /* model */,
+				E1663E0022367BD400372658 /* services */,
+				E1131F7A223666470025A711 /* other */,
+				E1131F79223666340025A711 /* view */,
+				E1131F78223666240025A711 /* controller */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		BA945A2C223A890100C39300 /* StashBraintree */ = {
+			isa = PBXGroup;
+			children = (
+				2E2B3BE522FC506A00B272D7 /* UI */,
+				BA0B9BB6224FAE5F0029FC8D /* Model */,
+				BA945A38223AE7C200C39300 /* Integration */,
+				BA945A2D223A890100C39300 /* StashBraintree.h */,
+				BA945A2E223A890100C39300 /* Info.plist */,
+			);
+			path = StashBraintree;
+			sourceTree = "<group>";
+		};
+		BA945A38223AE7C200C39300 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				E15E0717228EB234007F5FA4 /* UI */,
+				BA84B3652271C6790016E255 /* PayPalUIManager.swift */,
+				BA945A39223AE7C200C39300 /* StashBraintree.swift */,
+				BABC7D62224229F900028C29 /* StashBraintreeBridge.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		BAA9826E224A4CE000D551DE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B192253A0E000BF24A2 /* Form */,
+				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
+				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
+				BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */,
+				E162FF8B2243959800413764 /* UIConstants.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		BACD61922226B03600E3ACC3 /* StashBSPayone */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BB3224FADD70029FC8D /* Model */,
+				BAD64641222EC67C00771DC0 /* Integration */,
+				BA3A33AC22295F9C00B7A635 /* Networking */,
+				E1C9A846223FA7E30099DB2E /* UI */,
+				BACD61932226B03600E3ACC3 /* MobilabPaymentBSPayone.h */,
+				BACD61942226B03600E3ACC3 /* Info.plist */,
+				E1995B2022560BDA00BF24A2 /* Utilities */,
+			);
+			path = StashBSPayone;
+			sourceTree = "<group>";
+		};
+		BACD619E2226B15500E3ACC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E113BA69228B2FCA00C9BA79 /* BraintreeDataCollector.framework */,
+				E14D5CF6225CCD2100BB20CA /* Adyen.framework */,
+				E14D5CF7225CCD2100BB20CA /* AdyenCard.framework */,
+				E14D5CF8225CCD2100BB20CA /* AdyenInternal.framework */,
+				E14D5CF9225CCD2100BB20CA /* AdyenSEPA.framework */,
+				E117E018224B9F1800E4C591 /* OHHTTPStubs.framework */,
+				BA2A3AEE223BCE5600689A3A /* BraintreePayPal.framework */,
+				BA2A3AC2223BBAD200689A3A /* BraintreeCard.framework */,
+				BA2A3ABC223BBAD200689A3A /* BraintreeCore.framework */,
+				BA2A3ABD223BBAD200689A3A /* BraintreeDropIn.framework */,
+				BA2A3AC0223BBAD200689A3A /* BraintreePaymentFlow.framework */,
+				BA2A3ABF223BBAD200689A3A /* BraintreeUIKit.framework */,
+				BA2A3AC3223BBAD200689A3A /* PayPalDataCollector.framework */,
+				BA2A3ABE223BBAD200689A3A /* PayPalOneTouch.framework */,
+				BA2A3AC1223BBAD200689A3A /* PayPalUtils.framework */,
+				BACD61AB2226CA9500E3ACC3 /* UIKit.framework */,
+				BACD61A92226CA8F00E3ACC3 /* SystemConfiguration.framework */,
+				BACD61A72226CA6D00E3ACC3 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BACD619F2226C8E300E3ACC3 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61A32226C95D00E3ACC3 /* Model */,
+				BACD61A02226C90A00E3ACC3 /* PaymentServiceProvider.swift */,
+				BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */,
+				E17648F2223A6D2F00889920 /* PaymentMethodDataProvider.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		BACD61A32226C95D00E3ACC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BACD61A42226C97000E3ACC3 /* RegistrationRequest.swift */,
+				E146625E227C383B00512710 /* PaymentMethodAlias.swift */,
+				BA078EE722E086A700E199B4 /* PaymentMethodAliasBridge.swift */,
+				E17648E4223A5B4A00889920 /* PaymentMethodType.swift */,
+				BA078EEB22E087BE00E199B4 /* PaymentMethodTypeBridge.swift */,
+				E189618E22647C810044D3CE /* AliasCreationDetail.swift */,
+				E1466262227C399F00512710 /* CreditCardExtra.swift */,
+				E1466264227C39BF00512710 /* SEPAExtra.swift */,
+				E1466266227C39D900512710 /* PayPalExtra.swift */,
+				E15E070A228EA0C6007F5FA4 /* PSPRegistration.swift */,
+				E13CD2BB229D0F0100601880 /* PaymentProviderIntegration.swift */,
+				BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BACD61B62226E2E000E3ACC3 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				BAD64632222EB74B00771DC0 /* UpdateAliasRequest.swift */,
+				BA6D677722443F5B00463E0F /* CreateAliasRequest.swift */,
+			);
+			path = Alias;
+			sourceTree = "<group>";
+		};
+		BAD64638222EBECA00771DC0 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				BAD64640222EC40000771DC0 /* Router */,
+				BACD61B42226E0C300E3ACC3 /* NetworkClientCore.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		BAD6463A222EBF3900771DC0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				1DC5CBDB20D7EA6A002058C1 /* RouterRequest.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BAD6463F222EC3E300771DC0 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				BAD6463A222EBF3900771DC0 /* Router */,
+				1DC5CBBF20D40F73002058C1 /* NetworkClient.swift */,
+			);
+			name = Base;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		BAD64640222EC40000771DC0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				BA3A33A422294D8000B7A635 /* RouterRequestCore.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BAD64641222EC67C00771DC0 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				BA09A961224D6182006C3A1D /* StashBSPayone.swift */,
+				BA09A962224D6182006C3A1D /* StashBSPayoneBridge.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		E1068E9222522A2800ACC93C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E162FFC32243F40100413764 /* PaymentMethodSelectionHeaderCollectionReusableView.swift */,
+				E17648EE223A67E100889920 /* PaymentMethodTypeCollectionViewCell.swift */,
+				C49F49D6227B4BD800D3A986 /* CountryListCollectionViewCell.swift */,
+				E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */,
+				C49F49DE22806BFA00D3A986 /* SearchView.swift */,
+				E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */,
+				E162FF892243945A00413764 /* CustomTextField.swift */,
+				E189137622F45155004508D3 /* CustomButton.swift */,
+				E162FF8D22439CD900413764 /* SubtitleLabel.swift */,
+				E162FFB92243CCE400413764 /* TitleHeaderView.swift */,
+				C49F49DC227C9AA400D3A986 /* HeaderView.swift */,
+				E1209BC12248DFE10060CD63 /* ErrorLabel.swift */,
+				E1068EAF22525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift */,
+				C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */,
+				E1AE1C34228F070B0054D098 /* AlertBanner.swift */,
+				E189137422F44DB9004508D3 /* CountryInputCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1068EAC2252535A00ACC93C /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B1A2253A13800BF24A2 /* NextCellEnabled.swift */,
+				E1C9A8582240F6D40099DB2E /* DataPointProvidingDelegate.swift */,
+				E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */,
+				E189136C22F437BE004508D3 /* CountryValueHolding.swift */,
+				E189137222F43988004508D3 /* IntValueHolding.swift */,
+				E189137022F438F9004508D3 /* NonEmptyStringValueHolding.swift */,
+				E189137822F45C38004508D3 /* CountryInputPresentingDelegate.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		E1068EB322535BB500ACC93C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E1068EB522535C1600ACC93C /* SEPA */,
+				E1068EB422535C0F00ACC93C /* CreditCard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E1068EB422535C0F00ACC93C /* CreditCard */ = {
+			isa = PBXGroup;
+			children = (
+				E1068EB822535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift */,
+			);
+			path = CreditCard;
+			sourceTree = "<group>";
+		};
+		E1068EB522535C1600ACC93C /* SEPA */ = {
+			isa = PBXGroup;
+			children = (
+				E1068EB622535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift */,
+			);
+			path = SEPA;
+			sourceTree = "<group>";
+		};
+		E1131F78223666240025A711 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				E1131F712236628D0025A711 /* PaymentMethodsCollectionViewController.swift */,
+				E17648F4223A817100889920 /* AddUIViewController.swift */,
+				E17648F6223A833200889920 /* MainTabBarController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		E1131F79223666340025A711 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				BA8D07132226AE56004F699A /* Main.storyboard */,
+				E1663E0622368FD500372658 /* AliasCollectionViewCell.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		E1131F7A223666470025A711 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				E1A1D11622422EC700BB6577 /* Crashlytics.framework */,
+				E1A1D11522422EC700BB6577 /* Fabric.framework */,
+				BA8D070F2226AE56004F699A /* AppDelegate.swift */,
+				BA8D07162226AE57004F699A /* Assets.xcassets */,
+				BA8D07182226AE57004F699A /* LaunchScreen.storyboard */,
+				BA8D071B2226AE57004F699A /* Info.plist */,
+				E17648F8223A840400889920 /* UIViewController+Extensions.swift */,
+			);
+			path = other;
+			sourceTree = "<group>";
+		};
+		E117E01A224BA0C300E4C591 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA0B9BBC224FB8D50029FC8D /* Core */,
+				BA0B9BBB224FB85E0029FC8D /* BSPayone */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		E11C3C00223AB64F00F94F56 /* Sample-ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				E11C3C01223AB64F00F94F56 /* AppDelegate.h */,
+				E11C3C02223AB64F00F94F56 /* AppDelegate.m */,
+				E11C3C04223AB64F00F94F56 /* ViewController.h */,
+				E11C3C05223AB64F00F94F56 /* ViewController.m */,
+				E11C3C07223AB64F00F94F56 /* Main.storyboard */,
+				E11C3C0A223AB65000F94F56 /* Assets.xcassets */,
+				E11C3C0C223AB65000F94F56 /* LaunchScreen.storyboard */,
+				E11C3C0F223AB65000F94F56 /* Info.plist */,
+				E11C3C10223AB65000F94F56 /* main.m */,
+			);
+			path = "Sample-ObjC";
+			sourceTree = "<group>";
+		};
+		E11C3C88223BA5E100F94F56 /* SampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E15E3E29229425F600EE19EE /* ErrorPresentationTests.swift */,
+				E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */,
+				E11C3C8B223BA5E100F94F56 /* Info.plist */,
+				E1995B36225749A600BF24A2 /* BSPayoneUITests.swift */,
+				E1995B38225749D900BF24A2 /* BaseUITest.swift */,
+				E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */,
+				E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */,
+				E1970DB32297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift */,
+				E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */,
+			);
+			path = SampleUITests;
+			sourceTree = "<group>";
+		};
+		E15E0717228EB234007F5FA4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BAA9826F224A4CF000D551DE /* PayPalLoadingViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E162FFB72243C0F500413764 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E162FFCA2244CFBB00413764 /* Lato-Medium.ttf */,
+				E162FFB12243C0D300413764 /* Lato-Black.ttf */,
+				E162FFB32243C0D300413764 /* Lato-Bold.ttf */,
+				E162FFB22243C0D300413764 /* Lato-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E162FFBD2243CD0500413764 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E162FFB72243C0F500413764 /* Fonts */,
+				E162FFA72243A76700413764 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E1663E0022367BD400372658 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				E1663E0122367C2000372658 /* AliasManager.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		E1663E0322368D3800372658 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				E1663E0422368D4200372658 /* Alias.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		E17648E3223A592F00889920 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A3AB7223BA78800689A3A /* PaymentMethod.swift */,
+				E17648E1223A583C00889920 /* InternalPaymentMethodType.swift */,
+				E14662542278A78B00512710 /* CodableTwoTuple.swift */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		E17648E9223A663500889920 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E162FFBD2243CD0500413764 /* Resources */,
+				E1068EAC2252535A00ACC93C /* Form */,
+				E1068E9222522A2800ACC93C /* View */,
+				E17648EA223A66CF00889920 /* RegistrationFlowNavigationController.swift */,
+				E17648EC223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift */,
+				C49F49D4227B48D300D3A986 /* CountryListCollectionViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E1995B192253A0E000BF24A2 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				E1068EAD2252549C00ACC93C /* FormCellModel.swift */,
+				E1068EB122533D3700ACC93C /* FormConsumer.swift */,
+				E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */,
+				E1C9A85A2240F7020099DB2E /* NecessaryData.swift */,
+				E189136A22F4305A004508D3 /* PresentableValueHolding.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		E1995B2022560BDA00BF24A2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E1995B1E22560BD200BF24A2 /* PatternUtilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E1995B2122561E1400BF24A2 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				4419A6252253AF3B00FF4C80 /* StashError.swift */,
+				BA078EE922E087A100E199B4 /* StashErrorBridge.swift */,
+				E1995B2622561EA500BF24A2 /* ValidationErrorDetails.swift */,
+				E1995B2822561F3700BF24A2 /* TitleProviding.swift */,
+				E1995B2A22561FAD00BF24A2 /* SDKConfigurationError.swift */,
+				E1995B3022562A5200BF24A2 /* TemporaryErrorDetails.swift */,
+				E1995B3222562AFB00BF24A2 /* GenericErrorDetails.swift */,
+				E1995B3422562C4E00BF24A2 /* NetworkErrorDetails.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		E1C9A846223FA7E30099DB2E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A85C22413C740099DB2E /* SEPA */,
+				E1C9A849223FAA810099DB2E /* CreditCard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E1C9A849223FAA810099DB2E /* CreditCard */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */,
+			);
+			path = CreditCard;
+			sourceTree = "<group>";
+		};
+		E1C9A84A223FAAA50099DB2E /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				BAD64630222E840D00771DC0 /* AliasExtra.swift */,
+				BAD6463D222EC29500771DC0 /* PSPExtra.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
+		E1C9A85C22413C740099DB2E /* SEPA */ = {
+			isa = PBXGroup;
+			children = (
+				E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */,
+			);
+			path = SEPA;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1DC5CB9220D2BF5E002058C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DC5CBA620D2BF5E002058C1 /* Stash.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA09A94E224D60E8006C3A1D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA09A957224D60E8006C3A1D /* StashAdyen.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA945A26223A890100C39300 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA945A2F223A890100C39300 /* StashBraintree.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618C2226B03600E3ACC3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BACD61952226B03600E3ACC3 /* MobilabPaymentBSPayone.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1DC5CB9420D2BF5E002058C1 /* StashCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "StashCore" */;
+			buildPhases = (
+				1DC5CB9020D2BF5E002058C1 /* Sources */,
+				1DC5CB9120D2BF5E002058C1 /* Frameworks */,
+				1DC5CB9220D2BF5E002058C1 /* Headers */,
+				1DC5CB9320D2BF5E002058C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StashCore;
+			productName = MLPaymentSDK;
+			productReference = 1DC5CB9520D2BF5E002058C1 /* StashCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		1DC5CB9D20D2BF5E002058C1 /* StashTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "StashTests" */;
+			buildPhases = (
+				1DC5CB9A20D2BF5E002058C1 /* Sources */,
+				1DC5CB9B20D2BF5E002058C1 /* Frameworks */,
+				1DC5CB9C20D2BF5E002058C1 /* Resources */,
+				BA6D67912244611700463E0F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */,
+				E11C3C80223BA4EC00F94F56 /* PBXTargetDependency */,
+			);
+			name = StashTests;
+			productName = MLPaymentSDKTests;
+			productReference = 1DC5CB9E20D2BF5E002058C1 /* StashTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BA09A952224D60E8006C3A1D /* StashAdyen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA09A95E224D60E8006C3A1D /* Build configuration list for PBXNativeTarget "StashAdyen" */;
+			buildPhases = (
+				BA09A94E224D60E8006C3A1D /* Headers */,
+				BA09A94F224D60E8006C3A1D /* Sources */,
+				BA09A950224D60E8006C3A1D /* Frameworks */,
+				BA09A951224D60E8006C3A1D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StashAdyen;
+			productName = MobilabPaymentAdyen;
+			productReference = BA09A953224D60E8006C3A1D /* StashAdyen.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BA8D070C2226AE56004F699A /* StashSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "StashSample" */;
+			buildPhases = (
+				BA8D07092226AE56004F699A /* Sources */,
+				BA8D070A2226AE56004F699A /* Frameworks */,
+				BA8D070B2226AE56004F699A /* Resources */,
+				BA2A3ADD223BCCFB00689A3A /* Carthage Copy */,
+				BACD619D2226B03600E3ACC3 /* Embed Frameworks */,
+				E1C9A85F224147FA0099DB2E /* Add Fabric */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BACD61972226B03600E3ACC3 /* PBXTargetDependency */,
+				E1131F772236638A0025A711 /* PBXTargetDependency */,
+				BA945A31223A890100C39300 /* PBXTargetDependency */,
+				BA09A959224D60E8006C3A1D /* PBXTargetDependency */,
+			);
+			name = StashSample;
+			productName = Demo;
+			productReference = BA8D070D2226AE56004F699A /* StashSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BA945A2A223A890100C39300 /* StashBraintree */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA945A34223A890100C39300 /* Build configuration list for PBXNativeTarget "StashBraintree" */;
+			buildPhases = (
+				BA945A26223A890100C39300 /* Headers */,
+				BA945A27223A890100C39300 /* Sources */,
+				BA945A28223A890100C39300 /* Frameworks */,
+				BA945A29223A890100C39300 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StashBraintree;
+			productName = Braintree;
+			productReference = BA945A2B223A890100C39300 /* StashBraintree.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BACD61902226B03600E3ACC3 /* StashBSPayone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BACD619A2226B03600E3ACC3 /* Build configuration list for PBXNativeTarget "StashBSPayone" */;
+			buildPhases = (
+				BACD618C2226B03600E3ACC3 /* Headers */,
+				BACD618D2226B03600E3ACC3 /* Sources */,
+				BACD618E2226B03600E3ACC3 /* Frameworks */,
+				BACD618F2226B03600E3ACC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StashBSPayone;
+			productName = BSPayone;
+			productReference = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E11C3BFE223AB64F00F94F56 /* StashSample-ObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "StashSample-ObjC" */;
+			buildPhases = (
+				E11C3BFB223AB64F00F94F56 /* Sources */,
+				E11C3BFC223AB64F00F94F56 /* Frameworks */,
+				E11C3BFD223AB64F00F94F56 /* Resources */,
+				E11C3C28223AB69D00F94F56 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E11C3C23223AB69D00F94F56 /* PBXTargetDependency */,
+				E11C3C27223AB69D00F94F56 /* PBXTargetDependency */,
+				E1D90158224A84480067BB8A /* PBXTargetDependency */,
+			);
+			name = "StashSample-ObjC";
+			productName = "Demo-ObjC";
+			productReference = E11C3BFF223AB64F00F94F56 /* StashSample-ObjC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E11C3C86223BA5E100F94F56 /* StashSampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "StashSampleUITests" */;
+			buildPhases = (
+				E11C3C83223BA5E100F94F56 /* Sources */,
+				E11C3C84223BA5E100F94F56 /* Frameworks */,
+				E11C3C85223BA5E100F94F56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */,
+			);
+			name = StashSampleUITests;
+			productName = DemoUITests;
+			productReference = E11C3C87223BA5E100F94F56 /* StashSampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1DC5CB8C20D2BF5E002058C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "MobiLab Solutions GmbH";
+				TargetAttributes = {
+					1DC5CB9420D2BF5E002058C1 = {
+						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1020;
+					};
+					1DC5CB9D20D2BF5E002058C1 = {
+						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BA8D070C2226AE56004F699A;
+					};
+					BA09A952224D60E8006C3A1D = {
+						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
+					};
+					BA8D070C2226AE56004F699A = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+					};
+					BA945A2A223A890100C39300 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+					};
+					BACD61902226B03600E3ACC3 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+					};
+					E11C3BFE223AB64F00F94F56 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+					};
+					E11C3C86223BA5E100F94F56 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BA8D070C2226AE56004F699A;
+					};
+				};
+			};
+			buildConfigurationList = 1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "Stash" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1DC5CB8B20D2BF5E002058C1;
+			productRefGroup = 1DC5CB9620D2BF5E002058C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1DC5CB9420D2BF5E002058C1 /* StashCore */,
+				BACD61902226B03600E3ACC3 /* StashBSPayone */,
+				BA945A2A223A890100C39300 /* StashBraintree */,
+				BA09A952224D60E8006C3A1D /* StashAdyen */,
+				BA8D070C2226AE56004F699A /* StashSample */,
+				1DC5CB9D20D2BF5E002058C1 /* StashTests */,
+				E11C3BFE223AB64F00F94F56 /* StashSample-ObjC */,
+				E11C3C86223BA5E100F94F56 /* StashSampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1DC5CB9320D2BF5E002058C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1068EA222522BF200ACC93C /* Media.xcassets in Resources */,
+				E1068EA422522BF600ACC93C /* Lato-Black.ttf in Resources */,
+				E1068EA622522BF600ACC93C /* Lato-Regular.ttf in Resources */,
+				E1068EA322522BF600ACC93C /* Lato-Medium.ttf in Resources */,
+				E1068EA522522BF600ACC93C /* Lato-Bold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DC5CB9C20D2BF5E002058C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1995B1D2255FE6000BF24A2 /* bs_credit_card_temp_failure.json in Resources */,
+				E1FDE0E8224D04BC00BB960D /* core_update_alias_success.json in Resources */,
+				E117E020224BA41400E4C591 /* bs_sepa_success.json in Resources */,
+				E117E01C224BA0FD00E4C591 /* bs_credit_card_success.json in Resources */,
+				BA0B9BC3225207AC0029FC8D /* core_create_alias_adyen_success.json in Resources */,
+				E1FDE0E6224D007B00BB960D /* core_create_alias_success.json in Resources */,
+				E117E01E224BA18D00E4C591 /* bs_credit_card_failure.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA09A951224D60E8006C3A1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA8D070B2226AE56004F699A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8D071A2226AE57004F699A /* LaunchScreen.storyboard in Resources */,
+				BA8D07172226AE57004F699A /* Assets.xcassets in Resources */,
+				BA8D07152226AE56004F699A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA945A29223A890100C39300 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618F2226B03600E3ACC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3BFD223AB64F00F94F56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C0E223AB65000F94F56 /* LaunchScreen.storyboard in Resources */,
+				E11C3C0B223AB65000F94F56 /* Assets.xcassets in Resources */,
+				E11C3C09223AB64F00F94F56 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3C85223BA5E100F94F56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BA2A3ADD223BCCFB00689A3A /* Carthage Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/Sample/other/input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "Carthage Copy";
+			outputFileListPaths = (
+				"$(SRCROOT)/Sample/other/output.xcfilelist",
+			);
+			outputPaths = (
+				"",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		BA6D67912244611700463E0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreePayPal.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeCard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeDropIn.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreePaymentFlow.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeUIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalDataCollector.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalOneTouch.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PayPalUtils.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenSEPA.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenCard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Adyen.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AdyenInternal.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BraintreeDataCollector.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+		E1C9A85F224147FA0099DB2E /* Add Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Add Fabric";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\nfi;\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DC5CB9020D2BF5E002058C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C95223BEF3100F94F56 /* StashBackendError.swift in Sources */,
+				BA078EE222E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift in Sources */,
+				E189136D22F437BE004508D3 /* CountryValueHolding.swift in Sources */,
+				E1068EA722522CB000ACC93C /* CustomBackButtonContainerViewController.swift in Sources */,
+				E189137122F438F9004508D3 /* NonEmptyStringValueHolding.swift in Sources */,
+				E1068E9A22522B2000ACC93C /* PaymentMethodSelectionHeaderCollectionReusableView.swift in Sources */,
+				E1466261227C397200512710 /* PersonalData.swift in Sources */,
+				E13CD2BC229D0F0100601880 /* PaymentProviderIntegration.swift in Sources */,
+				E17648DA2239466400889920 /* SEPAUtils.swift in Sources */,
+				E1068E9522522AA700ACC93C /* PaymentMethodUIConfiguration.swift in Sources */,
+				BA6D677822443F5B00463E0F /* CreateAliasRequest.swift in Sources */,
+				E17648F3223A6D2F00889920 /* PaymentMethodDataProvider.swift in Sources */,
+				C49F49E122819C6900D3A986 /* UIView+Extensions.swift in Sources */,
+				E1068E9822522AE100ACC93C /* DataPointProvidingDelegate.swift in Sources */,
+				E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */,
+				BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */,
+				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
+				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
+				E1068E9F22522B2000ACC93C /* SubtitleLabel.swift in Sources */,
+				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,
+				E1995B1B2253A13800BF24A2 /* NextCellEnabled.swift in Sources */,
+				E1068E9622522AB700ACC93C /* UIViewControllerTools.swift in Sources */,
+				1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */,
+				1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */,
+				E15E3E282293ECA900EE19EE /* FormFieldErrorDelegate.swift in Sources */,
+				BAD64637222EBD7600771DC0 /* URLRequest+Extras.swift in Sources */,
+				BACD61B52226E0C300E3ACC3 /* NetworkClientCore.swift in Sources */,
+				E1995B3522562C4E00BF24A2 /* NetworkErrorDetails.swift in Sources */,
+				C49F49D7227B4BD800D3A986 /* CountryListCollectionViewCell.swift in Sources */,
+				E1995B3122562A5200BF24A2 /* TemporaryErrorDetails.swift in Sources */,
+				BAD64631222E840D00771DC0 /* AliasExtra.swift in Sources */,
+				1DC5CBCE20D41118002058C1 /* RegistrationManager.swift in Sources */,
+				1D34CBF320E129080011F901 /* Data+Extras.swift in Sources */,
+				1DC5CBD120D415C4002058C1 /* InternalPaymentSDK.swift in Sources */,
+				E1068EA122522B2000ACC93C /* ErrorLabel.swift in Sources */,
+				C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */,
+				E17648EB223A66CF00889920 /* RegistrationFlowNavigationController.swift in Sources */,
+				E1995B2922561F3700BF24A2 /* TitleProviding.swift in Sources */,
+				E1995B3322562AFB00BF24A2 /* GenericErrorDetails.swift in Sources */,
+				4419A6262253AF3B00FF4C80 /* StashError.swift in Sources */,
+				E1466267227C39D900512710 /* PayPalExtra.swift in Sources */,
+				BA078EE422E085EF00E199B4 /* CreditCardDataBridge.swift in Sources */,
+				E17648E5223A5B4A00889920 /* PaymentMethodType.swift in Sources */,
+				1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */,
+				E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */,
+				E1068EAE2252549C00ACC93C /* FormCellModel.swift in Sources */,
+				E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */,
+				E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */,
+				E1068E9C22522B2000ACC93C /* TextInputCollectionViewCell.swift in Sources */,
+				E1068E9922522AE100ACC93C /* UIConstants.swift in Sources */,
+				BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */,
+				E189137722F45155004508D3 /* CustomButton.swift in Sources */,
+				BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */,
+				1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */,
+				E1068EAB22522EA300ACC93C /* UICollectionView+Extensions.swift in Sources */,
+				BA3A33BA222973F000B7A635 /* InternalRegistrationManager.swift in Sources */,
+				C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */,
+				E1AE1C35228F070B0054D098 /* AlertBanner.swift in Sources */,
+				E1068EB222533D3700ACC93C /* FormConsumer.swift in Sources */,
+				C49F49DF22806BFA00D3A986 /* SearchView.swift in Sources */,
+				BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */,
+				E189618F22647C810044D3CE /* AliasCreationDetail.swift in Sources */,
+				E1068EAA22522E4300ACC93C /* FormCollectionViewController.swift in Sources */,
+				E189137522F44DB9004508D3 /* CountryInputCollectionViewCell.swift in Sources */,
+				E14662552278A78B00512710 /* CodableTwoTuple.swift in Sources */,
+				E189137922F45C38004508D3 /* CountryInputPresentingDelegate.swift in Sources */,
+				BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */,
+				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
+				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
+				BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */,
+				E13CD2C0229D856A00601880 /* CreditCardType.swift in Sources */,
+				E1995B2722561EA500BF24A2 /* ValidationErrorDetails.swift in Sources */,
+				E1995B2B22561FAD00BF24A2 /* SDKConfigurationError.swift in Sources */,
+				E1AF91962267446900BA0B82 /* StashErrorConvertible.swift in Sources */,
+				E1068EB022525F5A00ACC93C /* DateCVVInputCollectionViewCell.swift in Sources */,
+				C42D56BE228AC53B00312CC1 /* Locale+Extension.swift in Sources */,
+				BA078EEA22E087A100E199B4 /* StashErrorBridge.swift in Sources */,
+				BAD6463E222EC29500771DC0 /* PSPExtra.swift in Sources */,
+				E1068E9E22522B2000ACC93C /* CustomTextField.swift in Sources */,
+				BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */,
+				E130D1B92302933A0067C295 /* StashBridge.swift in Sources */,
+				1DC5CBC020D40F73002058C1 /* NetworkClient.swift in Sources */,
+				E189137322F43988004508D3 /* IntValueHolding.swift in Sources */,
+				BA945A08223A83E600C39300 /* PayPalData.swift in Sources */,
+				E15E070B228EA0C6007F5FA4 /* PSPRegistration.swift in Sources */,
+				E1068EA022522B2000ACC93C /* TitleHeaderView.swift in Sources */,
+				BAD6464E2230799F00771DC0 /* Codable+Extras.swift in Sources */,
+				C42D56C0228AE38300312CC1 /* Country.swift in Sources */,
+				BAD64633222EB74B00771DC0 /* UpdateAliasRequest.swift in Sources */,
+				C49F49DD227C9AA400D3A986 /* HeaderView.swift in Sources */,
+				BA6D67932244683900463E0F /* FatalErrorAssertion.swift in Sources */,
+				C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */,
+				E17648E2223A583C00889920 /* InternalPaymentMethodType.swift in Sources */,
+				1DC5CBDC20D7EA6A002058C1 /* RouterRequest.swift in Sources */,
+				E146625F227C383B00512710 /* PaymentMethodAlias.swift in Sources */,
+				BA3A33A522294D8000B7A635 /* RouterRequestCore.swift in Sources */,
+				E17648ED223A67A600889920 /* PaymentMethodSelectionCollectionViewController.swift in Sources */,
+				C49F49D5227B48D300D3A986 /* CountryListCollectionViewController.swift in Sources */,
+				BA6D677222442F1F00463E0F /* InternalPaymentServiceProviderCoordinator.swift in Sources */,
+				1DC5CBCA20D410F9002058C1 /* Stash.swift in Sources */,
+				E1068E9D22522B2000ACC93C /* DoneButtonView.swift in Sources */,
+				E17648D6223923FB00889920 /* CreditCardUtils.swift in Sources */,
+				E1068E9B22522B2000ACC93C /* PaymentMethodTypeCollectionViewCell.swift in Sources */,
+				BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */,
+				1DC5CBC220D40F9D002058C1 /* StashConfiguration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DC5CB9A20D2BF5E002058C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1CCF8FE22E198D200B16494 /* PaymentMethodIntegrationTests.swift in Sources */,
+				E1663E0B2237C5CE00372658 /* ModuleIntegrationTests.swift in Sources */,
+				E11C3C7B223B8F2C00F94F56 /* ObjCIntegrationTests.m in Sources */,
+				E1CCF8FB22DDEF8D00B16494 /* TestMerchantBackend.swift in Sources */,
+				BA6D67952244692800463E0F /* XCTestCase+FatalError.swift in Sources */,
+				BA6D677B22445D8A00463E0F /* SDKConfigurationTests.swift in Sources */,
+				E1970DB9229844D100D075A7 /* SDKResetter.swift in Sources */,
+				E17648D12237F2AB00889920 /* CreditCardDataTests.swift in Sources */,
+				2E842E3322FDA90A005AC5B5 /* BraintreeIntegrationTests.swift in Sources */,
+				E11F2F492273100D001F9925 /* IdempotencyTests.swift in Sources */,
+				E17648DD2239474C00889920 /* StringExtensionTests.swift in Sources */,
+				E17648DF2239522000889920 /* SEPADataTests.swift in Sources */,
+				BA0B9BBA224FB6D10029FC8D /* AdyenIntegrationTests.swift in Sources */,
+				1DC5CBA420D2BF5E002058C1 /* BSPayoneIntegrationTests.swift in Sources */,
+				C42D56C2228C32A400312CC1 /* CountryDataTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA09A94F224D60E8006C3A1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */,
+				BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */,
+				E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */,
+				E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */,
+				BA21F4FF224D6659004CEAA2 /* StashAdyen.swift in Sources */,
+				E1068EB922535D1200ACC93C /* AdyenCreditCardInputCollectionViewController.swift in Sources */,
+				E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */,
+				E1D558F022648DE900BC856A /* AdyenAliasCreationDetail.swift in Sources */,
+				BA0B9BB2224FA91A0029FC8D /* AdyenData.swift in Sources */,
+				E1068EB722535D0800ACC93C /* AdyenSEPAInputCollectionViewController.swift in Sources */,
+				E18E121A22F996D3005C15BE /* StashAdyenBridge.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA8D07092226AE56004F699A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1663E0522368D4200372658 /* Alias.swift in Sources */,
+				E1663E0222367C2000372658 /* AliasManager.swift in Sources */,
+				E17648F7223A833200889920 /* MainTabBarController.swift in Sources */,
+				E1131F722236628D0025A711 /* PaymentMethodsCollectionViewController.swift in Sources */,
+				E17648F9223A840400889920 /* UIViewController+Extensions.swift in Sources */,
+				E1663E0722368FD500372658 /* AliasCollectionViewCell.swift in Sources */,
+				BA8D07102226AE56004F699A /* AppDelegate.swift in Sources */,
+				E17648F5223A817100889920 /* AddUIViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA945A27223A890100C39300 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E15E0716228EB22C007F5FA4 /* PayPalLoadingViewController.swift in Sources */,
+				BA0B9BB8224FAE6A0029FC8D /* BraintreeData.swift in Sources */,
+				BABC7D63224229F900028C29 /* StashBraintreeBridge.swift in Sources */,
+				2EF51FA222F9B9BE00416ABE /* CreditCardBraintreeData.swift in Sources */,
+				E1AEECFE2278224B005DE2BC /* BraintreeError.swift in Sources */,
+				2E2B3BE422FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift in Sources */,
+				BA84B3662271C6790016E255 /* PayPalUIManager.swift in Sources */,
+				BA5F8253223AE85400D92D3E /* StashBraintree.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BACD618D2226B03600E3ACC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */,
+				E17648D42237FD7300889920 /* CreditCardTypeExtensions.swift in Sources */,
+				BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */,
+				BA3A33A322293F7D00B7A635 /* NetworkClientBSPayone.swift in Sources */,
+				E1C9A85E22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift in Sources */,
+				BA0B9BB5224FADE50029FC8D /* BSPayoneData.swift in Sources */,
+				BA3A33A72229559A00B7A635 /* RouterRequestBSPayone.swift in Sources */,
+				E1AF91972267446900BA0B82 /* BSCreditCardInputCollectionViewController.swift in Sources */,
+				E1995B1F22560BD200BF24A2 /* PatternUtilities.swift in Sources */,
+				BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */,
+				BA3A33B822296D0D00B7A635 /* RegisterCreditCardResponse.swift in Sources */,
+				E146626B227C488600512710 /* CreditCardBSPayoneData.swift in Sources */,
+				BA95FC5C224D7F480026BCD9 /* StashBSPayone.swift in Sources */,
+				BA95FC5D224D7F4B0026BCD9 /* StashBSPayoneBridge.swift in Sources */,
+				E146626D227C48ED00512710 /* SEPABSPayoneData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3BFB223AB64F00F94F56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11C3C06223AB64F00F94F56 /* ViewController.m in Sources */,
+				E11C3C11223AB65000F94F56 /* main.m in Sources */,
+				E11C3C03223AB64F00F94F56 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E11C3C83223BA5E100F94F56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1CCF8FC22DDEF8E00B16494 /* TestMerchantBackend.swift in Sources */,
+				E1CCF8F422DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift in Sources */,
+				E1995B39225749D900BF24A2 /* BaseUITest.swift in Sources */,
+				E1970DB42297FF4700D075A7 /* SpecificPaymentMethodRegistrationTests.swift in Sources */,
+				E1995B37225749A600BF24A2 /* BSPayoneUITests.swift in Sources */,
+				E15E3E2B229425FD00EE19EE /* ErrorPresentationTests.swift in Sources */,
+				E1995B3D22574AC500BF24A2 /* BasePaymentModulesTests.swift in Sources */,
+				E1995B3F22574B5500BF24A2 /* AdyenUITests.swift in Sources */,
+				E1995B3B22574A6800BF24A2 /* BraintreeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1DC5CBA120D2BF5E002058C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DC5CB9420D2BF5E002058C1 /* StashCore */;
+			targetProxy = 1DC5CBA020D2BF5E002058C1 /* PBXContainerItemProxy */;
+		};
+		BA09A959224D60E8006C3A1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA09A952224D60E8006C3A1D /* StashAdyen */;
+			targetProxy = BA09A958224D60E8006C3A1D /* PBXContainerItemProxy */;
+		};
+		BA945A31223A890100C39300 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA945A2A223A890100C39300 /* StashBraintree */;
+			targetProxy = BA945A30223A890100C39300 /* PBXContainerItemProxy */;
+		};
+		BACD61972226B03600E3ACC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BACD61902226B03600E3ACC3 /* StashBSPayone */;
+			targetProxy = BACD61962226B03600E3ACC3 /* PBXContainerItemProxy */;
+		};
+		E1131F772236638A0025A711 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DC5CB9420D2BF5E002058C1 /* StashCore */;
+			targetProxy = E1131F762236638A0025A711 /* PBXContainerItemProxy */;
+		};
+		E11C3C23223AB69D00F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DC5CB9420D2BF5E002058C1 /* StashCore */;
+			targetProxy = E11C3C22223AB69D00F94F56 /* PBXContainerItemProxy */;
+		};
+		E11C3C27223AB69D00F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BACD61902226B03600E3ACC3 /* StashBSPayone */;
+			targetProxy = E11C3C26223AB69D00F94F56 /* PBXContainerItemProxy */;
+		};
+		E11C3C80223BA4EC00F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA8D070C2226AE56004F699A /* StashSample */;
+			targetProxy = E11C3C7F223BA4EC00F94F56 /* PBXContainerItemProxy */;
+		};
+		E11C3C8D223BA5E100F94F56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA8D070C2226AE56004F699A /* StashSample */;
+			targetProxy = E11C3C8C223BA5E100F94F56 /* PBXContainerItemProxy */;
+		};
+		E1D90158224A84480067BB8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA945A2A223A890100C39300 /* StashBraintree */;
+			targetProxy = E1D90157224A84480067BB8A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BA8D07132226AE56004F699A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA8D07142226AE56004F699A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BA8D07182226AE57004F699A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA8D07192226AE57004F699A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E11C3C07223AB64F00F94F56 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E11C3C08223AB64F00F94F56 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E11C3C0C223AB65000F94F56 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E11C3C0D223AB65000F94F56 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DC5CBA720D2BF5E002058C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 24;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1DC5CBA820D2BF5E002058C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 24;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1DC5CBAA20D2BF5E002058C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Core/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.core;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1DC5CBAB20D2BF5E002058C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Core/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.core;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1DC5CBAD20D2BF5E002058C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.UnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/StashTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StashSample.app/StashSample";
+			};
+			name = Debug;
+		};
+		1DC5CBAE20D2BF5E002058C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.UnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/StashTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StashSample.app/StashSample";
+			};
+			name = Release;
+		};
+		BA09A95C224D60E8006C3A1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StashAdyen/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.adyen;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA09A95D224D60E8006C3A1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StashAdyen/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.adyen;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BA8D071D2226AE57004F699A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Sample/other",
+				);
+				INFOPLIST_FILE = Sample/other/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Dev";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA8D071E2226AE57004F699A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Sample",
+					"$(PROJECT_DIR)/Sample/other",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Sample/other/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Ad-Hoc";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BA945A35223A890100C39300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StashBraintree/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Braintree;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA945A36223A890100C39300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StashBraintree/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Braintree;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BACD619B2226B03600E3ACC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/StashBSPayone/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.BSPayone;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BACD619C2226B03600E3ACC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 24;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/StashBSPayone/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.BSPayone;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E11C3C13223AB65000F94F56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "Sample-ObjC/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.stash.Sample-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E11C3C14223AB65000F94F56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "Sample-ObjC/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobilabsolutions.stash.Sample-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E11C3C8F223BA5E100F94F56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = SampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.SampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StashSample;
+			};
+			name = Debug;
+		};
+		E11C3C90223BA5E100F94F56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S722Z9XR48;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = SampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.SampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StashSample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DC5CB8F20D2BF5E002058C1 /* Build configuration list for PBXProject "Stash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DC5CBA720D2BF5E002058C1 /* Debug */,
+				1DC5CBA820D2BF5E002058C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DC5CBA920D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "StashCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DC5CBAA20D2BF5E002058C1 /* Debug */,
+				1DC5CBAB20D2BF5E002058C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DC5CBAC20D2BF5E002058C1 /* Build configuration list for PBXNativeTarget "StashTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DC5CBAD20D2BF5E002058C1 /* Debug */,
+				1DC5CBAE20D2BF5E002058C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA09A95E224D60E8006C3A1D /* Build configuration list for PBXNativeTarget "StashAdyen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA09A95C224D60E8006C3A1D /* Debug */,
+				BA09A95D224D60E8006C3A1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA8D071C2226AE57004F699A /* Build configuration list for PBXNativeTarget "StashSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA8D071D2226AE57004F699A /* Debug */,
+				BA8D071E2226AE57004F699A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA945A34223A890100C39300 /* Build configuration list for PBXNativeTarget "StashBraintree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA945A35223A890100C39300 /* Debug */,
+				BA945A36223A890100C39300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BACD619A2226B03600E3ACC3 /* Build configuration list for PBXNativeTarget "StashBSPayone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BACD619B2226B03600E3ACC3 /* Debug */,
+				BACD619C2226B03600E3ACC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E11C3C12223AB65000F94F56 /* Build configuration list for PBXNativeTarget "StashSample-ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E11C3C13223AB65000F94F56 /* Debug */,
+				E11C3C14223AB65000F94F56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E11C3C8E223BA5E100F94F56 /* Build configuration list for PBXNativeTarget "StashSampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E11C3C8F223BA5E100F94F56 /* Debug */,
+				E11C3C90223BA5E100F94F56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1DC5CB8C20D2BF5E002058C1 /* Project object */;
+}

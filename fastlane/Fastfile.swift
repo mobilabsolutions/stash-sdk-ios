@@ -15,7 +15,7 @@ class Fastfile: LaneFile {
 
     private let keychainName = "ci-build-keychain"
     private var random = SystemRandomNumberGenerator()
-    private let adhocAppIdentifiers = [("com.mobilabsolutions.payment.*", "Payment Sample and Demo Ad-Hoc")]
+    private let adhocAppIdentifiers = [("com.mobilabsolutions.stash.*", "Stash Sample and Demo Ad-Hoc")]
 
     func beforeAll() {
         if self.isCI {
@@ -33,12 +33,12 @@ class Fastfile: LaneFile {
 
     func uiTestLane() {
         desc("Run UI tests")
-        runTests(workspace: "MobilabPayment.xcworkspace", scheme: "SampleUITests", device: "iPhone X", prelaunchSimulator: true)
+        runTests(workspace: "Stash.xcworkspace", scheme: "StashSampleUITests", device: "iPhone X", prelaunchSimulator: true)
     }
 
     func unitTestLane() {
         desc("Run Unit tests")
-        runTests(workspace: "MobilabPayment.xcworkspace", scheme: "MobilabPaymentTests", prelaunchSimulator: true)
+        runTests(workspace: "Stash.xcworkspace", scheme: "StashTests", prelaunchSimulator: true)
     }
 
     func betaLane() {
@@ -50,12 +50,12 @@ class Fastfile: LaneFile {
         if self.isCI {
             changeLog = changelogFromGitCommits(between: self.ciCommitRangeInCommaNotation(),
                                                 mergeCommitFiltering: "exclude_merges")
-            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "MobilabPayment.xcodeproj")
-            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "MobilabPaymentDemo/MobilabPaymentDemo.xcodeproj")
+            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "Stash.xcodeproj")
+            incrementBuildNumber(buildNumber: environmentVariable(get: "TRAVIS_BUILD_NUMBER"), xcodeproj: "StashDemo/StashDemo.xcodeproj")
         } else {
             changeLog = changelogFromGitCommits(mergeCommitFiltering: "exclude_merges")
-            incrementBuildNumber(xcodeproj: "MobilabPayment.xcodeproj")
-            incrementBuildNumber(xcodeproj: "MobilabPaymentDemo/MobilabPaymentDemo.xcodeproj")
+            incrementBuildNumber(xcodeproj: "Stash.xcodeproj")
+            incrementBuildNumber(xcodeproj: "StashDemo/StashDemo.xcodeproj")
         }
 
         self.prepareForDistribution()
@@ -67,16 +67,16 @@ class Fastfile: LaneFile {
     }
 
     private func betaSample(buildSecret: String, apiKey: String, changeLog: String) {
-        buildApp(workspace: "MobilabPayment.xcworkspace", scheme: "Sample", clean: false,
+        buildApp(workspace: "Stash.xcworkspace", scheme: "StashSample", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
         crashlytics(crashlyticsPath: "./Sample/other/Crashlytics.framework/submit",
                     apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"), notifications: false)
     }
 
     private func betaDemo(buildSecret: String, apiKey: String, changeLog: String) {
-        buildApp(workspace: "MobilabPayment.xcworkspace", scheme: "MobilabPaymentDemo", clean: false,
+        buildApp(workspace: "Stash.xcworkspace", scheme: "StashDemo", clean: false,
                  includeBitcode: false, exportMethod: "ad-hoc")
-        crashlytics(crashlyticsPath: "./MobilabPaymentDemo/other/Crashlytics.framework/submit",
+        crashlytics(crashlyticsPath: "./StashDemo/other/Crashlytics.framework/submit",
                     apiToken: apiKey, buildSecret: buildSecret, notes: changeLog, emails: environmentVariable(get: "CRASHLYTICS_TESTERS"),
                     notifications: false)
     }

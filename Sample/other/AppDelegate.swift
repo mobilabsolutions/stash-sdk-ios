@@ -6,7 +6,7 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import MobilabPaymentBraintree
+import StashBraintree
 import UIKit
 
 @UIApplicationMain
@@ -18,6 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return MobilabPaymentBraintree.handleOpen(url: url, options: options)
+        return StashBraintree.handleOpen(url: url, options: options)
     }
 }

@@ -1,12 +1,12 @@
 //
 //  BasePaymentModulesTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 15.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentCore
+@testable import StashCore
 import XCTest
 
 class BasePaymentModulesTests: BaseUITest {
@@ -187,13 +187,11 @@ class BasePaymentModulesTests: BaseUITest {
         collectionViewsQuery.buttons["Country"].tap()
         app.collectionViews.cells.element(boundBy: 0).tap()
 
-        app.collectionViews.firstMatch.tap()
         XCTAssertFalse(app.buttons["SAVE"].isEnabled)
 
         collectionViewsQuery.textFields["XX123"].tap()
         collectionViewsQuery.textFields["XX123"].typeText("780023456789")
 
-        app.collectionViews.firstMatch.tap()
         XCTAssertTrue(app.buttons["SAVE"].isEnabled)
     }
 

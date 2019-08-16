@@ -1,6 +1,6 @@
 //
 //  CustomButton.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Robert on 02.08.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

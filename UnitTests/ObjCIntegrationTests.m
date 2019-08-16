@@ -1,17 +1,17 @@
 //
 //  ObjCIntegrationTests.m
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 15.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
 @import Foundation;
-@import MobilabPaymentCore;
-@import MobilabPaymentBSPayone;
+@import StashCore;
+@import StashBSPayone;
 @import OHHTTPStubs;
 
-#import "MobilabPaymentTests-Swift.h"
+#import "StashTests-Swift.h"
 #import <XCTest/XCTest.h>
 
 @interface ObjCIntegrationTests : XCTestCase
@@ -24,17 +24,17 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void)setUp {
     [super setUp];
-    [SDKResetter resetMobilabSDK];
+    [SDKResetter resetStash];
 }
 
 - (void)tearDown {
     [super tearDown];
     [OHHTTPStubs removeAllStubs];
-    [SDKResetter resetMobilabSDK];
+    [SDKResetter resetStash];
 }
 
 - (void) testCreateConfiguration {
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+    MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                     initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
                                                     endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[]
@@ -48,21 +48,21 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 }
 
 - (void) testAddConfigurationAndProviderToSDK {
-    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLStashBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+    MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                     initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:nil];
 
-    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
+    [MLStash initializeWithConfiguration:configuration];
 
     // This should compile and *not* cause a runtime error since the SDK is now configured.
     // We don't care about the return value in this context, so we ignore it.
-    (void) [MLMobilabPaymentSDK getRegistrationManager];
+    (void) [MLStash getRegistrationManager];
 }
 
 - (void) testRegisterCreditCardBSPayone {
@@ -74,7 +74,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
-    MLPaymentMethodUIConfiguration *uiConfiguration = [[MLPaymentMethodUIConfiguration alloc] initWithBackgroundColor:nil
+    MLStashPaymentMethodUIConfiguration *uiConfiguration = [[MLStashPaymentMethodUIConfiguration alloc] initWithBackgroundColor:nil
                                                                                                             textColor:nil
                                                                                                           buttonColor:[UIColor blueColor] mediumEmphasisColor:nil
                                                                                                   cellBackgroundColor:nil
@@ -83,17 +83,17 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                                                                     errorMessageColor:nil
                                                                                                 errorMessageTextColor:nil];
 
-    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLStashBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeCreditCard], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+    MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                     initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:uiConfiguration];
 
-    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
+    [MLStash initializeWithConfiguration:configuration];
 
     NSError *error;
     
@@ -123,7 +123,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerCreditCardWithCreditCardData:creditCard
+    [[MLStash getRegistrationManager] registerCreditCardWithCreditCardData:creditCard
                                                                         idempotencyKey: [[NSUUID new] UUIDString]
                                                                             completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"A registration should be returned when registering a valid credit card");
@@ -143,17 +143,17 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                 statusCode:200 headers:nil];
     }];
 
-    MLPaymentProvider *bsPayone = [MLMobilabBSPayone createModule];
+    MLPaymentProvider *bsPayone = [MLStashBSPayone createModule];
 
     NSSet<NSNumber *> *paymentMethodTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInteger:MLPaymentMethodTypeSepa], nil];
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
-    MLMobilabPaymentConfiguration *configuration = [[MLMobilabPaymentConfiguration alloc]
+    MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                     initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:nil];
 
-    [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
+    [MLStash initializeWithConfiguration:configuration];
 
     MLSimpleNameProvider *name = [[MLSimpleNameProvider alloc] initWithFirstName: @"Max" lastName: @"Mustermann"];
 
@@ -176,7 +176,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a SEPA account should not time out"];
 
-    [[MLMobilabPaymentSDK getRegistrationManager] registerSEPAAccountWithSepaData:sepaData
+    [[MLStash getRegistrationManager] registerSEPAAccountWithSepaData:sepaData
                                                                    idempotencyKey:[[NSUUID new] UUIDString]
                                                                        completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"Registering a valid SEPA method should return a registration");

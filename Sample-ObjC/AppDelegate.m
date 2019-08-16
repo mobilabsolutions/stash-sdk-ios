@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-@import MobilabPaymentCore;
-@import MobilabPaymentBraintree;
+@import StashCore;
+@import StashBraintree;
 
 @interface AppDelegate ()
 
@@ -50,7 +50,7 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return [MLMobilabBraintree handleOpenWithUrl:url options:options];
+    return [MLStashBraintree handleOpenWithUrl:url options:options];
 }
 
 

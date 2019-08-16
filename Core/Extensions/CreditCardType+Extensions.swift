@@ -1,6 +1,6 @@
 //
 //  CreditCardType+Extensions.swift
-//  MobilabPaymentBSPayone
+//  StashBSPayone
 //
 //  Created by Robert on 26.03.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

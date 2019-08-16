@@ -1,30 +1,30 @@
 //
 //  IdempotencyTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Robert on 26.04.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentCore
 import OHHTTPStubs
+@testable import StashCore
 import XCTest
 
 class IdempotencyTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
         OHHTTPStubs.removeAllStubs()
     }
 
     override func tearDown() {
         super.tearDown()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
         OHHTTPStubs.removeAllStubs()
     }
 
     private class TestModule: PaymentServiceProvider {
-        var pspIdentifier: MobilabPaymentProvider {
+        var pspIdentifier: StashPaymentProvider {
             return .bsPayone
         }
 
@@ -37,10 +37,10 @@ class IdempotencyTests: XCTestCase {
         }
 
         private var handleRegistrationRequestCallback: (RegistrationRequest, String?) -> PaymentServiceProvider.RegistrationResult
-        private var handleAliasCreationDetailCallback: (RegistrationData, String?) -> Result<AliasCreationDetail?, MobilabPaymentError>
+        private var handleAliasCreationDetailCallback: (RegistrationData, String?) -> Result<AliasCreationDetail?, StashError>
 
         init(handleRegistrationRequestCallback: @escaping (RegistrationRequest, String?) -> PaymentServiceProvider.RegistrationResult,
-             handleAliasCreationDetailCallback: @escaping (RegistrationData, String?) -> Result<AliasCreationDetail?, MobilabPaymentError>) {
+             handleAliasCreationDetailCallback: @escaping (RegistrationData, String?) -> Result<AliasCreationDetail?, StashError>) {
             self.handleAliasCreationDetailCallback = handleAliasCreationDetailCallback
             self.handleRegistrationRequestCallback = handleRegistrationRequestCallback
         }
@@ -52,7 +52,7 @@ class IdempotencyTests: XCTestCase {
             completion(self.handleRegistrationRequestCallback(registrationRequest, idempotencyKey))
         }
 
-        func provideAliasCreationDetail(for data: RegistrationData, idempotencyKey: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        func provideAliasCreationDetail(for data: RegistrationData, idempotencyKey: String?, uniqueRegistrationIdentifier _: String, completion: @escaping (Result<AliasCreationDetail?, StashError>) -> Void) {
             completion(self.handleAliasCreationDetailCallback(data, idempotencyKey))
         }
     }
@@ -74,13 +74,13 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [integration])
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [integration])
+        Stash.initialize(configuration: configuration)
 
         let creditCard = try CreditCardData(cardNumber: "4111111111111111", cvv: "123", expiryMonth: 10, expiryYear: 21, country: "DE", billingData: BillingData())
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard, idempotencyKey: providedIdempotencyKey) { _ in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard, idempotencyKey: providedIdempotencyKey) { _ in
             // Intentionally left empty
         }
 
@@ -104,10 +104,10 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [integration])
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [integration])
+        Stash.initialize(configuration: configuration)
 
         let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
 
@@ -141,7 +141,7 @@ class IdempotencyTests: XCTestCase {
                 response = fixture(filePath: path, status: 200, headers: [:])
             } else {
                 XCTFail("No idempotency key header provided. Headers: \(request.allHTTPHeaderFields?.description ?? "nil")")
-                response = OHHTTPStubsResponse(error: MobilabPaymentError.other(GenericErrorDetails(description: "There should have been an idempotency key header")))
+                response = OHHTTPStubsResponse(error: StashError.other(GenericErrorDetails(description: "There should have been an idempotency key header")))
             }
 
             if isCreateRequest {
@@ -153,7 +153,7 @@ class IdempotencyTests: XCTestCase {
             return response
         }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: creditCard, idempotencyKey: providedIdempotencyKey) { _ in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: creditCard, idempotencyKey: providedIdempotencyKey) { _ in
             // Intentionally left empty
         }
 

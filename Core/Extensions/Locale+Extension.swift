@@ -1,6 +1,6 @@
 //
 //  Locale+Extension.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Rupali Ghate on 14.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.

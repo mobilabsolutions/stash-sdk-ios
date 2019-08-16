@@ -1,14 +1,14 @@
 //
 //  BraintreeIntegrationTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Biju Parvathy on 09.08.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentBraintree
-@testable import MobilabPaymentCore
 import OHHTTPStubs
+@testable import StashBraintree
+@testable import StashCore
 import XCTest
 
 class BraintreeIntegrationTests: XCTestCase {
@@ -17,21 +17,21 @@ class BraintreeIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         OHHTTPStubs.removeAllStubs()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
 
-        let provider = MobilabPaymentBraintree(urlScheme: "com.your-company.Your-App.mobilab")
+        let provider = StashBraintree(urlScheme: "com.your-company.Your-App.mobilab")
         self.provider = provider
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
     }
 
     override func tearDown() {
         super.tearDown()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
         OHHTTPStubs.removeAllStubs()
     }
 
@@ -47,7 +47,7 @@ class BraintreeIntegrationTests: XCTestCase {
                                                 country: "DE",
                                                 billingData: billingData)
 
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
