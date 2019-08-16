@@ -122,7 +122,7 @@ class AddUIViewController: UIViewController {
 
         let adyen = StashAdyen()
         let bsPayOne = StashBSPayone()
-        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
+        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Sample.paypal")
 
         let providerIntegration: PaymentProviderIntegration
         let braintreeIntegration: PaymentProviderIntegration

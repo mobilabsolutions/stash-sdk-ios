@@ -25,7 +25,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.mobilabsolutions.payment.Demo.paypal</string>
+				<string>com.mobilabsolutions.stash.Demo.paypal</string>
 			</array>
 		</dict>
 	</array>

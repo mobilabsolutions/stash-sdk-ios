@@ -42,7 +42,7 @@ class SDKConfiguraionTests: XCTestCase {
     func testPSPUsedForRegisteringProvidedPaymentMethods() {
         let creditCardProvider = StashBSPayone()
         let sepaProvider = StashBSPayone()
-        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
@@ -69,7 +69,7 @@ class SDKConfiguraionTests: XCTestCase {
     func testCorrectPaymentMethodTypesAreReturned() {
         let creditCardProvider = StashBSPayone()
         let sepaProvider = StashBSPayone()
-        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let sepaIntegration = PaymentProviderIntegration(paymentServiceProvider: sepaProvider, paymentMethodTypes: [.sepa]),
@@ -86,7 +86,7 @@ class SDKConfiguraionTests: XCTestCase {
 
     func testPSPUsedForRegisteringNotProvidedPaymentMethods() {
         let creditCardProvider = StashBSPayone()
-        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.payment.Demo.paypal")
+        let payPalProvider = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Demo.paypal")
 
         guard let creditCardIntegration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.creditCard]),
             let payPalIntegration = PaymentProviderIntegration(paymentServiceProvider: payPalProvider, paymentMethodTypes: [.payPal])
