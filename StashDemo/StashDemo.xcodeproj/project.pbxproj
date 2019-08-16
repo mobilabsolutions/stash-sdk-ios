@@ -15,14 +15,14 @@
 		E189138222F96A9B004508D3 /* StashBraintree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E189138022F96A9B004508D3 /* StashBraintree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E189138422F96A9B004508D3 /* StashAdyen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E189138322F96A9B004508D3 /* StashAdyen.framework */; };
 		E189138522F96A9B004508D3 /* StashAdyen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E189138322F96A9B004508D3 /* StashAdyen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1ABA70D2306940C0014F59E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C1537422D4752600507A18 /* Fabric.framework */; };
+		E1ABA711230694580014F59E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C1537522D4752600507A18 /* Crashlytics.framework */; };
 		E1C1539D22D4752700507A18 /* PaymentMethodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1536D22D4752600507A18 /* PaymentMethodController.swift */; };
 		E1C1539E22D4752700507A18 /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1536E22D4752600507A18 /* CheckoutController.swift */; };
 		E1C1539F22D4752700507A18 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1536F22D4752600507A18 /* BaseViewController.swift */; };
 		E1C153A022D4752700507A18 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1537022D4752600507A18 /* MainTabBarController.swift */; };
 		E1C153A122D4752700507A18 /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1537122D4752600507A18 /* ItemsController.swift */; };
 		E1C153A222D4752700507A18 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1537222D4752600507A18 /* CustomNavigationController.swift */; };
-		E1C153A322D4752700507A18 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C1537422D4752600507A18 /* Fabric.framework */; };
-		E1C153A422D4752700507A18 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C1537522D4752600507A18 /* Crashlytics.framework */; };
 		E1C153A522D4752700507A18 /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = E1C1537622D4752600507A18 /* output.xcfilelist */; };
 		E1C153A622D4752700507A18 /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = E1C1537722D4752600507A18 /* input.xcfilelist */; };
 		E1C153A722D4752700507A18 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C1537822D4752600507A18 /* CustomError.swift */; };
@@ -124,10 +124,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1ABA711230694580014F59E /* Crashlytics.framework in Frameworks */,
+				E1ABA70D2306940C0014F59E /* Fabric.framework in Frameworks */,
 				E189138422F96A9B004508D3 /* StashAdyen.framework in Frameworks */,
-				E1C153A422D4752700507A18 /* Crashlytics.framework in Frameworks */,
 				E189137B22F96A9B004508D3 /* StashCore.framework in Frameworks */,
-				E1C153A322D4752700507A18 /* Fabric.framework in Frameworks */,
 				E189137E22F96A9B004508D3 /* StashBSPayone.framework in Frameworks */,
 				E189138122F96A9B004508D3 /* StashBraintree.framework in Frameworks */,
 			);
@@ -280,6 +280,7 @@
 				E1C1533F22D4744300507A18 /* Resources */,
 				E182536322D478320020FD77 /* Carthage Copy */,
 				E189138622F96A9B004508D3 /* Embed Frameworks */,
+				E1ABA70C230692FF0014F59E /* Add Fabric */,
 			);
 			buildRules = (
 			);
@@ -363,6 +364,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		E1ABA70C230692FF0014F59E /* Add Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Add Fabric";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${SRCROOT}/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/other/add-fabric.sh\"\nfi;\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -544,6 +564,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 27;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -555,9 +576,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Payment Sample and Demo Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -584,9 +605,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Payment Sample and Demo Ad-Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Ad-Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

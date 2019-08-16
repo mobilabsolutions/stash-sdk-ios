@@ -21,10 +21,10 @@
 		1DFA536320D91C490065CCC3 /* BillingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536220D91C490065CCC3 /* BillingData.swift */; };
 		1DFA536620D91E3E0065CCC3 /* CreditCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */; };
 		1DFA536820D91EF20065CCC3 /* SEPAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA536720D91EF20065CCC3 /* SEPAData.swift */; };
-		4419A6262253AF3B00FF4C80 /* StashError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419A6252253AF3B00FF4C80 /* StashError.swift */; };
 		2E2B3BE422FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B3BE322FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift */; };
 		2E842E3322FDA90A005AC5B5 /* BraintreeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E842E3222FDA90A005AC5B5 /* BraintreeIntegrationTests.swift */; };
 		2EF51FA222F9B9BE00416ABE /* CreditCardBraintreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */; };
+		4419A6262253AF3B00FF4C80 /* StashError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419A6252253AF3B00FF4C80 /* StashError.swift */; };
 		BA078EDC22E082C600E199B4 /* RegistrationManagerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */; };
 		BA078EDE22E083BD00E199B4 /* PaymentServiceProviderBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */; };
 		BA078EE022E084B900E199B4 /* PaymentProviderIntegrationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */; };
@@ -246,6 +246,8 @@
 		E1995B3B22574A6800BF24A2 /* BraintreeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3A22574A6800BF24A2 /* BraintreeUITests.swift */; };
 		E1995B3D22574AC500BF24A2 /* BasePaymentModulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3C22574AC500BF24A2 /* BasePaymentModulesTests.swift */; };
 		E1995B3F22574B5500BF24A2 /* AdyenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B3E22574B5500BF24A2 /* AdyenUITests.swift */; };
+		E1ABA71223069A630014F59E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11522422EC700BB6577 /* Fabric.framework */; };
+		E1ABA71323069A630014F59E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1D11622422EC700BB6577 /* Crashlytics.framework */; };
 		E1AE1C35228F070B0054D098 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AE1C34228F070B0054D098 /* AlertBanner.swift */; };
 		E1AEECFE2278224B005DE2BC /* BraintreeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2E22562A2300BF24A2 /* BraintreeError.swift */; };
 		E1AF91962267446900BA0B82 /* StashErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* StashErrorConvertible.swift */; };
@@ -422,10 +424,10 @@
 		1DFA536220D91C490065CCC3 /* BillingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingData.swift; sourceTree = "<group>"; };
 		1DFA536520D91E3E0065CCC3 /* CreditCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardData.swift; sourceTree = "<group>"; };
 		1DFA536720D91EF20065CCC3 /* SEPAData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPAData.swift; sourceTree = "<group>"; };
-		4419A6252253AF3B00FF4C80 /* StashError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashError.swift; sourceTree = "<group>"; };
 		2E2B3BE322FC143500B272D7 /* BraintreeCreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeCreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
 		2E842E3222FDA90A005AC5B5 /* BraintreeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeIntegrationTests.swift; sourceTree = "<group>"; };
 		2EF51FA122F9B9BE00416ABE /* CreditCardBraintreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardBraintreeData.swift; sourceTree = "<group>"; };
+		4419A6252253AF3B00FF4C80 /* StashError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashError.swift; sourceTree = "<group>"; };
 		BA078EDB22E082C600E199B4 /* RegistrationManagerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManagerBridge.swift; sourceTree = "<group>"; };
 		BA078EDD22E083BD00E199B4 /* PaymentServiceProviderBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProviderBridge.swift; sourceTree = "<group>"; };
 		BA078EDF22E084B900E199B4 /* PaymentProviderIntegrationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProviderIntegrationBridge.swift; sourceTree = "<group>"; };
@@ -692,6 +694,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1ABA71223069A630014F59E /* Fabric.framework in Frameworks */,
+				E1ABA71323069A630014F59E /* Crashlytics.framework in Frameworks */,
 				BACD61982226B03600E3ACC3 /* StashBSPayone.framework in Frameworks */,
 				BA945A32223A890100C39300 /* StashBraintree.framework in Frameworks */,
 				E1131F742236638A0025A711 /* StashCore.framework in Frameworks */,
@@ -948,7 +952,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-
 		2E2B3BE222FC13E100B272D7 /* CreditCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -2610,9 +2613,9 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Payment Sample and Demo Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2641,9 +2644,9 @@
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.payment.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Payment Sample and Demo Ad-Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Stash Sample and Demo Ad-Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
