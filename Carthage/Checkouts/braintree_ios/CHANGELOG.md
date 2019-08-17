@@ -1,5 +1,10 @@
 # Braintree iOS SDK Release Notes
 
+## 4.27.0 (2019-08-15)
+
+* Remove unneeded pre-processor directives
+* Added new fields to BTThreeDSecureInfo
+
 ## 4.26.3 (2019-07-31)
 
 * Fixed issue with Carthage binary spec for CardinalMobile
