@@ -54,7 +54,7 @@ public enum StashError: Error, CustomStringConvertible, TitleProviding {
     ///   - filename: Name of the file from which this function has been called. Autopopulated by special literal available in Swift
     ///   - line: Code line on which this function has been called. Autopopulated by special literal available in Swift
     ///   - funcName: Name of the function in which this function has been called. Autopopulated by special literal available in Swift
-    public func loggedError(filename: String = #file, line: Int = #line, funcName: String = #function) -> MobilabPaymentError {
+    public func loggedError(filename: String = #file, line: Int = #line, funcName: String = #function) -> StashError {
         Log.error(description: self.description, filename: filename, line: line, funcName: funcName)
         return self
     }
