@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MobilabPaymentCore
+import StashCore
 
 struct Alias: Codable {
     let alias: String

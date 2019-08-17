@@ -1,6 +1,6 @@
 //
 //  GenericErrorDetails.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Robert on 04.04.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -31,7 +31,7 @@ public struct GenericErrorDetails: TitleProviding, CustomStringConvertible {
 
     /// Create a generic error detail from any error
     ///
-    /// - Parameter error: The error that should be converted into a Mobilab error
+    /// - Parameter error: The error that should be converted into a StashError
     /// - Returns: The wrapped error
     public static func from(error: Error) -> GenericErrorDetails {
         return GenericErrorDetails(title: "Error", description: error.localizedDescription)

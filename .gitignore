@@ -14,6 +14,9 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 
+## Github Deploy Key
+.travis/github_deploy_key
+
 ## Other
 *.moved-aside
 *.xccheckout
@@ -52,7 +55,7 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-Demo/other/add-fabric.sh
+StashDemo/other/add-fabric.sh
 Sample/other/add-fabric.sh
 
 test_output/

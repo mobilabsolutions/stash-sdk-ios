@@ -22,7 +22,7 @@ _ Carthage
 
 ## Installation
 
-We recommend using [Carthage](https://github.com/Carthage/Carthage) to integrate the MobilabPayment SDK with your project.
+We recommend using [Carthage](https://github.com/Carthage/Carthage) to integrate the Stash SDK with your project.
 
 ### Carthage
 
@@ -30,7 +30,7 @@ Add `github "mobilabsolutions/payment-sdk-ios-open" ~> 1.0` to your `Cartfile`, 
 
 ### Manual Installation
 
-The SDK can also be installed manually. To perform manual installation, drag the `MobilabPaymentCore` framework and the module frameworks you might want to use into the `Embdedded Binaries` section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using [Carthage](https://github.com/Carthage/Carthage) with the following `Cartfile` contents for installing the dependencies of the Braintree and Adyen modules:
+The SDK can also be installed manually. To perform manual installation, drag the `StashCore` framework and the module frameworks you might want to use into the `Embdedded Binaries` section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using [Carthage](https://github.com/Carthage/Carthage) with the following `Cartfile` contents for installing the dependencies of the Braintree and Adyen modules:
 
 ```
 github "braintree/braintree-ios-drop-in" ~> 7.2.0
@@ -46,20 +46,20 @@ To use the SDK, you need to initialize it with some configuration data. Among th
 
 To connect the SDK to a given PSP, that PSP's module needs to be imported and initialized. You need to set the configuration's `integrations` to provide correct data.
 ```swift
-import MobilabPaymentCore
-import MobilabPaymentBSPayone
-import MobilabPaymentBraintree
+import StashCore
+import StashBSPayone
+import StashBraintree
 
-let bsPayonePSP = MobilabPaymentBSPayone()
-let braintreePSP = MobilabPaymentBraintree(urlScheme: "[YOUR URL SCHEME]]")
+let bsPayonePSP = StashBSPayone()
+let braintreePSP = StashBraintree(urlScheme: "[YOUR URL SCHEME]]")
 
-let configuration = MobilabPaymentConfiguration(publishableKey: "[YOUR MOBILAB BACKEND PUBLISHABLE KEY]", 
-                                                endpoint: "[YOUR MOBILAB BACKEND ENDPOINT]",
+let configuration = StashConfiguration(publishableKey: "[YOUR STASH BACKEND PUBLISHABLE KEY]", 
+                                                endpoint: "[YOUR STASH BACKEND ENDPOINT]",
                                                 integrations: [
                                                     PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP),
                                                     PaymentProviderIntegration(paymentServiceProvider: braintreePSP)
                                                 ])
-MobilabPaymentSDK.initialize(configuration: configuration)
+Stash.initialize(configuration: configuration)
 ```
 
 It is also possible to specify which PSP should be used to register which payment method type by using the `paymentMethodTypes` parameter of the `PaymentProviderIntegration` optional initializer. By default, when the specific payment method types are not specified, the PSP will be used for all types that the module supports. Note that a `fatalError` will be created when there are overlapping payment method types for different PSPs that are registered at the same time.
@@ -67,17 +67,17 @@ It is also possible to specify which PSP should be used to register which paymen
 #### Using the SDK in Test Mode
 
 The Stash SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
-To instruct the SDK to use the test mode, set manually the `useTestMode` property on the `MobilabPaymentConfiguration` used to configure the SDK.
+To instruct the SDK to use the test mode, set manually the `useTestMode` property on the `StashConfiguration` used to configure the SDK.
 
 For example:
 
 ```swift
-let configuration = MobilabPaymentConfiguration(publishableKey: "[YOUR MOBILAB BACKEND PUBLISHABLE KEY]", 
-                                                endpoint: "[YOUR MOBILAB BACKEND ENDPOINT]",
+let configuration = StashConfiguration(publishableKey: "[YOUR STASH BACKEND PUBLISHABLE KEY]", 
+                                                endpoint: "[YOUR STASH BACKEND ENDPOINT]",
                                                 integrations: [PaymentProviderIntegration(paymentServiceProvider: bsPayonePSP)])
 configuration.useTestMode = true
 
-MobilabPaymentSDK.initialize(configuration: configuration)
+Stash.initialize(configuration: configuration)
 ```
 
 ## Registering a Payment Method
@@ -85,7 +85,7 @@ MobilabPaymentSDK.initialize(configuration: configuration)
 To register a payment method you need an instance of the `RegistrationManager` class.
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 ```
 
 As the Stash SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
@@ -101,7 +101,7 @@ The typical usage of this functionality might look like this:
 
 ```swift
 
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 registrationManager.registerPaymentMethodUsingUI(on: self) { [weak self] result in
     switch result {
     case let .success(registration):
@@ -117,9 +117,9 @@ registrationManager.registerPaymentMethodUsingUI(on: self) { [weak self] result 
 It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. You only need to pass along an updated `PaymentMethodUIConfiguration`:
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 let uiConfiguration = PaymentMethodUIConfiguration(backgroundColor: .white, textColor: .black, buttonColor: .black)
-MobilabPaymentSDK.configureUI(configuration: uiConfiguration)
+Stash.configureUI(configuration: uiConfiguration)
 
 registrationManager.registerPaymentMethodUsingUI(on viewController: self) { [weak self] result in
     switch result {
@@ -148,7 +148,7 @@ guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: 
                                         expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 registrationManager.registerCreditCard(creditCardData: creditCard) { result in
     switch result {
     case let .success(registration): print("Received alias for credit card: \(registration.alias)")
@@ -177,7 +177,7 @@ let billingData = BillingData(email: "max@mustermann.de",
 guard let sepaData = try? SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 else { fatalError("SEPA data should be valid") }
 
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 registrationManager.registerSEPAAccount(sepaData: sepaData) { result in
     switch result {
     case let .success(registration): print("Received alias for SEPA account: \(registration.alias)")
@@ -196,9 +196,9 @@ The PayPal account registration flow involves switching to another app or  `SFSa
 
 #### Register a URL Type
 
-1.  In the Xcode, click on your project in the Project Navigator and navigate to  **App Target**  >  **Info**>  **URL Types**.
-2.  Click on **[+]**  to add a new URL type.
-3.  Under the **URL Schemes**, enter your app switch return URL scheme. This scheme  **_must start with your app's Bundle ID and be dedicated to MobilabPayment app switch returns_**. For example, if the app bundle ID is  `com.your-company.Your-App`, then your URL scheme could be  `com.your-company.Your-App.mobilab`.
+1. In the Xcode, click on your project in the Project Navigator and navigate to  **App Target**  >  **Info**>  **URL Types**.
+2. Click on **[+]**  to add a new URL type.
+3. Under the **URL Schemes**, enter your app switch return URL scheme. This scheme  **_must start with your app's Bundle ID and be dedicated to Stash app switch returns_**. For example, if the app bundle ID is  `com.your-company.Your-App`, then your URL scheme could be  `com.your-company.Your-App.stash`.
 
 #### Update your application delegate
 
@@ -206,14 +206,14 @@ In your AppDelegate's  `application:didFinishLaunchingWithOptions:`  implementat
 
 ```swift
 func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-  return MobilabPaymentBraintree.handleOpen(url: url, options: options)
+  return StashBraintree.handleOpen(url: url, options: options)
 }
 ```
 
 Now you are ready to register a PayPal account.
 
 ```swift
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 registrationManager.registerPaymentMethodUsingUI(on viewController: self, specificPaymentMethod: .payPal) { [weak self] result in
     switch result {
     case let .success(registration):
@@ -237,7 +237,7 @@ guard let creditCard = try? CreditCardData(cardNumber: "4111111111111111", cvv: 
                                         expiryMonth: 9, expiryYear: 21, country: "DE", billingData: billingData)
 else { fatalError("Credit card data is not valid") }
 
-let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+let registrationManager = Stash.getRegistrationManager()
 registrationManager.registerCreditCard(creditCardData: creditCard, idempotencyKey: UUID().uuidString) { result in
     switch result {
     case let .success(registration): print("Received alias for credit card: \(registration.alias)")
@@ -248,7 +248,7 @@ registrationManager.registerCreditCard(creditCardData: creditCard, idempotencyKe
 
 ## Demo
 
-A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `MobilabPayment.xcworkspace` in Xcode and then choose the `Demo` scheme to launch it.
+A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `Stash.xcworkspace` in Xcode and then choose the `StashDemo` scheme to launch it.
 
 ## Feedback
 

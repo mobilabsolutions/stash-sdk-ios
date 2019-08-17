@@ -49,41 +49,41 @@ class BraintreeUITests: BaseUITest {
 
         let springBoard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 
-        let alert = springBoard.alerts.containing(NSPredicate(format: "label CONTAINS \"Wants to Use\"")).firstMatch
-        XCTAssert(alert.waitForExistence(timeout: 10))
+        let alert = springBoard.alerts.firstMatch
+        XCTAssert(alert.waitForExistence(timeout: 15))
         alert.buttons["Cancel"].tap()
 
         self.waitForElementToAppear(element: payPalCell, timeout: 10)
         XCTAssertTrue(payPalCell.exists, "Expected to return to main payment method screen")
     }
-    
+
     func testCanCreateCreditCard() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "BRAINTREE", app: app)
-        
+
         let collectionViewsQuery = app.collectionViews
-        
+
         collectionViewsQuery.textFields["First Name"].tap()
         collectionViewsQuery.textFields["First Name"].typeText("Xx")
-        
+
         collectionViewsQuery.textFields["Last Name"].tap()
         collectionViewsQuery.textFields["Last Name"].typeText("Xx")
-        
+
         collectionViewsQuery.textFields["1234"].tap()
         collectionViewsQuery.textFields["1234"].typeText("378282246310005")
-        
+
         collectionViewsQuery.textFields["MM/YY"].tap()
         app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
         app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
-        
+
         collectionViewsQuery.textFields["CVV/CVC"].tap()
         collectionViewsQuery.textFields["CVV/CVC"].typeText("1234")
-        
+
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
-        
+
         waitForElementToAppear(element: app.alerts.firstMatch, timeout: 20)
-        
+
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid credit card")
         app.alerts.firstMatch.buttons.firstMatch.tap()

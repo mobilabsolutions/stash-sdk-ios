@@ -1,6 +1,6 @@
 //
 //  RegistrationResult.swift
-//  MobilabPaymentCore
+//  StashCore
 //
 //  Created by Robert on 03.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias RegistrationResult = Result<PaymentMethodAlias, MobilabPaymentError>
+public typealias RegistrationResult = Result<PaymentMethodAlias, StashError>
 public typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
 
 /// A successful payment method registration

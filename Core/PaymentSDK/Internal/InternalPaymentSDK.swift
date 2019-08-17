@@ -1,6 +1,6 @@
 //
 //  InternalPaymentSDK.swift
-//  MobilabPaymentSDK
+//  StashCore
 //
 //  Created by Mirza Zenunovic on 15/06/2018.
 //  Copyright © 2018 MobiLab. All rights reserved.
@@ -28,8 +28,8 @@ class InternalPaymentSDK {
         }
     }
 
-    private var _configuration: MobilabPaymentConfiguration?
-    var configuration: MobilabPaymentConfiguration {
+    private var _configuration: StashConfiguration?
+    var configuration: StashConfiguration {
         guard let config = self._configuration else {
             fatalError(SDKConfigurationError.configurationMissing.description)
         }
@@ -56,15 +56,15 @@ class InternalPaymentSDK {
         self.version = "\(infoDictionary?["CFBundleShortVersionString"] ?? "0")-\(infoDictionary?["CFBundleVersionString"] ?? "0")"
     }
 
-    func initialize(configuration: MobilabPaymentConfiguration) {
+    func initialize(configuration: StashConfiguration) {
         guard !self.wasInitialized
-        else { fatalError("The MobilabPaymentSDK should only ever be initialized once!") }
+        else { fatalError("The Stash SDK should only ever be initialized once!") }
 
         do {
             let url = try configuration.endpointUrl()
             self._networkingClient = NetworkClientCore(url: url)
             self._configuration = configuration
-        } catch let error as MobilabPaymentError {
+        } catch let error as StashError {
             fatalError(error.description)
         } catch {
             fatalError()

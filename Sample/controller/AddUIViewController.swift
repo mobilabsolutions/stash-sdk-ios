@@ -6,10 +6,10 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import MobilabPaymentAdyen
-import MobilabPaymentBraintree
-import MobilabPaymentBSPayone
-import MobilabPaymentCore
+import StashAdyen
+import StashBraintree
+import StashBSPayone
+import StashCore
 import UIKit
 
 let testModeDefaultEnabled = true
@@ -22,7 +22,8 @@ class AddUIViewController: UIViewController {
     @IBOutlet private var specificPaymentMethodControl: UISegmentedControl!
     @IBOutlet private var triggerSpecificRegisterButton: UIButton!
 
-    private let pspTypes = [MobilabPaymentProvider.bsPayone, MobilabPaymentProvider.adyen, MobilabPaymentProvider.braintree]
+    private let pspTypes = [StashPaymentProvider.bsPayone, StashPaymentProvider.adyen, StashPaymentProvider.braintree]
+
     private let paymentMethodTypes = [PaymentMethodType.creditCard, PaymentMethodType.sepa, PaymentMethodType.payPal]
     private var pspIsSetUp = false
     private var sdkWasInitialized = false
@@ -72,8 +73,8 @@ class AddUIViewController: UIViewController {
             configuration = PaymentMethodUIConfiguration()
         }
 
-        MobilabPaymentSDK.configureUI(configuration: configuration)
-        MobilabPaymentSDK.getRegistrationManager()
+        Stash.configureUI(configuration: configuration)
+        Stash.getRegistrationManager()
             .registerPaymentMethodUsingUI(on: self, specificPaymentMethod: paymentMethodType) { [weak self] result in
                 guard let self = self
                 else { return }
@@ -115,13 +116,13 @@ class AddUIViewController: UIViewController {
             }
     }
 
-    private func configureSDK(testModeEnabled: Bool, psp: MobilabPaymentProvider) {
+    private func configureSDK(testModeEnabled: Bool, psp: StashPaymentProvider) {
         guard !self.sdkWasInitialized
         else { return }
 
-        let adyen = MobilabPaymentAdyen()
-        let bsPayOne = MobilabPaymentBSPayone()
-        let braintree = MobilabPaymentBraintree(urlScheme: "com.mobilabsolutions.payment.Sample.paypal")
+        let adyen = StashAdyen()
+        let bsPayOne = StashBSPayone()
+        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Sample.paypal")
 
         let providerIntegration: PaymentProviderIntegration
         let braintreeIntegration: PaymentProviderIntegration
@@ -130,28 +131,28 @@ class AddUIViewController: UIViewController {
         case .adyen:
             providerIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen,
                                                              paymentMethodTypes: [.sepa, .creditCard])!
-            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
-                                                               paymentMethodTypes: [.payPal]))!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.payPal])!
         case .braintree:
             providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
                                                              paymentMethodTypes: [.sepa])!
-            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
-                                                               paymentMethodTypes: [.creditCard, .payPal]))!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.creditCard, .payPal])!
         case .bsPayone: fallthrough
         default:
             providerIntegration = PaymentProviderIntegration(paymentServiceProvider: bsPayOne,
                                                              paymentMethodTypes: [.creditCard, .sepa])!
-            braintreeIntegration = (PaymentProviderIntegration(paymentServiceProvider: braintree,
-                                                               paymentMethodTypes: [.payPal]))!
+            braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree,
+                                                              paymentMethodTypes: [.payPal])!
         }
 
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [braintreeIntegration, providerIntegration])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingLevel = .normal
         configuration.useTestMode = testModeEnabled
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
 
         self.useTestModeSwitch.isEnabled = false
         self.sdkWasInitialized = true

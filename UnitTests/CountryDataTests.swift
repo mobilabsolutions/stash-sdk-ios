@@ -1,12 +1,12 @@
 //
 //  CountryDataTests.swift
-//  MobilabPaymentTests
+//  StashTests
 //
 //  Created by Rupali Ghate on 15.05.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-@testable import MobilabPaymentCore
+@testable import StashCore
 import XCTest
 
 class CountryDataTests: XCTestCase {

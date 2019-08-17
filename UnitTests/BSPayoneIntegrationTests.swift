@@ -6,9 +6,9 @@
 //  Copyright © 2018 MobiLab. All rights reserved.
 //
 
-@testable import MobilabPaymentBSPayone
-@testable import MobilabPaymentCore
 import OHHTTPStubs
+@testable import StashBSPayone
+@testable import StashCore
 import XCTest
 
 class BSPayoneIntegrationTests: XCTestCase {
@@ -19,25 +19,25 @@ class BSPayoneIntegrationTests: XCTestCase {
         super.setUp()
 
         OHHTTPStubs.removeAllStubs()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let provider = MobilabPaymentBSPayone()
+        let provider = StashBSPayone()
         self.provider = provider
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: provider)
-        let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                        endpoint: "https://payment-dev.mblb.net/api/v1",
-                                                        integrations: [integration])
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               integrations: [integration])
         configuration.loggingLevel = .normal
         configuration.useTestMode = true
 
-        MobilabPaymentSDK.initialize(configuration: configuration)
+        Stash.initialize(configuration: configuration)
     }
 
     override func tearDown() {
         super.tearDown()
-        SDKResetter.resetMobilabSDK()
+        SDKResetter.resetStash()
         OHHTTPStubs.removeAllStubs()
     }
 
@@ -54,7 +54,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         let creditCardData = try CreditCardData(cardNumber: "4111111111111111", cvv: "312", expiryMonth: 08, expiryYear: 21,
                                                 country: "DE", billingData: billingData)
 
-        let registrationManager = MobilabPaymentSDK.getRegistrationManager()
+        let registrationManager = Stash.getRegistrationManager()
         registrationManager.registerCreditCard(creditCardData: creditCardData, completion: { result in
             switch result {
             case .success: expectation.fulfill()
@@ -91,7 +91,7 @@ class BSPayoneIntegrationTests: XCTestCase {
 
         let sepaData = try SEPAData(iban: "DE75512108001245126199", bic: "COLSDE33XXX", billingData: billingData)
 
-        let registerManager = MobilabPaymentSDK.getRegistrationManager()
+        let registerManager = Stash.getRegistrationManager()
         registerManager.registerSEPAAccount(sepaData: sepaData) { result in
             switch result {
             case .success: expectation.fulfill()
@@ -129,11 +129,11 @@ class BSPayoneIntegrationTests: XCTestCase {
                                                 expiryMonth: 9, expiryYear: 0, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error):
-                guard case MobilabPaymentError.validation = error
+                guard case StashError.validation = error
                 else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
             }
 
@@ -159,11 +159,11 @@ class BSPayoneIntegrationTests: XCTestCase {
                                                 expiryMonth: 9, expiryYear: 0, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
-        MobilabPaymentSDK.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
+        Stash.getRegistrationManager().registerCreditCard(creditCardData: expired) { result in
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error):
-                guard case MobilabPaymentError.temporary = error
+                guard case StashError.temporary = error
                 else { XCTFail("An error in the PSP should be propagated as a pspTemporaryError"); break }
             }
 
