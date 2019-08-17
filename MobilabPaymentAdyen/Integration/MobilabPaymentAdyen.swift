@@ -35,6 +35,8 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        Log.event(message: "initiated")
+        
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
@@ -67,6 +69,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, MobilabPaymentError>) -> Void) {
+        Log.event(message: "initiated")
         // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://mobilabpayment")
@@ -91,6 +94,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        Log.event(message: "initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
@@ -143,7 +147,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
         guard let controller = self.controllerForRegistrationIdentifier[idempotencyKey]
-        else { throw MobilabPaymentError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")) }
+        else { throw MobilabPaymentError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")).loggedError() }
 
         return controller
     }
@@ -152,10 +156,10 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
         guard let extra = cardData.toCreditCardExtra()
-        else { throw MobilabPaymentError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
+        else { throw MobilabPaymentError.validation(ValidationErrorDetails.invalidCreditCardNumber).loggedError() }
 
         guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
-        else { throw MobilabPaymentError.validation(.invalidExpirationDate) }
+        else { throw MobilabPaymentError.validation(.invalidExpirationDate).loggedError() }
 
         let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
 
@@ -173,7 +177,7 @@ public class MobilabPaymentAdyen: PaymentServiceProvider {
         else { return nil }
 
         guard let ownerName = data.billingData.name?.fullName
-        else { throw MobilabPaymentError.validation(.billingMissingName) }
+        else { throw MobilabPaymentError.validation(.billingMissingName).loggedError() }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData, sepaExtra: data.toSEPAExtra())
     }

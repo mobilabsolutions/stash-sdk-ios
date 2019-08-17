@@ -2,17 +2,10 @@
 
 #import "Braintree-Version.h"
 #import "BTKeychain.h"
-@import CoreLocation;
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
 
 #import <UIKit/UIKit.h>
-
-#ifdef __IPHONE_8_0
-#define kBTCLAuthorizationStatusAuthorized kCLAuthorizationStatusAuthorizedAlways
-#else
-#define kBTCLAuthorizationStatusAuthorized kCLAuthorizationStatusAuthorized
-#endif
 
 @implementation BTAnalyticsMetadata
 
@@ -33,16 +26,6 @@
     [self setObject:[m deviceManufacturer] forKey:@"deviceManufacturer" inDictionary:data];
     [self setObject:[m deviceModel] forKey:@"deviceModel" inDictionary:data];
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-    if (@available(iOS 8.0, watchOS 2.0, *)) {
-#endif
-    if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kBTCLAuthorizationStatusAuthorized) {
-        [self setObject:@([m deviceLocationLatitude]) forKey:@"deviceLocationLatitude" inDictionary:data];
-        [self setObject:@([m deviceLocationLongitude]) forKey:@"deviceLocationLongitude" inDictionary:data];
-    }
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-    }
-#endif
     [self setObject:[m iosDeviceName] forKey:@"iosDeviceName" inDictionary:data];
     [self setObject:[m iosSystemName] forKey:@"iosSystemName" inDictionary:data];
     [self setObject:[m iosBaseSDK] forKey:@"iosBaseSDK" inDictionary:data];
@@ -54,6 +37,7 @@
     [self setObject:[m deviceScreenOrientation] forKey:@"deviceScreenOrientation" inDictionary:data];
     [self setObject:[m userInterfaceOrientation] forKey:@"userInterfaceOrientation" inDictionary:data];
     [self setObject:@([m isVenmoInstalled]) forKey:@"venmoInstalled" inDictionary:data];
+    [self setObject:[m dropInVersion] forKey:@"dropinVersion" inDictionary:data];
 
     return [NSDictionary dictionaryWithDictionary:data];
 }
@@ -71,8 +55,7 @@
 }
 
 - (NSString *)platformVersion {
-
-    return [[UIDevice currentDevice] systemVersion];
+    return UIDevice.currentDevice.systemVersion;
 }
 
 - (NSString *)sdkVersion {
@@ -80,15 +63,15 @@
 }
 
 - (NSString *)merchantAppId {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey];
+    return [NSBundle.mainBundle.infoDictionary objectForKey:(__bridge NSString *)kCFBundleIdentifierKey];
 }
 
 - (NSString *)merchantAppVersion {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey];
+    return [NSBundle.mainBundle.infoDictionary objectForKey:(__bridge NSString *)kCFBundleVersionKey];
 }
 
 - (NSString *)merchantAppName {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
+    return [NSBundle.mainBundle.infoDictionary objectForKey:(__bridge NSString *)kCFBundleNameKey];
 }
 
 - (BOOL)deviceRooted {
@@ -113,29 +96,23 @@
     NSString* code = [NSString stringWithCString:systemInfo.machine
                                         encoding:NSUTF8StringEncoding];
 
-
     return code;
 }
 
-- (CLLocationDegrees)deviceLocationLatitude {
-    return [[[[CLLocationManager alloc] init] location] coordinate].latitude;
-}
-
-- (CLLocationDegrees)deviceLocationLongitude {
-    return [[[[CLLocationManager alloc] init] location] coordinate].longitude;
-}
-
 - (NSString *)iosIdentifierForVendor {
-    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    return UIDevice.currentDevice.identifierForVendor.UUIDString;
 }
 
 - (NSString *)iosDeploymentTarget {
-    NSString *rawVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MinimumOSVersion"];
-    NSArray *rawVersionArray = [rawVersionString componentsSeparatedByString:@"."];
-    NSInteger majorVersionNumber = [[rawVersionArray objectAtIndex:0] integerValue] * 10000;
-    NSInteger minorVersionNumber = [[rawVersionArray objectAtIndex:1] integerValue] * 100;
+    NSString *rawVersionString = NSBundle.mainBundle.infoDictionary[@"MinimumOSVersion"];
+    NSArray<NSString *> *rawVersionArray = [rawVersionString componentsSeparatedByString:@"."];
+    NSInteger formattedVersionNumber = rawVersionArray[0].integerValue * 10000;
     
-    return [NSString stringWithFormat:@"%i", (int)majorVersionNumber + (int)minorVersionNumber];
+    if (rawVersionArray.count > 1) {
+        formattedVersionNumber += rawVersionArray[1].integerValue * 100;
+    }
+    
+    return [NSString stringWithFormat:@"%@", @(formattedVersionNumber)];
 }
 
 - (NSString *)iosBaseSDK {
@@ -143,11 +120,11 @@
 }
 
 - (NSString *)iosDeviceName {
-    return [[UIDevice currentDevice] name];
+    return UIDevice.currentDevice.name;
 }
 
 - (NSString *)iosSystemName {
-    return [[UIDevice currentDevice] systemName];
+    return UIDevice.currentDevice.systemName;
 }
 
 - (BOOL)iosIsCocoapods {
@@ -192,7 +169,7 @@
     }
     
     UIApplication *sharedApplication = [UIApplication performSelector:@selector(sharedApplication)];
-    UIInterfaceOrientation deviceOrientation = [[[sharedApplication keyWindow] rootViewController] interfaceOrientation];
+    UIInterfaceOrientation deviceOrientation = sharedApplication.keyWindow.rootViewController.interfaceOrientation;
 
     switch (deviceOrientation) {
         case UIInterfaceOrientationPortrait:
@@ -251,9 +228,28 @@
     });
     return venmoInstalled;
 }
+
+- (NSString *)dropInVersion {
+    static NSString *dropInVersion;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *localizationBundlePath = [NSBundle.mainBundle pathForResource:@"Braintree-UIKit-Localization"
+                                                                         ofType:@"bundle"];
+        if (localizationBundlePath) {
+            NSBundle *localizationBundle = [NSBundle bundleWithPath:localizationBundlePath];
+            // 99.99.99 is the version specified when running the Demo app for this project.
+            // We want to ignore it in this case and not return a version.
+            if (localizationBundle && ! [localizationBundle.infoDictionary[@"CFBundleShortVersionString"] isEqualToString:@"99.99.99"]) {
+                dropInVersion = localizationBundle.infoDictionary[@"CFBundleShortVersionString"];
+            }
+        }
+    });
+
+    return dropInVersion;
+}
     
 + (BOOL)isAppExtension {
-    NSDictionary *extensionDictionary = [[NSBundle mainBundle] infoDictionary][@"NSExtension"];
+    NSDictionary *extensionDictionary = NSBundle.mainBundle.infoDictionary[@"NSExtension"];
     return [extensionDictionary isKindOfClass:[NSDictionary class]];
 }
 

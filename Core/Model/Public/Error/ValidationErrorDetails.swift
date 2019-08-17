@@ -46,7 +46,7 @@ public enum ValidationErrorDetails: CustomStringConvertible, TitleProviding {
         case .billingMissingName:
             return "Billing data name is missing"
         case .cardExtraNotExtractable:
-            return "Internal SDK error: Could not read alias extra from payment method"
+            return "Internal Stash SDK error: Could not read alias extra from payment method"
         case .cardTypeNotSupported:
             return "Card type not supported by PSP"
         case .bicMissing:

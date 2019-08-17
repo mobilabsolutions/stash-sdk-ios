@@ -34,7 +34,7 @@ public class CreditCardUtils {
     /// - Throws: A `.validation` error if the CVV is not valid
     public static func validateCVV(cvv: String) throws {
         guard let _ = Int(cvv), cvv.count == 3 || cvv.count == 4
-        else { throw MobilabPaymentError.validation(.invalidCVV) }
+        else { throw MobilabPaymentError.validation(.invalidCVV).loggedError() }
     }
 
     /// Validate a credit card number (using Luhn's algorithm)
@@ -45,10 +45,10 @@ public class CreditCardUtils {
         let cleanedNumber = CreditCardUtils.cleanedNumber(number: cardNumber)
 
         guard cleanedNumber.count > CreditCardData.numberOfDigitsForCardMask
-        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber).loggedError() }
 
         guard CreditCardUtils.isLuhnValid(cleanedNumber: cleanedNumber)
-        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber) }
+        else { throw MobilabPaymentError.validation(.invalidCreditCardNumber).loggedError() }
     }
 
     /// Extract the card type from a cleaned credit card

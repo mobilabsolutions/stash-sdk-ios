@@ -11,7 +11,7 @@ import Foundation
 /// The SDK configuration
 @objc(MLMobilabPaymentConfiguration) public class MobilabPaymentConfiguration: NSObject {
     /// Whether or not the SDK should write log messages to the console detailing the steps it takes
-    @objc public var loggingEnabled = false
+    @objc public var loggingLevel: LoggingLevel = .none
 
     /// Whether or not the SDK should instruct the Mobilab backend to run in test mode
     @objc public var useTestMode = false
@@ -58,15 +58,15 @@ import Foundation
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
     func endpointUrl() throws -> URL {
         guard !self.publishableKey.isEmpty else {
-            throw MobilabPaymentError.configuration(.publishableKeyNotSet)
+            throw MobilabPaymentError.configuration(.publishableKeyNotSet).loggedError()
         }
 
         guard !self.endpoint.isEmpty else {
-            throw MobilabPaymentError.configuration(.endpointNotSet)
+            throw MobilabPaymentError.configuration(.endpointNotSet).loggedError()
         }
 
         guard let url = URL(string: self.endpoint) else {
-            throw MobilabPaymentError.configuration(.endpointNotValid)
+            throw MobilabPaymentError.configuration(.endpointNotValid).loggedError()
         }
 
         return url

@@ -245,7 +245,7 @@ class PaymentService {
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [adyenIntegration, braintreeIntegration])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = self.testModeEnabled
 
         MobilabPaymentSDK.initialize(configuration: configuration)

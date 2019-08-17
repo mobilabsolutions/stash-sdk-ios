@@ -148,7 +148,7 @@ class AddUIViewController: UIViewController {
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [braintreeIntegration, providerIntegration])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = testModeEnabled
 
         MobilabPaymentSDK.initialize(configuration: configuration)

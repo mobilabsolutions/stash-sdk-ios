@@ -20,7 +20,13 @@ enum SDKError: Error {
 }
 
 class InternalPaymentSDK {
-    private var wasInitialized = false
+    private var wasInitialized = false {
+        didSet {
+            if wasInitialized {
+                Log.event(message: "success")
+            }
+        }
+    }
 
     private var _configuration: MobilabPaymentConfiguration?
     var configuration: MobilabPaymentConfiguration {

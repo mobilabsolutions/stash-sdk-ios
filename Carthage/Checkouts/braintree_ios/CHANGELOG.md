@@ -1,5 +1,50 @@
 # Braintree iOS SDK Release Notes
 
+## 4.26.3 (2019-07-31)
+
+* Fixed issue with Carthage binary spec for CardinalMobile
+
+## 4.26.2 (2019-07-31)
+
+* Add support for CardinalMobile binary only framework when using Carthage
+
+## 4.26.1 (2019-07-26)
+
+* Update CardinalMobile to v2.1.4-2
+  * Fix issue distributing to App Store
+
+## 4.26.0 (2019-07-26)
+
+* Send analytics timestamps in milliseconds
+* Fix crash on apps with deployment targets without minor version (thanks @squall09s)
+* Add additional fields to BTThreeDSecureInfo
+
+## 4.25.1 (2019-07-15)
+
+* Correct importing of BTConfiguration+ThreeDSecure (thanks @ejensen)
+* Add missing header documentation for BTThreeDSecureLookup
+
+## 4.25.0 (2019-07-12)
+
+* Update CardinalMobile to v2.1.4
+  * Remove use of `advertisingIdentifier`
+
+## 4.24.0 (2019-07-09)
+
+* Add 3DS 2 Support
+* Update 3DS redirect to newest version
+* Update platform to iOS 8.0 in podspec
+* Remove location data from analytics collection
+
+## 4.23.2 (2019-06-20)
+
+* Fix issue that caused a crash when 3DS auth response is invalid
+
+## 4.23.1 (2019-06-17)
+
+* Update analytics parameters
+* Update local payment endpoint
+
 ## 4.23.0 (2019-03-07)
 
 * Add Hiper and Hipercard support

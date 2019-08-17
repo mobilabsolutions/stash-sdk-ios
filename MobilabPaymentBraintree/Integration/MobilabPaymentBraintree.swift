@@ -23,6 +23,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        Log.event(message: "initiated")
         guard let pspData = BraintreeData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
@@ -67,6 +68,7 @@ public class MobilabPaymentBraintree: PaymentServiceProvider {
     /// See documentation for `PaymentServiceProvider` in the Core module.
     public func viewController(for methodType: PaymentMethodType, billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        Log.event(message: "initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: BraintreeCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),

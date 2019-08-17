@@ -30,7 +30,7 @@
                                                     integrations: @[integration]
                                                     uiConfiguration:nil];
     [configuration setUseTestMode:YES];
-    [configuration setLoggingEnabled:YES];
+    [configuration setLoggingLevel:LoggingLevelNormal];
 
     [MLMobilabPaymentSDK initializeWithConfiguration:configuration];
 }

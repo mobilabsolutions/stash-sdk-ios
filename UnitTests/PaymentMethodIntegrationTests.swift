@@ -227,7 +227,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         let configuration = MobilabPaymentConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                         endpoint: "https://payment-dev.mblb.net/api/v1",
                                                         integrations: [integration])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = true
         MobilabPaymentSDK.initialize(configuration: configuration)
     }

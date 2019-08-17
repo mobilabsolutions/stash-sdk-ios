@@ -22,6 +22,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        Log.event(message: "initiated")
         guard let pspData = BSPayoneData(pspData: registrationRequest.pspData) else {
             return completion(.failure(MobilabPaymentError.configuration(.pspInvalidConfiguration)))
         }
@@ -65,6 +66,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        Log.event(message: "initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
@@ -106,7 +108,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw MobilabPaymentError.validation(.cardTypeNotSupported) }
+        else { throw MobilabPaymentError.validation(.cardTypeNotSupported).loggedError() }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
@@ -122,7 +124,7 @@ public class MobilabPaymentBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard data.billingData.country != nil
-        else { throw MobilabPaymentError.validation(ValidationErrorDetails.countryMissing) }
+        else { throw MobilabPaymentError.validation(ValidationErrorDetails.countryMissing).loggedError() }
 
         return SEPABSPayoneData(iban: data.iban)
     }
