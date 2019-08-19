@@ -17,7 +17,6 @@ install:
 - bundle install
 - brew install carthage || true
 - brew outdated carthage || brew upgrade carthage
-- rm -rf Carthage
 - carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
 jobs:
