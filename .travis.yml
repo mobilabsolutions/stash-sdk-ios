@@ -17,7 +17,7 @@ install:
 - bundle install
 - brew install carthage || true
 - brew outdated carthage || brew upgrade carthage
-- carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+- carthage bootstrap --no-use-binaries --platform iOS
 
 jobs:
   include:
