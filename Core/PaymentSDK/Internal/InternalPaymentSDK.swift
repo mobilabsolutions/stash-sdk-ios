@@ -22,7 +22,7 @@ enum SDKError: Error {
 class InternalPaymentSDK {
     private var wasInitialized = false {
         didSet {
-            if wasInitialized {
+            if self.wasInitialized {
                 Log.event(message: "success")
             }
         }

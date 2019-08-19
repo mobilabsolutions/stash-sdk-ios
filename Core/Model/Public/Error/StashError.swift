@@ -47,7 +47,7 @@ public enum StashError: Error, CustomStringConvertible, TitleProviding {
         case .userCancelled: return "Action cancelled by user"
         }
     }
-    
+
     /// Prints error description to the console and returns self to enable function chaining. Should primary be used on `thrown`
     ///
     /// - Parameters (all autopopulated):

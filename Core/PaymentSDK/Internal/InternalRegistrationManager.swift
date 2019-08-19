@@ -14,9 +14,8 @@ class InternalRegistrationManager {
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String?,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil) {
-        
         Log.event(message: "initiated")
-        
+
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         let uniqueRegistrationIdentifier = UUID().uuidString
         provider.provideAliasCreationDetail(for: paymentMethod.methodData, idempotencyKey: idempotencyKey, uniqueRegistrationIdentifier: uniqueRegistrationIdentifier) { creationDetailResult in
@@ -71,9 +70,9 @@ class InternalRegistrationManager {
                                                       pspData: alias.psp,
                                                       registrationData: paymentMethod.methodData,
                                                       viewController: viewController)
-        
+
         Log.event(message: "initiated")
-        
+
         guard let publicPaymentMethodType = paymentMethod.type.publicPaymentMethodType
         else { fatalError("Stash SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
 
@@ -86,18 +85,18 @@ class InternalRegistrationManager {
                                                                                                pspAlias: pspResult.pspAlias,
                                                                                                extra: pspResult.aliasExtra,
                                                                                                idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-                                                    self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
-                                                        switch updateResult {
-                                                        case .success:
-                                                            let registration = PaymentMethodAlias(alias: alias.aliasId,
-                                                                                                  paymentMethodType: publicPaymentMethodType,
-                                                                                                  extraAliasInfo: pspResult.overwritingExtraAliasInfo
-                                                                                                      ?? paymentMethod.methodData.extraAliasInfo)
-                                                            completion(.success(registration))
-                                                        case let .failure(error):
-                                                            completion(.failure(error))
-                                                        }
-                                                    })
+                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
+                                                       switch updateResult {
+                                                       case .success:
+                                                           let registration = PaymentMethodAlias(alias: alias.aliasId,
+                                                                                                 paymentMethodType: publicPaymentMethodType,
+                                                                                                 extraAliasInfo: pspResult.overwritingExtraAliasInfo
+                                                                                                     ?? paymentMethod.methodData.extraAliasInfo)
+                                                           completion(.success(registration))
+                                                       case let .failure(error):
+                                                           completion(.failure(error))
+                                                       }
+                                                   })
 
                                                case let .failure(error):
                                                    completion(.failure(error))

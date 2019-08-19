@@ -36,7 +36,7 @@ public class StashAdyen: PaymentServiceProvider {
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
         Log.event(message: "initiated")
-        
+
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
