@@ -25,7 +25,7 @@
                                                                                                   paymentMethodTypes:paymentMethodTypes];
 
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
-                                                  initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                  initWithPublishableKey:@"mobilabios-3FkSmKQ0sUmzDqxciqRF"
                                                     endpoint:@"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[integration]
                                                     uiConfiguration:nil];

@@ -23,7 +23,7 @@ class CreditCardDataTests: XCTestCase {
         ("340168114776366", .americanExpress), ("379357047249690", .americanExpress),
         ("5101745120583627", .mastercard), ("6759649826438453", .maestroInternational),
         ("3530 1113 3330 0000", .jcb), ("6221 2345 6789 0123 450", .chinaUnionPay),
-        ("3600 6666 3333 44", .diners), ("3607 0500 0010 20", .diners),
+        ("3600 666633 3344", .diners), ("3607 050000 1020", .diners),
         ("6011 6011 6011 6611", .discover), ("6445 6445 6445 6445", .discover),
         ("3569 9900 1009 5841", .jcb), ("6771 7980 2100 0008", .maestroInternational),
         ("6250947000000014", .chinaUnionPay), ("6250946000000016", .chinaUnionPay),
@@ -80,12 +80,12 @@ class CreditCardDataTests: XCTestCase {
 
     func testCorrectlyFormatsNumbers() {
         let formatted: [(String, CreditCardType)] = [
-            ("4111 1111 1111 1111", .visa), ("3056 9309 0259 04", .diners),
+            ("4111 1111 1111 1111", .visa), ("3056 930902 5904", .diners),
             ("5500 0000 0000 0004", .mastercard), ("6011 1111 1111 1117", .discover),
             ("3782 822463 10005", .americanExpress), ("3714 496353 98431", .americanExpress),
             ("3787 344936 71000", .americanExpress), ("4222 2222 2222 2", .visa),
             ("5105 1051 0510 5100", .mastercard), ("5555 5555 5555 4444", .mastercard),
-            ("6011 0009 9013 9424", .discover), ("3852 0000 0232 37", .diners),
+            ("6011 0009 9013 9424", .discover), ("3852 000002 3237", .diners),
         ]
         let unformatted = [
             "4111111111111111", "30-569309 0259-04", "5500000000000004", "6011111111111117", "378282246310005",

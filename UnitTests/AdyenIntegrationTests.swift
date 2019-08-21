@@ -22,7 +22,7 @@ class AdyenIntegrationTests: XCTestCase {
         let provider = StashAdyen()
         self.provider = provider
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingEnabled = true
