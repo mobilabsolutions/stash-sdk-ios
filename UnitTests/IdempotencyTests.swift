@@ -29,7 +29,7 @@ class IdempotencyTests: XCTestCase {
         }
 
         var publicKey: String {
-            return "mobilab-D4eWavRIslrUCQnnH6cn"
+            return "mobilabios-3FkSmKQ0sUmzDqxciqRF"
         }
 
         var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -74,7 +74,7 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [integration])
         Stash.initialize(configuration: configuration)
@@ -104,7 +104,7 @@ class IdempotencyTests: XCTestCase {
         })
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [integration])
         Stash.initialize(configuration: configuration)

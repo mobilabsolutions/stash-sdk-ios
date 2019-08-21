@@ -179,6 +179,7 @@ extension CreditCardType {
     fileprivate var formattingSpaces: [Int] {
         switch self {
         case .americanExpress: return [4, 10]
+        case .diners: return [4, 10]
         default: return [4, 8, 12, 16]
         }
     }

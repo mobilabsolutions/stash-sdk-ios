@@ -35,7 +35,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
 
 - (void) testCreateConfiguration {
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
-                                                    initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
+                                                    initWithPublishableKey:@"mobilabios-3FkSmKQ0sUmzDqxciqRF"
                                                     endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[]
                                                     uiConfiguration:nil];
@@ -54,7 +54,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
-                                                    initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    initWithPublishableKey:@"mobilabios-3FkSmKQ0sUmzDqxciqRF" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:nil];
 
@@ -89,7 +89,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
-                                                    initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    initWithPublishableKey:@"mobilabios-3FkSmKQ0sUmzDqxciqRF" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:uiConfiguration];
 
@@ -149,7 +149,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     MLPaymentProviderIntegration *integration = [[MLPaymentProviderIntegration alloc] initWithPaymentServiceProvider: bsPayone
                                                                                                   paymentMethodTypes: paymentMethodTypes];
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
-                                                    initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn" endpoint: @"https://payment-dev.mblb.net/api/v1"
+                                                    initWithPublishableKey:@"mobilabios-3FkSmKQ0sUmzDqxciqRF" endpoint: @"https://payment-dev.mblb.net/api/v1"
                                                     integrations: @[ integration ]
                                                     uiConfiguration:nil];
 

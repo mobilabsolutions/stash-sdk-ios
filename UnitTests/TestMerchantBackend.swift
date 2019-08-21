@@ -14,7 +14,7 @@ class TestMerchantBackend {
     private let decoder = JSONDecoder()
     private let userId: String
 
-    init(endpoint: String = "https://payment-dev.mblb.net/merchant", userId: String = "9os4fezF3QuS8EoV") {
+    init(endpoint: String = "https://payment-dev.mblb.net/merchant/v1", userId: String = "9os4fezF3QuS8EoV") {
         self.endpoint = endpoint
         self.userId = userId
     }
