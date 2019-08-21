@@ -19,7 +19,7 @@ class ModuleIntegrationTests: XCTestCase {
         }
 
         var publicKey: String {
-            return "mobilab-D4eWavRIslrUCQnnH6cn"
+            return "mobilabios-3FkSmKQ0sUmzDqxciqRF"
         }
 
         var supportedPaymentMethodTypes: [PaymentMethodType] {
@@ -96,7 +96,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(registration),
                                                 registrationRequestCalledExpectation: expectation)
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.loggingEnabled = true
@@ -125,7 +125,7 @@ class ModuleIntegrationTests: XCTestCase {
         let module = TestModule<CreditCardData>(completionResultToReturn: .failure(error),
                                                 registrationRequestCalledExpectation: calledExpectation)
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -229,7 +229,7 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: paymentEndpoint,
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -282,7 +282,7 @@ class ModuleIntegrationTests: XCTestCase {
             OHHTTPStubsResponse(error: StashError.other(GenericErrorDetails(description: "Sample error")))
         }
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: paymentEndpoint,
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -343,7 +343,7 @@ class ModuleIntegrationTests: XCTestCase {
             }
         }
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: paymentEndpoint,
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
@@ -375,7 +375,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: doesNotCallRegistration,
                                                 aliasCreationDetailResult: .failure(error))
 
-        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
+        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
