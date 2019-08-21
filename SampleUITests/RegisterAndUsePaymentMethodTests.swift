@@ -209,7 +209,7 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         XCTAssert(webViewButton.waitForExistence(timeout: 15))
         webViewButton.tap()
 
-        waitForElementToAppear(element: app.alerts.firstMatch)
+        XCTAssert(app.alerts.firstMatch.waitForExistence(timeout: 15))
         XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
                       "Expected \"Success\" text in the app alert when adding a valid SEPA method")
         app.alerts.firstMatch.buttons.firstMatch.tap()
