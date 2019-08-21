@@ -225,7 +225,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
     private func initializeSDK(for provider: PaymentServiceProvider) {
         let integration = PaymentProviderIntegration(paymentServiceProvider: provider)
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [integration])
         configuration.loggingEnabled = true
         configuration.useTestMode = true

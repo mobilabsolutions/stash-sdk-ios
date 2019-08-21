@@ -27,7 +27,7 @@
 #import <BraintreePaymentFlow/BraintreePaymentFlow.h>
 #endif
 
-@interface BTCardFormViewController () <BTViewControllerPresentingDelegate>
+@interface BTCardFormViewController ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *scrollViewContentWrapper;
@@ -39,6 +39,7 @@
 @property (nonatomic, strong, readwrite) BTUIKPostalCodeFormField *postalCodeField;
 @property (nonatomic, strong, readwrite) BTUIKMobileCountryCodeFormField *mobileCountryCodeField;
 @property (nonatomic, strong, readwrite) BTUIKMobileNumberFormField *mobilePhoneField;
+@property (nonatomic, strong, readwrite) BTUIKSwitchFormField *shouldVaultCardSwitchField;
 @property (nonatomic, strong) UIStackView *cardNumberErrorView;
 @property (nonatomic, strong) UIStackView *cardNumberHeader;
 @property (nonatomic, strong) UIStackView *enrollmentFooter;
@@ -215,7 +216,7 @@
         [self.stackView addArrangedSubview:formField];
         
         NSLayoutConstraint* heightConstraint = [formField.heightAnchor constraintEqualToConstant:[BTUIKAppearance formCellHeight]];
-        // Setting the prioprity is necessary to avoid autolayout errors when UIStackView rotates
+        // Setting the priority is necessary to avoid autolayout errors when UIStackView rotates
         heightConstraint.priority = UILayoutPriorityDefaultHigh;
         heightConstraint.active = YES;
         
@@ -268,6 +269,10 @@
     [BTDropInUIUtilities addSpacerToStackView:self.enrollmentFooter beforeView:enrollmentFooterLabel size: [BTUIKAppearance verticalFormSpaceTight]];
     self.enrollmentFooter.hidden = YES;
     [self.stackView addArrangedSubview:self.enrollmentFooter];
+
+    self.shouldVaultCardSwitchField = [[BTUIKSwitchFormField alloc] initWithTitle:BTUIKLocalizedString(SAVE_CARD_LABEL)];
+    self.shouldVaultCardSwitchField.hidden = YES;
+    [self.stackView addArrangedSubview:self.shouldVaultCardSwitchField];
 
     [self setupCardIO];
 }
@@ -370,7 +375,7 @@
         card.cardholderName = self.cardholderNameField.cardholderName;
     }
     
-    card.shouldValidate = self.apiClient.tokenizationKey ? NO : YES;
+    card.shouldValidate = self.shouldVaultCardSwitchField.switchControl.isOn;
     BTCardRequest *cardRequest = [[BTCardRequest alloc] initWithCard:card];
     
     if (self.cardCapabilities != nil && self.cardCapabilities.isUnionPay && self.cardCapabilities.isSupported) {
@@ -397,6 +402,7 @@
             self.mobileCountryCodeField.hidden = ![self.requiredFields containsObject:self.mobileCountryCodeField] || collapsed;
             self.mobilePhoneField.hidden = ![self.requiredFields containsObject:self.mobilePhoneField] || collapsed;
             self.enrollmentFooter.hidden = self.mobilePhoneField.hidden;
+            self.shouldVaultCardSwitchField.hidden = ![self shouldDisplaySaveCardToggle] || collapsed;
             [self updateFormBorders];
         } completion:^(__unused BOOL finished) {
             self.cardNumberFooter.hidden = !collapsed;
@@ -408,11 +414,16 @@
             self.mobileCountryCodeField.hidden = ![self.requiredFields containsObject:self.mobileCountryCodeField] || collapsed;
             self.mobilePhoneField.hidden = ![self.requiredFields containsObject:self.mobilePhoneField] || collapsed;
             self.enrollmentFooter.hidden = self.mobilePhoneField.hidden;
+            self.shouldVaultCardSwitchField.hidden = ![self shouldDisplaySaveCardToggle] || collapsed;
             
             [self updateFormBorders];
             [self updateSubmitButton];
         }];
     });
+}
+
+- (BOOL)shouldDisplaySaveCardToggle {
+    return self.dropInRequest.allowVaultCardOverride && self.apiClient.tokenizationKey == nil;
 }
 
 #pragma mark - Public methods
@@ -437,6 +448,7 @@
     self.cardNumberFooter.hidden = NO;
     self.cardNumberHeader.hidden = NO;
     [self.cardList emphasizePaymentOption:BTUIKPaymentOptionTypeUnknown];
+    self.shouldVaultCardSwitchField.switchControl.on = self.dropInRequest.vaultCard && self.apiClient.tokenizationKey == nil;
     [self updateFormBorders];
 }
 
@@ -623,30 +635,7 @@
                 [alertController addAction: alertAction];
                 [navController presentViewController:alertController animated:YES completion:nil];
             } else {
-                if (self.dropInRequest.threeDSecureVerification && self.dropInRequest.amount != nil
-                    && [self.configuration.json[@"threeDSecureEnabled"] isTrue]) {
-
-                    BTPaymentFlowDriver *paymentFlowDriver = [[BTPaymentFlowDriver alloc] initWithAPIClient:self.apiClient];
-                    paymentFlowDriver.viewControllerPresentingDelegate = self;
-
-                    BTThreeDSecureRequest *request = [[BTThreeDSecureRequest alloc] init];
-                    request.amount = [[NSDecimalNumber alloc] initWithString:self.dropInRequest.amount];
-                    request.nonce = tokenizedCard.nonce;
-                    [paymentFlowDriver startPaymentFlow:request completion:^(BTPaymentFlowResult * _Nonnull result, NSError * _Nonnull error) {
-                        if (error) {
-                            if (error.code == BTPaymentFlowDriverErrorTypeCanceled) {
-                                [self cancelTapped];
-                            } else {
-                                [self.delegate cardTokenizationCompleted:nil error:error sender:self];
-                            }
-                        } else if (result) {
-                            BTThreeDSecureResult *threeDSecureResult = (BTThreeDSecureResult *)result;
-                            [self.delegate cardTokenizationCompleted:threeDSecureResult.tokenizedCard error:error sender:self];
-                        }
-                    }];
-                } else {
-                    [self.delegate cardTokenizationCompleted:tokenizedCard error:error sender:self];
-                }
+                [self.delegate cardTokenizationCompleted:tokenizedCard error:error sender:self];
             }
         });
     }];
@@ -848,15 +837,6 @@
 
 - (BOOL)textFieldShouldReturn:(__unused UITextField *)textField {
     return YES;
-}
-
-#pragma mark BTViewControllerPresentingDelegate
-- (void)paymentDriver:(__unused id)driver requestsPresentationOfViewController:(UIViewController *)viewController {
-    [self presentViewController:viewController animated:YES completion:nil];
-}
-
-- (void)paymentDriver:(__unused id)driver requestsDismissalOfViewController:(__unused UIViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

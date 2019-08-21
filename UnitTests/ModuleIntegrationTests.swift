@@ -97,7 +97,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: expectation)
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true
@@ -126,7 +126,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: calledExpectation)
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
 
@@ -165,7 +165,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 registrationRequestCalledExpectation: doesNotCallRegistration)
 
         let configuration = StashConfiguration(publishableKey: "incorrect-test-key",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         Stash.initialize(configuration: configuration)
@@ -192,7 +192,7 @@ class ModuleIntegrationTests: XCTestCase {
     }
 
     func testCreatedAndUpdatedAliasWithTestMode() throws {
-        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+        let paymentEndpoint = "https://payment-demo.mblb.net/api/v1"
 
         let expectation = XCTestExpectation(description: "Handle registration is called")
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
@@ -251,7 +251,7 @@ class ModuleIntegrationTests: XCTestCase {
     }
 
     func testPropagatesAliasCreationDetail() throws {
-        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+        let paymentEndpoint = "https://payment-demo.mblb.net/api/v1"
         let creationDetailIdentifier = "my-creation-detail-id"
 
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
@@ -304,7 +304,7 @@ class ModuleIntegrationTests: XCTestCase {
     }
 
     func testAddsUserAgentToCoreRequests() throws {
-        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+        let paymentEndpoint = "https://payment-demo.mblb.net/api/v1"
 
         let expectation = XCTestExpectation(description: "Handle registration is called")
         let module = TestModule<CreditCardData>(completionResultToReturn: .success(createTestRegistration(withTitle: "Test alias")),
@@ -376,7 +376,7 @@ class ModuleIntegrationTests: XCTestCase {
                                                 aliasCreationDetailResult: .failure(error))
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: module)])
         configuration.useTestMode = true
         Stash.initialize(configuration: configuration)

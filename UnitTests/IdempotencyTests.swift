@@ -75,7 +75,7 @@ class IdempotencyTests: XCTestCase {
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [integration])
         Stash.initialize(configuration: configuration)
 
@@ -105,11 +105,11 @@ class IdempotencyTests: XCTestCase {
 
         let integration = PaymentProviderIntegration(paymentServiceProvider: module)
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [integration])
         Stash.initialize(configuration: configuration)
 
-        let paymentEndpoint = "https://payment-dev.mblb.net/api/v1"
+        let paymentEndpoint = "https://payment-demo.mblb.net/api/v1"
 
         stub(condition: { request -> Bool in
             guard let requestHost = request.url?.host,

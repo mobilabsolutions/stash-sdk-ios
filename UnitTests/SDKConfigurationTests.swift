@@ -27,7 +27,7 @@ class SDKConfiguraionTests: XCTestCase {
             guard let integration = PaymentProviderIntegration(paymentServiceProvider: creditCardProvider, paymentMethodTypes: [.sepa, .creditCard])
             else { fatalError("This should not happen") }
             let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                                   endpoint: "https://payment-dev.mblb.net/api/v1",
+                                                   endpoint: "https://payment-demo.mblb.net/api/v1",
                                                    integrations: [integration])
             Stash.initialize(configuration: configuration)
         }
@@ -50,7 +50,7 @@ class SDKConfiguraionTests: XCTestCase {
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
         Stash.initialize(configuration: configuration)
 
@@ -77,7 +77,7 @@ class SDKConfiguraionTests: XCTestCase {
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [creditCardIntegration, sepaIntegration, payPalIntegration])
         Stash.initialize(configuration: configuration)
 
@@ -93,7 +93,7 @@ class SDKConfiguraionTests: XCTestCase {
         else { XCTFail("Should be able to create integrations with correct types"); return }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [creditCardIntegration, payPalIntegration])
         Stash.initialize(configuration: configuration)
 

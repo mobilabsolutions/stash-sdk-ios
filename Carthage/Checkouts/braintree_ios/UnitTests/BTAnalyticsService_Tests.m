@@ -1,4 +1,4 @@
- #import "UnitTests-Swift.h"
+#import "UnitTests-Swift.h"
 #import "BTAnalyticsService.h"
 #import "BTKeychain.h"
 #import "Braintree-Version.h"
@@ -9,11 +9,20 @@
 
 @interface BTAnalyticsService_Tests : XCTestCase
 
+@property (nonatomic, assign) uint64_t currentTime;
+@property (nonatomic, assign) uint64_t oneSecondLater;
+
 @end
 
 @implementation BTAnalyticsService_Tests
 
 #pragma mark - Analytics tests
+
+- (void)setUp {
+    [super setUp];
+    self.currentTime = (uint64_t)([[NSDate date] timeIntervalSince1970] * 1000);
+    self.oneSecondLater = (uint64_t)(([[NSDate date] timeIntervalSince1970] * 1000) + 999);
+}
 
 - (void)testSendAnalyticsEvent_whenRemoteConfigurationHasNoAnalyticsURL_returnsError {
     MockAPIClient *stubAPIClient = [self stubbedAPIClientWithAnalyticsURL:nil];
@@ -56,6 +65,9 @@
 
     XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestEndpoint, @"/");
     XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"kind"], @"an.analytics.event");
+    XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.currentTime);
+    XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
     [self validateMetaParameters:mockAnalyticsHTTP.lastRequestParameters[@"_meta"]];
 }
 
@@ -86,7 +98,13 @@
         XCTAssertTrue(mockAnalyticsHTTP.POSTRequestCount == 1);
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestEndpoint, @"/");
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"kind"], @"an.analytics.event");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"kind"], @"another.analytics.event");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
         [self validateMetaParameters:mockAnalyticsHTTP.lastRequestParameters[@"_meta"]];
         [expectation fulfill];
     }];
@@ -112,7 +130,12 @@
         XCTAssertTrue(mockAnalyticsHTTP.POSTRequestCount == 1);
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestEndpoint, @"/");
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"kind"], @"an.analytics.event");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"kind"], @"another.analytics.event");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
         [self validateMetaParameters:mockAnalyticsHTTP.lastRequestParameters[@"_meta"]];
         [expectation fulfill];
     }];
@@ -186,7 +209,13 @@
         XCTAssertTrue(mockAnalyticsHTTP.POSTRequestCount == 1);
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestEndpoint, @"/");
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"kind"], @"an.analytics.event.1");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+        
         XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"kind"], @"an.analytics.event.2");
+        XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.currentTime);
+        XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
         [self validateMetaParameters:mockAnalyticsHTTP.lastRequestParameters[@"_meta"]];
         [expectation fulfill];
     }];
@@ -212,7 +241,12 @@
     XCTAssertTrue(mockAnalyticsHTTP.POSTRequestCount == 1);
     XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestEndpoint, @"/");
     XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"kind"], @"an.analytics.event");
+    XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.currentTime);
+    XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][0][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
+
     XCTAssertEqualObjects(mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"kind"], @"another.analytics.event");
+    XCTAssertGreaterThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.currentTime);
+    XCTAssertLessThanOrEqual([mockAnalyticsHTTP.lastRequestParameters[@"analytics"][1][@"timestamp"] unsignedIntegerValue], self.oneSecondLater);
     [self validateMetaParameters:mockAnalyticsHTTP.lastRequestParameters[@"_meta"]];
 }
 
@@ -229,23 +263,21 @@
 }
 
 - (void)validateMetaParameters:(NSDictionary *)metaParameters {
-    NSString *unitTestDeploymentTargetVersion = [@(__IPHONE_OS_VERSION_MIN_REQUIRED) stringValue];
-    NSString *unitTestBaseSDKVersion = [@(__IPHONE_OS_VERSION_MAX_ALLOWED) stringValue];
-
     XCTAssertEqualObjects(metaParameters[@"deviceManufacturer"], @"Apple");
     XCTAssertEqualObjects(metaParameters[@"deviceModel"], [self deviceModel]);
     XCTAssertEqualObjects(metaParameters[@"deviceAppGeneratedPersistentUuid"], [self deviceAppGeneratedPersistentUuid]);
     XCTAssertEqualObjects(metaParameters[@"deviceScreenOrientation"], @"Portrait");
-    XCTAssertEqualObjects(metaParameters[@"integration"], @"custom");
-    XCTAssertEqualObjects(metaParameters[@"iosBaseSDK"], unitTestBaseSDKVersion);
-    XCTAssertEqualObjects(metaParameters[@"iosDeploymentTarget"], unitTestDeploymentTargetVersion);
-    XCTAssertEqualObjects(metaParameters[@"iosDeviceName"], [[UIDevice currentDevice] name]);
+    XCTAssertEqualObjects(metaParameters[@"integrationType"], @"custom");
+    XCTAssertEqualObjects(metaParameters[@"iosBaseSDK"], @(__IPHONE_OS_VERSION_MAX_ALLOWED).stringValue);
+    // __IPHONE_OS_VERSION_MIN_REQUIRED refers to deployment target of unit tests, which needs to match the demo app's
+    XCTAssertEqualObjects(metaParameters[@"iosDeploymentTarget"], @(__IPHONE_OS_VERSION_MIN_REQUIRED).stringValue);
+    XCTAssertEqualObjects(metaParameters[@"iosDeviceName"], UIDevice.currentDevice.name);
     XCTAssertTrue((BOOL)metaParameters[@"isSimulator"] == TARGET_IPHONE_SIMULATOR);
     XCTAssertEqualObjects(metaParameters[@"merchantAppId"], @"com.braintreepayments.Demo");
     XCTAssertEqualObjects(metaParameters[@"merchantAppName"], @"Braintree iOS SDK Demo");
     XCTAssertEqualObjects(metaParameters[@"sdkVersion"], BRAINTREE_VERSION);
     XCTAssertEqualObjects(metaParameters[@"platform"], @"iOS");
-    XCTAssertEqualObjects(metaParameters[@"platformVersion"], [[UIDevice currentDevice] systemVersion]);
+    XCTAssertEqualObjects(metaParameters[@"platformVersion"], UIDevice.currentDevice.systemVersion);
     XCTAssertNotNil(metaParameters[@"sessionId"]);
     XCTAssertEqualObjects(metaParameters[@"source"], @"unknown");
     XCTAssertTrue([metaParameters[@"venmoInstalled"] isKindOfClass:[NSNumber class]]);

@@ -3,6 +3,7 @@
 NSString *BraintreeDemoSettingsEnvironmentDefaultsKey = @"BraintreeDemoSettingsEnvironmentDefaultsKey";
 NSString *BraintreeDemoSettingsCustomEnvironmentURLDefaultsKey = @"BraintreeDemoSettingsCustomEnvironmentURLDefaultsKey";
 NSString *BraintreeDemoSettingsThreeDSecureRequiredDefaultsKey = @"BraintreeDemoSettingsThreeDSecureRequiredDefaultsKey";
+NSString *BraintreeDemoSettingsThreeDSecureVersionDefaultsKey = @"BraintreeDemoSettingsThreeDSecureVersionDefaultsKey";
 
 @implementation BraintreeDemoSettings
 
@@ -49,6 +50,11 @@ NSString *BraintreeDemoSettingsThreeDSecureRequiredDefaultsKey = @"BraintreeDemo
     return [[NSUserDefaults standardUserDefaults] integerForKey:BraintreeDemoSettingsThreeDSecureRequiredDefaultsKey];
 }
 
++ (BraintreeDemoTransactionServiceThreeDSecureRequestedVersion)threeDSecureRequestedVersion {
+    return [[NSUserDefaults standardUserDefaults]
+        integerForKey:BraintreeDemoSettingsThreeDSecureVersionDefaultsKey];
+}
+
 + (BOOL)useModalPresentation {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"BraintreeDemoChooserViewControllerShouldUseModalPresentationDefaultsKey"];
 }
@@ -75,6 +81,14 @@ NSString *BraintreeDemoSettingsThreeDSecureRequiredDefaultsKey = @"BraintreeDemo
 
 + (BTFormFieldSetting)cardholderNameSetting {
     return [NSUserDefaults.standardUserDefaults integerForKey:@"BraintreeDemoCardholderNameSetting"];
+}
+
++ (BOOL)vaultCardSetting {
+    return [NSUserDefaults.standardUserDefaults boolForKey:@"BraintreeDemoVaultCardSetting"];
+}
+
++ (BOOL)allowVaultCardOverrideSetting {
+    return [NSUserDefaults.standardUserDefaults boolForKey:@"BraintreeDemoAllowVaultCardOverrideSetting"];
 }
 
 @end

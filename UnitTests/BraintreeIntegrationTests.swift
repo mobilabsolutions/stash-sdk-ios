@@ -22,7 +22,7 @@ class BraintreeIntegrationTests: XCTestCase {
         let provider = StashBraintree(urlScheme: "com.your-company.Your-App.mobilab")
         self.provider = provider
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingEnabled = true
         configuration.useTestMode = true

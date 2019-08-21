@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Braintree"
-  s.version          = "4.23.0"
+  s.version          = "4.27.0"
   s.summary          = "Braintree v.zero: A modern foundation for accepting payments"
   s.description      = <<-DESC
                        Braintree is a full-stack payments platform for developers
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/braintree/braintree_ios.git", :tag => s.version.to_s }
   s.social_media_url = "https://twitter.com/braintree"
 
-  s.platform         = :ios, "7.0"
+  s.platform         = :ios, "8.0"
   s.requires_arc     = true
   s.compiler_flags = "-Wall -Werror -Wextra"
 
@@ -131,6 +131,7 @@ Pod::Spec.new do |s|
     s.dependency "Braintree/Core"
     s.dependency "Braintree/Card"
     s.dependency "Braintree/PayPalOneTouch"
+    s.vendored_frameworks = "Frameworks/CardinalMobile.framework"
   end
 end
 

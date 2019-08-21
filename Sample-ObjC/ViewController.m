@@ -26,7 +26,7 @@
 
     MLStashConfiguration *configuration = [[MLStashConfiguration alloc]
                                                   initWithPublishableKey:@"mobilab-D4eWavRIslrUCQnnH6cn"
-                                                    endpoint:@"https://payment-dev.mblb.net/api/v1"
+                                                    endpoint:@"https://payment-demo.mblb.net/api/v1"
                                                     integrations: @[integration]
                                                     uiConfiguration:nil];
     [configuration setUseTestMode:YES];

@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class BTPostalAddress, BTPayPalRequest;
+@class BTPostalAddress, BTPayPalRequest, BTThreeDSecureRequest;
 
 typedef NS_ENUM(NSInteger, BTFormFieldSetting) {
     BTFormFieldDisabled = 0,
@@ -41,6 +41,11 @@ typedef NS_ENUM(NSInteger, BTFormFieldSetting) {
 /// Defaults to false.
 @property (nonatomic, assign) BOOL threeDSecureVerification;
 
+/// Optional: Enable 3DS verification and specify options and additional information. If no amount is set, the `BTDropInRequest` `amount` will be used.
+///
+/// Note: To encourage 3DS 2.0 flows, set `billingAddress`, `amount`, `email`, `mobilePhone` for best results.
+@property (nonatomic, strong, nullable) BTThreeDSecureRequest *threeDSecureRequest;
+
 /// Optional: Determines the visibility and input requirements of the cardholder name field.
 ///
 /// When set to BTFormFieldDisabled, the cardholder name field will not be displayed.
@@ -57,6 +62,14 @@ typedef NS_ENUM(NSInteger, BTFormFieldSetting) {
 /// Optional: If true, enables the managment UI.
 /// Defaults to false.
 @property (nonatomic, assign) BOOL vaultManager;
+
+/// Optional: Whether or not to vault the card upon tokenization, can only be applied when initializing the Braintree client with a client token that was generated with a customer ID. When set to `false` with `allowVaultCardOverride` set to `false`, then cards will not be vaulted.
+/// Defaults to true
+@property (nonatomic, assign) BOOL vaultCard;
+
+/// Optional: When true, the card form will include an option to let the customer decide not to vault the card.
+/// Defaults to false
+@property (nonatomic, assign) BOOL allowVaultCardOverride;
 
 @end
 

@@ -147,7 +147,7 @@ class AddUIViewController: UIViewController {
         }
 
         let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: "https://payment-demo.mblb.net/api/v1",
                                                integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingEnabled = true
         configuration.useTestMode = testModeEnabled
