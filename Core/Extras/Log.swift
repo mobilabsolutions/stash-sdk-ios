@@ -45,7 +45,7 @@ public class Log {
                              line: Int,
                              funcName: String) {
         if self.loggingLevel >= LoggingLevel.normal {
-            print("\(self.dateFormatter.string(from: Date())) Stash SDK -> Error in [\(self.sourceFileName(filePath: filename))]:\(line) \(funcName) \(description)")
+            print("\(self.dateFormatter.string(from: Date())) Stash SDK Error [\(self.sourceFileName(filePath: filename))]:\(line) \(funcName) -> \(description)")
         }
     }
 
@@ -55,11 +55,11 @@ public class Log {
     ///   - message: The message that should be printed to console
     ///   - filename: Name of the file from which this function has been called. Autopopulated by special literal available in Swift
     ///   - funcName: Name of the function in which this function has been called. Autopopulated by special literal available in Swift
-    public static func event(message: String,
+    public static func event(description: String,
                              filename: String = #file,
                              funcName: String = #function) {
         if self.loggingLevel >= LoggingLevel.developer {
-            print("\(self.dateFormatter.string(from: Date())) Stash SDK [\(self.sourceFileName(filePath: filename))]: \(funcName) -> \(message)")
+            print("\(self.dateFormatter.string(from: Date())) Stash SDK \(funcName) -> \(description)")
         }
     }
 

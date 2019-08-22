@@ -22,7 +22,7 @@ public class StashBSPayone: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
         guard let pspData = BSPayoneData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
@@ -66,7 +66,7 @@ public class StashBSPayone: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),

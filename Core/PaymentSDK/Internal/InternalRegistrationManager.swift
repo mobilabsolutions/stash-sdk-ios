@@ -14,7 +14,7 @@ class InternalRegistrationManager {
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String?,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil) {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
 
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         let uniqueRegistrationIdentifier = UUID().uuidString
@@ -44,7 +44,7 @@ class InternalRegistrationManager {
         let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue,
                                                     aliasDetail: aliasCreationDetail,
                                                     idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
         self.networkingClient.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
@@ -71,7 +71,7 @@ class InternalRegistrationManager {
                                                       registrationData: paymentMethod.methodData,
                                                       viewController: viewController)
 
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
 
         guard let publicPaymentMethodType = paymentMethod.type.publicPaymentMethodType
         else { fatalError("Stash SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
@@ -92,6 +92,7 @@ class InternalRegistrationManager {
                                                                                                  paymentMethodType: publicPaymentMethodType,
                                                                                                  extraAliasInfo: pspResult.overwritingExtraAliasInfo
                                                                                                      ?? paymentMethod.methodData.extraAliasInfo)
+                                                           Log.normal(message: "Payment alias has been created: \(alias.aliasId)")
                                                            completion(.success(registration))
                                                        case let .failure(error):
                                                            completion(.failure(error))

@@ -35,7 +35,7 @@ public class StashAdyen: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
 
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
@@ -69,7 +69,7 @@ public class StashAdyen: PaymentServiceProvider {
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, StashError>) -> Void) {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
         // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://stash")
@@ -94,7 +94,7 @@ public class StashAdyen: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
-        Log.event(message: "initiated")
+        Log.event(description: "function initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),

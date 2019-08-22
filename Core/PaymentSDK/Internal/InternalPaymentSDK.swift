@@ -23,7 +23,7 @@ class InternalPaymentSDK {
     private var wasInitialized = false {
         didSet {
             if self.wasInitialized {
-                Log.event(message: "success")
+                Log.event(description: "Successfully initialized SDK")
             }
         }
     }

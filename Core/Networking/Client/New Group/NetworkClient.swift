@@ -22,7 +22,7 @@ public extension NetworkClient {
         let urlRequest = request.asURLRequest()
 
         if let method = urlRequest.httpMethod, let url = urlRequest.url {
-            Log.normal(message: "Stash request: \(method) \(url)")
+            Log.normal(message: "Network request: \(method) \(url)")
             #if DEBUG
                 if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
                     Log.normal(message: body)
@@ -58,7 +58,7 @@ public extension NetworkClient {
 
         if let receivedData = receivedData.toJSONString() {
             #if DEBUG
-                Log.normal(message: receivedData)
+                Log.normal(message: "Network Response \(receivedData)")
             #endif
         }
 
