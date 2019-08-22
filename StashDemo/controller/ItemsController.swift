@@ -17,9 +17,9 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
     private let cellHeight: CGFloat = 104
 
     private let items: [Item] = [Item(id: "4343D7AA-9BF2-4424-95A9-7A98CB90C6E4", title: "MobiLab", description: "t-Shirt print", picture: "imageCard", price: 15.0),
-                                 Item(id: "ABE45A17-184B-47B1-99D5-02F2BAAB7B04", title: "Notebook paper", description: "quadrille Pads", picture: "imageCardNotes", price: 3.5),
-                                 Item(id: "82EB1262-E38D-4CB8-A8CA-1E17E6410B15", title: "MobiLab sticker", description: "12 sticker sheet", picture: "imageCardSticker", price: 23.95),
-                                 Item(id: "A3F6679E-7C4D-4A1F-9C24-C238996E6CBF", title: "MobiLab pen", description: "blue color", picture: "imageCardPen", price: 10.75),
+                                 Item(id: "ABE45A17-184B-47B1-99D5-02F2BAAB7B04", title: "Notebook Paper", description: "quadrille Pads", picture: "imageCardNotes", price: 3.5),
+                                 Item(id: "82EB1262-E38D-4CB8-A8CA-1E17E6410B15", title: "MobiLab Sticker", description: "12 sticker sheet", picture: "imageCardSticker", price: 23.95),
+                                 Item(id: "A3F6679E-7C4D-4A1F-9C24-C238996E6CBF", title: "MobiLab Pen", description: "blue color", picture: "imageCardPen", price: 10.75),
                                  Item(id: "45B4DA02-B214-4A39-8755-2473B7FF0C5E", title: "MobiLab", description: "female T-Shirt", picture: "imageCard", price: 20)]
 
     private let configuration: PaymentMethodUIConfiguration
