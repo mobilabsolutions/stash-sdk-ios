@@ -22,6 +22,7 @@ public class StashBSPayone: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier _: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        Log.event(description: "function initiated")
         guard let pspData = BSPayoneData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
@@ -65,6 +66,7 @@ public class StashBSPayone: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        Log.event(description: "function initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
@@ -106,7 +108,7 @@ public class StashBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
-        else { throw StashError.validation(.cardTypeNotSupported) }
+        else { throw StashError.validation(.cardTypeNotSupported).loggedError() }
 
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
@@ -122,7 +124,7 @@ public class StashBSPayone: PaymentServiceProvider {
         else { return nil }
 
         guard data.billingData.country != nil
-        else { throw StashError.validation(ValidationErrorDetails.countryMissing) }
+        else { throw StashError.validation(ValidationErrorDetails.countryMissing).loggedError() }
 
         return SEPABSPayoneData(iban: data.iban)
     }

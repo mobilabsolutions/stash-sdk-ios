@@ -227,7 +227,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [integration])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = true
         Stash.initialize(configuration: configuration)
     }

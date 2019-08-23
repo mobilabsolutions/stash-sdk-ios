@@ -14,9 +14,10 @@ class InternalRegistrationManager {
     func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String?,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil) {
+        Log.event(description: "function initiated")
+
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         let uniqueRegistrationIdentifier = UUID().uuidString
-
         provider.provideAliasCreationDetail(for: paymentMethod.methodData, idempotencyKey: idempotencyKey, uniqueRegistrationIdentifier: uniqueRegistrationIdentifier) { creationDetailResult in
             switch creationDetailResult {
             case let .success(detail):
@@ -43,7 +44,7 @@ class InternalRegistrationManager {
         let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue,
                                                     aliasDetail: aliasCreationDetail,
                                                     idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-
+        Log.event(description: "function initiated")
         self.networkingClient.createAlias(request: createAliasRequest) { result in
             switch result {
             case let .success(response):
@@ -70,8 +71,10 @@ class InternalRegistrationManager {
                                                       registrationData: paymentMethod.methodData,
                                                       viewController: viewController)
 
+        Log.event(description: "function initiated")
+
         guard let publicPaymentMethodType = paymentMethod.type.publicPaymentMethodType
-        else { fatalError("SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
+        else { fatalError("Stash SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
 
         let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
         provider.handleRegistrationRequest(registrationRequest: registrationRequest,
@@ -82,7 +85,6 @@ class InternalRegistrationManager {
                                                                                                pspAlias: pspResult.pspAlias,
                                                                                                extra: pspResult.aliasExtra,
                                                                                                idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-
                                                    self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
                                                        switch updateResult {
                                                        case .success:
@@ -90,6 +92,7 @@ class InternalRegistrationManager {
                                                                                                  paymentMethodType: publicPaymentMethodType,
                                                                                                  extraAliasInfo: pspResult.overwritingExtraAliasInfo
                                                                                                      ?? paymentMethod.methodData.extraAliasInfo)
+                                                           Log.normal(message: "Payment alias has been created: \(alias.aliasId)")
                                                            completion(.success(registration))
                                                        case let .failure(error):
                                                            completion(.failure(error))

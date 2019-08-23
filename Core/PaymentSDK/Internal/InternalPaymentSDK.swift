@@ -20,7 +20,13 @@ enum SDKError: Error {
 }
 
 class InternalPaymentSDK {
-    private var wasInitialized = false
+    private var wasInitialized = false {
+        didSet {
+            if self.wasInitialized {
+                Log.event(description: "Successfully initialized SDK")
+            }
+        }
+    }
 
     private var _configuration: StashConfiguration?
     var configuration: StashConfiguration {

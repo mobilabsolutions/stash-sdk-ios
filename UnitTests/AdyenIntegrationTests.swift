@@ -25,7 +25,7 @@ class AdyenIntegrationTests: XCTestCase {
         let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = true
 
         Stash.initialize(configuration: configuration)
