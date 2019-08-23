@@ -246,7 +246,7 @@ class PaymentService {
         let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [adyenIntegration, braintreeIntegration])
-        configuration.loggingEnabled = true
+        configuration.loggingLevel = .normal
         configuration.useTestMode = self.testModeEnabled
 
         Stash.initialize(configuration: configuration)

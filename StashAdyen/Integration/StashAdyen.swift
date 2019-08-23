@@ -35,6 +35,8 @@ public class StashAdyen: PaymentServiceProvider {
                                           idempotencyKey: String?,
                                           uniqueRegistrationIdentifier: String,
                                           completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
+        Log.event(description: "function initiated")
+
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
@@ -67,6 +69,7 @@ public class StashAdyen: PaymentServiceProvider {
                                            idempotencyKey _: String?,
                                            uniqueRegistrationIdentifier: String,
                                            completion: @escaping (Swift.Result<AliasCreationDetail?, StashError>) -> Void) {
+        Log.event(description: "function initiated")
         // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
         let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
             let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://stash")
@@ -91,6 +94,7 @@ public class StashAdyen: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType,
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
+        Log.event(description: "function initiated")
         switch methodType {
         case .creditCard:
             return CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
@@ -143,7 +147,7 @@ public class StashAdyen: PaymentServiceProvider {
 
     private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
         guard let controller = self.controllerForRegistrationIdentifier[idempotencyKey]
-        else { throw StashError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")) }
+        else { throw StashError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")).loggedError() }
 
         return controller
     }
@@ -152,10 +156,10 @@ public class StashAdyen: PaymentServiceProvider {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
 
         guard let extra = cardData.toCreditCardExtra()
-        else { throw StashError.validation(ValidationErrorDetails.invalidCreditCardNumber) }
+        else { throw StashError.validation(ValidationErrorDetails.invalidCreditCardNumber).loggedError() }
 
         guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
-        else { throw StashError.validation(.invalidExpirationDate) }
+        else { throw StashError.validation(.invalidExpirationDate).loggedError() }
 
         let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
 
@@ -173,7 +177,7 @@ public class StashAdyen: PaymentServiceProvider {
         else { return nil }
 
         guard let ownerName = data.billingData.name?.fullName
-        else { throw StashError.validation(.billingMissingName) }
+        else { throw StashError.validation(.billingMissingName).loggedError() }
 
         return SEPAAdyenData(ownerName: ownerName, ibanNumber: data.iban, billingData: data.billingData, sepaExtra: data.toSEPAExtra())
     }

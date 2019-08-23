@@ -108,6 +108,7 @@
 		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
+		BAEBF5E02305B17D0071A859 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEBF5DF2305B17D0071A859 /* Log.swift */; };
 		BAE8FFC0222D4127005D2E47 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
@@ -501,6 +502,7 @@
 		BAD6463D222EC29500771DC0 /* PSPExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSPExtra.swift; sourceTree = "<group>"; };
 		BAD6464D2230799F00771DC0 /* Codable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extras.swift"; sourceTree = "<group>"; };
 		BAD64650223094AC00771DC0 /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
+		BAEBF5DF2305B17D0071A859 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedTextInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		C41CB8F122774ADB0009F744 /* NameProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameProviding.swift; sourceTree = "<group>"; };
 		C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleNameProvider.swift; sourceTree = "<group>"; };
@@ -810,6 +812,7 @@
 		1DC5CB9720D2BF5E002058C1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BAEBF5DE2305B1500071A859 /* Extras */,
 				1DFA538E20DAB5E30065CCC3 /* Extensions */,
 				1DC5CBB620D40D46002058C1 /* Model */,
 				1DC5CBC520D410D2002058C1 /* PaymentSDK */,
@@ -1281,6 +1284,14 @@
 				BA09A962224D6182006C3A1D /* StashBSPayoneBridge.swift */,
 			);
 			path = Integration;
+			sourceTree = "<group>";
+		};
+		BAEBF5DE2305B1500071A859 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				BAEBF5DF2305B17D0071A859 /* Log.swift */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 		E1068E9222522A2800ACC93C /* View */ = {
@@ -1995,6 +2006,7 @@
 				E1466265227C39BF00512710 /* SEPAExtra.swift in Sources */,
 				BA078EE822E086A700E199B4 /* PaymentMethodAliasBridge.swift in Sources */,
 				BAD64635222EBB9B00771DC0 /* Header.swift in Sources */,
+				BAEBF5E02305B17D0071A859 /* Log.swift in Sources */,
 				E117E017224B82E000E4C591 /* CreditCardType+Extensions.swift in Sources */,
 				E1068E9F22522B2000ACC93C /* SubtitleLabel.swift in Sources */,
 				BACD61A12226C90A00E3ACC3 /* PaymentServiceProvider.swift in Sources */,

@@ -92,16 +92,6 @@ describe(@"metadata", ^{
             expect([BTAnalyticsMetadata metadata][@"deviceNetworkType"]).to.equal(@"wifi");
         });
     });
-    describe(@"deviceLocationLatitude", ^{
-        it(@"returns the devices location if already available", ^{
-            expect([BTAnalyticsMetadata metadata][@"deviceLocationLatitude"]).to.beNil();
-        });
-    });
-    describe(@"deviceLocationLongitude", ^{
-        it(@"returns the device location if already available", ^{
-            expect([BTAnalyticsMetadata metadata][@"deviceLocationLongitude"]).to.beNil();
-        });
-    });
     describe(@"iosIdentifierForVendor", ^{
         it(@"returns the identifierForVendor", ^{
             NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
@@ -135,16 +125,6 @@ describe(@"metadata", ^{
             OCMStub([stubMainBundle infoDictionary]).andReturn(@{@"NSExtension": @{}});
             expect([BTAnalyticsMetadata metadata][@"deviceScreenOrientation"]).to.equal(@"AppExtension");
             [stubMainBundle stopMocking];
-        });
-    });
-    describe(@"userInterfaceOrientation", ^{
-        it(@"returns the user interface orientation, e.g. Portrait or Landscape", ^{
-#ifdef __IPHONE_8_0
-            expect([BTAnalyticsMetadata metadata][@"userInterfaceOrientation"]).to.beNil();
-#else
-            expect([BTAnalyticsMetadata metadata][@"userInterfaceOrientation"]).to.equal(@"Unknown");
-#endif
-
         });
     });
 });

@@ -15,9 +15,7 @@
 @interface BTPaymentFlowDriver () <SFSafariViewControllerDelegate>
 
 @property (nonatomic, copy) void (^paymentFlowCompletionBlock)(BTPaymentFlowResult *, NSError *);
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @property (nonatomic, strong, nullable) SFSafariViewController *safariViewController NS_AVAILABLE_IOS(9_0);
-#endif
 @property (nonatomic, strong, nullable) id<BTPaymentFlowRequestDelegate> paymentFlowRequestDelegate;
 
 @end
@@ -69,34 +67,23 @@ static BTPaymentFlowDriver *paymentFlowDriver;
 }
 
 - (void)startPaymentFlow:(BTPaymentFlowRequest<BTPaymentFlowRequestDelegate> *)request completion:(void (^)(BTPaymentFlowResult * _Nullable, NSError * _Nullable))completionBlock {
-    paymentFlowDriver = self;
-    self.paymentFlowCompletionBlock = completionBlock;
-    self.paymentFlowRequestDelegate = request;
+    [self setupPaymentFlow:request completion:completionBlock];
     [self.apiClient sendAnalyticsEvent:[NSString stringWithFormat:@"ios.%@.start-payment.selected", [self.paymentFlowRequestDelegate paymentFlowName]]];
     [self.paymentFlowRequestDelegate handleRequest:request client:self.apiClient paymentDriverDelegate:self];
 }
 
+- (void)setupPaymentFlow:(BTPaymentFlowRequest<BTPaymentFlowRequestDelegate> *)request completion:(void (^)(BTPaymentFlowResult * _Nullable, NSError * _Nullable))completionBlock {
+    paymentFlowDriver = self;
+    self.paymentFlowCompletionBlock = completionBlock;
+    self.paymentFlowRequestDelegate = request;
+}
+
 - (void)performSwitchRequest:(NSURL *)appSwitchURL {
     [self informDelegateAppContextWillSwitch];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     if (@available(iOS 9.0, *)) {
-#else
-    if ([SFSafariViewController class]) {
-#endif
         [self informDelegatePresentingViewControllerRequestPresent:appSwitchURL];
     } else {
         UIApplication *application = [UIApplication sharedApplication];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-        if (@available(iOS 10.0, *)) {
-#else
-            if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
-#endif
-            [application openURL:appSwitchURL options:[NSDictionary dictionary] completionHandler:nil];
-            return;
-        }
-#endif
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [application openURL:appSwitchURL];
@@ -106,15 +93,11 @@ static BTPaymentFlowDriver *paymentFlowDriver;
 
 - (void)informDelegatePresentingViewControllerRequestPresent:(NSURL *)appSwitchURL {
     if ([self.viewControllerPresentingDelegate respondsToSelector:@selector(paymentDriver:requestsPresentationOfViewController:)]) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 9.0, *)) {
-#endif
             self.safariViewController = [[SFSafariViewController alloc] initWithURL:appSwitchURL];
             self.safariViewController.delegate = self;
             [self.viewControllerPresentingDelegate paymentDriver:self requestsPresentationOfViewController:self.safariViewController];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         }
-#endif
     } else {
         [[BTLogger sharedLogger] critical:@"Unable to display View Controller to continue payment flow. BTPaymentFlowDriver needs a viewControllerPresentingDelegate<BTViewControllerPresentingDelegate> to be set."];
     }
@@ -122,14 +105,10 @@ static BTPaymentFlowDriver *paymentFlowDriver;
 
 - (void)informDelegatePresentingViewControllerNeedsDismissal {
     if (self.viewControllerPresentingDelegate != nil && [self.viewControllerPresentingDelegate respondsToSelector:@selector(paymentDriver:requestsDismissalOfViewController:)]) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 9.0, *)) {
-#endif
             [self.viewControllerPresentingDelegate paymentDriver:self requestsDismissalOfViewController:self.safariViewController];
             self.safariViewController = nil;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         }
-#endif
     } else {
         [[BTLogger sharedLogger] critical:@"Unable to dismiss View Controller to end payment flow. BTPaymentFlowDriver needs a viewControllerPresentingDelegate<BTViewControllerPresentingDelegate> to be set."];
     }
@@ -148,15 +127,11 @@ static BTPaymentFlowDriver *paymentFlowDriver;
 - (void)handleOpenURL:(NSURL *)url {
     [self informDelegateAppContextDidReturn];
     [self.apiClient sendAnalyticsEvent:[NSString stringWithFormat:@"ios.%@.webswitch.succeeded", [self.paymentFlowRequestDelegate paymentFlowName]]];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     if (@available(iOS 9.0, *)) {
-#endif
         if (self.safariViewController) {
             [self informDelegatePresentingViewControllerNeedsDismissal];
         }
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     }
-#endif
     [self.paymentFlowRequestDelegate handleOpenURL:url];
 }
 

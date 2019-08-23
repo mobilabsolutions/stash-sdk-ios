@@ -40,11 +40,10 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
                                                     integrations: @[]
                                                     uiConfiguration:nil];
 
-    XCTAssertFalse(configuration.loggingEnabled, @"Logging should not be enabled when creating a new configuration");
-
-    configuration.loggingEnabled = YES;
+    XCTAssertFalse(configuration.loggingLevel != LoggingLevelNone, @"Logging should not be enabled when creating a new configuration");
+    configuration.loggingLevel = LoggingLevelNormal;
     configuration.useTestMode = YES;
-    XCTAssertTrue(configuration.loggingEnabled, @"Logging should be enabled after explicitely setting it to true");
+    XCTAssertTrue(configuration.loggingLevel != LoggingLevelNone, @"Logging should be enabled after explicitely setting its level to normal");
 }
 
 - (void) testAddConfigurationAndProviderToSDK {

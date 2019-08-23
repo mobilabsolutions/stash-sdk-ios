@@ -53,6 +53,8 @@
 
 @implementation BTPaymentSelectionViewController
 
+static BOOL _vaultedCardAppearAnalyticSent = NO;
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -132,11 +134,17 @@
 
     self.vaultedPaymentsEditButton = [UIButton new];
     self.vaultedPaymentsEditButton.hidden = YES;
-    NSAttributedString *normalVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION) attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].tintColor, NSFontAttributeName:[UIFont fontWithName:[BTUIKAppearance sharedInstance].fontFamily size:[UIFont systemFontSize]]}];
+    NSAttributedString *normalVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION)
+                                                                                          attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].tintColor,
+                                                                                                       NSFontAttributeName:[[BTUIKAppearance sharedInstance].font fontWithSize:UIFont.systemFontSize]}];
     [self.vaultedPaymentsEditButton setAttributedTitle:normalVaultedPaymentsEditButton forState:UIControlStateNormal];
-    NSAttributedString *highlightVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION) attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].highlightedTintColor, NSFontAttributeName:[UIFont fontWithName:[BTUIKAppearance sharedInstance].fontFamily size:[UIFont systemFontSize]]}];
+    NSAttributedString *highlightVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION)
+                                                                                             attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].highlightedTintColor,
+                                                                                                          NSFontAttributeName:[[BTUIKAppearance sharedInstance].font fontWithSize:UIFont.systemFontSize]}];
     [self.vaultedPaymentsEditButton setAttributedTitle:highlightVaultedPaymentsEditButton forState:UIControlStateHighlighted];
-    NSAttributedString *disabledVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION) attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].disabledColor, NSFontAttributeName:[UIFont fontWithName:[BTUIKAppearance sharedInstance].fontFamily size:[UIFont systemFontSize]]}];
+    NSAttributedString *disabledVaultedPaymentsEditButton = [[NSAttributedString alloc] initWithString:BTUIKLocalizedString(EDIT_ACTION)
+                                                                                            attributes:@{NSForegroundColorAttributeName:[BTUIKAppearance sharedInstance].disabledColor,
+                                                                                                         NSFontAttributeName:[[BTUIKAppearance sharedInstance].font fontWithSize:UIFont.systemFontSize]}];
     [self.vaultedPaymentsEditButton setAttributedTitle:disabledVaultedPaymentsEditButton forState:UIControlStateDisabled];
     [self.vaultedPaymentsEditButton sizeToFit];
     [self.vaultedPaymentsEditButton layoutIfNeeded];
@@ -144,7 +152,8 @@
     [self.vaultedPaymentsLabelContainerStackView addArrangedSubview:self.vaultedPaymentsEditButton];
 
     [self.stackView addArrangedSubview:self.vaultedPaymentsLabelContainerStackView];
-    
+    _vaultedCardAppearAnalyticSent = NO;
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection: UICollectionViewScrollDirectionHorizontal];
     self.savedPaymentMethodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
@@ -258,6 +267,8 @@
                 self.paymentOptionsLabelContainerStackView.hidden = NO;
                 self.vaultedPaymentsLabelContainerStackView.hidden = NO;
                 [self.savedPaymentMethodsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:([BTUIKViewUtil isLanguageLayoutDirectionRightToLeft] ? UICollectionViewScrollPositionLeft : UICollectionViewScrollPositionRight) animated:NO];
+
+                [self sendVaultedCardAppearAnalytic];
             }
             [self showLoadingScreen:NO];
             self.stackView.hidden = NO;
@@ -347,6 +358,16 @@
     }
 }
 
+- (void)sendVaultedCardAppearAnalytic {
+    for (BTPaymentMethodNonce *nonce in self.paymentMethodNonces) {
+        if ([nonce isKindOfClass: [BTCardNonce class]] && !_vaultedCardAppearAnalyticSent){
+            [self.apiClient sendAnalyticsEvent:@"ios.dropin2.vaulted-card.appear"];
+            _vaultedCardAppearAnalyticSent = YES;
+            break;
+        }
+    }
+}
+
 #pragma mark - Protocol conformance
 #pragma mark UICollectionViewDelegate
 
@@ -371,6 +392,10 @@
     cell.descriptionLabel.attributedText = typeWithDescription;
     cell.titleLabel.text = [BTUIKViewUtil nameForPaymentMethodType:[BTUIKViewUtil paymentOptionTypeForPaymentInfoType:typeString]];
     cell.paymentOptionCardView.paymentOptionType = [BTUIKViewUtil paymentOptionTypeForPaymentInfoType:typeString];
+
+    cell.isAccessibilityElement = YES;
+    cell.accessibilityLabel = [NSString stringWithFormat:@"%@-%@", typeString, typeWithDescription.string];
+
     return cell;
 }
 
@@ -396,6 +421,10 @@
     BTUIPaymentMethodCollectionViewCell *cell = (BTUIPaymentMethodCollectionViewCell*)[savedPaymentMethodsCollectionView cellForItemAtIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate selectionCompletedWithPaymentMethodType:[BTUIKViewUtil paymentOptionTypeForPaymentInfoType:cell.paymentMethodNonce.type] nonce:cell.paymentMethodNonce error:nil];
+
+        if ([cell.paymentMethodNonce isKindOfClass: [BTCardNonce class]]){
+            [self.apiClient sendAnalyticsEvent:@"ios.dropin2.vaulted-card.select"];
+        }
     }
 }
 

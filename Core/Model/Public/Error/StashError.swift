@@ -47,6 +47,17 @@ public enum StashError: Error, CustomStringConvertible, TitleProviding {
         case .userCancelled: return "Action cancelled by user"
         }
     }
+
+    /// Prints error description to the console and returns self to enable function chaining. Should primary be used on `thrown`
+    ///
+    /// - Parameters (all autopopulated):
+    ///   - filename: Name of the file from which this function has been called. Autopopulated by special literal available in Swift
+    ///   - line: Code line on which this function has been called. Autopopulated by special literal available in Swift
+    ///   - funcName: Name of the function in which this function has been called. Autopopulated by special literal available in Swift
+    public func loggedError(filename: String = #file, line: Int = #line, funcName: String = #function) -> StashError {
+        Log.error(description: self.description, filename: filename, line: line, funcName: funcName)
+        return self
+    }
 }
 
 /// An error that occurred in the backend

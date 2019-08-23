@@ -1,5 +1,15 @@
 # Braintree iOS Drop-in SDK - Release Notes
 
+## 7.3.0 (2019-08-09)
+* UI changes to support iOS 13
+* Demo app maintenance
+* Remove unneeded pre-processor directives
+* Support for 3DS 2 verification
+
+## 7.2.0 (2019-06-17)
+
+* Add ability for merchant and/or customer to opt in/out of client side vaulting (card).
+
 ## 7.1.0 (2019-03-07)
 
 * Add Hiper and Hipercard support

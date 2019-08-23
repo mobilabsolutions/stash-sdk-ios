@@ -21,12 +21,11 @@ public extension NetworkClient {
     func fetch<T: Decodable, S: Decodable & StashErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 
-        let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
-        if isLoggingEnabled, let method = urlRequest.httpMethod, let url = urlRequest.url {
-            print("Stash request: \(method) \(url)")
+        if let method = urlRequest.httpMethod, let url = urlRequest.url {
+            Log.normal(message: "Network request: \(method) \(url)")
             #if DEBUG
                 if let bodyData = urlRequest.httpBody, let body = bodyData.toJSONString() {
-                    print(body)
+                    Log.normal(message: body)
                 }
             #endif
         }
@@ -50,17 +49,16 @@ public extension NetworkClient {
     private func handleResponse<T: Decodable, S: StashErrorConvertible & Decodable>(data: Data?, response: URLResponse?, error: Error?,
                                                                                     decodingType: T.Type, errorType: S.Type?) throws -> T {
         if let error = error as NSError? {
-            throw StashError.network(.requestFailed(code: error.code, description: error.localizedDescription))
+            throw StashError.network(.requestFailed(code: error.code, description: error.localizedDescription)).loggedError()
         }
 
         guard let httpResponse = response as? HTTPURLResponse, let receivedData = data else {
-            throw StashError.network(.responseInvalid)
+            throw StashError.network(.responseInvalid).loggedError()
         }
 
-        let isLoggingEnabled = InternalPaymentSDK.sharedInstance.configuration.loggingEnabled
-        if isLoggingEnabled, let receivedData = receivedData.toJSONString() {
+        if let receivedData = receivedData.toJSONString() {
             #if DEBUG
-                print(receivedData)
+                Log.normal(message: "Network Response \(receivedData)")
             #endif
         }
 
@@ -76,7 +74,7 @@ public extension NetworkClient {
             } catch NetworkClientError.shouldTryDecodingErrorResponse {
                 fallthrough
             } catch {
-                throw StashError.network(.responseInvalid)
+                throw StashError.network(.responseInvalid).loggedError()
             }
 
         default:
@@ -84,7 +82,7 @@ public extension NetworkClient {
                 throw StashAPIError<S>(error: answer)
             }
 
-            throw StashError.network(.responseInvalid)
+            throw StashError.network(.responseInvalid).loggedError()
         }
     }
 }

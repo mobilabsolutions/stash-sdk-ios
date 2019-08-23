@@ -11,7 +11,7 @@ import Foundation
 /// The SDK configuration
 @objc(MLStashConfiguration) public class StashConfiguration: NSObject {
     /// Whether or not the SDK should write log messages to the console detailing the steps it takes
-    @objc public var loggingEnabled = false
+    @objc public var loggingLevel: LoggingLevel = .none
 
     /// Whether or not the SDK should instruct the Stash backend to run in test mode
     @objc public var useTestMode = false
@@ -58,15 +58,15 @@ import Foundation
     /// - Throws: A `ConfigurationError` if the configuration is not set up correctly
     func endpointUrl() throws -> URL {
         guard !self.publishableKey.isEmpty else {
-            throw StashError.configuration(.publishableKeyNotSet)
+            throw StashError.configuration(.publishableKeyNotSet).loggedError()
         }
 
         guard !self.endpoint.isEmpty else {
-            throw StashError.configuration(.endpointNotSet)
+            throw StashError.configuration(.endpointNotSet).loggedError()
         }
 
         guard let url = URL(string: self.endpoint) else {
-            throw StashError.configuration(.endpointNotValid)
+            throw StashError.configuration(.endpointNotValid).loggedError()
         }
 
         return url

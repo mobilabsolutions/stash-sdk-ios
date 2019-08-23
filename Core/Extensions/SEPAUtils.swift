@@ -53,7 +53,7 @@ public class SEPAUtils {
     public static func validateIBAN(iban: String) throws {
         let cleanedIban = SEPAUtils.cleanedIban(number: iban)
         guard SEPAUtils.isValid(cleanedNumber: cleanedIban)
-        else { throw StashError.validation(.invalidIBAN) }
+        else { throw StashError.validation(.invalidIBAN).loggedError() }
     }
 
     static func isValid(cleanedNumber: String) -> Bool {
