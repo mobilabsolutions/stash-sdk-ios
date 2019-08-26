@@ -23,7 +23,7 @@ class PaymentService {
 
     private var user = User()
 
-    private let baseUrl: String = "https://payment-dev.mblb.net/merchant"
+    private let baseUrl: String = "https://payment-dev.mblb.net/merchant/v1"
     private let paymentMethodBaseUrl: String
     private let authorizationUrl: String
     private let userControllerUrl: String
