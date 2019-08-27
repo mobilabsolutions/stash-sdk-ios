@@ -56,7 +56,7 @@ public class Log {
     ///   - filename: Name of the file from which this function has been called. Autopopulated by special literal available in Swift
     ///   - funcName: Name of the function in which this function has been called. Autopopulated by special literal available in Swift
     public static func event(description: String,
-                             filename: String = #file,
+                             filename _: String = #file,
                              funcName: String = #function) {
         if self.loggingLevel >= LoggingLevel.developer {
             print("\(self.dateFormatter.string(from: Date())) Stash SDK \(funcName) -> \(description)")
