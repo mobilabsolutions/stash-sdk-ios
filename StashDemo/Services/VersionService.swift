@@ -8,17 +8,15 @@
 
 import Foundation
 
-
 class VersionService {
-    
     public static func getDemoAppVersion() -> String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     }
-    
+
     public static func getSDKVersion() -> String {
         return Bundle(identifier: "com.mobilabsolutions.stash.core")?.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     }
-    
+
     public static func getBackendVersion() -> String {
         return "v1"
     }

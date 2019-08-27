@@ -13,29 +13,28 @@ class InfoViewController: BaseViewController {
     // MARK: - Properties
 
     private let bgImageView = UIImageView(image: UIConstants.infoScreenBgImage)
-    
+
     private lazy var subTitleLabel: UILabel = {
-        
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIConstants.defaultFont(of: 12, type: .regular)
         label.textColor = UIConstants.coolGrey
         label.numberOfLines = 0
-        
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
         paragraphStyle.alignment = .center
-        
+
         let text = "APP Version \(VersionService.getDemoAppVersion())\r SDK Version \(VersionService.getSDKVersion())\r Backend Version \(VersionService.getBackendVersion())"
         let attrString = NSMutableAttributedString(string: text)
-        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
+
         label.attributedText = attrString
         return label
     }()
-    
+
     private let subTitleTopPadding: CGFloat = 20
-    
+
     private let configuration: PaymentMethodUIConfiguration
 
     // MARK: - Initializers
@@ -61,16 +60,16 @@ class InfoViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
-    
+
     // MARK: - Helpers
-    
+
     private func setupViews() {
         view.addSubview(self.bgImageView)
         self.bgImageView.anchor(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        
+
         view.addSubview(self.subTitleLabel)
         self.subTitleLabel.anchor(top: self.bgImageView.bottomAnchor, centerX: view.centerXAnchor, paddingTop: self.subTitleTopPadding)
-        
+
         setButtonVisibility(to: false)
     }
 }
