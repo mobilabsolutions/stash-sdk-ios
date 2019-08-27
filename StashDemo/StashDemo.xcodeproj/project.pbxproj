@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA4EF14D2315CA260052BA20 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EF14C2315CA260052BA20 /* InfoViewController.swift */; };
+		BA4EF14F2315DB2A0052BA20 /* VersionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EF14E2315DB2A0052BA20 /* VersionService.swift */; };
 		E189137B22F96A9B004508D3 /* StashCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E189137A22F96A9B004508D3 /* StashCore.framework */; };
 		E189137C22F96A9B004508D3 /* StashCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E189137A22F96A9B004508D3 /* StashCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E189137E22F96A9B004508D3 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E189137D22F96A9B004508D3 /* StashBSPayone.framework */; };
@@ -71,6 +73,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BA4EF14C2315CA260052BA20 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		BA4EF14E2315DB2A0052BA20 /* VersionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionService.swift; sourceTree = "<group>"; };
 		E189137A22F96A9B004508D3 /* StashCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StashCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E189137D22F96A9B004508D3 /* StashBSPayone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StashBSPayone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E189138022F96A9B004508D3 /* StashBraintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StashBraintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +177,7 @@
 				E1C1536F22D4752600507A18 /* BaseViewController.swift */,
 				E1C1537022D4752600507A18 /* MainTabBarController.swift */,
 				E1C1537122D4752600507A18 /* ItemsController.swift */,
+				BA4EF14C2315CA260052BA20 /* InfoViewController.swift */,
 				E1C1537222D4752600507A18 /* CustomNavigationController.swift */,
 			);
 			path = controller;
@@ -195,6 +200,7 @@
 			children = (
 				E1C1537A22D4752600507A18 /* PaymentService.swift */,
 				E1C1537B22D4752600507A18 /* CartManager.swift */,
+				BA4EF14E2315DB2A0052BA20 /* VersionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -408,9 +414,11 @@
 				E1C153AA22D4752700507A18 /* Extensions.swift in Sources */,
 				E1C153B422D4752700507A18 /* UIConstants.swift in Sources */,
 				E1C153BE22D4752700507A18 /* PaymentMethod.swift in Sources */,
+				BA4EF14F2315DB2A0052BA20 /* VersionService.swift in Sources */,
 				E1C153B322D4752700507A18 /* BaseCell.swift in Sources */,
 				E1C1539E22D4752700507A18 /* CheckoutController.swift in Sources */,
 				E1C153BB22D4752700507A18 /* Item.swift in Sources */,
+				BA4EF14D2315CA260052BA20 /* InfoViewController.swift in Sources */,
 				E1C153A022D4752700507A18 /* MainTabBarController.swift in Sources */,
 				E1C153AD22D4752700507A18 /* EmptyCartInfoView.swift in Sources */,
 				E1C153A822D4752700507A18 /* PaymentService.swift in Sources */,

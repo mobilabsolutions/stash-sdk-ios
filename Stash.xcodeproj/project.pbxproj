@@ -108,8 +108,8 @@
 		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
-		BAEBF5E02305B17D0071A859 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEBF5DF2305B17D0071A859 /* Log.swift */; };
 		BAE8FFC0222D4127005D2E47 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
+		BAEBF5E02305B17D0071A859 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEBF5DF2305B17D0071A859 /* Log.swift */; };
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };

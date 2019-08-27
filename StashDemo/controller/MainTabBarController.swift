@@ -39,8 +39,11 @@ class MainTabBarController: UITabBarController {
 
         let paymentVC = PaymentMethodController(configuration: configuration)
         let paymentNavController = self.templateNavigationController(tabTitle: "Payment", tabImage: UIConstants.paymentImage, rootViewController: paymentVC)
+        
+        let infoVC = InfoViewController(configuration: configuration)
+        let infoNavController = self.templateNavigationController(tabTitle: "Info", tabImage: UIConstants.infoTabBarImage, rootViewController: infoVC)
 
-        self.viewControllers = [itemsNavController, checkoutNavController, paymentNavController]
+        self.viewControllers = [itemsNavController, checkoutNavController, paymentNavController, infoNavController]
 
         tabBar.tintColor = self.configuration.buttonColor
         tabBar.barTintColor = self.configuration.cellBackgroundColor
