@@ -1980,7 +1980,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n#    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\n# fi;\n";
+			shellScript = "if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\nfi;\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
