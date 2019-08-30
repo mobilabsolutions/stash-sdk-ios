@@ -8,6 +8,41 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extras/Log.swift",
+      "line": 12,
+      "symbol": "LoggingLevel",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extras/Log.swift",
+      "line": 13,
+      "symbol": "LoggingLevel.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extras/Log.swift",
+      "line": 15,
+      "symbol": "LoggingLevel.normal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extras/Log.swift",
+      "line": 17,
+      "symbol": "LoggingLevel.developer",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Extras/Log.swift",
+      "line": 25,
+      "symbol": "Log",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Model/Public/CreditCardType.swift",
       "line": 13,
       "symbol": "CreditCardType.visa",
@@ -450,8 +485,8 @@
     },
     {
       "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/PaymentSDK/Public/Integration/Model/CreditCardExtra.swift",
-      "line": 25,
-      "symbol": "CreditCardExtra.init(ccExpiry:ccMask:ccType:ccHolderName:)",
+      "line": 29,
+      "symbol": "CreditCardExtra.init(ccExpiry:ccMask:ccType:ccHolderName:nonce:deviceData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
