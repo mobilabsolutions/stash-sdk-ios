@@ -108,8 +108,8 @@
 		BAD6464F2230917C00771DC0 /* Data+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34CBF220E129080011F901 /* Data+Extras.swift */; };
 		BAD64651223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
 		BAD64652223094AC00771DC0 /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD64650223094AC00771DC0 /* URL+Extras.swift */; };
-		BAEBF5E02305B17D0071A859 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEBF5DF2305B17D0071A859 /* Log.swift */; };
 		BAE8FFC0222D4127005D2E47 /* StashBSPayone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACD61912226B03600E3ACC3 /* StashBSPayone.framework */; };
+		BAEBF5E02305B17D0071A859 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEBF5DF2305B17D0071A859 /* Log.swift */; };
 		C41CB8F02271D6880009F744 /* PairedTextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8EF2271D6880009F744 /* PairedTextInputCollectionViewCell.swift */; };
 		C41CB8F222774ADB0009F744 /* NameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F122774ADB0009F744 /* NameProviding.swift */; };
 		C41CB8F422774B0C0009F744 /* SimpleNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CB8F322774B0C0009F744 /* SimpleNameProvider.swift */; };
@@ -1980,7 +1980,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\nfi;\n";
+			shellScript = "# if [ -f \"${SRCROOT}/Sample/other/add-fabric.sh\" ]; then\n#    /bin/sh \"${SRCROOT}/Sample/other/add-fabric.sh\"\n# fi;\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2445,6 +2445,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2473,6 +2474,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2550,6 +2552,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/StashAdyen/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2560,6 +2563,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.adyen;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2584,6 +2588,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/StashAdyen/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2593,6 +2598,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.adyen;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2678,6 +2684,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"CARTHAGE=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/StashBraintree/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2688,6 +2698,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Braintree;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2711,6 +2722,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"CARTHAGE=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/StashBraintree/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2720,6 +2735,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.Braintree;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

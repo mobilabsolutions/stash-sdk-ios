@@ -55,91 +55,91 @@ public final class UIConstants {
     }
 
     public class var backButtonImage: UIImage? {
-        guard let original = UIImage(named: "back-button", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        guard let original = UIImage(named: "back-button", in: UIConstants.frameworkBundle(), compatibleWith: nil)
         else { return nil }
         return original.cgImage.flatMap { UIImage(cgImage: $0, scale: original.scale, orientation: .upMirrored).withRenderingMode(.alwaysOriginal) }
     }
 
     public class var closeButtonImage: UIImage? {
-        guard let original = UIImage(named: "close-button", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        guard let original = UIImage(named: "close-button", in: UIConstants.frameworkBundle(), compatibleWith: nil)
         else { return nil }
         return original.withRenderingMode(.alwaysOriginal)
     }
 
     public class var creditCardImage: UIImage? {
-        return UIImage(named: "creditCard", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "creditCard", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var sepaImage: UIImage? {
-        return UIImage(named: "sepa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "sepa", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var sepaSmallImage: UIImage? {
-        return UIImage(named: "sepaSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "sepaSmall", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var payPalImage: UIImage? {
-        return UIImage(named: "paypal", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "paypal", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var payPalBigImage: UIImage? {
-        return UIImage(named: "paypalBig", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "paypalBig", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var payPalSmall: UIImage? {
-        return UIImage(named: "paypalSmall", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "paypalSmall", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var rightArrowImage: UIImage? {
-        return UIImage(named: "right-arrow", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "right-arrow", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var solidArrowImage: UIImage? {
-        return UIImage(named: "solid-arrow", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "solid-arrow", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var americanExpressImage: UIImage? {
-        return UIImage(named: "americanExpress", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "americanExpress", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var dinersImage: UIImage? {
-        return UIImage(named: "dinersClub", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "dinersClub", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var mastercardImage: UIImage? {
-        return UIImage(named: "mastercard", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "mastercard", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var visaImage: UIImage? {
-        return UIImage(named: "visa", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "visa", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var maestroImage: UIImage? {
-        return UIImage(named: "maestro", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "maestro", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var unionPayImage: UIImage? {
-        return UIImage(named: "unionPay", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "unionPay", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var discoverImage: UIImage? {
-        return UIImage(named: "discover", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "discover", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var jcbImage: UIImage? {
-        return UIImage(named: "jcb", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "jcb", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var searchImage: UIImage? {
-        return UIImage(named: "search", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "search", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var alertImage: UIImage? {
-        return UIImage(named: "alert", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "alert", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public class var crossImage: UIImage? {
-        return UIImage(named: "cross", in: Bundle(for: UIConstants.self), compatibleWith: nil)
+        return UIImage(named: "cross", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     enum DefaultFontType: String {
@@ -164,7 +164,7 @@ public final class UIConstants {
     }
 
     private static func registerFontWithFilenameString(_ filenameString: String) {
-        let frameworkBundle = Bundle(for: UIConstants.self)
+        let frameworkBundle = UIConstants.frameworkBundle()
 
         if !frameworkBundle.isLoaded {
             frameworkBundle.load()
@@ -177,5 +177,16 @@ public final class UIConstants {
         else { return }
 
         CTFontManagerRegisterGraphicsFont(fontRef, nil)
+    }
+
+    private static func frameworkBundle() -> Bundle {
+        #if CARTHAGE
+            return Bundle(for: UIConstants.self)
+        #else
+            guard let bundleUrl = Bundle(for: UIConstants.self).url(forResource: nil, withExtension: "bundle"),
+                let bundle = Bundle(url: bundleUrl)
+            else { fatalError("Could not retrieve bundle for framework") }
+            return bundle
+        #endif
     }
 }
