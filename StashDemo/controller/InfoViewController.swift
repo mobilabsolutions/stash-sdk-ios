@@ -25,7 +25,7 @@ class InfoViewController: BaseViewController {
         paragraphStyle.lineSpacing = 4
         paragraphStyle.alignment = .center
 
-        let text = "APP Version \(VersionService.getDemoAppVersion())\r SDK Version \(VersionService.getSDKVersion())\r Backend Version \(VersionService.getBackendVersion())"
+        let text = "APP Version \(InfoService.getDemoAppVersion())\r SDK Version \(InfoService.getSDKVersion())\r Backend Version \(InfoService.getBackendVersion())"
         let attrString = NSMutableAttributedString(string: text)
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
 
