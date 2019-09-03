@@ -1492,7 +1492,6 @@
 				E1CF7224224B7FFA00B29576 /* UICollectionView+Extensions.swift */,
 				C49F49E022819C6900D3A986 /* UIView+Extensions.swift */,
 				E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */,
-				E14637E7231E84E9005ADF4D /* UIViewControllerTools+Banner.swift */,
 				BAD64650223094AC00771DC0 /* URL+Extras.swift */,
 			);
 			path = Extensions;
@@ -1535,6 +1534,7 @@
 		E14637D9231E81C0005ADF4D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E14637E7231E84E9005ADF4D /* UIViewControllerTools+Banner.swift */,
 				C42D56BD228AC53B00312CC1 /* Locale+Extension.swift */,
 			);
 			path = Extensions;
