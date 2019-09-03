@@ -58,6 +58,50 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/StashBraintreeBridge.html">StashBraintreeBridge</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/UIConstants.html">UIConstants</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/NecessaryData.html">NecessaryData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/FormConsumer.html">FormConsumer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PresentableValueHolding.html">PresentableValueHolding</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FormCellModel.html">FormCellModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FormCellModel/FormCellType.html">– FormCellType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FormConsumerError.html">FormConsumerError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:14StashBraintree15ValidationErrora">ValidationError</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -93,10 +137,13 @@ _ Carthage</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
-<p>We recommend using <a href="https://github.com/Carthage/Carthage">Carthage</a> to integrate the Stash SDK with your project.</p>
+<p>We recommend using <a href="https://github.com/Carthage/Carthage">Carthage</a> or <a href="https://cocoapods.org/">CocoaPods</a> to integrate the Stash SDK with your project.</p>
 <h3 id='carthage' class='heading'>Carthage</h3>
 
 <p>Add <code>github &quot;mobilabsolutions/payment-sdk-ios-open&quot; ~&gt; 1.0</code> to your <code>Cartfile</code>, and follow <a href="https://github.com/Carthage/Carthage#getting-started">Carthage building instructions</a> to complete installation. The input file list for the Carthage <code>copy-frameworks</code> build phase should contain dependencies found in our <a href="Sample/other/input.xcfilelist"> sample application input file list</a> so feel free to use it as an example.</p>
+<h3 id='cocoapods' class='heading'>CocoaPods</h3>
+
+<p>Add <code>pod &#39;Stash&#39;</code> to your Podfile and run <code>pod install</code>. Instead of having to import each module individually, it suffices to <code>import Stash</code> when using Cocoapods.</p>
 <h3 id='manual-installation' class='heading'>Manual Installation</h3>
 
 <p>The SDK can also be installed manually. To perform manual installation, drag the <code>StashCore</code> framework and the module frameworks you might want to use into the <code>Embdedded Binaries</code> section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using <a href="https://github.com/Carthage/Carthage">Carthage</a> with the following <code>Cartfile</code> contents for installing the dependencies of the Braintree and Adyen modules:</p>
