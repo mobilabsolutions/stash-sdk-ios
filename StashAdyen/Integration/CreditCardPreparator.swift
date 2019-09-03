@@ -6,7 +6,10 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import AdyenCard
+import Adyen
+#if CARTHAGE
+    import AdyenCard
+#endif
 import Foundation
 import StashCore
 

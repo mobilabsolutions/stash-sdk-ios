@@ -6,9 +6,14 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
-import BraintreeCard
-import BraintreeCore
-import BraintreeDataCollector
+#if CARTHAGE
+    import BraintreeCard
+    import BraintreeCore
+    import BraintreeDataCollector
+#else
+    import Braintree
+    import BraintreeDropIn
+#endif
 import StashCore
 import UIKit
 

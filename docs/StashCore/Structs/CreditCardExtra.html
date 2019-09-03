@@ -72,6 +72,9 @@
                 <a class="nav-group-task-link" href="../Classes/FormCollectionViewController.html">FormCollectionViewController</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Log.html">Log</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/PaymentMethodAliasBridge.html">PaymentMethodAliasBridge</a>
               </li>
               <li class="nav-group-task">
@@ -129,6 +132,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/LoggingLevel.html">LoggingLevel</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/NecessaryData.html">NecessaryData</a>
@@ -447,9 +453,63 @@ the core SDK and modules.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9StashCore15CreditCardExtraV8ccExpiry0F4Mask0F4Type0F10HolderNameACSS_S3SSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(ccExpiry:ccMask:ccType:ccHolderName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9StashCore15CreditCardExtraV8ccExpiry0F4Mask0F4Type0F10HolderNameACSS_S3SSgtcfc">init(ccExpiry:ccMask:ccType:ccHolderName:)</a>
+                    <a name="/s:9StashCore15CreditCardExtraV10deviceDataSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/deviceData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9StashCore15CreditCardExtraV10deviceDataSSSgvp">deviceData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The identifying data for the current device. Used for anti-fraud protection by Braintree</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">deviceData</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9StashCore15CreditCardExtraV5nonceSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/nonce" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9StashCore15CreditCardExtraV5nonceSSSgvp">nonce</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Braintree nonce which addresses the payment method with Credit Card</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9StashCore15CreditCardExtraV8ccExpiry0F4Mask0F4Type0F10HolderName5nonce10deviceDataACSS_S3SSgA2Jtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(ccExpiry:ccMask:ccType:ccHolderName:nonce:deviceData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9StashCore15CreditCardExtraV8ccExpiry0F4Mask0F4Type0F10HolderName5nonce10deviceDataACSS_S3SSgA2Jtcfc">init(ccExpiry:ccMask:ccType:ccHolderName:nonce:deviceData:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -464,7 +524,12 @@ the core SDK and modules.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">ccExpiry</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccType</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ccHolderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">ccExpiry</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">ccMask</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">ccType</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">ccHolderName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+            <span class="nv">nonce</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">deviceData</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

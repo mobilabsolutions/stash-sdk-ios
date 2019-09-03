@@ -7,8 +7,10 @@
 //
 
 import Adyen
-import AdyenCard
-import AdyenSEPA
+#if CARTHAGE
+    import AdyenCard
+    import AdyenSEPA
+#endif
 import StashCore
 import UIKit
 

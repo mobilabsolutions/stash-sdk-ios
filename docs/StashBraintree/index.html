@@ -78,7 +78,7 @@
 
 <ul>
 <li>BSPayone [Credit Cards / SEPA]</li>
-<li>Braintree [PayPal]</li>
+<li>Braintree [Credit Cards / PayPal]</li>
 <li>Adyen [Credit Cards / SEPA]</li>
 </ul>
 <h2 id='requirements' class='heading'>Requirements</h2>
@@ -93,13 +93,13 @@ _ Carthage</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
-<p>We recommend using <a href="https://github.com/Carthage/Carthage">Carthage</a> to integrate the MobilabPayment SDK with your project.</p>
+<p>We recommend using <a href="https://github.com/Carthage/Carthage">Carthage</a> to integrate the Stash SDK with your project.</p>
 <h3 id='carthage' class='heading'>Carthage</h3>
 
 <p>Add <code>github &quot;mobilabsolutions/payment-sdk-ios-open&quot; ~&gt; 1.0</code> to your <code>Cartfile</code>, and follow <a href="https://github.com/Carthage/Carthage#getting-started">Carthage building instructions</a> to complete installation. The input file list for the Carthage <code>copy-frameworks</code> build phase should contain dependencies found in our <a href="Sample/other/input.xcfilelist"> sample application input file list</a> so feel free to use it as an example.</p>
 <h3 id='manual-installation' class='heading'>Manual Installation</h3>
 
-<p>The SDK can also be installed manually. To perform manual installation, drag the <code>MobilabPaymentCore</code> framework and the module frameworks you might want to use into the <code>Embdedded Binaries</code> section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using <a href="https://github.com/Carthage/Carthage">Carthage</a> with the following <code>Cartfile</code> contents for installing the dependencies of the Braintree and Adyen modules:</p>
+<p>The SDK can also be installed manually. To perform manual installation, drag the <code>StashCore</code> framework and the module frameworks you might want to use into the <code>Embdedded Binaries</code> section in Xcode. Depending on the modules that you want to use, you will also have to install their dependencies. The recommended option for this is using <a href="https://github.com/Carthage/Carthage">Carthage</a> with the following <code>Cartfile</code> contents for installing the dependencies of the Braintree and Adyen modules:</p>
 <pre class="highlight plaintext"><code>github "braintree/braintree-ios-drop-in" ~&gt; 7.2.0
 github "adyen/adyen-ios" ~&gt; 2.8
 </code></pre>
@@ -111,40 +111,40 @@ github "adyen/adyen-ios" ~&gt; 2.8
 <p>To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the merchant publishable key as well as the backend endpoint that should be used by the SDK.</p>
 
 <p>To connect the SDK to a given PSP, that PSP&rsquo;s module needs to be imported and initialized. You need to set the configuration&rsquo;s <code>integrations</code> to provide correct data.</p>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">MobilabPaymentCore</span>
-<span class="kd">import</span> <span class="kt">MobilabPaymentBSPayone</span>
-<span class="kd">import</span> <span class="kt">MobilabPaymentBraintree</span>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">StashCore</span>
+<span class="kd">import</span> <span class="kt">StashBSPayone</span>
+<span class="kd">import</span> <span class="kt">StashBraintree</span>
 
-<span class="k">let</span> <span class="nv">bsPayonePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBSPayone</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">braintreePSP</span> <span class="o">=</span> <span class="kt">MobilabPaymentBraintree</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="s">"[YOUR URL SCHEME]]"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">bsPayonePSP</span> <span class="o">=</span> <span class="kt">StashBSPayone</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">braintreePSP</span> <span class="o">=</span> <span class="kt">StashBraintree</span><span class="p">(</span><span class="nv">urlScheme</span><span class="p">:</span> <span class="s">"[YOUR URL SCHEME]]"</span><span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
-                                                <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND ENDPOINT]"</span><span class="p">,</span>
+<span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">StashConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR STASH BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
+                                                <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR STASH BACKEND ENDPOINT]"</span><span class="p">,</span>
                                                 <span class="nv">integrations</span><span class="p">:</span> <span class="p">[</span>
                                                     <span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">),</span>
                                                     <span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">braintreePSP</span><span class="p">)</span>
                                                 <span class="p">])</span>
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
+<span class="kt">Stash</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
 
 <p>It is also possible to specify which PSP should be used to register which payment method type by using the <code>paymentMethodTypes</code> parameter of the <code>PaymentProviderIntegration</code> optional initializer. By default, when the specific payment method types are not specified, the PSP will be used for all types that the module supports. Note that a <code>fatalError</code> will be created when there are overlapping payment method types for different PSPs that are registered at the same time.</p>
 <h4 id='using-the-sdk-in-test-mode' class='heading'>Using the SDK in Test Mode</h4>
 
 <p>The Stash SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
-To instruct the SDK to use the test mode, set manually the <code>useTestMode</code> property on the <code>MobilabPaymentConfiguration</code> used to configure the SDK.</p>
+To instruct the SDK to use the test mode, set manually the <code>useTestMode</code> property on the <code>StashConfiguration</code> used to configure the SDK.</p>
 
 <p>For example:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">MobilabPaymentConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
-                                                <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR MOBILAB BACKEND ENDPOINT]"</span><span class="p">,</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">StashConfiguration</span><span class="p">(</span><span class="nv">publishableKey</span><span class="p">:</span> <span class="s">"[YOUR STASH BACKEND PUBLISHABLE KEY]"</span><span class="p">,</span> 
+                                                <span class="nv">endpoint</span><span class="p">:</span> <span class="s">"[YOUR STASH BACKEND ENDPOINT]"</span><span class="p">,</span>
                                                 <span class="nv">integrations</span><span class="p">:</span> <span class="p">[</span><span class="kt">PaymentProviderIntegration</span><span class="p">(</span><span class="nv">paymentServiceProvider</span><span class="p">:</span> <span class="n">bsPayonePSP</span><span class="p">)])</span>
 <span class="n">configuration</span><span class="o">.</span><span class="n">useTestMode</span> <span class="o">=</span> <span class="kc">true</span>
 
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
+<span class="kt">Stash</span><span class="o">.</span><span class="nf">initialize</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
 <h2 id='registering-a-payment-method' class='heading'>Registering a Payment Method</h2>
 
 <p>To register a payment method you need an instance of the <code>RegistrationManager</code> class.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 </code></pre>
 
 <p>As the Stash SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
@@ -157,7 +157,7 @@ Depending on the payment method that is being used, some registration methods co
 
 <p>The typical usage of this functionality might look like this:</p>
 <pre class="highlight swift"><code>
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="nv">on</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
@@ -171,9 +171,9 @@ Depending on the payment method that is being used, some registration methods co
 </code></pre>
 
 <p>It is also possible to style the presented UI in a way that is compatible with the style guide of the rest of the containing application. You only need to pass along an updated <code>PaymentMethodUIConfiguration</code>:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">uiConfiguration</span> <span class="o">=</span> <span class="kt">PaymentMethodUIConfiguration</span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="o">.</span><span class="n">white</span><span class="p">,</span> <span class="nv">textColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">buttonColor</span><span class="p">:</span> <span class="o">.</span><span class="n">black</span><span class="p">)</span>
-<span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">configureUI</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">uiConfiguration</span><span class="p">)</span>
+<span class="kt">Stash</span><span class="o">.</span><span class="nf">configureUI</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">uiConfiguration</span><span class="p">)</span>
 
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
@@ -199,7 +199,7 @@ Depending on the payment method that is being used, some registration methods co
                                         <span class="nv">expiryMonth</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="s">"DE"</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="n">billingData</span><span class="p">)</span>
 <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Credit card data is not valid"</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="n">creditCard</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for credit card: </span><span class="se">\(</span><span class="n">registration</span><span class="o">.</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
@@ -225,7 +225,7 @@ Depending on the payment method that is being used, some registration methods co
 <span class="k">guard</span> <span class="k">let</span> <span class="nv">sepaData</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">SEPAData</span><span class="p">(</span><span class="nv">iban</span><span class="p">:</span> <span class="s">"DE75512108001245126199"</span><span class="p">,</span> <span class="nv">bic</span><span class="p">:</span> <span class="s">"COLSDE33XXX"</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="n">billingData</span><span class="p">)</span>
 <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">(</span><span class="s">"SEPA data should be valid"</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerSEPAAccount</span><span class="p">(</span><span class="nv">sepaData</span><span class="p">:</span> <span class="n">sepaData</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for SEPA account: </span><span class="se">\(</span><span class="n">registration</span><span class="o">.</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
@@ -244,18 +244,18 @@ Depending on the payment method that is being used, some registration methods co
 <ol>
 <li>In the Xcode, click on your project in the Project Navigator and navigate to  <strong>App Target</strong>  &gt;  <strong>Info</strong>&gt;  <strong>URL Types</strong>.</li>
 <li>Click on <strong>[+]</strong>  to add a new URL type.</li>
-<li>Under the <strong>URL Schemes</strong>, enter your app switch return URL scheme. This scheme  <strong><em>must start with your app&rsquo;s Bundle ID and be dedicated to MobilabPayment app switch returns</em></strong>. For example, if the app bundle ID is  <code>com.your-company.Your-App</code>, then your URL scheme could be  <code>com.your-company.Your-App.mobilab</code>.</li>
+<li>Under the <strong>URL Schemes</strong>, enter your app switch return URL scheme. This scheme  <strong><em>must start with your app&rsquo;s Bundle ID and be dedicated to Stash app switch returns</em></strong>. For example, if the app bundle ID is  <code>com.your-company.Your-App</code>, then your URL scheme could be  <code>com.your-company.Your-App.stash</code>.</li>
 </ol>
 <h4 id='update-your-application-delegate' class='heading'>Update your application delegate</h4>
 
 <p>In your AppDelegate&rsquo;s  <code>application:didFinishLaunchingWithOptions:</code>  implementation, use  <code>setReturnURLScheme:</code>  with the URL type value you set above.</p>
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="kd">open</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">OpenURLOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="kt">MobilabPaymentBraintree</span><span class="o">.</span><span class="nf">handleOpen</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">options</span><span class="p">)</span>
+  <span class="k">return</span> <span class="kt">StashBraintree</span><span class="o">.</span><span class="nf">handleOpen</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">options</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
 
 <p>Now you are ready to register a PayPal account.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerPaymentMethodUsingUI</span><span class="p">(</span><span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">specificPaymentMethod</span><span class="p">:</span> <span class="o">.</span><span class="n">payPal</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span>
@@ -276,7 +276,7 @@ Depending on the payment method that is being used, some registration methods co
                                         <span class="nv">expiryMonth</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nv">expiryYear</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="s">"DE"</span><span class="p">,</span> <span class="nv">billingData</span><span class="p">:</span> <span class="n">billingData</span><span class="p">)</span>
 <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Credit card data is not valid"</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">MobilabPaymentSDK</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">registrationManager</span> <span class="o">=</span> <span class="kt">Stash</span><span class="o">.</span><span class="nf">getRegistrationManager</span><span class="p">()</span>
 <span class="n">registrationManager</span><span class="o">.</span><span class="nf">registerCreditCard</span><span class="p">(</span><span class="nv">creditCardData</span><span class="p">:</span> <span class="n">creditCard</span><span class="p">,</span> <span class="nv">idempotencyKey</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">registration</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Received alias for credit card: </span><span class="se">\(</span><span class="n">registration</span><span class="o">.</span><span class="n">alias</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
@@ -286,7 +286,7 @@ Depending on the payment method that is being used, some registration methods co
 </code></pre>
 <h2 id='demo' class='heading'>Demo</h2>
 
-<p>A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  <code>carthage bootstrap --platform iOS</code>, open <code>MobilabPayment.xcworkspace</code> in Xcode and then choose the <code>Demo</code> scheme to launch it.</p>
+<p>A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  <code>carthage bootstrap --platform iOS</code>, open <code>Stash.xcworkspace</code> in Xcode and then choose the <code>StashDemo</code> scheme to launch it.</p>
 <h2 id='feedback' class='heading'>Feedback</h2>
 
 <p>The Stash iOS SDK is in active development, we welcome your feedback!
