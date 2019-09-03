@@ -1,30 +1,16 @@
 //
-//  UIViewController+Extensions.swift
-//  StashBSPayone
+//  UIViewControllerTools+Banner.swift
+//  Stash
 //
-//  Created by Robert on 20.03.19.
+//  Created by Robert on 03.09.19.
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
+import StashCore
 import UIKit
 
-/// Tools for typical UIViewController tasks
-public final class UIViewControllerTools {
-    private init() {}
-
+extension UIViewControllerTools {
     private static let alertBannerHeight: CGFloat = 64
-
-    /// Present an alert (UIAlertController) with a single "done" button
-    ///
-    /// - Parameters:
-    ///   - viewController: The view controller which to present the alert on
-    ///   - title: The alert's title
-    ///   - body: The alert's body
-    public class func showAlert(on viewController: UIViewController, title: String, body: String) {
-        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: nil))
-        viewController.present(alert, animated: true, completion: nil)
-    }
 
     /// Present an alert banner on a view controller
     ///
@@ -46,8 +32,8 @@ public final class UIViewControllerTools {
                       trailing: view.safeAreaLayoutGuide.trailingAnchor)
 
         NSLayoutConstraint.activate([
-            banner.heightAnchor.constraint(greaterThanOrEqualToConstant: alertBannerHeight),
-            banner.heightAnchor.constraint(lessThanOrEqualToConstant: alertBannerHeight * 1.5),
+            banner.heightAnchor.constraint(greaterThanOrEqualToConstant: UIViewControllerTools.alertBannerHeight),
+            banner.heightAnchor.constraint(lessThanOrEqualToConstant: UIViewControllerTools.alertBannerHeight * 1.5),
         ])
 
         return banner

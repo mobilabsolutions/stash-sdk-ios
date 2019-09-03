@@ -59,12 +59,3 @@ public enum StashError: Error, CustomStringConvertible, TitleProviding {
         return self
     }
 }
-
-/// An error that occurred in the backend
-struct StashAPIError<S: StashErrorConvertible>: Error, StashErrorConvertible {
-    let error: S
-
-    func toStashError() -> StashError {
-        return self.error.toStashError()
-    }
-}

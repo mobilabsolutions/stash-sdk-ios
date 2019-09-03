@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StashCore
 
 struct CountryValueHolding {
     let country: Country

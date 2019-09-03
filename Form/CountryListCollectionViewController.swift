@@ -6,13 +6,8 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
+import StashCore
 import UIKit
-
-// MARK: - Protocol
-
-protocol CountryListCollectionViewControllerDelegate: AnyObject {
-    func didSelectCountry(country: Country)
-}
 
 class CountryListCollectionViewController: UIViewController {
     // MARK: - Properties
@@ -98,7 +93,7 @@ class CountryListCollectionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.accessibilityIdentifier = "CountrySelectionView"
@@ -281,11 +276,11 @@ class CountryListCollectionViewController: UIViewController {
 }
 
 extension CountryListCollectionViewController: UICollectionViewDataSource {
-    public func numberOfSections(in _: UICollectionView) -> Int {
+    func numberOfSections(in _: UICollectionView) -> Int {
         return self.isSearching == true ? self.headerTitles.count : 1 + self.headerTitles.count
     }
 
-    public func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.isSearching == true {
             let withAlphabet = self.headerTitles[section]
             return self.groupedCountries[withAlphabet]?.count ?? 0
@@ -299,7 +294,7 @@ extension CountryListCollectionViewController: UICollectionViewDataSource {
         }
     }
 
-    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header: HeaderView?
 
         let section = indexPath.section
@@ -315,7 +310,7 @@ extension CountryListCollectionViewController: UICollectionViewDataSource {
         return header ?? UICollectionReusableView()
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CountryListCollectionViewCell
         else { fatalError("Wrong cell type for CountryListCollectionViewController. Should be CountryListCollectionViewCell") }
 
@@ -342,22 +337,22 @@ extension CountryListCollectionViewController: UICollectionViewDataSource {
 }
 
 extension CountryListCollectionViewController: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.cellHeight)
     }
 
-    public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         return self.minimumLineSpacing
     }
 
-    public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let height = section == HeaderType.currentLocation.rawValue ? self.currentLocationHeaderHeight : self.headerHeight
         return CGSize(width: collectionView.frame.width, height: height)
     }
 }
 
 extension CountryListCollectionViewController: UICollectionViewDelegate {
-    public func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = indexPath.section
 
         var selectedCountry: Country

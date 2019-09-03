@@ -8,15 +8,20 @@
 
 import UIKit
 
+#if CORE
+#else
+    import StashCore
+#endif
+
 /// A view controller that contains a payment method data provider view controller. This view controller also provides a "done" button which can be controlled from the
 /// contained view controller.
-public class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDataProvider {
+class CustomBackButtonContainerViewController: UIViewController, PaymentMethodDataProvider {
     private let doneButtonBottomOffset: CGFloat = 40
     private let doneButtonHeight: CGFloat = 40
     private let doneButtonHorizontalOffset: CGFloat = 34
 
     /// The contained view controller's `didCreatePaymentMethodCompletion` callback
-    public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)? {
+    var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)? {
         get {
             return self.viewController.didCreatePaymentMethodCompletion
         }
@@ -36,7 +41,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     /// - Parameters:
     ///   - viewController: A view controller that is used for payment method data input. Must also react to done button events as provided by this view controller
     ///   - configuration: The UI configuration that should be used to style this view controller
-    public init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {
+    init(viewController: UIViewController & DoneButtonViewDelegate & DoneButtonUpdater & PaymentMethodDataProvider, configuration: PaymentMethodUIConfiguration) {
         self.viewController = viewController
         self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
@@ -44,12 +49,12 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     }
 
     /// This is not implemented and should not be called.
-    public required init?(coder _: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     /// Custom `viewDidLoad` to add the contained view controller to the view hiearchy
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.doneButton.setup(delegate: self.viewController,
                               buttonEnabled: false,
@@ -90,7 +95,7 @@ public class CustomBackButtonContainerViewController: UIViewController, PaymentM
     /// Hand along errors that happen during the payment creation process to the contained view controller
     ///
     /// - Parameter error: The error that occurred
-    public func errorWhileCreatingPaymentMethod(error: StashError) {
+    func errorWhileCreatingPaymentMethod(error: StashError) {
         self.viewController.errorWhileCreatingPaymentMethod(error: error)
     }
 }
@@ -99,7 +104,7 @@ extension CustomBackButtonContainerViewController: DoneButtonUpdating {
     /// Update the done button's state
     ///
     /// - Parameter enabled: Whether or not the done button should be enabled
-    public func updateDoneButton(enabled: Bool) {
+    func updateDoneButton(enabled: Bool) {
         self.doneButton.doneEnabled = enabled
     }
 }

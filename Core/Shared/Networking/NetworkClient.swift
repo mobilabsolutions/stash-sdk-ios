@@ -7,17 +7,30 @@
 //
 
 import Foundation
+#if CORE
+#else
+    import StashCore
+#endif
 
-public enum NetworkClientError: Error {
+enum NetworkClientError: Error {
     case shouldTryDecodingErrorResponse
 }
 
-public protocol NetworkClient {
+protocol NetworkClient {
     typealias Completion<T> = ((Result<T, StashError>) -> Void)
     func fetch<T: Decodable, S: Decodable & StashErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>)
 }
 
-public extension NetworkClient {
+/// An error that occurred in the backend
+struct StashAPIError<S: StashErrorConvertible>: Error, StashErrorConvertible {
+    let error: S
+
+    func toStashError() -> StashError {
+        return self.error.toStashError()
+    }
+}
+
+extension NetworkClient {
     func fetch<T: Decodable, S: Decodable & StashErrorConvertible>(with request: RouterRequestProtocol, responseType: T.Type, errorType: S.Type?, completion: @escaping Completion<T>) {
         let urlRequest = request.asURLRequest()
 

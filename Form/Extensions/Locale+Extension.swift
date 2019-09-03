@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StashCore
 
 extension Locale {
     func getAllCountriesWithCodes() -> ([Country]) {

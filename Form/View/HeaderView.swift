@@ -6,6 +6,7 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
+import StashCore
 import UIKit
 
 class HeaderView: UICollectionReusableView {

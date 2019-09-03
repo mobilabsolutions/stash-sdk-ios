@@ -7,6 +7,10 @@
 //
 
 import UIKit
+#if CORE
+#else
+    import StashCore
+#endif
 
 class AlertBanner: UIView {
     private let titleLabel = UILabel()

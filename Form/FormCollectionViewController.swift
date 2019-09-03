@@ -6,10 +6,11 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
+import StashCore
 import UIKit
 
 /// A base view controller for Form-like inputs
-open class FormCollectionViewController: UICollectionViewController, PaymentMethodDataProvider,
+class FormCollectionViewController: UICollectionViewController, PaymentMethodDataProvider,
     UICollectionViewDelegateFlowLayout, DoneButtonUpdater {
     private let textReuseIdentifier = "textCell"
     private let pairedTextReuseIdentifier = "pairedTextCell"
@@ -25,20 +26,20 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     private let numberOfSecondsUntilIdleFieldValidation: TimeInterval = 3
 
     /// The callback that should be called once the done button is pressed with valid input data present
-    public var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
+    var didCreatePaymentMethodCompletion: ((RegistrationData) -> Void)?
     /// The delegate that updates the done button.
-    public var doneButtonUpdating: DoneButtonUpdating?
+    var doneButtonUpdating: DoneButtonUpdating?
 
     private var cellModels: [FormCellModel] = []
 
     /// Billing data that should be filled in where appropriate
-    public let billingData: BillingData?
+    let billingData: BillingData?
 
     private let configuration: PaymentMethodUIConfiguration
     private let formTitle: String
 
     /// A form consumer that both validates and makes use of provided data
-    public weak var formConsumer: FormConsumer?
+    weak var formConsumer: FormConsumer?
 
     private var fieldData: [NecessaryData: PresentableValueHolding] = [:]
     private var errors: [NecessaryData: ValidationError] = [:]
@@ -55,7 +56,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     ///   - billingData: The billing data that should be considered and possibly pre-filled in the UI
     ///   - configuration: The UI configuration to use for customization of the UI
     ///   - formTitle: The title of the form which will be presented above the form fields
-    public init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
+    init(billingData: BillingData?, configuration: PaymentMethodUIConfiguration, formTitle: String) {
         self.billingData = billingData
         self.configuration = configuration
         self.formTitle = formTitle
@@ -64,11 +65,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     }
 
     /// Not implemented and should not be used.
-    public required init?(coder _: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) is not implemented")
     }
 
-    open override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Register cell classes
@@ -85,7 +86,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
     }
 
-    open override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.currentIdleFieldTimer?.timer.invalidate()
     }
@@ -93,14 +94,14 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
     /// Set the form's cell models
     ///
     /// - Parameter cellModels: The cell models that should be used to create the form fields
-    public func setCellModel(cellModels: [FormCellModel]) {
+    func setCellModel(cellModels: [FormCellModel]) {
         self.cellModels = cellModels
     }
 
     /// Present an error alert when an error occurs during payment method creation
     ///
     /// - Parameter error: The error that occurred
-    public func errorWhileCreatingPaymentMethod(error: StashError) {
+    func errorWhileCreatingPaymentMethod(error: StashError) {
         self.doneButtonUpdating?.updateDoneButton(enabled: self.isDone())
 
         if let existingBanner = self.alertBanner {
@@ -153,15 +154,15 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
 
     // MARK: UICollectionViewDataSource
 
-    open override func numberOfSections(in _: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    open override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return self.cellModels.count
     }
 
-    open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let toReturn: UICollectionViewCell & NextCellEnabled & FormFieldErrorDelegate
 
         let type = self.cellModels[indexPath.row].type
@@ -276,7 +277,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         return toReturn
     }
 
-    open override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as? TitleHeaderView
         else { fatalError("Should be able to dequeue TitleHeaderView as header supplementary vie for \(self.headerReuseIdentifier)") }
 
@@ -286,7 +287,7 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         return view
     }
 
-    public func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
 
@@ -300,11 +301,11 @@ open class FormCollectionViewController: UICollectionViewController, PaymentMeth
         return CGSize(width: self.view.frame.width - 2 * self.cellInset, height: self.defaultCellHeight + additionalHeight)
     }
 
-    public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         return 0
     }
 
-    public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
         return CGSize(width: self.view.frame.width - 2 * self.cellInset - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right,
                       height: self.defaultHeaderHeight)
     }
@@ -388,7 +389,7 @@ extension FormCollectionViewController: DataPointProvidingDelegate {
 
 extension FormCollectionViewController: DoneButtonViewDelegate {
     /// Called when the done button was tapped
-    public func didTapDoneButton() {
+    func didTapDoneButton() {
         let existingBanner = self.alertBanner
 
         do {

@@ -9,14 +9,14 @@
 import Foundation
 
 /// HTTP methods supported by router requests
-public enum HTTPMethod: String {
+enum HTTPMethod: String {
     case GET
     case POST
     case DELETE
     case PUT
 }
 
-public protocol RouterRequestProtocol {
+protocol RouterRequestProtocol {
     func getBaseURL() -> URL
     func getURL() -> URL
     func getHTTPMethod() -> HTTPMethod
@@ -28,9 +28,9 @@ public protocol RouterRequestProtocol {
     func getHeaders() -> [Header]
 }
 
-// MARK: Public methods
+// MARK: methods
 
-public extension RouterRequestProtocol {
+extension RouterRequestProtocol {
     func asURLRequest() -> URLRequest {
         return buildRequest(url: getURL())
     }

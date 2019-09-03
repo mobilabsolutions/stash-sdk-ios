@@ -8,15 +8,15 @@
 
 import UIKit
 
-public protocol DoneButtonViewDelegate: AnyObject {
+protocol DoneButtonViewDelegate: AnyObject {
     func didTapDoneButton()
 }
 
-public protocol DoneButtonUpdating {
+protocol DoneButtonUpdating {
     func updateDoneButton(enabled: Bool)
 }
 
-public protocol DoneButtonUpdater: AnyObject {
+protocol DoneButtonUpdater: AnyObject {
     var doneButtonUpdating: DoneButtonUpdating? { get set }
 }
 
