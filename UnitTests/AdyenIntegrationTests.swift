@@ -102,7 +102,7 @@ class AdyenIntegrationTests: XCTestCase {
     func testCorrectlyPropagatesAdyenError() {
         stub(condition: isHost("payment-dev.mblb.net")) { request -> OHHTTPStubsResponse in
 
-            let requestSuccessFile = request.httpMethod == HTTPMethod.PUT.rawValue
+            let requestSuccessFile = request.httpMethod == StashCore.HTTPMethod.PUT.rawValue
                 ? "core_update_alias_success.json"
                 : "core_create_alias_adyen_success.json"
 
