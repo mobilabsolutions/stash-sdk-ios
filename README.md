@@ -22,11 +22,15 @@ _ Carthage
 
 ## Installation
 
-We recommend using [Carthage](https://github.com/Carthage/Carthage) to integrate the Stash SDK with your project.
+We recommend using [Carthage](https://github.com/Carthage/Carthage) or [CocoaPods](https://cocoapods.org/) to integrate the Stash SDK with your project.
 
 ### Carthage
 
 Add `github "mobilabsolutions/payment-sdk-ios-open" ~> 1.0` to your `Cartfile`, and follow [Carthage building instructions](https://github.com/Carthage/Carthage#getting-started) to complete installation. The input file list for the Carthage `copy-frameworks` build phase should contain dependencies found in our [ sample application input file list](Sample/other/input.xcfilelist) so feel free to use it as an example.
+
+### CocoaPods
+
+Add `pod 'Stash'` to your Podfile and run `pod install`. Instead of having to import each module individually, it suffices to `import Stash` when using Cocoapods.
 
 ### Manual Installation
 
@@ -45,6 +49,7 @@ Instructions for installing dependencies with Carthage can be found [above](#car
 To use the SDK, you need to initialize it with some configuration data. Among the data that needs to be provided are the merchant publishable key as well as the backend endpoint that should be used by the SDK.
 
 To connect the SDK to a given PSP, that PSP's module needs to be imported and initialized. You need to set the configuration's `integrations` to provide correct data.
+
 ```swift
 import StashCore
 import StashBSPayone
