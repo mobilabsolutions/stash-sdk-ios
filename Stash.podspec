@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
 
   spec.author             = { "MobiLab Solutions GmbH" => "contact@mobilabsolutions.com" }
   spec.platform     = :ios, "11.3"
-  spec.source       = { :git => "https://github.com/mobilabsolutions/payment-sdk-ios-open.git", :tag => "#{s.version}" }
+  spec.source       = { :git => "https://github.com/mobilabsolutions/payment-sdk-ios-open.git", :tag => "#{spec.version}" }
   spec.swift_versions = "5.0"
   spec.requires_arc = true
 

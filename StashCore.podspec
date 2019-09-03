@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => "TODO", :file => "LICENSE" }
   spec.author       = { "MobiLab Solutions GmbH" => "contact@mobilabsolutions.com" }
   spec.platform     = :ios, "11.3"
-  spec.source       = { :git => "https://github.com/mobilabsolutions/payment-sdk-ios-open.git", :tag => "#{s.version}" }
+  spec.source       = { :git => "https://github.com/mobilabsolutions/payment-sdk-ios-open.git", :tag => "#{spec.version}" }
   spec.swift_versions = "5.0"
   spec.source_files  = "Core/**/*.{swift, h}"
   spec.resource_bundles = { "StashCore" => ["Core/PaymentSDK/Internal/UI/Resources/**/*.xcassets", "Core/PaymentSDK/Internal/UI/Resources/**/*.ttf"] }
