@@ -61,5 +61,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>StashBackendURL</key>
+	<string>https://payment-dev.mblb.net/api/v1</string>
+	<key>StashMerchantURL</key>
+	<string>https://payment-dev.mblb.net/merchant/v1</string>
 </dict>
 </plist>

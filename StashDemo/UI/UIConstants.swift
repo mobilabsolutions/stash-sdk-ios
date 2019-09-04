@@ -22,6 +22,14 @@ extension UIConstants {
         return UIImage(named: "checkout", in: Bundle.main, compatibleWith: nil)
     }
 
+    class var infoTabBarImage: UIImage? {
+        return UIImage(named: "infoTabBar", in: Bundle.main, compatibleWith: nil)
+    }
+
+    class var infoScreenBgImage: UIImage? {
+        return UIImage(named: "illustrationInfo", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    }
+
     class var deleteImage: UIImage? {
         return UIImage(named: "delete", in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     }
