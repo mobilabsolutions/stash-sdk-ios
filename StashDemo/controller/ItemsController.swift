@@ -43,9 +43,6 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
 
         setTitle(title: "List of Items")
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIConstants.infoImage, style: .plain, target: self, action: #selector(self.handleInfo))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIConstants.coolGrey
-
         view.addSubview(self.collectionView)
         self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: defaultTopPadding)
         self.setupCollectionView()
@@ -85,16 +82,6 @@ class ItemsController: BaseViewController, UICollectionViewDataSource, UICollect
         cell.delegate = self
 
         return cell
-    }
-
-    // MARK: - Handler
-
-    @objc private func handleInfo() {
-        let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
-        let appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-        let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
-
-        showAlert(title: appName, message: "App verion: \(appVersion)\nBuild number: \(buildNumber)", completion: nil)
     }
 }
 

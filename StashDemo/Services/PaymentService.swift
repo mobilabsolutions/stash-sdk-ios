@@ -23,7 +23,7 @@ class PaymentService {
 
     private var user = User()
 
-    private let baseUrl: String = "https://payment-dev.mblb.net/merchant/v1"
+    private let baseUrl: String = InfoService.getMerchantURL()
     private let paymentMethodBaseUrl: String
     private let authorizationUrl: String
     private let userControllerUrl: String
@@ -244,7 +244,7 @@ class PaymentService {
         else { fatalError("Braintree should support PayPal payment method but does not!") }
 
         let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
-                                               endpoint: "https://payment-dev.mblb.net/api/v1",
+                                               endpoint: InfoService.getBackendURL(),
                                                integrations: [adyenIntegration, braintreeIntegration])
         configuration.loggingLevel = .normal
         configuration.useTestMode = self.testModeEnabled
