@@ -22,7 +22,7 @@ class AdyenUITests: BaseUITest {
         collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
 
         collectionViewsQuery.textFields["1234"].tap()
-        collectionViewsQuery.textFields["1234"].typeText("4000 0200 0000 0000")
+        collectionViewsQuery.textFields["1234"].typeText("2222 4000 1000 0008")
 
         collectionViewsQuery.textFields["MM/YY"].tap()
         app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
@@ -33,6 +33,87 @@ class AdyenUITests: BaseUITest {
 
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
+
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 10)
+
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid credit card")
+        app.alerts.firstMatch.buttons.firstMatch.tap()
+    }
+
+    func testCanCreateCreditCardWith3DS1() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("6731 0123 4567 8906")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        waitForElementToAppear(element: app.buttons["Submit"], timeout: 10)
+
+        app.textFields.firstMatch.tap()
+        app.textFields.firstMatch.typeText("user")
+
+        app.secureTextFields.firstMatch.tap()
+        app.secureTextFields.firstMatch.typeText("password")
+
+        app.buttons["Submit"].tap()
+
+        waitForElementToAppear(element: app.alerts.firstMatch, timeout: 10)
+
+        XCTAssertTrue(app.alerts.firstMatch.staticTexts.firstMatch.label.contains("Success"),
+                      "Expected \"Success\" text in the app alert when adding a valid credit card")
+        app.alerts.firstMatch.buttons.firstMatch.tap()
+    }
+
+    func testCanCreateCreditCardWith3DS2() {
+        let app = XCUIApplication()
+        navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
+
+        let collectionViewsQuery = app.collectionViews
+
+        collectionViewsQuery.textFields["First Name"].tap()
+        collectionViewsQuery.textFields["First Name"].typeText("Max")
+
+        collectionViewsQuery.textFields["Last Name"].tap()
+        collectionViewsQuery.textFields["Last Name"].typeText("Mustermann")
+
+        collectionViewsQuery.textFields["1234"].tap()
+        collectionViewsQuery.textFields["1234"].typeText("5454 5454 5454 5454")
+
+        collectionViewsQuery.textFields["MM/YY"].tap()
+        app.pickers.pickerWheels.allElementsBoundByIndex[0].adjust(toPickerWheelValue: "10")
+        app.pickers.pickerWheels.allElementsBoundByIndex[1].adjust(toPickerWheelValue: "2020")
+
+        collectionViewsQuery.textFields["CVV/CVC"].tap()
+        collectionViewsQuery.textFields["CVV/CVC"].typeText("737")
+
+        app.collectionViews.firstMatch.tap()
+        app.buttons["SAVE"].tap()
+
+        waitForElementToAppear(element: app.textFields.firstMatch, timeout: 10)
+
+        app.textFields.firstMatch.tap()
+        app.textFields.firstMatch.typeText("1234")
+
+        app.buttons["Submit"].tap()
 
         waitForElementToAppear(element: app.alerts.firstMatch, timeout: 10)
 

@@ -17,9 +17,10 @@ import UIKit
     }
 
     /// Register a credit card payment method. For detailed information on the parameters, see the equivalent method documentation in `RegistrationManager`.
-    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String?, completion: @escaping (PaymentMethodAliasBridge?, StashErrorBridge?) -> Void) {
+    @objc public func registerCreditCard(creditCardData: CreditCardDataBridge, idempotencyKey: String?, viewController: UIViewController?, completion: @escaping (PaymentMethodAliasBridge?, StashErrorBridge?) -> Void) {
         self.manager.registerCreditCard(creditCardData: creditCardData.creditCardData,
                                         idempotencyKey: idempotencyKey,
+                                        viewController: viewController,
                                         completion: self.bridgedCompletion(completion: completion))
     }
 

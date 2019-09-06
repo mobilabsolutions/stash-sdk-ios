@@ -15,4 +15,6 @@ struct CreditCardBSPayoneData {
     let cardExpireDate: String
     let cardCVC2: String
     let billingData: BillingData
+
+    let creditCardExtra: CreditCardExtra
 }

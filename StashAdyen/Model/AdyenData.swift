@@ -10,13 +10,13 @@ import Foundation
 import StashCore
 
 struct AdyenData: Codable {
-    /// The created payment session ID
-    let paymentSession: String
+    /// Client encryption key used for credit card data encryption
+    let clientEncryptionKey: String
 
     public init?(pspData: PSPExtra) {
-        guard let paymentSession = pspData.paymentSession else {
+        guard let clientEncryptionKey = pspData.clientEncryptionKey else {
             return nil
         }
-        self.paymentSession = paymentSession
+        self.clientEncryptionKey = clientEncryptionKey
     }
 }

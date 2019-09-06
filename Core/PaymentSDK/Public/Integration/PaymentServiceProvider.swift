@@ -24,7 +24,8 @@ public protocol PaymentServiceProvider {
     typealias RegistrationResult = Result<PSPRegistration, StashError>
     /// A completion callback that provides the created `RegistrationResult`
     typealias RegistrationResultCompletion = ((RegistrationResult) -> Void)
-
+    /// A completion callback that provides 3DS authentication result
+    typealias ThreeDSAuthenticationCompletion = ((Result<ThreeDSResult, StashError>) -> Void)
     /// The PSP identifier as required by the Stash payment backend
     var pspIdentifier: StashPaymentProvider { get }
 
@@ -39,6 +40,13 @@ public protocol PaymentServiceProvider {
                                    idempotencyKey: String?,
                                    uniqueRegistrationIdentifier: String,
                                    completion: @escaping RegistrationResultCompletion)
+
+    /// Handle a 3DS1 or 3DS2 authentication request
+    ///
+    /// - Parameters:
+    ///   - request: the 3DS2 request data
+    ///   - completion: A completion returning the response from 3DS authentication (if present) or an error
+    func handle3DS(request: ThreeDSRequest, viewController: UIViewController, completion: @escaping ThreeDSAuthenticationCompletion)
 
     /// Handle a request for registering a payment method with the PSP
     ///
@@ -77,6 +85,8 @@ public extension PaymentServiceProvider {
                                     completion: @escaping (Result<AliasCreationDetail?, StashError>) -> Void) {
         completion(.success(nil))
     }
+
+    func handle3DS(request _: ThreeDSRequest, viewController _: UIViewController, completion _: @escaping ThreeDSAuthenticationCompletion) {}
 
     var supportedPaymentMethodTypeUserInterfaces: [PaymentMethodType] {
         return []

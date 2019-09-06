@@ -110,12 +110,14 @@ public class StashBSPayone: PaymentServiceProvider {
         guard let cardType = cardData.cardType.bsCardTypeIdentifier
         else { throw StashError.validation(.cardTypeNotSupported).loggedError() }
 
+        let creditCardPreparator = BSPayoneCreditCardExtraPreparator(creditCardData: cardData)
+        let extra = try creditCardPreparator.prepare()
+
         let bsCreditCardRequest = CreditCardBSPayoneData(cardPan: cardData.cardNumber,
                                                          cardType: cardType,
                                                          cardExpireDate: String(format: "%02d%02d", cardData.expiryYear, cardData.expiryMonth),
                                                          cardCVC2: cardData.cvv,
-                                                         billingData: cardData.billingData)
-
+                                                         billingData: cardData.billingData, creditCardExtra: extra)
         return bsCreditCardRequest
     }
 

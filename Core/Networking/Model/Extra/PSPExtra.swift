@@ -40,6 +40,6 @@ public struct PSPExtra: Codable {
     public let clientToken: String?
 
     // Adyen Data
-    /// Adyen payment session data
-    public let paymentSession: String?
+    /// Adyen client encryption key used for credit card data encryption
+    public let clientEncryptionKey: String?
 }

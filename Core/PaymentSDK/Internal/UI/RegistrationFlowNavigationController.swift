@@ -8,10 +8,10 @@
 
 import UIKit
 
-class RegistrationFlowNavigationController: UINavigationController {
+public class RegistrationFlowNavigationController: UINavigationController {
     private var userDidCloseCallback: (() -> Void)?
 
-    init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?) {
+    public init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?) {
         super.init(rootViewController: rootViewController)
         self.userDidCloseCallback = userDidCloseCallback
         self.sharedInit()

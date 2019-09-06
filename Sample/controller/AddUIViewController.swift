@@ -146,7 +146,7 @@ class AddUIViewController: UIViewController {
                                                               paymentMethodTypes: [.payPal])!
         }
 
-        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [braintreeIntegration, providerIntegration])
         configuration.loggingLevel = .normal

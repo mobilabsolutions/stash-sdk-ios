@@ -289,7 +289,7 @@ class FormCollectionViewController: UICollectionViewController, PaymentMethodDat
 
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let isLastRow = indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        var additionalHeight: CGFloat = (isLastRow ? lastCellHeightSurplus : 0)
+        var additionalHeight: CGFloat = (isLastRow ? self.lastCellHeightSurplus : 0)
 
         let hasError = !self.cellModels[indexPath.row].necessaryData.filter { self.errors[$0] != nil }.isEmpty
         let numberOfDataPoints = self.cellModels[indexPath.row].necessaryData.count

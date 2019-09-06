@@ -14,7 +14,5 @@ struct CreditCardAdyenData {
     let expiryMonth: String
     let expiryYear: String
     let cvc: String
-    let billingData: BillingData?
-
-    let creditCardExtra: CreditCardExtra
+    let billingData: BillingData
 }

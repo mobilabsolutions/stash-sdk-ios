@@ -123,8 +123,9 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     XCTestExpectation *expectation = [[XCTestExpectation alloc] initWithDescription:@"Registering a credit card should not time out"];
 
     [[MLStash getRegistrationManager] registerCreditCardWithCreditCardData:creditCard
-                                                                        idempotencyKey: [[NSUUID new] UUIDString]
-                                                                            completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
+                                                            idempotencyKey:[[NSUUID new] UUIDString]
+                                                            viewController:nil
+                                                                completion:^(MLPaymentMethodAlias * _Nullable registration, MLError * _Nullable error) {
         XCTAssertNotNil(registration, @"A registration should be returned when registering a valid credit card");
         XCTAssertNil(error, @"There should not be an error when registering a valid credit card but got %@", error);
         [expectation fulfill];

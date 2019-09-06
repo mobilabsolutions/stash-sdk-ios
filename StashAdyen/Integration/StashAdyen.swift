@@ -9,7 +9,6 @@
 import Adyen
 #if CARTHAGE
     import AdyenCard
-    import AdyenSEPA
 #endif
 import StashCore
 import UIKit
@@ -19,18 +18,6 @@ import UIKit
 public class StashAdyen: PaymentServiceProvider {
     /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public let pspIdentifier: StashPaymentProvider
-
-    /// Collects all of the controllers for different registration requests.
-    /// These controllers need to be used across different steps of the registration process (before the "createAlias" and before the "updateAlias" calls)
-    /// and therefore need to be held on to.
-    private var controllerForRegistrationIdentifier: [String: AdyenPaymentControllerWrapper] = [:]
-
-    private let dateExtractingDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy"
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        return dateFormatter
-    }()
 
     /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
     public func handleRegistrationRequest(registrationRequest: RegistrationRequest,
@@ -42,15 +29,11 @@ public class StashAdyen: PaymentServiceProvider {
         guard let pspData = AdyenData(pspData: registrationRequest.pspData) else {
             return completion(.failure(StashError.configuration(.pspInvalidConfiguration)))
         }
-
         do {
             if let creditCardData = try getCreditCardData(from: registrationRequest) {
                 self.conditionallyPrintIdempotencyWarning(idempotencyKey: idempotencyKey)
-
-                let controller = try getPaymentController(for: uniqueRegistrationIdentifier)
                 self.handleCreditCardRequest(creditCardData: creditCardData,
                                              pspData: pspData,
-                                             controller: controller,
                                              uniqueRegistrationIdentifier: uniqueRegistrationIdentifier,
                                              completion: completion)
             } else if let sepaData = try getSEPAData(from: registrationRequest) {
@@ -66,20 +49,11 @@ public class StashAdyen: PaymentServiceProvider {
         }
     }
 
-    /// See documentation for the `PaymentServiceProvider` protocol in the Core module.
-    public func provideAliasCreationDetail(for registrationData: RegistrationData,
-                                           idempotencyKey _: String?,
-                                           uniqueRegistrationIdentifier: String,
-                                           completion: @escaping (Swift.Result<AliasCreationDetail?, StashError>) -> Void) {
-        Log.event(description: "function initiated")
-        // Once we do use 3DS, we will need to provide a correct return url which we will need to collect from the user. For now, the below is enough.
-        let controller = AdyenPaymentControllerWrapper(providerIdentifier: self.pspIdentifier.rawValue) { token in
-            let creationDetail: AdyenAliasCreationDetail? = AdyenAliasCreationDetail(token: token, returnUrl: "app://stash")
-            completion(.success(creationDetail))
+    public func handle3DS(request: ThreeDSRequest, viewController: UIViewController, completion: @escaping ThreeDSAuthenticationCompletion) {
+        let handler = Adyen3DSHandler.sharedInstance
+        handler.handle(with: request, viewController: viewController) { result in
+            completion(result)
         }
-
-        controller.start()
-        self.controllerForRegistrationIdentifier[uniqueRegistrationIdentifier] = controller
     }
 
     /// See documentation for the `PaymentServiceProvider` protocol in the Core module. Adyen supports SEPA and Credit Card payment methods.
@@ -115,28 +89,19 @@ public class StashAdyen: PaymentServiceProvider {
         self.pspIdentifier = .adyen
     }
 
-    private func handleCreditCardRequest(creditCardData: CreditCardAdyenData,
+    private func handleCreditCardRequest(creditCardData: CreditCardData,
                                          pspData: AdyenData,
-                                         controller: AdyenPaymentControllerWrapper,
-                                         uniqueRegistrationIdentifier: String,
+                                         uniqueRegistrationIdentifier _: String,
                                          completion: @escaping PaymentServiceProvider.RegistrationResultCompletion) {
-        let billingData = creditCardData.billingData ?? BillingData()
-        let creditCardPreparator = CreditCardPreparator(billingData: billingData, creditCardData: creditCardData)
-        controller.continueRegistration(sessionId: pspData.paymentSession,
-                                        billingData: billingData,
-                                        paymentMethodPreparator: creditCardPreparator) { result in
-            switch result {
-            case let .success(token):
-                let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(ccConfig: creditCardData.creditCardExtra,
-                                                                                         billingData: billingData,
-                                                                                         payload: token))
-                completion(.success(registration))
-            case let .failure(error):
-                let mlError = error as? StashError ?? StashError.other(GenericErrorDetails.from(error: error))
-                completion(.failure(mlError))
-            }
-
-            self.controllerForRegistrationIdentifier[uniqueRegistrationIdentifier] = nil
+        let creditCardPreparator = AdyenCreditCardExtraPreparator(creditCardData: creditCardData, cardEncryptionKey: pspData.clientEncryptionKey)
+        do {
+            let extra = try creditCardPreparator.prepare()
+            let registration = PSPRegistration(pspAlias: nil, aliasExtra: AliasExtra(ccConfig: extra, billingData: creditCardData.billingData))
+            completion(.success(registration))
+        } catch let error as StashError {
+            completion(.failure(error))
+        } catch {
+            completion(.failure(StashError.other(GenericErrorDetails.from(error: error))))
         }
     }
 
@@ -147,31 +112,9 @@ public class StashAdyen: PaymentServiceProvider {
         completion(.success(registration))
     }
 
-    private func getPaymentController(for idempotencyKey: String) throws -> AdyenPaymentControllerWrapper {
-        guard let controller = self.controllerForRegistrationIdentifier[idempotencyKey]
-        else { throw StashError.other(GenericErrorDetails(description: "Internal Error: Missing Adyen Payment Controller")).loggedError() }
-
-        return controller
-    }
-
-    private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardAdyenData? {
+    private func getCreditCardData(from registrationRequest: RegistrationRequest) throws -> CreditCardData? {
         guard let cardData = registrationRequest.registrationData as? CreditCardData else { return nil }
-
-        guard let extra = cardData.toCreditCardExtra()
-        else { throw StashError.validation(ValidationErrorDetails.invalidCreditCardNumber).loggedError() }
-
-        guard let date = dateExtractingDateFormatter.date(from: String(format: "%02d", cardData.expiryYear))
-        else { throw StashError.validation(.invalidExpirationDate).loggedError() }
-
-        let fullYearComponent = Calendar(identifier: .gregorian).component(.year, from: date)
-
-        let creditCardRequest = CreditCardAdyenData(number: cardData.cardNumber,
-                                                    expiryMonth: String(cardData.expiryMonth),
-                                                    expiryYear: String(fullYearComponent),
-                                                    cvc: cardData.cvv,
-                                                    billingData: cardData.billingData,
-                                                    creditCardExtra: extra)
-        return creditCardRequest
+        return cardData
     }
 
     private func getSEPAData(from registrationRequest: RegistrationRequest) throws -> SEPAAdyenData? {
