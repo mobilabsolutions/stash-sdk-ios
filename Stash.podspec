@@ -20,17 +20,17 @@ Pod::Spec.new do |spec|
 
   spec.subspec "Adyen" do |spec| 
     spec.dependency "Adyen", "~> 2.8"
-    spec.source_files  = "StashAdyen/**/*.swift"
+    spec.source_files  = "StashAdyen/**/*.swift", "Core/Shared/**/*.swift", "Form/**/*.swift"
   end
 
   spec.subspec "Braintree" do |spec| 
     spec.dependency "Braintree/DataCollector"
     spec.dependency "BraintreeDropIn", "~> 7.3"
-    spec.source_files  = "StashBraintree/**/*.swift"
+    spec.source_files  = "StashBraintree/**/*.swift", "Core/Shared/**/*.swift", "Form/**/*.swift"
   end
 
   spec.subspec "BSPayone" do |spec| 
-    spec.source_files  = "StashBSPayone/**/*.swift", "Core/Extensions/Foundation/URL+Extras.swift"
+    spec.source_files  = "StashBSPayone/**/*.swift", "Core/Shared/**/*.swift", "Form/**/*.swift"
   end
 
 end

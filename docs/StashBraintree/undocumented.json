@@ -1,6 +1,460 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 13,
+      "symbol": "UIConstants.lightBlueGrey",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 17,
+      "symbol": "UIConstants.coolGrey",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 21,
+      "symbol": "UIConstants.iceBlue",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 25,
+      "symbol": "UIConstants.gunMetal",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 29,
+      "symbol": "UIConstants.aquamarine",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 33,
+      "symbol": "UIConstants.dark",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 37,
+      "symbol": "UIConstants.trueBlue",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 41,
+      "symbol": "UIConstants.veryLightPink",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 45,
+      "symbol": "UIConstants.coral",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 49,
+      "symbol": "UIConstants.salmon",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 53,
+      "symbol": "UIConstants.disabledColor",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 57,
+      "symbol": "UIConstants.backButtonImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 63,
+      "symbol": "UIConstants.closeButtonImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 69,
+      "symbol": "UIConstants.creditCardImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 73,
+      "symbol": "UIConstants.sepaImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 77,
+      "symbol": "UIConstants.sepaSmallImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 81,
+      "symbol": "UIConstants.payPalImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 85,
+      "symbol": "UIConstants.payPalBigImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 89,
+      "symbol": "UIConstants.payPalSmall",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 93,
+      "symbol": "UIConstants.rightArrowImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 97,
+      "symbol": "UIConstants.solidArrowImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 101,
+      "symbol": "UIConstants.americanExpressImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 105,
+      "symbol": "UIConstants.dinersImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 109,
+      "symbol": "UIConstants.mastercardImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 113,
+      "symbol": "UIConstants.visaImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 117,
+      "symbol": "UIConstants.maestroImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 121,
+      "symbol": "UIConstants.unionPayImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 125,
+      "symbol": "UIConstants.discoverImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 129,
+      "symbol": "UIConstants.jcbImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 133,
+      "symbol": "UIConstants.searchImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 137,
+      "symbol": "UIConstants.alertImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Core/Shared/UI/UIConstants.swift",
+      "line": 141,
+      "symbol": "UIConstants.crossImage",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 11,
+      "symbol": "FormCellModel",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 12,
+      "symbol": "FormCellModel.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 23,
+      "symbol": "FormCellModel.init(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 27,
+      "symbol": "FormCellModel.FormCellType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 28,
+      "symbol": "FormCellModel.FormCellType.text(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 29,
+      "symbol": "FormCellModel.FormCellType.pairedText(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 30,
+      "symbol": "FormCellModel.FormCellType.dateCVV",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 31,
+      "symbol": "FormCellModel.FormCellType.country",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 33,
+      "symbol": "FormCellModel.FormCellType.TextData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 34,
+      "symbol": "FormCellModel.FormCellType.TextData.necessaryData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 35,
+      "symbol": "FormCellModel.FormCellType.TextData.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 36,
+      "symbol": "FormCellModel.FormCellType.TextData.placeholder",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 37,
+      "symbol": "FormCellModel.FormCellType.TextData.setup",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 38,
+      "symbol": "FormCellModel.FormCellType.TextData.didFocus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 39,
+      "symbol": "FormCellModel.FormCellType.TextData.didUpdate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 41,
+      "symbol": "FormCellModel.FormCellType.TextData.init(necessaryData:title:placeholder:setup:didFocus:didUpdate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 56,
+      "symbol": "FormCellModel.FormCellType.PairedTextData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 57,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.firstNecessaryData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 58,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.firstTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 59,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.firstPlaceholder",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 60,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.secondNecessaryData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 61,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.secondTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 62,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.secondPlaceholder",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 63,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.setup",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 64,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.didUpdate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormCellModel.swift",
+      "line": 66,
+      "symbol": "FormCellModel.FormCellType.PairedTextData.init(firstNecessaryData:firstTitle:firstPlaceholder:secondNecessaryData:secondTitle:secondPlaceholder:setup:didUpdate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 11,
+      "symbol": "ValidationError",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 13,
+      "symbol": "FormConsumer",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 14,
+      "symbol": "FormConsumer.consumeValues(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 15,
+      "symbol": "FormConsumer.validate(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 18,
+      "symbol": "FormConsumerError",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 19,
+      "symbol": "FormConsumerError.errors",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open/Form/FormConsumer.swift",
+      "line": 21,
+      "symbol": "FormConsumerError.init(errors:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/robert/Desktop/Arbeit/payment-sdk-ios-open"
 }

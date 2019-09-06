@@ -14,4 +14,9 @@ public struct Country {
     public let name: String
     /// The country's code
     public let alpha2Code: String
+
+    public init(name: String, alpha2Code: String) {
+        self.name = name
+        self.alpha2Code = alpha2Code
+    }
 }

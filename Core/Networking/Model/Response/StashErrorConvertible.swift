@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// An error that can be converted into a StashError representation
 public protocol StashErrorConvertible {
+    /// Create a StashError representation for this error
     func toStashError() -> StashError
 }

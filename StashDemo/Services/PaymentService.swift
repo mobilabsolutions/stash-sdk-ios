@@ -295,3 +295,11 @@ class PaymentService {
         }.resume()
     }
 }
+
+/// HTTP methods supported by requests
+enum HTTPMethod: String {
+    case GET
+    case POST
+    case DELETE
+    case PUT
+}

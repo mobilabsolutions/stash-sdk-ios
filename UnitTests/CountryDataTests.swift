@@ -6,6 +6,7 @@
 //  Copyright © 2019 MobiLab Solutions GmbH. All rights reserved.
 //
 
+@testable import StashBSPayone
 @testable import StashCore
 import XCTest
 
