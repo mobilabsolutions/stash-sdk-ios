@@ -18,17 +18,19 @@ public class RegistrationManager {
     /// - Parameters:
     ///   - creditCardData: The credit card data to use for registration
     ///   - idempotencyKey: The idempotency key (between 10 and 40 characters long) that should be used for this request. The same idempotency key always results in the same returned result.
+    ///   - viewController: The view controller on which to present additional views required for card authentication (e.g. 3DS webview)
     ///   - completion: A completion called when the registration is complete.
     ///                 Provides the Stash payment alias that identifies the registered payment method
     public func registerCreditCard(creditCardData: CreditCardData,
                                    idempotencyKey: String? = nil,
+                                   viewController: UIViewController? = nil,
                                    completion: @escaping RegistrationResultCompletion) {
         let paymentMethod = PaymentMethod(methodData: creditCardData, type: .creditCard)
 
         let internalManager = InternalPaymentSDK.sharedInstance.registrationManager()
         internalManager.addMethod(paymentMethod: paymentMethod,
                                   idempotencyKey: idempotencyKey,
-                                  completion: completion)
+                                  completion: completion, presentingViewController: viewController)
     }
 
     /// Register a SEPA account
@@ -161,6 +163,7 @@ public class RegistrationManager {
             if let creditCardData = method as? CreditCardData {
                 self.registerCreditCard(creditCardData: creditCardData,
                                         idempotencyKey: idempotencyKeyForNextRequest,
+                                        viewController: paymentMethodViewController,
                                         completion: wrappedCompletion(for: paymentMethodViewController, completion: completion))
             } else if let sepaData = method as? SEPAData {
                 self.registerSEPAAccount(sepaData: sepaData,

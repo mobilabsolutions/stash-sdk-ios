@@ -6,6 +6,22 @@ install_swiftformat() {
   brew upgrade swiftformat
 }
 
+runSwiftFormat() {
+
+  git checkout "$TRAVIS_BRANCH"
+  # Run SwiftFormat
+  swiftformat .
+  # Stage the modified files
+  git add .
+  # Create a new commit with a custom build message
+  # with "[skip ci]" to avoid a build loop
+  # and Travis build number for reference
+  if ! git commit -m "Travis CI - SwiftFormat [ci skip]"; then
+    err "failed to commit updates"
+    return 1
+  fi
+}
+
 setup_git() {
 
   # Decrypt the file containing the private key
@@ -22,23 +38,6 @@ setup_git() {
 
   git config --global user.email "$GH_USER_EMAIL"
   git config --global user.name "$GH_USER_NAME"
-}
-
-
-runSwiftFormat() {
-
-  git checkout "$TRAVIS_BRANCH"
-  # Run SwiftFormat
-  swiftformat .
-  # Stage the modified files
-  git add .
-  # Create a new commit with a custom build message
-  # with "[skip ci]" to avoid a build loop
-  # and Travis build number for reference
-  if ! git commit -m "Travis CI - SwiftFormat [ci skip]"; then
-    err "failed to commit updates"
-    return 1
-  fi
 }
 
 push_commit() {

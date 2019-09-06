@@ -22,7 +22,7 @@ class AdyenIntegrationTests: XCTestCase {
         let provider = StashAdyen()
         self.provider = provider
 
-        let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
+        let configuration = StashConfiguration(publishableKey: "mobilab-D4eWavRIslrUCQnnH6cn",
                                                endpoint: "https://payment-dev.mblb.net/api/v1",
                                                integrations: [PaymentProviderIntegration(paymentServiceProvider: provider)])
         configuration.loggingLevel = .normal
@@ -43,7 +43,7 @@ class AdyenIntegrationTests: XCTestCase {
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com", name: SimpleNameProvider(firstName: "Holder", lastName: "Name"))
-        let creditCardData = try CreditCardData(cardNumber: "3600 6666 3333 44", cvv: "737", expiryMonth: 10, expiryYear: 20,
+        let creditCardData = try CreditCardData(cardNumber: "2222 4000 1000 0008", cvv: "737", expiryMonth: 10, expiryYear: 20,
                                                 country: "DE", billingData: billingData)
 
         let registrationManager = Stash.getRegistrationManager()
@@ -116,7 +116,7 @@ class AdyenIntegrationTests: XCTestCase {
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")
         let billingData = BillingData(name: name)
 
-        guard let expired = try? CreditCardData(cardNumber: "4111111111111111", cvv: "123",
+        guard let expired = try? CreditCardData(cardNumber: "2222 4000 1000 0008", cvv: "123",
                                                 expiryMonth: 9, expiryYear: 0, country: "DE", billingData: billingData)
         else { XCTFail("Credit Card data should be valid"); return }
 
@@ -124,7 +124,7 @@ class AdyenIntegrationTests: XCTestCase {
             switch result {
             case .success: XCTFail("Should not have returned success when creating an alias fails")
             case let .failure(error):
-                guard case StashError.other = error
+                guard case StashError.configuration = error
                 else { XCTFail("An error in the PSP should be propagated as a pspError"); break }
             }
 
@@ -132,16 +132,5 @@ class AdyenIntegrationTests: XCTestCase {
         }
 
         wait(for: [resultExpectation], timeout: 20)
-    }
-
-    func testCorrectlySerializesAdyenAliasCreationDetail() throws {
-        let token = "test-token"
-        let url = URL(string: "app://test-token-url")!
-
-        let creationDetail: AliasCreationDetail = AdyenAliasCreationDetail(token: token, returnUrl: url.absoluteString)
-        let encoded = try JSONEncoder().encode(creationDetail)
-        let decoded = try JSONDecoder().decode(AdyenAliasCreationDetail.self, from: encoded)
-
-        XCTAssertEqual(decoded.token, token, "Should deserialize same token as was serialized")
     }
 }

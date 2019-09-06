@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode10.2
+osx_image: xcode10.3
 
 cache:
   bundler: true
@@ -9,7 +9,7 @@ cache:
 env:
   global:
     - WORKSPACE_NAME="Stash.xcworkspace"
-    - DESTINATION="OS=12.2,name=iPhone X"
+    - DESTINATION="OS=12.4,name=iPhone XS"
 
 install:
 - gem install xcpretty
@@ -17,7 +17,7 @@ install:
 - bundle install
 - brew install carthage || true
 - brew outdated carthage || brew upgrade carthage
-- carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+- carthage bootstrap --platform iOS --cache-builds
 
 jobs:
   include:

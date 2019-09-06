@@ -58,13 +58,6 @@ extension UIConstants {
         return UIImage(named: "info", in: Bundle.main, compatibleWith: nil)
     }
 
-    enum DefaultFontType: String {
-        case black = "Black"
-        case bold = "Bold"
-        case regular = "Regular"
-        case medium = "Medium"
-    }
-
     class func defaultFont(of size: CGFloat, type: DefaultFontType = .regular) -> UIFont {
         func getFont() -> UIFont? {
             return UIFont(name: "Lato-\(type.rawValue)", size: size)

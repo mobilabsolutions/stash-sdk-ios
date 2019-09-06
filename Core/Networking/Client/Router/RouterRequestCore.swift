@@ -11,12 +11,15 @@ import Foundation
 enum RouterServiceCore {
     case createAlias(CreateAliasRequest)
     case updateAlias(UpdateAliasRequest)
+    case verifyAlias(VerifyAliasRequest)
 
     var idempotencyKey: String {
         switch self {
         case let .createAlias(request):
             return request.idempotencyKey
         case let .updateAlias(request):
+            return request.idempotencyKey
+        case let .verifyAlias(request):
             return request.idempotencyKey
         }
     }
@@ -40,14 +43,15 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getURL() -> URL {
         switch self.service {
         case .createAlias,
-             .updateAlias:
+             .updateAlias,
+             .verifyAlias:
             return self.getBaseURL()
         }
     }
 
     func getHTTPMethod() -> HTTPMethod {
         switch self.service {
-        case .createAlias:
+        case .createAlias, .verifyAlias:
             return HTTPMethod.POST
         case .updateAlias:
             return HTTPMethod.PUT
@@ -61,6 +65,8 @@ struct RouterRequestCore: RouterRequestProtocol {
 
         case let .updateAlias(data):
             return try? JSONEncoder().encode(data)
+        case let .verifyAlias(data):
+            return try? JSONEncoder().encode(data)
         }
     }
 
@@ -70,13 +76,16 @@ struct RouterRequestCore: RouterRequestProtocol {
             return "/alias"
         case let .updateAlias(request):
             return "/alias/\(request.aliasId)"
+        case let .verifyAlias(request):
+            return "/alias/\(request.aliasId)/verify"
         }
     }
 
     func getContentTypeHeader() -> String {
         switch self.service {
         case .createAlias,
-             .updateAlias:
+             .updateAlias,
+             .verifyAlias:
             return "application/json"
         }
     }
@@ -84,7 +93,8 @@ struct RouterRequestCore: RouterRequestProtocol {
     func getAuthorizationHeader() -> String {
         switch self.service {
         case .createAlias,
-             .updateAlias:
+             .updateAlias,
+             .verifyAlias:
             return InternalPaymentSDK.sharedInstance.configuration.publishableKey
         }
     }
@@ -105,6 +115,8 @@ struct RouterRequestCore: RouterRequestProtocol {
             headers.append(Header(field: "Idempotent-Key", value: self.service.idempotencyKey))
             return headers
         case .updateAlias:
+            return headers
+        case .verifyAlias:
             return headers
         }
     }

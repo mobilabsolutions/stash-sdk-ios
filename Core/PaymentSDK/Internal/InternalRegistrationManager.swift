@@ -9,99 +9,160 @@
 import UIKit
 
 class InternalRegistrationManager {
-    private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
-
-    func addMethod(paymentMethod: PaymentMethod, idempotencyKey: String?,
+    func addMethod(paymentMethod: PaymentMethod,
+                   idempotencyKey: String?,
                    completion: @escaping RegistrationResultCompletion,
                    presentingViewController: UIViewController? = nil) {
+        let internalWrapper = InternalRegistrationManagerWrapper(paymentMethod: paymentMethod, idempotencyKey: idempotencyKey,
+                                                                 resultCompletion: completion, presentingViewController: presentingViewController)
+        internalWrapper.initiate()
+    }
+}
+
+class InternalRegistrationManagerWrapper {
+    private let networkingClient = InternalPaymentSDK.sharedInstance.networkingClient
+    private let paymentMethod: PaymentMethod
+    private let idempotencyKey: String?
+    private let presentingViewController: UIViewController?
+    private let uniqueRegistrationIdentifier = UUID().uuidString
+    private var provider: PaymentServiceProvider {
+        return InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: self.paymentMethod.type)
+    }
+
+    private var pspRegistrationResult: PSPRegistration?
+    private var resultCompletion: RegistrationResultCompletion
+
+    init(paymentMethod: PaymentMethod, idempotencyKey: String?, resultCompletion: @escaping RegistrationResultCompletion, presentingViewController: UIViewController? = nil) {
+        self.paymentMethod = paymentMethod
+        self.idempotencyKey = idempotencyKey
+        self.resultCompletion = resultCompletion
+        self.presentingViewController = presentingViewController
+    }
+
+    func initiate() {
         Log.event(description: "function initiated")
 
-        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
-        let uniqueRegistrationIdentifier = UUID().uuidString
-        provider.provideAliasCreationDetail(for: paymentMethod.methodData, idempotencyKey: idempotencyKey, uniqueRegistrationIdentifier: uniqueRegistrationIdentifier) { creationDetailResult in
+        self.provider.provideAliasCreationDetail(for: self.paymentMethod.methodData, idempotencyKey: self.idempotencyKey, uniqueRegistrationIdentifier: self.uniqueRegistrationIdentifier) { creationDetailResult in
             switch creationDetailResult {
             case let .success(detail):
-                self.createAlias(provider: provider,
-                                 paymentMethod: paymentMethod,
-                                 aliasCreationDetail: detail,
-                                 idempotencyKey: idempotencyKey,
-                                 uniqueRegistrationIdentifier: uniqueRegistrationIdentifier,
-                                 completion: completion,
-                                 presentingViewController: presentingViewController)
+
+                let createAliasRequest = CreateAliasRequest(pspType: self.provider.pspIdentifier.rawValue,
+                                                            aliasDetail: detail,
+                                                            idempotencyKey: self.idempotencyKey ?? self.uniqueRegistrationIdentifier)
+                self.networkingClient.createAlias(request: createAliasRequest) { result in
+                    switch result {
+                    case let .success(response):
+                        self.performRegistration(with: response)
+                    case let .failure(error):
+                        self.resultCompletion(.failure(error))
+                    }
+                }
             case let .failure(error):
-                completion(.failure(error))
+                self.resultCompletion(.failure(error))
             }
         }
     }
 
-    private func createAlias(provider: PaymentServiceProvider,
-                             paymentMethod: PaymentMethod,
-                             aliasCreationDetail: AliasCreationDetail?,
-                             idempotencyKey: String?,
-                             uniqueRegistrationIdentifier: String,
-                             completion: @escaping RegistrationResultCompletion,
-                             presentingViewController: UIViewController?) {
-        let createAliasRequest = CreateAliasRequest(pspType: provider.pspIdentifier.rawValue,
-                                                    aliasDetail: aliasCreationDetail,
-                                                    idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-        Log.event(description: "function initiated")
-        self.networkingClient.createAlias(request: createAliasRequest) { result in
-            switch result {
-            case let .success(response):
-                self.performRegistration(with: response,
-                                         for: paymentMethod,
-                                         viewController: presentingViewController,
-                                         idempotencyKey: idempotencyKey,
-                                         uniqueRegistrationIdentifier: uniqueRegistrationIdentifier,
-                                         completion: completion)
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    private func performRegistration(with alias: AliasResponse,
-                                     for paymentMethod: PaymentMethod,
-                                     viewController: UIViewController?,
-                                     idempotencyKey: String?,
-                                     uniqueRegistrationIdentifier: String,
-                                     completion: @escaping RegistrationResultCompletion) {
+    private func performRegistration(with alias: CreateAliasResponse) {
         let registrationRequest = RegistrationRequest(aliasId: alias.aliasId,
                                                       pspData: alias.psp,
-                                                      registrationData: paymentMethod.methodData,
-                                                      viewController: viewController)
+                                                      registrationData: self.paymentMethod.methodData,
+                                                      viewController: self.presentingViewController)
 
         Log.event(description: "function initiated")
 
-        guard let publicPaymentMethodType = paymentMethod.type.publicPaymentMethodType
-        else { fatalError("Stash SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
-
-        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: paymentMethod.type)
+        let provider = InternalPaymentSDK.sharedInstance.pspCoordinator.getProvider(forPaymentMethodType: self.paymentMethod.type)
         provider.handleRegistrationRequest(registrationRequest: registrationRequest,
-                                           idempotencyKey: idempotencyKey, uniqueRegistrationIdentifier: uniqueRegistrationIdentifier, completion: { resultRegistration in
+                                           idempotencyKey: self.idempotencyKey,
+                                           uniqueRegistrationIdentifier: self.uniqueRegistrationIdentifier,
+                                           completion: { resultRegistration in
                                                switch resultRegistration {
                                                case let .success(pspResult):
-                                                   let updateAliasRequest = UpdateAliasRequest(aliasId: alias.aliasId,
-                                                                                               pspAlias: pspResult.pspAlias,
-                                                                                               extra: pspResult.aliasExtra,
-                                                                                               idempotencyKey: idempotencyKey ?? uniqueRegistrationIdentifier)
-                                                   self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResult in
-                                                       switch updateResult {
-                                                       case .success:
-                                                           let registration = PaymentMethodAlias(alias: alias.aliasId,
-                                                                                                 paymentMethodType: publicPaymentMethodType,
-                                                                                                 extraAliasInfo: pspResult.overwritingExtraAliasInfo
-                                                                                                     ?? paymentMethod.methodData.extraAliasInfo)
-                                                           Log.normal(message: "Payment alias has been created: \(alias.aliasId)")
-                                                           completion(.success(registration))
-                                                       case let .failure(error):
-                                                           completion(.failure(error))
-                                                       }
-                                                   })
-
+                                                   self.pspRegistrationResult = pspResult
+                                                   self.updateAlias(with: alias.aliasId)
                                                case let .failure(error):
-                                                   completion(.failure(error))
+                                                   self.resultCompletion(.failure(error))
                                                }
         })
+    }
+
+    private func updateAlias(with aliasId: String) {
+        guard let pspResult = pspRegistrationResult else {
+            fatalError("Psp registration result should be available at this point")
+        }
+        let updateAliasRequest = UpdateAliasRequest(aliasId: aliasId,
+                                                    pspAlias: pspResult.pspAlias,
+                                                    extra: pspResult.aliasExtra,
+                                                    idempotencyKey: self.idempotencyKey ?? self.uniqueRegistrationIdentifier)
+
+        Log.event(description: "function initiated")
+
+        self.networkingClient.updateAlias(request: updateAliasRequest, completion: { updateResponse in
+            switch updateResponse {
+            case let .success(updateResult):
+                if updateResult.resultCode == nil {
+                    // SEPA response is empty
+                    self.handleAuthorizedResultCode(aliasId: aliasId)
+                } else {
+                    if updateResult.resultCode == .authorised {
+                        self.handleAuthorizedResultCode(aliasId: aliasId)
+                    } else {
+                        self.provider.handle3DS(request: ThreeDSRequest(aliasResponse: updateResult), viewController: self.presentingViewController!, completion: { handleUpdateAliasResponse in
+                            switch handleUpdateAliasResponse {
+                            case let .success(result):
+                                let verifyAliasRequest = VerifyAliasRequest(aliasId: aliasId,
+                                                                            idempotencyKey: self.idempotencyKey ?? self.uniqueRegistrationIdentifier,
+                                                                            threeDSResult: result)
+                                self.verifyAlias(with: verifyAliasRequest)
+                            case let .failure(error):
+                                self.resultCompletion(.failure(error))
+                            }
+                        })
+                    }
+                }
+            case let .failure(error):
+                self.resultCompletion(.failure(error))
+            }
+        })
+    }
+
+    private func verifyAlias(with request: VerifyAliasRequest) {
+        Log.event(description: "function initiated")
+
+        self.networkingClient.verifyAlias(request: request, completion: { updateResponse in
+            switch updateResponse {
+            case let .success(updateResult):
+                if updateResult.resultCode == .authorised {
+                    self.handleAuthorizedResultCode(aliasId: request.aliasId)
+                } else {
+                    self.provider.handle3DS(request: ThreeDSRequest(aliasResponse: updateResult), viewController: self.presentingViewController!, completion: { handleVerifyAliasResponse in
+                        switch handleVerifyAliasResponse {
+                        case let .success(result):
+                            let verifyAliasRequest = VerifyAliasRequest(aliasId: request.aliasId,
+                                                                        idempotencyKey: self.idempotencyKey ?? self.uniqueRegistrationIdentifier,
+                                                                        threeDSResult: result)
+                            self.verifyAlias(with: verifyAliasRequest)
+                        case let .failure(error):
+                            self.resultCompletion(.failure(error))
+                        }
+                    })
+                }
+            case let .failure(error):
+                self.resultCompletion(.failure(error))
+            }
+        })
+    }
+
+    private func handleAuthorizedResultCode(aliasId: String) {
+        guard let publicPaymentMethodType = self.paymentMethod.type.publicPaymentMethodType
+        else { fatalError("SDK error: For every internal payment method type that is used, there should be a corresponding public type") }
+        guard let pspResult = pspRegistrationResult else {
+            fatalError("Psp registration result should be available at this point")
+        }
+        let registration = PaymentMethodAlias(alias: aliasId,
+                                              paymentMethodType: publicPaymentMethodType,
+                                              extraAliasInfo: pspResult.overwritingExtraAliasInfo
+                                                  ?? self.paymentMethod.methodData.extraAliasInfo)
+        self.resultCompletion(.success(registration))
     }
 }

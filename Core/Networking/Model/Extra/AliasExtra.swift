@@ -15,33 +15,30 @@ public struct AliasExtra {
     let personalData: PersonalData?
 
     let paymentMethod: InternalPaymentMethodType
-    let payload: String?
+    let channel = "iOS"
 
-    public init(ccConfig: CreditCardExtra, billingData: BillingData, payload: String? = nil) {
+    public init(ccConfig: CreditCardExtra, billingData: BillingData) {
         self.paymentMethod = .creditCard
         self.ccConfig = ccConfig
         self.sepaConfig = nil
         self.payPalConfig = nil
         self.personalData = PersonalData(billingData: billingData)
-        self.payload = payload
     }
 
-    public init(sepaConfig: SEPAExtra, billingData: BillingData, payload: String? = nil) {
+    public init(sepaConfig: SEPAExtra, billingData: BillingData) {
         self.paymentMethod = .sepa
         self.sepaConfig = sepaConfig
         self.ccConfig = nil
         self.payPalConfig = nil
         self.personalData = PersonalData(billingData: billingData)
-        self.payload = payload
     }
 
-    public init(payPalConfig: PayPalExtra, billingData: BillingData, payload: String? = nil) {
+    public init(payPalConfig: PayPalExtra, billingData: BillingData) {
         self.paymentMethod = .payPal
         self.payPalConfig = payPalConfig
         self.ccConfig = nil
         self.sepaConfig = nil
         self.personalData = PersonalData(billingData: billingData)
-        self.payload = payload
     }
 }
 

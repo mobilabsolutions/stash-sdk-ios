@@ -7,6 +7,10 @@
 //
 
 import UIKit
+#if CORE
+#else
+    import StashCore
+#endif
 
 protocol DoneButtonViewDelegate: AnyObject {
     func didTapDoneButton()
