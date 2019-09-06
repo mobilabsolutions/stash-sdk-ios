@@ -142,14 +142,14 @@ public final class UIConstants {
         return UIImage(named: "cross", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
-    enum DefaultFontType: String {
+    public enum DefaultFontType: String {
         case black = "Black"
         case bold = "Bold"
         case regular = "Regular"
         case medium = "Medium"
     }
 
-    class func defaultFont(of size: CGFloat, type: DefaultFontType = .regular) -> UIFont {
+    public class func defaultFont(of size: CGFloat, type: DefaultFontType = .regular) -> UIFont {
         func getFont() -> UIFont? {
             return UIFont(name: "Lato-\(type.rawValue)", size: size)
         }

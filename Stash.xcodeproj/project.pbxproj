@@ -184,9 +184,6 @@
 		E1463778231E6565005ADF4D /* FormCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1068EA922522E4300ACC93C /* FormCollectionViewController.swift */; };
 		E1463779231E6565005ADF4D /* NecessaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85A2240F7020099DB2E /* NecessaryData.swift */; };
 		E146377A231E6565005ADF4D /* PresentableValueHolding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189136A22F4305A004508D3 /* PresentableValueHolding.swift */; };
-		E146377B231E6608005ADF4D /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF8B2243959800413764 /* UIConstants.swift */; };
-		E146377C231E6609005ADF4D /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF8B2243959800413764 /* UIConstants.swift */; };
-		E146377D231E660A005ADF4D /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162FF8B2243959800413764 /* UIConstants.swift */; };
 		E146377E231E6623005ADF4D /* FormFieldErrorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */; };
 		E146377F231E6624005ADF4D /* FormFieldErrorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */; };
 		E1463780231E6624005ADF4D /* FormFieldErrorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15E3E272293ECA900EE19EE /* FormFieldErrorDelegate.swift */; };
@@ -1247,6 +1244,7 @@
 		BAA9826E224A4CE000D551DE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E162FF8B2243959800413764 /* UIConstants.swift */,
 				E1209BC3224903350060CD63 /* PaymentMethodUIConfiguration.swift */,
 				BA078EE122E0851100E199B4 /* PaymentMethodUIConfigurationBridge.swift */,
 			);
@@ -1502,7 +1500,6 @@
 			children = (
 				E1AE1C34228F070B0054D098 /* AlertBanner.swift */,
 				E162FFBE2243D6C000413764 /* CustomBackButtonContainerViewController.swift */,
-				E162FF8B2243959800413764 /* UIConstants.swift */,
 				E1C9A852223FB0C50099DB2E /* DoneButtonView.swift */,
 			);
 			path = UI;
@@ -2208,7 +2205,6 @@
 				BA95FC5F224D838B0026BCD9 /* SEPAAdyenData.swift in Sources */,
 				BA21F4FB224D6650004CEAA2 /* CreditCardAdyenData.swift in Sources */,
 				E1463785231E663C005ADF4D /* NonEmptyStringValueHolding.swift in Sources */,
-				E146377D231E660A005ADF4D /* UIConstants.swift in Sources */,
 				E1463779231E6565005ADF4D /* NecessaryData.swift in Sources */,
 				E1463766231E6479005ADF4D /* CustomBackButtonContainerViewController.swift in Sources */,
 				E1463784231E663C005ADF4D /* IntValueHolding.swift in Sources */,
@@ -2299,7 +2295,6 @@
 				E14637F1231E8668005ADF4D /* RouterRequest.swift in Sources */,
 				E14637C7231E7B74005ADF4D /* Locale+Extension.swift in Sources */,
 				E14637B4231E78D3005ADF4D /* ErrorLabel.swift in Sources */,
-				E146377C231E6609005ADF4D /* UIConstants.swift in Sources */,
 				E1463752231E5C64005ADF4D /* UIView+Extensions.swift in Sources */,
 				E14637AF231E78D3005ADF4D /* CustomTextField.swift in Sources */,
 				BABC7D63224229F900028C29 /* StashBraintreeBridge.swift in Sources */,
@@ -2346,7 +2341,6 @@
 				E14637A6231E78D2005ADF4D /* ErrorLabel.swift in Sources */,
 				E14637C9231E7BFE005ADF4D /* CountryListCollectionViewController.swift in Sources */,
 				E14637A1231E78D2005ADF4D /* CustomTextField.swift in Sources */,
-				E146377B231E6608005ADF4D /* UIConstants.swift in Sources */,
 				E14637A5231E78D2005ADF4D /* HeaderView.swift in Sources */,
 				E146378D231E663D005ADF4D /* NextCellEnabled.swift in Sources */,
 				E146376F231E6564005ADF4D /* NecessaryData.swift in Sources */,
@@ -2969,6 +2963,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.BSPayone;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2999,6 +2994,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DCARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.stash.BSPayone;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
