@@ -108,7 +108,7 @@ class AdyenUITests: BaseUITest {
         app.collectionViews.firstMatch.tap()
         app.buttons["SAVE"].tap()
 
-        waitForElementToAppear(element: app.textFields.firstMatch, timeout: 10)
+        waitForElementToAppear(element: app.buttons["Submit"].firstMatch, timeout: 10)
 
         app.textFields.firstMatch.tap()
         app.textFields.firstMatch.typeText("1234")

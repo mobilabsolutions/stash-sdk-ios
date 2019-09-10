@@ -8,6 +8,7 @@
 
 import StashAdyen
 import StashBraintree
+import StashBSPayone
 import StashCore
 
 import Foundation
@@ -18,7 +19,7 @@ class PaymentService {
 
     static let shared = PaymentService()
 
-    private var sdkIsSetUp = false
+    private(set) var sdkIsSetUp = false
     private let testModeEnabled = true
 
     private var user = User()
@@ -27,6 +28,8 @@ class PaymentService {
     private let paymentMethodBaseUrl: String
     private let authorizationUrl: String
     private let userControllerUrl: String
+
+    private(set) var selectedPsp: StashPaymentProvider = .braintree
 
     // MARK: Initializer
 
@@ -228,6 +231,16 @@ class PaymentService {
         }
     }
 
+    /// Select a PSP to use for the initial set up
+    ///
+    /// - Parameter psp: The psp type to use
+    func selectPsp(psp: StashPaymentProvider) {
+        guard !self.sdkIsSetUp
+        else { return }
+
+        self.selectedPsp = psp
+    }
+
     // MARK: Helpers
 
     /// Method to configure PaymentSDK. currently using Adyen PSP.
@@ -235,17 +248,19 @@ class PaymentService {
         guard !self.sdkIsSetUp
         else { return }
 
-        let adyen = StashAdyen()
-        guard let adyenIntegration = PaymentProviderIntegration(paymentServiceProvider: adyen, paymentMethodTypes: [.sepa, .creditCard])
-        else { fatalError("Adyen should support SEPA payment method but does not!") }
+        let psp: PaymentServiceProvider
 
-        let braintree = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Demo.paypal")
-        guard let braintreeIntegration = PaymentProviderIntegration(paymentServiceProvider: braintree, paymentMethodTypes: [.payPal])
-        else { fatalError("Braintree should support PayPal payment method but does not!") }
+        switch self.selectedPsp {
+        case .adyen: psp = StashAdyen()
+        case .braintree: psp = StashBraintree(urlScheme: "com.mobilabsolutions.stash.Demo.paypal")
+        case .bsPayone: psp = StashBSPayone()
+        }
+
+        let integration = PaymentProviderIntegration(paymentServiceProvider: psp)
 
         let configuration = StashConfiguration(publishableKey: "mobilabios-3FkSmKQ0sUmzDqxciqRF",
                                                endpoint: InfoService.getBackendURL(),
-                                               integrations: [adyenIntegration, braintreeIntegration])
+                                               integrations: [integration])
         configuration.loggingLevel = .normal
         configuration.useTestMode = self.testModeEnabled
 
