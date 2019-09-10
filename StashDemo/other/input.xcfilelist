@@ -12,3 +12,4 @@ $(SRCROOT)/../Carthage/Build/iOS/AdyenDropIn.framework
 $(SRCROOT)/../Carthage/Build/iOS/Adyen3DS2.framework
 $(SRCROOT)/../Carthage/Build/iOS/PayPalUtils.framework
 $(SRCROOT)/../Carthage/Build/iOS/BraintreeCore.framework
+$(SRCROOT)/../Carthage/Build/iOS/CardinalMobile.framework
