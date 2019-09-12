@@ -74,13 +74,16 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     }];
 
     MLStashPaymentMethodUIConfiguration *uiConfiguration = [[MLStashPaymentMethodUIConfiguration alloc] initWithBackgroundColor:nil
-                                                                                                            textColor:nil
-                                                                                                          buttonColor:[UIColor blueColor] mediumEmphasisColor:nil
-                                                                                                  cellBackgroundColor:nil
-                                                                                                      buttonTextColor:nil
-                                                                                                  buttonDisabledColor:nil
-                                                                                                    errorMessageColor:nil
-                                                                                                errorMessageTextColor:nil];
+                                                                                                                      textColor:nil
+                                                                                                                 lightTextColor:nil
+                                                                                                                    buttonColor:[UIColor blueColor]
+                                                                                                            mediumEmphasisColor:nil
+                                                                                                            cellBackgroundColor:nil
+                                                                                                                buttonTextColor:nil
+                                                                                                            buttonDisabledColor:nil
+                                                                                                              errorMessageColor:nil
+                                                                                                          errorMessageTextColor:nil
+                                                                                                paymentMethodSelectionNameColor:nil];
 
     MLPaymentProvider *bsPayone = [MLStashBSPayone createModule];
 

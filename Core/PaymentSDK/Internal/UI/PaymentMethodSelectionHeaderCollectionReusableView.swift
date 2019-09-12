@@ -11,30 +11,39 @@ import UIKit
 class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableView {
     private static let titleFontSize: CGFloat = 24
     private static let subtitleFontSize: CGFloat = 14
-    private let subtitleLabelBottomOffset: CGFloat = 37
+    private let subtitleLabelBottomOffset: CGFloat = 46
     private let subtitleLabelHorizontalOffset: CGFloat = 16
-    private let titleSubtitleVerticalDistance: CGFloat = 6
+    private let titleSubtitleVerticalDistance: CGFloat = 8
+    private let bottomInset: CGFloat = 14
+    private let subtitleAlpha: CGFloat = 0.79
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.titleFontSize, type: .black)
-        label.textColor = UIConstants.dark
-        label.text = "Payment method"
+        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.titleFontSize, type: .regular)
+        label.textColor = .white
+        label.attributedText = NSAttributedString(string: "Payment Method", attributes: [.kern: 1.9])
         return label
     }()
 
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.subtitleFontSize, type: .medium)
-        label.textColor = UIConstants.coolGrey
-        label.text = "Please choose a payment method"
+        label.font = UIConstants.defaultFont(of: PaymentMethodSelectionHeaderCollectionReusableView.subtitleFontSize, type: .regular)
+        label.textColor = .white
+        label.text = "Choose a payment method"
         return label
+    }()
+
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        imageView.image = UIConstants.paymentSelectionIllustrationImage
+        return imageView
     }()
 
     var configuration: PaymentMethodUIConfiguration? {
         didSet {
-            self.titleLabel.textColor = configuration?.textColor ?? self.titleLabel.textColor
-            self.subtitleLabel.textColor = configuration?.mediumEmphasisColor ?? self.subtitleLabel.textColor
+            self.titleLabel.textColor = configuration?.lightTextColor ?? self.titleLabel.textColor
+            self.subtitleLabel.textColor = configuration?.lightTextColor.withAlphaComponent(subtitleAlpha) ?? self.subtitleLabel.textColor
         }
     }
 
@@ -49,9 +58,11 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
     }
 
     private func sharedInit() {
+        self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        addSubview(self.backgroundImageView)
         addSubview(self.titleLabel)
         addSubview(self.subtitleLabel)
 
@@ -62,6 +73,10 @@ class PaymentMethodSelectionHeaderCollectionReusableView: UICollectionReusableVi
             titleLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: subtitleLabel.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -titleSubtitleVerticalDistance),
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.leftAnchor.constraint(equalTo: leftAnchor),
+            backgroundImageView.rightAnchor.constraint(equalTo: rightAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomInset),
         ])
     }
 }

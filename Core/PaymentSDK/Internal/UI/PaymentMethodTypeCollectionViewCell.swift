@@ -26,14 +26,16 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
     private let arrowImageView = UIImageView()
 
     private let verticalOffset: CGFloat = 10
-    private let horizontalOffset: CGFloat = 8
+    private let horizontalOffset: CGFloat = 16
     private let methodImageViewVerticalOffset: CGFloat = 4
     private let methodImageViewHorizontalOffset: CGFloat = 8
-    private let methodImageViewWidth: CGFloat = 30
-    private let methodImageViewHeight: CGFloat = 20
-    private let methodImageContainerViewWidth: CGFloat = 42
-    private let methodImageContainerViewHeight: CGFloat = 28
-    private let arrowImageViewWidth: CGFloat = 24
+    private let methodImageViewWidth: CGFloat = 48
+    private let methodImageViewHeight: CGFloat = 32
+    private let methodImageContainerViewWidth: CGFloat = 48
+    private let methodImageContainerViewHeight: CGFloat = 32
+    private let arrowImageViewWidth: CGFloat = 16
+    private let shadowRadius: CGFloat = 3
+    private let shadowOpacity: Float = 0.12
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,25 +85,31 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
             methodImageViewContainer.heightAnchor.constraint(equalToConstant: methodImageContainerViewHeight),
             arrowImageView.topAnchor.constraint(equalTo: methodImageViewContainer.topAnchor),
             arrowImageView.bottomAnchor.constraint(equalTo: methodImageViewContainer.bottomAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2 * horizontalOffset),
+            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -horizontalOffset),
             arrowImageView.widthAnchor.constraint(equalToConstant: arrowImageViewWidth),
         ])
 
         self.contentView.backgroundColor = .white
-        self.arrowImageView.image = UIConstants.rightArrowImage
+        self.arrowImageView.image = UIConstants.detailsArrowImage?.withRenderingMode(.alwaysTemplate)
+        self.arrowImageView.tintColor = UIConstants.clearBlue
+
         self.arrowImageView.contentMode = .scaleAspectFit
         self.methodImageView.contentMode = .scaleAspectFit
 
-        methodImageViewContainer.backgroundColor = UIConstants.veryLightPink
+        methodImageViewContainer.backgroundColor = .clear
 
-        self.layer.cornerRadius = 4
-        self.layer.masksToBounds = true
-
-        self.nameLabel.font = UIConstants.defaultFont(of: 12, type: .medium)
+        self.contentView.layer.cornerRadius = 10
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.layer.shadowRadius = self.shadowRadius
+        self.layer.shadowColor = self.configuration?.paymentMethodSelectionNameColor.cgColor
+            ?? self.nameLabel.textColor.cgColor
+        self.layer.shadowOpacity = self.shadowOpacity
+        self.contentView.layer.masksToBounds = true
+        self.nameLabel.font = UIConstants.defaultFont(of: 18, type: .heavy)
     }
 
     private func updateStyling() {
-        self.nameLabel.textColor = self.configuration?.textColor ?? self.nameLabel.textColor
+        self.nameLabel.textColor = self.configuration?.paymentMethodSelectionNameColor ?? self.nameLabel.textColor
         self.contentView.backgroundColor = self.configuration?.cellBackgroundColor ?? self.contentView.backgroundColor
     }
 
@@ -113,10 +121,10 @@ class PaymentMethodTypeCollectionViewCell: UICollectionViewCell {
                 self.methodImageView.image = UIConstants.creditCardImage
             case .sepa:
                 self.nameLabel.text = "SEPA"
-                self.methodImageView.image = UIConstants.sepaSmallImage
+                self.methodImageView.image = UIConstants.sepaWithBackgroundImage
             case .payPal:
                 self.nameLabel.text = "PayPal"
-                self.methodImageView.image = UIConstants.payPalSmall
+                self.methodImageView.image = UIConstants.payPalWithBackgroundImage
             }
         }
     }

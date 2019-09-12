@@ -40,12 +40,15 @@
 
     MLStashPaymentMethodUIConfiguration *configuration = [[MLStashPaymentMethodUIConfiguration alloc] initWithBackgroundColor:[UIColor blackColor]
                                                                                                           textColor:[UIColor whiteColor]
+                                                                                                               lightTextColor: [UIColor whiteColor]
                                                                                                         buttonColor:nil
                                                                                                 mediumEmphasisColor:[UIColor lightTextColor]
                                                                                                 cellBackgroundColor:[UIColor darkGrayColor] buttonTextColor:nil
                                                                                                 buttonDisabledColor: [[UIColor whiteColor]
                                                                                                                       colorWithAlphaComponent: 0.4]
-                                                                                                  errorMessageColor:nil errorMessageTextColor:nil];
+                                                                                                  errorMessageColor:nil
+                                                                                                        errorMessageTextColor:nil
+                                                                                              paymentMethodSelectionNameColor:nil];
 
     [MLStash configureUIWithConfiguration:configuration];
 

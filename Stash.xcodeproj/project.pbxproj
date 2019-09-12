@@ -357,6 +357,7 @@
 		E1AEECFE2278224B005DE2BC /* BraintreeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1995B2E22562A2300BF24A2 /* BraintreeError.swift */; };
 		E1AF91962267446900BA0B82 /* StashErrorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11C3C96223BF00700F94F56 /* StashErrorConvertible.swift */; };
 		E1AF91972267446900BA0B82 /* BSCreditCardInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */; };
+		E1BB34C12327A02A00F721EB /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1BB34C02327A02A00F721EB /* Lato-Heavy.ttf */; };
 		E1C9A845223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */; };
 		E1C9A85E22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9A85D22413C9D0099DB2E /* BSSEPAInputCollectionViewController.swift */; };
 		E1CCF8F422DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCF8F322DDE94100B16494 /* RegisterAndUsePaymentMethodTests.swift */; };
@@ -744,6 +745,7 @@
 		E1A1D11622422EC700BB6577 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E1A1D11D22427EF400BB6577 /* UIViewControllerTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerTools.swift; sourceTree = "<group>"; };
 		E1AE1C34228F070B0054D098 /* AlertBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBanner.swift; sourceTree = "<group>"; };
+		E1BB34C02327A02A00F721EB /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		E1C9A844223F8B9C0099DB2E /* RegisterCreditCardResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCreditCardResponseError.swift; sourceTree = "<group>"; };
 		E1C9A847223FA81A0099DB2E /* BSCreditCardInputCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSCreditCardInputCollectionViewController.swift; sourceTree = "<group>"; };
 		E1C9A84E223FAB880099DB2E /* TextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1587,6 +1589,7 @@
 		E162FFB72243C0F500413764 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				E1BB34C02327A02A00F721EB /* Lato-Heavy.ttf */,
 				E162FFCA2244CFBB00413764 /* Lato-Medium.ttf */,
 				E162FFB12243C0D300413764 /* Lato-Black.ttf */,
 				E162FFB32243C0D300413764 /* Lato-Bold.ttf */,
@@ -1973,6 +1976,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BB34C12327A02A00F721EB /* Lato-Heavy.ttf in Resources */,
 				E1068EA222522BF200ACC93C /* Media.xcassets in Resources */,
 				E1068EA422522BF600ACC93C /* Lato-Black.ttf in Resources */,
 				E1068EA622522BF600ACC93C /* Lato-Regular.ttf in Resources */,
@@ -2181,11 +2185,7 @@
 				BA078EE422E085EF00E199B4 /* CreditCardDataBridge.swift in Sources */,
 				E17648E5223A5B4A00889920 /* PaymentMethodType.swift in Sources */,
 				1D34CC0C20E281180011F901 /* String+Extras.swift in Sources */,
-				E1068E9722522AE100ACC93C /* NecessaryData.swift in Sources */,
-				E1068EAE2252549C00ACC93C /* FormCellModel.swift in Sources */,
-				E189136B22F4305A004508D3 /* PresentableValueHolding.swift in Sources */,
 				BAC3448E2317E128009F43CE /* ThreeDSWebViewController.swift in Sources */,
-				E1466263227C399F00512710 /* CreditCardExtra.swift in Sources */,
 				E1068E9922522AE100ACC93C /* UIConstants.swift in Sources */,
 				BA078EEC22E087BE00E199B4 /* PaymentMethodTypeBridge.swift in Sources */,
 				BA2A3AB8223BA78800689A3A /* PaymentMethod.swift in Sources */,
@@ -2202,7 +2202,7 @@
 				BA3A33B522296B6F00B7A635 /* CreateAliasResponse.swift in Sources */,
 				E14637FB231E874A005ADF4D /* Data+Extras.swift in Sources */,
 				E14637DD231E8203005ADF4D /* AlertBanner.swift in Sources */,
-				BA3A33B522296B6F00B7A635 /* AliasResponse.swift in Sources */,
+				BA3A33B522296B6F00B7A635 /* CreateAliasResponse.swift in Sources */,
 				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
 				BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */,
 				BAED17C92301C43D000BBFC9 /* ThreeDSRequest.swift in Sources */,
@@ -2274,8 +2274,6 @@
 				E1463766231E6479005ADF4D /* CustomBackButtonContainerViewController.swift in Sources */,
 				E1463784231E663C005ADF4D /* IntValueHolding.swift in Sources */,
 				E14637F8231E86C3005ADF4D /* NetworkClient.swift in Sources */,
-				E14D5D09225CD52D00BB20CA /* PaymentMethodPreparator.swift in Sources */,
-				E14D5D07225CD50900BB20CA /* AdyenPaymentControllerWrapper.swift in Sources */,
 				E14637BF231E78D4005ADF4D /* SubtitleLabel.swift in Sources */,
 				BA21F4FF224D6659004CEAA2 /* StashAdyen.swift in Sources */,
 				E1463782231E663C005ADF4D /* DataPointProvidingDelegate.swift in Sources */,
@@ -2297,7 +2295,7 @@
 				BAED17AA2301536B000BBFC9 /* ServerResultCode.swift in Sources */,
 				BAED17AC2301638B000BBFC9 /* Adyen3DSHandler.swift in Sources */,
 				E146377A231E6565005ADF4D /* PresentableValueHolding.swift in Sources */,
-				E14D5D0B225CD5CD00BB20CA /* CreditCardPreparator.swift in Sources */,
+				E14D5D0B225CD5CD00BB20CA /* AdyenCreditCardExtraPreparator.swift in Sources */,
 				E14637BC231E78D4005ADF4D /* SearchView.swift in Sources */,
 				E14637BD231E78D4005ADF4D /* CustomTextField.swift in Sources */,
 				E14637DC231E81F9005ADF4D /* AlertBanner.swift in Sources */,
@@ -2310,7 +2308,6 @@
 				E14637C8231E7B74005ADF4D /* Locale+Extension.swift in Sources */,
 				E14637E0231E8297005ADF4D /* UICollectionView+Extensions.swift in Sources */,
 				E1463781231E663C005ADF4D /* NextCellEnabled.swift in Sources */,
-				E1D558F022648DE900BC856A /* AdyenAliasCreationDetail.swift in Sources */,
 				E1463777231E6565005ADF4D /* FormConsumer.swift in Sources */,
 				E146376B231E64C0005ADF4D /* DoneButtonView.swift in Sources */,
 				E14637C2231E78D4005ADF4D /* ErrorLabel.swift in Sources */,

@@ -12,12 +12,12 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
     private let reuseIdentifier = "paymentMethodTypeCell"
     private let headerReuseIdentifier = "header"
 
-    private let cellHeight: CGFloat = 48
+    private let cellHeight: CGFloat = 80
     private let minimumLineSpacing: CGFloat = 8
     private let backgroundColor = UIConstants.iceBlue
-    private let cellInset: CGFloat = 16
+    private let cellInset: CGFloat = 23
     private var headerHeight: CGFloat {
-        return min(self.view.frame.height * 0.3, 195)
+        return min(self.view.frame.height * 0.3, 264)
     }
 
     private var selectablePaymentMethods: [PaymentMethodType] = [] {
@@ -46,7 +46,7 @@ class PaymentMethodSelectionCollectionViewController: UICollectionViewController
                                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: self.headerReuseIdentifier)
 
         self.collectionView.backgroundColor = self.configuration.backgroundColor
-        self.collectionView.contentInsetAdjustmentBehavior = .always
+        self.collectionView.contentInsetAdjustmentBehavior = .never
     }
 
     // MARK: UICollectionViewDataSource

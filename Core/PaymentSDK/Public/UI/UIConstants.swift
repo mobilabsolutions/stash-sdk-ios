@@ -54,10 +54,25 @@ public final class UIConstants {
         return UIColor.black.withAlphaComponent(0.38)
     }
 
+    public class var darkRoyalBlue: UIColor {
+        return UIColor(red: 0, green: 16.0 / 255.0, blue: 123.0 / 255.0, alpha: 1.0)
+    }
+
+    public class var clearBlue: UIColor {
+        return UIColor(red: 46.0 / 255.0, green: 126.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
+    }
+
+    public class var lightishBlue: UIColor {
+        return UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)
+    }
+
     public class var backButtonImage: UIImage? {
         guard let original = UIImage(named: "back-button", in: UIConstants.frameworkBundle(), compatibleWith: nil)
         else { return nil }
-        return original.cgImage.flatMap { UIImage(cgImage: $0, scale: original.scale, orientation: .upMirrored).withRenderingMode(.alwaysOriginal) }
+        return original.cgImage.flatMap {
+            UIImage(cgImage: $0, scale: original.scale, orientation: .upMirrored)
+                .withRenderingMode(.alwaysOriginal)
+        }
     }
 
     public class var closeButtonImage: UIImage? {
@@ -142,11 +157,28 @@ public final class UIConstants {
         return UIImage(named: "cross", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
+    public class var payPalWithBackgroundImage: UIImage? {
+        return UIImage(named: "payPalWithBackground", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
+    public class var sepaWithBackgroundImage: UIImage? {
+        return UIImage(named: "sepaWithBackground", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
+    public class var detailsArrowImage: UIImage? {
+        return UIImage(named: "detailsArrow", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
+    public class var paymentSelectionIllustrationImage: UIImage? {
+        return UIImage(named: "illustration", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
     public enum DefaultFontType: String {
         case black = "Black"
         case bold = "Bold"
         case regular = "Regular"
         case medium = "Medium"
+        case heavy = "Heavy"
     }
 
     public class func defaultFont(of size: CGFloat, type: DefaultFontType = .regular) -> UIFont {

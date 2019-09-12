@@ -28,8 +28,12 @@ public struct PaymentMethodUIConfiguration {
     public let errorMessageColor: UIColor
     /// The color that the error alert text should be styled in
     public let errorMessageTextColor: UIColor
+    /// The color that is used for the payment method selection screen's payment method names
+    public let paymentMethodSelectionNameColor: UIColor
+    /// The color that should be used for light texts
+    public let lightTextColor: UIColor
 
-    public static let defaultBackgroundColor = UIConstants.iceBlue
+    public static let defaultBackgroundColor = UIConstants.lightishBlue
     public static let defaultTextColor = UIConstants.dark
     public static let defaultButtonColor = UIConstants.aquamarine
     public static let defaultMediumEmphasisColor = UIConstants.coolGrey
@@ -38,19 +42,24 @@ public struct PaymentMethodUIConfiguration {
     public static let defaultButtonDisabledColor = UIConstants.disabledColor
     public static let defaultErrorMessageColor = UIConstants.salmon
     public static let defaultErrorMessageTextColor = UIColor.white
+    public static let defaultPaymentMethodSelectionNameColor = UIConstants.darkRoyalBlue
+    public static let defaultLightTextColor = UIColor.white
 
     /// Create a new instance of a PaymentMethodUIConfiguration. Provide those values that should be changed, others will keep the default value.
     public init(backgroundColor: UIColor = PaymentMethodUIConfiguration.defaultBackgroundColor,
                 textColor: UIColor = PaymentMethodUIConfiguration.defaultTextColor,
+                lightTextColor: UIColor = PaymentMethodUIConfiguration.defaultLightTextColor,
                 buttonColor: UIColor = PaymentMethodUIConfiguration.defaultButtonColor,
                 mediumEmphasisColor: UIColor = PaymentMethodUIConfiguration.defaultMediumEmphasisColor,
                 cellBackgroundColor: UIColor = PaymentMethodUIConfiguration.defaultCellBackgroundColor,
                 buttonTextColor: UIColor = PaymentMethodUIConfiguration.defaultButtonTextColor,
                 buttonDisabledColor: UIColor = PaymentMethodUIConfiguration.defaultButtonDisabledColor,
                 errorMessageColor: UIColor = PaymentMethodUIConfiguration.defaultErrorMessageColor,
-                errorMessageTextColor: UIColor = PaymentMethodUIConfiguration.defaultErrorMessageTextColor) {
+                errorMessageTextColor: UIColor = PaymentMethodUIConfiguration.defaultErrorMessageTextColor,
+                paymentMethodSelectionNameColor: UIColor = PaymentMethodUIConfiguration.defaultPaymentMethodSelectionNameColor) {
         self.backgroundColor = backgroundColor
         self.textColor = textColor
+        self.lightTextColor = lightTextColor
         self.buttonColor = buttonColor
         self.mediumEmphasisColor = mediumEmphasisColor
         self.cellBackgroundColor = cellBackgroundColor
@@ -58,19 +67,23 @@ public struct PaymentMethodUIConfiguration {
         self.buttonDisabledColor = buttonDisabledColor
         self.errorMessageColor = errorMessageColor
         self.errorMessageTextColor = errorMessageTextColor
+        self.paymentMethodSelectionNameColor = paymentMethodSelectionNameColor
     }
 
     init(backgroundColor: UIColor?,
          textColor: UIColor?,
+         lightTextColor: UIColor?,
          buttonColor: UIColor?,
          mediumEmphasisColor: UIColor?,
          cellBackgroundColor: UIColor?,
          buttonTextColor: UIColor?,
          buttonDisabledColor: UIColor?,
          errorMessageColor: UIColor?,
-         errorMessageTextColor: UIColor?) {
+         errorMessageTextColor: UIColor?,
+         paymentMethodSelectionNameColor: UIColor?) {
         self.backgroundColor = backgroundColor ?? PaymentMethodUIConfiguration.defaultBackgroundColor
         self.textColor = textColor ?? PaymentMethodUIConfiguration.defaultTextColor
+        self.lightTextColor = lightTextColor ?? PaymentMethodUIConfiguration.defaultLightTextColor
         self.buttonColor = buttonColor ?? PaymentMethodUIConfiguration.defaultButtonColor
         self.mediumEmphasisColor = mediumEmphasisColor ?? PaymentMethodUIConfiguration.defaultMediumEmphasisColor
         self.cellBackgroundColor = cellBackgroundColor ?? PaymentMethodUIConfiguration.defaultCellBackgroundColor
@@ -78,5 +91,6 @@ public struct PaymentMethodUIConfiguration {
         self.buttonDisabledColor = buttonDisabledColor ?? PaymentMethodUIConfiguration.defaultButtonDisabledColor
         self.errorMessageTextColor = errorMessageTextColor ?? PaymentMethodUIConfiguration.defaultErrorMessageTextColor
         self.errorMessageColor = errorMessageColor ?? PaymentMethodUIConfiguration.defaultErrorMessageColor
+        self.paymentMethodSelectionNameColor = paymentMethodSelectionNameColor ?? PaymentMethodUIConfiguration.defaultPaymentMethodSelectionNameColor
     }
 }

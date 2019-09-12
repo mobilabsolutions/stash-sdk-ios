@@ -27,22 +27,26 @@ import UIKit
     ///   - errorMessageTextColor: The color of the error message text in the alert banner or `nil` for the default value
     @objc public required init(backgroundColor: UIColor?,
                                textColor: UIColor?,
+                               lightTextColor: UIColor?,
                                buttonColor: UIColor?,
                                mediumEmphasisColor: UIColor?,
                                cellBackgroundColor: UIColor?,
                                buttonTextColor: UIColor?,
                                buttonDisabledColor: UIColor?,
                                errorMessageColor: UIColor?,
-                               errorMessageTextColor: UIColor?) {
+                               errorMessageTextColor: UIColor?,
+                               paymentMethodSelectionNameColor: UIColor?) {
         self.configuration = PaymentMethodUIConfiguration(backgroundColor: backgroundColor,
                                                           textColor: textColor,
+                                                          lightTextColor: lightTextColor,
                                                           buttonColor: buttonColor,
                                                           mediumEmphasisColor: mediumEmphasisColor,
                                                           cellBackgroundColor: cellBackgroundColor,
                                                           buttonTextColor: buttonTextColor,
                                                           buttonDisabledColor: buttonDisabledColor,
                                                           errorMessageColor: errorMessageColor,
-                                                          errorMessageTextColor: errorMessageTextColor)
+                                                          errorMessageTextColor: errorMessageTextColor,
+                                                          paymentMethodSelectionNameColor: paymentMethodSelectionNameColor)
     }
 
     init(configuration: PaymentMethodUIConfiguration) {
