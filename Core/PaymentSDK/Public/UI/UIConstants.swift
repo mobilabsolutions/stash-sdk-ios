@@ -71,7 +71,7 @@ public final class UIConstants {
         else { return nil }
         return original.cgImage.flatMap {
             UIImage(cgImage: $0, scale: original.scale, orientation: .upMirrored)
-                .withRenderingMode(.alwaysOriginal)
+                .withRenderingMode(.alwaysTemplate)
         }
     }
 
@@ -171,6 +171,14 @@ public final class UIConstants {
 
     public class var paymentSelectionIllustrationImage: UIImage? {
         return UIImage(named: "illustration", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
+    public class var payPalLogoNoTextImage: UIImage? {
+        return UIImage(named: "payPalLogoNoText", in: UIConstants.frameworkBundle(), compatibleWith: nil)
+    }
+
+    public class var payPalActivityIndicatorImage: UIImage? {
+        return UIImage(named: "paypalActivityIndicator", in: UIConstants.frameworkBundle(), compatibleWith: nil)
     }
 
     public enum DefaultFontType: String {

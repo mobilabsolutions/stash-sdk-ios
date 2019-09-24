@@ -11,6 +11,10 @@ import UIKit
 public class RegistrationFlowNavigationController: UINavigationController {
     private var userDidCloseCallback: (() -> Void)?
 
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     public init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?) {
         super.init(rootViewController: rootViewController)
         self.userDidCloseCallback = userDidCloseCallback
@@ -38,6 +42,25 @@ public class RegistrationFlowNavigationController: UINavigationController {
         self.topViewController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationBar.backIndicatorImage = UIConstants.backButtonImage
         self.navigationBar.backIndicatorTransitionMaskImage = UIConstants.backButtonImage
+        self.topViewController?.navigationItem.backBarButtonItem?.tintColor = .white
+        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
+
+    public override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        super.pushViewController(viewController, animated: animated)
+
+        if self.viewControllers.count >= 2 {
+            self.navigationBar.isTranslucent = false
+            self.navigationBar.barTintColor = UIConstants.darkRoyalBlue
+        }
+    }
+
+    public override func popViewController(animated: Bool) -> UIViewController? {
+        if self.viewControllers.count == 2 {
+            self.navigationBar.isTranslucent = true
+        }
+
+        return super.popViewController(animated: animated)
     }
 
     @objc private func cancel() {

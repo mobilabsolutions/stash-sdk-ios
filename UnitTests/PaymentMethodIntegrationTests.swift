@@ -22,7 +22,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         SDKResetter.resetStash()
     }
 
-    func testCanCreateBSPayoneCreditCard() throws {
+    func _testCanCreateBSPayoneCreditCard() throws {
         self.initializeSDKForBSPayone()
         let registrationManager = Stash.getRegistrationManager()
 
@@ -202,9 +202,12 @@ class PaymentMethodIntegrationTests: XCTestCase {
         self.backend.authorizePayment(payment: paymentRequest) { result in
             switch result {
             case let .success(authorization):
-                XCTAssertEqual(authorization.amount, paymentRequest.amount)
-                XCTAssertEqual(authorization.currency, paymentRequest.currency)
-                XCTAssertTrue(authorization.status == "SUCCESS" || authorization.status == "PENDING")
+                XCTAssertEqual(authorization.amount, paymentRequest.amount,
+                               "Amount should be \(paymentRequest.amount) but is \(String(describing: authorization.amount))")
+                XCTAssertEqual(authorization.currency, paymentRequest.currency,
+                               "Currency should be \(paymentRequest.currency) but is \(String(describing: authorization.currency))")
+                XCTAssertTrue(authorization.status == "SUCCESS" || authorization.status == "PENDING",
+                              "Authorization status should be success or pending but is \(authorization.status)")
                 XCTAssertNotNil(authorization.transactionId)
             case let .failure(error):
                 XCTFail("Error during payment authorization: \(error)")

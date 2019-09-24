@@ -16,13 +16,20 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
     private let uiConfiguration: PaymentMethodUIConfiguration
     private let payPalImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIConstants.payPalBigImage
+        view.image = UIConstants.payPalLogoNoTextImage
         view.contentMode = .scaleAspectFit
         return view
     }()
 
-    private let payPalImageWidth: CGFloat = 70
-    private let payPalImageTopOffset: CGFloat = 65
+    private let payPalLoaderImageView: UIImageView = {
+        let view = UIImageView(image: UIConstants.payPalActivityIndicatorImage)
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+
+    private let payPalImageWidth: CGFloat = 48
+    private let payPalLoaderWidth: CGFloat = 101
+    private let animationDuration: Double = 0.7
 
     init(uiConfiguration: PaymentMethodUIConfiguration) {
         self.uiConfiguration = uiConfiguration
@@ -34,6 +41,8 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
     }
 
     func errorWhileCreatingPaymentMethod(error: StashError) {
+        self.stopAnimatingLoadingView()
+
         if case StashError.userCancelled = error {
             self.dismissLoadingViewController()
         } else {
@@ -50,19 +59,41 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
         self.view.backgroundColor = self.uiConfiguration.backgroundColor
         self.addPayPalLogoView()
 
-        self.showActivityIndicatory()
+        self.showActivityIndicator()
 
         let payPalData = PayPalPlaceholderData(billingData: billingData)
         self.didCreatePaymentMethodCompletion?(payPalData)
+        self.title = "PAYMENT METHOD"
     }
 
-    private func showActivityIndicatory() {
-        let activityView = UIActivityIndicatorView(style: .whiteLarge)
-        activityView.center = self.view.center
-        activityView.color = self.uiConfiguration.mediumEmphasisColor
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.stopAnimatingLoadingView()
+    }
 
-        self.view.addSubview(activityView)
-        activityView.startAnimating()
+    private func showActivityIndicator() {
+        self.payPalLoaderImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.view.addSubview(self.payPalLoaderImageView)
+
+        NSLayoutConstraint.activate([
+            self.payPalLoaderImageView.centerXAnchor.constraint(equalTo: self.payPalImageView.centerXAnchor),
+            self.payPalLoaderImageView.centerYAnchor.constraint(equalTo: self.payPalImageView.centerYAnchor),
+            self.payPalLoaderImageView.widthAnchor.constraint(equalToConstant: payPalLoaderWidth),
+            self.payPalLoaderImageView.heightAnchor.constraint(equalTo: self.payPalLoaderImageView.widthAnchor),
+        ])
+
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.isCumulative = true
+        animation.toValue = NSNumber(value: 2 * Double.pi)
+        animation.duration = self.animationDuration
+        animation.repeatCount = .infinity
+
+        self.payPalLoaderImageView.layer.add(animation, forKey: "transform.rotation.z")
+    }
+
+    private func stopAnimatingLoadingView() {
+        self.payPalLoaderImageView.layer.removeAllAnimations()
     }
 
     private func dismissLoadingViewController() {
@@ -81,8 +112,9 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
 
         NSLayoutConstraint.activate([
             self.payPalImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.payPalImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: payPalImageTopOffset),
+            self.payPalImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             self.payPalImageView.widthAnchor.constraint(equalToConstant: payPalImageWidth),
+            self.payPalImageView.heightAnchor.constraint(equalTo: self.payPalImageView.widthAnchor),
         ])
     }
 }

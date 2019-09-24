@@ -17,7 +17,7 @@ class BraintreeUITests: BaseUITest {
         let payPalCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "PayPal")).element
         payPalCell.tap()
 
-        XCTAssertTrue(app.activityIndicators.element.exists, "Expected activity indicator to exist for loading view for PayPal registration")
+        XCTAssertTrue(app.images.firstMatch.exists, "Expected image view exists for loading view for PayPal registration")
     }
 
     func testPayPalViewIsShown() {
