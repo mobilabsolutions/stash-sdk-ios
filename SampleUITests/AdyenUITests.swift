@@ -68,11 +68,13 @@ class AdyenUITests: BaseUITest {
 
         waitForElementToAppear(element: app.buttons["Submit"], timeout: 10)
 
-        app.textFields.firstMatch.tap()
-        app.textFields.firstMatch.typeText("user")
+        let usernameTextField = app.webViews.textFields.firstMatch
+        usernameTextField.tap()
+        usernameTextField.typeText("user")
 
-        app.secureTextFields.firstMatch.tap()
-        app.secureTextFields.firstMatch.typeText("password")
+        let passwordTextField = app.webViews.secureTextFields.firstMatch
+        passwordTextField.tap()
+        passwordTextField.typeText("password")
 
         app.buttons["Submit"].tap()
 

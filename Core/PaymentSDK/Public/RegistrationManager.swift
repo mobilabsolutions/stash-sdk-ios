@@ -91,7 +91,8 @@ public class RegistrationManager {
         }
 
         let navigationController = RegistrationFlowNavigationController(rootViewController: rootViewController,
-                                                                        userDidCloseCallback: { completion(.failure(.userCancelled)) })
+                                                                        userDidCloseCallback: { completion(.failure(.userCancelled)) },
+                                                                        firstViewControllerShouldHaveTranslucentBar: specificPaymentMethod == nil)
         viewController.present(navigationController, animated: true, completion: nil)
     }
 

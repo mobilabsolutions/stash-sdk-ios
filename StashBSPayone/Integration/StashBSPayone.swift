@@ -67,16 +67,23 @@ public class StashBSPayone: PaymentServiceProvider {
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         Log.event(description: "function initiated")
+
+        let viewController: (UIViewController & PaymentMethodDataProvider)?
+
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
-                                                           configuration: configuration)
+            viewController = CustomBackButtonContainerViewController(viewController: BSCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                                     configuration: configuration)
         case .sepa:
-            return CustomBackButtonContainerViewController(viewController: BSSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
-                                                           configuration: configuration)
+            viewController = CustomBackButtonContainerViewController(viewController: BSSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                                     configuration: configuration)
         case .payPal:
-            return nil
+            viewController = nil
         }
+
+        viewController?.title = "PAYMENT METHOD"
+
+        return viewController
     }
 
     /// Create an instance of the BS Payone module. This instance can be used to initialize the SDK.

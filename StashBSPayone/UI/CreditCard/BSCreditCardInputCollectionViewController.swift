@@ -133,8 +133,6 @@ class BSCreditCardInputCollectionViewController: FormCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.parent?.navigationItem.title = ""
-
         let nameData = FormCellModel.FormCellType.PairedTextData(firstNecessaryData: .holderFirstName,
                                                                  firstTitle: "First Name",
                                                                  firstPlaceholder: "First Name",

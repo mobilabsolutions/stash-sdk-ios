@@ -10,14 +10,18 @@ import UIKit
 
 public class RegistrationFlowNavigationController: UINavigationController {
     private var userDidCloseCallback: (() -> Void)?
+    private var numberOfFirstViewControllersWithoutBarTint = 1
+    private var firstViewControllerShouldHaveTranslucentBar = true
+    private let barTintColor = UIConstants.darkRoyalBlue
 
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
-    public init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?) {
+    public init(rootViewController: UIViewController, userDidCloseCallback: (() -> Void)?, firstViewControllerShouldHaveTranslucentBar: Bool) {
         super.init(rootViewController: rootViewController)
         self.userDidCloseCallback = userDidCloseCallback
+        self.firstViewControllerShouldHaveTranslucentBar = firstViewControllerShouldHaveTranslucentBar
         self.sharedInit()
     }
 
@@ -34,10 +38,15 @@ public class RegistrationFlowNavigationController: UINavigationController {
     private func sharedInit() {
         self.topViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIConstants.closeButtonImage, style: .plain, target: self, action: #selector(self.cancel))
 
-        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationBar.shadowImage = UIImage()
-        self.navigationBar.isTranslucent = true
-        self.view.backgroundColor = .clear
+        if self.firstViewControllerShouldHaveTranslucentBar {
+            self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationBar.shadowImage = UIImage()
+            self.navigationBar.isTranslucent = true
+            self.view.backgroundColor = .clear
+        } else {
+            self.navigationBar.isTranslucent = false
+            self.navigationBar.barTintColor = self.barTintColor
+        }
 
         self.topViewController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationBar.backIndicatorImage = UIConstants.backButtonImage
@@ -49,14 +58,16 @@ public class RegistrationFlowNavigationController: UINavigationController {
     public override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         super.pushViewController(viewController, animated: animated)
 
-        if self.viewControllers.count >= 2 {
+        if self.firstViewControllerShouldHaveTranslucentBar,
+            self.viewControllers.count >= self.numberOfFirstViewControllersWithoutBarTint + 1 {
             self.navigationBar.isTranslucent = false
-            self.navigationBar.barTintColor = UIConstants.darkRoyalBlue
+            self.navigationBar.barTintColor = self.barTintColor
         }
     }
 
     public override func popViewController(animated: Bool) -> UIViewController? {
-        if self.viewControllers.count == 2 {
+        if self.firstViewControllerShouldHaveTranslucentBar,
+            self.viewControllers.count == self.numberOfFirstViewControllersWithoutBarTint + 1 {
             self.navigationBar.isTranslucent = true
         }
 

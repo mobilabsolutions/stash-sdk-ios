@@ -63,7 +63,6 @@ class PayPalLoadingViewController: UIViewController, PaymentMethodDataProvider {
 
         let payPalData = PayPalPlaceholderData(billingData: billingData)
         self.didCreatePaymentMethodCompletion?(payPalData)
-        self.title = "PAYMENT METHOD"
     }
 
     override func viewDidDisappear(_ animated: Bool) {

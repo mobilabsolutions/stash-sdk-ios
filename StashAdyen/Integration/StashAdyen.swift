@@ -71,16 +71,22 @@ public class StashAdyen: PaymentServiceProvider {
                                billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         Log.event(description: "function initiated")
+        let viewController: (UIViewController & PaymentMethodDataProvider)?
+
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
-                                                           configuration: configuration)
+            viewController = CustomBackButtonContainerViewController(viewController: AdyenCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                                     configuration: configuration)
         case .sepa:
-            return CustomBackButtonContainerViewController(viewController: AdyenSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
-                                                           configuration: configuration)
+            viewController = CustomBackButtonContainerViewController(viewController: AdyenSEPAInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                                     configuration: configuration)
         case .payPal:
-            return nil
+            viewController = nil
         }
+
+        viewController?.title = "PAYMENT METHOD"
+
+        return viewController
     }
 
     /// Create an instance that provides all of the SDK-required functionality for communication with the Adyen payment service provider.

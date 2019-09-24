@@ -74,17 +74,24 @@ public class StashBraintree: PaymentServiceProvider {
     public func viewController(for methodType: PaymentMethodType, billingData: BillingData?,
                                configuration: PaymentMethodUIConfiguration) -> (UIViewController & PaymentMethodDataProvider)? {
         Log.event(description: "function initiated")
+
+        let viewController: (UIViewController & PaymentMethodDataProvider)?
+
         switch methodType {
         case .creditCard:
-            return CustomBackButtonContainerViewController(viewController: BraintreeCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
-                                                           configuration: configuration)
+            viewController = CustomBackButtonContainerViewController(viewController: BraintreeCreditCardInputCollectionViewController(billingData: billingData, configuration: configuration),
+                                                                     configuration: configuration)
         case .sepa:
-            return nil
+            viewController = nil
         case .payPal:
-            let viewController = PayPalLoadingViewController(uiConfiguration: configuration)
-            viewController.billingData = billingData
-            return viewController
+            let loadingController = PayPalLoadingViewController(uiConfiguration: configuration)
+            loadingController.billingData = billingData
+            viewController = loadingController
         }
+
+        viewController?.title = "PAYMENT METHOD"
+
+        return viewController
     }
 
     /// Create a new instance of the Braintree module. This instance can be used to initialize the SDK.
