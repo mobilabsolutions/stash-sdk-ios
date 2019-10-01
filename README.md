@@ -1,5 +1,5 @@
 
-# Stash iOS SDK 
+# Stash! iOS SDK 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Travis CI build status](https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open.svg?token=YveRxJtU3TcdBx4pp777&branch=master)](https://travis-ci.com/mobilabsolutions/payment-sdk-ios-open)
 
@@ -7,7 +7,7 @@ Many applications need to process payments for digital or physical goods. Implem
 
 ## Supported PSPs
 
-At the moment, the Stash iOS SDK supports the following PSPs:
+At the moment, the Stash! iOS SDK supports the following PSPs:
 - BSPayone [Credit Cards / SEPA]
 - Braintree [Credit Cards / PayPal]
 - Adyen [Credit Cards / SEPA]
@@ -22,7 +22,7 @@ _ Carthage
 
 ## Installation
 
-We recommend using [Carthage](https://github.com/Carthage/Carthage) or [CocoaPods](https://cocoapods.org/) to integrate the Stash SDK with your project.
+We recommend using [Carthage](https://github.com/Carthage/Carthage) or [CocoaPods](https://cocoapods.org/) to integrate the Stash! SDK with your project.
 
 ### Carthage
 
@@ -71,7 +71,7 @@ It is also possible to specify which PSP should be used to register which paymen
 
 #### Using the SDK in Test Mode
 
-The Stash SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
+The Stash! SDK can also be used in so-called test mode. The transactions created there are not forwarded to the production PSP, but rather to whatever sandboxing mode the PSP provides.
 To instruct the SDK to use the test mode, set manually the `useTestMode` property on the `StashConfiguration` used to configure the SDK.
 
 For example:
@@ -93,7 +93,7 @@ To register a payment method you need an instance of the `RegistrationManager` c
 let registrationManager = Stash.getRegistrationManager()
 ```
 
-As the Stash SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
+As the Stash! SDK allows the usage of multiple PSPs, when registering a payment method you need to set the PSP you want to use for that particular payment method.
 Depending on the payment method that is being used, some registration methods could require additional data.
 
 ### Using the Module UI for Adding a Payment Method
@@ -253,20 +253,20 @@ registrationManager.registerCreditCard(creditCardData: creditCard, idempotencyKe
 
 ## Demo
 
-A demo app that demonstrates the usage of all the Stash SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `Stash.xcworkspace` in Xcode and then choose the `StashDemo` scheme to launch it.
+A demo app that demonstrates the usage of all the Stash! SDK features is part of this project. Run  `carthage bootstrap --platform iOS`, open `Stash.xcworkspace` in Xcode and then choose the `StashDemo` scheme to launch it.
 
 ## Feedback
 
-The Stash iOS SDK is in active development, we welcome your feedback!
+The Stash! iOS SDK is in active development, we welcome your feedback!
 Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report an issue or give a feedback.
 
 ### License
 
-The Stash iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
+The Stash! iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
 
 ## Documentation
 
-To get familiar with the overall Stash SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki).
-To learn more about the Stash iOS SDK architecture and flows please visit our [Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
+To get familiar with the overall Stash! SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki).
+To learn more about the Stash! iOS SDK architecture and flows please visit our [Wiki](https://github.com/mobilabsolutions/payment-sdk-ios-open/wiki)
 
 The reference documentation for each module is available in the `docs/` folder of this repository. To regenerate the reference documentation, run `./build_documentation.sh`.
