@@ -260,10 +260,6 @@ A demo app that demonstrates the usage of all the Stash! SDK features is part of
 The Stash! iOS SDK is in active development, we welcome your feedback!
 Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report an issue or give a feedback.
 
-### License
-
-The Stash! iOS SDK is open source and available under the TODO license. See the [LICENSE](https://github.com/mobilabsolutions/payment-sdk-ios-open/blob/master/LICENSE) file for more info.
-
 ## Documentation
 
 To get familiar with the overall Stash! SDK project please visit [Common payment wiki](https://github.com/mobilabsolutions/payment-sdk-wiki-open/wiki).
