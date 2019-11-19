@@ -1905,7 +1905,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "MobiLab Solutions GmbH";
 				TargetAttributes = {
 					1DC5CB9420D2BF5E002058C1 = {
@@ -2202,7 +2202,6 @@
 				BA3A33B522296B6F00B7A635 /* CreateAliasResponse.swift in Sources */,
 				E14637FB231E874A005ADF4D /* Data+Extras.swift in Sources */,
 				E14637DD231E8203005ADF4D /* AlertBanner.swift in Sources */,
-				BA3A33B522296B6F00B7A635 /* CreateAliasResponse.swift in Sources */,
 				BACD61A52226C97000E3ACC3 /* RegistrationRequest.swift in Sources */,
 				BA078EE622E0860B00E199B4 /* SEPADataBridge.swift in Sources */,
 				BAED17C92301C43D000BBFC9 /* ThreeDSRequest.swift in Sources */,
@@ -2295,7 +2294,6 @@
 				BAED17AA2301536B000BBFC9 /* ServerResultCode.swift in Sources */,
 				BAED17AC2301638B000BBFC9 /* Adyen3DSHandler.swift in Sources */,
 				E146377A231E6565005ADF4D /* PresentableValueHolding.swift in Sources */,
-				E14D5D0B225CD5CD00BB20CA /* AdyenCreditCardExtraPreparator.swift in Sources */,
 				E14637BC231E78D4005ADF4D /* SearchView.swift in Sources */,
 				E14637BD231E78D4005ADF4D /* CustomTextField.swift in Sources */,
 				E14637DC231E81F9005ADF4D /* AlertBanner.swift in Sources */,
@@ -2891,6 +2889,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1050;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				ENABLE_BITCODE = NO;
@@ -2922,6 +2921,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1050;
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

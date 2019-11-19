@@ -1,5 +1,19 @@
 # Braintree iOS SDK Release Notes
 
+## 4.30.2 (2019-11-15)
+
+* Updated CardinalMobile.framework to v2.2.1-2
+
+## 4.30.1 (2019-11-04)
+
+* Updated CardinalMobile.framework to v2.2.1
+
+## 4.30.0 (2019-10-01)
+
+* Fix nullability annotations on `BTPostalAddress` fields (resolves #472)
+* Add ability to request `AuthenticationInsight` when tokenizing a credit card, which can be used to make a decision about whether to perform 3D Secure verification
+* Set error message on `BTThreeDSecureInfo` when 3D Secure 2.0 challenge fails
+
 ## 4.29.0 (2019-09-19)
 
 * Fix issue when returning from the Venmo app on iOS13
