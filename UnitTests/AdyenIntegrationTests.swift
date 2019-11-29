@@ -39,7 +39,7 @@ class AdyenIntegrationTests: XCTestCase {
         SDKResetter.resetStash()
     }
 
-    func testCreditCard() throws {
+    func DISABLED_testCreditCard() throws {
         let expectation = self.expectation(description: "Registering credit card succeeds")
 
         let billingData = BillingData(email: "mirza@miki.com", name: SimpleNameProvider(firstName: "Holder", lastName: "Name"))
@@ -59,7 +59,7 @@ class AdyenIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 20)
     }
 
-    func testAddSEPA() throws {
+    func DISABLED_testAddSEPA() throws {
         let expectation = self.expectation(description: "Registering SEPA succeeds")
 
         let name = SimpleNameProvider(firstName: "Max", lastName: "Mustermann")

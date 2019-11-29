@@ -19,37 +19,37 @@ class RegisterAndUsePaymentMethodTests: BaseUITest {
         XCUIApplication().launch()
     }
 
-    func testCanRegisterAndUsePayPal() {
+    func DISABLED_testCanRegisterAndUsePayPal() {
         let app = XCUIApplication()
         registerPayPal(in: app)
         verifyCanPayWithLatestCreatedAlias(type: "PAY_PAL", in: app)
     }
 
-    func testCanRegisterAndUseAdyenCreditCard() {
+    func DISABLED_testCanRegisterAndUseAdyenCreditCard() {
         let app = XCUIApplication()
         registerCreditCard(psp: "ADYEN", in: app)
         verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
     }
 
-    func testCanRegisterAndUseBSPayoneCreditCard() {
+    func DISABLED_testCanRegisterAndUseBSPayoneCreditCard() {
         let app = XCUIApplication()
         registerCreditCard(psp: "BS_PAYONE", in: app)
         verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
     }
 
-    func testCanRegisterAndUseBraintreeCreditCard() {
+    func DISABLED_testCanRegisterAndUseBraintreeCreditCard() {
         let app = XCUIApplication()
         registerCreditCard(psp: "BRAINTREE", in: app)
         verifyCanPayWithLatestCreatedAlias(type: "CC", in: app)
     }
 
-    func testCanRegisterAndUseAdyenSEPA() {
+    func DISABLED_testCanRegisterAndUseAdyenSEPA() {
         let app = XCUIApplication()
         registerSEPA(psp: "ADYEN", in: app)
         verifyCanPayWithLatestCreatedAlias(type: "SEPA", in: app)
     }
 
-    func testCanRegisterAndUseBSPayoneSEPA() {
+    func DISABLED_testCanRegisterAndUseBSPayoneSEPA() {
         let app = XCUIApplication()
         registerSEPA(psp: "BS_PAYONE", in: app)
         verifyCanPayWithLatestCreatedAlias(type: "SEPA", in: app)

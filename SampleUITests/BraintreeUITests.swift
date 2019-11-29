@@ -20,7 +20,7 @@ class BraintreeUITests: BaseUITest {
         XCTAssertTrue(app.images.firstMatch.exists, "Expected image view exists for loading view for PayPal registration")
     }
 
-    func testPayPalViewIsShown() {
+    func DISABLED_testPayPalViewIsShown() {
         let app = XCUIApplication()
 
         app.tabBars.buttons["Bookmarks"].tap()
@@ -38,7 +38,7 @@ class BraintreeUITests: BaseUITest {
         self.waitForElementToAppear(element: app.buttons.firstMatch, timeout: 10)
     }
 
-    func testPayPalViewCanBeCancelled() {
+    func DISABLED_testPayPalViewCanBeCancelled() {
         let app = XCUIApplication()
 
         app.tabBars.buttons["Bookmarks"].tap()
@@ -57,7 +57,7 @@ class BraintreeUITests: BaseUITest {
         XCTAssertTrue(payPalCell.exists, "Expected to return to main payment method screen")
     }
 
-    func testCanCreateCreditCard() {
+    func DISABLED_testCanCreateCreditCard() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "BRAINTREE", app: app)
 

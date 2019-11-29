@@ -41,7 +41,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         OHHTTPStubs.removeAllStubs()
     }
 
-    func testCreditCard() throws {
+    func DISABLED_testCreditCard() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_credit_card_success.json", type(of: self))
             else { Swift.fatalError("Expected file bs_credit_card_success.json to exist.") }
@@ -67,7 +67,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 20)
     }
 
-    func testAddSEPA() throws {
+    func DISABLED_testAddSEPA() throws {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_sepa_success.json", type(of: self))
             else { Swift.fatalError("Expected file bs_sepa_success.json to exist.") }
@@ -113,7 +113,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         XCTAssertEqual(expected, Set(supported), "BSPayone should allow UI payment methods: \(expected) but allows: \(supported)")
     }
 
-    func testCorrectlyPropagatesBSError() {
+    func DISABLED_testCorrectlyPropagatesBSError() {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_credit_card_failure.json", type(of: self))
             else { Swift.fatalError("Expected file bs_credit_card_failure.json to exist.") }
@@ -143,7 +143,7 @@ class BSPayoneIntegrationTests: XCTestCase {
         wait(for: [resultExpectation], timeout: 20)
     }
 
-    func testCorrectlyPropagatesTemporaryBSError() {
+    func DISABLED_testCorrectlyPropagatesTemporaryBSError() {
         stub(condition: isHost(self.bsPayoneHost)) { _ -> OHHTTPStubsResponse in
             guard let path = OHPathForFile("bs_credit_card_temp_failure.json", type(of: self))
             else { Swift.fatalError("Expected file bs_credit_card_temp_failure.json to exist.") }

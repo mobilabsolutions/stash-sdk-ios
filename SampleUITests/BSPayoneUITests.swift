@@ -9,7 +9,7 @@
 import XCTest
 
 class BSPayoneUITests: BaseUITest {
-    func testCanAddSepaMethod() {
+    func DISABLED_testCanAddSepaMethod() {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", app: app)
 
@@ -34,7 +34,7 @@ class BSPayoneUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanAddCreditCard() {
+    func DISABLED_testCanAddCreditCard() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", app: app)
 
@@ -66,7 +66,7 @@ class BSPayoneUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testFailsForLiveMode() {
+    func DISABLED_testFailsForLiveMode() {
         let app = XCUIApplication()
         app.tabBars.buttons["Bookmarks"].tap()
 

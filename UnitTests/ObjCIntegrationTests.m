@@ -64,7 +64,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     (void) [MLStash getRegistrationManager];
 }
 
-- (void) testRegisterCreditCardBSPayone {
+- (void) DISABLED_testRegisterCreditCardBSPayone {
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
         return [request.URL.host isEqualToString:bsPayoneHost];
     } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
@@ -137,7 +137,7 @@ static NSString *bsPayoneHost = @"secure.pay1.de";
     [self waitForExpectations:@[expectation] timeout:10.0];
 }
 
-- (void) testRegisterSEPABSPayone {
+- (void) DISABLED_testRegisterSEPABSPayone {
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
         return [request.URL.host isEqualToString:bsPayoneHost];
     } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {

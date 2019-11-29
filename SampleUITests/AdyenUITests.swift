@@ -9,7 +9,7 @@
 import XCTest
 
 class AdyenUITests: BaseUITest {
-    func testCanCreateCreditCard() {
+    func DISABLED_testCanCreateCreditCard() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
 
@@ -41,7 +41,7 @@ class AdyenUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanCreateCreditCardWith3DS1() {
+    func DISABLED_testCanCreateCreditCardWith3DS1() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
 
@@ -85,7 +85,7 @@ class AdyenUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanCreateCreditCardWith3DS2() {
+    func DISABLED_testCanCreateCreditCardWith3DS2() {
         let app = XCUIApplication()
         navigateToViewController(for: "Credit Card", with: "ADYEN", app: app)
 
@@ -124,7 +124,7 @@ class AdyenUITests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanCreateSEPA() {
+    func DISABLED_testCanCreateSEPA() {
         let app = XCUIApplication()
         navigateToViewController(for: "SEPA", with: "ADYEN", app: app)
 

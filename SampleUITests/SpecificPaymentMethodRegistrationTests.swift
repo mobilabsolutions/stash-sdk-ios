@@ -9,7 +9,7 @@
 import XCTest
 
 class SpecificPaymentMethodRegistrationTests: BaseUITest {
-    func testCanRegisterCreditCardDirectly() {
+    func DISABLED_testCanRegisterCreditCardDirectly() {
         let app = XCUIApplication()
         showSpecificUI(for: "CC", with: "ADYEN", in: app)
 
@@ -40,7 +40,7 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanRegisterSEPADirectly() {
+    func DISABLED_testCanRegisterSEPADirectly() {
         let app = XCUIApplication()
         showSpecificUI(for: "SEPA", in: app)
 
@@ -66,7 +66,7 @@ class SpecificPaymentMethodRegistrationTests: BaseUITest {
         app.alerts.firstMatch.buttons.firstMatch.tap()
     }
 
-    func testCanRegisterPayPalDirectly() {
+    func DISABLED_testCanRegisterPayPalDirectly() {
         let app = XCUIApplication()
         showSpecificUI(for: "PayPal", in: app)
 

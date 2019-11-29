@@ -54,7 +54,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testCanCreateBSPayoneSEPAMethod() throws {
+    func DISABLED_testCanCreateBSPayoneSEPAMethod() throws {
         self.initializeSDKForBSPayone()
         let registrationManager = Stash.getRegistrationManager()
 
@@ -83,7 +83,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testCanCreateAdyenCreditCard() throws {
+    func DISABLED_testCanCreateAdyenCreditCard() throws {
         self.initializeSDKForAdyen()
         let registrationManager = Stash.getRegistrationManager()
 
@@ -115,7 +115,7 @@ class PaymentMethodIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testCanCreateAdyenSEPAMethod() throws {
+    func DISABLED_testCanCreateAdyenSEPAMethod() throws {
         self.initializeSDKForAdyen()
         let registrationManager = Stash.getRegistrationManager()
 

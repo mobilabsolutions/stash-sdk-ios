@@ -57,7 +57,7 @@ class IdempotencyTests: XCTestCase {
         }
     }
 
-    func testPropagatesIdempotencyKeyToModule() throws {
+    func DISABLED_testPropagatesIdempotencyKeyToModule() throws {
         let providedIdempotencyKey = UUID().uuidString
 
         let providesIdempotencyKeyToAliasCreationDetail = XCTestExpectation(description: "The SDK should propagate the same idempotency key to the alias creation detail request")

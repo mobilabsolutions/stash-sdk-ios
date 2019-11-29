@@ -73,7 +73,7 @@ class ErrorPresentationTests: BaseUITest {
                        "Expected two failure labels to exist when skipping a double input (first and last name) cell")
     }
 
-    func testShowsAlertBannerWhenUsingBSPayoneNonTestMode() {
+    func DISABLED_testShowsAlertBannerWhenUsingBSPayoneNonTestMode() {
         let app = XCUIApplication()
         // Set test mode to false
         app.switches.allElementsBoundByIndex.last?.tap()
@@ -107,7 +107,7 @@ class ErrorPresentationTests: BaseUITest {
         XCTAssert(alert.exists)
     }
 
-    func testDoesNotStackAlertBanners() {
+    func DISABLED_testDoesNotStackAlertBanners() {
         let app = XCUIApplication()
         // Set test mode to false
         app.switches.allElementsBoundByIndex.last?.tap()
@@ -146,7 +146,7 @@ class ErrorPresentationTests: BaseUITest {
         waitForElementToAppear(element: alert)
     }
 
-    func testIncorrectAdyenCVVErrorIsShown() {
+    func DISABLED_testIncorrectAdyenCVVErrorIsShown() {
         let app = XCUIApplication()
 
         showSpecificUI(for: "CC", with: "ADYEN", in: app)

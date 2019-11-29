@@ -35,7 +35,7 @@ class BraintreeIntegrationTests: XCTestCase {
         OHHTTPStubs.removeAllStubs()
     }
 
-    func testCreditCard() throws {
+    func DISABLED_testCreditCard() throws {
         let expectation = self.expectation(description: "Registering credit card succeeds")
         let billingData = BillingData(email: "mirza@miki.com",
                                       name: SimpleNameProvider(firstName: "Holder",

@@ -89,7 +89,7 @@ class ModuleIntegrationTests: XCTestCase {
         SDKResetter.resetStash()
     }
 
-    func testHandleRegistrationRequestCalled() throws {
+    func DISABLED_testHandleRegistrationRequestCalled() throws {
         let expectation = XCTestExpectation(description: "Handle registration is called")
 
         let registration = self.createTestRegistration(withTitle: "Test alias")
@@ -116,7 +116,7 @@ class ModuleIntegrationTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
 
-    func testModuleFailurePropagatedCorrectly() throws {
+    func DISABLED_testModuleFailurePropagatedCorrectly() throws {
         let calledExpectation = XCTestExpectation(description: "Handle registration is called")
         let resultExpectation = XCTestExpectation(description: "Result is propagated to the SDK user")
 
