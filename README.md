@@ -258,7 +258,7 @@ A demo app that demonstrates the usage of all the Stash! SDK features is part of
 ## Feedback
 
 The Stash! iOS SDK is in active development, we welcome your feedback!
-Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) to report an issue or give a feedback.
+Please use [GitHub Issues](https://github.com/mobilabsolutions/payment-sdk-ios-open/issues) or write us at stash@mobilabsolutions.com to report an issue or give a feedback.
 
 ## Documentation
 
